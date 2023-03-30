@@ -1,0 +1,105 @@
+# 端口配置
+#server:
+#  port: 8080
+#  servlet:
+#    session:
+#      timeout: 18000
+
+
+config:
+  datasource:
+    encoder: AES
+
+# 日志配置
+logging:
+  config: classpath:fly-admin.xml
+  level:
+    cn.jay.repository: trace
+
+spring:
+  main:
+    allow-circular-references: true
+    allow-bean-definition-overriding: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+  cloud:
+    ## 向 nacos 发起注册
+    nacos:
+      discovery:
+        enabled: true # 如果不想使用 Nacos 进行服务注册和发现, 设置为 false 即可
+        server-addr: 127.0.0.1:8848
+        namespace: 07656b3c-bb69-470a-a942-6ae27b5287cb
+        group: DEFAULT_GROUP
+        metadata:
+          management:
+            context-path: ${server.servlet.context-path}/actuator
+
+  datasource:
+    name: oracle
+    driver-class-name: oracle.jdbc.OracleDriver
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:oracle:thin:@127.0.0.1:1521:orcl
+    username: ITEST
+    password: HUBU1024
+    hikari:
+      #连接池最大连接数，默认是10
+      maximum-pool-size: 8
+      #最小空闲连接数量
+      minimum-idle: 4
+      #空闲连接存活最大时间，默认600000（10分钟）
+      idle-timeout: 30000
+      #数据库连接超时时间,默认30秒，即30000
+      connection-timeout: 30000
+      #连接测试查询
+      connection-test-query: select 1 from dual
+      #此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟
+      max-lifetime: 45000
+      #此属性控制从池返回的连接的默认自动提交行为,默认值：true
+      auto-commit: true
+      validation-timeout: 5000
+      leak-detection-threshold: 0
+      #连接池母子
+      pool-name: adminHikariPC
+
+
+  thymeleaf:
+    mode: HTML5
+    cache: false
+    encoding: utf-8
+
+  # 安全认证配置
+  security:
+    browser:
+      signInPage: /login
+      signOutUrl: /login
+      successForwardUrl: /lyear/admin/index
+      session:
+        sessionInvalidUrl: /login
+
+  redis:
+    host: 127.0.0.1
+    database: 3
+
+
+# mybatis
+mybatis:
+  type-aliases-package: cn.edu.hubu.**.vo
+  mapperLocations: classpath*:mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    call-setters-on-nulls: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 分页工具
+pagehelper:
+  helperDialect: oracle
+  # 超过总页数是否返回最后一页数据
+  reasonable: false
+  supportMethodsArguments: true
+  params: count=countSql
+
+oss:
+  local:
+    uploadPath: D:/upload/
