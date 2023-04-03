@@ -15,9 +15,7 @@
     <version>0.0.1</version>
     <description>服务模块</description>
 
-
     <dependencies>
-        <!-- 框架模块引用 -->
         <dependency>
             <groupId>com.github.itdachen.framework</groupId>
             <artifactId>fly-runner</artifactId>
@@ -33,10 +31,6 @@
         <dependency>
             <groupId>com.github.itdachen.framework</groupId>
             <artifactId>fly-tools</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.itdachen.framework</groupId>
-            <artifactId>fly-log</artifactId>
         </dependency>
         <dependency>
             <groupId>com.github.itdachen.framework</groupId>

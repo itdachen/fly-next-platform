@@ -3,10 +3,10 @@
 #    encoder: AES
 
 # 日志配置
-#logging:
-#  config: classpath:fly-admin.xml
-#  level:
-#    cn.jay.repository: trace
+logging:
+  config: classpath:fly-admin.xml
+  level:
+    cn.jay.repository: trace
 
 spring:
   main:
