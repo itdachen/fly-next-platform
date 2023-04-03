@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:include="common/common::common('预览代码')"/>
+    <link th:href="@{/assets/highlight/styles/default.min.css}" rel="stylesheet" media="all"/>
+    <script th:src="@{/assets/highlight/highlight.min.js}" charset="utf-8"></script>
+
+    <style>
+        .code-b {
+            background: -webkit-linear-gradient(top right, #3fa4d6, #3cbecb, #37c5c0, #33d5b5);
+        }
+
+        .xml-code {
+            padding: 15px;
+        }
+
+    </style>
+
+    <script>
+        layui.use(['form'], function () {
+            let form = layui.form;
+            form.render();
+
+            let id = $("#id").val();
+            $.ajax({
+                url: HTTP_BIZ_URI + '/tools/table/info/preview/' + id,
+                success: function (res) {
+                    if (200 === res.status) {
+                        let data = res.data;
+                        let index = 0;
+                        let key, value, o, code, tabTitleHtml, tabContentHtml
+                        for (let item in data) {
+                            key = item.substring(item.lastIndexOf('/') + 1, item.indexOf('.vm'));
+                            value = data[item]
+                            o = key.replace('.vm', '');
+                            code = o.substring(o.lastIndexOf('.') + 1);
+
+                            tabTitleHtml = '<li class="layui-this">' + key + '</li>';
+                            tabContentHtml = '<div class="layui-tab-item layui-show"><pre>';
+                            if (0 < index) {
+                                tabTitleHtml = '<li>' + key + '</li>';
+                                tabContentHtml = '<div class="layui-tab-item"><pre>';
+                            }
+                            if ('html' === code || 'xml' === code) {
+                                tabContentHtml += '<xmp class="' + code + ' code-b xml-code">' + value + '</xmp>'
+                            } else {
+                                tabContentHtml += '<code class="' + code + ' code-b">' + value + '</code>'
+                            }
+                            tabContentHtml += '</pre></dev>'
+
+                            $('#tabTitle').append(tabTitleHtml)
+                            $('#tabContent').append(tabContentHtml)
+                            index++;
+                        }
+                        hljs.initHighlightingOnLoad();
+                    } else {
+                        layer.alert('获取代码失败', {title: "系统提示", icon: 2});
+                    }
+                }
+            })
+        });
+    </script>
+</head>
+<body class="bg-color">
+<input type="text" th:value="*{id}" id="id" name="id" style="display: none">
+<div class="body_info">
+    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+        <ul class="layui-tab-title" id="tabTitle">
+        </ul>
+        <div class="layui-tab-content" id="tabContent">
+        </div>
+    </div>
+</div>
+</body>
+</html>

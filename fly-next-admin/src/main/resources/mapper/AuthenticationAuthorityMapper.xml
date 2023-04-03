@@ -7,7 +7,7 @@
     <select id="getChildrenMenu" parameterType="java.lang.String"
             resultType="com.github.itdachen.security.user.LayuiAdminMenu">
         SELECT DISTINCT a.id, a.id AS name, a.title, a.icon, a.path AS jump, a.order_num AS orderNum
-        FROM sys_menu a
+        FROM sys_menu_info a
         LEFT JOIN sys_role_menu b ON a.id = b.menu_id
         LEFT JOIN sys_role_user c ON c.role_id = b.role_id
         <where>
@@ -22,7 +22,7 @@
     <select id="findMenuAll" parameterType="java.lang.String"
             resultType="com.github.itdachen.security.user.LayuiAdminMenu">
         SELECT id, title, icon, path AS jump, id AS name, order_num AS orderNum
-        FROM sys_menu
+        FROM sys_menu_info
         WHERE parent_id = #{parentId}
         ORDER BY order_num ASC
     </select>
@@ -30,7 +30,7 @@
     <select id="findHomePage" parameterType="java.lang.String"
             resultType="com.github.itdachen.framework.context.permission.PermissionInfo">
         SELECT id, path AS uri, title AS name, code AS permission, 'GET' AS method, type
-        FROM sys_menu
+        FROM sys_menu_info
         WHERE parent_id = #{parentId}
         ORDER BY order_num ASC LIMIT 1
     </select>
@@ -40,7 +40,7 @@
         SELECT c.path AS uri, c.title AS name, c.code AS permission, 'GET' AS method, 'jump' AS type
         FROM sys_role_user a
                  LEFT JOIN sys_role_menu b ON a.role_id = b.role_id
-                 LEFT JOIN sys_menu c ON b.menu_id = c.id
+                 LEFT JOIN sys_menu_info c ON b.menu_id = c.id
         WHERE a.user_id = #{userId}
           AND c.visible = '1'
           AND c.type = 'menu'
@@ -52,7 +52,7 @@
         SELECT c.id
         FROM sys_role_user a
                  LEFT JOIN sys_role_menu b ON a.role_id = b.role_id
-                 LEFT JOIN sys_menu c ON b.menu_id = c.id
+                 LEFT JOIN sys_menu_info c ON b.menu_id = c.id
         WHERE a.user_id = #{userId}
           AND c.visible = '1'
           AND c.type = 'dirt'
@@ -73,7 +73,7 @@
                visible,
                order_num AS orderNum,
                path      AS href
-        FROM sys_menu
+        FROM sys_menu_info
         WHERE parent_id = #{parentId}
         ORDER BY order_num
     </select>
@@ -91,7 +91,7 @@
                         a.visible,
                         a.order_num AS orderNum,
                         a.path      AS href
-        FROM sys_menu a
+        FROM sys_menu_info a
                  LEFT JOIN sys_role_menu b ON a.id = b.menu_id
                  LEFT JOIN sys_role_user c ON c.role_id = b.role_id
         WHERE c.user_id = #{userId}

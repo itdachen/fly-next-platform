@@ -1,0 +1,19 @@
+-- 菜单 SQL
+    INSERT INTO SYS_MENU (ID, CODE, TITLE, PARENT_ID, PATH, REDIRECT, ICON, TYPE, ORDER_NUM, VISIBLE, NAME, COMPONENT, LINK, AFFIX, IFRAME,  REMARKS,  CREATE_USER)
+    VALUES ('${menuId}', '${permsPrefix}:index', '${functionName}', '${pMenuId}', '${contextPath}${menuUrl}/index', NULL, 'Umbrella', 'menu', 99, '1', '${ClassName}Management', '${menuUrl}/index', NULL, NULL, NULL, '${comments}', '${author}');
+
+-- 按钮(资源) SQL
+    INSERT INTO SYS_ELEMENT (ID, CODE, TYPE, TITLE, HREF, PATH, MENU_ID, METHOD, ORDER_NUM, VISIBLE, REMARK,  CREATE_USER)
+    VALUES ('${pageId}', '${permsPrefix}:query', 'button', '查询', '${contextPath}${menuUrl}/page', '/','${menuId}', 'GET', '1', '1', '查询${comments}', '${author}');
+
+    INSERT INTO SYS_ELEMENT (ID, CODE, TYPE, TITLE, HREF, PATH, MENU_ID, METHOD, ORDER_NUM, VISIBLE, REMARK,  CREATE_USER)
+    VALUES ('${addId}', '${permsPrefix}:save', 'button', '新增', '${contextPath}${menuUrl}', '${menuUrl}/add', '${menuId}', 'POST', '2', '1', '新增${comments}', '${author}');
+
+    INSERT INTO SYS_ELEMENT (ID, CODE, TYPE, TITLE, HREF, PATH, MENU_ID, METHOD, ORDER_NUM, VISIBLE, REMARK,  CREATE_USER)
+    VALUES ('${editId}', '${permsPrefix}:update', 'button', '修改', '${contextPath}${menuUrl}/{*}', '${menuUrl}/edit/{*}', '${menuId}', 'PUT', '3', '1', '修改${comments}', '${author}');
+
+    INSERT INTO SYS_ELEMENT (ID, CODE, TYPE, TITLE, HREF, PATH, MENU_ID, METHOD, ORDER_NUM, VISIBLE, REMARK,  CREATE_USER)
+    VALUES ('${seeId}', '${permsPrefix}:view', 'button', '查看', '${contextPath}${menuUrl}/{*}', '${menuUrl}/view/{*}', '${menuId}', 'GET', '4', '1', '查看${comments}', '${author}');
+
+    INSERT INTO SYS_ELEMENT (ID, CODE, TYPE, TITLE, HREF, PATH, MENU_ID, METHOD, ORDER_NUM, VISIBLE, REMARK,  CREATE_USER)
+    VALUES ('${delId}', '${permsPrefix}:delete', 'button', '删除', '${contextPath}${menuUrl}/{*}', '/', '${menuId}', 'DELETE', '5', '1', '删除${comments}', '${author}');

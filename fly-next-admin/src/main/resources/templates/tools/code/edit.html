@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('修改代码生成业务表')"/>
+    <script th:src="@{/static/tools/way.js}" charset="utf-8"></script>
+    <script th:src="@{/static/tools/edit.js}" charset="utf-8"></script>
+</head>
+<body class="bg-color">
+<div class="body_info">
+    <div class="data_div">
+        <form class="layui-form" id="editTableInfoForm">
+            <input type="text" th:value="*{id}" id="id" name="id" style="display: none">
+            <div class="layui-tab layui-tab-brief">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">表设置</li>
+                    <li>字段设置</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <div class="layui-form-body">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    <span class="required">*</span>表名称
+                                </label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="tableName" name="tableName" readonly="readonly"
+                                           lay-verify="required" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    <span class="required">*</span>表描述
+                                </label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="tableComment" name="tableComment"
+                                           lay-verify="required" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    <span class="required">*</span>实体类名称
+                                </label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="className" name="className"
+                                           lay-verify="required" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    <span class="required">*</span>java包路径
+                                </label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="packageName" name="packageName"
+                                           lay-verify="required" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+<!--                            <div class="layui-form-item">-->
+<!--                                <label class="layui-form-label">-->
+<!--                                    <span class="required">*</span>模块名-->
+<!--                                </label>-->
+<!--                                <div class="layui-input-block">-->
+<!--                                    <input type="text" id="moduleName" name="moduleName"-->
+<!--                                           lay-verify="required" autocomplete="off" class="layui-input">-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    <span class="required">*</span>控制层路径
+                                </label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="businessName" name="businessName"
+                                           lay-verify="required" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    <span class="required">*</span>功能名
+                                </label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="functionName" name="functionName"
+                                           lay-verify="required" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    <span class="required">*</span>作者
+                                </label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="functionAuthor" name="functionAuthor"
+                                           lay-verify="required" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    <span class="required">*</span>所属菜单
+                                </label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="menuName" name="menuName" onclick="parentMenu()"
+                                           readonly="readonly" lay-verify="required"
+                                           autocomplete="off" class="layui-input">
+                                    <input type="text" id="menuId" name="menuId" style="display: none"
+                                           autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    <span class="required">*</span>后端模板类型
+                                </label>
+                                <div class="layui-input-block" id="tplCategoryBlock">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    备注
+                                </label>
+                                <div class="layui-input-block">
+                                    <textarea id="remark" name="remark" class="layui-textarea"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-tab-item">
+                        <div class="layui_table">
+                            <table class="layui-hide" id="layTable" lay-filter="layTableFilter"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align:center;margin-top: 20px;margin-bottom: 30px;">
+                <button type="button" class="button-sub" id="saveTableInfo"
+                        lay-submit lay-filter="editTableInfo">提交
+                </button>
+                <button type="button" class="button-close" onclick="goBackPreviousPage()">返回</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 是否主键 -->
+<script type="text/html" id="isPkTpl">
+    <input type="checkbox" name="isPk" value="{{d.id}}" lay-skin="switch" lay-text="是|否"
+           lay-filter="isPkFilter" {{ d.isPk== 1 ? 'checked' : '' }}>
+</script>
+
+<!-- 是否DtoVo字段 -->
+<script type="text/html" id="isDtoVoTpl">
+    <input type="checkbox" name="isDtoVo" value="{{d.id}}" lay-skin="switch" lay-text="是|否"
+           lay-filter="isDtoVoFilter" {{ d.isDtoVo== 1 ? 'checked' : '' }}>
+</script>
+
+<!-- 是否表单字段 -->
+<script type="text/html" id="isFormTpl">
+    <input type="checkbox" name="isForm" value="{{d.id}}" lay-skin="switch" lay-text="是|否"
+           lay-filter="isFormFilter" {{ d.isForm== 1 ? 'checked' : '' }}>
+</script>
+
+<!-- 是否必填 -->
+<script type="text/html" id="isRequiredTpl">
+    <input type="checkbox" name="isRequired" value="{{d.id}}" lay-skin="switch" lay-text="是|否"
+           lay-filter="isRequiredFilter" {{ d.isRequired== 1 ? 'checked' : '' }}>
+</script>
+
+<!-- 是否列表字段 -->
+<script type="text/html" id="isListTpl">
+    <input type="checkbox" name="isList" value="{{d.id}}" lay-skin="switch" lay-text="是|否"
+           lay-filter="isListFilter" {{ d.isList== 1 ? 'checked' : '' }}>
+</script>
+
+<!-- 是否查询字段 -->
+<script type="text/html" id="isQueryTpl">
+    <input type="checkbox" name="isQuery" value="{{d.id}}" lay-skin="switch" lay-text="是|否"
+           lay-filter="isQueryFilter" {{ d.isQuery== 1 ? 'checked' : '' }}>
+</script>
+
+
+</body>
+</html>

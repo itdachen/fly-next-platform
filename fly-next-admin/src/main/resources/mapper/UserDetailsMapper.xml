@@ -21,7 +21,7 @@
                status,
                remarks,
                tenant_id AS tenantId
-        FROM sys_user
+        FROM sys_user_info
         WHERE username = #{username} LIMIT 1
     </select>
 
@@ -42,7 +42,7 @@
                status,
                remarks,
                tenant_id AS tenantId
-        FROM sys_user
+        FROM sys_user_info
         WHERE telephone = #{mobile} LIMIT 1
     </select>
 
@@ -54,8 +54,8 @@
                a.href                   AS uri,
                a.method,
                IFNULL(b.title, a.title) AS menu
-        FROM sys_element a
-                 LEFT JOIN sys_menu b ON a.menu_id = b.id
+        FROM sys_element_info a
+                 LEFT JOIN sys_menu_info b ON a.menu_id = b.id
         WHERE a.code != '' AND a.code != '/'
         UNION ALL
         SELECT c.code  AS permission,
@@ -64,8 +64,8 @@
                c.path  AS uri,
                'GET'   AS method,
                d.title AS menu
-        FROM sys_element c
-                 LEFT JOIN sys_menu d ON c.menu_id = d.id
+        FROM sys_element_info c
+                 LEFT JOIN sys_menu_info d ON c.menu_id = d.id
         WHERE c.code != '' AND c.code != '/'
     </select>
 
@@ -77,8 +77,8 @@
                a.path                   AS uri,
                'GET'                    AS method,
                IFNULL(b.title, a.title) AS menu
-        FROM sys_menu a
-                 LEFT JOIN sys_menu b ON a.parent_id = b.id
+        FROM sys_menu_info a
+                 LEFT JOIN sys_menu_info b ON a.parent_id = b.id
         WHERE a.type = 'menu'
     </select>
 
@@ -93,8 +93,8 @@
                         d.title AS menu
         FROM sys_role_user a
                  LEFT JOIN sys_role_menu b ON a.role_id = b.role_id
-                 LEFT JOIN sys_element c ON b.menu_id = c.id
-                 LEFT JOIN sys_menu d ON c.menu_id = d.id
+                 LEFT JOIN sys_element_info c ON b.menu_id = c.id
+                 LEFT JOIN sys_menu_info d ON c.menu_id = d.id
         WHERE c.code != '' AND c.code != '/' AND c.visible = '1' AND a.user_id = #{userId}
         UNION ALL
         SELECT DISTINCT c.code  AS permission,
@@ -105,8 +105,8 @@
                         d.title AS menu
         FROM sys_role_user a
                  LEFT JOIN sys_role_menu b ON a.role_id = b.role_id
-                 LEFT JOIN sys_element c ON b.menu_id = c.id
-                 LEFT JOIN sys_menu d ON c.menu_id = d.id
+                 LEFT JOIN sys_element_info c ON b.menu_id = c.id
+                 LEFT JOIN sys_menu_info d ON c.menu_id = d.id
         WHERE c.code != '' AND c.code != '/' AND c.visible = '1' AND a.user_id = #{userId}
     </select>
 
@@ -121,8 +121,8 @@
                         IFNULL(d.title, c.title) AS menu
         FROM sys_role_user a
                  LEFT JOIN sys_role_menu b ON a.role_id = b.role_id
-                 LEFT JOIN sys_menu c ON b.menu_id = c.id
-                 LEFT JOIN sys_menu d ON c.parent_id = d.id
+                 LEFT JOIN sys_menu_info c ON b.menu_id = c.id
+                 LEFT JOIN sys_menu_info d ON c.parent_id = d.id
         WHERE c.type = 'menu'
           AND a.user_id = #{userId}
     </select>
