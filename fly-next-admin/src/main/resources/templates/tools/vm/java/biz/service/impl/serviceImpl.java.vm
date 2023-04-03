@@ -5,9 +5,8 @@ import com.github.pagehelper.PageHelper;
 import ${package}.entity.${ClassName};
 import ${package}.sdk.query.${ClassName}Query;
 import ${package}.sdk.vo.${ClassName}Vo;
-import cn.edu.hubu.framework.core.exception.BizException;
-import cn.edu.hubu.framework.core.response.TableData;
-import cn.edu.hubu.framework.webmvc.service.impl.BizServiceImpl;
+import com.github.itdachen.framework.core.response.TableData;
+import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
 import ${package}.mapper.I${ClassName}Mapper;
 import ${package}.service.I${ClassName}Service;
 import org.slf4j.Logger;
@@ -35,7 +34,7 @@ public class ${ClassName}ServiceImpl extends BizServiceImpl< I${ClassName}Mapper
     * @return cn.edu.hubu.common.core.response.TableData<${package}.sdk.vo.${className}Vo>
     */
     @Override
-    public TableData<${ClassName}Vo> page(${ClassName}Query params) throws BizException {
+    public TableData<${ClassName}Vo> page(${ClassName}Query params) throws Exception {
         Page<${ClassName}Vo> page = PageHelper.startPage(params.getPage(), params.getLimit());
         List<${ClassName}Vo> list = bizMapper.page(params);
         return new TableData<${ClassName}Vo>(page.getTotal(), list);

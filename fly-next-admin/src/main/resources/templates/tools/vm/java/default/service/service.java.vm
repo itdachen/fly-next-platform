@@ -3,7 +3,7 @@ package ${package}.service;
 import ${package}.sdk.dto.${ClassName}Dto;
 import ${package}.sdk.query.${ClassName}Query;
 import ${package}.sdk.vo.${ClassName}Vo;
-import cn.edu.hubu.framework.core.response.TableData;
+import com.github.itdachen.framework.core.response.TableData;
 
 /**
  * ${functionName} service
