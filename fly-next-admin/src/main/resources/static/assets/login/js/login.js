@@ -499,7 +499,7 @@ function getSmsCode() {
         return false;
     }
     $.ajax({
-        url: HTTP_BIZ_URI + "/code/sms?mobile=" + mobile + "?time=" + $.now(),
+        url: HTTP_BIZ_URI + "/code/sms?mobile=" + mobile + "&time=" + $.now(),
         type: 'GET',
         cache: false,
         success: function (res) {
