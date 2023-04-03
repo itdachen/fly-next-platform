@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.admin.mapper.IAppClientMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+<!--    <resultMap type="com.github.itdachen.admin.sdk.vo.AppClientVo" id="appClientMap">-->
+<!--        <result property="id" column="id"/>-->
+<!--        <result property="name" column="name"/>-->
+<!--        <result property="appCode" column="app_code"/>-->
+<!--        <result property="type" column="type"/>-->
+<!--        <result property="typeLabel" column="type_label"/>-->
+<!--        <result property="homeUrl" column="home_url"/>-->
+<!--        <result property="intranetUrl" column="intranet_url"/>-->
+<!--        <result property="icon" column="icon"/>-->
+<!--        <result property="state" column="state"/>-->
+<!--        <result property="remark" column="remark"/>-->
+<!--    </resultMap>-->
+
+<!--    <sql id="selectAppClientVo">-->
+<!--        SELECT id,-->
+<!--               name,-->
+<!--               app_code,-->
+<!--               type,-->
+<!--               home_url,-->
+<!--               intranet_url,-->
+<!--               icon,-->
+<!--               state,-->
+<!--               remark-->
+<!--        FROM sys_app_client-->
+<!--    </sql>-->
+
+    <!-- 集合查询 -->
+<!--    <select id="page" parameterType="com.github.itdachen.admin.sdk.query.AppClientQuery" resultMap="appClientMap">-->
+<!--        SELECT a.id, a.name, a.app_code, a.type, b.dict_label AS type_label, a.home_url, a.intranet_url, a.icon,-->
+<!--        a.state, a.remark-->
+<!--        FROM sys_app_client a-->
+<!--        LEFT JOIN sys_dict_data b ON a.type = b.dict_value-->
+<!--        <where>-->
+<!--            b.dict_type = 'system_type'-->
+<!--            <if test="null != name  and '' != name ">AND a.name LIKE CONCAT(CONCAT('%',#{name}),'%')</if>-->
+<!--            <if test="null != type  and '' != type ">AND a.type = #{type}</if>-->
+<!--        </where>-->
+<!--        ORDER BY id DESC-->
+<!--    </select>-->
+
+<!--    <select id="findAppAll" resultType="com.github.itdachen.framework.context.node.ZTreeNode">-->
+<!--        SELECT app_code AS id, name, type, '1' AS parentId, '0' AS grade-->
+<!--        FROM sys_app_client-->
+<!--    </select>-->
+
+<!--    <select id="hasMenu" resultType="java.lang.Integer">-->
+<!--        SELECT 1-->
+<!--        FROM sys_menu-->
+<!--        WHERE parent_id = #{appCode} AND ROWNUM = 1-->
+<!--    </select>-->
+
+</mapper>

@@ -37,12 +37,12 @@ spring:
             context-path: ${server.servlet.context-path}/actuator
 
   datasource:
-    name: oracle
-    driver-class-name: oracle.jdbc.OracleDriver
+    name: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:oracle:thin:@127.0.0.1:1521:orcl
-    username: ITEST
-    password: HUBU1024
+    url: jdbc:mysql://127.0.0.1:3306/ace_platform?useUnicode=true&characterEncoding=UTF8&createDatabaseIfNotExist=true&useUnicode=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&allowMultiQueries=true
+    username: root
+    password: root
     hikari:
       #连接池最大连接数，默认是10
       maximum-pool-size: 8
@@ -85,7 +85,7 @@ spring:
 
 # mybatis
 mybatis:
-  type-aliases-package: cn.edu.hubu.**.vo
+  type-aliases-package: com.github.itdachen.**.vo
   mapperLocations: classpath*:mapper/**/*.xml
   configuration:
     map-underscore-to-camel-case: true

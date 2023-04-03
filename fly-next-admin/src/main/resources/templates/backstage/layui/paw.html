@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('修改密码')"/>
+    <style>
+
+        .layui-form-item .layui-input-inline {
+            width: 350px !important;
+        }
+
+        .tips-box {
+            display: flex;
+            flex-direction: row;
+            color: #bfc2c0;
+        }
+
+        .tips-box-label {
+            width: 70px;
+            padding-left: 0px;
+        }
+
+        .tips-box-tips {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .tips-box-tips-text {
+            margin-left: 15px;
+            margin-top: -7px;
+        }
+
+        #tips {
+            float: right;
+            margin: 8px 0 0 5px;
+        }
+
+        #tips span {
+            float: left;
+            width: 50px;
+            height: 10px;
+            color: white;
+            background: #ffffff;
+            border: #eee solid 1px;
+            margin-right: 2px;
+            line-height: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<form class="layui-form" id="editPaw">
+    <div class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-body" pad15>
+                        <div class="layui-form" lay-filter="">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">旧密码：<span style="color: red;">*</span></label>
+                                <div class="layui-input-inline">
+                                    <input type="password" name="oldPassword" id="oldPassword" lay-verify="required"
+                                           autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">新密码：<span style="color: red;">*</span></label>
+                                <div class="layui-input-inline">
+                                    <input type="password" name="password" id="password" lay-verify="required"
+                                           placeholder="密码长度为8~30位,限制数字大小写字母及符号"
+                                           onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9_!@#$%^&*().?|<>]/g,'');"
+                                           autocomplete="off" class="layui-input">
+                                    <div id="password-strength">
+                                        <div class="tips-box">
+                                            <span class="tips-box-label">密码强度：</span>
+                                            <div id="tips" class="tips-box-tips">
+                                                <span id="tips-msg-weak"></span>
+                                                <span id="tips-msg-secondary"></span>
+                                                <span id="tips-msg-strong"></span>
+                                                <span id="tips-msg-super-strong"></span>
+                                                <div class="tips-box-tips-text" id="tips-title"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">确认密码：<span style="color: red;">*</span></label>
+                                <div class="layui-input-inline">
+                                    <input type="password" id="repassword" name="repassword" lay-verify="required"
+                                           autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-footer">
+        <button type="button" class="button-sub" lay-submit lay-filter="editPaw">提交</button>
+        <button type="button" class="button-close" id="buttonClose">关闭</button>
+    </div>
+</form>
+<script>
+    const aStr = ["弱", "中", "强", "超强"];
+
+    layui.use(['form'], function () {
+        form = layui.form;
+        form.render();
+
+        checkStrongShow();
+
+        /* 提交 */
+        form.on('submit(editPaw)', function (value) {
+            let data = value.field;
+            if (8 > data.newPaw.length) {
+                $.modal.msgWarning("密码最低8位!");
+                return false;
+            }
+            if (30 < data.newPaw.length) {
+                $.modal.msgWarning("密码最长30位!");
+                return false;
+            }
+            if (data.newPaw !== data.confirmPaw) {
+                $.modal.msgWarning("两次密码输入不一致!");
+                return false;
+            }
+            if (data.newPaw === data.oldPaw) {
+                $.modal.msgWarning("新密码不能与旧密码相同!");
+                return false;
+            }
+            $.http.put({
+                url: "/admin/user/password",
+                data: data,
+                callback: function (res) {
+                    layer.alert("密码修改成功!",
+                        {title: "系统提示", icon: $.msg.icon(LAYER_STATUS.SUCCESS)},
+                        function () {
+                            top.location.href = '/login';
+                        }
+                    );
+                }
+            })
+        });
+
+    });
+
+    function checkStrong(val) {
+        if (0 === val.length) {
+            return 999;
+        }
+        let modes = 0;
+        if (val.length < 8) {
+            return modes
+        }
+        if (/\d/.test(val)) {
+            modes = 0; //数字
+        }
+        /* 数字和小写字母 */
+        if (/\d/.test(val) && /[a-z]/.test(val)) {
+            modes = 1;
+        }
+        /* 数字和大写字母 */
+        if (/\d/.test(val) && /[A-Z]/.test(val)) {
+            modes = 1;
+        }
+        /* 小写字母和大写字母 */
+        if (/[a-z]/.test(val) && /[A-Z]/.test(val)) {
+            modes = 1;
+        }
+        /* 数字,小写字母,大写字母 */
+        if (/\d/.test(val) && /[a-z]/.test(val) && /[A-Z]/.test(val)) {
+            modes = 2;
+        }
+        /* 数字,小写字母,大写字母,符号 */
+        if (/\d/.test(val) && /[a-z]/.test(val) && /[A-Z]/.test(val) && /\W/.test(val)) {
+            modes = 3;
+        }
+        return modes;
+    };
+
+    function checkStrongShow() {
+        $('#password').bind('input propertychange', function () {
+            let val = $(this).val();
+            let num = checkStrong(val);
+            let tipsTitle = aStr[num];
+            if (undefined === tipsTitle || null == tipsTitle || '' === tipsTitle) {
+                tipsTitle = '';
+            }
+            $("#tips-title").text(tipsTitle)
+            switch (num) {
+                case 0:
+                    $("#tips-msg-weak").css('background', '#8fd5fc');
+                    $("#tips-msg-secondary").css('background', '#fff');
+                    $("#tips-msg-strong").css('background', '#fff');
+                    $("#tips-msg-super-strong").css('background', '#fff');
+                    break;
+                case 1:
+                    $("#tips-msg-weak").css('background', '#8fd5fc');
+                    $("#tips-msg-secondary").css('background', '#49b5fa');
+                    $("#tips-msg-strong").css('background', '#fff');
+                    $("#tips-msg-super-strong").css('background', '#fff');
+                    break;
+                case 2:
+                    $("#tips-msg-weak").css('background', '#8fd5fc');
+                    $("#tips-msg-secondary").css('background', '#49b5fa');
+                    $("#tips-msg-strong").css('background', '#3a97d1');
+                    $("#tips-msg-super-strong").css('background', '#fff');
+                    break;
+                case 3:
+                    $("#tips-msg-weak").css('background', '#8fd5fc');
+                    $("#tips-msg-secondary").css('background', '#49b5fa');
+                    $("#tips-msg-strong").css('background', '#3a97d1');
+                    $("#tips-msg-super-strong").css('background', '#1179b9');
+                    break;
+                default:
+                    $("#tips-msg-weak").css('background', '#fff');
+                    $("#tips-msg-secondary").css('background', '#fff');
+                    $("#tips-msg-strong").css('background', '#fff');
+                    $("#tips-msg-super-strong").css('background', '#fff');
+            }
+        })
+    }
+</script>
+</body>
+</html>

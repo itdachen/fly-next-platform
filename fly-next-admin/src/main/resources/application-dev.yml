@@ -3,10 +3,10 @@
 #    encoder: AES
 
 # 日志配置
-logging:
-  config: classpath:fly-admin.xml
-  level:
-    cn.jay.repository: trace
+#logging:
+#  config: classpath:fly-admin.xml
+#  level:
+#    cn.jay.repository: trace
 
 spring:
   main:
@@ -17,12 +17,12 @@ spring:
     time-zone: GMT+8
 
   datasource:
-    name: oracle
-    driver-class-name: oracle.jdbc.OracleDriver
-    type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:oracle:thin:@127.0.0.1:1521:orcl
-    username: ITEST
-    password: HUBU1024
+    name: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://127.0.0.1:3306/ace_platform?useUnicode=true&characterEncoding=UTF8&createDatabaseIfNotExist=true&useUnicode=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&allowMultiQueries=true
+    username: root
+    password: root
     druid:
       maxActive: 20
       initialSize: 1
@@ -84,8 +84,7 @@ spring:
     browser:
       signInPage: /login
       signOutUrl: /login
-     # successForwardUrl: /lyear/index
-      successForwardUrl: /admin/index
+      successForwardUrl: /index
       session:
         sessionInvalidUrl: /login
 
@@ -96,7 +95,7 @@ spring:
 
 # mybatis
 mybatis:
-  type-aliases-package: cn.edu.hubu.**.vo
+  type-aliases-package: com.github.itdachen.**.vo
   mapperLocations: classpath*:mapper/**/*.xml
   configuration:
     map-underscore-to-camel-case: true
@@ -105,12 +104,12 @@ mybatis:
 
 # 分页工具
 pagehelper:
-  helperDialect: oracle
+  helperDialect: mysql
   reasonable: false
   supportMethodsArguments: true
   params: count=countSql
 
 # 文件上传
 oss:
-  localHttp: http://127.0.0.1:8080/flexible
+  localHttp: http://127.0.0.1:8080
   diskFolder: D:/upload/

@@ -16,12 +16,6 @@
     <description>接口模块</description>
 
     <dependencies>
-        <!-- 框架模块引用 -->
-        <dependency>
-            <groupId>com.github.itdachen.framework</groupId>
-            <artifactId>fly-runner</artifactId>
-        </dependency>
-
         <!-- 項目启动容器 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -36,6 +30,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.itdachen</groupId>
+            <artifactId>fly-next-server</artifactId>
+            <version>0.0.1</version>
         </dependency>
 
         <dependency>
@@ -62,6 +62,18 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+        <!-- mysql -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <!-- 健康检查 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
         <dependency>

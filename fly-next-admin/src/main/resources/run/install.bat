@@ -1,0 +1,1 @@
+fly-next-admin.exe install

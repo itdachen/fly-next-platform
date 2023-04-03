@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.admin.mapper.IUserDetailsMapper">
+
+    <select id="loadUserByUsername" parameterType="java.lang.String"
+            resultType="com.github.itdachen.framework.core.permission.LoginUserModel">
+        SELECT id,
+               avatar,
+               username,
+               password,
+               name,
+               birthday,
+               address,
+               telephone,
+               email,
+               depart_id AS departId,
+               sex,
+               type,
+               status,
+               remarks,
+               tenant_id AS tenantId
+        FROM sys_user
+        WHERE username = #{username} LIMIT 1
+    </select>
+
+    <select id="loadUserByMobile" parameterType="java.lang.String"
+            resultType="com.github.itdachen.framework.core.permission.LoginUserModel">
+        SELECT id,
+               avatar,
+               username,
+               password,
+               name,
+               birthday,
+               address,
+               telephone,
+               email,
+               depart_id AS departId,
+               sex,
+               type,
+               status,
+               remarks,
+               tenant_id AS tenantId
+        FROM sys_user
+        WHERE telephone = #{mobile} LIMIT 1
+    </select>
+
+    <!-- 查询所有权限 -->
+    <select id="findPermissionAll" resultType="com.github.itdachen.framework.context.permission.PermissionInfo">
+        SELECT a.code                   AS permission,
+               a.type,
+               a.title                  AS name,
+               a.href                   AS uri,
+               a.method,
+               IFNULL(b.title, a.title) AS menu
+        FROM sys_element a
+                 LEFT JOIN sys_menu b ON a.menu_id = b.id
+        WHERE a.code != '' AND a.code != '/'
+        UNION ALL
+        SELECT c.code  AS permission,
+               'view'  AS type,
+               c.title AS name,
+               c.path  AS uri,
+               'GET'   AS method,
+               d.title AS menu
+        FROM sys_element c
+                 LEFT JOIN sys_menu d ON c.menu_id = d.id
+        WHERE c.code != '' AND c.code != '/'
+    </select>
+
+    <!-- 查询查单权限编码(路径跳转权限) -->
+    <select id="findPermissionMenuAll" resultType="com.github.itdachen.framework.context.permission.PermissionInfo">
+        SELECT a.code                   AS permission,
+               'jump'                   AS type,
+               a.title                  AS name,
+               a.path                   AS uri,
+               'GET'                    AS method,
+               IFNULL(b.title, a.title) AS menu
+        FROM sys_menu a
+                 LEFT JOIN sys_menu b ON a.parent_id = b.id
+        WHERE a.type = 'menu'
+    </select>
+
+    <!-- 查询用户权限 -->
+    <select id="findUserPermission" parameterType="java.lang.String"
+            resultType="com.github.itdachen.framework.context.permission.PermissionInfo">
+        SELECT DISTINCT c.code  AS permission,
+                        c.type,
+                        c.title AS name,
+                        c.href  AS uri,
+                        c.method,
+                        d.title AS menu
+        FROM sys_role_user a
+                 LEFT JOIN sys_role_menu b ON a.role_id = b.role_id
+                 LEFT JOIN sys_element c ON b.menu_id = c.id
+                 LEFT JOIN sys_menu d ON c.menu_id = d.id
+        WHERE c.code != '' AND c.code != '/' AND c.visible = '1' AND a.user_id = #{userId}
+        UNION ALL
+        SELECT DISTINCT c.code  AS permission,
+                        'view'  AS type,
+                        c.title AS name,
+                        c.href  AS uri,
+                        'GET'   AS method,
+                        d.title AS menu
+        FROM sys_role_user a
+                 LEFT JOIN sys_role_menu b ON a.role_id = b.role_id
+                 LEFT JOIN sys_element c ON b.menu_id = c.id
+                 LEFT JOIN sys_menu d ON c.menu_id = d.id
+        WHERE c.code != '' AND c.code != '/' AND c.visible = '1' AND a.user_id = #{userId}
+    </select>
+
+    <!-- 查询查单权限编码(路径跳转权限) -->
+    <select id="findUserPermissionMenu" parameterType="java.lang.String"
+            resultType="com.github.itdachen.framework.context.permission.PermissionInfo">
+        SELECT DISTINCT c.code                   AS permission,
+                        'jump'                   AS type,
+                        c.title                  AS name,
+                        c.path                   AS uri,
+                        'GET'                    AS method,
+                        IFNULL(d.title, c.title) AS menu
+        FROM sys_role_user a
+                 LEFT JOIN sys_role_menu b ON a.role_id = b.role_id
+                 LEFT JOIN sys_menu c ON b.menu_id = c.id
+                 LEFT JOIN sys_menu d ON c.parent_id = d.id
+        WHERE c.type = 'menu'
+          AND a.user_id = #{userId}
+    </select>
+
+</mapper>

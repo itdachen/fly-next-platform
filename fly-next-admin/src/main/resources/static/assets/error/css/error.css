@@ -1,0 +1,79 @@
+.global-content {
+    height: calc(100% - 46px);
+    overflow: auto;
+}
+
+.error-page {
+    padding-top: 200px;
+    padding-bottom: 200px;
+    margin: 10px;
+}
+
+.error-401 {
+    height: 200px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url("/cdn/assets/error/images/401.svg");
+}
+
+.error-403 {
+    height: 200px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url("/cdn/assets/error/images/403.svg");
+}
+
+.error-404 {
+    height: 200px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url("/cdn/assets/error/images/404.svg");
+}
+
+.error-500 {
+    height: 200px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url("/cdn/assets/error/images/500.svg");
+}
+
+.layui-exception {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.layui-exception-image {
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.layui-exception-details {
+    width: 50%;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.layui-exception-details-content {
+    margin-left: 100px;
+}
+
+.layui-exception-details-title {
+    font-size: 60px;
+    color: #434e59;
+    margin-bottom: 24px;
+    font-weight: 600;
+}
+
+.layui-exception-details-describe {
+    font-size: 18px;
+    color: #00000073;
+    margin-bottom: 26px;
+}
+
+.layui-exception-details-extra {
+    margin: 0;
+    padding: 0;
+}

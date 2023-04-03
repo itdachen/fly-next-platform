@@ -1,0 +1,52 @@
+﻿<service>
+    <!-- 服务ID，在windows系统中必须唯一 -->
+    <id>fly-next-admin</id>
+    <!-- 服务显示名称，只能英文和数字 -->
+    <name>fly-next-admin-server</name>
+    <!-- 服务描述，只能英文和数字 -->
+    <description>fly-next-admin</description>
+    <executable>java</executable>
+    <!-- 启动可执行文件的路径 -->
+    <arguments>-jar -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=128m -Xms128m -Xmx64m -Xmn256m -Xss256k -XX:SurvivorRatio=8 "../fly-next-admin.jar"</arguments>
+
+    <!-- 启动模式，开机启动 -->
+    <startmode>Automatic</startmode>
+
+    <!--
+      OPTION: priority
+      所需的进程优先级。
+      可设置的值：Normal, Idle, High, RealTime, BelowNormal, AboveNormal
+      默认值：Normal
+    -->
+    <priority>Normal</priority>
+
+    <!--
+      OPTION: logpath
+      为服务包装程序生成的所有日志设置自定义日志目录。
+      默认值：包含执行器的目录
+    -->
+    <logpath>%BASE%\logs</logpath>
+    <!--
+    OPTION: log
+    为可执行文件生成的日志定义日志记录模式。
+    支持的模式：
+      * append - 追加到现有日志
+      * none - 不保存日志
+      * reset - 启动时擦除日志
+      * roll - 根据大小自动循环分割日志
+      * roll-by-time - 根据日期循环分割日志
+    默认模式: append
+    
+    每种模式都有不同的设置。https://github.com/kohsuke/winsw/blob/master/doc/loggingAndErrorReporting.md
+  -->
+
+    <!--
+       <log mode="append"> </log>
+    -->
+
+    <log mode="roll-by-time">
+        <pattern>yyyyMMdd</pattern>
+    </log>
+
+
+</service>

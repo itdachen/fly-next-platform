@@ -9,7 +9,7 @@ server:
 
 spring:
   application:
-    name: firefly
+    name: next-admin
   profiles:
     active: dev
 
