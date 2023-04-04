@@ -5,7 +5,7 @@
   +  Created with IntelliJ IDEA.
   ++++++++++++++++++++++++++++++++++++++++++++
  */
-const path = HTTP_BIZ_URI + "/biz/app/client";
+const path = HTTP_BIZ_URI + "/admin/app/client";
 layui.use(['table'], function () {
     let table = layui.table;
     let form = layui.form;
@@ -67,24 +67,48 @@ function toolBar(table) {
 function tool(table) {
     table.on('tool(layFilter)', function (obj) {
         let data = obj.data;
-        if ('del' === obj.event) {
-            $.table.delete({
-                url: path + '/' + data.id,
-                title: data.name,
-                reloadTable: reloadTableData(table),
-            })
+        switch (obj.event) {
+            case 'delete':
+                $.table.delete({
+                    url: path + '/' + data.id,
+                    title: data.name,
+                    reloadTable: reloadTableData(table)
+                })
+                break;
+            case 'update':
+                location.href = path + '/edit/' + data.id;
+                break;
+            case 'view':
+                location.href = path + '/view/' + data.id;
+                break;
+            case 'openIcon':
+                if (!$.string.isEmpty(data.icon)) {
+                    $.model.openImg(data.name, data.icon, '500', '500');
+                }
+                break;
+            default:
+                console.warn('未找到处理事件')
         }
-        if ('edit' === obj.event) {
-            location.href = path + '/edit/' + data.id
-        }
-        if ('see' === obj.event) {
-            location.href = path + '/see/' + data.id
-        }
-        if ('openIcon' === obj.event) {
-            if (!$.string.isEmpty(data.icon)) {
-                $.model.openImg(data.name, data.icon, '500', '500');
-            }
-        }
+
+
+        // if ('del' === obj.event) {
+        //     $.table.delete({
+        //         url: path + '/' + data.id,
+        //         title: data.name,
+        //         reloadTable: reloadTableData(table),
+        //     })
+        // }
+        // if ('update' === obj.event) {
+        //     location.href = path + '/edit/' + data.id
+        // }
+        // if ('see' === obj.event) {
+        //     location.href = path + '/see/' + data.id
+        // }
+        // if ('openIcon' === obj.event) {
+        //     if (!$.string.isEmpty(data.icon)) {
+        //         $.model.openImg(data.name, data.icon, '500', '500');
+        //     }
+        // }
     })
 }
 
@@ -93,11 +117,11 @@ function options() {
         url: path + "/page",
         where: queryWhere(),
         cols: [[
-            {field: 'name', title: '应用名称', align: "center"},
+            {field: 'appTitle', title: '应用名称', align: "center"},
             {field: 'appCode', title: '应用标识码', align: "center"},
-            {field: 'typeLabel', title: '应用类型', align: "center"},
-            // {field: 'homeUrl', title: '互联网访问地址', align: "center"},
-            // {field: 'intranetUrl', title: '内网访问地址', align: "center"},
+            {field: 'appType', title: '应用类型', align: "center"},
+            // {field: 'askUri', title: '互联网访问地址', align: "center"},
+            // {field: 'lanUri', title: '内网访问地址', align: "center"},
             {
                 field: 'icon', title: '图标', align: "center", templet: function (d) {
                     if ($.string.isNotEmpty(d.icon)) {
@@ -107,7 +131,7 @@ function options() {
                     }
                 }
             },
-            {field: 'state', title: '是否启用', align: "center", width: 110, templet: '#stateTpl', unresize: true},
+            {field: 'status', title: '是否启用', align: "center", width: 110, templet: '#stateTpl', unresize: true},
             {fixed: 'right', title: '操作', toolbar: '#toolbarHandle', width: "20%", align: "center"}
         ]]
     }

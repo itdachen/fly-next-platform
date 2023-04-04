@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('新增部门管理')"/>
+    <script th:src="@{/static/admin/dept/info/add.js}" charset="utf-8"></script>
+</head>
+<body>
+
+<form class="layui-form" id="addDeptInfoForm">
+    <div class="layui-form-body">
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>部门名称
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="title" name="title"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>上级id
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="parentId" name="parentId"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                备注
+            </label>
+            <div class="layui-input-block">
+                        <textarea id="remarks" name="remarks" maxlength="200"
+                                  autocomplete="off" class="layui-textarea"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>是否可删除: 1-可删除;0-不可删
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="isCanDel" name="isCanDel"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>负责人
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="personCharge" name="personCharge"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+    </div>
+    <div class="form-footer">
+        <button type="button" class="button-sub" lay-submit lay-filter="saveDeptInfo">保存</button>
+        <button type="button" class="button-close" id="buttonClose">关闭</button>
+    </div>
+</form>
+</body>
+</html>

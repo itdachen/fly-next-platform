@@ -1,9 +1,47 @@
 package com.github.itdachen.admin.mapper;
 
+import com.github.itdachen.admin.entity.AppClient;
+import com.github.itdachen.admin.sdk.query.AppClientQuery;
+import com.github.itdachen.admin.sdk.vo.AppClientVo;
+import tk.mybatis.mapper.common.Mapper;
+
+import java.util.List;
+
 /**
- * Description:
- * Created by 王大宸 on 2023/03/30 22:08
- * Created with IntelliJ IDEA.
+ * 应用管理 持久层接口
+ *
+ * @author 王大宸
+ * @date 2023-04-04 21:26:23
  */
-public class IAppClientMapper {
+public interface IAppClientMapper extends Mapper<AppClient> {
+
+    /***
+     * 查询集合
+     *
+     * @author 王大宸
+     * @date 2023-04-04 21:26:23
+     * @param params params
+     * @return com.github.itdachen.admin.sdk.vo.appClientVo
+     */
+    List<AppClientVo> page(AppClientQuery params);
+
+
+    /***
+     * 批量添加
+     *
+     * @author 王大宸
+     * @date 2023-04-04 21:26:23
+     * @param list java.util.List<com.github.itdachen.admin.entity.AppClient>
+     */
+    void batchSave(List<AppClient> list);
+
+    /***
+     * 批量修改
+     *
+     * @author 王大宸
+     * @date 2023-04-04 21:26:23
+     * @param list java.util.List<com.github.itdachen.admin.entity.AppClient>
+     */
+    void batchUpdate(List<AppClient> list);
+
 }

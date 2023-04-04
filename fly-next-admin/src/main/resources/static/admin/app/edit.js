@@ -15,7 +15,7 @@ layui.use(['form', 'upload'], function () {
     /* 提交 */
     form.on('submit(editAppClient)', function (data) {
         $.form.submit({
-            url: '/biz/app/client/' + data.field.id,
+            url: '/admin/app/client/' + data.field.id,
             data: data.field,
             callback: function (res) {
                 layer.alert(res.msg, {title: "系统提示", icon: $.msg.icon(LAYER_STATUS.SUCCESS)},

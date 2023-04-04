@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.admin.mapper.IMakeUseLogMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.github.itdachen.admin.sdk.vo.MakeUseLogVo" id="makeUseLogMap">
+            <result property="id" column="id"/>
+            <result property="tenantId" column="tenant_id"/>
+            <result property="serviceId" column="service_id"/>
+            <result property="clientId" column="client_id"/>
+            <result property="requestId" column="request_id"/>
+            <result property="menuTitle" column="menu_title"/>
+            <result property="makeUseType" column="make_use_type"/>
+            <result property="logType" column="log_type"/>
+            <result property="makeUseIp" column="make_use_ip"/>
+            <result property="makeUseAddress" column="make_use_address"/>
+            <result property="makeUseStatus" column="make_use_status"/>
+            <result property="userAgent" column="user_agent"/>
+            <result property="requestUri" column="request_uri"/>
+            <result property="requestMethod" column="request_method"/>
+            <result property="params" column="params"/>
+            <result property="jsonResult" column="json_result"/>
+            <result property="delFlag" column="del_flag"/>
+            <result property="exception" column="exception"/>
+            <result property="remarks" column="remarks"/>
+            <result property="executeTime" column="execute_time"/>
+            <result property="msg" column="msg"/>
+    </resultMap>
+
+    <sql id="selectMakeUseLogVo">
+        SELECT id, tenant_id, service_id, client_id, request_id, menu_title, make_use_type, log_type, make_use_ip, make_use_address, make_use_status, user_agent, request_uri, request_method, params, json_result, del_flag, exception, remarks, execute_time, msg
+        FROM sys_make_use_log
+    </sql>
+
+    <!-- 集合查询 -->
+    <select id="page" parameterType="com.github.itdachen.admin.sdk.query.MakeUseLogQuery" resultMap="makeUseLogMap">
+        <include refid="selectMakeUseLogVo"/>
+        <where>
+            <if test="null != tenantId  and '' != tenantId ">
+                AND tenant_id = #{tenantId}
+            </if>
+            <if test="null != serviceId  and '' != serviceId ">
+                AND service_id = #{serviceId}
+            </if>
+            <if test="null != clientId  and '' != clientId ">
+                AND client_id = #{clientId}
+            </if>
+            <if test="null != requestId  and '' != requestId ">
+                AND request_id = #{requestId}
+            </if>
+            <if test="null != menuTitle  and '' != menuTitle ">
+                AND menu_title LIKE CONCAT(CONCAT('%',#{menuTitle}),'%')
+            </if>
+            <if test="null != makeUseType  and '' != makeUseType ">
+                AND make_use_type = #{makeUseType}
+            </if>
+            <if test="null != logType  and '' != logType ">
+                AND log_type = #{logType}
+            </if>
+            <if test="null != makeUseIp  and '' != makeUseIp ">
+                AND make_use_ip = #{makeUseIp}
+            </if>
+            <if test="null != makeUseAddress  and '' != makeUseAddress ">
+                AND make_use_address = #{makeUseAddress}
+            </if>
+            <if test="null != makeUseStatus  and '' != makeUseStatus ">
+                AND make_use_status = #{makeUseStatus}
+            </if>
+            <if test="null != userAgent  and '' != userAgent ">
+                AND user_agent = #{userAgent}
+            </if>
+            <if test="null != requestUri  and '' != requestUri ">
+                AND request_uri = #{requestUri}
+            </if>
+            <if test="null != requestMethod  and '' != requestMethod ">
+                AND request_method = #{requestMethod}
+            </if>
+            <if test="null != params  and '' != params ">
+                AND params = #{params}
+            </if>
+            <if test="null != jsonResult  and '' != jsonResult ">
+                AND json_result = #{jsonResult}
+            </if>
+            <if test="null != exception  and '' != exception ">
+                AND exception = #{exception}
+            </if>
+            <if test="null != executeTime  and '' != executeTime ">
+                AND execute_time = #{executeTime}
+            </if>
+            <if test="null != msg  and '' != msg ">
+                AND msg = #{msg}
+            </if>
+        </where>
+        ORDER BY id DESC
+    </select>
+
+
+    <!-- 批量添加 -->
+    <insert id="batchSave" parameterType="java.util.List">
+        INSERT INTO sys_make_use_log (id        , tenant_id        , service_id        , client_id        , request_id        , menu_title        , make_use_type        , log_type        , make_use_ip        , make_use_address        , make_use_status        , user_agent        , request_uri        , request_method        , params        , json_result        , del_flag        , exception        , remarks        , execute_time        , msg        , create_time        , create_user        , create_user_id        , update_time        , update_user        , update_user_id)
+        (
+        <foreach collection="list" item="item" separator="UNION ALL">
+            SELECT
+                #{item.id}, 
+                #{item.tenantId}, 
+                #{item.serviceId}, 
+                #{item.clientId}, 
+                #{item.requestId}, 
+                #{item.menuTitle}, 
+                #{item.makeUseType}, 
+                #{item.logType}, 
+                #{item.makeUseIp}, 
+                #{item.makeUseAddress}, 
+                #{item.makeUseStatus}, 
+                #{item.userAgent}, 
+                #{item.requestUri}, 
+                #{item.requestMethod}, 
+                #{item.params}, 
+                #{item.jsonResult}, 
+                #{item.delFlag}, 
+                #{item.exception}, 
+                #{item.remarks}, 
+                #{item.executeTime}, 
+                #{item.msg}, 
+                #{item.createTime}, 
+                #{item.createUser}, 
+                #{item.createUserId}, 
+                #{item.updateTime}, 
+                #{item.updateUser}, 
+                #{item.updateUserId}
+            FROM DUAL
+        </foreach>
+        )
+    </insert>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            UPDATE  sys_make_use_log
+            <set>
+                        <if test="null != item.id  and '' != item.id ">id =
+                            #{item.id},
+                        </if>
+                        <if test="null != item.tenantId  and '' != item.tenantId ">tenant_id =
+                            #{item.tenantId},
+                        </if>
+                        <if test="null != item.serviceId  and '' != item.serviceId ">service_id =
+                            #{item.serviceId},
+                        </if>
+                        <if test="null != item.clientId  and '' != item.clientId ">client_id =
+                            #{item.clientId},
+                        </if>
+                        <if test="null != item.requestId  and '' != item.requestId ">request_id =
+                            #{item.requestId},
+                        </if>
+                        <if test="null != item.menuTitle  and '' != item.menuTitle ">menu_title =
+                            #{item.menuTitle},
+                        </if>
+                        <if test="null != item.makeUseType  and '' != item.makeUseType ">make_use_type =
+                            #{item.makeUseType},
+                        </if>
+                        <if test="null != item.logType  and '' != item.logType ">log_type =
+                            #{item.logType},
+                        </if>
+                        <if test="null != item.makeUseIp  and '' != item.makeUseIp ">make_use_ip =
+                            #{item.makeUseIp},
+                        </if>
+                        <if test="null != item.makeUseAddress  and '' != item.makeUseAddress ">make_use_address =
+                            #{item.makeUseAddress},
+                        </if>
+                        <if test="null != item.makeUseStatus  and '' != item.makeUseStatus ">make_use_status =
+                            #{item.makeUseStatus},
+                        </if>
+                        <if test="null != item.userAgent  and '' != item.userAgent ">user_agent =
+                            #{item.userAgent},
+                        </if>
+                        <if test="null != item.requestUri  and '' != item.requestUri ">request_uri =
+                            #{item.requestUri},
+                        </if>
+                        <if test="null != item.requestMethod  and '' != item.requestMethod ">request_method =
+                            #{item.requestMethod},
+                        </if>
+                        <if test="null != item.params  and '' != item.params ">params =
+                            #{item.params},
+                        </if>
+                        <if test="null != item.jsonResult  and '' != item.jsonResult ">json_result =
+                            #{item.jsonResult},
+                        </if>
+                        <if test="null != item.delFlag  and '' != item.delFlag ">del_flag =
+                            #{item.delFlag},
+                        </if>
+                        <if test="null != item.exception  and '' != item.exception ">exception =
+                            #{item.exception},
+                        </if>
+                        <if test="null != item.remarks  and '' != item.remarks ">remarks =
+                            #{item.remarks},
+                        </if>
+                        <if test="null != item.executeTime  and '' != item.executeTime ">execute_time =
+                            #{item.executeTime},
+                        </if>
+                        <if test="null != item.msg  and '' != item.msg ">msg =
+                            #{item.msg},
+                        </if>
+                        <if test="null != item.createTime ">create_time =
+                            #{item.createTime},
+                        </if>
+                        <if test="null != item.createUser  and '' != item.createUser ">create_user =
+                            #{item.createUser},
+                        </if>
+                        <if test="null != item.createUserId  and '' != item.createUserId ">create_user_id =
+                            #{item.createUserId},
+                        </if>
+                        <if test="null != item.updateTime ">update_time =
+                            #{item.updateTime},
+                        </if>
+                        <if test="null != item.updateUser  and '' != item.updateUser ">update_user =
+                            #{item.updateUser},
+                        </if>
+                        <if test="null != item.updateUserId  and '' != item.updateUserId ">update_user_id =
+                            #{item.updateUserId},
+                        </if>
+            </set>
+            WHERE id = #{item.id}
+        </foreach>
+    </update>
+
+
+</mapper>

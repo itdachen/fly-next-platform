@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('新增菜单管理')"/>
+    <script th:src="@{/static/admin/menu/info/add.js}" charset="utf-8"></script>
+</head>
+<body>
+
+<form class="layui-form" id="addMenuInfoForm">
+    <div class="layui-form-body">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>路径编码,权限编码
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="code" name="code"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>标题
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="title" name="title"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>客户端
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="clientId" name="clientId"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>父级节点
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="parentId" name="parentId"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>资源路径,浏览器访问地址
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="path" name="path"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>重定向路径
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="redirect" name="redirect"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>图标
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="icon" name="icon"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>类型:dirt-目录;menu-菜单;uri-外链
+                    </label>
+                    <div class="layui-input-block" th:with="dicts=${@dict.data('menu_type')}">
+                        <input type="radio" name="type" th:each="dict : ${dicts}"
+                               th:id="${'type_' + dict.value}"
+                               th:title="${dict.label}"
+                               th:value="${dict.value}"
+                               th:checked="${dict.isDefault}">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>排序
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="orderNum" name="orderNum"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>是否显示:1-显示,0-不显示
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="visible" name="visible"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>组件名称(路由中的 name 值)
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="name" name="name"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>组件地址(vue中组件的地址)
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="component" name="component"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>外链地址
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="link" name="link"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>菜单是否固定
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="affix" name="affix"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>是否内嵌, 开启条件，`1、isIframe: true 2、链接地址不为空
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="iframe" name="iframe"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>菜单是否缓存
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="keepAlive" name="keepAlive"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+描述
+                    </label>
+                    <div class="layui-input-block">
+                        <textarea id="remarks" name="remarks" maxlength="200"
+ autocomplete="off" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+
+    </div>
+    <div class="form-footer">
+        <button type="button" class="button-sub" lay-submit lay-filter="saveMenuInfo">保存</button>
+        <button type="button" class="button-close" id="buttonClose">关闭</button>
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('新增角色')"/>
+    <script th:src="@{/static/admin/role/info/add.js}" charset="utf-8"></script>
+</head>
+<body>
+
+<form class="layui-form" id="addRoleInfoForm">
+    <div class="layui-form-body">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>部门id
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="deptId" name="deptId"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>角色名称
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="title" name="title"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+描述
+                    </label>
+                    <div class="layui-input-block">
+                        <textarea id="remarks" name="remarks" maxlength="200"
+ autocomplete="off" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>客户端
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="clientId" name="clientId"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+    </div>
+    <div class="form-footer">
+        <button type="button" class="button-sub" lay-submit lay-filter="saveRoleInfo">保存</button>
+        <button type="button" class="button-close" id="buttonClose">关闭</button>
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('查看部门管理')"/>
+    <script>
+        layui.use(['form'], function () {
+            form = layui.form;
+            form.render();
+        });
+    </script>
+</head>
+<body>
+
+<form class="layui-form" id="seeDeptInfoForm" th:object="${deptInfo}">
+    <div class="layui-form-body-see">
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            部门名称
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="title" name="title" th:field="*{title}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            上级id
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="parentId" name="parentId" th:field="*{parentId}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            备注
+                        </label>
+                        <div class="layui-input-block">
+                        <textarea id="remarks" name="remarks" th:field="*{remarks}" maxlength="200"
+                                  readonly="readonly"
+ autocomplete="off"
+                                  class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            是否可删除: 1-可删除;0-不可删
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="isCanDel" name="isCanDel" th:field="*{isCanDel}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            负责人
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="personCharge" name="personCharge" th:field="*{personCharge}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+    </div>
+</form>
+
+</body>
+</html>
