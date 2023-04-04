@@ -13,7 +13,7 @@ import java.util.List;
  * @author 王大宸
  * @date 2023-04-04 21:44:46
  */
-public interface IRoleInfoMapper extends Mapper< RoleInfo > {
+public interface IRoleInfoMapper extends Mapper<RoleInfo> {
 
     /***
      * 查询集合
@@ -23,8 +23,7 @@ public interface IRoleInfoMapper extends Mapper< RoleInfo > {
      * @param params params
      * @return com.github.itdachen.admin.sdk.vo.roleInfoVo
      */
-    List< RoleInfoVo > page(RoleInfoQuery params);
-
+    List<RoleInfoVo> page(RoleInfoQuery params);
 
 
     /***
@@ -34,7 +33,7 @@ public interface IRoleInfoMapper extends Mapper< RoleInfo > {
      * @date 2023-04-04 21:44:46
      * @param list java.util.List<com.github.itdachen.admin.entity.RoleInfo>
      */
-    void  batchSave(List< RoleInfo > list);
+    void batchSave(List<RoleInfo> list);
 
     /***
      * 批量修改
@@ -43,6 +42,6 @@ public interface IRoleInfoMapper extends Mapper< RoleInfo > {
      * @date 2023-04-04 21:44:46
      * @param list java.util.List<com.github.itdachen.admin.entity.RoleInfo>
      */
-    void batchUpdate(List< RoleInfo > list);
+    void batchUpdate(List<RoleInfo> list);
 
 }

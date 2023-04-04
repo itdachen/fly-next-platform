@@ -1340,7 +1340,8 @@ $(function () {
                 }
                 /* 获取数据 */
                 $.http.get({
-                    url: options.url, callback: options.initCallback
+                    url: options.url,
+                    callback: options.initCallback
                 });
             }, /* 获取选中的节点 */
             getCheckedNodes: function (treeId) {

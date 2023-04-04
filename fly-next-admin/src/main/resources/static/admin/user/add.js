@@ -17,6 +17,11 @@ layui.use(['form', 'upload'], function () {
         $.form.submit({
             url: '/admin/user/info',
             data: data.field,
+            callback: function (res) {
+                layer.alert(res.msg, {title: "系统提示", icon: $.msg.icon(LAYER_STATUS.SUCCESS)}, function () {
+                    goBackPreviousPage()
+                });
+            }
         })
     });
 

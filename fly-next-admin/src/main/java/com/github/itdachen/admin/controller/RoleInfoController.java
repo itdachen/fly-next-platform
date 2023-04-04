@@ -4,8 +4,11 @@ import com.github.itdachen.admin.service.IRoleInfoService;
 import com.github.itdachen.admin.entity.RoleInfo;
 import com.github.itdachen.admin.sdk.query.RoleInfoQuery;
 import com.github.itdachen.admin.sdk.vo.RoleInfoVo;
+import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import com.github.itdachen.framework.context.annotation.CheckApiClient;
+import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.core.constants.ClientConstant;
+import com.github.itdachen.framework.core.response.ServerResponse;
 import com.github.itdachen.framework.webmvc.controller.BizController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +18,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * 角色
@@ -23,11 +29,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @date 2023-04-04 21:44:46
  */
 @Controller
-@RequestMapping("/admin/role/info")
+@RequestMapping("/admin/role")
 @CheckApiClient(title = "角色", clientId = ClientConstant.CLIENT_WEB)
 public class RoleInfoController extends BizController< IRoleInfoService, RoleInfo, RoleInfoVo, RoleInfoQuery, String > {
     private static final Logger logger = LoggerFactory.getLogger(RoleInfoController.class);
-    private static final String PATH_PREFIX = "admin/role/info";
+    private static final String PATH_PREFIX = "admin/role";
 
     /***
      * 跳转到信息管理界面
@@ -37,7 +43,7 @@ public class RoleInfoController extends BizController< IRoleInfoService, RoleInf
      * @return java.lang.String
      */
     @GetMapping(value = "/index")
-    @PreAuthorize("hasAuthority('admin:role:info:index')")
+    @PreAuthorize("hasAuthority('admin:role:index')")
     public String index() {
         return PATH_PREFIX + "/index";
     }
@@ -50,7 +56,7 @@ public class RoleInfoController extends BizController< IRoleInfoService, RoleInf
      * @return java.lang.String
      */
     @GetMapping(value = "/add")
-    @PreAuthorize("hasAuthority('admin:role:info:save')")
+    @PreAuthorize("hasAuthority('admin:role:save')")
     public String add() {
         return PATH_PREFIX + "/add";
     }
@@ -65,7 +71,7 @@ public class RoleInfoController extends BizController< IRoleInfoService, RoleInf
      * @return java.lang.String
      */
     @GetMapping(value = "/edit/{id}")
-    @PreAuthorize("hasAuthority('admin:role:info:update')")
+    @PreAuthorize("hasAuthority('admin:role:update')")
     public String edit(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("roleInfo", bizService.getById(id));
         return PATH_PREFIX + "/edit";
@@ -81,7 +87,7 @@ public class RoleInfoController extends BizController< IRoleInfoService, RoleInf
      * @return java.lang.String
      */
     @GetMapping(value = "/view/{id}")
-    @PreAuthorize("hasAuthority('admin:role:info:view')")
+    @PreAuthorize("hasAuthority('admin:role:view')")
     public String see(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("roleInfo", bizService.getById(id));
         return PATH_PREFIX + "/see";

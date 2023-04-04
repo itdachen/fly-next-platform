@@ -40,5 +40,4 @@ public class RoleInfoServiceImpl extends BizServiceImpl< IRoleInfoMapper, RoleIn
         return new TableData<RoleInfoVo>(page.getTotal(), list);
     }
 
-
 }

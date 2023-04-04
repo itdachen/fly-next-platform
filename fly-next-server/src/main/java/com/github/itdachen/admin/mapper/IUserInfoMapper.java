@@ -25,7 +25,7 @@ public interface IUserInfoMapper extends Mapper< UserInfo > {
      */
     List< UserInfoVo > page(UserInfoQuery params);
 
-
+    UserInfoVo findUserByUsername(String username);
 
     /***
      * 批量添加

@@ -25,9 +25,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/admin/user/info")
 @CheckApiClient(title = "用户信息", clientId = ClientConstant.CLIENT_WEB)
-public class UserInfoController extends BizController< IUserInfoService, UserInfo, UserInfoVo, UserInfoQuery, String > {
+public class UserInfoController extends BizController<IUserInfoService, UserInfo, UserInfoVo, UserInfoQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(UserInfoController.class);
-    private static final String PATH_PREFIX = "admin/user/info";
+    private static final String PATH_PREFIX = "admin/user" ;
 
     /***
      * 跳转到信息管理界面
@@ -39,7 +39,7 @@ public class UserInfoController extends BizController< IUserInfoService, UserInf
     @GetMapping(value = "/index")
     @PreAuthorize("hasAuthority('admin:user:info:index')")
     public String index() {
-        return PATH_PREFIX + "/index";
+        return PATH_PREFIX + "/index" ;
     }
 
     /***
@@ -49,10 +49,12 @@ public class UserInfoController extends BizController< IUserInfoService, UserInf
      * @date 2023-04-04 21:44:46
      * @return java.lang.String
      */
-    @GetMapping(value = "/add")
+    @GetMapping(value = "/{departId}/add")
     @PreAuthorize("hasAuthority('admin:user:info:save')")
-    public String add() {
-        return PATH_PREFIX + "/add";
+    public String add(@PathVariable("departId") String departId,
+                      ModelMap modelMap) {
+        modelMap.put("departId", departId);
+        return PATH_PREFIX + "/add" ;
     }
 
     /***
@@ -68,14 +70,14 @@ public class UserInfoController extends BizController< IUserInfoService, UserInf
     @PreAuthorize("hasAuthority('admin:user:info:update')")
     public String edit(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("userInfo", bizService.getById(id));
-        return PATH_PREFIX + "/edit";
+        return PATH_PREFIX + "/edit" ;
     }
 
     /***
      * 跳转到查看页面
      *
      * @author 王大宸
-     * @date  2023-04-04 21:44:46
+     * @date 2023-04-04 21:44:46
      * @param id          需要查看数据的id
      * @param modelMap    modelMap
      * @return java.lang.String
@@ -84,7 +86,7 @@ public class UserInfoController extends BizController< IUserInfoService, UserInf
     @PreAuthorize("hasAuthority('admin:user:info:view')")
     public String see(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("userInfo", bizService.getById(id));
-        return PATH_PREFIX + "/see";
+        return PATH_PREFIX + "/see" ;
     }
 
 }

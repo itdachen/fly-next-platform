@@ -2,52 +2,31 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="common/common::common('修改角色')"/>
-    <script th:src="@{/static/admin/role/info/edit.js}" charset="utf-8"></script>
+    <script th:src="@{/static/admin/role/edit.js}" charset="utf-8"></script>
 </head>
 <body>
 
 <form class="layui-form" id="editRoleInfoForm" th:object="${roleInfo}">
     <div class="layui-form-body">
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>角色名称
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="title" name="title" th:field="*{title}"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
 
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-<span class="required">*</span>部门id
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="deptId" name="deptId" th:field="*{deptId}"
-                                   autocomplete="off" lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-<span class="required">*</span>角色名称
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="title" name="title" th:field="*{title}"
-                                   autocomplete="off" lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-描述
-                        </label>
-                        <div class="layui-input-block">
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                描述
+            </label>
+            <div class="layui-input-block">
                         <textarea id="remarks" name="remarks" th:field="*{remarks}" maxlength="200"
- autocomplete="off" class="layui-textarea"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-<span class="required">*</span>客户端
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="clientId" name="clientId" th:field="*{clientId}"
-                                   autocomplete="off" lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
+                                  autocomplete="off" class="layui-textarea"></textarea>
+            </div>
+        </div>
     </div>
 
     <div class="form-footer">

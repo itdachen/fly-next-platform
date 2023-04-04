@@ -36,6 +36,12 @@
         ORDER BY id DESC
     </select>
 
+    <select id="hasChildren" resultType="java.lang.Integer" parameterType="java.lang.String">
+        SELECT 1
+        FROM sys_dept_info
+        WHERE parent_id = #{parentId} LIMIT 1
+    </select>
+
 
     <!-- 批量添加 -->
     <insert id="batchSave" parameterType="java.util.List">
@@ -107,5 +113,17 @@
         </foreach>
     </update>
 
+
+    <select id="findRootDept" resultType="com.github.itdachen.framework.assets.tree.ZTreeNode">
+        SELECT id, title AS name, parent_id AS parent_id
+        FROM sys_dept_info
+        WHERE parent_id = 'ROOT'
+    </select>
+
+    <select id="zTree" resultType="com.github.itdachen.framework.assets.tree.ZTreeNode">
+        SELECT id, title AS name, parent_id AS parent_id
+        FROM sys_dept_info
+        WHERE parent_id != 'ROOT'
+    </select>
 
 </mapper>

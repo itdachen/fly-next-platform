@@ -5,9 +5,12 @@
   +  Created with IntelliJ IDEA.
   ++++++++++++++++++++++++++++++++++++++++++++
  */
-const path =  HTTP_BIZ_URI + "/admin/user/info";
+var departId = 'ROOT';
+const path = HTTP_BIZ_URI + "/admin/user/info";
 layui.use(['table'], function () {
     let table = layui.table;
+
+    initTree();
 
     /* 初始化表格 */
     $.table.init(table, options())
@@ -17,23 +20,23 @@ layui.use(['table'], function () {
 
     /* 操作栏监听 */
     tool(table);
+
+    /* 隐藏新增按钮 */
+    if ('ROOT' === departId) {
+        $('#headBarTool').attr('style', 'display:none')
+    }
+
+
 });
 
 /**
  * 数据表格查询条件(必须有,不然表格重载不了)
  */
 function queryWhere() {
-              let username = $("#username").val();
-              let name = $("#name").val();
-              let departId = $("#departId").val();
-              let tenantId = $("#tenantId").val();
-              let clientId = $("#clientId").val();
+    let name = $("#name").val();
     return {
-                    username: username,
-                    name: name,
-                    departId: departId,
-                    tenantId: tenantId,
-                    clientId: clientId,
+        name: name,
+        departId: departId
     }
 }
 
@@ -56,10 +59,7 @@ function toolBar(table) {
             reloadTableData(table);
         }
         if ('saveUserInfo' === obj.event) {
-            $.model.openIframe({
-                title: '新增',
-                content: path + '/add'
-            })
+            location.href = path + '/' + departId + '/add';
         }
     })
 }
@@ -78,16 +78,10 @@ function tool(table) {
             })
         }
         if ('update' === obj.event) {
-            $.model.openIframe({
-                title: '编辑',
-                content: path + '/edit/' + data.id
-            })
+            location.href = path + '/edit/' + data.id;
         }
         if ('view' === obj.event) {
-            $.model.openIframeSee({
-                title: '查看',
-                content: path + '/view/' + data.id
-            })
+            location.href = path + '/view/' + data.id;
         }
     })
 }
@@ -97,22 +91,56 @@ function options() {
         url: path + "/page",
         where: queryWhere(),
         cols: [[
-                    {field: 'username', title: '登录账户', align: "center"},
-                    {field: 'password', title: '登录密码', align: "center"},
-                    {field: 'name', title: '姓名', align: "center"},
-                    {field: 'avatar', title: '头像', align: "center"},
-                    {field: 'birthday', title: '出生日期', align: "center"},
-                    {field: 'address', title: '地址', align: "center"},
-                    {field: 'telephone', title: '电话号码', align: "center"},
-                    {field: 'email', title: '电子邮箱', align: "center"},
-                    {field: 'departId', title: '部门ID', align: "center"},
-                    {field: 'sex', title: '性别: 数据字典-sys_sex', align: "center"},
-                    {field: 'type', title: '类型', align: "center"},
-                    {field: 'status', title: '状态: 数据字典: user_status 0-冻结;1-正常', align: "center"},
-                    {field: 'clientId', title: '客户端ID', align: "center"},
-            {fixed: 'right', title: '操作', toolbar: '#toolbarHandle', width: "20%", align: "center"}
+            {field: 'username', title: '登录账户', align: "center"},
+            {field: 'name', title: '姓名', align: "center"},
+            {
+                field: 'avatar',
+                title: '头像',
+                align: "center",
+                event: "openAvatar",
+                templet: function (d) {
+                    if ($.string.isNotEmpty(d.avatar)) {
+                        return '<img style="width:50px;height:50px;cursor:pointer;border-radius: 50%;" src="' + d.avatar + '" />';
+                    } else {
+                        return '';
+                    }
+                }
+            },
+            {field: 'telephone', title: '电话号码', align: "center"},
+            {field: 'email', title: '电子邮箱', width: 130, align: "center"},
+            {
+                field: 'sex', title: '性别', align: "center", width: 80, templet: function (d) {
+                    if ('1' === d.sex) {
+                        return '男';
+                    } else if ('2' === d.sex) {
+                        return '女';
+                    } else {
+                        return '未知';
+                    }
+                }
+            },
+            {
+                field: 'status', title: '状态', align: "center", width: 110, templet: function (d) {
+                    if ('1' === d.status) {
+                        return '正常';
+                    } else {
+                        return '冻结';
+                    }
+                }
+            },
+            {fixed: 'right', title: '操作', toolbar: '#toolbarHandle', width: "25%", align: "center"}
         ]]
     }
 
 }
 
+function initTree() {
+    $.zTree.initTree({
+        url: "/admin/dept/info/zTree",
+        callback: function (event, treeId, treeNode) {
+            $('#headBarTool').attr('style', 'display:block')
+            departId = treeNode.id;
+            reloadTableData()
+        }
+    })
+}

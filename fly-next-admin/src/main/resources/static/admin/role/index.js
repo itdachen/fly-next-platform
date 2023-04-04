@@ -1,16 +1,13 @@
 /*
   +++++++++++++++++++++++++++++++++++++++++++
-  +  Description: 部门管理
-  +  Created by 王大宸 on 2023-04-04 21:44:47
+  +  Description: 角色
+  +  Created by 王大宸 on 2023-04-04 21:44:46
   +  Created with IntelliJ IDEA.
   ++++++++++++++++++++++++++++++++++++++++++++
  */
-var parentId = 'ROOT';
-const path = HTTP_BIZ_URI + "/admin/dept/info";
+const path = HTTP_BIZ_URI + "/admin/role";
 layui.use(['table'], function () {
     let table = layui.table;
-
-    initTree();
 
     /* 初始化表格 */
     $.table.init(table, options())
@@ -20,22 +17,19 @@ layui.use(['table'], function () {
 
     /* 操作栏监听 */
     tool(table);
-
-    /* 隐藏新增按钮 */
-    if ('ROOT' === parentId || '0' === parentId) {
-        $('#headBarTool').attr('style', 'display:none')
-    }
-
 });
 
 /**
  * 数据表格查询条件(必须有,不然表格重载不了)
  */
 function queryWhere() {
+    let deptId = $("#deptId").val();
     let title = $("#title").val();
+    let clientId = $("#clientId").val();
     return {
+        deptId: deptId,
         title: title,
-        parentId: parentId,
+        clientId: clientId,
     }
 }
 
@@ -57,10 +51,10 @@ function toolBar(table) {
         if ('search' === obj.event) {
             reloadTableData(table);
         }
-        if ('saveDeptInfo' === obj.event) {
+        if ('saveRoleInfo' === obj.event) {
             $.model.openIframe({
                 title: '新增',
-                content: path + '/' + parentId + '/add'
+                content: path + '/add'
             })
         }
     })
@@ -91,6 +85,10 @@ function tool(table) {
                 content: path + '/view/' + data.id
             })
         }
+        if ('power' === obj.event) {
+            let powerUrl = path + '/power/' + data.id;
+            $.model.iframe('角色权限', powerUrl, '350', '500');
+        }
     })
 }
 
@@ -99,21 +97,11 @@ function options() {
         url: path + "/page",
         where: queryWhere(),
         cols: [[
-            {field: 'title', title: '部门名称', align: "center"},
+            {field: 'title', title: '角色名称', align: "center"},
             {field: 'remarks', title: '备注', align: "center"},
-            {fixed: 'right', title: '操作', toolbar: '#toolbarHandle', width: "20%", align: "center"}
+            {fixed: 'right', title: '操作', toolbar: '#toolbarHandle',  align: "center"}
         ]]
     }
+
 }
 
-
-function initTree() {
-    $.zTree.initTree({
-        url: path + "/zTree",
-        callback: function (event, treeId, treeNode) {
-            $('#headBarTool').attr('style', 'display:block')
-            parentId = treeNode.id;
-            reloadTableData()
-        }
-    })
-}

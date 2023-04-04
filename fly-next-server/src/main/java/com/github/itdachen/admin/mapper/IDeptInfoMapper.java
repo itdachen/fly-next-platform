@@ -3,6 +3,7 @@ package com.github.itdachen.admin.mapper;
 import com.github.itdachen.admin.entity.DeptInfo;
 import com.github.itdachen.admin.sdk.query.DeptInfoQuery;
 import com.github.itdachen.admin.sdk.vo.DeptInfoVo;
+import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public interface IDeptInfoMapper extends Mapper< DeptInfo > {
      */
     List< DeptInfoVo > page(DeptInfoQuery params);
 
-
+    Integer hasChildren(String parentId);
 
     /***
      * 批量添加
@@ -44,5 +45,24 @@ public interface IDeptInfoMapper extends Mapper< DeptInfo > {
      * @param list java.util.List<com.github.itdachen.admin.entity.DeptInfo>
      */
     void batchUpdate(List< DeptInfo > list);
+
+
+    /***
+     * 获取根目录
+     *
+     * @author 王大宸
+     * @date 2023/4/4 23:48
+     * @return com.github.itdachen.framework.assets.tree.ZTreeNode
+     */
+    ZTreeNode findRootDept();
+
+    /***
+     * 部门树
+     *
+     * @author 王大宸
+     * @date 2023/4/4 23:48
+     * @return java.util.List<com.github.itdachen.framework.assets.tree.ZTreeNode>
+     */
+    List<ZTreeNode> zTree();
 
 }

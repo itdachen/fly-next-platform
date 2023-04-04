@@ -63,6 +63,12 @@
         ORDER BY id DESC
     </select>
 
+    <select id="findUserByUsername" resultMap="userInfoMap" parameterType="java.lang.String">
+        <include refid="selectUserInfoVo"></include>
+        WHERE username = #{username}
+        LIMIT 1
+    </select>
+
 
     <!-- 批量添加 -->
     <insert id="batchSave" parameterType="java.util.List">
