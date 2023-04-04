@@ -21,7 +21,7 @@
         <result property="genType" column="gen_type"/>
         <result property="genPath" column="gen_path"/>
         <result property="options" column="options"/>
-        <result property="remark" column="remark"/>
+        <result property="remarks" column="remarks"/>
     </resultMap>
 
     <!-- 查收 sql -->
@@ -41,7 +41,7 @@
                gen_type,
                gen_path,
                options,
-               remark
+               remarks
         FROM sys_gen_table_info
     </sql>
 
@@ -102,7 +102,7 @@
             <if test="null != genType  and '' != genType ">gen_type,</if>
             <if test="null != genPath  and '' != genPath ">gen_path,</if>
             <if test="null != options  and '' != options ">options,</if>
-            <if test="null != remark  and '' != remark ">remark,</if>
+            <if test="null != remarks  and '' != remarks ">remarks,</if>
             <if test="null != createTime ">create_time,</if>
             <if test="null != createUser  and '' != createUser ">create_user,</if>
             <if test="null != createUserId  and '' != createUserId ">create_user_id,</if>
@@ -126,7 +126,7 @@
             <if test="null != genType  and '' != genType">#{genType},</if>
             <if test="null != genPath  and '' != genPath">#{genPath},</if>
             <if test="null != options  and '' != options">#{options},</if>
-            <if test="null != remark  and '' != remark">#{remark},</if>
+            <if test="null != remarks  and '' != remarks">#{remarks},</if>
             <if test="null != createTime ">#{createTime},</if>
             <if test="null != createUser  and '' != createUser">#{createUser},</if>
             <if test="null != createUserId  and '' != createUserId">#{createUserId},</if>
@@ -153,7 +153,7 @@
             <if test="null != genType  and '' !=  genType ">gen_type = #{genType},</if>
             <if test="null != genPath  and '' !=  genPath ">gen_path = #{genPath},</if>
             <if test="null != options  and '' !=  options ">options = #{options},</if>
-            <if test="null != remark  and '' !=  remark ">remark = #{remark},</if>
+            <if test="null != remarks  and '' !=  remarks ">remarks = #{remarks},</if>
             <if test="null != createTime ">create_time = #{createTime},</if>
             <if test="null != createUser  and '' !=  createUser ">create_user = #{createUser},</if>
             <if test="null != createUserId  and '' !=  createUserId ">create_user_id = #{createUserId},</if>
@@ -173,7 +173,7 @@
     <!-- 批量添加 -->
     <insert id="batchSave" parameterType="java.util.List">
         INSERT INTO sys_gen_table_info (id, table_name, table_comment, class_name, tpl_category, package_name, context_path,
-        module_name, business_name, function_name, function_author, menu_id, gen_type, gen_path, options, remark,
+        module_name, business_name, function_name, function_author, menu_id, gen_type, gen_path, options, remarks,
         create_time, create_user, create_user_id, update_time, update_user, update_user_id)
         VALUES
         <foreach collection="list" item="item" separator=",">
@@ -192,7 +192,7 @@
             #{item.genType},
             #{item.genPath},
             #{item.options},
-            #{item.remark},
+            #{item.remarks},
             #{item.createTime},
             #{item.createUser},
             #{item.createUserId},
@@ -234,7 +234,7 @@
                 <if test="null != item.genType  and '' != item.genType ">gen_type = #{item.genType},</if>
                 <if test="null != item.genPath  and '' != item.genPath ">gen_path = #{item.genPath},</if>
                 <if test="null != item.options  and '' != item.options ">options = #{item.options},</if>
-                <if test="null != item.remark  and '' != item.remark ">remark = #{item.remark},</if>
+                <if test="null != item.remarks  and '' != item.remarks ">remarks = #{item.remarks},</if>
                 <if test="null != item.createTime ">create_time = #{item.createTime},</if>
                 <if test="null != item.createUser  and '' != item.createUser ">create_user = #{item.createUser},</if>
                 <if test="null != item.createUserId  and '' != item.createUserId ">create_user_id =
@@ -311,7 +311,7 @@
         <result property="genType" column="gen_type"/>
         <result property="genPath" column="gen_path"/>
         <result property="options" column="options"/>
-        <result property="remark" column="remark"/>
+        <result property="remarks" column="remarks"/>
         <collection property="columns" javaType="java.util.List" resultMap="genTableColumnVo"/>
     </resultMap>
 
@@ -352,7 +352,7 @@
                t.gen_type,
                t.gen_path,
                t.OPTIONS,
-               t.remark,
+               t.remarks,
                c.id    AS column_id,
                c.table_id,
                c.column_name,
@@ -378,7 +378,7 @@
     </select>
 
     <select id="findAppAll" resultType="com.github.itdachen.framework.assets.tree.ZTreeNode">
-        SELECT app_code AS id, `name`, type, '1' AS parentId, '0' AS grade
+        SELECT app_code AS id, app_title AS name, app_type AS type, '1' AS parentId, '0' AS grade
         FROM sys_app_client
     </select>
 

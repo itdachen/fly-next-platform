@@ -99,7 +99,7 @@ public class TableInfoVo implements Serializable {
     /**
      * 备注
      */
-    private String remark;
+    private String remarks;
 
     /**
      * 主键信息
@@ -231,12 +231,12 @@ public class TableInfoVo implements Serializable {
         return options;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 
-    public String getRemark() {
-        return remark;
+    public String getRemarks() {
+        return remarks;
     }
 
     public TableColumnVo getPkColumn() {
@@ -281,7 +281,7 @@ public class TableInfoVo implements Serializable {
                 .append("genType", getGenType())
                 .append("genPath", getGenPath())
                 .append("options", getOptions())
-                .append("remark", getRemark())
+                .append("remarks", getRemarks())
                 .append("pkColumn", getPkColumn())
                 .append("columns", getColumns())
                 .toString();

@@ -114,8 +114,8 @@ public class TableInfo implements Serializable {
     /**
      * 备注
      */
-    @Column(name = "remark")
-    private String remark;
+    @Column(name = "remarks")
+    private String remarks;
 
     /**
      * 创建时间
@@ -274,12 +274,12 @@ public class TableInfo implements Serializable {
         return options;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 
-    public String getRemark() {
-        return remark;
+    public String getRemarks() {
+        return remarks;
     }
 
     public void setCreateTime(LocalDateTime createTime) {
@@ -349,7 +349,7 @@ public class TableInfo implements Serializable {
                 .append("genType", getGenType())
                 .append("genPath", getGenPath())
                 .append("options", getOptions())
-                .append("remark", getRemark())
+                .append("remarks", getRemarks())
                 .append("createTime", getCreateTime())
                 .append("createUser", getCreateUser())
                 .append("createUserId", getCreateUserId())
