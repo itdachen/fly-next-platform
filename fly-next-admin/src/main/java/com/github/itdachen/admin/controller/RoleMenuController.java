@@ -37,7 +37,7 @@ public class RoleMenuController extends BizController< IRoleMenuService, RoleMen
      * @return java.lang.String
      */
     @GetMapping(value = "/index")
-    @PreAuthorize("hasAuthority('admin:admin:role:menu:index')")
+    @PreAuthorize("hasAuthority('admin:role:menu:index')")
     public String index() {
         return PATH_PREFIX + "/index";
     }
@@ -50,7 +50,7 @@ public class RoleMenuController extends BizController< IRoleMenuService, RoleMen
      * @return java.lang.String
      */
     @GetMapping(value = "/add")
-    @PreAuthorize("hasAuthority('admin:admin:role:menu:save')")
+    @PreAuthorize("hasAuthority('admin:role:menu:save')")
     public String add() {
         return PATH_PREFIX + "/add";
     }
@@ -65,7 +65,7 @@ public class RoleMenuController extends BizController< IRoleMenuService, RoleMen
      * @return java.lang.String
      */
     @GetMapping(value = "/edit/{id}")
-    @PreAuthorize("hasAuthority('admin:admin:role:menu:update')")
+    @PreAuthorize("hasAuthority('admin:role:menu:update')")
     public String edit(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("roleMenu", bizService.getById(id));
         return PATH_PREFIX + "/edit";
@@ -81,7 +81,7 @@ public class RoleMenuController extends BizController< IRoleMenuService, RoleMen
      * @return java.lang.String
      */
     @GetMapping(value = "/view/{id}")
-    @PreAuthorize("hasAuthority('admin:admin:role:menu:view')")
+    @PreAuthorize("hasAuthority('admin:role:menu:view')")
     public String see(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("roleMenu", bizService.getById(id));
         return PATH_PREFIX + "/see";

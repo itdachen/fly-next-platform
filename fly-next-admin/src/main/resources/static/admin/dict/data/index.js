@@ -5,7 +5,7 @@
   +  Created with IntelliJ IDEA.
   ++++++++++++++++++++++++++++++++++++++++++++
  */
-const path =  HTTP_BIZ_URI + "/admin/dict/data";
+const path = HTTP_BIZ_URI + "/admin/dict/data";
 layui.use(['table'], function () {
     let table = layui.table;
 
@@ -23,19 +23,11 @@ layui.use(['table'], function () {
  * 数据表格查询条件(必须有,不然表格重载不了)
  */
 function queryWhere() {
-              let dictSort = $("#dictSort").val();
-              let dictLabel = $("#dictLabel").val();
-              let dictValue = $("#dictValue").val();
-              let dictType = $("#dictType").val();
-              let isDefault = $("#isDefault").val();
-              let status = $("#status").val();
+    let dictLabel = $("#dictLabel").val();
+    let dictType = $("#dictType").val();
     return {
-                    dictSort: dictSort,
-                    dictLabel: dictLabel,
-                    dictValue: dictValue,
-                    dictType: dictType,
-                    isDefault: isDefault,
-                    status: status,
+        dictLabel: dictLabel,
+        dictType: dictType,
     }
 }
 
@@ -58,9 +50,10 @@ function toolBar(table) {
             reloadTableData(table);
         }
         if ('saveDictData' === obj.event) {
+            let dictType = $("#dictType").val();
             $.model.openIframe({
                 title: '新增',
-                content: path + '/add'
+                content: path + '/' + dictType + '/add'
             })
         }
     })
@@ -99,12 +92,17 @@ function options() {
         url: path + "/page",
         where: queryWhere(),
         cols: [[
-                    {field: 'dictSort', title: '字典排序', align: "center"},
-                    {field: 'dictLabel', title: '字典标签', align: "center"},
-                    {field: 'dictValue', title: '字典键值', align: "center"},
-                    {field: 'dictType', title: '字典类型', align: "center"},
-                    {field: 'isDefault', title: '是否默认（Y是 N否）', align: "center"},
-                    {field: 'status', title: '状态,数据字典:dict_data_status', align: "center"},
+            {field: 'dictLabel', title: '字典标签', align: "center"},
+            {field: 'dictValue', title: '字典键值', align: "center"},
+            {field: 'isDefault', title: '是否默认', align: "center", templet: function (d) {
+                    if ('1' === d.isDefault) {
+                        return '是'
+                    }
+                    return '否'
+                }},
+            {field: 'status', title: '状态', align: "center", templet: '#statusTpl'},
+            {field: 'remarks', title: '备注', align: "center"},
+            {field: 'dictSort', title: '字典排序', align: "center"},
             {fixed: 'right', title: '操作', toolbar: '#toolbarHandle', width: "20%", align: "center"}
         ]]
     }

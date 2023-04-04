@@ -9,57 +9,49 @@
 <form class="layui-form" id="editDictTypeForm" th:object="${dictType}">
     <div class="layui-form-body">
 
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-<span class="required">*</span>字典名称
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="dictName" name="dictName" th:field="*{dictName}"
-                                   autocomplete="off" lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>字典名称
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="dictName" name="dictName" th:field="*{dictName}"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
 
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-<span class="required">*</span>字典类型
-                        </label>
-                        <div class="layui-input-block">
-                            <select id="dictType" name="dictType" th:with="dicts=${@dict.data('log_business_type')}">
-                                <option value="">请选择字典类型</option>
-                                <option th:each="dict : ${dicts}"
-                                        th:id="${'dictType_' + dict.value}"
-                                        th:field="*{dictType}"
-                                        th:text="${dict.label}"
-                                        th:value="${dict.value}"
-                                        th:checked="dictType">
-                                </option>
-                            </select>
-                        </div>
-                    </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>字典类型
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="dictType" name="dictType" th:field="*{dictType}"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
 
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-<span class="required">*</span>状态,数据字典: dict_data_status
-                        </label>
-                        <div class="layui-input-block" th:with="dicts=${@dict.data('dict_data_status')}">
-                            <input type="radio" name="status" th:each="dict : ${dicts}"
-                                   th:id="${'status_' + dict.value}"
-                                   th:field="*{status}"
-                                   th:title="${dict.label}"
-                                   th:value="${dict.value}"
-                                   th:checked="${dictType.status}">
-                        </div>
-                    </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>状态
+            </label>
+            <div class="layui-input-block" th:with="dicts=${@dict.data('dict_data_status')}">
+                <input type="radio" name="status" th:each="dict : ${dicts}"
+                       th:id="${'status_' + dict.value}"
+                       th:field="*{status}"
+                       th:title="${dict.label}"
+                       th:value="${dict.value}"
+                       th:checked="${dictType.status}">
+            </div>
+        </div>
 
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-备注
-                        </label>
-                        <div class="layui-input-block">
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                备注
+            </label>
+            <div class="layui-input-block">
                         <textarea id="remarks" name="remarks" th:field="*{remarks}" maxlength="200"
- autocomplete="off" class="layui-textarea"></textarea>
-                        </div>
-                    </div>
+                                  autocomplete="off" class="layui-textarea"></textarea>
+            </div>
+        </div>
     </div>
 
     <div class="form-footer">

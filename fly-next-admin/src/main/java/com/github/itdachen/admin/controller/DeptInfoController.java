@@ -37,7 +37,7 @@ public class DeptInfoController extends BizController< IDeptInfoService, DeptInf
      * @return java.lang.String
      */
     @GetMapping(value = "/index")
-    @PreAuthorize("hasAuthority('admin:admin:dept:info:index')")
+    @PreAuthorize("hasAuthority('admin:dept:info:index')")
     public String index() {
         return PATH_PREFIX + "/index";
     }
@@ -50,7 +50,7 @@ public class DeptInfoController extends BizController< IDeptInfoService, DeptInf
      * @return java.lang.String
      */
     @GetMapping(value = "/add")
-    @PreAuthorize("hasAuthority('admin:admin:dept:info:save')")
+    @PreAuthorize("hasAuthority('admin:dept:info:save')")
     public String add() {
         return PATH_PREFIX + "/add";
     }
@@ -65,7 +65,7 @@ public class DeptInfoController extends BizController< IDeptInfoService, DeptInf
      * @return java.lang.String
      */
     @GetMapping(value = "/edit/{id}")
-    @PreAuthorize("hasAuthority('admin:admin:dept:info:update')")
+    @PreAuthorize("hasAuthority('admin:dept:info:update')")
     public String edit(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("deptInfo", bizService.getById(id));
         return PATH_PREFIX + "/edit";
@@ -81,7 +81,7 @@ public class DeptInfoController extends BizController< IDeptInfoService, DeptInf
      * @return java.lang.String
      */
     @GetMapping(value = "/view/{id}")
-    @PreAuthorize("hasAuthority('admin:admin:dept:info:view')")
+    @PreAuthorize("hasAuthority('admin:dept:info:view')")
     public String see(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("deptInfo", bizService.getById(id));
         return PATH_PREFIX + "/see";

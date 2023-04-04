@@ -36,9 +36,10 @@ public class DictDataController extends BizController< IDictDataService, DictDat
      * @date 2023-04-04 21:44:47
      * @return java.lang.String
      */
-    @GetMapping(value = "/index")
-    @PreAuthorize("hasAuthority('admin:admin:dict:data:index')")
-    public String index() {
+    @GetMapping(value = "/{dictType}/index")
+    @PreAuthorize("hasAuthority('admin:dict:data:index')")
+    public String index(@PathVariable("dictType") String dictType, ModelMap modelMap) {
+        modelMap.put("dictType", dictType);
         return PATH_PREFIX + "/index";
     }
 
@@ -49,9 +50,10 @@ public class DictDataController extends BizController< IDictDataService, DictDat
      * @date 2023-04-04 21:44:47
      * @return java.lang.String
      */
-    @GetMapping(value = "/add")
-    @PreAuthorize("hasAuthority('admin:admin:dict:data:save')")
-    public String add() {
+    @GetMapping(value = "/{dictType}/add")
+    @PreAuthorize("hasAuthority('admin:dict:data:save')")
+    public String add(@PathVariable("dictType") String dictType, ModelMap modelMap) {
+        modelMap.put("dictType", dictType);
         return PATH_PREFIX + "/add";
     }
 
@@ -65,7 +67,7 @@ public class DictDataController extends BizController< IDictDataService, DictDat
      * @return java.lang.String
      */
     @GetMapping(value = "/edit/{id}")
-    @PreAuthorize("hasAuthority('admin:admin:dict:data:update')")
+    @PreAuthorize("hasAuthority('admin:dict:data:update')")
     public String edit(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("dictData", bizService.getById(id));
         return PATH_PREFIX + "/edit";
@@ -81,7 +83,7 @@ public class DictDataController extends BizController< IDictDataService, DictDat
      * @return java.lang.String
      */
     @GetMapping(value = "/view/{id}")
-    @PreAuthorize("hasAuthority('admin:admin:dict:data:view')")
+    @PreAuthorize("hasAuthority('admin:dict:data:view')")
     public String see(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("dictData", bizService.getById(id));
         return PATH_PREFIX + "/see";

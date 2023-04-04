@@ -5,7 +5,7 @@
   +  Created with IntelliJ IDEA.
   ++++++++++++++++++++++++++++++++++++++++++++
  */
-const path =  HTTP_BIZ_URI + "/admin/dict/type";
+const path = HTTP_BIZ_URI + "/admin/dict/type";
 layui.use(['table'], function () {
     let table = layui.table;
 
@@ -23,13 +23,13 @@ layui.use(['table'], function () {
  * 数据表格查询条件(必须有,不然表格重载不了)
  */
 function queryWhere() {
-              let dictName = $("#dictName").val();
-              let dictType = $("#dictType").val();
-              let status = $("#status").val();
+    let dictName = $("#dictName").val();
+    let dictType = $("#dictType").val();
+    let status = $("#status").val();
     return {
-                    dictName: dictName,
-                    dictType: dictType,
-                    status: status,
+        dictName: dictName,
+        dictType: dictType,
+        status: status,
     }
 }
 
@@ -80,10 +80,11 @@ function tool(table) {
             })
         }
         if ('view' === obj.event) {
-            $.model.openIframeSee({
-                title: '查看',
-                content: path + '/view/' + data.id
-            })
+            location.href = '/admin/dict/data/' + data.dictType + '/index'
+            // $.model.openIframeSee({
+            //     title: '查看',
+            //     content: path + '/view/' + data.id
+            // })
         }
     })
 }
@@ -93,9 +94,10 @@ function options() {
         url: path + "/page",
         where: queryWhere(),
         cols: [[
-                    {field: 'dictName', title: '字典名称', align: "center"},
-                    {field: 'dictType', title: '字典类型', align: "center"},
-                    {field: 'status', title: '状态,数据字典: dict_data_status', align: "center"},
+            {field: 'dictName', title: '字典名称', align: "center"},
+            {field: 'dictType', title: '字典类型', align: "center"},
+            {field: 'status', title: '状态', align: "center", templet: "#statusTpl"},
+            {field: 'remarks', title: '备注', align: "center"},
             {fixed: 'right', title: '操作', toolbar: '#toolbarHandle', width: "20%", align: "center"}
         ]]
     }

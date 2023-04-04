@@ -37,7 +37,7 @@ public class UserInfoController extends BizController< IUserInfoService, UserInf
      * @return java.lang.String
      */
     @GetMapping(value = "/index")
-    @PreAuthorize("hasAuthority('admin:admin:user:info:index')")
+    @PreAuthorize("hasAuthority('admin:user:info:index')")
     public String index() {
         return PATH_PREFIX + "/index";
     }
@@ -50,7 +50,7 @@ public class UserInfoController extends BizController< IUserInfoService, UserInf
      * @return java.lang.String
      */
     @GetMapping(value = "/add")
-    @PreAuthorize("hasAuthority('admin:admin:user:info:save')")
+    @PreAuthorize("hasAuthority('admin:user:info:save')")
     public String add() {
         return PATH_PREFIX + "/add";
     }
@@ -65,7 +65,7 @@ public class UserInfoController extends BizController< IUserInfoService, UserInf
      * @return java.lang.String
      */
     @GetMapping(value = "/edit/{id}")
-    @PreAuthorize("hasAuthority('admin:admin:user:info:update')")
+    @PreAuthorize("hasAuthority('admin:user:info:update')")
     public String edit(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("userInfo", bizService.getById(id));
         return PATH_PREFIX + "/edit";
@@ -81,7 +81,7 @@ public class UserInfoController extends BizController< IUserInfoService, UserInf
      * @return java.lang.String
      */
     @GetMapping(value = "/view/{id}")
-    @PreAuthorize("hasAuthority('admin:admin:user:info:view')")
+    @PreAuthorize("hasAuthority('admin:user:info:view')")
     public String see(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("userInfo", bizService.getById(id));
         return PATH_PREFIX + "/see";

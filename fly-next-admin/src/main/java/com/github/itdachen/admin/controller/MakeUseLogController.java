@@ -37,7 +37,7 @@ public class MakeUseLogController extends BizController< IMakeUseLogService, Mak
      * @return java.lang.String
      */
     @GetMapping(value = "/index")
-    @PreAuthorize("hasAuthority('admin:admin:make:use:log:index')")
+    @PreAuthorize("hasAuthority('admin:make:use:log:index')")
     public String index() {
         return PATH_PREFIX + "/index";
     }
@@ -50,7 +50,7 @@ public class MakeUseLogController extends BizController< IMakeUseLogService, Mak
      * @return java.lang.String
      */
     @GetMapping(value = "/add")
-    @PreAuthorize("hasAuthority('admin:admin:make:use:log:save')")
+    @PreAuthorize("hasAuthority('admin:make:use:log:save')")
     public String add() {
         return PATH_PREFIX + "/add";
     }
@@ -65,7 +65,7 @@ public class MakeUseLogController extends BizController< IMakeUseLogService, Mak
      * @return java.lang.String
      */
     @GetMapping(value = "/edit/{id}")
-    @PreAuthorize("hasAuthority('admin:admin:make:use:log:update')")
+    @PreAuthorize("hasAuthority('admin:make:use:log:update')")
     public String edit(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("makeUseLog", bizService.getById(id));
         return PATH_PREFIX + "/edit";
@@ -81,7 +81,7 @@ public class MakeUseLogController extends BizController< IMakeUseLogService, Mak
      * @return java.lang.String
      */
     @GetMapping(value = "/view/{id}")
-    @PreAuthorize("hasAuthority('admin:admin:make:use:log:view')")
+    @PreAuthorize("hasAuthority('admin:make:use:log:view')")
     public String see(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("makeUseLog", bizService.getById(id));
         return PATH_PREFIX + "/see";
