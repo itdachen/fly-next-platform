@@ -10,9 +10,9 @@ layui.use('form', function () {
         let menuIds = getCheckedTreeNodes();
         let userId = $("#userId").val();
         $.http.post({
-            url: "/admin/role/user",
+            url: "/admin/perms/auth",
             data: {
-                roleId: menuIds,
+                menuId: menuIds,
                 userId: userId
             },
             callback: function (res) {
@@ -35,7 +35,7 @@ function init() {
 
     let userId = $("#userId").val();
     $.zTree.initTree({
-        url: "/admin/role/user/zTree/" + userId,
+        url: "/admin/perms/auth/zTree/" + userId,
         initCallback: function (res) {
             zTree = $.fn.zTree.init($("#tree"), setting, res.data);
             sitFolderTree = $.fn.zTree.getZTreeObj("tree");

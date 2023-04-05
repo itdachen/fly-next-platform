@@ -10,8 +10,7 @@ layui.use('form', function () {
         check: true,
         showIcon: false,
     })
-
-
+    
     form.on('submit(sub)', function (data) {
         let menuIds = getCheckedTreeNodes();
         let roleId = $("#roleId").val();

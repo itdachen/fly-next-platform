@@ -16,6 +16,8 @@ import java.util.List;
  */
 public interface IRoleMenuMapper extends Mapper<RoleMenu> {
 
+    void remove(String roleId);
+
     /***
      * 查询集合
      *
@@ -59,5 +61,14 @@ public interface IRoleMenuMapper extends Mapper<RoleMenu> {
 
     List<ZTreeNode> findValidElement(String menuId, String visible);
 
+    /***
+     * 根据角色查询已经授权的菜单
+     *
+     * @author 王大宸
+     * @date 2023/4/5 21:49
+     * @param roleId roleId
+     * @return java.util.List<java.lang.String>
+     */
+    List<String> findMenuByRoleId(String roleId);
 
 }

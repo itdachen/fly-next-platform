@@ -93,4 +93,21 @@ public class RoleInfoController extends BizController< IRoleInfoService, RoleInf
         return PATH_PREFIX + "/see";
     }
 
+    /***
+     * 跳转到角色授权界面
+     *
+     * @author 王大宸
+     * @date 2022/8/25 21:47
+     * @param id id
+     * @param modelMap modelMap
+     * @return java.lang.String
+     */
+    @GetMapping(value = "/power/{id}")
+    @PreAuthorize("hasAuthority('admin:role:power')")
+    public String power(@PathVariable("id") String id, ModelMap modelMap) throws BizException {
+        modelMap.put("roleId", id);
+        return PATH_PREFIX + "/power";
+    }
+
+
 }

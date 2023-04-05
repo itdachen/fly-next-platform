@@ -4,17 +4,21 @@ import com.github.itdachen.admin.service.IRoleMenuService;
 import com.github.itdachen.admin.entity.RoleMenu;
 import com.github.itdachen.admin.sdk.query.RoleMenuQuery;
 import com.github.itdachen.admin.sdk.vo.RoleMenuVo;
+import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.annotation.CheckApiClient;
+import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.core.constants.ClientConstant;
+import com.github.itdachen.framework.core.response.ServerResponse;
 import com.github.itdachen.framework.webmvc.controller.BizController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 菜单角色
@@ -25,66 +29,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/admin/role/menu")
 @CheckApiClient(title = "菜单角色", clientId = ClientConstant.CLIENT_WEB)
-public class RoleMenuController extends BizController< IRoleMenuService, RoleMenu, RoleMenuVo, RoleMenuQuery, String > {
+public class RoleMenuController {
     private static final Logger logger = LoggerFactory.getLogger(RoleMenuController.class);
-    private static final String PATH_PREFIX = "admin/role/menu";
+
+
+    private final IRoleMenuService roleMenuService;
+
+    public RoleMenuController(IRoleMenuService roleMenuService) {
+        this.roleMenuService = roleMenuService;
+    }
+
 
     /***
-     * 跳转到信息管理界面
+     * 新增
      *
      * @author 王大宸
-     * @date 2023-04-04 21:44:46
-     * @return java.lang.String
+     * @date 2022/8/24 23:39
+     * @param roleMenu roleMenu
+     * @return com.itdachen.framework.core.response.ServerResponse<com.itdachen.admin.entity.RoleMenu>
      */
-    @GetMapping(value = "/index")
-    @PreAuthorize("hasAuthority('admin:role:menu:index')")
-    public String index() {
-        return PATH_PREFIX + "/index";
+    @PostMapping("")
+    @ResponseBody
+    public ServerResponse<RoleMenu> save(@RequestBody RoleMenu roleMenu) throws Exception {
+        return ServerResponse.okData(roleMenuService.save(roleMenu));
     }
 
     /***
-     * 跳转到添加页面
+     * 获取菜单树
      *
      * @author 王大宸
-     * @date 2023-04-04 21:44:46
-     * @return java.lang.String
+     * @date 2022/8/25 21:05
+     * @param roleId roleId
+     * @return com.itdachen.framework.core.response.ServerResponse<java.util.List < com.itdachen.common.node.ZTreeNode>>
      */
-    @GetMapping(value = "/add")
-    @PreAuthorize("hasAuthority('admin:role:menu:save')")
-    public String add() {
-        return PATH_PREFIX + "/add";
+    @GetMapping(value = "/zTree/{roleId}")
+    @ResponseBody
+    public ServerResponse<List<ZTreeNode>> roleMenuTreeData(@PathVariable("roleId") String roleId) throws BizException {
+        return ServerResponse.okData(roleMenuService.roleMenuTreeData(roleId,
+                BizContextHandler.getUserType(),
+                BizContextHandler.getUserId()));
     }
 
-    /***
-     * 跳转到修改页面
-     *
-     * @author 王大宸
-     * @date 2023-04-04 21:44:46
-     * @param id         需要修改数据的id
-     * @param modelMap   modelMap
-     * @return java.lang.String
-     */
-    @GetMapping(value = "/edit/{id}")
-    @PreAuthorize("hasAuthority('admin:role:menu:update')")
-    public String edit(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
-        modelMap.put("roleMenu", bizService.getById(id));
-        return PATH_PREFIX + "/edit";
-    }
-
-    /***
-     * 跳转到查看页面
-     *
-     * @author 王大宸
-     * @date  2023-04-04 21:44:46
-     * @param id          需要查看数据的id
-     * @param modelMap    modelMap
-     * @return java.lang.String
-     */
-    @GetMapping(value = "/view/{id}")
-    @PreAuthorize("hasAuthority('admin:role:menu:view')")
-    public String see(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
-        modelMap.put("roleMenu", bizService.getById(id));
-        return PATH_PREFIX + "/see";
-    }
 
 }

@@ -31,11 +31,17 @@
     </select>
 
 
+    <delete id="remove" parameterType="java.lang.String">
+        DELETE
+        FROM sys_role_menu
+        WHERE role_id = #{roleId}
+    </delete>
+
     <!-- 批量添加 -->
     <insert id="batchSave" parameterType="java.util.List">
         INSERT INTO sys_role_menu (id , role_id , menu_id) VALUES
-        <foreach collection="list" item="item" open="(" close=")">
-            #{item.id}, #{item.roleId}, #{item.menuId}
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id}, #{item.roleId}, #{item.menuId})
         </foreach>
     </insert>
 
@@ -58,7 +64,8 @@
         </foreach>
     </update>
 
-    <select id="findValidMenu" resultType="com.github.itdachen.framework.assets.tree.ZTreeNode" parameterType="java.lang.String">
+    <select id="findValidMenu" resultType="com.github.itdachen.framework.assets.tree.ZTreeNode"
+            parameterType="java.lang.String">
         SELECT id, parent_id AS parentId, title AS `name`, type
         FROM sys_menu_info
         <where>
@@ -68,7 +75,8 @@
         ORDER BY order_num
     </select>
 
-    <select id="findValidElement" resultType="com.github.itdachen.framework.assets.tree.ZTreeNode" parameterType="java.lang.String">
+    <select id="findValidElement" resultType="com.github.itdachen.framework.assets.tree.ZTreeNode"
+            parameterType="java.lang.String">
         SELECT id, title AS name, menu_id AS parentId, type
         FROM sys_element_info
         <where>
@@ -76,6 +84,12 @@
             <if test="null != visible  and '' != visible ">AND visible = #{visible}</if>
         </where>
         ORDER BY order_num ASC
+    </select>
+
+    <select id="findMenuByRoleId" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT menu_id
+        FROM sys_role_menu
+        WHERE role_id = #{roleId}
     </select>
 
 </mapper>

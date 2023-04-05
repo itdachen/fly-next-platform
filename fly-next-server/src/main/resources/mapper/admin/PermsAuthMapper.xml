@@ -32,10 +32,9 @@
 
     <!-- 批量添加 -->
     <insert id="batchSave" parameterType="java.util.List">
-        INSERT INTO sys_perms_auth (id, user_id, menu_id)
-        VALUES
-        <foreach collection="list" item="item" close="(" open=")">
-            #{item.id}, #{item.userId}, #{item.menuId}
+        INSERT INTO sys_perms_auth (id, user_id, menu_id) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id}, #{item.userId}, #{item.menuId})
         </foreach>
     </insert>
 

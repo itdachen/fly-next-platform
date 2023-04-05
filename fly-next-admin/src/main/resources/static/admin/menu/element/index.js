@@ -5,7 +5,7 @@
   +  Created with IntelliJ IDEA.
   ++++++++++++++++++++++++++++++++++++++++++++
  */
-const path =  HTTP_BIZ_URI + "/admin/element/info";
+const path = HTTP_BIZ_URI + "/admin/element/info";
 layui.use(['table'], function () {
     let table = layui.table;
 
@@ -23,25 +23,25 @@ layui.use(['table'], function () {
  * 数据表格查询条件(必须有,不然表格重载不了)
  */
 function queryWhere() {
-              let menuId = $("#menuId").val();
-              let title = $("#title").val();
-              let code = $("#code").val();
-              let type = $("#type").val();
-              let href = $("#href").val();
-              let path = $("#path").val();
-              let method = $("#method").val();
-              let orderNum = $("#orderNum").val();
-              let visible = $("#visible").val();
+    let menuId = $("#menuId").val();
+    let title = $("#title").val();
+    let code = $("#code").val();
+    let type = $("#type").val();
+    let href = $("#href").val();
+    let path = $("#path").val();
+    let method = $("#method").val();
+    let orderNum = $("#orderNum").val();
+    let visible = $("#visible").val();
     return {
-                    menuId: menuId,
-                    title: title,
-                    code: code,
-                    type: type,
-                    href: href,
-                    path: path,
-                    method: method,
-                    orderNum: orderNum,
-                    visible: visible,
+        menuId: menuId,
+        title: title,
+        code: code,
+        type: type,
+        href: href,
+        path: path,
+        method: method,
+        orderNum: orderNum,
+        visible: visible,
     }
 }
 
@@ -105,15 +105,15 @@ function options() {
         url: path + "/page",
         where: queryWhere(),
         cols: [[
-                    {field: 'menuId', title: '资源关联菜单', align: "center"},
-                    {field: 'title', title: '资源名称: 新增,编辑,删除 ... 等', align: "center"},
-                    {field: 'code', title: '资源编码: 权限编码', align: "center"},
-                    {field: 'type', title: '资源类型: button,uri', align: "center"},
-                    {field: 'href', title: '资源路径, 路径动态参数使用{*}: /admin/user/{*}', align: "center"},
-                    {field: 'path', title: '视图路径, 路径动态参数使用{*}: /admin/user/{*}', align: "center"},
-                    {field: 'method', title: '资源请求类型:GET,POST,PUT,DELETE', align: "center"},
-                    {field: 'orderNum', title: '排序', align: "center"},
-                    {field: 'visible', title: '状态:1-可用,0-禁用', align: "center"},
+            {field: 'menuId', title: '资源关联菜单', align: "center"},
+            {field: 'title', title: '资源名称: 新增,编辑,删除 ... 等', align: "center"},
+            {field: 'code', title: '资源编码: 权限编码', align: "center"},
+            {field: 'type', title: '资源类型: button,uri', align: "center"},
+            {field: 'href', title: '资源路径, 路径动态参数使用{*}: /admin/user/{*}', align: "center"},
+            {field: 'path', title: '视图路径, 路径动态参数使用{*}: /admin/user/{*}', align: "center"},
+            {field: 'method', title: '资源请求类型:GET,POST,PUT,DELETE', align: "center"},
+            {field: 'orderNum', title: '排序', align: "center"},
+            {field: 'visible', title: '状态:1-可用,0-禁用', align: "center"},
             {fixed: 'right', title: '操作', toolbar: '#toolbarHandle', width: "20%", align: "center"}
         ]]
     }

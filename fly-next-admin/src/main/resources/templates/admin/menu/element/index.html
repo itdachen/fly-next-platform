@@ -11,29 +11,8 @@
 <script type="text/html" id="toolbar">
     <div class="tool-head-bar">
         <div class="head-search" sec:authorize="hasAuthority('admin:admin:element:info:query')">
-            <input class="layui-input float_left" placeholder="资源关联菜单"
-                   id="menuId" name="menuId" autocomplete="off">
-            <input class="layui-input float_left" placeholder="资源名称: 新增,编辑,删除 ... 等"
+            <input class="layui-input float_left" placeholder="资源名称"
                    id="title" name="title" autocomplete="off">
-            <input class="layui-input float_left" placeholder="资源编码: 权限编码"
-                   id="code" name="code" autocomplete="off">
-            <select id="type" name="type" th:with="dicts=${@dict.data('log_business_type')}">
-                <option value="">请选择资源类型: button,uri</option>
-                <option th:each="dict : ${dicts}"
-                        th:text="${dict.label}"
-                        th:value="${dict.value}">
-                </option>
-            </select>
-            <input class="layui-input float_left" placeholder="资源路径, 路径动态参数使用{*}: /admin/user/{*}"
-                   id="href" name="href" autocomplete="off">
-            <input class="layui-input float_left" placeholder="视图路径, 路径动态参数使用{*}: /admin/user/{*}"
-                   id="path" name="path" autocomplete="off">
-            <input class="layui-input float_left" placeholder="资源请求类型:GET,POST,PUT,DELETE"
-                   id="method" name="method" autocomplete="off">
-            <input class="layui-input float_left" placeholder="排序"
-                   id="orderNum" name="orderNum" autocomplete="off">
-            <input class="layui-input float_left" placeholder="状态:1-可用,0-禁用"
-                   id="visible" name="visible" autocomplete="off">
             <button class="layui-btn layui-btn-sm layui-btn-normal search-btn float_left"
                     lay-event="search">
                 <i class="layui-icon layui-icon-search"></i>搜索

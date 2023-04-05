@@ -83,6 +83,19 @@ function tool(table) {
         if ('view' === obj.event) {
             location.href = path + '/view/' + data.id;
         }
+        if ('role' === obj.event) {
+            let uri = '/admin/role/user/' + data.id + '/index';
+            $.model.iframe('角色权限', uri, '350', '500');
+        }
+        if ('power' === obj.event) {
+            let uri = '/admin/perms/auth/' + data.id + '/index';
+            $.model.iframe('权限下发', uri, '350', '500');
+        }
+        if ('openAvatar' === obj.event) {
+            if ($.string.isNotEmpty(data.avatar)) {
+                $.model.openImg(data.name, data.avatar, '500', '500');
+            }
+        }
     })
 }
 

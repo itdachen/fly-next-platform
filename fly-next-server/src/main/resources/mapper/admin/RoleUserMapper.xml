@@ -6,9 +6,9 @@
 
     <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.github.itdachen.admin.sdk.vo.RoleUserVo" id="roleUserMap">
-            <result property="id" column="id"/>
-            <result property="userId" column="user_id"/>
-            <result property="roleId" column="role_id"/>
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="roleId" column="role_id"/>
     </resultMap>
 
     <sql id="selectRoleUserVo">
@@ -33,32 +33,26 @@
 
     <!-- 批量添加 -->
     <insert id="batchSave" parameterType="java.util.List">
-        INSERT INTO sys_role_user (id        , user_id        , role_id)
-        (
-        <foreach collection="list" item="item" separator="UNION ALL">
-            SELECT
-                #{item.id}, 
-                #{item.userId}, 
-                #{item.roleId}
-            FROM DUAL
+        INSERT INTO sys_role_user (id, user_id, role_id) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id}, #{item.userId}, #{item.roleId})
         </foreach>
-        )
     </insert>
 
     <!-- 批量更新 -->
     <update id="batchUpdate" parameterType="java.util.List">
         <foreach collection="list" item="item" index="index" open="" close="" separator=";">
-            UPDATE  sys_role_user
+            UPDATE sys_role_user
             <set>
-                        <if test="null != item.id  and '' != item.id ">id =
-                            #{item.id},
-                        </if>
-                        <if test="null != item.userId  and '' != item.userId ">user_id =
-                            #{item.userId},
-                        </if>
-                        <if test="null != item.roleId  and '' != item.roleId ">role_id =
-                            #{item.roleId},
-                        </if>
+                <if test="null != item.id  and '' != item.id ">id =
+                    #{item.id},
+                </if>
+                <if test="null != item.userId  and '' != item.userId ">user_id =
+                    #{item.userId},
+                </if>
+                <if test="null != item.roleId  and '' != item.roleId ">role_id =
+                    #{item.roleId},
+                </if>
             </set>
             WHERE id = #{item.id}
         </foreach>
@@ -79,8 +73,8 @@
 
     <select id="findRoleByDept" parameterType="java.lang.String"
             resultType="com.github.itdachen.framework.assets.tree.ZTreeNode">
-        SELECT id, name, '1' AS parentId
-        FROM sys_role
+        SELECT id, title AS name, '1' AS parentId
+        FROM sys_role_info
         WHERE dept_id = #{deptId}
     </select>
 

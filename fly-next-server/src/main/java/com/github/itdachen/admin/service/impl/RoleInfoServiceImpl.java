@@ -1,5 +1,6 @@
 package com.github.itdachen.admin.service.impl;
 
+import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.itdachen.admin.entity.RoleInfo;
@@ -38,6 +39,20 @@ public class RoleInfoServiceImpl extends BizServiceImpl< IRoleInfoMapper, RoleIn
         Page<RoleInfoVo> page = PageHelper.startPage(params.getPage(), params.getLimit());
         List<RoleInfoVo> list = bizMapper.page(params);
         return new TableData<RoleInfoVo>(page.getTotal(), list);
+    }
+
+    /***
+     * 新增
+     *
+     * @author 王大宸
+     * @date 2023/4/5 22:28
+     * @param entity entity
+     * @return com.github.itdachen.admin.entity.RoleInfo
+     */
+    @Override
+    public RoleInfo save(RoleInfo entity) throws Exception {
+        entity.setDeptId(BizContextHandler.getDepartId());
+        return super.save(entity);
     }
 
 }
