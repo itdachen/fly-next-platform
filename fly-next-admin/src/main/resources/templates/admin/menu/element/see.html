@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('查看按钮资源')"/>
+    <script>
+        layui.use(['form'], function () {
+            form = layui.form;
+            form.render();
+        });
+    </script>
+</head>
+<body>
+
+<form class="layui-form" id="seeElementInfoForm" th:object="${elementInfo}">
+    <div class="layui-form-body-see">
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            资源关联菜单
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="menuId" name="menuId" th:field="*{menuId}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            资源名称: 新增,编辑,删除 ... 等
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="title" name="title" th:field="*{title}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            资源编码: 权限编码
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="code" name="code" th:field="*{code}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            资源类型: button,uri
+                        </label>
+                        <div class="layui-input-block">
+                            <select id="type" name="type" disabled="disabled"
+                                    th:with="dicts=${@dict.data('log_business_type')}">
+                                <option value="">请选择资源类型: button,uri</option>
+                                <option th:each="dict : ${dicts}"
+                                        th:id="${'type_' + dict.value}"
+                                        th:field="*{type}"
+                                        th:text="${dict.label}"
+                                        th:value="${dict.value}"
+                                        th:checked="type">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            资源路径, 路径动态参数使用{*}: /admin/user/{*}
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="href" name="href" th:field="*{href}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            视图路径, 路径动态参数使用{*}: /admin/user/{*}
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="path" name="path" th:field="*{path}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            资源请求类型:GET,POST,PUT,DELETE
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="method" name="method" th:field="*{method}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            排序
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="orderNum" name="orderNum" th:field="*{orderNum}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            状态:1-可用,0-禁用
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="visible" name="visible" th:field="*{visible}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            描述
+                        </label>
+                        <div class="layui-input-block">
+                        <textarea id="remarks" name="remarks" th:field="*{remarks}" maxlength="200"
+                                  readonly="readonly"
+ autocomplete="off"
+                                  class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+    </div>
+</form>
+
+</body>
+</html>

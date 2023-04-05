@@ -1,39 +1,32 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="common/common::common('修改菜单管理')"/>
-    <script th:src="@{/static/admin/menu/edit.js}" charset="utf-8"></script>
+    <th:block th:include="common/common::common('修改按钮资源')"/>
+    <script th:src="@{/static/admin/menu/element/edit.js}" charset="utf-8"></script>
 </head>
 <body>
 
-<form class="layui-form" id="editMenuInfoForm" th:object="${menuInfo}">
+<form class="layui-form" id="editElementInfoForm" th:object="${elementInfo}">
     <div class="layui-form-body">
         <div class="layui-form-item">
-            <label class="layui-form-label">
-                <span class="required">*</span>类型
-            </label>
-            <div class="layui-input-block" th:with="dicts=${@dict.data('menu_type')}">
-                <input type="radio" name="type" th:each="dict : ${dicts}"
-                       th:id="${'type_' + dict.value}"
-                       th:field="*{type}"
-                       th:title="${dict.label}"
-                       th:value="${dict.value}"
-                       th:checked="${menuInfo.type}">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">
-                <span class="required">*</span>权限编码
+            <label for="method" class="layui-form-label">
+                <span class="required">*</span>资源请求类型
             </label>
             <div class="layui-input-block">
-                <input type="text" id="code" name="code" th:field="*{code}"
-                       autocomplete="off" lay-verify="required" class="layui-input">
+                <select id="method" name="method" lay-verify="required"
+                        th:with="dicts=${@dict.data('http_method')}">
+                    <option value="">请选择请求类型</option>
+                    <option th:each="dict : ${dicts}"
+                            th:text="${dict.label}"
+                            th:value="${dict.value}"
+                            th:selected="${dict.value eq elementInfo.method}">
+                    </option>
+                </select>
             </div>
         </div>
-
         <div class="layui-form-item">
             <label class="layui-form-label">
-                <span class="required">*</span>标题
+                <span class="required">*</span>资源名称
             </label>
             <div class="layui-input-block">
                 <input type="text" id="title" name="title" th:field="*{title}"
@@ -43,20 +36,42 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">
-                <span class="required">*</span>资源路径
+                <span class="required">*</span>资源编码
             </label>
             <div class="layui-input-block">
-                <input type="text" id="path" name="path" th:field="*{path}"
+                <input type="text" id="code" name="code" th:field="*{code}"
                        autocomplete="off" lay-verify="required" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">
-                <span class="required">*</span>图标
+                <span class="required">*</span>资源类型
+            </label>
+            <div class="layui-input-block" th:with="dicts=${@dict.data('element_type')}">
+                <input type="radio" name="type" th:each="dict : ${dicts}"
+                       th:title="${dict.label}"
+                       th:value="${dict.value}"
+                       th:attr="checked=${dict.value eq elementInfo.type?true:false}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>资源路径
             </label>
             <div class="layui-input-block">
-                <input type="text" id="icon" name="icon" th:field="*{icon}"
+                <input type="text" id="href" name="href" th:field="*{href}"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>视图路径
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="path" name="path" th:field="*{path}"
                        autocomplete="off" lay-verify="required" class="layui-input">
             </div>
         </div>
@@ -74,30 +89,13 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">
-                <span class="required">*</span>打开方式
-            </label>
-            <div class="layui-input-block" th:with="dicts=${@dict.data('menu_iframe')}">
-                <input type="radio" name="iframe" th:each="dict : ${dicts}"
-                       th:id="${'iframe_' + dict.value}"
-                       th:field="*{visible}"
-                       th:title="${dict.label}"
-                       th:value="${dict.value}"
-                       th:checked="${menuInfo.iframe}">
-            </div>
-        </div>
-
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">
-                <span class="required">*</span>是否显示
+                <span class="required">*</span>状态
             </label>
             <div class="layui-input-block" th:with="dicts=${@dict.data('menu_visible')}">
                 <input type="radio" name="visible" th:each="dict : ${dicts}"
-                       th:id="${'visible_' + dict.value}"
-                       th:field="*{visible}"
                        th:title="${dict.label}"
                        th:value="${dict.value}"
-                       th:checked="${menuInfo.visible}">
+                       th:attr="checked=${dict.value eq elementInfo.visible?true:false}">
             </div>
         </div>
 
@@ -113,7 +111,7 @@
     </div>
 
     <div class="form-footer">
-        <button type="button" class="button-sub" lay-submit lay-filter="editMenuInfo">保存</button>
+        <button type="button" class="button-sub" lay-submit lay-filter="editElementInfo">保存</button>
         <button type="button" class="button-close" id="buttonClose">关闭</button>
     </div>
     <input type="text" th:value="*{id}" id="id" name="id" style="display: none">

@@ -1,6 +1,7 @@
 package com.github.itdachen.admin.utils;
 
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.boot.runner.handler.ContextPathHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,10 @@ import java.util.List;
  * Created with IntelliJ IDEA.
  */
 public class AppClientUtils {
+
+    public static List<ZTreeNode> arrangeAppMenu(List<ZTreeNode> apps) {
+       return arrangeAppMenu(ContextPathHandler.contextPath(), apps);
+    }
 
     /***
      * 返回菜单树时,应用校验

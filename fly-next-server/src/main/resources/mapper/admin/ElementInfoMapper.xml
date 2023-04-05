@@ -56,7 +56,7 @@
                 AND visible = #{visible}
             </if>
         </where>
-        ORDER BY id DESC
+        ORDER BY order_num ASC
     </select>
 
 

@@ -84,7 +84,20 @@
                 AND keep_alive = #{keepAlive}
             </if>
         </where>
-        ORDER BY id DESC
+        ORDER BY order_num ASC
+    </select>
+
+
+    <select id="findZTree" resultType="com.github.itdachen.framework.assets.tree.ZTreeNode">
+        SELECT id, parent_id AS parentId, title AS name, type
+        FROM sys_menu_info
+        ORDER BY order_num ASC
+    </select>
+
+    <select id="haveMenu" resultType="java.lang.Integer" parameterType="java.lang.String">
+        SELECT 1
+        FROM sys_menu_info
+        WHERE parent_id = #{parentId}
     </select>
 
 

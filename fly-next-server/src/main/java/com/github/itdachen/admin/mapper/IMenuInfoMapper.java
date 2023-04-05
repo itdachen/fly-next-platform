@@ -3,6 +3,7 @@ package com.github.itdachen.admin.mapper;
 import com.github.itdachen.admin.entity.MenuInfo;
 import com.github.itdachen.admin.sdk.query.MenuInfoQuery;
 import com.github.itdachen.admin.sdk.vo.MenuInfoVo;
+import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -25,7 +26,9 @@ public interface IMenuInfoMapper extends Mapper< MenuInfo > {
      */
     List< MenuInfoVo > page(MenuInfoQuery params);
 
+    List<ZTreeNode> findZTree();
 
+    Integer haveMenu(String parentId);
 
     /***
      * 批量添加

@@ -3,6 +3,7 @@ package com.github.itdachen.admin.mapper;
 import com.github.itdachen.admin.entity.AppClient;
 import com.github.itdachen.admin.sdk.query.AppClientQuery;
 import com.github.itdachen.admin.sdk.vo.AppClientVo;
+import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -25,6 +26,24 @@ public interface IAppClientMapper extends Mapper<AppClient> {
      */
     List<AppClientVo> page(AppClientQuery params);
 
+    /***
+     * 查询所有的应用
+     *
+     * @author 王大宸
+     * @date 2023/4/5 14:29
+     * @return java.util.List<com.github.itdachen.framework.assets.tree.ZTreeNode>
+     */
+    List<ZTreeNode> findAppAll();
+
+    /***
+     * 查询该应用是否有菜单
+     *
+     * @author 王大宸
+     * @date 2023/4/5 14:28
+     * @param appCode appCode
+     * @return java.lang.Integer
+     */
+    Integer hasMenu(String appCode);
 
     /***
      * 批量添加

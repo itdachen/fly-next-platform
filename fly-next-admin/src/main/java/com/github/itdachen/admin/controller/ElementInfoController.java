@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @CheckApiClient(title = "按钮资源", clientId = ClientConstant.CLIENT_WEB)
 public class ElementInfoController extends BizController< IElementInfoService, ElementInfo, ElementInfoVo, ElementInfoQuery, String > {
     private static final Logger logger = LoggerFactory.getLogger(ElementInfoController.class);
-    private static final String PATH_PREFIX = "admin/element/info";
+    private static final String PATH_PREFIX = "admin/menu/element";
 
     /***
      * 跳转到信息管理界面
@@ -49,9 +49,10 @@ public class ElementInfoController extends BizController< IElementInfoService, E
      * @date 2023-04-04 21:44:47
      * @return java.lang.String
      */
-    @GetMapping(value = "/add")
+    @GetMapping(value = "/{menuId}/add")
     @PreAuthorize("hasAuthority('admin:element:info:save')")
-    public String add() {
+    public String add(@PathVariable("menuId") String menuId, ModelMap modelMap) throws Exception {
+        modelMap.put("menuId", menuId);
         return PATH_PREFIX + "/add";
     }
 

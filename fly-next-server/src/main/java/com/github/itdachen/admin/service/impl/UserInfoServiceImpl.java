@@ -49,6 +49,9 @@ public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, UserInf
      */
     @Override
     public TableData<UserInfoVo> page(UserInfoQuery params) throws Exception {
+        if ("ROOT".equals(params.getDepartId())) {
+            params.setDepartId("660312611032023041");
+        }
         Page<UserInfoVo> page = PageHelper.startPage(params.getPage(), params.getLimit());
         List<UserInfoVo> list = bizMapper.page(params);
         return new TableData<UserInfoVo>(page.getTotal(), list);
