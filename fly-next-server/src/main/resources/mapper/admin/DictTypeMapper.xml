@@ -35,6 +35,11 @@
         ORDER BY id DESC
     </select>
 
+    <select id="findByDictType" resultMap="dictTypeMap" resultType="java.lang.String">
+        <include refid="selectDictTypeVo"></include>
+        WHERE dict_type = #{dictType}
+        LIMIT 1
+    </select>
 
     <!-- 批量添加 -->
     <insert id="batchSave" parameterType="java.util.List">

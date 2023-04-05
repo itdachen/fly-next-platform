@@ -6,8 +6,9 @@
   ++++++++++++++++++++++++++++++++++++++++++++
  */
 const path = HTTP_BIZ_URI + "/admin/dict/type";
-layui.use(['table'], function () {
+layui.use(['table', 'form'], function () {
     let table = layui.table;
+    let form = layui.form;
 
     /* 初始化表格 */
     $.table.init(table, options())
@@ -17,6 +18,11 @@ layui.use(['table'], function () {
 
     /* 操作栏监听 */
     tool(table);
+
+    form.on('checkbox(statusTpl)', function (obj) {
+        onStatusTpl(this.value, obj.elem.checked);
+    });
+
 });
 
 /**
@@ -104,3 +110,19 @@ function options() {
 
 }
 
+
+function onStatusTpl(dataId, status) {
+    $.http.put({
+        url: path + '/' + dataId + '/status/' + status,
+        callback: function (res) {
+            if (status) {
+                $.msg.msgSuccess('解除禁用成功');
+            } else {
+                $.msg.msgSuccess('禁用成功');
+            }
+        },
+        errCallback: function (err) {
+            $.msg.msgWarning(err.msg);
+        }
+    })
+}

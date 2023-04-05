@@ -2,7 +2,9 @@ package com.github.itdachen.admin.service;
 
 import com.github.itdachen.admin.entity.DictType;
 import com.github.itdachen.admin.sdk.query.DictTypeQuery;
+import com.github.itdachen.admin.sdk.vo.DictDataVo;
 import com.github.itdachen.admin.sdk.vo.DictTypeVo;
+import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.webmvc.service.IBizService;
 
 /**
@@ -11,6 +13,18 @@ import com.github.itdachen.framework.webmvc.service.IBizService;
  * @author 王大宸
  * @date 2023-04-04 21:44:47
  */
-public interface IDictTypeService extends IBizService< DictType, DictTypeVo, DictTypeQuery, String > {
+public interface IDictTypeService extends IBizService<DictType, DictTypeVo, DictTypeQuery, String> {
+
+
+    /***
+     * 更新状态
+     *
+     * @author 王大宸
+     * @date 2023/4/5 21:13
+     * @param id id
+     * @param status status
+     * @return com.github.itdachen.admin.sdk.vo.DictDataVo
+     */
+    DictDataVo updateStatus(String id, Boolean status) throws BizException;
 
 }

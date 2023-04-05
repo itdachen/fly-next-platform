@@ -5,16 +5,16 @@ import com.github.itdachen.admin.entity.AppClient;
 import com.github.itdachen.admin.sdk.query.AppClientQuery;
 import com.github.itdachen.admin.sdk.vo.AppClientVo;
 import com.github.itdachen.framework.context.annotation.CheckApiClient;
+import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.core.constants.ClientConstant;
+import com.github.itdachen.framework.core.response.ServerResponse;
 import com.github.itdachen.framework.webmvc.controller.BizController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 应用管理
@@ -85,6 +85,25 @@ public class AppClientController extends BizController<IAppClientService, AppCli
     public String see(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("appClient", bizService.getById(id));
         return PATH_PREFIX + "/see" ;
+    }
+
+
+    /***
+     * 更改状态
+     *
+     * @author 王大宸
+     * @date 2023/4/5 21:04
+     * @param id id
+     * @param status status
+     * @return com.github.itdachen.framework.core.response.ServerResponse<com.github.itdachen.admin.sdk.vo.AppClientVo>
+     */
+    @PutMapping("/{id}/status/{status}")
+    @ResponseBody
+    @PreAuthorize("hasAuthority('admin:app:client:update')")
+    public ServerResponse<AppClientVo> updateStatus(@PathVariable("id") String id,
+                                                    @PathVariable("status") Boolean status) throws BizException {
+        bizService.updateStatus(id, status);
+        return ServerResponse.ok();
     }
 
 }

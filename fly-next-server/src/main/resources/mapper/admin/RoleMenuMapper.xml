@@ -58,5 +58,24 @@
         </foreach>
     </update>
 
+    <select id="findValidMenu" resultType="com.github.itdachen.framework.assets.tree.ZTreeNode" parameterType="java.lang.String">
+        SELECT id, parent_id AS parentId, title AS `name`, type
+        FROM sys_menu_info
+        <where>
+            parent_id = #{parentId}
+            <if test="null != visible  and '' != visible ">AND visible = #{visible}</if>
+        </where>
+        ORDER BY order_num
+    </select>
+
+    <select id="findValidElement" resultType="com.github.itdachen.framework.assets.tree.ZTreeNode" parameterType="java.lang.String">
+        SELECT id, title AS name, menu_id AS parentId, type
+        FROM sys_element_info
+        <where>
+            menu_id = #{menuId}
+            <if test="null != visible  and '' != visible ">AND visible = #{visible}</if>
+        </where>
+        ORDER BY order_num ASC
+    </select>
 
 </mapper>

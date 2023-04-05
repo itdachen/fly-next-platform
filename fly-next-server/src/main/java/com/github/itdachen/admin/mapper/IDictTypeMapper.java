@@ -25,7 +25,7 @@ public interface IDictTypeMapper extends Mapper< DictType > {
      */
     List< DictTypeVo > page(DictTypeQuery params);
 
-
+    DictTypeVo findByDictType(String dictType);
 
     /***
      * 批量添加

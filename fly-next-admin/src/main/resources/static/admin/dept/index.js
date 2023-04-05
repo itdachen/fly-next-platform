@@ -48,6 +48,11 @@ function reloadTableData(table) {
 }
 
 
+function reloadTreeTableData() {
+    initTree();
+    reloadTableData();
+}
+
 /**
  * 表头操作
  * @param table
@@ -76,7 +81,8 @@ function tool(table) {
         if ('delete' === obj.event) {
             $.table.delete({
                 url: path + '/' + data.id,
-                title: data.name
+                title: data.name,
+                reloadTable: reloadTreeTableData
             })
         }
         if ('update' === obj.event) {

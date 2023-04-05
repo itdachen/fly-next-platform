@@ -125,7 +125,7 @@ public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, UserInf
                 || UserTypeConstant.TENANT_ADMINISTRATOR.equals(user.getType())) {
             throw new BizException("管理员账号不能被删除");
         }
-        return super.remove(id);
+        return bizMapper.deleteByPrimaryKey(id);
     }
 
     /***
