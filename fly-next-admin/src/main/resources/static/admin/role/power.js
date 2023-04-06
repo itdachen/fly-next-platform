@@ -17,9 +17,10 @@ layui.use('form', function () {
         let subData = data.field;
         subData.menuId = menuIds;
         subData.roleId = roleId;
+        subData.clientId= CLIENT_ID
         $.http.post({
             url: "/admin/role/menu",
-            data: data.field,
+            data: subData,
             callback: function (res) {
                 $.msg.okMsg(res.msg);
             }

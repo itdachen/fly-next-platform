@@ -9,6 +9,7 @@ import com.github.itdachen.security.properties.SecurityBrowserProperties;
 import com.github.itdachen.security.rememberme.CustomJdbcPersistentTokenRepository;
 import com.github.itdachen.security.validate.code.ValidateCodeSecurityConfig;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -30,6 +31,7 @@ import javax.sql.DataSource;
  * Created by 王大宸 on 2023/02/07 10:57
  * Created with IntelliJ IDEA.
  */
+@Configuration
 // 添加 security 过滤器
 @EnableWebSecurity
 // 开启方法权限注解

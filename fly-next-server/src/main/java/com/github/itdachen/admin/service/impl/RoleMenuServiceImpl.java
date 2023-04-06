@@ -72,7 +72,10 @@ public class RoleMenuServiceImpl extends BizServiceImpl<IRoleMenuMapper, RoleMen
         if (null == entity) {
             throw new BizException("添加的角色菜单不能为空");
         }
-        bizMapper.remove(entity.getRoleId());
+        bizMapper.delete(RoleMenu.builder()
+                .clientId(entity.getClientId())
+                .roleId(entity.getRoleId())
+                .build());
 
         if (StringUtils.isEmpty(entity.getMenuId())) {
             return entity;
@@ -94,6 +97,7 @@ public class RoleMenuServiceImpl extends BizServiceImpl<IRoleMenuMapper, RoleMen
             one.setId(EntityUtils.getId());
             one.setMenuId(menuId);
             one.setRoleId(entity.getRoleId());
+            one.setClientId(entity.getClientId());
             list.add(one);
         }
         bizMapper.batchSave(list);

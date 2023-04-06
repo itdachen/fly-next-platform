@@ -54,14 +54,12 @@ public class RoleUserServiceImpl extends BizServiceImpl<IRoleUserMapper, RoleUse
         if (null == entity) {
             throw new BizException("用户角色不能为空");
         }
-        String userId = entity.getUserId();
-        bizMapper.remove(userId);
+        bizMapper.delete(RoleUser.builder().clientId(entity.getClientId()).userId(entity.getUserId()).build());
         if (StringUtils.isEmpty(entity.getRoleId())) {
             return entity;
         }
 
-        String roleIds = entity.getRoleId();
-        List<String> roleList = new ArrayList<>(Arrays.asList(roleIds.split(",")));
+        List<String> roleList = new ArrayList<>(Arrays.asList(entity.getRoleId().split(",")));
         if (0 == roleList.size()) {
             return entity;
         }
@@ -74,8 +72,9 @@ public class RoleUserServiceImpl extends BizServiceImpl<IRoleUserMapper, RoleUse
             }
             one = new RoleUser();
             one.setId(EntityUtils.getId());
-            one.setUserId(userId);
+            one.setUserId(entity.getUserId());
             one.setRoleId(roleId);
+            one.setClientId(entity.getClientId());
             list.add(one);
         }
         if (0 < list.size()) {

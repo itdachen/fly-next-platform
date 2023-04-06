@@ -62,9 +62,10 @@ public class PermsAuthServiceImpl extends BizServiceImpl<IPermsAuthMapper, Perms
     @Override
     @Transactional(rollbackFor = Exception.class)
     public PermsAuth save(PermsAuth entity) throws BizException {
-        PermsAuth permsAuth = new PermsAuth();
-        permsAuth.setUserId(entity.getUserId());
-        bizMapper.delete(permsAuth);
+        bizMapper.delete(PermsAuth.builder()
+                .userId(entity.getUserId())
+                .clientId(entity.getClientId())
+                .build());
 
         String menuIds = entity.getMenuId();
         List<String> menuList = new ArrayList<>(Arrays.asList(menuIds.split(",")));
@@ -74,7 +75,6 @@ public class PermsAuthServiceImpl extends BizServiceImpl<IPermsAuthMapper, Perms
 
         PermsAuth one = null;
         List<PermsAuth> list = new ArrayList<>();
-        String userId = entity.getUserId();
         for (String menuId : menuList) {
             if (ZTreeNode.ROOT_ID.equals(menuId)) {
                 continue;
@@ -82,13 +82,14 @@ public class PermsAuthServiceImpl extends BizServiceImpl<IPermsAuthMapper, Perms
             one = new PermsAuth();
             one.setId(EntityUtils.getId());
             one.setMenuId(menuId);
-            one.setUserId(userId);
+            one.setUserId(entity.getUserId());
+            one.setClientId(entity.getClientId());
             list.add(one);
         }
         bizMapper.batchSave(list);
         return entity;
     }
-    
+
     /***
      * 获取权限下发菜单树数据
      *

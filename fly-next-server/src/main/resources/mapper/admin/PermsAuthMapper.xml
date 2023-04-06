@@ -6,13 +6,17 @@
 
     <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.github.itdachen.admin.sdk.vo.PermsAuthVo" id="permsAuthMap">
-            <result property="id" column="id"/>
-            <result property="userId" column="user_id"/>
-            <result property="menuId" column="menu_id"/>
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="menuId" column="menu_id"/>
+        <result property="clientId" column="client_id"/>
     </resultMap>
 
     <sql id="selectPermsAuthVo">
-        SELECT id, user_id, menu_id
+        SELECT id,
+               user_id,
+               menu_id,
+               client_id
         FROM sys_perms_auth
     </sql>
 
@@ -26,36 +30,22 @@
             <if test="null != menuId  and '' != menuId ">
                 AND menu_id = #{menuId}
             </if>
+            <if test="null != clientId  and '' != clientId ">
+                AND client_id = #{clientId}
+            </if>
         </where>
         ORDER BY id DESC
     </select>
 
+
     <!-- 批量添加 -->
     <insert id="batchSave" parameterType="java.util.List">
-        INSERT INTO sys_perms_auth (id, user_id, menu_id) VALUES
+        INSERT INTO sys_perms_auth (id , user_id , menu_id , client_id ) VALUES
         <foreach collection="list" item="item" separator=",">
-            (#{item.id}, #{item.userId}, #{item.menuId})
+            (#{item.id}, #{item.userId}, #{item.menuId}, #{item.clientId})
         </foreach>
     </insert>
 
-    <!-- 批量更新 -->
-    <update id="batchUpdate" parameterType="java.util.List">
-        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
-            UPDATE  sys_perms_auth
-            <set>
-                        <if test="null != item.id  and '' != item.id ">id =
-                            #{item.id},
-                        </if>
-                        <if test="null != item.userId  and '' != item.userId ">user_id =
-                            #{item.userId},
-                        </if>
-                        <if test="null != item.menuId  and '' != item.menuId ">menu_id =
-                            #{item.menuId},
-                        </if>
-            </set>
-            WHERE id = #{item.id}
-        </foreach>
-    </update>
 
     <select id="findMenuByUser" parameterType="java.lang.String" resultType="java.lang.String">
         SELECT menu_id

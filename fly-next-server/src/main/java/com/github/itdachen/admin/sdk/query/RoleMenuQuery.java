@@ -17,20 +17,30 @@ import java.io.Serializable;
 public class RoleMenuQuery extends BizQuery implements Serializable {
     private static final long serialVersionUID = 1L;
 
-            /** 用户id */
-            private String roleId;
+    /**
+     * 用户id
+     */
+    private String roleId;
 
-            /** 菜单id */
-            private String menuId;
+    /**
+     * 菜单id
+     */
+    private String menuId;
+
+    /**
+     * 客户端
+     */
+    private String clientId;
 
 
     public RoleMenuQuery() {
     }
 
-    public RoleMenuQuery(int page, int limit, String roleId, String menuId) {
+    public RoleMenuQuery(int page, int limit, String roleId, String menuId, String clientId) {
         super(page, limit);
-            this.roleId = roleId;
-            this.menuId = menuId;
+        this.roleId = roleId;
+        this.menuId = menuId;
+        this.clientId = clientId;
     }
 
     public static RoleMenuQueryBuilder builder() {
@@ -40,8 +50,9 @@ public class RoleMenuQuery extends BizQuery implements Serializable {
     public static class RoleMenuQueryBuilder {
         private Integer page = 1;
         private Integer limit = 10;
-            private String roleId;
-            private String menuId;
+        private String roleId;
+        private String menuId;
+        private String clientId;
 
         public RoleMenuQueryBuilder() {
         }
@@ -56,49 +67,63 @@ public class RoleMenuQuery extends BizQuery implements Serializable {
             return this;
         }
 
-            /* 用户id */
-            public RoleMenuQueryBuilder roleId(String roleId) {
-                this.roleId = roleId;
-                return this;
-            }
-            /* 菜单id */
-            public RoleMenuQueryBuilder menuId(String menuId) {
-                this.menuId = menuId;
-                return this;
-            }
+        /* 用户id */
+        public RoleMenuQueryBuilder roleId(String roleId) {
+            this.roleId = roleId;
+            return this;
+        }
+
+        /* 菜单id */
+        public RoleMenuQueryBuilder menuId(String menuId) {
+            this.menuId = menuId;
+            return this;
+        }
+
+        /* 客户端 */
+        public RoleMenuQueryBuilder clientId(String clientId) {
+            this.clientId = clientId;
+            return this;
+        }
 
         public RoleMenuQuery build() {
-            return new RoleMenuQuery(page, limit, roleId, menuId);
+            return new RoleMenuQuery(page, limit, roleId, menuId, clientId);
         }
 
     }
 
 
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
 
+    public String getRoleId() {
+        return roleId;
+    }
 
-        public void setRoleId(String roleId) {
-            this.roleId = roleId;
-        }
+    public void setMenuId(String menuId) {
+        this.menuId = menuId;
+    }
 
-        public String getRoleId() {
-            return roleId;
-        }
+    public String getMenuId() {
+        return menuId;
+    }
 
-        public void setMenuId(String menuId) {
-            this.menuId = menuId;
-        }
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
 
-        public String getMenuId() {
-            return menuId;
-        }
+    public String getClientId() {
+        return clientId;
+    }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-        .append("page", getPage())
-        .append("limit", getLimit())
-                    .append("roleId", getRoleId())
-                    .append("menuId", getMenuId())
+                .append("page", getPage())
+                .append("limit", getLimit())
+                .append("roleId", getRoleId())
+                .append("menuId", getMenuId())
+                .append("clientId", getClientId())
                 .toString();
     }
 

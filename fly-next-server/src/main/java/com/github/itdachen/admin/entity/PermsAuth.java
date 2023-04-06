@@ -38,15 +38,22 @@ public class PermsAuth implements Serializable {
     @Column(name = "menu_id")
     private String menuId;
 
+    /**
+     * 客户端
+     */
+    @Column(name = "client_id")
+    private String clientId;
+
 
     public PermsAuth() {
     }
 
 
-    public PermsAuth(String id, String userId, String menuId) {
+    public PermsAuth(String id, String userId, String menuId, String clientId) {
         this.id = id;
         this.userId = userId;
         this.menuId = menuId;
+        this.clientId = clientId;
     }
 
     public static PermsAuthBuilder builder() {
@@ -57,6 +64,7 @@ public class PermsAuth implements Serializable {
         private String id;
         private String userId;
         private String menuId;
+        private String clientId;
 
         public PermsAuthBuilder() {
         }
@@ -79,10 +87,14 @@ public class PermsAuth implements Serializable {
             return this;
         }
 
+        /* 客户端 */
+        public PermsAuthBuilder clientId(String clientId) {
+            this.clientId = clientId;
+            return this;
+        }
+
         public PermsAuth build() {
-            return new PermsAuth(id,
-                    userId,
-                    menuId
+            return new PermsAuth(id, userId, menuId, clientId
             );
         }
 
@@ -113,6 +125,14 @@ public class PermsAuth implements Serializable {
         return menuId;
     }
 
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
 
     @Override
     public String toString() {
@@ -120,8 +140,8 @@ public class PermsAuth implements Serializable {
                 .append("id", getId())
                 .append("userId", getUserId())
                 .append("menuId", getMenuId())
+                .append("clientId", getClientId())
                 .toString();
     }
-
 
 }

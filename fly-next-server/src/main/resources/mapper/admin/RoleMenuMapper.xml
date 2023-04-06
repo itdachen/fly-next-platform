@@ -9,10 +9,11 @@
         <result property="id" column="id"/>
         <result property="roleId" column="role_id"/>
         <result property="menuId" column="menu_id"/>
+        <result property="clientId" column="client_id"/>
     </resultMap>
 
     <sql id="selectRoleMenuVo">
-        SELECT id, role_id, menu_id
+        SELECT id, role_id, menu_id, client_id
         FROM sys_role_menu
     </sql>
 
@@ -26,28 +27,24 @@
             <if test="null != menuId  and '' != menuId ">
                 AND menu_id = #{menuId}
             </if>
+            <if test="null != clientId  and '' != clientId ">
+                AND client_id = #{clientId}
+            </if>
         </where>
         ORDER BY id DESC
     </select>
 
-
-    <delete id="remove" parameterType="java.lang.String">
-        DELETE
-        FROM sys_role_menu
-        WHERE role_id = #{roleId}
-    </delete>
-
     <!-- 批量添加 -->
     <insert id="batchSave" parameterType="java.util.List">
-        INSERT INTO sys_role_menu (id , role_id , menu_id) VALUES
+        INSERT INTO sys_role_menu (id , role_id , menu_id , client_id ) VALUES
         <foreach collection="list" item="item" separator=",">
-            (#{item.id}, #{item.roleId}, #{item.menuId})
+            (#{item.id}, #{item.roleId}, #{item.menuId}, #{item.clientId})
         </foreach>
     </insert>
 
     <!-- 批量更新 -->
     <update id="batchUpdate" parameterType="java.util.List">
-        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+        <foreach collection="list" item="item" index="index" separator=";">
             UPDATE sys_role_menu
             <set>
                 <if test="null != item.id  and '' != item.id ">id =
@@ -59,10 +56,19 @@
                 <if test="null != item.menuId  and '' != item.menuId ">menu_id =
                     #{item.menuId},
                 </if>
+                <if test="null != item.clientId  and '' != item.clientId ">client_id =
+                    #{item.clientId},
+                </if>
             </set>
             WHERE id = #{item.id}
         </foreach>
     </update>
+
+    <delete id="remove" parameterType="java.lang.String">
+        DELETE
+        FROM sys_role_menu
+        WHERE role_id = #{roleId}
+    </delete>
 
     <select id="findValidMenu" resultType="com.github.itdachen.framework.assets.tree.ZTreeNode"
             parameterType="java.lang.String">

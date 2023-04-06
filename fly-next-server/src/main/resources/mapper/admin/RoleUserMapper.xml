@@ -9,10 +9,11 @@
         <result property="id" column="id"/>
         <result property="userId" column="user_id"/>
         <result property="roleId" column="role_id"/>
+        <result property="clientId" column="client_id"/>
     </resultMap>
 
     <sql id="selectRoleUserVo">
-        SELECT id, user_id, role_id
+        SELECT id, user_id, role_id, client_id
         FROM sys_role_user
     </sql>
 
@@ -26,18 +27,21 @@
             <if test="null != roleId  and '' != roleId ">
                 AND role_id = #{roleId}
             </if>
+            <if test="null != clientId  and '' != clientId ">
+                AND client_id = #{clientId}
+            </if>
         </where>
         ORDER BY id DESC
     </select>
 
-
     <!-- 批量添加 -->
     <insert id="batchSave" parameterType="java.util.List">
-        INSERT INTO sys_role_user (id, user_id, role_id) VALUES
+        INSERT INTO sys_role_user (id , user_id , role_id , client_id ) VALUES
         <foreach collection="list" item="item" separator=",">
-            (#{item.id}, #{item.userId}, #{item.roleId})
+            (#{item.id}, #{item.userId}, #{item.roleId}, #{item.clientId})
         </foreach>
     </insert>
+
 
     <!-- 批量更新 -->
     <update id="batchUpdate" parameterType="java.util.List">

@@ -58,7 +58,7 @@ public class MenuInfoServiceImpl extends BizServiceImpl<IMenuInfoMapper, MenuInf
         List<MenuInfoVo> list = bizMapper.page(params);
         return new TableData<MenuInfoVo>(page.getTotal(), list);
     }
-    
+
     /***
      * 新增, 添加组件名称
      *
@@ -73,6 +73,22 @@ public class MenuInfoServiceImpl extends BizServiceImpl<IMenuInfoMapper, MenuInf
             entity.setName("C" + UuidUtils.generateShortUuid() + "Component");
         }
         return super.save(entity);
+    }
+
+    /***
+     * 编辑
+     *
+     * @author 王大宸
+     * @date 2023/4/6 10:44
+     * @param entity entity
+     * @return com.github.itdachen.admin.entity.MenuInfo
+     */
+    @Override
+    public MenuInfo update(MenuInfo entity) throws Exception {
+        if (StringUtils.isEmpty(entity.getName())) {
+            entity.setName("C" + UuidUtils.generateShortUuid() + "Component");
+        }
+        return super.update(entity);
     }
 
     /***

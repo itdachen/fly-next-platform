@@ -36,15 +36,6 @@ public interface IPermsAuthMapper extends Mapper<PermsAuth> {
      */
     void batchSave(List<PermsAuth> list);
 
-    /***
-     * 批量修改
-     *
-     * @author 王大宸
-     * @date 2023-04-04 21:44:46
-     * @param list java.util.List<com.github.itdachen.admin.entity.PermsAuth>
-     */
-    void batchUpdate(List<PermsAuth> list);
-
     List<String> findMenuByUser(String userId);
 
     List<ZTreeNode> getPermsAuthApp(String userId);

@@ -17,20 +17,31 @@ import java.io.Serializable;
 public class PermsAuthQuery extends BizQuery implements Serializable {
     private static final long serialVersionUID = 1L;
 
-            /** 用户id */
-            private String userId;
 
-            /** 菜单id */
-            private String menuId;
+    /**
+     * 用户id
+     */
+    private String userId;
+
+    /**
+     * 菜单id
+     */
+    private String menuId;
+
+    /**
+     * 客户端
+     */
+    private String clientId;
 
 
     public PermsAuthQuery() {
     }
 
-    public PermsAuthQuery(int page, int limit, String userId, String menuId) {
+    public PermsAuthQuery(int page, int limit, String userId, String menuId, String clientId) {
         super(page, limit);
-            this.userId = userId;
-            this.menuId = menuId;
+        this.userId = userId;
+        this.menuId = menuId;
+        this.clientId = clientId;
     }
 
     public static PermsAuthQueryBuilder builder() {
@@ -40,8 +51,9 @@ public class PermsAuthQuery extends BizQuery implements Serializable {
     public static class PermsAuthQueryBuilder {
         private Integer page = 1;
         private Integer limit = 10;
-            private String userId;
-            private String menuId;
+        private String userId;
+        private String menuId;
+        private String clientId;
 
         public PermsAuthQueryBuilder() {
         }
@@ -56,49 +68,63 @@ public class PermsAuthQuery extends BizQuery implements Serializable {
             return this;
         }
 
-            /* 用户id */
-            public PermsAuthQueryBuilder userId(String userId) {
-                this.userId = userId;
-                return this;
-            }
-            /* 菜单id */
-            public PermsAuthQueryBuilder menuId(String menuId) {
-                this.menuId = menuId;
-                return this;
-            }
+        /* 用户id */
+        public PermsAuthQueryBuilder userId(String userId) {
+            this.userId = userId;
+            return this;
+        }
+
+        /* 菜单id */
+        public PermsAuthQueryBuilder menuId(String menuId) {
+            this.menuId = menuId;
+            return this;
+        }
+
+        /* 客户端 */
+        public PermsAuthQueryBuilder clientId(String clientId) {
+            this.clientId = clientId;
+            return this;
+        }
 
         public PermsAuthQuery build() {
-            return new PermsAuthQuery(page, limit, userId, menuId);
+            return new PermsAuthQuery(page, limit, userId, menuId, clientId);
         }
 
     }
 
 
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
+    public String getUserId() {
+        return userId;
+    }
 
-        public void setUserId(String userId) {
-            this.userId = userId;
-        }
+    public void setMenuId(String menuId) {
+        this.menuId = menuId;
+    }
 
-        public String getUserId() {
-            return userId;
-        }
+    public String getMenuId() {
+        return menuId;
+    }
 
-        public void setMenuId(String menuId) {
-            this.menuId = menuId;
-        }
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
 
-        public String getMenuId() {
-            return menuId;
-        }
+    public String getClientId() {
+        return clientId;
+    }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-        .append("page", getPage())
-        .append("limit", getLimit())
-                    .append("userId", getUserId())
-                    .append("menuId", getMenuId())
+                .append("page", getPage())
+                .append("limit", getLimit())
+                .append("userId", getUserId())
+                .append("menuId", getMenuId())
+                .append("clientId", getClientId())
                 .toString();
     }
 

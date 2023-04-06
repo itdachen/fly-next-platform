@@ -13,7 +13,8 @@ layui.use('form', function () {
             url: "/admin/perms/auth",
             data: {
                 menuId: menuIds,
-                userId: userId
+                userId: userId,
+                clientId: CLIENT_ID
             },
             callback: function (res) {
                 $.msg.okMsg(res.msg);

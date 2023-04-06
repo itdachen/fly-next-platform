@@ -17,20 +17,30 @@ import java.io.Serializable;
 public class RoleUserQuery extends BizQuery implements Serializable {
     private static final long serialVersionUID = 1L;
 
-            /** 用户id */
-            private String userId;
+    /**
+     * 用户id
+     */
+    private String userId;
 
-            /** 角色id */
-            private String roleId;
+    /**
+     * 角色id
+     */
+    private String roleId;
+
+    /**
+     * 客户端
+     */
+    private String clientId;
 
 
     public RoleUserQuery() {
     }
 
-    public RoleUserQuery(int page, int limit, String userId, String roleId) {
+    public RoleUserQuery(int page, int limit, String userId, String roleId, String clientId) {
         super(page, limit);
-            this.userId = userId;
-            this.roleId = roleId;
+        this.userId = userId;
+        this.roleId = roleId;
+        this.clientId = clientId;
     }
 
     public static RoleUserQueryBuilder builder() {
@@ -40,8 +50,9 @@ public class RoleUserQuery extends BizQuery implements Serializable {
     public static class RoleUserQueryBuilder {
         private Integer page = 1;
         private Integer limit = 10;
-            private String userId;
-            private String roleId;
+        private String userId;
+        private String roleId;
+        private String clientId;
 
         public RoleUserQueryBuilder() {
         }
@@ -56,49 +67,63 @@ public class RoleUserQuery extends BizQuery implements Serializable {
             return this;
         }
 
-            /* 用户id */
-            public RoleUserQueryBuilder userId(String userId) {
-                this.userId = userId;
-                return this;
-            }
-            /* 角色id */
-            public RoleUserQueryBuilder roleId(String roleId) {
-                this.roleId = roleId;
-                return this;
-            }
+        /* 用户id */
+        public RoleUserQueryBuilder userId(String userId) {
+            this.userId = userId;
+            return this;
+        }
+
+        /* 角色id */
+        public RoleUserQueryBuilder roleId(String roleId) {
+            this.roleId = roleId;
+            return this;
+        }
+
+        /* 客户端 */
+        public RoleUserQueryBuilder clientId(String clientId) {
+            this.clientId = clientId;
+            return this;
+        }
 
         public RoleUserQuery build() {
-            return new RoleUserQuery(page, limit, userId, roleId);
+            return new RoleUserQuery(page, limit, userId, roleId, clientId);
         }
 
     }
 
 
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
+    public String getUserId() {
+        return userId;
+    }
 
-        public void setUserId(String userId) {
-            this.userId = userId;
-        }
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
 
-        public String getUserId() {
-            return userId;
-        }
+    public String getRoleId() {
+        return roleId;
+    }
 
-        public void setRoleId(String roleId) {
-            this.roleId = roleId;
-        }
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
 
-        public String getRoleId() {
-            return roleId;
-        }
+    public String getClientId() {
+        return clientId;
+    }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-        .append("page", getPage())
-        .append("limit", getLimit())
-                    .append("userId", getUserId())
-                    .append("roleId", getRoleId())
+                .append("page", getPage())
+                .append("limit", getLimit())
+                .append("userId", getUserId())
+                .append("roleId", getRoleId())
+                .append("clientId", getClientId())
                 .toString();
     }
 

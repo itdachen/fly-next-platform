@@ -8,4 +8,4 @@ const HTTP_BIZ_URI = '';
  * 客户端标识
  * @type {string}
  */
-const CLIENT_ID = "admin";
+const CLIENT_ID = "WEB_APP";
