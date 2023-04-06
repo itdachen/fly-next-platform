@@ -1,4 +1,4 @@
-package com.github.itdachen.makeuse;
+package com.github.itdachen.admin.controller;
 
 import com.github.itdachen.framework.server.ServerInfoUtils;
 import org.springframework.stereotype.Controller;
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Created with IntelliJ IDEA.
  */
 @Controller
-@RequestMapping("/server/use")
+@RequestMapping("/admin/server/use")
 public class ServerMakeUseController {
-    private static final String PATH_PREFIX = "makeuse/server" ;
+    private static final String PATH_PREFIX = "admin/server" ;
 
     @GetMapping("/index")
     public String index(ModelMap modelMap) {

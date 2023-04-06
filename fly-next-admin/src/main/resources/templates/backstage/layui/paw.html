@@ -118,24 +118,24 @@
         /* 提交 */
         form.on('submit(editPaw)', function (value) {
             let data = value.field;
-            if (8 > data.newPaw.length) {
-                $.modal.msgWarning("密码最低8位!");
+            if (8 > data.password.length) {
+                $.msg.msgWarning("密码最低8位!");
                 return false;
             }
-            if (30 < data.newPaw.length) {
-                $.modal.msgWarning("密码最长30位!");
+            if (30 < data.password.length) {
+                $.msg.msgWarning("密码最长30位!");
                 return false;
             }
-            if (data.newPaw !== data.confirmPaw) {
-                $.modal.msgWarning("两次密码输入不一致!");
+            if (data.password !== data.repassword) {
+                $.msg.msgWarning("两次密码输入不一致!");
                 return false;
             }
-            if (data.newPaw === data.oldPaw) {
-                $.modal.msgWarning("新密码不能与旧密码相同!");
+            if (data.password === data.oldPassword) {
+                $.msg.msgWarning("新密码不能与旧密码相同!");
                 return false;
             }
             $.http.put({
-                url: "/admin/user/password",
+                url: "/admin/user/info/password",
                 data: data,
                 callback: function (res) {
                     layer.alert("密码修改成功!",

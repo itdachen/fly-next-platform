@@ -24,10 +24,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/admin/make/use/log")
-@CheckApiClient(title = "日志表", clientId = ClientConstant.CLIENT_WEB)
+@CheckApiClient(title = "操作日志", clientId = ClientConstant.CLIENT_WEB)
 public class MakeUseLogController extends BizController< IMakeUseLogService, MakeUseLog, MakeUseLogVo, MakeUseLogQuery, String > {
     private static final Logger logger = LoggerFactory.getLogger(MakeUseLogController.class);
-    private static final String PATH_PREFIX = "admin/make/use/log";
+    private static final String PATH_PREFIX = "admin/log";
 
     /***
      * 跳转到信息管理界面
@@ -43,35 +43,6 @@ public class MakeUseLogController extends BizController< IMakeUseLogService, Mak
     }
 
     /***
-     * 跳转到添加页面
-     *
-     * @author 王大宸
-     * @date 2023-04-04 21:44:45
-     * @return java.lang.String
-     */
-    @GetMapping(value = "/add")
-    @PreAuthorize("hasAuthority('admin:make:use:log:save')")
-    public String add() {
-        return PATH_PREFIX + "/add";
-    }
-
-    /***
-     * 跳转到修改页面
-     *
-     * @author 王大宸
-     * @date 2023-04-04 21:44:45
-     * @param id         需要修改数据的id
-     * @param modelMap   modelMap
-     * @return java.lang.String
-     */
-    @GetMapping(value = "/edit/{id}")
-    @PreAuthorize("hasAuthority('admin:make:use:log:update')")
-    public String edit(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
-        modelMap.put("makeUseLog", bizService.getById(id));
-        return PATH_PREFIX + "/edit";
-    }
-
-    /***
      * 跳转到查看页面
      *
      * @author 王大宸
@@ -82,9 +53,9 @@ public class MakeUseLogController extends BizController< IMakeUseLogService, Mak
      */
     @GetMapping(value = "/view/{id}")
     @PreAuthorize("hasAuthority('admin:make:use:log:view')")
-    public String see(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
+    public String view(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("makeUseLog", bizService.getById(id));
-        return PATH_PREFIX + "/see";
+        return PATH_PREFIX + "/view";
     }
 
 }

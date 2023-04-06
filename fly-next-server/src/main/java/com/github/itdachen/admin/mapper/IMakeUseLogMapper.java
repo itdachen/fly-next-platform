@@ -13,7 +13,7 @@ import java.util.List;
  * @author 王大宸
  * @date 2023-04-04 21:44:45
  */
-public interface IMakeUseLogMapper extends Mapper< MakeUseLog > {
+public interface IMakeUseLogMapper extends Mapper<MakeUseLog> {
 
     /***
      * 查询集合
@@ -23,26 +23,6 @@ public interface IMakeUseLogMapper extends Mapper< MakeUseLog > {
      * @param params params
      * @return com.github.itdachen.admin.sdk.vo.makeUseLogVo
      */
-    List< MakeUseLogVo > page(MakeUseLogQuery params);
-
-
-
-    /***
-     * 批量添加
-     *
-     * @author 王大宸
-     * @date 2023-04-04 21:44:45
-     * @param list java.util.List<com.github.itdachen.admin.entity.MakeUseLog>
-     */
-    void  batchSave(List< MakeUseLog > list);
-
-    /***
-     * 批量修改
-     *
-     * @author 王大宸
-     * @date 2023-04-04 21:44:45
-     * @param list java.util.List<com.github.itdachen.admin.entity.MakeUseLog>
-     */
-    void batchUpdate(List< MakeUseLog > list);
+    List<MakeUseLogVo> page(MakeUseLogQuery params);
 
 }
