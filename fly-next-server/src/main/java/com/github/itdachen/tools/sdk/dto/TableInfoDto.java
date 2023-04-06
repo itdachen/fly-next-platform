@@ -3,6 +3,7 @@ package com.github.itdachen.tools.sdk.dto;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.List;
 
@@ -93,7 +94,11 @@ public class TableInfoDto implements Serializable {
     /**
      * 备注
      */
-    private String remark;
+    private String remarks;
+
+    private String iframe;
+
+    private String clientId;
 
     /**
      * 列
@@ -221,12 +226,12 @@ public class TableInfoDto implements Serializable {
         return options;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 
-    public String getRemark() {
-        return remark;
+    public String getRemarks() {
+        return remarks;
     }
 
 
@@ -236,6 +241,24 @@ public class TableInfoDto implements Serializable {
 
     public void setColumns(List<TableColumnDto> columns) {
         this.columns = columns;
+    }
+
+
+
+    public String getIframe() {
+        return iframe;
+    }
+
+    public void setIframe(String iframe) {
+        this.iframe = iframe;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
     @Override
@@ -256,7 +279,9 @@ public class TableInfoDto implements Serializable {
                 .append("genType", getGenType())
                 .append("genPath", getGenPath())
                 .append("options", getOptions())
-                .append("remark", getRemark())
+                .append("remarks", getRemarks())
+                .append("iframe", getIframe())
+                .append("clientId", getClientId())
                 .append("columns", getColumns())
                 .toString();
     }

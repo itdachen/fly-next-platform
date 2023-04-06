@@ -10,8 +10,8 @@
         <!-- %logger{36} 表示 Logger 名字最长36个字符 -->
         <property name="LOG_PATTERN" value="%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
         <!-- 定义日志存储的路径 -->
-        <property name="FILE_PATH" value="/home/log/admin"/>
-        <property name="FILE_NAME" value="fly-admin"/>
+        <property name="FILE_PATH" value="./logs/admin"/>
+        <property name="FILE_NAME" value="fly-next-admin"/>
     </Properties>
 
     <appenders>

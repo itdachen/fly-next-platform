@@ -82,9 +82,9 @@ public class ${ClassName}Controller extends BizController< I${ClassName}Service,
      */
     @GetMapping(value = "/view/{id}")
     @PreAuthorize("hasAuthority('${permsPrefix}:view')")
-    public String see(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
+    public String view(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("${className}", bizService.getById(id));
-        return PATH_PREFIX + "/see";
+        return PATH_PREFIX + "/view";
     }
 
 }

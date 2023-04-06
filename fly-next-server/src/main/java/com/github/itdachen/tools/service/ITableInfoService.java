@@ -90,7 +90,7 @@ public interface ITableInfoService {
      * @param tableName tableName
      * @return cn.edu.hubu.tools.entity.GenTable
      */
-    GenTable importGenTable(String tableName) throws BizException;
+    void importGenTable(String tableName) throws BizException;
 
     /***
      * 生成代码

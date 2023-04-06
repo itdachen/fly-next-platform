@@ -117,6 +117,12 @@ public class TableInfo implements Serializable {
     @Column(name = "remarks")
     private String remarks;
 
+    @Column(name = "iframe")
+    private String iframe;
+
+    @Column(name = "client_id")
+    private String clientId;
+
     /**
      * 创建时间
      */
@@ -330,6 +336,21 @@ public class TableInfo implements Serializable {
         return updateUserId;
     }
 
+    public String getIframe() {
+        return iframe;
+    }
+
+    public void setIframe(String iframe) {
+        this.iframe = iframe;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
 
     @Override
     public String toString() {
@@ -350,6 +371,8 @@ public class TableInfo implements Serializable {
                 .append("genPath", getGenPath())
                 .append("options", getOptions())
                 .append("remarks", getRemarks())
+                .append("iframe", getIframe())
+                .append("clientId", getClientId())
                 .append("createTime", getCreateTime())
                 .append("createUser", getCreateUser())
                 .append("createUserId", getCreateUserId())

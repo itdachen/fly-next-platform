@@ -185,7 +185,8 @@ public class TableInfoController {
     @PostMapping(value = "/import/db")
     @ResponseBody
     public ServerResponse<GenTable> importGenTable(@RequestParam String tableNames) throws BizException {
-        return ServerResponse.okData(tableInfoService.importGenTable(tableNames));
+        tableInfoService.importGenTable(tableNames);
+        return ServerResponse.ok();
     }
 
     /***

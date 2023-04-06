@@ -101,6 +101,10 @@ public class TableInfoVo implements Serializable {
      */
     private String remarks;
 
+    private String iframe;
+
+    private String clientId;
+
     /**
      * 主键信息
      */
@@ -110,6 +114,22 @@ public class TableInfoVo implements Serializable {
      * 列
      */
     private List<TableColumnVo> columns;
+
+    public String getIframe() {
+        return iframe;
+    }
+
+    public void setIframe(String iframe) {
+        this.iframe = iframe;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
 
     public String getId() {
         return id;
@@ -282,6 +302,8 @@ public class TableInfoVo implements Serializable {
                 .append("genPath", getGenPath())
                 .append("options", getOptions())
                 .append("remarks", getRemarks())
+                .append("iframe", getIframe())
+                .append("clientId", getClientId())
                 .append("pkColumn", getPkColumn())
                 .append("columns", getColumns())
                 .toString();

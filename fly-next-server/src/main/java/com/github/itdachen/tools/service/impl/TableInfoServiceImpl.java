@@ -171,9 +171,9 @@ public class TableInfoServiceImpl implements ITableInfoService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public GenTable importGenTable(String tableNames) throws BizException {
+    public void importGenTable(String tableNames) throws BizException {
         if (null == tableNames) {
-            return null;
+            throw new BizException("请选择表");
         }
         List<String> strings = new ArrayList<>(Arrays.asList(tableNames.split(",")));
         if (0 == strings.size()) {
@@ -208,6 +208,8 @@ public class TableInfoServiceImpl implements ITableInfoService {
             tableInfo.setContextPath(ContextPathHandler.contextPath());
             tableInfo.setBusinessName("/" + genTable.getTableName().toLowerCase().replaceAll("_", "/"));
             tableInfo.setMenuId(GenConstants.PARENT_MENU_ID);
+            tableInfo.setIframe("iframe");
+            tableInfo.setClientId("web_app");
 
             tableInfoMapper.saveTableInfo(tableInfo);
 
@@ -244,8 +246,6 @@ public class TableInfoServiceImpl implements ITableInfoService {
 //            tableInfoMapper.batchSave(tableInfos);
 //            tableColumnMapper.batchSave(columns);
 //        }
-
-        return null;
     }
 
     /***
@@ -387,7 +387,8 @@ public class TableInfoServiceImpl implements ITableInfoService {
         column.setHtmlType(GenConstants.HTML_INPUT);
 
         if (arraysContains(GenConstants.COLUMNTYPE_STR, dataType)
-                || arraysContains(GenConstants.COLUMNTYPE_TEXT, dataType)) {
+                || arraysContains(GenConstants.COLUMNTYPE_TEXT, dataType)
+                || arraysContains(GenConstants.REMARKS_FILED, columnName)) {
             // 字符串长度超过500设置为文本域
             Integer columnLength = getColumnLength(column.getColumnType());
             String htmlType = columnLength >= 500 || arraysContains(GenConstants.COLUMNTYPE_TEXT, dataType) ? GenConstants.HTML_TEXTAREA : GenConstants.HTML_INPUT;

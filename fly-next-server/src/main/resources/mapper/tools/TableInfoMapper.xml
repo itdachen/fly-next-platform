@@ -22,6 +22,8 @@
         <result property="genPath" column="gen_path"/>
         <result property="options" column="options"/>
         <result property="remarks" column="remarks"/>
+        <result property="iframe" column="iframe"/>
+        <result property="clientId" column="client_id"/>
     </resultMap>
 
     <!-- 查收 sql -->
@@ -41,7 +43,9 @@
                gen_type,
                gen_path,
                options,
-               remarks
+               remarks,
+               iframe,
+               client_id
         FROM sys_gen_table_info
     </sql>
 

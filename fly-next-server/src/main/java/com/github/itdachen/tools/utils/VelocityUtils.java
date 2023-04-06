@@ -59,6 +59,8 @@ public class VelocityUtils {
         String menuUri = menuUri(tableInfo);
 
         VelocityContext velocityContext = new VelocityContext();
+        velocityContext.put("clientId", StringUtils.isEmpty(tableInfo.getClientId()) ? "admin" : tableInfo.getClientId());
+        velocityContext.put("iframe", StringUtils.isEmpty(tableInfo.getIframe()) ? "iframe" : tableInfo.getIframe());
         velocityContext.put("tplCategory", tableInfo.getTplCategory());
         velocityContext.put("tableName", tableInfo.getTableName());
         velocityContext.put("functionName", StringUtils.isNotEmpty(functionName) ? functionName : "【请填写功能名称】");
@@ -145,7 +147,7 @@ public class VelocityUtils {
         templates.add("templates/tools/vm/html/add.html.vm");
         templates.add("templates/tools/vm/html/edit.html.vm");
         templates.add("templates/tools/vm/html/index.html.vm");
-        templates.add("templates/tools/vm/html/see.html.vm");
+        templates.add("templates/tools/vm/html/view.html.vm");
 
         /* js */
         templates.add("templates/tools/vm/js/add.js.vm");
@@ -206,8 +208,8 @@ public class VelocityUtils {
             fileName = StringUtils.format("{}/templates/{}/edit.html", zipName + "/" + RESOURCES, menuUri);
         } else if (template.contains("index.html.vm")) {
             fileName = StringUtils.format("{}/templates/{}/index.html", zipName + "/" + RESOURCES, menuUri);
-        } else if (template.contains("see.html.vm")) {
-            fileName = StringUtils.format("{}/templates/{}/see.html", zipName + "/" + RESOURCES, menuUri);
+        } else if (template.contains("view.html.vm")) {
+            fileName = StringUtils.format("{}/templates/{}/view.html", zipName + "/" + RESOURCES, menuUri);
         } else if (template.contains("add.js.vm")) {
             fileName = StringUtils.format("{}/static/{}/add.js", zipName + "/" + RESOURCES, menuUri);
         } else if (template.contains("edit.js.vm")) {

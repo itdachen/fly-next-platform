@@ -11,32 +11,32 @@ public class GenConstants {
     /**
      * 树名称字段
      */
-    public static final String TREE_NAME = "treeName";
+    public static final String TREE_NAME = "treeName" ;
 
     /**
      * 后端继承 biz
      */
-    public static final String TPL_BIZ = "biz";
+    public static final String TPL_BIZ = "biz" ;
 
     /**
      * 上级菜单ID字段
      */
-    public static final String PARENT_MENU_ID = "1539506450076930048";
+    public static final String PARENT_MENU_ID = "1539506450076930048" ;
 
     /**
      * 上级菜单名称字段
      */
-    public static final String PARENT_MENU_NAME = "parentMenuName";
+    public static final String PARENT_MENU_NAME = "parentMenuName" ;
 
     /**
      * 默认包名
      */
-    public static final String PACKAGE_NAME = "com.github.itdachen.admin";
+    public static final String PACKAGE_NAME = "com.github.itdachen.admin" ;
 
     /**
      * 默认模块名称
      */
-    public static final String MODULE_NAME = "admin";
+    public static final String MODULE_NAME = "admin" ;
 
     /**
      * 表单不展示字段
@@ -93,6 +93,12 @@ public class GenConstants {
     };
 
     /**
+     * 描述字段, 默认使用文本域
+     */
+    public static final String[] REMARKS_FILED = {"remarks", "remark", "describe", "des", "desc",
+            "describes", "REMARKS", "REMARK", "descriptions", "description", "DESCRIPTIONS", "DESCRIPTION"};
+
+    /**
      * 数据库数字类型
      */
     public static final String[] COLUMN_TYPE_NUMBER = {"tinyint", "smallint", "mediumint", "int", "number", "integer",
@@ -143,111 +149,111 @@ public class GenConstants {
     /**
      * 数据库时间类型
      */
-    public static final String[] COLUMNTYPE_TIME = {"datetime", "time", "date", "DATE","timestamp"};
+    public static final String[] COLUMNTYPE_TIME = {"datetime", "time", "date", "DATE", "timestamp"};
 
     /**
      * 文本域
      */
-    public static final String HTML_TEXTAREA = "textarea";
+    public static final String HTML_TEXTAREA = "textarea" ;
 
     /**
      * 文本框
      */
-    public static final String HTML_INPUT = "input";
+    public static final String HTML_INPUT = "input" ;
 
     /**
      * 下拉框
      */
-    public static final String HTML_SELECT = "select";
+    public static final String HTML_SELECT = "select" ;
 
     /**
      * 单选框
      */
-    public static final String HTML_RADIO = "radio";
+    public static final String HTML_RADIO = "radio" ;
 
     /**
      * 复选框
      */
-    public static final String HTML_CHECKBOX = "checkbox";
+    public static final String HTML_CHECKBOX = "checkbox" ;
 
     /**
      * 图片上传控件
      */
-    public static final String HTML_IMAGE_UPLOAD = "imageUpload";
+    public static final String HTML_IMAGE_UPLOAD = "imageUpload" ;
 
     /**
      * 文件上传控件
      */
-    public static final String HTML_FILE_UPLOAD = "fileUpload";
+    public static final String HTML_FILE_UPLOAD = "fileUpload" ;
 
     /**
      * 富文本控件
      */
-    public static final String HTML_EDITOR = "editor";
+    public static final String HTML_EDITOR = "editor" ;
 
     /**
      * 字符串类型
      */
-    public static final String TYPE_STRING = "String";
+    public static final String TYPE_STRING = "String" ;
 
     /**
      * 日期控件
      */
-    public static final String HTML_DATETIME = "datetime";
+    public static final String HTML_DATETIME = "datetime" ;
 
     /**
      * 时间类型
      */
-    public static final String TYPE_DATE = "LocalDateTime";
+    public static final String TYPE_DATE = "LocalDateTime" ;
 
     /**
      * 整型
      */
-    public static final String TYPE_INTEGER = "Integer";
+    public static final String TYPE_INTEGER = "Integer" ;
 
     /**
      * 长整型
      */
-    public static final String TYPE_LONG = "Long";
+    public static final String TYPE_LONG = "Long" ;
 
     /**
      * 浮点型
      */
-    public static final String TYPE_DOUBLE = "Double";
+    public static final String TYPE_DOUBLE = "Double" ;
 
     /**
      * 浮点型
      */
-    public static final String TYPE_FLOAT = "Float";
+    public static final String TYPE_FLOAT = "Float" ;
 
     /**
      * 高精度计算类型
      */
-    public static final String TYPE_BIGDECIMAL = "BigDecimal";
+    public static final String TYPE_BIGDECIMAL = "BigDecimal" ;
 
     /**
      * 布尔类型
      */
-    public static final String TYPE_BOOLEAN = "Boolean";
+    public static final String TYPE_BOOLEAN = "Boolean" ;
 
     /**
      * 需要
      */
-    public static final String REQUIRE = "1";
+    public static final String REQUIRE = "1" ;
 
     /**
-     * 需要
+     * 不需要
      */
-    public static final String NOT_REQUIRE = "0";
+    public static final String NOT_REQUIRE = "0" ;
 
     /**
      * 相等查询
      */
-    public static final String QUERY_EQ = "EQ";
+    public static final String QUERY_EQ = "EQ" ;
 
     /**
      * 模糊查询
      */
-    public static final String QUERY_LIKE = "LIKE";
+    public static final String QUERY_LIKE = "LIKE" ;
 
 }
