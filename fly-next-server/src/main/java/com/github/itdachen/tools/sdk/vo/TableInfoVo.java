@@ -27,6 +27,11 @@ public class TableInfoVo implements Serializable {
     private String tableName;
 
     /**
+     * UI 样式
+     */
+    private String uiStyle;
+
+    /**
      * 表描述
      */
     private String tableComment;
@@ -283,6 +288,14 @@ public class TableInfoVo implements Serializable {
         this.contextPath = contextPath;
     }
 
+    public String getUiStyle() {
+        return uiStyle;
+    }
+
+    public void setUiStyle(String uiStyle) {
+        this.uiStyle = uiStyle;
+    }
+
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("id", getId())
@@ -304,6 +317,7 @@ public class TableInfoVo implements Serializable {
                 .append("remarks", getRemarks())
                 .append("iframe", getIframe())
                 .append("clientId", getClientId())
+                .append("uiStyle", getUiStyle())
                 .append("pkColumn", getPkColumn())
                 .append("columns", getColumns())
                 .toString();

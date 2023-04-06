@@ -24,6 +24,7 @@
         <result property="remarks" column="remarks"/>
         <result property="iframe" column="iframe"/>
         <result property="clientId" column="client_id"/>
+        <result property="uiStyle" column="ui_style"/>
     </resultMap>
 
     <!-- 查收 sql -->
@@ -45,7 +46,8 @@
                options,
                remarks,
                iframe,
-               client_id
+               client_id,
+               ui_style
         FROM sys_gen_table_info
     </sql>
 

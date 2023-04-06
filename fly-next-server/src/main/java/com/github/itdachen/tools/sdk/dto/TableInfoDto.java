@@ -27,6 +27,11 @@ public class TableInfoDto implements Serializable {
     private String tableName;
 
     /**
+     * UI 样式
+     */
+    private String uiStyle;
+
+    /**
      * 表描述
      */
     private String tableComment;
@@ -261,6 +266,14 @@ public class TableInfoDto implements Serializable {
         this.clientId = clientId;
     }
 
+    public String getUiStyle() {
+        return uiStyle;
+    }
+
+    public void setUiStyle(String uiStyle) {
+        this.uiStyle = uiStyle;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
@@ -282,6 +295,7 @@ public class TableInfoDto implements Serializable {
                 .append("remarks", getRemarks())
                 .append("iframe", getIframe())
                 .append("clientId", getClientId())
+                .append("uiStyle", getUiStyle())
                 .append("columns", getColumns())
                 .toString();
     }

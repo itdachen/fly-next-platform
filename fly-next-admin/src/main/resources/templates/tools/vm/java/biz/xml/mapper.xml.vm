@@ -12,8 +12,8 @@
     </resultMap>
 
     <sql id="select${ClassName}Vo">
-        SELECT #foreach($column in $dtoVoColumns)${column.columnName}#if($foreach.count != $dtoVoColumns.size()), #end#end
-        FROM ${tableName}
+        SELECT #foreach($column in $dtoVoColumns)${column.columnName}#if($foreach.count != $dtoVoColumns.size()), #end
+              #end        FROM ${tableName}
     </sql>
 
     <!-- 集合查询 -->
@@ -67,24 +67,19 @@
 
     <!-- 批量添加 -->
     <insert id="batchSave" parameterType="java.util.List">
-        INSERT INTO ${tableName} (#foreach($column in $columns)$column.columnName#if($foreach.count != $columns.size())
-        , #end#end)
-        (
-        <foreach collection="list" item="item" separator="UNION ALL">
-            SELECT
-            #foreach($column in $columns)
-                #{item.$column.javaField}#if($foreach.count != $columns.size()), #end
-            #end
-            FROM DUAL
+        INSERT INTO ${tableName} (#foreach($column in $columns)$column.columnName #if($foreach.count != $columns.size()), #end
+        #end) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#foreach($column in $columns)#{item.$column.javaField}#if($foreach.count != $columns.size()),
+             #end#end)
         </foreach>
-        )
     </insert>
 
     <!-- 批量更新 -->
     <update id="batchUpdate" parameterType="java.util.List">
-        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+        <foreach collection="list" item="item" index="index" separator=";">
             UPDATE  ${tableName}
-            <set>
+            <SET>
                 #foreach($column in $columns)
                     #if($column.columnName != $primaryKey.columnName)
                         <if test="null != item.$column.javaField #if($column.javaType ==
@@ -93,7 +88,7 @@
                         </if>
                     #end
                 #end
-            </set>
+            </SET>
             WHERE id = #{item.id}
         </foreach>
     </update>
