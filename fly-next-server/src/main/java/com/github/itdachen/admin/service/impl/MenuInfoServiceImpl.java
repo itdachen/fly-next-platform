@@ -6,6 +6,8 @@ import com.github.itdachen.admin.utils.AppClientUtils;
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.exception.BizException;
+import com.github.itdachen.framework.core.utils.StringUtils;
+import com.github.itdachen.framework.core.utils.UuidUtils;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -36,8 +38,7 @@ public class MenuInfoServiceImpl extends BizServiceImpl<IMenuInfoMapper, MenuInf
     private final IAppClientMapper appClientMapper;
     private final IElementInfoMapper elementMapper;
 
-    public MenuInfoServiceImpl(IAppClientMapper appClientMapper,
-                               IElementInfoMapper elementMapper) {
+    public MenuInfoServiceImpl(IAppClientMapper appClientMapper, IElementInfoMapper elementMapper) {
         this.appClientMapper = appClientMapper;
         this.elementMapper = elementMapper;
     }
@@ -56,6 +57,22 @@ public class MenuInfoServiceImpl extends BizServiceImpl<IMenuInfoMapper, MenuInf
         Page<MenuInfoVo> page = PageHelper.startPage(params.getPage(), params.getLimit());
         List<MenuInfoVo> list = bizMapper.page(params);
         return new TableData<MenuInfoVo>(page.getTotal(), list);
+    }
+    
+    /***
+     * 新增, 添加组件名称
+     *
+     * @author 王大宸
+     * @date 2023/4/6 10:42
+     * @param entity entity
+     * @return com.github.itdachen.admin.entity.MenuInfo
+     */
+    @Override
+    public MenuInfo save(MenuInfo entity) throws Exception {
+        if (StringUtils.isEmpty(entity.getName())) {
+            entity.setName("C" + UuidUtils.generateShortUuid() + "Component");
+        }
+        return super.save(entity);
     }
 
     /***
