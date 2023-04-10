@@ -10,10 +10,7 @@
 
 | 依赖                   | 版本         |
 |----------------------|------------|
-| Nacos                | 2.1.1      |
 | Spring Boot          | 2.7.10     |
-| Spring Cloud         | 2021.0.5   |
-| Spring Cloud Alibaba | 2021.0.4.0 |
 | Mybatis              | 3.5.11     |
 | pagehelper           | 5.3.2      |
 | fastjson             | 2.0.21     |
