@@ -113,7 +113,7 @@ public class UserInfoController extends BizController<IUserInfoService, UserInfo
      * 测试, 通过注解的方式, 获取账号的登录详细信息
      *
      * @author 王大宸
-     * @date 2023/4/10 16:09
+     * @date 2023/4/10 16:27
      * @param info info
      * @return com.github.itdachen.framework.core.response.ServerResponse<com.github.itdachen.security.user.CurrentUserInfo>
      */

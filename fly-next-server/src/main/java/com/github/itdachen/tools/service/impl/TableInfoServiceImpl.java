@@ -60,9 +60,7 @@ public class TableInfoServiceImpl implements ITableInfoService {
     private final ITableColumnMapper tableColumnMapper;
     private final Environment environment;
 
-    public TableInfoServiceImpl(ITableInfoMapper tableInfoMapper,
-                                ITableColumnMapper tableColumnMapper,
-                                Environment environment) {
+    public TableInfoServiceImpl(ITableInfoMapper tableInfoMapper, ITableColumnMapper tableColumnMapper, Environment environment) {
         this.tableInfoMapper = tableInfoMapper;
         this.tableColumnMapper = tableColumnMapper;
         this.environment = environment;
@@ -171,7 +169,7 @@ public class TableInfoServiceImpl implements ITableInfoService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void importGenTable(String tableNames) throws BizException {
+    public void importGenTable(String tableNames, String uiStyle) throws BizException {
         if (null == tableNames) {
             throw new BizException("请选择表");
         }
@@ -193,6 +191,7 @@ public class TableInfoServiceImpl implements ITableInfoService {
         int index;
         for (GenTable genTable : tableList) {
             tableInfo = new TableInfo();
+            tableInfo.setUiStyle(uiStyle);
             EntityUtils.setCreatAndUpdateInfo(tableInfo);
             tableInfo.setTableName(genTable.getTableName());
             tableInfo.setFunctionAuthor(BizContextHandler.getUserName());
@@ -386,9 +385,7 @@ public class TableInfoServiceImpl implements ITableInfoService {
         column.setQueryType(GenConstants.QUERY_EQ);
         column.setHtmlType(GenConstants.HTML_INPUT);
 
-        if (arraysContains(GenConstants.COLUMNTYPE_STR, dataType)
-                || arraysContains(GenConstants.COLUMNTYPE_TEXT, dataType)
-                || arraysContains(GenConstants.REMARKS_FILED, columnName)) {
+        if (arraysContains(GenConstants.COLUMNTYPE_STR, dataType) || arraysContains(GenConstants.COLUMNTYPE_TEXT, dataType) || arraysContains(GenConstants.REMARKS_FILED, columnName)) {
             // 字符串长度超过500设置为文本域
             Integer columnLength = getColumnLength(column.getColumnType());
             String htmlType = columnLength >= 500 || arraysContains(GenConstants.COLUMNTYPE_TEXT, dataType) ? GenConstants.HTML_TEXTAREA : GenConstants.HTML_INPUT;
@@ -439,8 +436,7 @@ public class TableInfoServiceImpl implements ITableInfoService {
 
 
         // 查询字段类型
-        if (StringUtils.endsWithIgnoreCase(columnName, "name")
-                || StringUtils.endsWithIgnoreCase(columnName, "title")) {
+        if (StringUtils.endsWithIgnoreCase(columnName, "name") || StringUtils.endsWithIgnoreCase(columnName, "title")) {
             column.setQueryType(GenConstants.QUERY_LIKE);
         }
 
@@ -449,8 +445,7 @@ public class TableInfoServiceImpl implements ITableInfoService {
             column.setHtmlType(GenConstants.HTML_RADIO);
         }
         // 类型&性别字段设置下拉框
-        else if (StringUtils.endsWithIgnoreCase(columnName, "type")
-                || StringUtils.endsWithIgnoreCase(columnName, "sex")) {
+        else if (StringUtils.endsWithIgnoreCase(columnName, "type") || StringUtils.endsWithIgnoreCase(columnName, "sex")) {
             column.setHtmlType(GenConstants.HTML_SELECT);
         }
         // 图片字段设置图片上传控件
@@ -505,10 +500,12 @@ public class TableInfoServiceImpl implements ITableInfoService {
 
         // 获取模板列表
         List<String> templates = VelocityUtils.getTemplateList(tableInfoVo.getTplCategory());
+        StringWriter sw;
+        Template tpl;
         for (String template : templates) {
             // 渲染模板
-            StringWriter sw = new StringWriter();
-            Template tpl = Velocity.getTemplate(template, Constants.UTF8);
+            sw = new StringWriter();
+            tpl = Velocity.getTemplate(template, Constants.UTF8);
             tpl.merge(context, sw);
             try {
                 // 添加到zip

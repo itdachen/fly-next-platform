@@ -185,7 +185,7 @@ public class TableInfoController {
     @PostMapping(value = "/import/db")
     @ResponseBody
     public ServerResponse<GenTable> importGenTable(@RequestParam String tableNames) throws BizException {
-        tableInfoService.importGenTable(tableNames);
+        tableInfoService.importGenTable(tableNames, "LAY_UI");
         return ServerResponse.ok();
     }
 
@@ -233,7 +233,7 @@ public class TableInfoController {
      *
      * @author 王大宸
      * @date 2022/9/5 13:50
-     * @return com.itdachen.framework.core.response.ServerResponse<java.util.List<com.itdachen.common.node.ZTreeNode>>
+     * @return com.itdachen.framework.core.response.ServerResponse<java.util.List < com.itdachen.common.node.ZTreeNode>>
      */
     @GetMapping(value = "/dirt/zTree")
     @ResponseBody
@@ -246,7 +246,7 @@ public class TableInfoController {
      *
      * @author 王大宸
      * @date 2022/9/5 14:46
-     * @return com.itdachen.framework.core.response.ServerResponse<java.util.List<com.itdachen.common.node.ZTreeNode>>
+     * @return com.itdachen.framework.core.response.ServerResponse<java.util.List < com.itdachen.common.node.ZTreeNode>>
      */
     @GetMapping("/dict")
     @ResponseBody
