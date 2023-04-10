@@ -5,7 +5,7 @@ import com.github.itdachen.framework.context.constants.UserTypeConstant;
 import com.github.itdachen.framework.context.permission.PermissionInfo;
 import com.github.itdachen.framework.core.permission.LoginUserModel;
 import com.github.itdachen.security.details.AbstractSecurityUserDetailsService;
-import com.github.itdachen.security.user.CurrentUser;
+import com.github.itdachen.security.user.CurrentUserInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,7 +29,7 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
     }
 
     @Override
-    public CurrentUser loadUserByUsername(String username) throws UsernameNotFoundException {
+    public CurrentUserInfo loadUserByUsername(String username) throws UsernameNotFoundException {
         LoginUserModel user = userDetailsMapper.loadUserByUsername(username);
         if (null == user) {
             logger.error("登录账号: " + username + " 不存在");
@@ -39,7 +39,7 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
     }
 
     @Override
-    public CurrentUser loadUserByMobile(String mobile) throws UsernameNotFoundException {
+    public CurrentUserInfo loadUserByMobile(String mobile) throws UsernameNotFoundException {
         LoginUserModel user = userDetailsMapper.loadUserByMobile(mobile);
         if (null == user) {
             logger.error("登录手机号: " + mobile + " 不存在");
@@ -56,7 +56,7 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
      * @param user
      * @return com.itdachen.security.core.model.CurrentUser
      */
-    private CurrentUser getUserPermission(LoginUserModel user) {
+    private CurrentUserInfo getUserPermission(LoginUserModel user) {
         Set<PermissionInfo> userPermission = null;
         if (UserTypeConstant.SUPER_ADMINISTRATOR.equals(user.getType())) {
             userPermission = userDetailsMapper.findPermissionAll();

@@ -6,10 +6,13 @@ import com.github.itdachen.admin.entity.UserInfo;
 import com.github.itdachen.admin.sdk.query.UserInfoQuery;
 import com.github.itdachen.admin.sdk.vo.UserInfoVo;
 import com.github.itdachen.framework.context.annotation.CheckApiClient;
+import com.github.itdachen.framework.context.annotation.CurrentUser;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.core.constants.ClientConstant;
 import com.github.itdachen.framework.core.response.ServerResponse;
 import com.github.itdachen.framework.webmvc.controller.BizController;
+import com.github.itdachen.security.exception.ClientTokenException;
+import com.github.itdachen.security.user.CurrentUserInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -103,6 +106,22 @@ public class UserInfoController extends BizController<IUserInfoService, UserInfo
     @ResponseBody
     public ServerResponse<UserInfoVo> password(@RequestBody SetUserPassword userPassword) throws BizException {
         return ServerResponse.okData(bizService.password(userPassword));
+    }
+
+
+    /***
+     * 测试, 通过注解的方式, 获取账号的登录详细信息
+     *
+     * @author 王大宸
+     * @date 2023/4/10 16:09
+     * @param info info
+     * @return com.github.itdachen.framework.core.response.ServerResponse<com.github.itdachen.security.user.CurrentUserInfo>
+     */
+    @GetMapping("/test/user/info")
+    @ResponseBody
+    public ServerResponse<CurrentUserInfo> getCurrentUser(@CurrentUser CurrentUserInfo info) throws ClientTokenException {
+        System.err.println(info.getDepartId());
+        return ServerResponse.okData(info);
     }
 
 }

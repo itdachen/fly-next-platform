@@ -3,13 +3,17 @@ package com.github.itdachen.config;
 import com.github.itdachen.framework.body.advice.handler.GlobalExceptionHandler;
 import com.github.itdachen.security.interceptor.BrowserInterceptor;
 import com.github.itdachen.security.matchers.IFilterMatchers;
+import com.github.itdachen.security.resolvers.CurrentUserMethodArgumentResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
 
 /**
  * Description: SpringBoot Mvc
@@ -52,6 +56,17 @@ public class FlyAdminBootstrapWebMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(authInterceptor())
                 .addPathPatterns("/**")
                 .excludePathPatterns(filterMatchers.matchers());
+    }
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(currentUserMethodArgumentResolver());
+    }
+
+    @Bean
+    public CurrentUserMethodArgumentResolver currentUserMethodArgumentResolver() {
+        System.err.println("正在配置解析器 ... ");
+        return new CurrentUserMethodArgumentResolver();
     }
 
     @Bean
