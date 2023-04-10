@@ -11,6 +11,7 @@ import com.github.itdachen.tools.sdk.query.GenTableQuery;
 import com.github.itdachen.tools.sdk.query.TableInfoQuery;
 import com.github.itdachen.tools.sdk.vo.TableInfoVo;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -100,7 +101,7 @@ public interface ITableInfoService {
      * @param tableNames tableNames
      * @return byte[]
      */
-    byte[] downloadCode(String[] tableNames);
+   void downloadCode(String[] tableNames, HttpServletResponse response)throws Exception ;
 
     /***
      * 预览代码
@@ -110,7 +111,7 @@ public interface ITableInfoService {
      * @param id id
      * @return java.util.Map<java.lang.String, java.lang.String>
      */
-    Map<String, String> previewCode(String id) throws BizException;
+    Map<String, String> previewCode(String id) throws Exception;
 
     /***
      * 获取菜单目录

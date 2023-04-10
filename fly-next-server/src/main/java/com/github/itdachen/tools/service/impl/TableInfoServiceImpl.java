@@ -33,6 +33,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -134,7 +135,6 @@ public class TableInfoServiceImpl implements ITableInfoService {
             tableColumnMapper.updateTableColumn(one);
         }
         return tableInfoDto;
-
     }
 
     /***
@@ -196,14 +196,12 @@ public class TableInfoServiceImpl implements ITableInfoService {
      * @return byte[]
      */
     @Override
-    public byte[] downloadCode(String[] tableNames) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ZipOutputStream zip = new ZipOutputStream(outputStream);
+    public void downloadCode(String[] tableNames, HttpServletResponse response) throws Exception {
+        List<TableInfoVo> list = new ArrayList<>();
         for (String tableName : tableNames) {
-            generatorCode(tableName, zip);
+            list.add(tableInfoMapper.findTableInfoVoById(tableName));
         }
-        IOUtils.closeQuietly(zip);
-        return outputStream.toByteArray();
+        CodeHelper.downloadCode(list, response);
     }
 
     /***
@@ -215,9 +213,9 @@ public class TableInfoServiceImpl implements ITableInfoService {
      * @return java.util.Map<java.lang.String, java.lang.String>
      */
     @Override
-    public Map<String, String> previewCode(String id) throws BizException {
+    public Map<String, String> previewCode(String id) throws Exception {
         TableInfoVo tableInfoVo = tableInfoMapper.findTableInfoVoById(id);
-        return PreviewCodeUtils.previewCode(tableInfoVo);
+        return CodeHelper.previewCode(tableInfoVo);
     }
 
     /***
@@ -279,36 +277,5 @@ public class TableInfoServiceImpl implements ITableInfoService {
         tableInfoMapper.saveTableInfo(tableInfo);
         return tableInfo;
     }
-
-
-    private void generatorCode(String id, ZipOutputStream zip) {
-        TableInfoVo tableInfoVo = tableInfoMapper.findTableInfoVoById(id);
-        PkColumnUtils.setPkColumn(tableInfoVo);
-        VelocityInitializer.initVelocity();
-
-        VelocityContext context = VelocityUtils.prepareContext(tableInfoVo);
-
-        // 获取模板列表
-        List<String> templates = VelocityUtils.getTemplateList(tableInfoVo.getTplCategory());
-        StringWriter sw;
-        Template tpl;
-        for (String template : templates) {
-            // 渲染模板
-            sw = new StringWriter();
-            tpl = Velocity.getTemplate(template, Constants.UTF8);
-            tpl.merge(context, sw);
-            try {
-                // 添加到zip
-                zip.putNextEntry(new ZipEntry(VelocityUtils.getFileName(template, tableInfoVo)));
-                IOUtils.write(sw.toString(), zip, Constants.UTF8);
-                IOUtils.closeQuietly(sw);
-                zip.flush();
-                zip.closeEntry();
-            } catch (IOException e) {
-                logger.error("渲染模板失败，表名：" + tableInfoVo.getTableName(), e);
-            }
-        }
-    }
-
 
 }

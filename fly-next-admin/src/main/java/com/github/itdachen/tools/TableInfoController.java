@@ -201,17 +201,9 @@ public class TableInfoController {
     @GetMapping(value = "/code")
     @IgnoreResponseAdvice
     public void code(@RequestParam Map<String, String> params,
-                     HttpServletResponse response) throws IOException, BizException {
-        String[] tableNames = new String[]{};
+                     HttpServletResponse response) throws Exception {
         String ids = params.get("id");
-        tableNames = ids.split(",");
-
-        byte[] data = tableInfoService.downloadCode(tableNames);
-        response.reset();
-        response.setHeader("Content-Disposition", "attachment; filename=home-admin.zip");
-        response.addHeader("Content-Length", "" + data.length);
-        response.setContentType("application/octet-stream; charset=UTF-8");
-        IOUtils.write(data, response.getOutputStream());
+        tableInfoService.downloadCode(ids.split(","), response);
     }
 
     /***
@@ -224,7 +216,7 @@ public class TableInfoController {
      */
     @GetMapping("/preview/{id}")
     @ResponseBody
-    public ServerResponse<Map<String, String>> previewCode(@PathVariable("id") String id) throws BizException {
+    public ServerResponse<Map<String, String>> previewCode(@PathVariable("id") String id) throws Exception {
         return ServerResponse.okData(tableInfoService.previewCode(id));
     }
 

@@ -121,10 +121,10 @@ public class VelocityUtils {
      *
      * @author 王大宸
      * @date 2022/7/27 23:55
-     * @param type type
+     * @param mvcType mvcType
      * @return java.util.List<java.lang.String>
      */
-    public static List<String> getTemplateList(String type) {
+    public static List<String> getTemplateList(String mvcType, String uiStyle) {
         List<String> templates = new ArrayList<String>();
         /* sdk */
         templates.add("templates/tools/vm/java/sdk/dto/dto.java.vm");
@@ -132,35 +132,42 @@ public class VelocityUtils {
         templates.add("templates/tools/vm/java/sdk/query/query.java.vm");
 
         /* 后端 java */
-        templates.add("templates/tools/vm/java/" + type + "/entity/entity.java.vm");
-        templates.add("templates/tools/vm/java/" + type + "/controller/controller.java.vm");
-        templates.add("templates/tools/vm/java/" + type + "/service/service.java.vm");
-        templates.add("templates/tools/vm/java/" + type + "/service/impl/serviceImpl.java.vm");
-        templates.add("templates/tools/vm/java/" + type + "/mapper/mapper.java.vm");
+        templates.add("templates/tools/vm/java/" + mvcType + "/entity/entity.java.vm");
+        templates.add("templates/tools/vm/java/" + mvcType + "/controller/controller.java.vm");
+        templates.add("templates/tools/vm/java/" + mvcType + "/service/service.java.vm");
+        templates.add("templates/tools/vm/java/" + mvcType + "/service/impl/serviceImpl.java.vm");
+        templates.add("templates/tools/vm/java/" + mvcType + "/mapper/mapper.java.vm");
         /* mybatis xml */
-        templates.add("templates/tools/vm/java/" + type + "/xml/mapper.xml.vm");
+        templates.add("templates/tools/vm/java/" + mvcType + "/xml/mapper.xml.vm");
 
         /* 菜单 sql */
         templates.add("templates/tools/vm/sql/menu.sql.vm");
 
-        /* html */
-        templates.add("templates/tools/vm/html/add.html.vm");
-        templates.add("templates/tools/vm/html/edit.html.vm");
-        templates.add("templates/tools/vm/html/index.html.vm");
-        templates.add("templates/tools/vm/html/view.html.vm");
+        if ("NONE".equals(uiStyle) || "".equals(uiStyle)) {
+            return templates;
+        }
 
-        /* js */
-        templates.add("templates/tools/vm/js/add.js.vm");
-        templates.add("templates/tools/vm/js/edit.js.vm");
-        templates.add("templates/tools/vm/js/index.js.vm");
+        if ("LAY_UI".equals(uiStyle)) {
+            /* html */
+            templates.add("templates/tools/vm/html/add.html.vm");
+            templates.add("templates/tools/vm/html/edit.html.vm");
+            templates.add("templates/tools/vm/html/index.html.vm");
+            templates.add("templates/tools/vm/html/view.html.vm");
 
-
-        /* 前后端分离 vue */
+            /* js */
+            templates.add("templates/tools/vm/js/add.js.vm");
+            templates.add("templates/tools/vm/js/edit.js.vm");
+            templates.add("templates/tools/vm/js/index.js.vm");
+        } else if ("".equals(uiStyle)) {
+            /* 前后端分离 vue */
 //        templates.add("templates/vm/vue/api.ts.vm");
 //        templates.add("templates/vm/vue/model.ts.vm");
 //        templates.add("templates/vm/vue/composables.ts.vm");
 //        templates.add("templates/vm/vue/index.vue.vm");
 //        templates.add("templates/vm/vue/ref.vue.vm");
+        }
+
+
         return templates;
     }
 

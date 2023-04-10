@@ -16,153 +16,126 @@ import java.time.LocalDateTime;
  * @author 王大宸
  * @date 2022-08-10 15:11:50
  */
-@Table(name = "sys_gen_table_info")
 public class TableInfo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
      * 编号
      */
-    @Id
-    @Column(name = "id")
     private String id;
 
     /**
      * 表名称
      */
-    @Column(name = "table_name")
     private String tableName;
 
     /**
      * UI 样式
      */
-    @Column(name = "ui_style")
     private String uiStyle;
 
     /**
      * 表描述
      */
-    @Column(name = "table_comment")
     private String tableComment;
 
     /**
      * 实体类名称
      */
-    @Column(name = "class_name")
     private String className;
 
     /**
      * 使用的模板（biz单表操作 default树表操作）
      */
-    @Column(name = "tpl_category")
     private String tplCategory;
 
     /**
      * 生成包路径
      */
-    @Column(name = "package_name")
     private String packageName;
 
     /**
      * 服务上下文
      */
-    @Column(name = "context_path")
     private String contextPath;
 
     /**
      * 生成模块名
      */
-    @Column(name = "module_name")
     private String moduleName;
 
     /**
      * 生成业务名(controller访问名, 例如: 模块名为 admin, 业务名为 user, controller 访问路径为: /admin/user)
      */
-    @Column(name = "business_name")
     private String businessName;
 
     /**
      * 生成功能名
      */
-    @Column(name = "function_name")
     private String functionName;
 
     /**
      * 生成功能作者
      */
-    @Column(name = "function_author")
     private String functionAuthor;
 
     /**
      * 上级菜单目录id
      */
-    @Column(name = "menu_id")
     private String menuId;
 
     /**
      * 生成代码方式（0 zip压缩包 1自定义路径）
      */
-    @Column(name = "gen_type")
     private String genType;
 
     /**
      * 生成路径（不填默认项目路径）
      */
-    @Column(name = "gen_path")
     private String genPath;
 
     /**
      * 其它生成选项
      */
-    @Column(name = "options")
     private String options;
 
     /**
      * 备注
      */
-    @Column(name = "remarks")
     private String remarks;
 
-    @Column(name = "iframe")
     private String iframe;
 
-    @Column(name = "client_id")
     private String clientId;
 
     /**
      * 创建时间
      */
-    @Column(name = "create_time")
     private LocalDateTime createTime;
 
     /**
      * 创建人
      */
-    @Column(name = "create_user")
     private String createUser;
 
     /**
      * 创建人id
      */
-    @Column(name = "create_user_id")
     private String createUserId;
 
     /**
      * 更新时间
      */
-    @Column(name = "update_time")
     private LocalDateTime updateTime;
 
     /**
      * 更新人
      */
-    @Column(name = "update_user")
     private String updateUser;
 
     /**
      * 更新人id
      */
-    @Column(name = "update_user_id")
     private String updateUserId;
 
 

@@ -124,7 +124,7 @@ public interface ITableInfoMapper {
      * @return java.util.List<cn.edu.hubu.tools.entity.GenTable>
      */
     List<ProtoTable> findTableList(List<String> list);
-    
+
     /***
      * 根据表名, 查询列信息
      *
