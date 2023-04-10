@@ -381,6 +381,9 @@
         <result property="genPath" column="gen_path"/>
         <result property="options" column="options"/>
         <result property="remarks" column="remarks"/>
+        <result property="iframe" column="iframe"/>
+        <result property="clientId" column="client_id"/>
+        <result property="uiStyle" column="ui_style"/>
         <collection property="columns" javaType="java.util.List" resultMap="genTableColumnVo"/>
     </resultMap>
 
@@ -422,6 +425,9 @@
                t.gen_path,
                t.OPTIONS,
                t.remarks,
+               t.iframe,
+               t.client_id,
+               t.ui_style,
                c.id    AS column_id,
                c.table_id,
                c.column_name,

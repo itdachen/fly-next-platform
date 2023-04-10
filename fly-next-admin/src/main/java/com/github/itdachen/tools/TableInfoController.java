@@ -1,6 +1,7 @@
 package com.github.itdachen.tools;
 
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.code.constants.UiStyleConstant;
 import com.github.itdachen.framework.code.entity.ProtoTable;
 import com.github.itdachen.framework.code.entity.TableColumn;
 import com.github.itdachen.framework.code.entity.TableInfo;
@@ -211,7 +212,7 @@ public class TableInfoController {
     @PostMapping(value = "/import/db")
     @ResponseBody
     public ServerResponse<ProtoTable> importGenTable(@RequestParam String tableNames) throws BizException {
-        tableInfoService.importGenTable(tableNames, "LAY_UI");
+        tableInfoService.importGenTable(tableNames, UiStyleConstant.LAY_UI);
         return ServerResponse.ok();
     }
 
@@ -311,6 +312,7 @@ public class TableInfoController {
     @PostMapping("/save/table")
     @ResponseBody
     public ServerResponse<TableInfo> saveTable(@RequestBody TableInfo tableInfo) throws BizException {
+        tableInfo.setUiStyle(UiStyleConstant.LAY_UI);
         return ServerResponse.okData(tableInfoService.saveTable(tableInfo));
     }
 
