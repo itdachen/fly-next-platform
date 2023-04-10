@@ -1,17 +1,18 @@
 package com.github.itdachen.tools;
 
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.code.entity.ProtoTable;
+import com.github.itdachen.framework.code.entity.TableColumn;
+import com.github.itdachen.framework.code.entity.TableInfo;
+import com.github.itdachen.framework.code.sdk.dto.TableInfoDto;
+import com.github.itdachen.framework.code.sdk.query.GenTableQuery;
+import com.github.itdachen.framework.code.sdk.query.TableInfoQuery;
+import com.github.itdachen.framework.code.sdk.vo.TableInfoVo;
 import com.github.itdachen.framework.context.annotation.IgnoreResponseAdvice;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.core.response.ServerResponse;
 import com.github.itdachen.framework.core.response.TableData;
-import com.github.itdachen.tools.entity.ProtoTable;
-import com.github.itdachen.tools.sdk.dto.TableInfoDto;
-import com.github.itdachen.tools.sdk.query.GenTableQuery;
-import com.github.itdachen.tools.sdk.query.TableInfoQuery;
-import com.github.itdachen.tools.sdk.vo.TableInfoVo;
 import com.github.itdachen.tools.service.ITableInfoService;
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -103,6 +103,33 @@ public class TableInfoController {
     }
 
     /***
+     * 跳转到新增表格页面
+     *
+     * @author 王大宸
+     * @date 2023/2/16 14:59
+     * @return java.lang.String
+     */
+    @GetMapping("/save/table")
+    public String saveTable() throws BizException {
+        return PATH_PREFIX + "/table";
+    }
+
+    /***
+     * 跳转到添加字段页面
+     *
+     * @author 王大宸
+     * @date 2023/2/16 10:53
+     * @param id id
+     * @param modelMap modelMap
+     * @return java.lang.String
+     */
+    @GetMapping("/column/{id}")
+    public String addColumn(@PathVariable("id") String id, ModelMap modelMap) {
+        modelMap.put("tableId", id);
+        return PATH_PREFIX + "/column";
+    }
+
+    /***
      * 分页
      *
      * @author 王大宸
@@ -143,7 +170,6 @@ public class TableInfoController {
     public ServerResponse<TableInfoVo> getTableInfoById(@PathVariable("id") String id) throws BizException {
         return ServerResponse.okData(tableInfoService.getTableInfoById(id));
     }
-
 
     /***
      * 删除
@@ -245,6 +271,49 @@ public class TableInfoController {
     public ServerResponse<List<ZTreeNode>> dictList() throws BizException {
         return ServerResponse.okData(tableInfoService.dictList());
     }
+
+    /***
+     * 获取应用列表
+     *
+     * @author 王大宸
+     * @date 2023/3/1 14:31
+     * @return cn.edu.hubu.framework.core.response.ServerResponse<java.util.List<cn.edu.hubu.framework.context.node.ZTreeNode>>
+     */
+    @GetMapping("/app/list")
+    @ResponseBody
+    public ServerResponse<List<ZTreeNode>> appInfoList() throws BizException {
+        return ServerResponse.okData(tableInfoService.appInfoList());
+    }
+
+    /***
+     * 添加字段
+     *
+     * @author 王大宸
+     * @date 2023/2/16 14:26
+     * @param tableColumn tableColumn
+     * @return cn.edu.hubu.framework.core.response.ServerResponse<cn.edu.hubu.tools.entity.TableColumn>
+     */
+    @PostMapping("/save/column")
+    @ResponseBody
+    public ServerResponse<TableColumn> saveTableColumn(@RequestBody TableColumn tableColumn) throws BizException {
+        return ServerResponse.okData(tableInfoService.saveTableColumn(tableColumn));
+    }
+
+
+    /***
+     * 新增表格
+     *
+     * @author 王大宸
+     * @date 2023/2/16 14:46
+     * @param tableInfo tableInfo
+     * @return cn.edu.hubu.framework.core.response.ServerResponse<cn.edu.hubu.tools.entity.TableInfo>
+     */
+    @PostMapping("/save/table")
+    @ResponseBody
+    public ServerResponse<TableInfo> saveTable(@RequestBody TableInfo tableInfo) throws BizException {
+        return ServerResponse.okData(tableInfoService.saveTable(tableInfo));
+    }
+
 
 
 }

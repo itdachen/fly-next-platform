@@ -3,43 +3,34 @@ package com.github.itdachen.tools.service.impl;
 import com.github.itdachen.admin.utils.AppClientUtils;
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import com.github.itdachen.framework.boot.runner.handler.ContextPathHandler;
+import com.github.itdachen.framework.code.CodeHelper;
+import com.github.itdachen.framework.code.entity.ProtoTable;
+import com.github.itdachen.framework.code.entity.ProtoTableInfo;
+import com.github.itdachen.framework.code.entity.TableColumn;
+import com.github.itdachen.framework.code.entity.TableInfo;
+import com.github.itdachen.framework.code.sdk.dto.TableColumnDto;
+import com.github.itdachen.framework.code.sdk.dto.TableInfoDto;
+import com.github.itdachen.framework.code.sdk.query.GenTableQuery;
+import com.github.itdachen.framework.code.sdk.query.TableInfoQuery;
+import com.github.itdachen.framework.code.sdk.vo.TableInfoVo;
+import com.github.itdachen.framework.code.utils.TableColumnFieldUtils;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.exception.BizException;
-import com.github.itdachen.framework.core.constants.Constants;
 import com.github.itdachen.framework.core.response.TableData;
-import com.github.itdachen.framework.core.utils.StringUtils;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
-import com.github.itdachen.tools.entity.*;
 import com.github.itdachen.tools.mapper.ITableColumnMapper;
 import com.github.itdachen.tools.mapper.ITableInfoMapper;
-import com.github.itdachen.tools.sdk.dto.TableColumnDto;
-import com.github.itdachen.tools.sdk.dto.TableInfoDto;
-import com.github.itdachen.tools.sdk.query.GenTableQuery;
-import com.github.itdachen.tools.sdk.query.TableInfoQuery;
-import com.github.itdachen.tools.sdk.vo.TableColumnVo;
-import com.github.itdachen.tools.sdk.vo.TableInfoVo;
 import com.github.itdachen.tools.service.ITableInfoService;
-import com.github.itdachen.tools.utils.*;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import org.apache.commons.io.IOUtils;
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.StringWriter;
 import java.util.*;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 /**
  * 代码生成业务表 业务实现
@@ -244,6 +235,18 @@ public class TableInfoServiceImpl implements ITableInfoService {
     @Override
     public List<ZTreeNode> dictList() throws BizException {
         return tableInfoMapper.dictList();
+    }
+
+    /***
+     * 获取应用列表
+     *
+     * @author 王大宸
+     * @date 2023/3/1 14:29
+     * @return java.util.List<cn.edu.hubu.framework.context.node.ZTreeNode>
+     */
+    @Override
+    public List<ZTreeNode> appInfoList() throws BizException {
+        return tableInfoMapper.findAppAll();
     }
 
 

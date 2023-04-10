@@ -1,12 +1,12 @@
 package com.github.itdachen.tools.mapper;
 
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
-import com.github.itdachen.tools.entity.ProtoColumns;
-import com.github.itdachen.tools.entity.ProtoTable;
-import com.github.itdachen.tools.entity.TableInfo;
-import com.github.itdachen.tools.sdk.query.GenTableQuery;
-import com.github.itdachen.tools.sdk.query.TableInfoQuery;
-import com.github.itdachen.tools.sdk.vo.TableInfoVo;
+import com.github.itdachen.framework.code.entity.ProtoColumns;
+import com.github.itdachen.framework.code.entity.ProtoTable;
+import com.github.itdachen.framework.code.entity.TableInfo;
+import com.github.itdachen.framework.code.sdk.query.GenTableQuery;
+import com.github.itdachen.framework.code.sdk.query.TableInfoQuery;
+import com.github.itdachen.framework.code.sdk.vo.TableInfoVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

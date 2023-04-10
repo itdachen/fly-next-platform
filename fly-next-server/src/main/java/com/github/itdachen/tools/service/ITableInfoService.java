@@ -1,15 +1,15 @@
 package com.github.itdachen.tools.service;
 
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.code.entity.ProtoTable;
+import com.github.itdachen.framework.code.entity.TableColumn;
+import com.github.itdachen.framework.code.entity.TableInfo;
+import com.github.itdachen.framework.code.sdk.dto.TableInfoDto;
+import com.github.itdachen.framework.code.sdk.query.GenTableQuery;
+import com.github.itdachen.framework.code.sdk.query.TableInfoQuery;
+import com.github.itdachen.framework.code.sdk.vo.TableInfoVo;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.core.response.TableData;
-import com.github.itdachen.tools.entity.ProtoTable;
-import com.github.itdachen.tools.entity.TableColumn;
-import com.github.itdachen.tools.entity.TableInfo;
-import com.github.itdachen.tools.sdk.dto.TableInfoDto;
-import com.github.itdachen.tools.sdk.query.GenTableQuery;
-import com.github.itdachen.tools.sdk.query.TableInfoQuery;
-import com.github.itdachen.tools.sdk.vo.TableInfoVo;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -130,6 +130,15 @@ public interface ITableInfoService {
      * @return java.util.List<cn.edu.hubu.framework.context.node.ZTreeNode>
      */
     List<ZTreeNode> dictList() throws BizException;
+
+    /***
+     * 获取应用列表
+     *
+     * @author 王大宸
+     * @date 2023/3/1 14:29
+     * @return java.util.List<cn.edu.hubu.framework.context.node.ZTreeNode>
+     */
+    List<ZTreeNode> appInfoList() throws BizException;
 
     /***
      * 添加字段

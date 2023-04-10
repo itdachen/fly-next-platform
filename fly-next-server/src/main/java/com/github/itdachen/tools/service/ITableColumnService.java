@@ -1,11 +1,10 @@
 package com.github.itdachen.tools.service;
 
-
+import com.github.itdachen.framework.code.sdk.dto.TableColumnDto;
+import com.github.itdachen.framework.code.sdk.query.TableColumnQuery;
+import com.github.itdachen.framework.code.sdk.vo.TableColumnVo;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.core.response.TableData;
-import com.github.itdachen.tools.sdk.dto.TableColumnDto;
-import com.github.itdachen.tools.sdk.query.TableColumnQuery;
-import com.github.itdachen.tools.sdk.vo.TableColumnVo;
 
 /**
  * 代码生成业务表字段 service

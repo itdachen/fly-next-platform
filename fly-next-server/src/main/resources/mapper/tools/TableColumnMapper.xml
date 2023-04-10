@@ -5,7 +5,7 @@
 <mapper namespace="com.github.itdachen.tools.mapper.ITableColumnMapper">
 
     <!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.github.itdachen.tools.sdk.vo.TableColumnVo" id="tableColumnMap">
+    <resultMap type="com.github.itdachen.framework.code.sdk.vo.TableColumnVo" id="tableColumnMap">
         <result property="id" column="id"/>
         <result property="tableId" column="table_id"/>
         <result property="columnName" column="column_name"/>
@@ -48,7 +48,7 @@
     </sql>
 
     <!-- 分页查询 -->
-    <select id="findTableColumnPage" parameterType="com.github.itdachen.tools.sdk.query.TableColumnQuery"
+    <select id="findTableColumnPage" parameterType="com.github.itdachen.framework.code.sdk.query.TableColumnQuery"
             resultMap="tableColumnMap">
         <include refid="selectTableColumnVo"/>
         <where>
@@ -79,7 +79,7 @@
         WHERE id = #{id}
     </select>
 
-    <insert id="saveTableColumn" parameterType="com.github.itdachen.tools.entity.TableColumn">
+    <insert id="saveTableColumn" parameterType="com.github.itdachen.framework.code.entity.TableColumn">
         INSERT INTO sys_gen_table_column
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="null != id  and '' != id ">id,</if>
@@ -133,7 +133,7 @@
         </trim>
     </insert>
 
-    <update id="updateTableColumn" parameterType="com.github.itdachen.tools.entity.TableColumn">
+    <update id="updateTableColumn" parameterType="com.github.itdachen.framework.code.entity.TableColumn">
         UPDATE sys_gen_table_column
         <trim prefix="SET" suffixOverrides=",">
             <if test="null != tableId  and '' !=  tableId ">table_id = #{tableId},</if>

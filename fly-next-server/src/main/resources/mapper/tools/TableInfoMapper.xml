@@ -5,7 +5,7 @@
 <mapper namespace="com.github.itdachen.tools.mapper.ITableInfoMapper">
 
     <!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.github.itdachen.tools.sdk.vo.TableInfoVo" id="tableInfoMap">
+    <resultMap type="com.github.itdachen.framework.code.sdk.vo.TableInfoVo" id="tableInfoMap">
         <result property="id" column="id"/>
         <result property="tableName" column="table_name"/>
         <result property="tableComment" column="table_comment"/>
@@ -51,8 +51,8 @@
         FROM sys_gen_table_info
     </sql>
 
-    <select id="findDbList" resultType="com.github.itdachen.tools.entity.ProtoTable"
-            parameterType="com.github.itdachen.tools.sdk.query.GenTableQuery">
+    <select id="findDbList" resultType="com.github.itdachen.framework.code.entity.ProtoTable"
+            parameterType="com.github.itdachen.framework.code.sdk.query.GenTableQuery">
         SELECT table_name AS id, table_name AS tableName, table_comment AS tableComment,
         create_time AS createTime, update_time AS updateTime
         FROM information_schema.tables
@@ -69,7 +69,7 @@
     </select>
 
     <!-- 分页查询 -->
-    <select id="findTableInfoPage" parameterType="com.github.itdachen.tools.sdk.query.TableInfoQuery" resultMap="tableInfoMap">
+    <select id="findTableInfoPage" parameterType="com.github.itdachen.framework.code.sdk.query.TableInfoQuery" resultMap="tableInfoMap">
         <include refid="selectTableInfoVo"/>
         <where>
             <if test="null != tableName  and '' != tableName ">
@@ -90,7 +90,7 @@
         WHERE id = #{id}
     </select>
 
-    <insert id="saveTableInfo" parameterType="com.github.itdachen.tools.entity.TableInfo">
+    <insert id="saveTableInfo" parameterType="com.github.itdachen.framework.code.entity.TableInfo">
         INSERT INTO sys_gen_table_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="null != id  and '' != id ">id,</if>
@@ -142,7 +142,7 @@
         </trim>
     </insert>
 
-    <update id="updateTableInfo" parameterType="com.github.itdachen.tools.entity.TableInfo">
+    <update id="updateTableInfo" parameterType="com.github.itdachen.framework.code.entity.TableInfo">
         UPDATE sys_gen_table_info
         <trim prefix="SET" suffixOverrides=",">
             <if test="null != tableName  and '' !=  tableName ">table_name = #{tableName},</if>
@@ -318,11 +318,9 @@
         </foreach>
     </update>
 
-
-
     <!-- -->
-    <select id="dbList" resultType="com.github.itdachen.tools.entity.ProtoTable"
-            parameterType="com.github.itdachen.tools.sdk.query.GenTableQuery">
+    <select id="dbList" resultType="com.github.itdachen.framework.code.entity.ProtoTable"
+            parameterType="com.github.itdachen.framework.code.sdk.query.GenTableQuery">
         SELECT table_name AS id, table_name AS tableName, table_comment AS tableComment,
         create_time AS createTime, update_time AS updateTime
         FROM information_schema.tables
@@ -338,7 +336,7 @@
         ORDER BY create_time DESC
     </select>
 
-    <select id="findTableList" resultType="com.github.itdachen.tools.entity.ProtoTable" parameterType="java.util.List">
+    <select id="findTableList" resultType="com.github.itdachen.framework.code.entity.ProtoTable" parameterType="java.util.List">
         SELECT table_name AS tableName,
         table_comment AS tableComment,
         create_time AS createTime,
@@ -352,7 +350,7 @@
         AND table_name NOT IN (select table_name from sys_gen_table_info)
     </select>
 
-    <select id="findTableColumns" resultType="com.github.itdachen.tools.entity.ProtoColumns"
+    <select id="findTableColumns" resultType="com.github.itdachen.framework.code.entity.ProtoColumns"
             parameterType="java.lang.String">
         SELECT column_name    AS columnName,
                data_type      AS dataType,
@@ -365,7 +363,7 @@
         ORDER BY ordinal_position
     </select>
 
-    <resultMap type="com.github.itdachen.tools.sdk.vo.TableInfoVo" id="genTableVo">
+    <resultMap type="com.github.itdachen.framework.code.sdk.vo.TableInfoVo" id="genTableVo">
         <id property="id" column="id"/>
         <result property="tableName" column="table_name"/>
         <result property="tableComment" column="table_comment"/>
@@ -386,7 +384,7 @@
         <collection property="columns" javaType="java.util.List" resultMap="genTableColumnVo"/>
     </resultMap>
 
-    <resultMap type="com.github.itdachen.tools.sdk.vo.TableColumnVo" id="genTableColumnVo">
+    <resultMap type="com.github.itdachen.framework.code.sdk.vo.TableColumnVo" id="genTableColumnVo">
         <id property="id" column="column_id"/>
         <result property="tableId" column="table_id"/>
         <result property="columnName" column="column_name"/>

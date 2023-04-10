@@ -36,6 +36,10 @@
             <groupId>com.github.itdachen.framework</groupId>
             <artifactId>fly-assets</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-code-tools</artifactId>
+        </dependency>
 
         <!-- 配置文件 -->
         <dependency>

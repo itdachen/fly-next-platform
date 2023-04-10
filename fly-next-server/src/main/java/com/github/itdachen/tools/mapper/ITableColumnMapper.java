@@ -1,8 +1,9 @@
 package com.github.itdachen.tools.mapper;
 
-import com.github.itdachen.tools.entity.TableColumn;
-import com.github.itdachen.tools.sdk.query.TableColumnQuery;
-import com.github.itdachen.tools.sdk.vo.TableColumnVo;
+
+import com.github.itdachen.framework.code.entity.TableColumn;
+import com.github.itdachen.framework.code.sdk.query.TableColumnQuery;
+import com.github.itdachen.framework.code.sdk.vo.TableColumnVo;
 
 import java.util.List;
 
