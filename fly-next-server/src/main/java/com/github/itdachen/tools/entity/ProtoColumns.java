@@ -7,7 +7,7 @@ import java.io.Serializable;
  * Created by 王大宸 on 2022-08-14 15:52
  * Created with IntelliJ IDEA.
  */
-public class GenComment implements Serializable {
+public class ProtoColumns implements Serializable {
     private static final long serialVersionUID = 1125516287384829557L;
 
     /**

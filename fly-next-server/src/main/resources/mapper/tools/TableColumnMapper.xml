@@ -176,12 +176,31 @@
 
     <!-- 批量添加 -->
     <insert id="batchSave" parameterType="java.util.List">
-        INSERT INTO sys_gen_table_column (id, table_id, column_name, column_comment, column_type, java_type, java_field,
-        is_pk, is_dto_vo, is_required, is_form, is_list, is_query, query_type, html_type, dict_type, sort, create_time,
-        create_user, create_user_id, update_time, update_user, update_user_id)
-        VALUES
+        INSERT INTO sys_gen_table_column (id ,
+        table_id ,
+        column_name ,
+        column_comment ,
+        column_type ,
+        java_type ,
+        java_field ,
+        is_pk ,
+        is_dto_vo ,
+        is_required ,
+        is_form ,
+        is_list ,
+        is_query ,
+        query_type ,
+        html_type ,
+        dict_type ,
+        sort ,
+        create_time ,
+        create_user ,
+        create_user_id ,
+        update_time ,
+        update_user ,
+        update_user_id ) VALUES
         <foreach collection="list" item="item" separator=",">
-            ( #{item.id},
+            (#{item.id},
             #{item.tableId},
             #{item.columnName},
             #{item.columnComment},
@@ -209,41 +228,83 @@
 
     <!-- 批量更新 -->
     <update id="batchUpdate" parameterType="java.util.List">
-        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
-            UPDATE sys_gen_table_column
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE  sys_gen_table_column
             <set>
-                <if test="null != item.id  and '' != item.id ">id = #{item.id},</if>
-                <if test="null != item.tableId  and '' != item.tableId ">table_id = #{item.tableId},</if>
-                <if test="null != item.columnName  and '' != item.columnName ">column_name = #{item.columnName},</if>
-                <if test="null != item.columnComment  and '' != item.columnComment ">
-                    column_comment = #{item.columnComment},
+                <if test="null != item.id  and '' != item.id ">id =
+                    #{item.id},
                 </if>
-                <if test="null != item.columnType  and '' != item.columnType ">column_type = #{item.columnType},</if>
-                <if test="null != item.javaType  and '' != item.javaType ">java_type = #{item.javaType},</if>
-                <if test="null != item.javaField  and '' != item.javaField ">java_field = #{item.javaField},</if>
-                <if test="null != item.isPk  and '' != item.isPk ">is_pk = #{item.isPk},</if>
-                <if test="null != item.isDtoVo  and '' != item.isDtoVo ">is_dto_vo = #{item.isDtoVo},</if>
-                <if test="null != item.isRequired  and '' != item.isRequired ">is_required = #{item.isRequired},</if>
-                <if test="null != item.isForm  and '' != item.isForm ">is_form = #{item.isForm},</if>
-                <if test="null != item.isList  and '' != item.isList ">is_list = #{item.isList},</if>
-                <if test="null != item.isQuery  and '' != item.isQuery ">is_query = #{item.isQuery},</if>
-                <if test="null != item.queryType  and '' != item.queryType ">query_type = #{item.queryType},</if>
-                <if test="null != item.htmlType  and '' != item.htmlType ">html_type = #{item.htmlType},</if>
-                <if test="null != item.dictType  and '' != item.dictType ">dict_type = #{item.dictType},</if>
-                <if test="null != item.sort ">sort = #{item.sort},</if>
-                <if test="null != item.createTime ">create_time = #{item.createTime},</if>
-                <if test="null != item.createUser  and '' != item.createUser ">create_user = #{item.createUser},</if>
-                <if test="null != item.createUserId  and '' != item.createUserId ">
-                    create_user_id = #{item.createUserId},
+                <if test="null != item.tableId  and '' != item.tableId ">table_id =
+                    #{item.tableId},
                 </if>
-                <if test="null != item.updateTime ">update_time = #{item.updateTime},</if>
-                <if test="null != item.updateUser  and '' != item.updateUser ">update_user = #{item.updateUser},</if>
-                <if test="null != item.updateUserId  and '' != item.updateUserId ">
-                    update_user_id = #{item.updateUserId},
+                <if test="null != item.columnName  and '' != item.columnName ">column_name =
+                    #{item.columnName},
+                </if>
+                <if test="null != item.columnComment  and '' != item.columnComment ">column_comment =
+                    #{item.columnComment},
+                </if>
+                <if test="null != item.columnType  and '' != item.columnType ">column_type =
+                    #{item.columnType},
+                </if>
+                <if test="null != item.javaType  and '' != item.javaType ">java_type =
+                    #{item.javaType},
+                </if>
+                <if test="null != item.javaField  and '' != item.javaField ">java_field =
+                    #{item.javaField},
+                </if>
+                <if test="null != item.isPk  and '' != item.isPk ">is_pk =
+                    #{item.isPk},
+                </if>
+                <if test="null != item.isDtoVo  and '' != item.isDtoVo ">is_dto_vo =
+                    #{item.isDtoVo},
+                </if>
+                <if test="null != item.isRequired  and '' != item.isRequired ">is_required =
+                    #{item.isRequired},
+                </if>
+                <if test="null != item.isForm  and '' != item.isForm ">is_form =
+                    #{item.isForm},
+                </if>
+                <if test="null != item.isList  and '' != item.isList ">is_list =
+                    #{item.isList},
+                </if>
+                <if test="null != item.isQuery  and '' != item.isQuery ">is_query =
+                    #{item.isQuery},
+                </if>
+                <if test="null != item.queryType  and '' != item.queryType ">query_type =
+                    #{item.queryType},
+                </if>
+                <if test="null != item.htmlType  and '' != item.htmlType ">html_type =
+                    #{item.htmlType},
+                </if>
+                <if test="null != item.dictType  and '' != item.dictType ">dict_type =
+                    #{item.dictType},
+                </if>
+                <if test="null != item.sort ">sort =
+                    #{item.sort},
+                </if>
+                <if test="null != item.createTime ">create_time =
+                    #{item.createTime},
+                </if>
+                <if test="null != item.createUser  and '' != item.createUser ">create_user =
+                    #{item.createUser},
+                </if>
+                <if test="null != item.createUserId  and '' != item.createUserId ">create_user_id =
+                    #{item.createUserId},
+                </if>
+                <if test="null != item.updateTime ">update_time =
+                    #{item.updateTime},
+                </if>
+                <if test="null != item.updateUser  and '' != item.updateUser ">update_user =
+                    #{item.updateUser},
+                </if>
+                <if test="null != item.updateUserId  and '' != item.updateUserId ">update_user_id =
+                    #{item.updateUserId},
                 </if>
             </set>
             WHERE id = #{item.id}
         </foreach>
     </update>
+
+
 
 </mapper>

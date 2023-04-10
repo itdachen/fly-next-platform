@@ -65,13 +65,11 @@ public class FlyAdminBootstrapWebMvcConfig implements WebMvcConfigurer {
 
     @Bean
     public CurrentUserMethodArgumentResolver currentUserMethodArgumentResolver() {
-        System.err.println("正在配置解析器 ... ");
         return new CurrentUserMethodArgumentResolver();
     }
 
     @Bean
     public BrowserInterceptor authInterceptor() {
-        logger.info("正在配置拦截器 ...");
         return new BrowserInterceptor();
     }
 

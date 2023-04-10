@@ -5,7 +5,7 @@ import com.github.itdachen.framework.context.annotation.IgnoreResponseAdvice;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.core.response.ServerResponse;
 import com.github.itdachen.framework.core.response.TableData;
-import com.github.itdachen.tools.entity.GenTable;
+import com.github.itdachen.tools.entity.ProtoTable;
 import com.github.itdachen.tools.sdk.dto.TableInfoDto;
 import com.github.itdachen.tools.sdk.query.GenTableQuery;
 import com.github.itdachen.tools.sdk.query.TableInfoQuery;
@@ -170,7 +170,7 @@ public class TableInfoController {
      */
     @GetMapping(value = "/db/list")
     @ResponseBody
-    public ServerResponse<TableData<GenTable>> dbList(GenTableQuery query) throws BizException {
+    public ServerResponse<TableData<ProtoTable>> dbList(GenTableQuery query) throws BizException {
         return ServerResponse.okData(tableInfoService.dbList(query));
     }
 
@@ -184,7 +184,7 @@ public class TableInfoController {
      */
     @PostMapping(value = "/import/db")
     @ResponseBody
-    public ServerResponse<GenTable> importGenTable(@RequestParam String tableNames) throws BizException {
+    public ServerResponse<ProtoTable> importGenTable(@RequestParam String tableNames) throws BizException {
         tableInfoService.importGenTable(tableNames, "LAY_UI");
         return ServerResponse.ok();
     }

@@ -51,7 +51,7 @@
         FROM sys_gen_table_info
     </sql>
 
-    <select id="findDbList" resultType="com.github.itdachen.tools.entity.GenTable"
+    <select id="findDbList" resultType="com.github.itdachen.tools.entity.ProtoTable"
             parameterType="com.github.itdachen.tools.sdk.query.GenTableQuery">
         SELECT table_name AS id, table_name AS tableName, table_comment AS tableComment,
         create_time AS createTime, update_time AS updateTime
@@ -176,15 +176,40 @@
         WHERE id = #{id}
     </delete>
 
+
     <!-- 批量添加 -->
     <insert id="batchSave" parameterType="java.util.List">
-        INSERT INTO sys_gen_table_info (id, table_name, table_comment, class_name, tpl_category, package_name, context_path,
-        module_name, business_name, function_name, function_author, menu_id, gen_type, gen_path, options, remarks,
-        create_time, create_user, create_user_id, update_time, update_user, update_user_id)
-        VALUES
+        INSERT INTO sys_gen_table_info (id ,
+        table_name ,
+        ui_style ,
+        client_id ,
+        iframe ,
+        table_comment ,
+        class_name ,
+        tpl_category ,
+        package_name ,
+        context_path ,
+        module_name ,
+        business_name ,
+        function_name ,
+        function_author ,
+        menu_id ,
+        gen_type ,
+        gen_path ,
+        options ,
+        remarks ,
+        create_time ,
+        create_user ,
+        create_user_id ,
+        update_time ,
+        update_user ,
+        update_user_id ) VALUES
         <foreach collection="list" item="item" separator=",">
-            ( #{item.id},
+            (#{item.id},
             #{item.tableName},
+            #{item.uiStyle},
+            #{item.clientId},
+            #{item.iframe},
             #{item.tableComment},
             #{item.className},
             #{item.tplCategory},
@@ -204,29 +229,48 @@
             #{item.createUserId},
             #{item.updateTime},
             #{item.updateUser},
-            #{item.updateUserId}
-            )
+            #{item.updateUserId})
         </foreach>
     </insert>
 
     <!-- 批量更新 -->
     <update id="batchUpdate" parameterType="java.util.List">
-        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
-            UPDATE sys_gen_table_info
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE  sys_gen_table_info
             <set>
-                <if test="null != item.id  and '' != item.id ">id = #{item.id},</if>
-                <if test="null != item.tableName  and '' != item.tableName ">table_name = #{item.tableName},</if>
+                <if test="null != item.id  and '' != item.id ">id =
+                    #{item.id},
+                </if>
+                <if test="null != item.tableName  and '' != item.tableName ">table_name =
+                    #{item.tableName},
+                </if>
+                <if test="null != item.uiStyle  and '' != item.uiStyle ">ui_style =
+                    #{item.uiStyle},
+                </if>
+                <if test="null != item.clientId  and '' != item.clientId ">client_id =
+                    #{item.clientId},
+                </if>
+                <if test="null != item.iframe  and '' != item.iframe ">iframe =
+                    #{item.iframe},
+                </if>
                 <if test="null != item.tableComment  and '' != item.tableComment ">table_comment =
                     #{item.tableComment},
                 </if>
-                <if test="null != item.className  and '' != item.className ">class_name = #{item.className},</if>
-                <if test="null != item.tplCategory  and '' != item.tplCategory ">tpl_category = #{item.tplCategory},
+                <if test="null != item.className  and '' != item.className ">class_name =
+                    #{item.className},
                 </if>
-                <if test="null != item.packageName  and '' != item.packageName ">package_name = #{item.packageName},
+                <if test="null != item.tplCategory  and '' != item.tplCategory ">tpl_category =
+                    #{item.tplCategory},
                 </if>
-                <if test="null != item.contextPath  and '' != item.contextPath ">context_path = #{item.contextPath},
+                <if test="null != item.packageName  and '' != item.packageName ">package_name =
+                    #{item.packageName},
                 </if>
-                <if test="null != item.moduleName  and '' != item.moduleName ">module_name = #{item.moduleName},</if>
+                <if test="null != item.contextPath  and '' != item.contextPath ">context_path =
+                    #{item.contextPath},
+                </if>
+                <if test="null != item.moduleName  and '' != item.moduleName ">module_name =
+                    #{item.moduleName},
+                </if>
                 <if test="null != item.businessName  and '' != item.businessName ">business_name =
                     #{item.businessName},
                 </if>
@@ -236,18 +280,36 @@
                 <if test="null != item.functionAuthor  and '' != item.functionAuthor ">function_author =
                     #{item.functionAuthor},
                 </if>
-                <if test="null != item.menuId  and '' != item.menuId ">menu_id = #{item.menuId},</if>
-                <if test="null != item.genType  and '' != item.genType ">gen_type = #{item.genType},</if>
-                <if test="null != item.genPath  and '' != item.genPath ">gen_path = #{item.genPath},</if>
-                <if test="null != item.options  and '' != item.options ">options = #{item.options},</if>
-                <if test="null != item.remarks  and '' != item.remarks ">remarks = #{item.remarks},</if>
-                <if test="null != item.createTime ">create_time = #{item.createTime},</if>
-                <if test="null != item.createUser  and '' != item.createUser ">create_user = #{item.createUser},</if>
+                <if test="null != item.menuId  and '' != item.menuId ">menu_id =
+                    #{item.menuId},
+                </if>
+                <if test="null != item.genType  and '' != item.genType ">gen_type =
+                    #{item.genType},
+                </if>
+                <if test="null != item.genPath  and '' != item.genPath ">gen_path =
+                    #{item.genPath},
+                </if>
+                <if test="null != item.options  and '' != item.options ">options =
+                    #{item.options},
+                </if>
+                <if test="null != item.remarks  and '' != item.remarks ">remarks =
+                    #{item.remarks},
+                </if>
+                <if test="null != item.createTime ">create_time =
+                    #{item.createTime},
+                </if>
+                <if test="null != item.createUser  and '' != item.createUser ">create_user =
+                    #{item.createUser},
+                </if>
                 <if test="null != item.createUserId  and '' != item.createUserId ">create_user_id =
                     #{item.createUserId},
                 </if>
-                <if test="null != item.updateTime ">update_time = #{item.updateTime},</if>
-                <if test="null != item.updateUser  and '' != item.updateUser ">update_user = #{item.updateUser},</if>
+                <if test="null != item.updateTime ">update_time =
+                    #{item.updateTime},
+                </if>
+                <if test="null != item.updateUser  and '' != item.updateUser ">update_user =
+                    #{item.updateUser},
+                </if>
                 <if test="null != item.updateUserId  and '' != item.updateUserId ">update_user_id =
                     #{item.updateUserId},
                 </if>
@@ -256,7 +318,10 @@
         </foreach>
     </update>
 
-    <select id="dbList" resultType="com.github.itdachen.tools.entity.GenTable"
+
+
+    <!-- -->
+    <select id="dbList" resultType="com.github.itdachen.tools.entity.ProtoTable"
             parameterType="com.github.itdachen.tools.sdk.query.GenTableQuery">
         SELECT table_name AS id, table_name AS tableName, table_comment AS tableComment,
         create_time AS createTime, update_time AS updateTime
@@ -273,7 +338,7 @@
         ORDER BY create_time DESC
     </select>
 
-    <select id="findTableList" resultType="com.github.itdachen.tools.entity.GenTable" parameterType="java.util.List">
+    <select id="findTableList" resultType="com.github.itdachen.tools.entity.ProtoTable" parameterType="java.util.List">
         SELECT table_name AS tableName,
         table_comment AS tableComment,
         create_time AS createTime,
@@ -287,7 +352,7 @@
         AND table_name NOT IN (select table_name from sys_gen_table_info)
     </select>
 
-    <select id="findTableColumns" resultType="com.github.itdachen.tools.entity.GenComment"
+    <select id="findTableColumns" resultType="com.github.itdachen.tools.entity.ProtoColumns"
             parameterType="java.lang.String">
         SELECT column_name    AS columnName,
                data_type      AS dataType,

@@ -3,7 +3,7 @@ package com.github.itdachen.tools.service;
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.core.response.TableData;
-import com.github.itdachen.tools.entity.GenTable;
+import com.github.itdachen.tools.entity.ProtoTable;
 import com.github.itdachen.tools.entity.TableColumn;
 import com.github.itdachen.tools.entity.TableInfo;
 import com.github.itdachen.tools.sdk.dto.TableInfoDto;
@@ -80,7 +80,7 @@ public interface ITableInfoService {
      * @param query query
      * @return cn.edu.hubu.common.framework.core.response.TableData<cn.edu.hubu.tools.entity.GenTable>
      */
-    TableData<GenTable> dbList(GenTableQuery query) throws BizException;
+    TableData<ProtoTable> dbList(GenTableQuery query) throws BizException;
 
     /***
      * 导入表

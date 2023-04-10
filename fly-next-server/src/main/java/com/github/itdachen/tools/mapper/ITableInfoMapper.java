@@ -1,8 +1,8 @@
 package com.github.itdachen.tools.mapper;
 
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
-import com.github.itdachen.tools.entity.GenComment;
-import com.github.itdachen.tools.entity.GenTable;
+import com.github.itdachen.tools.entity.ProtoColumns;
+import com.github.itdachen.tools.entity.ProtoTable;
 import com.github.itdachen.tools.entity.TableInfo;
 import com.github.itdachen.tools.sdk.query.GenTableQuery;
 import com.github.itdachen.tools.sdk.query.TableInfoQuery;
@@ -27,7 +27,7 @@ public interface ITableInfoMapper {
      * @param params params
      * @return java.util.List<cn.edu.hubu.tools.entity.GenTable>
      */
-    List<GenTable> findDbList(TableInfoQuery params);
+    List<ProtoTable> findDbList(TableInfoQuery params);
 
     /***
      * 分页
@@ -113,7 +113,7 @@ public interface ITableInfoMapper {
      * @param query query
      * @return java.util.List<cn.edu.hubu.tools.entity.GenTable>
      */
-    List<GenTable> dbList(GenTableQuery query);
+    List<ProtoTable> dbList(GenTableQuery query);
 
     /***
      * 根据表名, 查询表
@@ -123,7 +123,7 @@ public interface ITableInfoMapper {
      * @param list list
      * @return java.util.List<cn.edu.hubu.tools.entity.GenTable>
      */
-    List<GenTable> findTableList(List<String> list);
+    List<ProtoTable> findTableList(List<String> list);
     
     /***
      * 根据表名, 查询列信息
@@ -133,7 +133,7 @@ public interface ITableInfoMapper {
      * @param tableName tableName
      * @return java.util.List<cn.edu.hubu.tools.entity.GenComment>
      */
-    List<GenComment> findTableColumns(String tableName);
+    List<ProtoColumns> findTableColumns(String tableName);
 
 
 }

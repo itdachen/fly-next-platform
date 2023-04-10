@@ -5,15 +5,15 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Description:
  * Created by 王大宸 on 2022-07-13 16:40
  * Created with IntelliJ IDEA.
  */
-public class GenTable implements Serializable {
+public class ProtoTable implements Serializable {
     private static final long serialVersionUID = 3385444231561942454L;
-
 
     private String id;
 
@@ -26,6 +26,11 @@ public class GenTable implements Serializable {
      * 表备注
      */
     private String tableComment;
+
+    /**
+     * 表字段
+     */
+    private List<ProtoColumns> columns;
 
     /**
      * 创建时间
@@ -77,11 +82,20 @@ public class GenTable implements Serializable {
         this.updateTime = updateTime;
     }
 
+    public List<ProtoColumns> getColumns() {
+        return columns;
+    }
+
+    public void setColumns(List<ProtoColumns> columns) {
+        this.columns = columns;
+    }
+
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("id" , getId())
                 .append("tableName" , getTableName())
                 .append("tableComment" , getTableComment())
+                .append("columns" , getColumns())
                 .append("createTime" , getCreateTime())
                 .append("updateTime" , getUpdateTime())
                 .toString();
