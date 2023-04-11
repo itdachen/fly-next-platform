@@ -277,8 +277,8 @@ public class TableInfoController {
      * 获取应用列表
      *
      * @author 王大宸
-     * @date 2023/3/1 14:31
-     * @return cn.edu.hubu.framework.core.response.ServerResponse<java.util.List>
+     * @date 2023/4/11 21:04
+     * @return com.github.itdachen.framework.core.response.ServerResponse<java.util.List<com.github.itdachen.framework.assets.tree.ZTreeNode>>
      */
     @GetMapping("/app/list")
     @ResponseBody
@@ -290,9 +290,9 @@ public class TableInfoController {
      * 添加字段
      *
      * @author 王大宸
-     * @date 2023/2/16 14:26
+     * @date 2023/4/11 21:12
      * @param tableColumn tableColumn
-     * @return cn.edu.hubu.framework.core.response.ServerResponse<cn.edu.hubu.tools.entity.TableColumn>
+     * @return com.github.itdachen.framework.core.response.ServerResponse<com.github.itdachen.framework.code.entity.TableColumn>
      */
     @PostMapping("/save/column")
     @ResponseBody
@@ -305,9 +305,9 @@ public class TableInfoController {
      * 新增表格
      *
      * @author 王大宸
-     * @date 2023/2/16 14:46
+     * @date 2023/4/11 21:12
      * @param tableInfo tableInfo
-     * @return cn.edu.hubu.framework.core.response.ServerResponse<cn.edu.hubu.tools.entity.TableInfo>
+     * @return com.github.itdachen.framework.core.response.ServerResponse<com.github.itdachen.framework.code.entity.TableInfo>
      */
     @PostMapping("/save/table")
     @ResponseBody

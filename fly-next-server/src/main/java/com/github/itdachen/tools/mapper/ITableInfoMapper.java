@@ -23,9 +23,9 @@ public interface ITableInfoMapper {
      * 查询数据表
      *
      * @author 王大宸
-     * @date 2022/8/10 15:32
+     * @date 2023/4/11 21:07
      * @param params params
-     * @return java.util.List<cn.edu.hubu.tools.entity.GenTable>
+     * @return java.util.List<com.github.itdachen.framework.code.entity.ProtoTable>
      */
     List<ProtoTable> findDbList(TableInfoQuery params);
 
@@ -33,9 +33,9 @@ public interface ITableInfoMapper {
      * 分页
      *
      * @author 王大宸
-     * @date 2022-08-10 15:17:41
-     * @param params cn.edu.hubu.tools.sdk.query.TableInfoQuery
-     * @return java.util.List
+     * @date 2023/4/11 21:07
+     * @param params params
+     * @return java.util.List<com.github.itdachen.framework.code.sdk.vo.TableInfoVo>
      */
     List<TableInfoVo> findTableInfoPage(TableInfoQuery params);
 
@@ -53,9 +53,9 @@ public interface ITableInfoMapper {
      * 根据id查询
      *
      * @author 王大宸
-     * @date 2022-08-10 15:17:41
-     * @param id 需要查询数据的id
-     * @return cn.edu.hubu.tools.sdk.vo.tableInfoVo
+     * @date 2023/4/11 21:07
+     * @param id id
+     * @return com.github.itdachen.framework.code.sdk.vo.TableInfoVo
      */
     TableInfoVo getById(String id);
 
@@ -91,8 +91,9 @@ public interface ITableInfoMapper {
      * 批量添加
      *
      * @author 王大宸
-     * @date 2022-08-10 15:17:41
-     * @param list java.util.List<cn.edu.hubu.tools.entity.TableInfo>
+     * @date 2023/4/11 21:07
+     * @param list list
+     * @return void
      */
     void batchSave(@Param("list") List<TableInfo> list);
 
@@ -100,8 +101,9 @@ public interface ITableInfoMapper {
      * 批量修改
      *
      * @author 王大宸
-     * @date 2022-08-10 15:17:41
-     * @param list java.util.List<cn.edu.hubu.tools.entity.TableInfo>
+     * @date 2023/4/11 21:08
+     * @param list list
+     * @return void
      */
     void batchUpdate(List<TableInfo> list);
 
@@ -109,9 +111,9 @@ public interface ITableInfoMapper {
      * 查询数据库中原生表
      *
      * @author 王大宸
-     * @date 2022/8/14 16:01
+     * @date 2023/4/11 21:08
      * @param query query
-     * @return java.util.List<cn.edu.hubu.tools.entity.GenTable>
+     * @return java.util.List<com.github.itdachen.framework.code.entity.ProtoTable>
      */
     List<ProtoTable> dbList(GenTableQuery query);
 
@@ -119,9 +121,9 @@ public interface ITableInfoMapper {
      * 根据表名, 查询表
      *
      * @author 王大宸
-     * @date 2022/8/14 16:01
+     * @date 2023/4/11 21:08
      * @param list list
-     * @return java.util.List<cn.edu.hubu.tools.entity.GenTable>
+     * @return java.util.List<com.github.itdachen.framework.code.entity.ProtoTable>
      */
     List<ProtoTable> findTableList(List<String> list);
 
@@ -129,9 +131,9 @@ public interface ITableInfoMapper {
      * 根据表名, 查询列信息
      *
      * @author 王大宸
-     * @date 2022/8/14 16:10
+     * @date 2023/4/11 21:08
      * @param tableName tableName
-     * @return java.util.List<cn.edu.hubu.tools.entity.GenComment>
+     * @return java.util.List<com.github.itdachen.framework.code.entity.ProtoColumns>
      */
     List<ProtoColumns> findTableColumns(String tableName);
 

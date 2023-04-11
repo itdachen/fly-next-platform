@@ -31,9 +31,9 @@ public class ElementInfoServiceImpl extends BizServiceImpl<IElementInfoMapper, E
      * 分页
      *
      * @author 王大宸
-     * @date 2023-04-04 21:44:47
+     * @date 2023/4/11 21:06
      * @param params params
-     * @return cn.edu.hubu.common.core.response.TableData<com.github.itdachen.admin.sdk.vo.elementInfoVo>
+     * @return com.github.itdachen.framework.core.response.TableData<com.github.itdachen.admin.sdk.vo.ElementInfoVo>
      */
     @Override
     public TableData<ElementInfoVo> page(ElementInfoQuery params) throws Exception {

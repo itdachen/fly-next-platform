@@ -30,13 +30,13 @@ public class DictDataServiceImpl extends BizServiceImpl< IDictDataMapper, DictDa
     private static final Logger logger = LoggerFactory.getLogger(DictDataServiceImpl.class);
 
     /***
-    * 分页
-    *
-    * @author 王大宸
-    * @date 2023-04-04 21:44:47
-    * @param params params
-    * @return cn.edu.hubu.common.core.response.TableData<com.github.itdachen.admin.sdk.vo.dictDataVo>
-    */
+     * 分页
+     *
+     * @author 王大宸
+     * @date 2023/4/11 21:21
+     * @param params params
+     * @return com.github.itdachen.framework.core.response.TableData<com.github.itdachen.admin.sdk.vo.DictDataVo>
+     */
     @Override
     public TableData<DictDataVo> page(DictDataQuery params) throws Exception {
         Page<DictDataVo> page = PageHelper.startPage(params.getPage(), params.getLimit());

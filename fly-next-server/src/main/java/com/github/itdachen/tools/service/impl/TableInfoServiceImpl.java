@@ -55,9 +55,9 @@ public class TableInfoServiceImpl implements ITableInfoService {
      * 分页
      *
      * @author 王大宸
-     * @date 2022-08-10 15:17:41
-     * @param params cn.edu.hubu.tools.sdk.query.TableInfoQuery
-     * @return cn.edu.hubu.common.framework.core.response.TableData
+     * @date 2023/4/11 21:04
+     * @param params params
+     * @return com.github.itdachen.framework.core.response.TableData<com.github.itdachen.framework.code.sdk.vo.TableInfoVo>
      */
     @Override
     public TableData<TableInfoVo> findTableInfoPage(TableInfoQuery params) throws BizException {
@@ -70,9 +70,9 @@ public class TableInfoServiceImpl implements ITableInfoService {
      * 新增
      *
      * @author 王大宸
-     * @date 2022-08-10 15:17:41
+     * @date 2023/4/11 21:09
      * @param tableInfoDto tableInfoDto
-     * @return cn.edu.hubu.tools.sdk.dto.tableInfo
+     * @return com.github.itdachen.framework.code.sdk.dto.TableInfoDto
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -89,9 +89,9 @@ public class TableInfoServiceImpl implements ITableInfoService {
      * 根据id查询
      *
      * @author 王大宸
-     * @date 2022-08-10 15:17:41
-     * @param id 需要查询数据的id
-     * @return cn.edu.hubu.tools.sdk.vo.TableInfoVo
+     * @date 2023/4/11 21:09
+     * @param id id
+     * @return com.github.itdachen.framework.code.sdk.vo.TableInfoVo
      */
     @Override
     public TableInfoVo getTableInfoById(String id) throws BizException {
@@ -102,9 +102,9 @@ public class TableInfoServiceImpl implements ITableInfoService {
      * 修改
      *
      * @author 王大宸
-     * @date 2022-08-10 15:17:41
+     * @date 2023/4/11 21:09
      * @param tableInfoDto tableInfoDto
-     * @return cn.edu.hubu.tools.sdk.dto.tableInfo
+     * @return com.github.itdachen.framework.code.sdk.dto.TableInfoDto
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -254,9 +254,9 @@ public class TableInfoServiceImpl implements ITableInfoService {
      * 添加字段
      *
      * @author 王大宸
-     * @date 2023/2/16 11:27
+     * @date 2023/4/11 21:09
      * @param tableColumn tableColumn
-     * @return cn.edu.hubu.tools.entity.TableColumn
+     * @return com.github.itdachen.framework.code.entity.TableColumn
      */
     @Override
     public TableColumn saveTableColumn(TableColumn tableColumn) throws BizException {
@@ -269,9 +269,9 @@ public class TableInfoServiceImpl implements ITableInfoService {
      * 新增表格
      *
      * @author 王大宸
-     * @date 2023/2/16 14:45
+     * @date 2023/4/11 21:09
      * @param tableInfo tableInfo
-     * @return cn.edu.hubu.tools.entity.TableInfo
+     * @return com.github.itdachen.framework.code.entity.TableInfo
      */
     @Override
     public TableInfo saveTable(TableInfo tableInfo) throws BizException {

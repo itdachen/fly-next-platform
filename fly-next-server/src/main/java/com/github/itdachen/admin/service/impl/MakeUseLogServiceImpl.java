@@ -34,7 +34,7 @@ public class MakeUseLogServiceImpl extends BizServiceImpl<IMakeUseLogMapper, Mak
      * @author 王大宸
      * @date 2023-04-04 21:44:45
      * @param params params
-     * @return cn.edu.hubu.common.core.response.TableData<com.github.itdachen.admin.sdk.vo.makeUseLogVo>
+     * @return com.github.itdachen.framework.core.response.TableData<com.github.itdachen.admin.sdk.vo.makeUseLogVo>
      */
     @Override
     public TableData<MakeUseLogVo> page(MakeUseLogQuery params) throws Exception {

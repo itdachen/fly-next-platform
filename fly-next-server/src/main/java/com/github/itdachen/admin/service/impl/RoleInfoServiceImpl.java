@@ -27,13 +27,13 @@ public class RoleInfoServiceImpl extends BizServiceImpl< IRoleInfoMapper, RoleIn
     private static final Logger logger = LoggerFactory.getLogger(RoleInfoServiceImpl.class);
 
     /***
-    * 分页
-    *
-    * @author 王大宸
-    * @date 2023-04-04 21:44:46
-    * @param params params
-    * @return cn.edu.hubu.common.core.response.TableData<com.github.itdachen.admin.sdk.vo.roleInfoVo>
-    */
+     * 分页
+     *
+     * @author 王大宸
+     * @date 2023/4/11 21:07
+     * @param params params
+     * @return com.github.itdachen.framework.core.response.TableData<com.github.itdachen.admin.sdk.vo.RoleInfoVo>
+     */
     @Override
     public TableData<RoleInfoVo> page(RoleInfoQuery params) throws Exception {
         Page<RoleInfoVo> page = PageHelper.startPage(params.getPage(), params.getLimit());

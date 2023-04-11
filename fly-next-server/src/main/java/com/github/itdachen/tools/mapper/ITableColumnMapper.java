@@ -19,9 +19,9 @@ public interface ITableColumnMapper {
      * 分页
      *
      * @author 王大宸
-     * @date 2022-08-10 15:11:50
-     * @param params cn.edu.hubu.tools.sdk.query.TableColumnQuery
-     * @return java.util.List<cn.edu.hubu.tools.sdk.vo.TableColumnVo>
+     * @date 2023/4/11 21:08
+     * @param params params
+     * @return java.util.List<com.github.itdachen.framework.code.sdk.vo.TableColumnVo>
      */
     List<TableColumnVo> findTableColumnPage(TableColumnQuery params);
 
@@ -39,9 +39,9 @@ public interface ITableColumnMapper {
      * 根据id查询
      *
      * @author 王大宸
-     * @date 2022-08-10 15:11:50
-     * @param id 需要查询数据的id
-     * @return cn.edu.hubu.tools.sdk.vo.tableColumnVo
+     * @date 2023/4/11 21:08
+     * @param id id
+     * @return com.github.itdachen.framework.code.sdk.vo.TableColumnVo
      */
      TableColumnVo getById(String id);
 
@@ -71,8 +71,9 @@ public interface ITableColumnMapper {
      * 批量添加
      *
      * @author 王大宸
-     * @date 2022-08-10 15:11:50
-     * @param list java.util.List<cn.edu.hubu.tools.entity.TableColumn>
+     * @date 2023/4/11 21:09
+     * @param list list
+     * @return void
      */
     void  batchSave(List<TableColumn> list);
 
@@ -80,8 +81,9 @@ public interface ITableColumnMapper {
      * 批量修改
      *
      * @author 王大宸
-     * @date 2022-08-10 15:11:50
-     * @param list java.util.List<cn.edu.hubu.tools.entity.TableColumn>
+     * @date 2023/4/11 21:09
+     * @param list list
+     * @return void
      */
     void batchUpdate(List<TableColumn> list);
 

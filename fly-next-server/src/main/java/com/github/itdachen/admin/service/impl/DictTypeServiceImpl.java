@@ -44,7 +44,7 @@ public class DictTypeServiceImpl extends BizServiceImpl<IDictTypeMapper, DictTyp
      * @author 王大宸
      * @date 2023-04-04 21:44:47
      * @param params params
-     * @return cn.edu.hubu.common.core.response.TableData<com.github.itdachen.admin.sdk.vo.dictTypeVo>
+     * @return com.github.itdachen.framework.core.response.TableData<com.github.itdachen.admin.sdk.vo.dictTypeVo>
      */
     @Override
     public TableData<DictTypeVo> page(DictTypeQuery params) throws Exception {

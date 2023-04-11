@@ -32,9 +32,9 @@ public class AppClientServiceImpl extends BizServiceImpl<IAppClientMapper, AppCl
      * 分页
      *
      * @author 王大宸
-     * @date 2023-04-04 21:26:23
+     * @date 2023/4/11 21:06
      * @param params params
-     * @return cn.edu.hubu.common.core.response.TableData<com.github.itdachen.admin.sdk.vo.appClientVo>
+     * @return com.github.itdachen.framework.core.response.TableData<com.github.itdachen.admin.sdk.vo.AppClientVo>
      */
     @Override
     public TableData<AppClientVo> page(AppClientQuery params) throws Exception {

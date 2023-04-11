@@ -37,9 +37,9 @@ public class RoleUserServiceImpl extends BizServiceImpl<IRoleUserMapper, RoleUse
      * 分页
      *
      * @author 王大宸
-     * @date 2023-04-04 21:44:46
+     * @date 2023/4/11 21:10
      * @param params params
-     * @return cn.edu.hubu.common.core.response.TableData<com.github.itdachen.admin.sdk.vo.roleUserVo>
+     * @return com.github.itdachen.framework.core.response.TableData<com.github.itdachen.admin.sdk.vo.RoleUserVo>
      */
     @Override
     public TableData<RoleUserVo> page(RoleUserQuery params) throws Exception {

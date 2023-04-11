@@ -52,7 +52,7 @@ public class MenuInfoServiceImpl extends BizServiceImpl<IMenuInfoMapper, MenuInf
      * @author 王大宸
      * @date 2023-04-04 21:44:46
      * @param params params
-     * @return cn.edu.hubu.common.core.response.TableData<com.github.itdachen.admin.sdk.vo.menuInfoVo>
+     * @return com.github.itdachen.framework.core.response.TableData<com.github.itdachen.admin.sdk.vo.menuInfoVo>
      */
     @Override
     public TableData<MenuInfoVo> page(MenuInfoQuery params) throws Exception {

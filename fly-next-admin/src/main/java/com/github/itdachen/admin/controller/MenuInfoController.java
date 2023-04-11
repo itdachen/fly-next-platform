@@ -143,8 +143,8 @@ public class MenuInfoController extends BizController<IMenuInfoService, MenuInfo
      * 获取目录菜单
      *
      * @author 王大宸
-     * @date 2023/4/11 9:55
-     * @return cn.edu.hubu.framework.core.response.ServerResponse<java.util.List < com.github.itdachen.framework.assets.tree.ZTreeNode>>
+     * @date 2023/4/11 21:03
+     * @return com.github.itdachen.framework.core.response.ServerResponse<java.util.List<com.github.itdachen.framework.assets.tree.ZTreeNode>>
      */
     @GetMapping("/catalog/zTree")
     @ResponseBody

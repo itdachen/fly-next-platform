@@ -33,9 +33,9 @@ public class DeptInfoServiceImpl extends BizServiceImpl<IDeptInfoMapper, DeptInf
      * 分页
      *
      * @author 王大宸
-     * @date 2023-04-04 21:44:47
+     * @date 2023/4/11 21:10
      * @param params params
-     * @return cn.edu.hubu.common.core.response.TableData<com.github.itdachen.admin.sdk.vo.deptInfoVo>
+     * @return com.github.itdachen.framework.core.response.TableData<com.github.itdachen.admin.sdk.vo.DeptInfoVo>
      */
     @Override
     public TableData<DeptInfoVo> page(DeptInfoQuery params) throws Exception {

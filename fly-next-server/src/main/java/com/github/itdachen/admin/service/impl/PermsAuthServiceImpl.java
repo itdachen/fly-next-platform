@@ -48,9 +48,9 @@ public class PermsAuthServiceImpl extends BizServiceImpl<IPermsAuthMapper, Perms
      * 分页
      *
      * @author 王大宸
-     * @date 2023-04-04 21:44:46
+     * @date 2023/4/11 21:08
      * @param params params
-     * @return cn.edu.hubu.common.core.response.TableData<com.github.itdachen.admin.sdk.vo.permsAuthVo>
+     * @return com.github.itdachen.framework.core.response.TableData<com.github.itdachen.admin.sdk.vo.PermsAuthVo>
      */
     @Override
     public TableData<PermsAuthVo> page(PermsAuthQuery params) throws Exception {
