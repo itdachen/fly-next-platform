@@ -55,6 +55,12 @@
         ORDER BY id DESC
     </select>
 
+    <select id="findAppClient" resultMap="appClientMap" parameterType="java.lang.String">
+        <include refid="selectAppClientVo"></include>
+        WHERE app_code = #{appCode}
+        LIMIT 1
+    </select>
+
 
     <select id="findAppAll" resultType="com.github.itdachen.framework.assets.tree.ZTreeNode">
         SELECT app_code AS id, app_title AS name, app_type AS type, '1' AS parentId, '0' AS grade

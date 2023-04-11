@@ -26,6 +26,8 @@ public interface IAppClientMapper extends Mapper<AppClient> {
      */
     List<AppClientVo> page(AppClientQuery params);
 
+    AppClientVo findAppClient(String appCode);
+
     /***
      * 查询所有的应用
      *

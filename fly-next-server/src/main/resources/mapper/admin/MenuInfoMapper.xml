@@ -100,6 +100,12 @@
         WHERE parent_id = #{parentId}
     </select>
 
+    <select id="zTreeCatalog"  resultType="com.github.itdachen.framework.assets.tree.ZTreeNode">
+        SELECT id, parent_id AS parentId, title AS name, type
+        FROM sys_menu_info
+        WHERE type = 'dirt'
+        ORDER BY order_num ASC
+    </select>
 
     <!-- 批量添加 -->
     <insert id="batchSave" parameterType="java.util.List">
@@ -217,6 +223,11 @@
             WHERE id = #{item.id}
         </foreach>
     </update>
+
+    <select id="findMenuInfoVo" resultType="java.lang.String" resultMap="menuInfoMap">
+        <include refid="selectMenuInfoVo"></include>
+        WHERE id = #{id}
+    </select>
 
 
 </mapper>

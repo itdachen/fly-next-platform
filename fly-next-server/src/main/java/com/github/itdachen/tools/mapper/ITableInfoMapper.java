@@ -35,7 +35,7 @@ public interface ITableInfoMapper {
      * @author 王大宸
      * @date 2022-08-10 15:17:41
      * @param params cn.edu.hubu.tools.sdk.query.TableInfoQuery
-     * @return java.util.List<cn.edu.hubu.tools.sdk.vo.TableInfoVo>
+     * @return java.util.List
      */
     List<TableInfoVo> findTableInfoPage(TableInfoQuery params);
 

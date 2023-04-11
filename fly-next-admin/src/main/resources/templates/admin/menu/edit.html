@@ -9,6 +9,17 @@
 <form class="layui-form" id="editMenuInfoForm" th:object="${menuInfo}">
     <div class="layui-form-body">
         <div class="layui-form-item">
+            <label for="title" class="layui-form-label">上级目录</label>
+            <div class="layui-input-block">
+                <input type="text" id="parentTitle" name="parentTitle"
+                       th:value="${parentTitle}" autocomplete="off" readonly class="layui-input">
+                <button type="button" onclick="editParent()" class="layui-btn fly-input-button">
+                    <i class="layui-icon layui-icon-edit"></i>
+                    修改上级目录
+                </button>
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label">
                 <span class="required">*</span>类型
             </label>
@@ -117,6 +128,7 @@
         <button type="button" class="button-close" id="buttonClose">关闭</button>
     </div>
     <input type="text" th:value="*{id}" id="id" name="id" style="display: none">
+    <input type="text" th:value="*{parentId}" id="parentId" name="parentId" style="display: none">
 </form>
 
 </body>

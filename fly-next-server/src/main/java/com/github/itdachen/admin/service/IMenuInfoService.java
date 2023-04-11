@@ -39,4 +39,25 @@ public interface IMenuInfoService extends IBizService<MenuInfo, MenuInfoVo, Menu
     MenuInfoVo updateStatus(String id, Boolean status) throws BizException;
 
 
+    MenuInfoVo findMenuInfoVo(String id) throws Exception;
+
+    /***
+     * 获取目录菜单
+     *
+     * @author 王大宸
+     * @date 2023/4/11 9:54
+     * @return java.util.List
+     */
+    List<ZTreeNode> findCatalogZTree() throws BizException;
+
+    /***
+     * 查询上级菜单
+     *
+     * @author 王大宸
+     * @date 2023/4/11 10:16
+     * @param parentId parentId
+     * @return java.lang.String
+     */
+    String findMenuParentTitle(String parentId) throws BizException;
+
 }

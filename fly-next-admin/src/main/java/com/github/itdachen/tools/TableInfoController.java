@@ -278,7 +278,7 @@ public class TableInfoController {
      *
      * @author 王大宸
      * @date 2023/3/1 14:31
-     * @return cn.edu.hubu.framework.core.response.ServerResponse<java.util.List<cn.edu.hubu.framework.context.node.ZTreeNode>>
+     * @return cn.edu.hubu.framework.core.response.ServerResponse<java.util.List>
      */
     @GetMapping("/app/list")
     @ResponseBody

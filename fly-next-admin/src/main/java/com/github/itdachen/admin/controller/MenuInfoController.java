@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -71,7 +72,10 @@ public class MenuInfoController extends BizController<IMenuInfoService, MenuInfo
     @GetMapping(value = "/edit/{id}")
     @PreAuthorize("hasAuthority('admin:menu:info:update')")
     public String edit(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
-        modelMap.put("menuInfo", bizService.getById(id));
+        MenuInfoVo menu = bizService.findMenuInfoVo(id);
+        modelMap.put("menuInfo", menu);
+        String menuParentTitle = bizService.findMenuParentTitle(menu.getParentId());
+        modelMap.put("parentTitle", menuParentTitle);
         return PATH_PREFIX + "/edit" ;
     }
 
@@ -87,8 +91,20 @@ public class MenuInfoController extends BizController<IMenuInfoService, MenuInfo
     @GetMapping(value = "/view/{id}")
     @PreAuthorize("hasAuthority('admin:menu:info:view')")
     public String see(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
-        modelMap.put("menuInfo", bizService.getById(id));
+        modelMap.put("menuInfo", bizService.findMenuInfoVo(id));
         return PATH_PREFIX + "/see" ;
+    }
+
+    /***
+     * 选择上级菜单
+     *
+     * @author 王大宸
+     * @date 2023/4/11 16:48
+     * @return java.lang.String
+     */
+    @GetMapping("/edit/parent")
+    public String editParent() {
+        return PATH_PREFIX + "/edit_parent";
     }
 
 
@@ -121,6 +137,19 @@ public class MenuInfoController extends BizController<IMenuInfoService, MenuInfo
                                                    @PathVariable("status") Boolean status) throws BizException {
         bizService.updateStatus(id, status);
         return ServerResponse.ok();
+    }
+
+    /***
+     * 获取目录菜单
+     *
+     * @author 王大宸
+     * @date 2023/4/11 9:55
+     * @return cn.edu.hubu.framework.core.response.ServerResponse<java.util.List < com.github.itdachen.framework.assets.tree.ZTreeNode>>
+     */
+    @GetMapping("/catalog/zTree")
+    @ResponseBody
+    public ServerResponse<List<ZTreeNode>> findCatalogZTree() throws BizException {
+        return ServerResponse.okData(bizService.findCatalogZTree());
     }
 
 }

@@ -1334,8 +1334,8 @@ $(function () {
                         let data = res.data;
                         $.fn.zTree.init($("#tree"), options.setting, data);
                         let sitFolderTree = $.fn.zTree.getZTreeObj(options.treeId);
-                        let node = sitFolderTree.getNodeByParam("id", "root", null);
-                        sitFolderTree.expandNode(node, true, false, true);
+                        // let node = sitFolderTree.getNodeByParam("id", "root", null);
+                        // sitFolderTree.expandNode(node, true, false, true);
                     }
                 }
                 /* 获取数据 */

@@ -31,6 +31,15 @@ public interface IMenuInfoMapper extends Mapper< MenuInfo > {
     Integer haveMenu(String parentId);
 
     /***
+     * 获取菜单目录
+     *
+     * @author 王大宸
+     * @date 2023/4/11 9:56
+     * @return java.util.List
+     */
+    List<ZTreeNode> zTreeCatalog();
+
+    /***
      * 批量添加
      *
      * @author 王大宸
@@ -47,5 +56,8 @@ public interface IMenuInfoMapper extends Mapper< MenuInfo > {
      * @param list java.util.List<com.github.itdachen.admin.entity.MenuInfo>
      */
     void batchUpdate(List< MenuInfo > list);
+
+    MenuInfoVo findMenuInfoVo(String id);
+
 
 }

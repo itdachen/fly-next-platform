@@ -57,7 +57,7 @@ public class TableInfoServiceImpl implements ITableInfoService {
      * @author 王大宸
      * @date 2022-08-10 15:17:41
      * @param params cn.edu.hubu.tools.sdk.query.TableInfoQuery
-     * @return cn.edu.hubu.common.framework.core.response.TableData<cn.edu.hubu.tools.sdk.vo.TableInfoVo>
+     * @return cn.edu.hubu.common.framework.core.response.TableData
      */
     @Override
     public TableData<TableInfoVo> findTableInfoPage(TableInfoQuery params) throws BizException {
@@ -214,7 +214,7 @@ public class TableInfoServiceImpl implements ITableInfoService {
      *
      * @author 王大宸
      * @date 2022/9/5 13:45
-     * @return java.util.List<cn.edu.hubu.framework.context.node.ZTreeNode>
+     * @return java.util.List
      */
     @Override
     public List<ZTreeNode> dirtZTree() throws BizException {
@@ -230,7 +230,7 @@ public class TableInfoServiceImpl implements ITableInfoService {
      *
      * @author 王大宸
      * @date 2022/9/5 14:46
-     * @return java.util.List<cn.edu.hubu.framework.context.node.ZTreeNode>
+     * @return java.util.List
      */
     @Override
     public List<ZTreeNode> dictList() throws BizException {
@@ -242,7 +242,7 @@ public class TableInfoServiceImpl implements ITableInfoService {
      *
      * @author 王大宸
      * @date 2023/3/1 14:29
-     * @return java.util.List<cn.edu.hubu.framework.context.node.ZTreeNode>
+     * @return java.util.List
      */
     @Override
     public List<ZTreeNode> appInfoList() throws BizException {

@@ -641,3 +641,20 @@ body .demo-class .layui-layer-btn1 {
     filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
     -webkit-filter: grayscale(1);
 }
+
+
+
+/* input 输入框后面的按钮 */
+.fly-input-button {
+    float: right;
+    margin-top: -38px;
+    background-color: #0ba8c7;
+}
+
+.fly-input-button:hover {
+    /*float: right;*/
+    /*margin-top: -38px;*/
+    background-color: #2ac0de;
+}
+
+/* input 输入框后面的按钮 end */

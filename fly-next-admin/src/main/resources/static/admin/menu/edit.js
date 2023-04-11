@@ -21,3 +21,20 @@ layui.use(['form'], function () {
     });
 
 });
+
+/**
+ * 修改上级菜单目录
+ */
+function editParent() {
+    $.model.open("修改上级目录", "/admin/menu/info/edit/parent", "300", "400");
+}
+
+/**
+ * 修改上级菜单赋值
+ * @param parentId  上级菜单id
+ * @param title     上级菜单目录名称
+ */
+function setParentMenuValue(parentId, title) {
+    $("#parentId").val(parentId);
+    $("#parentTitle").val(title);
+}

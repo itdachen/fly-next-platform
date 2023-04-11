@@ -2,8 +2,10 @@ package com.github.itdachen.admin.service.impl;
 
 import com.github.itdachen.admin.mapper.IAppClientMapper;
 import com.github.itdachen.admin.mapper.IElementInfoMapper;
+import com.github.itdachen.admin.sdk.vo.AppClientVo;
 import com.github.itdachen.admin.utils.AppClientUtils;
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.boot.runner.handler.ContextPathHandler;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.core.utils.StringUtils;
@@ -128,6 +130,48 @@ public class MenuInfoServiceImpl extends BizServiceImpl<IMenuInfoMapper, MenuInf
         EntityUtils.setUpdatedInfo(menu);
         bizMapper.updateByPrimaryKeySelective(menu);
         return null;
+    }
+
+    @Override
+    public MenuInfoVo findMenuInfoVo(String id) throws Exception {
+        return bizMapper.findMenuInfoVo(id);
+    }
+
+    /***
+     * 获取目录菜单
+     *
+     * @author 王大宸
+     * @date 2023/4/11 9:54
+     * @return java.util.List
+     */
+    @Override
+    public List<ZTreeNode> findCatalogZTree() throws BizException {
+        List<ZTreeNode> apps = appClientMapper.findAppAll();
+        apps = AppClientUtils.arrangeAppMenu(ContextPathHandler.contextPath(), apps);
+        apps.addAll(bizMapper.zTreeCatalog());
+        return apps;
+    }
+
+    /***
+     * 查询上级菜单
+     *
+     * @author 王大宸
+     * @date 2023/4/11 10:16
+     * @param parentId parentId
+     * @return java.lang.String
+     */
+    @Override
+    public String findMenuParentTitle(String parentId) throws BizException {
+        MenuInfo menu = bizMapper.selectByPrimaryKey(parentId);
+        if (null != menu) {
+            return menu.getTitle();
+        }
+        String parentTitle = "资源目录";
+        AppClientVo appClient = appClientMapper.findAppClient(parentTitle);
+        if (null != appClient) {
+            parentTitle = appClient.getAppTitle();
+        }
+        return parentTitle;
     }
 
 }
