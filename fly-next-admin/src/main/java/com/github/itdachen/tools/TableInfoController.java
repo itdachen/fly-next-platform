@@ -305,7 +305,7 @@ public class TableInfoController {
      * 新增表格
      *
      * @author 王大宸
-     * @date 2023/4/11 21:12
+     * @date 2023/4/11 21:25
      * @param tableInfo tableInfo
      * @return com.github.itdachen.framework.core.response.ServerResponse<com.github.itdachen.framework.code.entity.TableInfo>
      */

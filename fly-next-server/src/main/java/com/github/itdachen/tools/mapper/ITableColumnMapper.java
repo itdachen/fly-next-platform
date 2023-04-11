@@ -81,7 +81,7 @@ public interface ITableColumnMapper {
      * 批量修改
      *
      * @author 王大宸
-     * @date 2023/4/11 21:09
+     * @date 2023/4/11 21:25
      * @param list list
      * @return void
      */

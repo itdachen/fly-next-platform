@@ -155,7 +155,7 @@ public interface ITableInfoService {
      * 新增表
      *
      * @author 王大宸
-     * @date 2023/4/11 21:05
+     * @date 2023/4/11 21:25
      * @param tableInfo tableInfo
      * @return com.github.itdachen.framework.code.entity.TableInfo
      */

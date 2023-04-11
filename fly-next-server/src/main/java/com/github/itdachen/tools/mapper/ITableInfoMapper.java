@@ -131,7 +131,7 @@ public interface ITableInfoMapper {
      * 根据表名, 查询列信息
      *
      * @author 王大宸
-     * @date 2023/4/11 21:08
+     * @date 2023/4/11 21:25
      * @param tableName tableName
      * @return java.util.List<com.github.itdachen.framework.code.entity.ProtoColumns>
      */
