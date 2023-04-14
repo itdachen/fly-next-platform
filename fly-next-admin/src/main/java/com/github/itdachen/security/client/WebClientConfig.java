@@ -28,7 +28,7 @@ public class WebClientConfig implements Serializable {
     /**
      * 版权所有
      */
-    private String copyright = "湖北大学软件工程研究所";
+    private String copyright = "com.github.itdachen";
 
     /**
      * 项目名称
@@ -48,7 +48,7 @@ public class WebClientConfig implements Serializable {
     /**
      * 发行人
      */
-    private String issuer = "湖北大学软件工程研究所";
+    private String issuer = "com.github.itdachen";
 
     public String getId() {
         return id;

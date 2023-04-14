@@ -962,8 +962,7 @@ $(function () {
                         layer.iframeAuto(index);
                     },
                 });
-            },
-            openIframeSee: function (options) {
+            }, openIframeSee: function (options) {
                 if ($.string.isEmpty(options.title)) {
                     options.title = '查看';
                 }
@@ -1285,21 +1284,27 @@ $(function () {
              */
             trim: function (str) {
                 return str.replace(/(^\s*)|(\s*$)/g, '');
-            }, /**
+            },
+
+            /**
              * 判断字符串是否为空
              * @param value
              * @returns {boolean}
              */
             isEmpty: function (value) {
                 return (undefined === value || null === value || "" === value || "null" === value);
-            }, /**
+            },
+
+            /**
              * 判断一个字符串是否为非空串
              * @param value
              * @returns {boolean}
              */
             isNotEmpty: function (value) {
                 return !$.string.isEmpty(value);
-            }, /**
+            },
+
+            /**
              * 判断字符串 str 里面是否包含目标字符串 value
              * @param str
              * @param value
@@ -1307,7 +1312,9 @@ $(function () {
              */
             contain: function (str, value) {
                 return str.indexOf(value) !== -1
-            }, /**
+            },
+
+            /**
              * 字符串替换
              * @param str
              * @param oldChar
@@ -1319,12 +1326,15 @@ $(function () {
             }
         },
 
-        /* zTree */
+        /** zTree */
         zTree: {
-            /* 初始化 zTree */
+            /** 初始化 zTree */
             initTree: function (options) {
                 if ($.string.isEmpty(options.url)) {
                     $.msg.msgWarning("请填写获取 zTree 数据的地址");
+                }
+                if ($.string.isEmpty(options.id)) {
+                    options.id = 'tree';
                 }
                 if ($.string.isEmpty(options.initCallback)) {
                     if ($.string.isEmpty(options.setting)) {
@@ -1332,35 +1342,55 @@ $(function () {
                     }
                     options.initCallback = function (res) {
                         let data = res.data;
-                        $.fn.zTree.init($("#tree"), options.setting, data);
-                        let sitFolderTree = $.fn.zTree.getZTreeObj(options.treeId);
-                        // let node = sitFolderTree.getNodeByParam("id", "root", null);
-                        // sitFolderTree.expandNode(node, true, false, true);
+                        $.fn.zTree.init($("#" + options.id), options.setting, data);
                     }
                 }
                 /* 获取数据 */
                 $.http.get({
-                    url: options.url,
-                    callback: options.initCallback
+                    url: options.url, callback: options.initCallback
                 });
-            }, /* 获取选中的节点 */
-            getCheckedNodes: function (treeId) {
+            },
+
+            /** 获取选中的节点 */
+            getCheckedNodes: function (treeId = 'tree') {
                 let treeObj = $.fn.zTree.getZTreeObj(treeId);
                 return treeObj.getCheckedNodes(true);
-            }, /* 获取选中的id,返回字符串 */
-            getCheckedId: function (treeId) {
+            },
+
+            /** 获取选中的id,返回字符串 */
+            getCheckedId: function (treeId = 'tree') {
+                let nodeIdArr = $.zTree.getCheckedArr(treeId);
+                if (undefined === nodeIdArr || null === nodeIdArr || '' === nodeIdArr || 0 === nodeIdArr.length) {
+                    return "";
+                }
+                return nodeIdArr.join(",");
+            },
+
+            getCheckedArr: function (treeId = 'tree') {
                 let nodes = $.zTree.getCheckedNodes(treeId);
                 if (undefined === nodes || null === nodes || '' === nodes || 0 === nodes.length) {
-                    return "";
+                    return [];
                 }
                 let roleCodes = [];
                 for (let i = 0; i < nodes.length; i++) {
-                    roleCodes[i] = nodes[i].id;
+                    roleCodes.push(nodes[i].id);
                 }
-                return roleCodes.join(",");
-            }, /* zTree 设置 */
+                return roleCodes;
+            },
+
+            /**
+             * 获取树信息
+             * @param treeId
+             * @returns {null}
+             */
+            getZTreeObj: function (treeId = 'tree') {
+                return $.fn.zTree.getZTreeObj(treeId);
+            },
+
+            /** zTree 设置 */
             setting: function (options) {
                 let d = {
+                    id: "tree",
                     idKey: 'id',
                     pIdKey: 'parentId',
                     treeId: "tree",
@@ -1372,7 +1402,8 @@ $(function () {
                     enableSimpleData: true,
                     check: false,
                     callback: function () {
-                        $.msg.msgWarning("请添加回调函数(callback)属性");
+                        //  $.msg.msgWarning("请添加回调函数(callback)属性");
+                        console.warn('请添加回调函数(callback)属性')
                         return false;
                     }
                 }
@@ -1394,11 +1425,7 @@ $(function () {
                     }
                 };
             },
-
         },
-
-
-        defaulPparameters: {}
 
     });
 })(jQuery);

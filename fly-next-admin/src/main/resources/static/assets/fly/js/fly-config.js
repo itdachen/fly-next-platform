@@ -7,10 +7,6 @@ const uploadCheckMD5URL = '/oss/file/md5/';
 /** 数据资料获取接口, 后面接字典类型 */
 const dictDateApi = '/api/open/dict/data/';
 
-var table;
-var layPage;
-var form;
-var upload;
 var uploadLayer;
 var running = false;
 

@@ -1,3 +1,5 @@
+const zTreeId = 'tree';
+
 /**
  * zTree 方法封装
  */
@@ -18,9 +20,10 @@
                     options.initCallback = function (res) {
                         let data = res.data;
                         $.fn.zTree.init($("#tree"), options.setting, data);
-                        sitFolderTree = $.fn.zTree.getZTreeObj(options.treeId);
-                        let node = sitFolderTree.getNodeByParam("id", "root", null);
-                        sitFolderTree.expandNode(node, true, false, true);
+                        let treeObj = $.fn.zTree.getZTreeObj(options.treeId);
+                        console.log(treeObj)
+                        // let node = sitFolderTree.getNodeByParam("id", "root", null);
+                        // sitFolderTree.expandNode(node, true, false, true);
                     }
                 }
                 /* 获取数据 */
