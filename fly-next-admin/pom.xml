@@ -44,6 +44,12 @@
             <version>0.0.1</version>
         </dependency>
 
+        <!-- 文件上传 -->
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-file</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.github.itdachen.framework</groupId>
             <artifactId>fly-hardware</artifactId>
