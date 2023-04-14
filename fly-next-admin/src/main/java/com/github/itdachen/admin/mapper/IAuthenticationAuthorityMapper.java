@@ -1,6 +1,5 @@
 package com.github.itdachen.admin.mapper;
 
-
 import com.github.itdachen.admin.entity.PermsAuth;
 import com.github.itdachen.framework.context.permission.PermissionInfo;
 import com.github.itdachen.security.user.LayuiAdminMenu;
@@ -8,6 +7,7 @@ import com.github.itdachen.security.user.OkAdminMenu;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 权限下发 持久层接口
@@ -46,5 +46,45 @@ public interface IAuthenticationAuthorityMapper extends Mapper<PermsAuth> {
     List<OkAdminMenu> getOkAdminMenuAll(String parentId);
 
     List<OkAdminMenu> getOkAdminChildrenMenu(String parentId, String userId);
+
+    /***
+     * 获取权限资源(按钮权限,前后端分离时使用)
+     *
+     * @author 王大宸
+     * @date 2021/11/27 12:09
+     * @param
+     * @return java.util.Set<cn.edu.hubu.security.core.model.SysPermission>
+     */
+    Set<PermissionInfo> findPermissionAll();
+
+    /***
+     * 查询菜单权限编码(路径跳转权限)
+     *
+     * @author 王大宸
+     * @date 2021/11/27 12:09
+     * @param
+     * @return java.util.Set<cn.edu.hubu.security.core.model.SysPermission>
+     */
+    Set<PermissionInfo> findPermissionMenuAll();
+
+    /***
+     * 根据用户查询用户权限(按钮权限,前后端分离时使用)
+     *
+     * @author 王大宸
+     * @date 2021/11/27 12:12
+     * @param userId 用户id
+     * @return java.util.Set<cn.edu.hubu.security.core.model.SysPermission>
+     */
+    Set<PermissionInfo> findUserPermission(String userId);
+
+    /***
+     * 根据用户查询用户权限(非前后端分离,基于注解跳转页面)
+     *
+     * @author 王大宸
+     * @date 2021/11/27 12:12
+     * @param userId 用户id
+     * @return java.util.Set<cn.edu.hubu.security.core.model.SysPermission>
+     */
+    Set<PermissionInfo> findUserPermissionMenu(String userId);
 
 }

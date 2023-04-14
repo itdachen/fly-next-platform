@@ -11,6 +11,9 @@ function goBackPage() {
 function goToHomePage() {
     let uri = $('#uri').val();
     console.log(uri)
+    if (null === uri || undefined === uri) {
+        return false;
+    }
     top.location.href = uri
 }
 

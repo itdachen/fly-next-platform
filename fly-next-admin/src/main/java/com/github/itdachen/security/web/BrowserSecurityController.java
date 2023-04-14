@@ -1,10 +1,9 @@
-package com.github.itdachen.security.web.controller;
+package com.github.itdachen.security.web;
 
 import com.github.itdachen.security.constants.SecurityConstants;
 import com.github.itdachen.security.properties.SecurityBrowserProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;

@@ -1,7 +1,7 @@
-package com.github.itdachen.security.web.controller;
+package com.github.itdachen.admin.dashboard;
 
 import com.github.itdachen.framework.context.annotation.IgnoreResponseAdvice;
-import com.github.itdachen.security.client.WebClientConfig;
+import com.github.itdachen.security.client.WebAppClientConfig;
 import com.github.itdachen.security.constants.SecurityConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.env.Environment;
@@ -20,24 +20,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class LoginController {
 
     private final Environment environment;
-    private final WebClientConfig webClientConfig;
+    private final WebAppClientConfig webAppClientConfig;
 
-    public LoginController(WebClientConfig webClientConfig, Environment environment) {
-        this.webClientConfig = webClientConfig;
+    public LoginController(WebAppClientConfig webAppClientConfig, Environment environment) {
+        this.webAppClientConfig = webAppClientConfig;
         this.environment = environment;
     }
 
     @GetMapping("/login")
     public String login(ModelMap modelMap,
                         @RequestParam(required = false) String redirect_uri) {
-        modelMap.put("platformName", webClientConfig.getName());
-        modelMap.put("platformDescribe", webClientConfig.getRemarks());
+        modelMap.put("platformName", webAppClientConfig.getName());
+        modelMap.put("platformDescribe", webAppClientConfig.getRemarks());
 
-        modelMap.put("copyrightYear", webClientConfig.getCopyrightYear());
-        modelMap.put("clientName", webClientConfig.getName());
-        modelMap.put("copyright", webClientConfig.getCopyright());
-        modelMap.put("version", webClientConfig.getVersion());
-        modelMap.put("issuer", webClientConfig.getIssuer());
+        modelMap.put("copyrightYear", webAppClientConfig.getCopyrightYear());
+        modelMap.put("clientName", webAppClientConfig.getName());
+        modelMap.put("copyright", webAppClientConfig.getCopyright());
+        modelMap.put("version", webAppClientConfig.getVersion());
+        modelMap.put("issuer", webAppClientConfig.getIssuer());
 
 
         /* 登录认证地址 */

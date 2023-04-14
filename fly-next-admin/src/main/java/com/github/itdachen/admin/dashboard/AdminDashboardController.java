@@ -1,11 +1,11 @@
-package com.github.itdachen.security.web.controller;
+package com.github.itdachen.admin.dashboard;
 
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.permission.PermissionInfo;
-import com.github.itdachen.security.client.WebClientConfig;
+import com.github.itdachen.security.client.WebAppClientConfig;
 import com.github.itdachen.security.properties.SecurityBrowserProperties;
 import com.github.itdachen.security.properties.enums.TemplateEnum;
-import com.github.itdachen.security.web.service.IPermsAuthWebService;
+import com.github.itdachen.admin.service.IPermsAuthWebService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
@@ -25,13 +25,13 @@ public class AdminDashboardController {
     private static final String OK_PATH_PREFIX = "backstage/okadmin";
 
     private final Environment environment;
-    private final WebClientConfig webClientConfig;
+    private final WebAppClientConfig webAppClientConfig;
     private final IPermsAuthWebService permsAuthService;
     private final SecurityBrowserProperties browserProperties;
 
-    public AdminDashboardController(Environment environment, WebClientConfig webClientConfig, IPermsAuthWebService permsAuthService, SecurityBrowserProperties browserProperties) {
+    public AdminDashboardController(Environment environment, WebAppClientConfig webAppClientConfig, IPermsAuthWebService permsAuthService, SecurityBrowserProperties browserProperties) {
         this.environment = environment;
-        this.webClientConfig = webClientConfig;
+        this.webAppClientConfig = webAppClientConfig;
         this.permsAuthService = permsAuthService;
         this.browserProperties = browserProperties;
     }
@@ -102,13 +102,13 @@ public class AdminDashboardController {
         modelMap.put("avatar", BizContextHandler.getAvatar());
 
         /* 系统信息 */
-        modelMap.put("copyrightYear", webClientConfig.getCopyrightYear());
-        modelMap.put("clientName", webClientConfig.getName());
-        modelMap.put("version", webClientConfig.getVersion());
-        modelMap.put("issuer", webClientConfig.getIssuer());
+        modelMap.put("copyrightYear", webAppClientConfig.getCopyrightYear());
+        modelMap.put("clientName", webAppClientConfig.getName());
+        modelMap.put("version", webAppClientConfig.getVersion());
+        modelMap.put("issuer", webAppClientConfig.getIssuer());
 
         /* 默认跳转页面 */
-        PermissionInfo homeUri = permsAuthService.getHomeUri(webClientConfig.getId());
+        PermissionInfo homeUri = permsAuthService.getHomeUri(webAppClientConfig.getId());
         modelMap.put("homeUri", homeUri.getUri());
         modelMap.put("menuName", homeUri.getName());
 

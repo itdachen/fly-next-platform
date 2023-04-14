@@ -1,4 +1,4 @@
-package com.github.itdachen.security.web.service;
+package com.github.itdachen.admin.service;
 
 import com.github.itdachen.framework.context.permission.PermissionInfo;
 import com.github.itdachen.security.user.LYearAdminMenu;

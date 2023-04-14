@@ -13,28 +13,28 @@
     height: 200px;
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    background-image: url("/cdn/assets/error/images/401.svg");
+    background-image: url("/static/assets/error/images/401.svg");
 }
 
 .error-403 {
     height: 200px;
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    background-image: url("/cdn/assets/error/images/403.svg");
+    background-image: url("/static/assets/error/images/403.svg");
 }
 
 .error-404 {
     height: 200px;
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    background-image: url("/cdn/assets/error/images/404.svg");
+    background-image: url("/static/assets/error/images/404.svg");
 }
 
 .error-500 {
     height: 200px;
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    background-image: url("/cdn/assets/error/images/500.svg");
+    background-image: url("/static/assets/error/images/500.svg");
 }
 
 .layui-exception {

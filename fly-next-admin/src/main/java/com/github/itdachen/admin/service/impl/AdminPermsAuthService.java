@@ -6,13 +6,16 @@ import com.github.itdachen.admin.mapper.IAuthenticationAuthorityMapper;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.constants.UserTypeConstant;
 import com.github.itdachen.framework.context.permission.PermissionInfo;
+import com.github.itdachen.security.context.SecurityContextHandler;
 import com.github.itdachen.security.user.LYearAdminMenu;
 import com.github.itdachen.security.user.LayuiAdminMenu;
 import com.github.itdachen.security.user.OkAdminMenu;
-import com.github.itdachen.security.web.service.IPermsAuthWebService;
+import com.github.itdachen.admin.service.IPermsAuthWebService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Description: 获取菜单
@@ -40,8 +43,10 @@ public class AdminPermsAuthService implements IPermsAuthWebService {
     @Override
     public List<LayuiAdminMenu> findPermsAuthMenu(String client, String userType, String userId) {
         if (UserTypeConstant.SUPER_ADMINISTRATOR.equals(userType)) {
+            setAllPermission(client);
             return findMenuAll(client);
         }
+        setUserPermission(userId, client);
         return getChildrenMenu(client, userId);
     }
 
@@ -96,8 +101,10 @@ public class AdminPermsAuthService implements IPermsAuthWebService {
                                                 String userType,
                                                 String userId) {
         if (UserTypeConstant.SUPER_ADMINISTRATOR.equals(userType)) {
+            setAllPermission(client);
             return getOkAdminMenuAll(client);
         }
+        setUserPermission(userId, client);
         return getOkAdminChildrenMenu(client, userId);
     }
 
@@ -133,6 +140,11 @@ public class AdminPermsAuthService implements IPermsAuthWebService {
 
     @Override
     public List<LYearAdminMenu> findLYearAdminMenu(String client, String userType, String userId) throws Exception {
+        if (UserTypeConstant.SUPER_ADMINISTRATOR.equals(userType)) {
+            setAllPermission(client);
+            return null;
+        }
+        setUserPermission(userId, client);
         return null;
     }
 
@@ -174,6 +186,29 @@ public class AdminPermsAuthService implements IPermsAuthWebService {
         info.setUri("/error/404");
         info.setName("404");
         return info;
+    }
+
+
+    private void setAllPermission(String client) {
+        Set<PermissionInfo> userPermission = permsAuthMapper.findPermissionAll();
+        userPermission.addAll(permsAuthMapper.findPermissionMenuAll());
+        List<String> list = new ArrayList<>();
+        list.add("ROLE_USER");
+        for (PermissionInfo permission : userPermission) {
+            list.add(permission.getPermission());
+        }
+        SecurityContextHandler.refreshAuthorities(list);
+    }
+
+    private void setUserPermission(String userId, String client) {
+        Set<PermissionInfo> userPermission = permsAuthMapper.findUserPermission(userId);
+        userPermission.addAll(permsAuthMapper.findUserPermissionMenu(userId));
+        List<String> list = new ArrayList<>();
+        list.add("ROLE_USER");
+        for (PermissionInfo permission : userPermission) {
+            list.add(permission.getPermission());
+        }
+        SecurityContextHandler.refreshAuthorities(list);
     }
 
 

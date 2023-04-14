@@ -1,14 +1,14 @@
-package com.github.itdachen.security.web.controller;
+package com.github.itdachen.admin.dashboard;
 
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.annotation.IgnoreResponseAdvice;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.core.response.ServerResponse;
-import com.github.itdachen.security.client.WebClientConfig;
+import com.github.itdachen.security.client.WebAppClientConfig;
 import com.github.itdachen.security.user.LYearAdminMenu;
 import com.github.itdachen.security.user.LayuiAdminMenu;
 import com.github.itdachen.security.user.OkAdminMenu;
-import com.github.itdachen.security.web.service.IPermsAuthWebService;
+import com.github.itdachen.admin.service.IPermsAuthWebService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,11 +24,11 @@ import java.util.List;
 public class AdminPermsAuthMenuController {
 
     private final IPermsAuthWebService permsAuthService;
-    private final WebClientConfig webClientConfig;
+    private final WebAppClientConfig webAppClientConfig;
 
-    public AdminPermsAuthMenuController(IPermsAuthWebService permsAuthService, WebClientConfig webClientConfig) {
+    public AdminPermsAuthMenuController(IPermsAuthWebService permsAuthService, WebAppClientConfig webAppClientConfig) {
         this.permsAuthService = permsAuthService;
-        this.webClientConfig = webClientConfig;
+        this.webAppClientConfig = webAppClientConfig;
     }
 
     /***
@@ -40,7 +40,7 @@ public class AdminPermsAuthMenuController {
      */
     @RequestMapping(value = "/perms/auth/menu")
     public ServerResponse<List<LayuiAdminMenu>> findPermsAuthMenu() throws BizException {
-        return ServerResponse.okData(permsAuthService.findPermsAuthMenu(webClientConfig.getId(), BizContextHandler.getUserType(), BizContextHandler.getUserId()));
+        return ServerResponse.okData(permsAuthService.findPermsAuthMenu(webAppClientConfig.getId(), BizContextHandler.getUserType(), BizContextHandler.getUserId()));
     }
 
     /***
@@ -53,7 +53,7 @@ public class AdminPermsAuthMenuController {
     @GetMapping("/perms/admin/menu")
     @IgnoreResponseAdvice
     public List<OkAdminMenu> findOkAdminPermsAuthMenu() throws BizException {
-        return permsAuthService.getUserOkAdminMenu(webClientConfig.getId(), BizContextHandler.getUserType(), BizContextHandler.getUserId());
+        return permsAuthService.getUserOkAdminMenu(webAppClientConfig.getId(), BizContextHandler.getUserType(), BizContextHandler.getUserId());
     }
 
     /***
@@ -65,7 +65,7 @@ public class AdminPermsAuthMenuController {
      */
     @GetMapping("/lyear/admin/menu")
     public ServerResponse<List<LYearAdminMenu>> findLYearAdminMenu() throws Exception {
-        return ServerResponse.okData(permsAuthService.findLYearAdminMenu(webClientConfig.getId(),
+        return ServerResponse.okData(permsAuthService.findLYearAdminMenu(webAppClientConfig.getId(),
                 BizContextHandler.getUserType(),
                 BizContextHandler.getUserId())
         );

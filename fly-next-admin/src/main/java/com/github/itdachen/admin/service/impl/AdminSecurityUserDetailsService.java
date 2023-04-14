@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -57,14 +58,16 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
      * @return com.itdachen.security.core.model.CurrentUser
      */
     private CurrentUserInfo getUserPermission(LoginUserModel user) {
-        Set<PermissionInfo> userPermission = null;
-        if (UserTypeConstant.SUPER_ADMINISTRATOR.equals(user.getType())) {
-            userPermission = userDetailsMapper.findPermissionAll();
-            userPermission.addAll(userDetailsMapper.findPermissionMenuAll());
-        } else {
-            userPermission = userDetailsMapper.findUserPermission(user.getId());
-            userPermission.addAll(userDetailsMapper.findUserPermissionMenu(user.getId()));
-        }
-        return setUserPermission(user, userPermission);
+//        Set<PermissionInfo> userPermission = null;
+//        if (UserTypeConstant.SUPER_ADMINISTRATOR.equals(user.getType())) {
+//            userPermission = userDetailsMapper.findPermissionAll();
+//            userPermission.addAll(userDetailsMapper.findPermissionMenuAll());
+//        } else {
+//            userPermission = userDetailsMapper.findUserPermission(user.getId());
+//            userPermission.addAll(userDetailsMapper.findUserPermissionMenu(user.getId()));
+//        }
+//        return setUserPermission(user, userPermission);
+
+        return setUserPermission(user, new HashSet<>());
     }
 }

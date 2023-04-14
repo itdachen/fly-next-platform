@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 @Configuration
 @ConfigurationProperties(prefix = "client")
-public class WebClientConfig implements Serializable {
+public class WebAppClientConfig implements Serializable {
     private static final long serialVersionUID = 8063601184895567058L;
 
     /**
