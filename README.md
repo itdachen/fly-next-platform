@@ -1,21 +1,26 @@
 # 🎉FLY-NEXT-PLATFORM
 
-🎉🎉🔥  
+🎉🎉🔥
 
 ### 🌈 介绍
 
-
-
 ### ⛱️ 核心依赖
 
-| 依赖                   | 版本         |
-|----------------------|------------|
-| Spring Boot          | 2.7.10     |
-| Mybatis              | 3.5.11     |
-| pagehelper           | 5.3.2      |
-| fastjson             | 2.0.21     |
-| hutool               | 5.8.11     |
+| 依赖          | 版本     |
+|-------------|--------|
+| Spring Boot | 2.7.10 |
+| Mybatis     | 3.5.11 |
+| pagehelper  | 5.3.2  |
+| fastjson    | 2.0.21 |
+| hutool      | 5.8.11 |
 
+### ⛱️ 预览界面
+
+| 界面                                                                            | 界面                                                                            |
+|-------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
+| ![](fly-next-admin/src/main/resources/static/assets/backstage/images/001.png) | ![](fly-next-admin/src/main/resources/static/assets/backstage/images/002.png) |
+| ![](fly-next-admin/src/main/resources/static/assets/backstage/images/003.png) | ![](fly-next-admin/src/main/resources/static/assets/backstage/images/004.png) |
+| ![](fly-next-admin/src/main/resources/static/assets/backstage/images/005.png) | ![](fly-next-admin/src/main/resources/static/assets/backstage/images/006.png) ||
 
 ### 💒 代码依赖仓库
 
@@ -23,17 +28,23 @@
 * [Github](https://github.com/itdachen/fly-framework)
 
 ### 🚧 安装方式
-* 基础依赖项目: 
+
+* 基础依赖项目:
+
 ```lua 
 fly-framework
 ```
+
 * IDEA 打开 fly-framework
+
 ```lua 
 cd /fly-dependencies
 mvn clean 
 mvn install
 ```
+
 * 返回根目录安装基础依赖(fly-framework)
+
 ```lua 
 cd ..
 mvn clean 
