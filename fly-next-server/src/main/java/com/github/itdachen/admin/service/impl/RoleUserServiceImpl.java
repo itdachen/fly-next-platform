@@ -90,7 +90,7 @@ public class RoleUserServiceImpl extends BizServiceImpl<IRoleUserMapper, RoleUse
         }
 
         List<String> roleIds = bizMapper.findRoleIdByUserId(userId);
-        List<ZTreeNode> list = bizMapper.findRoleByDept(BizContextHandler.getDepartId());
+        List<ZTreeNode> list = bizMapper.findRoleByDept(BizContextHandler.getDeptId());
         for (ZTreeNode treeNode : list) {
             if (roleIds.contains(treeNode.getId())) {
                 treeNode.setChecked(true);

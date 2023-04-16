@@ -59,7 +59,7 @@ public class MakeUseLogServiceImpl extends BizServiceImpl<IMakeUseLogMapper, Mak
                 .delFlag(YesOrNotConstant.YES)
                 .updateUserId(BizContextHandler.getUserId())
                 .updateTime(LocalDateTime.now())
-                .updateUser(BizContextHandler.getUserName())
+                .updateUser(BizContextHandler.getNickName())
                 .build());
         return 1;
     }

@@ -51,7 +51,7 @@ public class RoleInfoServiceImpl extends BizServiceImpl< IRoleInfoMapper, RoleIn
      */
     @Override
     public RoleInfo save(RoleInfo entity) throws Exception {
-        entity.setDeptId(BizContextHandler.getDepartId());
+        entity.setDeptId(BizContextHandler.getDeptId());
         return super.save(entity);
     }
 

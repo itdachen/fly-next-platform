@@ -8,6 +8,7 @@ import org.springframework.core.env.Environment;
 
 /**
  * Description: 系统安全认证方法不需要拦截的
+ * * 静态资源文件和登录接口等
  * Created by 王大宸 on 2022-09-23 14:45
  * Created with IntelliJ IDEA.
  */
@@ -51,15 +52,6 @@ public class DefaultSecurityPassMatchers implements ISecurityPassMatchers {
                 contextPath + "/webjars/**",
                 "**.js", "**/**.css", "**/**.png", "**/**.jpg",
 
-                //=== 登录 ===//
-                securityProperties.getSignInPage(),
-                securityProperties.getSignOutUrl(),
-                securityProperties.getSignUpUrl(),
-                SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
-                SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_OPENID,
-                SecurityConstants.DEFAULT_UN_AUTHENTICATION_URL,
-                SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM,
-                SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
                 "/login", "/admin/login",
                 /* 开放 api 接口 */
                 "/open/**", "/api/open/**",
@@ -72,7 +64,18 @@ public class DefaultSecurityPassMatchers implements ISecurityPassMatchers {
                 "/favicon.ico", "/favicon", "favicon",
                 "/assets/**", "/static/**", "/heartbeat", "/forget", "/upload/**",
                 "/webjars/**",
-                "**.js", "**/**.css", "**/**.png", "**/**.jpg", "/favicon", "favicon"
+                "**.js", "**/**.css", "**/**.png", "**/**.jpg", "/favicon", "favicon",
+
+                //=== 登录 ===//
+                securityProperties.getSignInPage(),
+                securityProperties.getSignOutUrl(),
+                securityProperties.getSignUpUrl(),
+                securityProperties.getSession().getSessionInvalidUrl(),
+                SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
+                SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_OPENID,
+                SecurityConstants.DEFAULT_UN_AUTHENTICATION_URL,
+                SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM,
+                SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
         };
     }
 

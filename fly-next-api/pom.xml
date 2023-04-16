@@ -16,6 +16,12 @@
     <description>接口模块</description>
 
     <dependencies>
+        <!-- 启动日志打印模块放在最前面, spring-boot-starter 使用的是 logback-classic 日志, 跟系统配置日志框架会冲突  -->
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-runner</artifactId>
+        </dependency>
+
         <!-- 項目启动容器 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -80,6 +86,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-body-advice</artifactId>
         </dependency>
     </dependencies>
 

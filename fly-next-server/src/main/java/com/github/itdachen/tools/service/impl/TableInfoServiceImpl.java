@@ -276,7 +276,7 @@ public class TableInfoServiceImpl implements ITableInfoService {
     @Override
     public TableInfo saveTable(TableInfo tableInfo) throws BizException {
         EntityUtils.setCreatAndUpdateInfo(tableInfo);
-        tableInfo.setFunctionAuthor(BizContextHandler.getUserName());
+        tableInfo.setFunctionAuthor(BizContextHandler.getNickName());
         tableInfoMapper.saveTableInfo(tableInfo);
         return tableInfo;
     }
