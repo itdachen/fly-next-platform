@@ -5,45 +5,40 @@
 <mapper namespace="com.github.itdachen.admin.mapper.IUserDetailsMapper">
 
     <select id="loadUserByUsername" parameterType="java.lang.String"
-            resultType="com.github.itdachen.framework.core.permission.LoginUserModel">
-        SELECT id,
-               avatar,
-               username,
-               password,
-               name,
-               birthday,
-               address,
-               telephone,
-               email,
-               depart_id AS departId,
-               sex,
-               type,
+            resultType="com.github.itdachen.framework.context.userdetails.CurrentUserDetails">
+        SELECT user_id     AS id,
+               tenant_id   AS tenantId,
+               nick_name   AS nickName,
+               username    AS account,
+               password    AS accountSecret,
+               user_type AS userType,
                status,
-               remarks,
-               tenant_id AS tenantId
-        FROM sys_user_info
-        WHERE username = #{username} LIMIT 1
+               app_id      AS appId,
+               avatar      AS avatar,
+               del_flag    AS delFlag,
+               can_del     AS canDel,
+               expire_time AS expireTime
+        FROM sys_user_login
+        WHERE username = #{username}
+          AND app_id = 'WEB_APP' LIMIT 1
     </select>
 
     <select id="loadUserByMobile" parameterType="java.lang.String"
-            resultType="com.github.itdachen.framework.core.permission.LoginUserModel">
-        SELECT id,
-               avatar,
-               username,
-               password,
-               name,
-               birthday,
-               address,
-               telephone,
-               email,
-               depart_id AS departId,
-               sex,
-               type,
+            resultType="com.github.itdachen.framework.context.userdetails.CurrentUserDetails">
+        SELECT user_id     AS id,
+               tenant_id   AS tenantId,
+               nick_name   AS nickName,
+               username    AS account,
+               user_type   AS userType,
                status,
-               remarks,
-               tenant_id AS tenantId
-        FROM sys_user_info
-        WHERE telephone = #{mobile} LIMIT 1
+               app_id      AS appId,
+               avatar      AS avatar,
+               del_flag    AS delFlag,
+               can_del     AS canDel,
+               expire_time AS expireTime
+        FROM sys_user_login
+        WHERE username = #{mobile}
+          AND app_id = 'WEB_APP' LIMIT 1
     </select>
 
     <!-- 查询所有权限 -->

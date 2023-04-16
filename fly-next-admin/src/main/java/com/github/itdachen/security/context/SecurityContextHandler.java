@@ -65,7 +65,7 @@ public class SecurityContextHandler {
      * @param
      * @return com.home.security.model.CurrentUser
      */
-    public static CurrentUserInfo getUserInfo() throws ClientTokenException {
+    public static Object getUserInfo() throws ClientTokenException {
         SecurityContext context = SecurityContextHolder.getContext();
         if (null == context) {
             throw new ClientTokenException("用户未登录!");
@@ -78,16 +78,13 @@ public class SecurityContextHandler {
         if (null == principal) {
             throw new ClientTokenException("用户未登录!");
         }
-        if (principal instanceof CurrentUserInfo) {
-            return (CurrentUserInfo) principal;
-        }
         if ("anonymousUser".equals(principal)) {
             logger.error("匿名用户...");
             throw new ClientTokenException("获取当前登录用户失败!");
         }
-        throw new ClientTokenException("获取当前登录用户失败!");
+        return principal;
     }
-
+    
     /***
      * 重新加载用户权限
      *
@@ -118,9 +115,11 @@ public class SecurityContextHandler {
         List<GrantedAuthority> authorityList = AuthorityUtils.createAuthorityList(authorities);
         SecurityContext securityContext = SecurityContextHolder.getContext();
         Authentication authentication = securityContext.getAuthentication();
-        principal.setAuthorities(authorityList);
+        //  authentication.setAuthorities(authorityList);
         // 重新new一个token，因为Authentication中的权限是不可变的.
-        UsernamePasswordAuthenticationToken result = new UsernamePasswordAuthenticationToken(principal, authentication.getCredentials(), authorityList);
+        UsernamePasswordAuthenticationToken result = new UsernamePasswordAuthenticationToken(principal,
+                authentication.getCredentials(),
+                authorityList);
         result.setDetails(authentication.getDetails());
         securityContext.setAuthentication(result);
         SecurityContextHolder.getContext().setAuthentication(result);

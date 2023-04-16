@@ -1,7 +1,7 @@
 package com.github.itdachen.admin.mapper;
 
 import com.github.itdachen.framework.context.permission.PermissionInfo;
-import com.github.itdachen.framework.core.permission.LoginUserModel;
+import com.github.itdachen.framework.context.userdetails.CurrentUserDetails;
 
 import java.util.Set;
 
@@ -16,21 +16,21 @@ public interface IUserDetailsMapper {
      * 根据登录账号查询用户信息
      *
      * @author 王大宸
-     * @date 2022/9/25 13:57
+     * @date 2023/4/16 16:32
      * @param username username
-     * @return com.itdachen.security.core.LoginUserModel
+     * @return com.github.itdachen.framework.context.userdetails.CurrentUserDetails
      */
-    LoginUserModel loadUserByUsername(String username);
+    CurrentUserDetails loadUserByUsername(String username);
 
     /***
      * 根据电话号码查询用户信息
      *
      * @author 王大宸
-     * @date 2022/9/25 13:15
+     * @date 2023/4/16 16:40
      * @param mobile mobile
-     * @return com.itdachen.security.core.LoginUserModel
+     * @return com.github.itdachen.framework.context.userdetails.CurrentUserDetails
      */
-    LoginUserModel loadUserByMobile(String mobile);
+    CurrentUserDetails loadUserByMobile(String mobile);
 
     /***
      * 获取权限资源(按钮权限,前后端分离时使用)

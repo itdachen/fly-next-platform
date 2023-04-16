@@ -1,8 +1,13 @@
 package com.github.itdachen.admin.service.impl;
 
+import com.github.itdachen.admin.constants.AppClientConstant;
 import com.github.itdachen.admin.entity.SetUserPassword;
+import com.github.itdachen.admin.entity.UserLogin;
+import com.github.itdachen.admin.mapper.IUserLoginMapper;
+import com.github.itdachen.admin.sdk.vo.UserLoginVo;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.constants.UserTypeConstant;
+import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.core.constants.UserStatusConstant;
 import com.github.itdachen.framework.core.utils.StringUtils;
@@ -20,7 +25,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -34,9 +41,13 @@ public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, UserInf
     private static final Logger logger = LoggerFactory.getLogger(UserInfoServiceImpl.class);
 
     private final PasswordEncoder passwordEncoder;
+    private final IUserLoginMapper userLoginMapper;
 
-    public UserInfoServiceImpl(PasswordEncoder passwordEncoder) {
+
+    public UserInfoServiceImpl(PasswordEncoder passwordEncoder,
+                               IUserLoginMapper userLoginMapper) {
         this.passwordEncoder = passwordEncoder;
+        this.userLoginMapper = userLoginMapper;
     }
 
     /***
@@ -67,6 +78,7 @@ public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, UserInf
      * @return com.itdachen.admin.entity.User
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public UserInfo save(UserInfo entity) throws Exception {
         if (StringUtils.isEmpty(entity.getUsername())) {
             throw new BizException("登录账号不能为空!");
@@ -80,8 +92,28 @@ public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, UserInf
         }
         entity.setStatus(UserStatusConstant.IS_OK);
         entity.setType(UserTypeConstant.MEMBER);
-        entity.setPassword(passwordEncoder.encode(entity.getPassword()));
-        return super.save(entity);
+        EntityUtils.setCreatAndUpdateInfo(entity);
+
+        userLoginMapper.saveUserLogin(UserLogin.builder()
+                .id(entity.getId())
+                .userId(entity.getId())
+                .tenantId(entity.getTenantId())
+                .appId(AppClientConstant.WEB_APP)
+                .username(entity.getUsername())
+                .password(passwordEncoder.encode(entity.getPassword()))
+                .status(entity.getStatus())
+                .userType(entity.getType())
+                .nickName(entity.getName())
+                .avatar(entity.getAvatar())
+                .delFlag(YesOrNotConstant.NOT)
+                .canDel(YesOrNotConstant.YES)
+                .expireTime(LocalDateTime.now().minusDays(180))
+                .createTime(LocalDateTime.now())
+                .updateTime(LocalDateTime.now())
+                .build());
+
+        bizMapper.insertSelective(entity);
+        return entity;
     }
 
 
@@ -94,15 +126,23 @@ public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, UserInf
      * @return com.itdachen.admin.entity.User
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public UserInfo update(UserInfo entity) throws Exception {
         UserInfo user = bizMapper.selectByPrimaryKey(entity.getId());
-        if (UserTypeConstant.SUPER_ADMINISTRATOR_USERNAME.equals(user.getUsername())
-                || UserTypeConstant.SUPER_ADMINISTRATOR.equals(user.getType())) {
-            if (UserStatusConstant.IS_LOCKED.equals(entity.getStatus())) {
+        if (UserStatusConstant.IS_LOCKED.equals(entity.getStatus())) {
+            if (UserTypeConstant.SUPER_ADMINISTRATOR_USERNAME.equals(user.getUsername())
+                    || UserTypeConstant.SUPER_ADMINISTRATOR.equals(user.getType())) {
                 throw new BizException(UserTypeConstant.SUPER_ADMINISTRATOR_USERNAME + " 账号不能被冻结");
             }
             entity.setUsername(user.getUsername());
+
+            userLoginMapper.updateUserLogin(UserLogin.builder()
+                    .id(user.getId())
+                    .status(user.getStatus())
+                    .updateTime(LocalDateTime.now())
+                    .build());
         }
+
         return super.update(entity);
     }
 
@@ -115,6 +155,7 @@ public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, UserInf
      * @return int
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int remove(String id) throws Exception {
         UserInfo user = bizMapper.selectByPrimaryKey(id);
         if (null == user) {
@@ -125,6 +166,11 @@ public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, UserInf
                 || UserTypeConstant.TENANT_ADMINISTRATOR.equals(user.getType())) {
             throw new BizException("管理员账号不能被删除");
         }
+        userLoginMapper.updateUserLogin(UserLogin.builder()
+                .id(user.getId())
+                .delFlag(YesOrNotConstant.YES)
+                .updateTime(LocalDateTime.now())
+                .build());
         return bizMapper.deleteByPrimaryKey(id);
     }
 
@@ -138,6 +184,7 @@ public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, UserInf
      * @return com.itdachen.admin.entity.User
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public UserInfo updateUserStatus(String id, Boolean status) throws BizException {
         UserInfo user = new UserInfo();
         user.setId(id);
@@ -147,6 +194,13 @@ public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, UserInf
         }
         EntityUtils.setUpdatedInfo(user);
         bizMapper.updateByPrimaryKeySelective(user);
+
+        userLoginMapper.updateUserLogin(UserLogin.builder()
+                .id(id)
+                .status(user.getStatus())
+                .updateTime(LocalDateTime.now())
+                .build());
+
         return user;
     }
 
@@ -159,18 +213,22 @@ public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, UserInf
      * @return com.itdachen.admin.sdk.vo.UserVo
      */
     @Override
-    public UserInfoVo password(SetUserPassword userPassword) throws BizException {
+    @Transactional(rollbackFor = Exception.class)
+    public void password(SetUserPassword userPassword) throws BizException {
         if (!userPassword.getPassword().equals(userPassword.getRepassword())) {
             throw new BizException("输入的两次新密码不一致!");
         }
-        UserInfo user = bizMapper.selectByPrimaryKey(BizContextHandler.getUserId());
-        boolean matches = passwordEncoder.matches(userPassword.getOldPassword(), user.getPassword());
+
+        UserLoginVo userLoginVo = userLoginMapper.getById(BizContextHandler.getUserId());
+        boolean matches = passwordEncoder.matches(userPassword.getOldPassword(), userLoginVo.getPassword());
         if (!matches) {
             throw new BizException("当前使用密码错误!");
         }
-        user.setPassword(passwordEncoder.encode(userPassword.getPassword()));
-        bizMapper.updateByPrimaryKeySelective(user);
-        return null;
+        userLoginMapper.updateUserLogin(UserLogin.builder()
+                .id(userLoginVo.getId())
+                .password(passwordEncoder.encode(userPassword.getPassword()))
+                .updateTime(LocalDateTime.now())
+                .build());
     }
 
 

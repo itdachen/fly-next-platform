@@ -35,6 +35,6 @@ public interface IUserInfoService extends IBizService<UserInfo, UserInfoVo, User
      * @param userPassword userPassword
      * @return com.github.itdachen.admin.sdk.vo.UserInfoVo
      */
-    UserInfoVo password(SetUserPassword userPassword) throws BizException;
+    void password(SetUserPassword userPassword) throws BizException;
 
 }

@@ -1,8 +1,8 @@
 package com.github.itdachen.security.resolvers;
 
 import com.github.itdachen.framework.context.annotation.CurrentUser;
+import com.github.itdachen.framework.context.userdetails.CurrentUserDetails;
 import com.github.itdachen.security.context.SecurityContextHandler;
-import com.github.itdachen.security.user.CurrentUserInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
-import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
 /**
  * Description:
@@ -22,16 +21,16 @@ public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentR
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.getParameterType().isAssignableFrom(CurrentUserInfo.class)
+        return parameter.getParameterType().isAssignableFrom(CurrentUserDetails.class)
                 && parameter.hasParameterAnnotation(CurrentUser.class);
     }
 
     @Override
-    public Object resolveArgument(MethodParameter parameter,
+    public CurrentUserDetails resolveArgument(MethodParameter parameter,
                                   ModelAndViewContainer mavContainer,
                                   NativeWebRequest webRequest,
                                   WebDataBinderFactory binderFactory) throws Exception {
-        return (CurrentUserInfo) SecurityContextHandler.getUserInfo();
+        return (CurrentUserDetails) SecurityContextHandler.getUserInfo();
     }
 
 }

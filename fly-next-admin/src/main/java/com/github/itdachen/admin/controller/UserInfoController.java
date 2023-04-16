@@ -8,11 +8,11 @@ import com.github.itdachen.admin.sdk.vo.UserInfoVo;
 import com.github.itdachen.framework.context.annotation.CheckApiClient;
 import com.github.itdachen.framework.context.annotation.CurrentUser;
 import com.github.itdachen.framework.context.exception.BizException;
+import com.github.itdachen.framework.context.userdetails.CurrentUserDetails;
 import com.github.itdachen.framework.core.constants.ClientConstant;
 import com.github.itdachen.framework.core.response.ServerResponse;
 import com.github.itdachen.framework.webmvc.controller.BizController;
 import com.github.itdachen.security.exception.ClientTokenException;
-import com.github.itdachen.security.user.CurrentUserInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -105,7 +105,8 @@ public class UserInfoController extends BizController<IUserInfoService, UserInfo
     @PutMapping("/password")
     @ResponseBody
     public ServerResponse<UserInfoVo> password(@RequestBody SetUserPassword userPassword) throws BizException {
-        return ServerResponse.okData(bizService.password(userPassword));
+        bizService.password(userPassword);
+        return ServerResponse.ok();
     }
 
 
@@ -119,8 +120,9 @@ public class UserInfoController extends BizController<IUserInfoService, UserInfo
      */
     @GetMapping("/test/user/info")
     @ResponseBody
-    public ServerResponse<CurrentUserInfo> getCurrentUser(@CurrentUser CurrentUserInfo info) throws ClientTokenException {
-        System.err.println(info.getDepartId());
+    public ServerResponse<CurrentUserDetails> getCurrentUser(@CurrentUser CurrentUserDetails info) throws ClientTokenException {
+        System.err.println(info.getDeptId());
+        System.err.println(info.toString());
         return ServerResponse.okData(info);
     }
 

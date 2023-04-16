@@ -1,6 +1,9 @@
 package com.github.itdachen.security.interceptor;
 
 import com.github.itdachen.framework.context.BizContextHandler;
+import com.github.itdachen.framework.context.constants.UserInfoConstant;
+import com.github.itdachen.framework.context.handler.GlobalContextThreadLocalHandler;
+import com.github.itdachen.framework.context.userdetails.CurrentUserDetails;
 import com.github.itdachen.security.context.SecurityContextHandler;
 import com.github.itdachen.security.user.CurrentUserInfo;
 import org.slf4j.Logger;
@@ -11,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 /**
  * Description:
@@ -29,17 +33,23 @@ public class BrowserInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        CurrentUserInfo userInfo = SecurityContextHandler.getUserInfo();
+        CurrentUserDetails userInfo = (CurrentUserDetails) SecurityContextHandler.getUserInfo();
 
-        BizContextHandler.setAccount(userInfo.getUsername());
-        BizContextHandler.setNickName(userInfo.getName());
         BizContextHandler.setUserId(userInfo.getId());
+        BizContextHandler.setNickName(userInfo.getNickName());
         BizContextHandler.setAvatar(userInfo.getAvatar());
-        BizContextHandler.setUserType(userInfo.getType());
+        BizContextHandler.setAccount(userInfo.getAccount());
         BizContextHandler.setTenantId(userInfo.getTenantId());
-        BizContextHandler.setDeptId(userInfo.getDepartId());
+        BizContextHandler.setAppId(userInfo.getAppId());
+        BizContextHandler.setOpenId(userInfo.getOpenId());
+        BizContextHandler.setUserType(userInfo.getUserType());
+        BizContextHandler.setSex(userInfo.getSex());
+        BizContextHandler.setDeptId(userInfo.getDeptId());
+        BizContextHandler.setDeptTitle(userInfo.getDeptTitle());
+        BizContextHandler.setTelephone(userInfo.getTelephone());
+        BizContextHandler.setEmail(userInfo.getEmail());
+        BizContextHandler.setOther(userInfo.getOther());
 
-        /* 防止重复提交拦截 */
         return true;
     }
 

@@ -1,6 +1,7 @@
 package com.github.itdachen.security.details;
 
 import com.github.itdachen.framework.context.permission.PermissionInfo;
+import com.github.itdachen.framework.context.userdetails.CurrentUserDetails;
 import com.github.itdachen.framework.core.constants.UserStatusConstant;
 import com.github.itdachen.framework.core.permission.LoginUserModel;
 import com.github.itdachen.security.exception.BizSecurityException;
@@ -14,10 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Description:
@@ -115,7 +113,7 @@ public abstract class AbstractSecurityUserDetailsService implements UserDetailsS
      * @param userPermission        用户权限
      * @return com.itdachen.security.core.model.CurrentUser
      */
-    protected CurrentUserInfo setUserPermission(LoginUserModel user,
+    protected CurrentUserInfo setUserPermission(CurrentUserDetails user,
                                                 Set<PermissionInfo> userPermission) {
         boolean enabled = isEnabled();
         boolean accountNonExpired = accountNonExpired();
@@ -130,7 +128,7 @@ public abstract class AbstractSecurityUserDetailsService implements UserDetailsS
         if (!enabled || !accountNonExpired
                 || !credentialsNonExpired || !accountNonLocked) {
             return currentUser(user, enabled, accountNonExpired,
-                    credentialsNonExpired, accountNonLocked, userPermission, perms, grantedAuthorities);
+                    credentialsNonExpired, accountNonLocked, grantedAuthorities);
         }
 
         // 前端标签权限
@@ -147,8 +145,6 @@ public abstract class AbstractSecurityUserDetailsService implements UserDetailsS
                 accountNonExpired,
                 credentialsNonExpired,
                 accountNonLocked,
-                userPermission,
-                perms,
                 grantedAuthorities
         );
     }
@@ -159,8 +155,6 @@ public abstract class AbstractSecurityUserDetailsService implements UserDetailsS
      * @author 王大宸
      * @date 2021/11/27 11:39
      * @param user                    用户信息
-     * @param userPermission          用户前线
-     * @param perms                   权限
      * @param enabled                 账号是否可用
      * @param accountNonExpired       账户没有过期
      * @param credentialsNonExpired   密码没过期
@@ -168,38 +162,46 @@ public abstract class AbstractSecurityUserDetailsService implements UserDetailsS
      * @param grantedAuthorities      权限
      * @return com.itdachen.security.core.model.CurrentUser
      */
-    protected CurrentUserInfo currentUser(LoginUserModel user,
+    protected CurrentUserInfo currentUser(CurrentUserDetails user,
                                           boolean enabled,
                                           boolean accountNonExpired,
                                           boolean credentialsNonExpired,
                                           boolean accountNonLocked,
-                                          Set<PermissionInfo> userPermission,
-                                          Set<String> perms,
                                           List<GrantedAuthority> grantedAuthorities) {
-        return new CurrentUserInfo.Builder()
-                .accountNonExpired(accountNonExpired)
-                .accountNonLocked(accountNonLocked)
-                .credentialsNonExpired(credentialsNonExpired)
-                .enabled(enabled)
-                .id(user.getId())
-                .username(user.getUsername())
-                .password(user.getPassword())
-                .name(user.getName())
-                .sex(user.getSex())
-                .providerId(user.getProviderId())
-                .openId(user.getOpenId())
-                .avatar(user.getAvatar())
-                .departId(user.getDepartId())
-                .type(user.getType())
-                .isSuperAdmin(user.getType())
-                .tenantId(user.getTenantId())
-                .grade(user.getGrade())
-                .phone(user.getTelephone())
-                .tenantId(user.getTenantId())
-                .authorities(grantedAuthorities)
-                .urls(userPermission)
-                .perms(perms)
-                .build();
+        CurrentUserInfo info = new CurrentUserInfo(
+                user.getAccount(),
+                user.getAccountSecret(),
+                enabled,
+                accountNonExpired,
+                credentialsNonExpired,
+                accountNonLocked,
+                grantedAuthorities);
+
+        info.setId(user.getId());
+        info.setTenantId(user.getTenantId());
+        info.setNickName(user.getNickName());
+        info.setAvatar(user.getAvatar());
+        info.setTelephone(user.getTelephone());
+        info.setEmail(user.getEmail());
+        info.setAccount(user.getAccount());
+        info.setAccountSecret(user.getAccountSecret());
+        info.setStatus(user.getStatus());
+        info.setAppId(user.getAppId());
+        info.setOpenId(user.getOpenId());
+        info.setUserType(user.getUserType());
+        info.setSex(user.getSex());
+        info.setDeptId(user.getDeptId());
+        info.setDeptTitle(user.getDeptTitle());
+        info.setPostId(user.getPostId());
+        info.setPostTitle(user.getPostTitle());
+        info.setGrade(user.getGrade());
+        info.setIsSuperAdmin(user.getIsSuperAdmin());
+        info.setStatus(user.getStatus());
+        info.setDelFlag(user.getDelFlag());
+        info.setCanDel(user.getCanDel());
+        info.setExpireTime(user.getExpireTime());
+        info.setOther(user.getOther());
+        return info;
     }
 
     /**
