@@ -17,14 +17,20 @@ import java.io.Serializable;
 public class AuthorizedRefreshTokenQuery extends BizQuery implements Serializable {
     private static final long serialVersionUID = 1L;
 
-            /** 第三方平台id(服务提供商) */
-            private String appId;
+    /**
+     * 第三方平台id(服务提供商)
+     */
+    private String appId;
 
-            /** 授权方appid(userId, openId) */
-            private String authorizerAppid;
+    /**
+     * 授权方appid(userId, openId)
+     */
+    private String authorizerAppid;
 
-            /** 是否停止授权 1是 0否 */
-            private String isCancel;
+    /**
+     * 是否停止授权 1是 0否
+     */
+    private String isCancel;
 
 
     public AuthorizedRefreshTokenQuery() {
@@ -32,9 +38,9 @@ public class AuthorizedRefreshTokenQuery extends BizQuery implements Serializabl
 
     public AuthorizedRefreshTokenQuery(int page, int limit, String appId, String authorizerAppid, String isCancel) {
         super(page, limit);
-            this.appId = appId;
-            this.authorizerAppid = authorizerAppid;
-            this.isCancel = isCancel;
+        this.appId = appId;
+        this.authorizerAppid = authorizerAppid;
+        this.isCancel = isCancel;
     }
 
     public static AuthorizedRefreshTokenQueryBuilder builder() {
@@ -44,9 +50,9 @@ public class AuthorizedRefreshTokenQuery extends BizQuery implements Serializabl
     public static class AuthorizedRefreshTokenQueryBuilder {
         private Integer page = 1;
         private Integer limit = 10;
-            private String appId;
-            private String authorizerAppid;
-            private String isCancel;
+        private String appId;
+        private String authorizerAppid;
+        private String isCancel;
 
         public AuthorizedRefreshTokenQueryBuilder() {
         }
@@ -61,21 +67,23 @@ public class AuthorizedRefreshTokenQuery extends BizQuery implements Serializabl
             return this;
         }
 
-            /* 第三方平台id(服务提供商) */
-            public AuthorizedRefreshTokenQueryBuilder appId(String appId) {
-                this.appId = appId;
-                return this;
-            }
-            /* 授权方appid(userId, openId) */
-            public AuthorizedRefreshTokenQueryBuilder authorizerAppid(String authorizerAppid) {
-                this.authorizerAppid = authorizerAppid;
-                return this;
-            }
-            /* 是否停止授权 1是 0否 */
-            public AuthorizedRefreshTokenQueryBuilder isCancel(String isCancel) {
-                this.isCancel = isCancel;
-                return this;
-            }
+        /* 第三方平台id(服务提供商) */
+        public AuthorizedRefreshTokenQueryBuilder appId(String appId) {
+            this.appId = appId;
+            return this;
+        }
+
+        /* 授权方appid(userId, openId) */
+        public AuthorizedRefreshTokenQueryBuilder authorizerAppid(String authorizerAppid) {
+            this.authorizerAppid = authorizerAppid;
+            return this;
+        }
+
+        /* 是否停止授权 1是 0否 */
+        public AuthorizedRefreshTokenQueryBuilder isCancel(String isCancel) {
+            this.isCancel = isCancel;
+            return this;
+        }
 
         public AuthorizedRefreshTokenQuery build() {
             return new AuthorizedRefreshTokenQuery(page, limit, appId, authorizerAppid, isCancel);
@@ -84,40 +92,38 @@ public class AuthorizedRefreshTokenQuery extends BizQuery implements Serializabl
     }
 
 
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
 
+    public String getAppId() {
+        return appId;
+    }
 
-        public void setAppId(String appId) {
-            this.appId = appId;
-        }
+    public void setAuthorizerAppid(String authorizerAppid) {
+        this.authorizerAppid = authorizerAppid;
+    }
 
-        public String getAppId() {
-            return appId;
-        }
+    public String getAuthorizerAppid() {
+        return authorizerAppid;
+    }
 
-        public void setAuthorizerAppid(String authorizerAppid) {
-            this.authorizerAppid = authorizerAppid;
-        }
+    public void setIsCancel(String isCancel) {
+        this.isCancel = isCancel;
+    }
 
-        public String getAuthorizerAppid() {
-            return authorizerAppid;
-        }
-
-        public void setIsCancel(String isCancel) {
-            this.isCancel = isCancel;
-        }
-
-        public String getIsCancel() {
-            return isCancel;
-        }
+    public String getIsCancel() {
+        return isCancel;
+    }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-        .append("page", getPage())
-        .append("limit", getLimit())
-                    .append("appId", getAppId())
-                    .append("authorizerAppid", getAuthorizerAppid())
-                    .append("isCancel", getIsCancel())
+                .append("page", getPage())
+                .append("limit", getLimit())
+                .append("appId", getAppId())
+                .append("authorizerAppid", getAuthorizerAppid())
+                .append("isCancel", getIsCancel())
                 .toString();
     }
 
