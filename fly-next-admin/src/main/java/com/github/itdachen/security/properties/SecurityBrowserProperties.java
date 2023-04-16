@@ -42,7 +42,7 @@ public class SecurityBrowserProperties {
     /*
      * 默认后台模板类型
      */
-    private TemplateEnum template = TemplateEnum.LAYUI;
+    private TemplateEnum template = TemplateEnum.OKADMIN;
 
 
     /**

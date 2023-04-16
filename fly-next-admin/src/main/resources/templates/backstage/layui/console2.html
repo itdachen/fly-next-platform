@@ -111,8 +111,7 @@ spring:
     browser:
       signInPage: /login   # 登录页面地址
       signOutUrl: /login   # 退出登录后跳转地址
-     # successForwardUrl: /admin/index  # layuiAdmin 后台, 建议使用这个(作者也付费购买,正版)
-      successForwardUrl: /home/index    # ok-admin 后台管理模板
+      successForwardUrl: /index    # ok-admin 后台管理模板
       # 不需要认证的路径
       matchers:
         - /             # 网站首页
@@ -135,11 +134,11 @@ spring:
                 <div class="layui-card-body">
                     1、获取当前登录账号: BizContextHandler.getAccount()。<br>
                     2、获取当前用户ID: BizContextHandler.getUserId()。<br>
-                    3、获取当前登录用户姓名: BizContextHandler.getName()。<br>
+                    3、获取当前登录用户姓名: BizContextHandler.getNickName()。<br>
                     4、获取当前登录用户头像: BizContextHandler.getAvatar()。<br>
-                    5、获取当前登录用户类型: BizContextHandler.getType()。<br>
-                    6、获取当前登录用户部门ID: BizContextHandler.getDepartId()。<br>
-                    7、更多相信请查看 e-core 模块下 com.itdachen.framework.core.context.BizContextHandler 类型
+                    5、获取当前登录用户类型: BizContextHandler.getUserType()。<br>
+                    6、获取当前登录用户部门ID: BizContextHandler.getDeptId()。<br>
+                    7、更多相信请查看 fly-context 模块下 com.github.itdachen.framework.context.BizContextHandler 类型
                 </div>
             </div>
         </div>

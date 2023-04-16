@@ -33,7 +33,7 @@ public class WebAppClientConfig implements Serializable {
     /**
      * 项目名称
      */
-    private String name = "汇聚整理平台";
+    private String name = "FLY-NEXT";
 
     /**
      * 备注

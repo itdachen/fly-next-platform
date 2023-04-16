@@ -17,9 +17,9 @@ public interface INetDiskInfoService {
      * 分页
      *
      * @author 王大宸
-     * @date 2023-04-14 23:20:54
-     * @param params com.github.itdachen.admin.query.NetDiskInfoQuery
-     * @return cn.edu.hubu.common.core.response.TableData<com.github.itdachen.admin.sdk.vo.NetDiskInfoVo>
+     * @date 2023/4/16 22:57
+     * @param params params
+     * @return com.github.itdachen.framework.core.response.TableData<com.github.itdachen.admin.sdk.vo.NetDiskInfoVo>
      */
     TableData< NetDiskInfoVo > findNetDiskInfoPage(NetDiskInfoQuery params) throws Exception;
 

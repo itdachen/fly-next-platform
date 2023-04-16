@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * Description:
+ * Description: 获取菜单
  * Created by 王大宸 on 2022-09-25 15:27
  * Created with IntelliJ IDEA.
  */
@@ -50,7 +50,7 @@ public class AdminPermsAuthMenuController {
      * @date 2022/10/7 16:25
      * @return java.util.List<com.itdachen.auth.core.user.OkAdminMenu>
      */
-    @GetMapping("/perms/admin/menu")
+    @GetMapping("/perms/okadmin/menu")
     @IgnoreResponseAdvice
     public List<OkAdminMenu> findOkAdminPermsAuthMenu() throws BizException {
         return permsAuthService.getUserOkAdminMenu(webAppClientConfig.getId(), BizContextHandler.getUserType(), BizContextHandler.getUserId());

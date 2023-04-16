@@ -188,27 +188,33 @@ public class AdminPermsAuthService implements IPermsAuthWebService {
         return info;
     }
 
-
+    /***
+     * 查询所有的权限
+     *
+     * @author 王大宸
+     * @date 2023/4/16 22:19
+     * @param client client
+     * @return void
+     */
     private void setAllPermission(String client) {
-        Set<PermissionInfo> userPermission = permsAuthMapper.findPermissionAll();
-        userPermission.addAll(permsAuthMapper.findPermissionMenuAll());
-        List<String> list = new ArrayList<>();
+        Set<String> list = permsAuthMapper.findPermissionAll();
         list.add("ROLE_USER");
-        for (PermissionInfo permission : userPermission) {
-            list.add(permission.getPermission());
-        }
-        SecurityContextHandler.refreshAuthorities(list);
+        SecurityContextHandler.refreshAuthorities(list.stream().toList());
     }
 
+    /***
+     * 根据用户ID查询用户权限
+     *
+     * @author 王大宸
+     * @date 2023/4/16 22:20
+     * @param userId userId
+     * @param client client
+     * @return void
+     */
     private void setUserPermission(String userId, String client) {
-        Set<PermissionInfo> userPermission = permsAuthMapper.findUserPermission(userId);
-        userPermission.addAll(permsAuthMapper.findUserPermissionMenu(userId));
-        List<String> list = new ArrayList<>();
+        Set<String> list = permsAuthMapper.findUserPermission(userId);
         list.add("ROLE_USER");
-        for (PermissionInfo permission : userPermission) {
-            list.add(permission.getPermission());
-        }
-        SecurityContextHandler.refreshAuthorities(list);
+        SecurityContextHandler.refreshAuthorities(list.stream().toList());
     }
 
 

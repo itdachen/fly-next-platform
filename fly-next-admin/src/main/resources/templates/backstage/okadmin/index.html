@@ -30,24 +30,25 @@
             <!--         <li class="layui-nav-item ok-input-search">-->
             <!--            <input type="text" placeholder="搜索..." class="layui-input layui-input-search"/>-->
             <!--         </li>-->
-            <li class="layui-nav-item">
-                <a class="ok-refresh" href="javascript:" title="刷新">
-                    <i class="layui-icon layui-icon-refresh-3"></i>
-                </a>
-            </li>
-            <li class="no-line layui-nav-item layui-hide-xs">
-                <a id="notice" class="flex-vc pr10 pl10" href="javascript:">
-                    <i class="ok-icon ok-icon-notice icon-head-i" title="系统公告"></i>
-                    <span class="layui-badge-dot"></span>
-                    <cite></cite>
-                </a>
-            </li>
 
-            <li class="no-line layui-nav-item layui-hide-xs">
-                <a id="lock" class="flex-vc pr10 pl10" href="javascript:">
-                    <i class="ok-icon ok-icon-lock icon-head-i" title="锁屏"></i><cite></cite>
-                </a>
-            </li>
+            <!--            <li class="layui-nav-item">-->
+            <!--                <a class="ok-refresh" href="javascript:" title="刷新">-->
+            <!--                    <i class="layui-icon layui-icon-refresh-3"></i>-->
+            <!--                </a>-->
+            <!--            </li>-->
+            <!--            <li class="no-line layui-nav-item layui-hide-xs">-->
+            <!--                <a id="notice" class="flex-vc pr10 pl10" href="javascript:">-->
+            <!--                    <i class="ok-icon ok-icon-notice icon-head-i" title="系统公告"></i>-->
+            <!--                    <span class="layui-badge-dot"></span>-->
+            <!--                    <cite></cite>-->
+            <!--                </a>-->
+            <!--            </li>-->
+
+            <!--            <li class="no-line layui-nav-item layui-hide-xs">-->
+            <!--                <a id="lock" class="flex-vc pr10 pl10" href="javascript:">-->
+            <!--                    <i class="ok-icon ok-icon-lock icon-head-i" title="锁屏"></i><cite></cite>-->
+            <!--                </a>-->
+            <!--            </li>-->
 
             <!-- 全屏 -->
             <li class="layui-nav-item layui-hide-xs">
@@ -58,15 +59,19 @@
 
             <li class="no-line layui-nav-item">
                 <a href="javascript:">
-                    <img th:src="@{/static/assets/backstage/okadmin/images/avatar.png}" class="layui-nav-img">
-                    bobi
+                    <img th:src="(${avatar} eq null or ${avatar} eq '') ? @{/static/common/images/avatar.jpg} : @{${avatar}}"
+                         class="layui-nav-img">
+                    <span th:text="${userName}"></span>
                 </a>
                 <dl id="userInfo" class="layui-nav-child">
-                    <dd><a lay-id="u-1" href="javascript:" data-url="pages/member/user.html">个人中心<span
-                            class="layui-badge-dot"></span></a></dd>
-                    <dd><a lay-id="u-2" href="javascript:" data-url="pages/member/user-info.html">基本资料</a></dd>
-                    <dd><a lay-id="u-3" href="javascript:" data-url="pages/member/user-pwd.html">安全设置</a></dd>
-                    <dd><a lay-id="u-4" href="javascript:" id="alertSkin">皮肤动画</a></dd>
+                    <!--                    <dd><a lay-id="u-1" href="javascript:" data-url="pages/member/user.html">个人中心<span-->
+                    <!--                            class="layui-badge-dot"></span></a></dd>-->
+                    <!--                    <dd><a lay-id="u-2" href="javascript:" data-url="pages/member/user-info.html">基本资料</a></dd>-->
+                    <!--                    <dd><a lay-id="u-3" href="javascript:" data-url="pages/member/user-pwd.html">安全设置</a></dd>-->
+                    <!--                    <dd><a lay-id="u-4" href="javascript:" id="alertSkin">皮肤动画</a></dd>-->
+
+                    <dd><a lay-href="/user/info">基本资料</a></dd>
+                    <dd><a href="javascript:" onclick="editPaw()">修改密码</a></dd>
                     <dd>
                         <hr/>
                     </dd>
@@ -75,11 +80,11 @@
             </li>
 
             <!-- 菜单 -->
-            <li class="layui-nav-item layui-hide-xs">
-                <a id="okSetting" class="pr10 pl10" href="javascript:;">
-                    <i style="font-size: 18px" class="ok-icon ok-icon-moreandroid"></i>
-                </a>
-            </li>
+            <!--            <li class="layui-nav-item layui-hide-xs">-->
+            <!--                <a id="okSetting" class="pr10 pl10" href="javascript:;">-->
+            <!--                    <i style="font-size: 18px" class="ok-icon ok-icon-moreandroid"></i>-->
+            <!--                </a>-->
+            <!--            </li>-->
         </ul>
     </div>
     <!--遮罩层-->
@@ -87,19 +92,19 @@
     <!--左侧导航区域-->
     <div class="layui-side layui-side-menu okadmin-bg-20222A ok-left">
         <div class="layui-side-scroll okadmin-side">
-            <div class="okadmin-logo">ok-admin v2.0</div>
+            <div class="okadmin-logo" th:text="${clientName}">itdachen</div>
             <!--         <div class="user-photo">-->
             <!--            <a class="img" title="我的头像">-->
             <!--               <img th:src="@{/static/assets/backstage/okadmin/images/avatar.png}" class="userAvatar">-->
             <!--            </a>-->
-            <!--            <p>你好！<span class="userName">bobi</span>, 欢迎登录</p>-->
+            <!--            <p>你好！<span class="userName">itdachen</span>, 欢迎登录</p>-->
             <!--         </div>-->
             <!--左侧导航菜单-->
             <ul id="navBar" class="layui-nav okadmin-nav okadmin-bg-20222A layui-nav-tree">
                 <li class="layui-nav-item layui-this">
                     <a href="javascript:" lay-id="1" data-url="/dashboard/console">
                         <i is-close=false class="ok-icon">&#xe654;</i>
-                        控制台
+                        <!--                        控制台-->
                     </a>
                 </li>
             </ul>
@@ -129,7 +134,7 @@
             <ul id="tabTitle" class="layui-tab-title ok-tab-title not-scroll">
                 <li class="layui-this" lay-id="1" tab="index">
                     <i class="ok-icon">&#xe654;</i>
-                    <cite is-close=false>控制台</cite>
+                    <!--                    <cite is-close=false>控制台</cite>-->
                 </li>
             </ul>
 
@@ -225,5 +230,19 @@
 <script type="text/javascript" th:src="@{/static/assets/backstage/okadmin/lib/layui/layui.js}"></script>
 <script type="text/javascript" th:src="@{/static/assets/backstage/okadmin/js/snowflake.js?snowflake=雪花}"></script>
 <script type="text/javascript" th:src="@{/static/assets/backstage/okadmin/js/okadmin.js}"></script>
+
+<script>
+    function editPaw() {
+        layer.open({
+            type: 2,
+            title: "修改密码",
+            maxmin: false,
+            shadeClose: false,
+            area: ['600px', '300px'],
+            content: "/paw"
+        });
+    }
+</script>
+
 </body>
 </html>

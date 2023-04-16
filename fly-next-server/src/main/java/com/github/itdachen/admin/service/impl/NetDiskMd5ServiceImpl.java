@@ -38,9 +38,9 @@ public class NetDiskMd5ServiceImpl implements INetDiskMd5Service {
      * 分页
      *
      * @author 王大宸
-     * @date 2023-04-14 23:20:54
-     * @param params com.github.itdachen.admin.sdk.query.NetDiskMd5Query
-     * @return cn.edu.hubu.common.core.response.TableData<com.github.itdachen.admin.sdk.vo.NetDiskMd5Vo>
+     * @date 2023/4/16 22:58
+     * @param params params
+     * @return com.github.itdachen.framework.core.response.TableData<com.github.itdachen.admin.sdk.vo.NetDiskMd5Vo>
      */
     @Override
     public TableData<NetDiskMd5Vo> findNetDiskMd5Page(NetDiskMd5Query params) throws Exception {

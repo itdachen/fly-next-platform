@@ -100,111 +100,30 @@
         ORDER BY order_num
     </select>
 
-    <!-- 查询所有权限 -->
-    <select id="findPermissionAll" resultType="com.github.itdachen.framework.context.permission.PermissionInfo">
-        SELECT m.permission AS permission,
-               m.type       AS type,
-               m.name       AS name,
-               m.uri        AS uri,
-               m.method     AS method,
-               m.menu       AS menu
-        FROM (SELECT a.code  AS permission,
-                     a.type,
-                     a.title AS name,
-                     a.href  AS uri,
-                     a.method,
-                     b.title AS menu
-              FROM sys_element_info a
-                       LEFT JOIN sys_menu_info b ON a.menu_id = b.id) m
+    <select id="findPermissionAll" resultType="java.lang.String">
+        SELECT code
+        FROM sys_menu_info
+        WHERE type = 'menu'
         UNION ALL
-        SELECT n.permission AS permission,
-               n.type       AS type,
-               n.name       AS name,
-               n.uri        AS uri,
-              n.method     AS method,
-               n.menu       AS menu
-        FROM (SELECT c.code  AS permission,
-                     'view'  AS type,
-                     c.title AS name,
-                     c.path  AS uri,
-                     'GET'   AS method,
-                     d.title AS menu
-              FROM sys_element_info c
-                       LEFT JOIN sys_menu_info d ON c.menu_id = d.id) n
+        SELECT code
+        FROM sys_element_info
     </select>
 
-    <!-- 查询查单权限编码(路径跳转权限) -->
-    <select id="findPermissionMenuAll" resultType="com.github.itdachen.framework.context.permission.PermissionInfo">
-        SELECT a.code  AS permission,
-               'jump'  AS type,
-               a.title AS name,
-               a.path  AS uri,
-               'GET'   AS method,
-               b.title AS menu
-        FROM sys_menu_info a
-                 LEFT JOIN sys_menu_info b ON a.parent_id = b.id
-        WHERE a.type = 'menu'
-    </select>
-
-
-    <!-- 查询用户权限 -->
-    <select id="findUserPermission" parameterType="java.lang.String"
-            resultType="com.github.itdachen.framework.context.permission.PermissionInfo">
-        SELECT m.permission AS permission,
-               m.type       AS type,
-               m.name       AS name,
-               m.uri        AS uri,
-               m.method     AS method,
-               m.menu       AS menu
-        FROM (SELECT DISTINCT c.code  AS permission,
-                              c.type,
-                              c.title AS name,
-                              c.href  AS uri,
-                              c.method,
-                              d.title AS menu
-              FROM sys_role_user a
-                       LEFT JOIN sys_role_menu b ON a.role_id = b.role_id
-                       LEFT JOIN sys_element_info c ON b.menu_id = c.id
-                       LEFT JOIN sys_menu_info d ON c.menu_id = d.id
-              WHERE c.visible = '1'
-                AND a.user_id = #{userId}) m
-        UNION ALL
-        SELECT n.permission AS permission,
-               n.type       AS type,
-               n.name       AS name,
-               n.uri        AS uri,
-               n.method     AS method,
-               n.menu       AS menu
-        FROM (SELECT DISTINCT c.code  AS permission,
-                              'view'  AS type,
-                              c.title AS name,
-                              c.href  AS uri,
-                              'GET'   AS method,
-                              d.title AS menu
-              FROM sys_role_user a
-                       LEFT JOIN sys_role_menu b ON a.role_id = b.role_id
-                       LEFT JOIN sys_element_info c ON b.menu_id = c.id
-                       LEFT JOIN sys_menu_info d ON c.menu_id = d.id
-              WHERE c.visible = '1'
-                AND a.user_id = #{userId}) n
-    </select>
-
-    <!-- 查询查单权限编码(路径跳转权限) -->
-    <select id="findUserPermissionMenu" parameterType="java.lang.String"
-            resultType="com.github.itdachen.framework.context.permission.PermissionInfo">
-        SELECT DISTINCT c.code  AS permission,
-                        'jump'  AS type,
-                        c.title AS name,
-                        c.path  AS uri,
-                        'GET'   AS method,
-                        d.title AS menu
+    <select id="findUserPermission" resultType="java.lang.String">
+        SELECT DISTINCT c.code
         FROM sys_role_user a
                  LEFT JOIN sys_role_menu b ON a.role_id = b.role_id
                  LEFT JOIN sys_menu_info c ON b.menu_id = c.id
-                 LEFT JOIN sys_menu_info d ON c.parent_id = d.id
-        WHERE c.type = 'menu'
+        WHERE c.visible = '1'
+          AND c.type = 'menu'
+          AND a.user_id = #{userId}
+        UNION ALL
+        SELECT DISTINCT c.code
+        FROM sys_role_user a
+                 LEFT JOIN sys_role_menu b ON a.role_id = b.role_id
+                 LEFT JOIN sys_element_info c ON b.menu_id = c.id
+        WHERE c.visible = '1'
           AND a.user_id = #{userId}
     </select>
-
 
 </mapper>

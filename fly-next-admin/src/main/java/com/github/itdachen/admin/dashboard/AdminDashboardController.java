@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class AdminDashboardController {
-
     private static final String PATH_PREFIX = "backstage/layui";
     private static final String LYEAR_PREFIX = "backstage/lyear";
     private static final String OK_PATH_PREFIX = "backstage/okadmin";

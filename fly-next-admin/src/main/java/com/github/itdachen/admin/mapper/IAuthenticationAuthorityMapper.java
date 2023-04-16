@@ -51,40 +51,19 @@ public interface IAuthenticationAuthorityMapper extends Mapper<PermsAuth> {
      * 获取权限资源(按钮权限,前后端分离时使用)
      *
      * @author 王大宸
-     * @date 2021/11/27 12:09
-     * @param
-     * @return java.util.Set<cn.edu.hubu.security.core.model.SysPermission>
+     * @date 2023/4/16 22:56
+     * @return java.util.Set<java.lang.String>
      */
-    Set<PermissionInfo> findPermissionAll();
-
-    /***
-     * 查询菜单权限编码(路径跳转权限)
-     *
-     * @author 王大宸
-     * @date 2021/11/27 12:09
-     * @param
-     * @return java.util.Set<cn.edu.hubu.security.core.model.SysPermission>
-     */
-    Set<PermissionInfo> findPermissionMenuAll();
+    Set<String> findPermissionAll();
 
     /***
      * 根据用户查询用户权限(按钮权限,前后端分离时使用)
      *
      * @author 王大宸
-     * @date 2021/11/27 12:12
-     * @param userId 用户id
-     * @return java.util.Set<cn.edu.hubu.security.core.model.SysPermission>
+     * @date 2023/4/16 22:56
+     * @param userId userId
+     * @return java.util.Set<java.lang.String>
      */
-    Set<PermissionInfo> findUserPermission(String userId);
-
-    /***
-     * 根据用户查询用户权限(非前后端分离,基于注解跳转页面)
-     *
-     * @author 王大宸
-     * @date 2021/11/27 12:12
-     * @param userId 用户id
-     * @return java.util.Set<cn.edu.hubu.security.core.model.SysPermission>
-     */
-    Set<PermissionInfo> findUserPermissionMenu(String userId);
+    Set<String> findUserPermission(String userId);
 
 }
