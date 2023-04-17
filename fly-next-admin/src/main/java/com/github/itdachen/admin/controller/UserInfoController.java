@@ -5,6 +5,7 @@ import com.github.itdachen.admin.service.IUserInfoService;
 import com.github.itdachen.admin.entity.UserInfo;
 import com.github.itdachen.admin.sdk.query.UserInfoQuery;
 import com.github.itdachen.admin.sdk.vo.UserInfoVo;
+import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.annotation.CheckApiClient;
 import com.github.itdachen.framework.context.annotation.CurrentUser;
 import com.github.itdachen.framework.context.exception.BizException;
@@ -12,13 +13,18 @@ import com.github.itdachen.framework.context.userdetails.CurrentUserDetails;
 import com.github.itdachen.framework.core.constants.ClientConstant;
 import com.github.itdachen.framework.core.response.ServerResponse;
 import com.github.itdachen.framework.webmvc.controller.BizController;
+import com.github.itdachen.security.context.SecurityContextHandler;
 import com.github.itdachen.security.exception.ClientTokenException;
+import com.github.itdachen.security.user.CurrentUserInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * 用户信息
@@ -109,6 +115,40 @@ public class UserInfoController extends BizController<IUserInfoService, UserInfo
         return ServerResponse.ok();
     }
 
+
+    /***
+     * 测试, 更改登录用户信息
+     *
+     * @author 王大宸
+     * @date 2023/4/17 21:07
+     * @param session session
+     * @return com.github.itdachen.framework.core.response.ServerResponse<com.github.itdachen.admin.sdk.vo.UserInfoVo>
+     */
+    @GetMapping("/reload/user/authority")
+    @ResponseBody
+    public ServerResponse<UserInfoVo> reloadUserAuthority(HttpSession session) throws ClientTokenException {
+        System.err.println(BizContextHandler.getDeptId());
+        List<String> userAuthority = SecurityContextHandler.getUserAuthority();
+        CurrentUserInfo userInfo = (CurrentUserInfo) SecurityContextHandler.getUserInfo();
+        userInfo.setDeptId("123321");
+        userInfo.setGrade("21");
+        SecurityContextHandler.reloadUserAuthority(userInfo, String.valueOf(userAuthority));
+        return ServerResponse.ok();
+    }
+
+    /***
+     * 获取修改之后的用户信息
+     *
+     * @author 王大宸
+     * @date 2023/4/17 21:07
+     * @return com.github.itdachen.framework.core.response.ServerResponse<com.github.itdachen.security.user.CurrentUserInfo>
+     */
+    @GetMapping("/reload/user/info")
+    @ResponseBody
+    public ServerResponse<CurrentUserInfo> getCurrentUser() throws ClientTokenException {
+        System.err.println(BizContextHandler.getDeptId());
+        return ServerResponse.okData((CurrentUserInfo) SecurityContextHandler.getUserInfo());
+    }
 
     /***
      * 测试, 通过注解的方式, 获取账号的登录详细信息

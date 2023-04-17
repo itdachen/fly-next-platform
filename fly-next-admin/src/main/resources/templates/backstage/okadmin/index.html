@@ -93,16 +93,17 @@
     <div class="layui-side layui-side-menu okadmin-bg-20222A ok-left">
         <div class="layui-side-scroll okadmin-side">
             <div class="okadmin-logo" th:text="${clientName}">itdachen</div>
-            <!--         <div class="user-photo">-->
-            <!--            <a class="img" title="我的头像">-->
-            <!--               <img th:src="@{/static/assets/backstage/okadmin/images/avatar.png}" class="userAvatar">-->
-            <!--            </a>-->
-            <!--            <p>你好！<span class="userName">itdachen</span>, 欢迎登录</p>-->
-            <!--         </div>-->
+            <div class="user-photo">
+                <a class="img" title="我的头像">
+                    <img th:src="(${avatar} eq null or ${avatar} eq '') ? @{/static/common/images/avatar.jpg} : @{${avatar}}"
+                         class="layui-nav-img">
+                </a>
+                <p>你好！<span class="userName" th:text="${userName}">itdachen</span>, 欢迎登录</p>
+            </div>
             <!--左侧导航菜单-->
             <ul id="navBar" class="layui-nav okadmin-nav okadmin-bg-20222A layui-nav-tree">
-                <li class="layui-nav-item layui-this">
-                    <a href="javascript:" lay-id="1" data-url="/dashboard/console">
+                <li class="layui-nav-item layui-this" style="min-width: 0 !important;">
+                    <a href="javascript:" lay-id="1" th:data-url="${homeUri}">
                         <i is-close=false class="ok-icon">&#xe654;</i>
                         <!--                        控制台-->
                     </a>

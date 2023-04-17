@@ -28,9 +28,9 @@ spring:
     name: mysql
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://127.0.0.1:3306/ace_platform?useUnicode=true&characterEncoding=UTF8&createDatabaseIfNotExist=true&useUnicode=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&allowMultiQueries=true
-    username: root
-    password: root
+    url: AES{tbJpNVSezRHqKJs274F4f2YNhK3y7Gr+04oHpodd9Wr2fx+MKjYhwefAgELV9q72gSMnWWt5y93+xbZS7+pCBd7e5Fyssw+c1Re6KYZStYzyZ1CF41lxVkL/lIBGzjpJpNV0mYE5etMYc+poFeN4Yn2eXChDdeJ1kIoEGgUf6YYYyf4LrLSkfnynFgS+DKFdTz5Kuy6r5BYA02rcxcrQdkbCzePSBm8H7Ge2DQ1GSRULPSTyrJplNkzk5pM/IiI/xh/D8i2F5DPsrR5pP5kco1llsOMqgMeCvK6oszY4xlvdrR77uTCLHPlOvLirNwRrNzrqNj3oAbn5tRYu6zkx5w==}
+    username: AES{YC07e1gh2Ox6HAcP/zPs9w==}
+    password: AES{YC07e1gh2Ox6HAcP/zPs9w==}
     hikari:
       #连接池最大连接数，默认是10
       maximum-pool-size: 8

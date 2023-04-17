@@ -60,7 +60,7 @@ public interface IAuthenticationAuthorityMapper extends Mapper<PermsAuth> {
      * 根据用户查询用户权限(按钮权限,前后端分离时使用)
      *
      * @author 王大宸
-     * @date 2023/4/16 22:56
+     * @date 2023/4/17 1:39
      * @param userId userId
      * @return java.util.Set<java.lang.String>
      */

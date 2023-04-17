@@ -13,6 +13,8 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -84,6 +86,20 @@ public class SecurityContextHandler {
         }
         return principal;
     }
+
+    /***
+     * 获取用户权限信息
+     *
+     * @author 王大宸
+     * @date 2023/4/17 21:08
+     * @return java.util.List<java.lang.String>
+     */
+    public static List<String> getUserAuthority() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        return Collections.singletonList(authorities.toString());
+    }
+
     
     /***
      * 重新加载用户权限

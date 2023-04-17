@@ -56,6 +56,28 @@
         </dependency>
 
         <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-body-advice</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-log</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-datasource</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
         </dependency>
@@ -70,24 +92,6 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.itdachen.framework</groupId>
-            <artifactId>fly-body-advice</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.itdachen.framework</groupId>
-            <artifactId>fly-log</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
         </dependency>
 
         <dependency>

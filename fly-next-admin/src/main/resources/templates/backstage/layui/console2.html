@@ -63,17 +63,10 @@
             <div class="layui-card">
                 <div class="layui-card-header">项目结构</div>
                 <div class="layui-card-body">
-                    ace<br>
-                    ├── ace-admin -- 项目启动模块,服务集成模块<br>
-                    ├── ace-common -- 通用模块<br>
-                    &nbsp;&nbsp; ├── ace-biz -- 基础通用模块<br>
-                    &nbsp;&nbsp; ├── ace-core -- 项目核心模块<br>
-                    &nbsp;&nbsp; ├── ace-generator -- 代码生成器模块<br>
-                    &nbsp;&nbsp; └── ace-oss -- 文件上传模块<br>
-                    └── ace-security -- 安全认证核心模块<br>
-                    &nbsp;&nbsp; ├── ace-security-browser -- 基于浏览器 session 认证<br>
-                    &nbsp;&nbsp; ├── ace-security-common -- 安全认证核心模块<br>
-                    &nbsp;&nbsp; └── ace-security-jwt-- 基于 JWT token 认证<br>
+                    fly-next-platform<br>
+                    ├── fly-next-admin -- 后端项目启动模块<br>
+                    ├── fly-next-api -- 接口启动模块<br>
+                    └── fly-next-server -- 业务编写模块<br>
                 </div>
             </div>
         </div>
@@ -99,9 +92,9 @@
             <div class="layui-card">
                 <div class="layui-card-header">项目安全配置(项目默认配置即可)</div>
                 <div class="layui-card-body">
-                    1、项目安全配置文件地址: com.itdachen.security.browser.properties.SecurityBrowserProperties。<br>
+                    1、项目安全配置文件地址: com.github.itdachen.security.properties.SecurityBrowserProperties。<br>
                     2、安全配置前缀: spring.security.browser。<br>
-                    3、SpringSecurity 安全配置地址: com.itdachen.security.browser.config.SecurityBrowserConfig。<br>
+                    3、SpringSecurity 安全配置地址: com.github.itdachen.security.SecurityBrowserConfig。<br>
                     4、关于短信验证登录, 编写 java 类, 实现 SmsCodeSender 接口, 对接对象的短信发送平台即可。默认验证码打印在控制台( 向手机 132xxxxxxxx 发送短信验证码:
                     xxxxxx )<br>
                     5、常用配置如下(如果需要修改安全框架接口, 建议熟悉 SpringSecurity 5.7.x 版本之后修改)<br>
@@ -111,7 +104,7 @@ spring:
     browser:
       signInPage: /login   # 登录页面地址
       signOutUrl: /login   # 退出登录后跳转地址
-      successForwardUrl: /index    # ok-admin 后台管理模板
+      successForwardUrl: /index    # 登录成功之后, 后台管理模板
       # 不需要认证的路径
       matchers:
         - /             # 网站首页
@@ -145,21 +138,36 @@ spring:
 
         <div class="layui-row layui-col-space15">
             <div class="layui-card">
+                <div class="layui-card-header">通过注解的方式获取当前登录用户信息</div>
+                <div class="layui-card-body">
+                    1、Controller 方法添加参数注解: @CurrentUser<br>
+                    2、添加请求参数数据类型 CurrentUserDetails <br>
+                    示例代码如下: <br>
+                    <pre class="layui-code" lay-options="{ln: false, skin: 'dark'}">
+    @GetMapping("/test/user/info")
+    @ResponseBody
+    public ServerResponse< CurrentUserDetails > getCurrentUser(@CurrentUser CurrentUserDetails info) throws ClientTokenException {
+        return ServerResponse.okData(info);
+    }
+                    </pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-row layui-col-space15">
+            <div class="layui-card">
                 <div class="layui-card-header">文件上传配置</div>
                 <div class="layui-card-body">
-                    1、文件类型配置: oss.type, 默认是本地上传<br>
-                    2、本地文件上传<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp; 文件访问地址: oss.local.localHttp; 默认配置: http://127.0.0.1:8080<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp; 文件在服务器上存储地址: oss.local.uploadPath; 默认配置: /home/oss/<br>
+                    本地文件上传<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp; 文件访问地址: oss.localHttp; 默认配置: http://127.0.0.1:8080<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp; 文件在服务器上存储地址: oss.diskFolder; 默认配置: /home/oss/<br>
                     <pre class="layui-code" lay-options="{ln: false, skin: 'dark'}">
 oss:
-  type: 0
-  local:
-    localHttp: http://192.168.31.140:8080
-    uploadPath: D:/upload/
+  localHttp: http://127.0.0.1:8080
+  diskFolder: D:/upload/
                     </pre>
                     3、更多配置<br>
-                    更多配置见 e-oss 模块下 com.itdachen.properties 目录下配置文件
+                    更多配置见 fly-file 模块下 com.github.itdachen.framework.file.properties.LocalCloudStorageProperties 目录下配置文件
                 </div>
             </div>
         </div>
@@ -186,9 +194,9 @@ config:
             <div class="layui-card">
                 <div class="layui-card-header">短信验证码发送和图形验证码重写</div>
                 <div class="layui-card-body">
-                    1、短信验证码发送: 实现 com.home.security.validate.code.sms.SmsCodeSender 接口中 send() 方法即可<br>
-                    2、重写图形验证码: 实现 com.home.security.validate.code.ValidateCodeGenerator 接口中 generate() 方法即可<br>
-                    3、关于验证码存取: 实现 com.home.security.validate.code.repository.ValidateCodeRepository 接口中的方法即可<br>
+                    1、短信验证码发送: 实现 com.github.itdachen.security.validate.code.sms.SmsCodeSender 接口中 send() 方法即可<br>
+                    2、重写图形验证码: 实现 com.github.itdachen.security.validate.code.ValidateCodeGenerator 接口中 generate() 方法即可<br>
+                    3、关于验证码存取: 实现 com.github.itdachen.security.validate.code.repository.ValidateCodeRepository 接口中的方法即可<br>
                 </div>
             </div>
         </div>

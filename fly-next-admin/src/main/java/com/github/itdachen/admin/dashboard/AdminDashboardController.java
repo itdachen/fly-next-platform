@@ -56,7 +56,7 @@ public class AdminDashboardController {
         } else if (TemplateEnum.OKADMIN == browserProperties.getTemplate()) {
             return OK_PATH_PREFIX + "/index";
         } else {
-          //  return LYEAR_PREFIX + "/index";
+            //  return LYEAR_PREFIX + "/index";
             String permsAuthUri = contextPath() + "/perms/auth/menu";
             modelMap.put("permsAuthUri", permsAuthUri);
             return PATH_PREFIX + "/index";
@@ -109,6 +109,7 @@ public class AdminDashboardController {
         /* 默认跳转页面 */
         PermissionInfo homeUri = permsAuthService.getHomeUri(webAppClientConfig.getId());
         modelMap.put("homeUri", homeUri.getUri());
+        //    modelMap.put("homeUri", "/tools/table/info/index");
         modelMap.put("menuName", homeUri.getName());
 
         /* 退出登录 */
