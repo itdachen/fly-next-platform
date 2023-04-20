@@ -1,13 +1,13 @@
 ﻿<service>
     <!-- 服务ID，在windows系统中必须唯一 -->
-    <id>fly-next-admin</id>
+    <id>fly-next-api</id>
     <!-- 服务显示名称，只能英文和数字 -->
-    <name>fly-next-admin-server</name>
+    <name>fly-next-api-server</name>
     <!-- 服务描述 -->
-    <description>fly-next-admin</description>
+    <description>fly-next-api</description>
     <executable>java</executable>
     <!-- 启动可执行文件的路径 -->
-    <arguments>-jar -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=128m -Xms512m -Xmx1024m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=512m -Xss256k -XX:SurvivorRatio=8 "../fly-next-admin.jar"</arguments>
+    <arguments>-jar -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=128m -Xms512m -Xmx1024m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=512m -Xss256k -XX:SurvivorRatio=8 "../fly-next-api.jar"</arguments>
 
     <!-- 启动模式，开机启动 -->
     <startmode>Automatic</startmode>

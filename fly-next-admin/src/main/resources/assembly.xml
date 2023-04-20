@@ -4,8 +4,8 @@
 
     <!--
         必须写，否则打包时会有 assembly ID must be present and non-empty 错误
-        这个名字最终会追加到打包的名字的末尾，如项目的名字为 speed-api-0.0.1-SNAPSHOT,
-        则最终生成的包名为 speed-api-0.0.1-SNAPSHOT-bin.zip
+        这个名字最终会追加到打包的名字的末尾，如项目的名字为 fly-next-admin,
+        则最终生成的包名为 fly-next-admin.zip
      -->
     <id>bin</id>
     <!-- 打包后的文件格式,可以是zip,tar,tar.gz,tar.bz2,jar,war,dir -->
@@ -44,6 +44,10 @@
         <fileSet>
             <directory>src/main/resources/run</directory>
             <outputDirectory>${file.separator}run</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>src/main/resources/bin</directory>
+            <outputDirectory>${file.separator}bin</outputDirectory>
         </fileSet>
 
         <!-- 将项目启动 jar 打包到lib目录中 -->
