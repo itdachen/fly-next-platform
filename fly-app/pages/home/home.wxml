@@ -1,0 +1,345 @@
+<!-- 导航栏 -->
+<view class="window">
+  <view class="window-widch">
+    <view class="window-image">
+      <image src="/image/tabbar/milogo.png" class="window-logo"></image>
+    </view>
+    <input class="window-input" type="text" placeholder="           搜索商品"></input>
+  </view>
+</view>
+<!-- 圆角背景图 -->
+<!-- 轮播 -->
+<view class="p-s">
+  <view class="page"></view>
+  <view class="swiper">
+    <swiper class="swiper-one" autoplay, interval="3000" indicator-dots="false" circular>
+      <swiper-item class="swiper-item">
+        <image src="/image/home/swiper/swiper1.png" class="swiper-img" mode="widthFix"></image>
+      </swiper-item>
+      <swiper-item class="swiper-item">
+        <image src="/image/home/swiper/swiper2.png" class="swiper-img" mode="widthFix"></image>
+      </swiper-item>
+    </swiper>
+  </view>
+</view>
+
+<!-- 三栏 -->
+<view class="three">
+  <view class="three-item">官方商城</view>
+  <view class="three-item">正品保障</view>
+  <view class="three-item">满69包邮</view>
+</view>
+
+<!-- 导航 -->
+<view class="nav">
+  <view class="nav-box">
+    <view class="nav-item">
+      <image class="nav-img" src="/image/home/nav/nav1.png" mode="widthFix"></image>
+      <view class="nav-text">小米上新</view>
+    </view>
+    <view class="nav-item">
+      <image class="nav-img" src="/image/home/nav/nav2.png" mode="widthFix"></image>
+      <view class="nav-text">手机</view>
+    </view>
+    <view class="nav-item">
+      <image class="nav-img" src="/image/home/nav/nav3.png" mode="widthFix"></image>
+      <view class="nav-text">手机新品</view>
+    </view>
+    <view class="nav-item">
+      <image class="nav-img" src="/image/home/nav/nav4.png" mode="widthFix"></image>
+      <view class="nav-text">影像新品</view>
+    </view>
+    <view class="nav-item">
+      <image class="nav-img" src="/image/home/nav/nav5.png" mode="widthFix"></image>
+      <view class="nav-text">家电</view>
+    </view>
+    <view class="nav-item">
+      <image class="nav-img" src="/image/home/nav/nav6.png" mode="widthFix"></image>
+      <view class="nav-text">米金商城</view>
+    </view>
+    <view class="nav-item">
+      <image class="nav-img" src="/image/home/nav/nav7.png" mode="widthFix"></image>
+      <view class="nav-text">小米众筹</view>
+    </view>
+    <view class="nav-item">
+      <image class="nav-img" src="/image/home/nav/nav8.png" mode="widthFix"></image>
+      <view class="nav-text">电视</view>
+    </view>
+    <view class="nav-item">
+      <image class="nav-img" src="/image/home/nav/nav9.png" mode="widthFix"></image>
+      <view class="nav-text">笔记本</view>
+    </view>
+    <view class="nav-item">
+      <image class="nav-img" src="/image/home/nav/nav10.png" mode="widthFix"></image>
+      <view class="nav-text">智能</view>
+    </view>
+  </view>
+
+</view>
+
+<!-- 横条广告 -->
+<view class="ad">
+  <view class="ad-box">
+    <image class="ad-img" src="/image/home/ad.png" mode="widthFix"></image>
+  </view>
+</view>
+
+<!-- 爆款排行 -->
+<view class="box">
+  <view class="box-box">
+    <view class="box-top">
+      <view class="box-top-left">
+        <view class="box-top-left-1">爆款排行</view>
+        <view class="box-top-left-2">超多人想要</view>
+      </view>
+      <view class="box-top-right">更多爆款></view>
+    </view>
+    <view class="box-bottom">
+      <view class="box-item">
+        <image class="box-item-img" src="/image/home/box/box1.png" mode="widthFix"></image>
+        <view class="box-item-1">USB-C 数据线</view>
+        <view class="box-item-2">数据传输、充电二合一</view>
+        <view class="box-item-3">￥9.9</view>
+
+      </view>
+      <view class="box-item">
+        <image class="box-item-img" src="/image/home/box/box2.png" mode="widthFix"></image>
+        <view class="box-item-1">7号电池</view>
+        <view class="box-item-2">无汞无镉 环保电池</view>
+        <view class="box-item-3">￥9.9</view>
+
+      </view>
+      <view class="box-item">
+        <image class="box-item-img" src="/image/home/box/box3.png" mode="widthFix"></image>
+        <view class="box-item-1">小米无线蓝牙…</view>
+        <view class="box-item-2">放肆用，畅快听</view>
+        <view class="box-item-3">￥129</view>
+
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 新品好物 -->
+<view class="box">
+  <view class="box-box">
+    <view class="box-top">
+      <view class="box-top-left">
+        <view class="box-top-left-1">新品好物</view>
+        <view class="box-top-left-2" style="color: #faa60f;">种草达人推荐</view>
+      </view>
+      <view class="box-top-right">更多新品></view>
+    </view>
+    <view class="box-bottom">
+      <view class="box-item">
+        <image class="box-item-img" src="/image/home/box/box4.png" mode="widthFix"></image>
+        <view class="box-item-1">生生不息果冻色</view>
+        <view class="box-item-2">生生不息果冻色单肩包</view>
+        <view class="box-item-3">￥99</view>
+
+      </view>
+      <view class="box-item">
+        <image class="box-item-img" src="/image/home/box/box5.png" mode="widthFix"></image>
+        <view class="box-item-1">Redmi Note 10Pro</view>
+        <view class="box-item-2">第十代小金刚 十全十</view>
+        <view class="box-item-3">￥1599</view>
+
+      </view>
+      <view class="box-item">
+        <image class="box-item-img" src="/image/home/box/box6.png" mode="widthFix"></image>
+        <view class="box-item-1">生生不息定制T恤</view>
+        <view class="box-item-2">生生不息定制T恤</view>
+        <view class="box-item-3">￥99</view>
+
+      </view>
+      <view class="box-item">
+        <image class="box-item-img" src="/image/home/box/box7.png" mode="widthFix"></image>
+        <view class="box-item-1">Redmi Note 10 5G</view>
+        <view class="box-item-2">5G小金刚，旗舰长续</view>
+        <view class="box-item-3">￥1099</view>
+
+      </view>
+      <view class="box-item">
+        <image class="box-item-img" src="/image/home/box/box8.png" mode="widthFix"></image>
+        <view class="box-item-1">小米Lightning充…</view>
+        <view class="box-item-2">小米Lightning充电套</view>
+        <view class="box-item-3">￥79</view>
+
+      </view>
+      <view class="box-item">
+        <image class="box-item-img" src="/image/home/box/box9.png" mode="widthFix"></image>
+        <view class="box-item-1">米家理发器</view>
+        <view class="box-item-2">米家理发器</view>
+        <view class="box-item-3">￥129</view>
+
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 横条分类 -->
+  <scroll-view class="scroll" scroll-x>
+  <view class="scroll-item">
+  <view class="scroll-item-top">精选</view>
+  <view class="scroll-item-bottom"><view class="scroll-item-bottom-a">为你推荐</view></view>
+  </view>
+  <view class="scroll-item">
+  <view class="scroll-item-top">手机</view>
+  <view class="scroll-item-bottom"><view class="scroll-item-bottom-a">探索黑科技</view></view>
+  </view>
+  <view class="scroll-item">
+  <view class="scroll-item-top">家电</view>
+  <view class="scroll-item-bottom"><view class="scroll-item-bottom-a">数码电器</view></view>
+  </view>
+  <view class="scroll-item">
+  <view class="scroll-item-top">特惠</view>
+  <view class="scroll-item-bottom"><view class="scroll-item-bottom-a">多买多省</view></view>
+  </view>
+  <view class="scroll-item">
+  <view class="scroll-item-top">智能</view>
+  <view class="scroll-item-bottom"><view class="scroll-item-bottom-a">AI家居</view></view>
+  </view>
+  <view class="scroll-item">
+  <view class="scroll-item-top">生活</view>
+  <view class="scroll-item-bottom"><view class="scroll-item-bottom-a">家庭必备</view></view>
+  </view>
+  </scroll-view>
+<!-- 列表 -->
+<view class="list">
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/1.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">MJOY 纯棉洗脸巾</view>
+    <view class="list-bottom">
+      <view class="list-b">￥19.9</view>
+      <view class="list-c"></view>
+      <view class="list-d">满折</view>
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/2.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">Redmi 9A护眼大屏长续航 极具性价比入手绝对不亏</view>
+    <view class="list-bottom">
+      <view class="list-b">￥499</view>
+      <view class="list-c">起</view>
+      <view class="list-d">满减</view>
+    </view>
+    
+    
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/3.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">米家蓝牙温湿度计 2</view>
+    <view class="list-bottom">
+      <view class="list-b">￥29</view>
+      <view class="list-c"></view>
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/4.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">8H释压舒弹纤维枕 抗菌对装</view>
+    <view class="list-bottom">
+      <view class="list-b">￥99</view>
+      <view class="list-c"></view>
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/5.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">米家落地扇</view>
+    <view class="list-bottom">
+      <view class="list-b">￥199</view>
+      
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/6.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">米家电动冲牙器</view>
+    <view class="list-bottom">
+      <view class="list-b">￥199</view>
+      <view class="list-d">券</view>
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/7.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">小米LED筒灯 蓝牙MESH版</view>
+    <view class="list-bottom">
+      <view class="list-b">￥39.9</view>
+      <view class="list-c"></view>
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/8.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">小米小爱音响</view>
+    <view class="list-bottom">
+      <view class="list-b">￥249</view>
+      
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/9.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">第十代小金刚 十全十美</view>
+    <view class="list-bottom">
+      <view class="list-b">￥1599</view>
+      <view class="list-c">起</view>
+      <view class="list-d">上新</view>
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/10.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">Redmi 手表</view>
+    <view class="list-bottom">
+      <view class="list-b">￥269</view>
+      
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/11.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">小米记录仪2 2K版</view>
+    <view class="list-bottom">
+      <view class="list-b">￥399</view>
+      
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/12.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">米家台灯Lite</view>
+    <view class="list-bottom">
+      <view class="list-b">￥79</view>
+      
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/13.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">米家蓝牙温湿度计 2</view>
+    <view class="list-bottom">
+      <view class="list-b">￥29</view>
+      
+    </view>
+  </view>
+  
+</view>

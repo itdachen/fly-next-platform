@@ -1,0 +1,113 @@
+<!-- 导航栏 -->
+<view class="window">
+  <view class="window-widch">
+    <input class="window-input" type="text" placeholder="           搜索商品"></input>
+  </view>
+</view>
+
+<!-- 双滑动列表 -->
+<view class="two-item">
+  <scroll-view class="scroll-left" scroll-y>
+    <view class="scroll-left-item" style="margin-top: 180rpx;">推荐</view>
+    <view class="scroll-left-item">小米手机</view>
+    <view class="scroll-left-item">Redmi手机</view>
+    <view class="scroll-left-item">游戏手机</view>
+    <view class="scroll-left-item">电脑平板</view>
+    <view class="scroll-left-item">智能穿戴</view>
+    <view class="scroll-left-item">电视</view>
+    <view class="scroll-left-item">大家电</view>
+    <view class="scroll-left-item">小家电</view>
+    <view class="scroll-left-item">智能家具</view>
+    <view class="scroll-left-item">户外出行</view>
+    <view class="scroll-left-item">日用百货</view>
+    <view class="scroll-left-item">儿童用品</view>
+    <view class="scroll-left-item">有米精选</view>
+    <view class="scroll-left-item">小米服务</view>
+
+  </scroll-view>
+  <scroll-view class="scroll-right" scroll-y>
+    <view class="scroll-right-img">
+      <image class="scroll-right-image" src="/image/itemize/1.png" mode="widthFix"></image>
+    </view>
+    <view class="scroll-right-bar">精选推荐</view>
+    <view class="scroll-right-list">
+      <view class="scroll-right-list-item">
+        <view>
+          <image class="scroll-right-list-item-img" src="/image/itemize/2.png" mode="widthFix"></image>
+        </view>
+        <view class="scroll-right-list-item-reight">
+          <view class="scroll-right-list-item-reight-top">Redmi 9A</view>
+          <view class="scroll-right-list-item-reight-bottom">￥499起</view>
+        </view>
+      </view>
+      <view class="scroll-right-list-item">
+        <view>
+          <image class="scroll-right-list-item-img" src="/image/itemize/3.png" mode="widthFix"></image>
+        </view>
+        <view class="scroll-right-list-item-reight">
+          <view class="scroll-right-list-item-reight-top">小米旅行箱 青春款 系列</view>
+          <view class="scroll-right-list-item-reight-bottom">￥199起</view>
+        </view>
+      </view>
+      <view class="scroll-right-list-item">
+        <view>
+          <image class="scroll-right-list-item-img" src="/image/itemize/4.png" mode="widthFix"></image>
+        </view>
+        <view class="scroll-right-list-item-reight">
+          <view class="scroll-right-list-item-reight-top">米家负离子便携吹风机</view>
+          <view class="scroll-right-list-item-reight-bottom">￥99</view>
+        </view>
+      </view>
+    </view>
+    <view class="scroll-list">
+      <view class="scroll-list-item">
+        <image class="scroll-list-item-img" src="/image/itemize/2.1.png" mode="widthFix"></image>
+        <view class="scroll-list-item-text">台灯</view>
+      </view>
+      <view class="scroll-list-item">
+        <image class="scroll-list-item-img" src="/image/itemize/2.2.png" mode="widthFix"></image>
+        <view class="scroll-list-item-text">电风扇</view>
+      </view>
+      <view class="scroll-list-item">
+        <image class="scroll-list-item-img" src="/image/itemize/2.3.png" mode="widthFix"></image>
+        <view class="scroll-list-item-text">净水器</view>
+      </view>
+      <view class="scroll-list-item">
+        <image class="scroll-list-item-img" src="/image/itemize/2.4.png" mode="widthFix"></image>
+        <view class="scroll-list-item-text">插座</view>
+      </view>
+      <view class="scroll-list-item">
+    <image class="scroll-list-item-img" src="/image/itemize/2.5.png" mode="widthFix"></image>
+    <view class="scroll-list-item-text">耳机</view>
+    </view>
+    <view class="scroll-list-item">
+    <image class="scroll-list-item-img" src="/image/itemize/2.6.png" mode="widthFix"></image>
+    <view class="scroll-list-item-text">料理机</view>
+    </view>
+    <view class="scroll-list-item">
+    <image class="scroll-list-item-img" src="/image/itemize/2.7.png" mode="widthFix"></image>
+    <view class="scroll-list-item-text">Note 10 Pro</view>
+    </view>
+    <view class="scroll-list-item">
+    <image class="scroll-list-item-img" src="/image/itemize/2.8.png" mode="widthFix"></image>
+    <view class="scroll-list-item-text">挂烫机</view>
+    </view>
+    <view class="scroll-list-item">
+    <image class="scroll-list-item-img" src="/image/itemize/2.9.png" mode="widthFix"></image>
+    <view class="scroll-list-item-text">四门冰箱</view>
+    </view>
+    <view class="scroll-list-item">
+    <image class="scroll-list-item-img" src="/image/itemize/2.10.png" mode="widthFix"></image>
+    <view class="scroll-list-item-text">触屏音响</view>
+    </view>
+    <view class="scroll-list-item">
+    <image class="scroll-list-item-img" src="/image/itemize/2.11.png" mode="widthFix"></image>
+    <view class="scroll-list-item-text">健身器材</view>
+    </view>
+    <view class="scroll-list-item">
+    <image class="scroll-list-item-img" src="/image/itemize/2.12.png" mode="widthFix"></image>
+    <view class="scroll-list-item-text">首饰手表</view>
+    </view>
+    </view>
+  </scroll-view>
+</view>

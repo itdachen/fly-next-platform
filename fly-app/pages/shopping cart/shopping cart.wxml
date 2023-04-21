@@ -1,0 +1,9 @@
+<view class="window">
+  <view class="window-bar">购物车</view>
+</view>
+<view class="div">
+<view class="img-box"><image class="img" src="/image/shopping/shopping.png" mode="widthFix"></image></view>
+<view class="text">购物车还是空的</view>
+<navigator url="../home/home" open-type="switchTab"><button class="button" bindtap="jumpPage">到小米商城逛逛</button></navigator>
+</view>
+

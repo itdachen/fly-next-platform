@@ -1,7 +1,7 @@
 package com.github.itdachen.admin.dashboard;
 
 import com.github.itdachen.framework.context.annotation.IgnoreResponseAdvice;
-import com.github.itdachen.security.client.WebAppClientConfig;
+import com.github.itdachen.config.WebAppClientConfig;
 import com.github.itdachen.security.constants.SecurityConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.env.Environment;
@@ -38,7 +38,6 @@ public class LoginController {
         modelMap.put("copyright", webAppClientConfig.getCopyright());
         modelMap.put("version", webAppClientConfig.getVersion());
         modelMap.put("issuer", webAppClientConfig.getIssuer());
-
 
         /* 登录认证地址 */
         String property = environment.getProperty("server.servlet.context-path");

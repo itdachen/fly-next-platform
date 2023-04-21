@@ -4,7 +4,7 @@ import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.annotation.IgnoreResponseAdvice;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.core.response.ServerResponse;
-import com.github.itdachen.security.client.WebAppClientConfig;
+import com.github.itdachen.config.WebAppClientConfig;
 import com.github.itdachen.security.user.LYearAdminMenu;
 import com.github.itdachen.security.user.LayuiAdminMenu;
 import com.github.itdachen.security.user.OkAdminMenu;

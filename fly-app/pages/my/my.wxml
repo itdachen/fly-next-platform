@@ -1,0 +1,365 @@
+<view class="window">
+  <view class="window-bar">个人中心
+  </view>
+</view>
+
+<!-- 圆角背景图 -->
+<!-- 芜湖 -->
+<view class="p-s">
+  <view class="page"></view>
+  <view class="myself">
+    <view class="myself-list0">
+      <view class="myself-user">
+        <view class="myself-user-left">
+          <image class="myself-user-img" src="/image/my/user.jpg" mode="widthFix"></image>
+        </view>
+        <view class="myself-user-right">
+          <view class="myself-user-right-top">小羊</view>
+          <view class="myself-user-right-bottom">
+            <view class="myself-user-right-bottom-a">小米ID：2511714662 </view>
+          
+          <view class="myself-user-right-bottom-b">切换账号</view>
+          </view>
+        </view>
+      </view>
+      <view class="myself-code"><image class="myself-code-img" src="/image/my/code.png" mode="widthFix"></image></view>
+    </view>
+    <view class="myself-list1">
+    <view class="myself-list1-item">
+    <view class="myself-list1-item-a">3</view>
+    <view class="myself-list1-item-b">优惠券</view>
+    </view>
+    <view class="myself-list1-item">
+    <view class="myself-list1-item-a">0</view>
+    <view class="myself-list1-item-b">红包</view>
+    </view>
+    <view class="myself-list1-item">
+    <view class="myself-list1-item-a">224</view>
+    <view class="myself-list1-item-b">米金</view>
+    </view>
+    <view class="myself-list1-item">
+    <view class="myself-list1-item-a">0</view>
+    <view class="myself-list1-item-b">F码</view>
+    </view>
+    </view>
+    <view class="myself-list2">
+      <view class="myself-list2-item">
+      <view class="myself-list2-item-a">
+      <view class="myself-list2-item-a-a">会员中心</view>
+      <view class="myself-list2-item-a-b">新权益></view>
+      </view>
+      <view class="myself-list2-item-b"><image class="myself-list2-item-img" src="/image/my/list/1.1.png" mode="widthFix"></image></view>
+      </view>
+      <view class="myself-list2-item">
+      <view class="myself-list2-item-a">
+      <view class="myself-list2-item-a-a">米金商城</view>
+      <view class="myself-list2-item-a-b">限量神券></view>
+      </view>
+      <view class="myself-list2-item-b"><image class="myself-list2-item-img" src="/image/my/list/1.2.png" mode="widthFix"></image></view>
+      </view>
+      <view class="myself-list2-item">
+      <view class="myself-list2-item-a">
+      <view class="myself-list2-item-a-a">连接设备</view>
+      <view class="myself-list2-item-a-b">领取米金></view>
+      </view>
+      <view class="myself-list2-item-b"><image class="myself-list2-item-img" src="/image/my/list/1.3.png" mode="widthFix"></image></view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 订单部分 -->
+<view class="order-box0">
+  <view class="order">
+    <view class="order-item">
+      <view class="order-item-a"><image class="order-item-img" src="/image/my/list/2.1.png" mode="widthFix"></image></view>
+      <view class="order-item-b">待付款</view>
+    </view>
+    <view class="order-item">
+      <view class="order-item-a"><image class="order-item-img" src="/image/my/list/2.2.png" mode="widthFix"></image></view>
+      <view class="order-item-b">待收货</view>
+    </view>
+    <view class="order-item">
+      <view class="order-item-a"><image class="order-item-img" src="/image/my/list/2.3.png" mode="widthFix"></image></view>
+      <view class="order-item-b">众筹抽奖</view>
+    </view>
+    <view class="order-item">
+      <view class="order-item-a"><image class="order-item-img" src="/image/my/list/2.4.png" mode="widthFix"></image></view>
+      <view class="order-item-b">全部订单</view>
+    </view>
+  </view>
+</view>
+
+<!-- 其他部分 -->
+<view class="other-box">
+  <view class="other">
+    <view class="other-item">
+      <view class="other-item-a"><image class="other-item-img" src="/image/my/list/3.1.png" mode="widthFix"></image></view>
+      <view class=other-item-b">小米精品推荐</view>
+    </view>
+    <view class="other-item">
+      <view class="other-item-a"><image class="other-item-img" src="/image/my/list/3.2.png" mode="widthFix"></image></view>
+      <view class="other-item-b">优先购</view>
+    </view>
+    <view class="other-item">
+      <view class="other-item-a"><image class="other-item-img" src="/image/my/list/3.3.png" mode="widthFix"></image></view>
+      <view class="other-item-b">小米榜单</view>
+    </view>
+    <view class="other-item">
+     
+    </view>
+  </view>
+</view>
+
+<!-- 我的服务 -->
+<view class="title">
+<view class="title-left">我的服务</view>
+<view class="title-right">查看更多></view>
+</view>
+
+<!-- 服务列表 -->
+<view class="titles-box">
+  <view class="titles">
+  <view class="titles-item">
+    <view class="titles-item-a"><image class="titles-item-img" src="/image/my/list/4.1.png" mode="widthFix"></image></view>
+    <view class="titles-item-b">小米之家</view>
+  </view>
+  <view class="titles-item">
+    <view class="titles-item-a"><image class="titles-item-img" src="/image/my/list/4.2.png" mode="widthFix"></image></view>
+    <view class="titles-item-b">服务网点</view>
+  </view>
+  <view class="titles-item">
+    <view class="titles-item-a"><image class="titles-item-img" src="/image/my/list/4.3.png" mode="widthFix"></image></view>
+    <view class="titles-item-b">耗材服务</view>
+  </view>
+  <view class="titles-item">
+    <view class="titles-item-a"><image class="titles-item-img" src="/image/my/list/4.4.png" mode="widthFix"></image></view>
+    <view class="titles-item-b">在线说明书</view>
+  </view>
+  <view class="titles-item">
+    <view class="titles-item-a"><image class="titles-item-img" src="/image/my/list/4.5.png" mode="widthFix"></image></view>
+    <view class="titles-item-b">在线客服</view>
+  </view>
+  <view class="titles-item">
+    <view class="titles-item-a"><image class="titles-item-img" src="/image/my/list/4.6.png" mode="widthFix"></image></view>
+    <view class="titles-item-b">以旧换新</view>
+  </view>
+  <view class="titles-item">
+    <view class="titles-item-a"><image class="titles-item-img" src="/image/my/list/4.7.png" mode="widthFix"></image></view>
+    <view class="titles-item-b">安装服务</view>
+  </view>
+  <view class="titles-item">
+    <view class="titles-item-a"><image class="titles-item-img" src="/image/my/list/4.8.png" mode="widthFix"></image></view>
+    <view class="titles-item-b">MiCare</view>
+  </view>
+  </view>
+</view>
+
+<!-- 订单部分 -->
+<view class="order-box">
+  <view class="order">
+    <view class="order-item">
+      <view class="order-item-a"><image class="order-item-img" src="/image/my/list/5.1.png" mode="widthFix"></image></view>
+      <view class="order-item-b">收货地址</view>
+    </view>
+    <view class="order-item">
+      <view class="order-item-a"><image class="order-item-img" src="/image/my/list/5.2.png" mode="widthFix"></image></view>
+      <view class="order-item-b">礼物码</view>
+    </view>
+    <view class="order-item">
+      <view class="order-item-a"><image class="order-item-img" src="/image/my/list/5.3.png" mode="widthFix"></image></view>
+      <view class="order-item-b">智能定制</view>
+    </view>
+    <view class="order-item">
+      <view class="order-item-a"><image class="order-item-img" src="/image/my/list/5.4.png" mode="widthFix"></image></view>
+      <view class="order-item-b">关于</view>
+    </view>
+  </view>
+</view>
+
+<!-- 为你推荐title -->
+<view class="c-title">
+<view class="c-title-text">为你推荐</view>
+</view>
+
+<!-- 列表 -->
+<view class="list">
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/1.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">MJOY 纯棉洗脸巾</view>
+    <view class="list-bottom">
+      <view class="list-b">￥19.9</view>
+      <view class="list-c"></view>
+      <view class="list-d">满折</view>
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/12.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">米家台灯Lite</view>
+    <view class="list-bottom">
+      <view class="list-b">￥79</view>
+      
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/13.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">米家蓝牙温湿度计 2</view>
+    <view class="list-bottom">
+      <view class="list-b">￥29</view>
+      
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/1.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">MJOY 纯棉洗脸巾</view>
+    <view class="list-bottom">
+      <view class="list-b">￥19.9</view>
+      <view class="list-c"></view>
+      <view class="list-d">满折</view>
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/2.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">Redmi 9A护眼大屏长续航 极具性价比入手绝对不亏</view>
+    <view class="list-bottom">
+      <view class="list-b">￥499</view>
+      <view class="list-c">起</view>
+      <view class="list-d">满减</view>
+    </view>
+    
+    
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/3.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">米家蓝牙温湿度计 2</view>
+    <view class="list-bottom">
+      <view class="list-b">￥29</view>
+      <view class="list-c"></view>
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/4.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">8H释压舒弹纤维枕 抗菌对装</view>
+    <view class="list-bottom">
+      <view class="list-b">￥99</view>
+      <view class="list-c"></view>
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/5.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">米家落地扇</view>
+    <view class="list-bottom">
+      <view class="list-b">￥199</view>
+      
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/6.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">米家电动冲牙器</view>
+    <view class="list-bottom">
+      <view class="list-b">￥199</view>
+      <view class="list-d">券</view>
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/7.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">小米LED筒灯 蓝牙MESH版</view>
+    <view class="list-bottom">
+      <view class="list-b">￥39.9</view>
+      <view class="list-c"></view>
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/8.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">小米小爱音响</view>
+    <view class="list-bottom">
+      <view class="list-b">￥249</view>
+      
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/9.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">第十代小金刚 十全十美</view>
+    <view class="list-bottom">
+      <view class="list-b">￥1599</view>
+      <view class="list-c">起</view>
+      <view class="list-d">上新</view>
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/10.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">Redmi 手表</view>
+    <view class="list-bottom">
+      <view class="list-b">￥269</view>
+      
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/11.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">小米记录仪2 2K版</view>
+    <view class="list-bottom">
+      <view class="list-b">￥399</view>
+      
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/12.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">米家台灯Lite</view>
+    <view class="list-bottom">
+      <view class="list-b">￥79</view>
+      
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/13.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">米家蓝牙温湿度计 2</view>
+    <view class="list-bottom">
+      <view class="list-b">￥29</view>
+      
+    </view>
+  </view>
+  <view class="list-item">
+    <view>
+      <image class="list-img" src="/image/home/list/1.png" mode="widthFix"></image>
+    </view>
+    <view class="list-a">MJOY 纯棉洗脸巾</view>
+    <view class="list-bottom">
+      <view class="list-b">￥19.9</view>
+      <view class="list-c"></view>
+      <view class="list-d">满折</view>
+    </view>
+  </view>
+  
+</view>

@@ -1,4 +1,4 @@
-package com.github.itdachen.security.client;
+package com.github.itdachen.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -49,6 +49,16 @@ public class WebAppClientConfig implements Serializable {
      * 发行人
      */
     private String issuer = "com.github.itdachen";
+
+    /**
+     * 默认后台模板类型
+     */
+    private TemplateEnum template = TemplateEnum.OKADMIN;
+
+    /**
+     * 请求地址
+     */
+    private String askUri;
 
     public String getId() {
         return id;
@@ -106,9 +116,26 @@ public class WebAppClientConfig implements Serializable {
         this.issuer = issuer;
     }
 
+    public TemplateEnum getTemplate() {
+        return template;
+    }
+
+    public void setTemplate(TemplateEnum template) {
+        this.template = template;
+    }
+
+    public String getAskUri() {
+        return askUri;
+    }
+
+    public void setAskUri(String askUri) {
+        this.askUri = askUri;
+    }
+
+
     @Override
     public String toString() {
-        return "WebClientConfig{" +
+        return "{" +
                 "id='" + id + '\'' +
                 ", version='" + version + '\'' +
                 ", copyright='" + copyright + '\'' +
@@ -116,6 +143,8 @@ public class WebAppClientConfig implements Serializable {
                 ", remarks='" + remarks + '\'' +
                 ", copyrightYear='" + copyrightYear + '\'' +
                 ", issuer='" + issuer + '\'' +
+                ", template=" + template +
+                ", askUri='" + askUri + '\'' +
                 '}';
     }
 }

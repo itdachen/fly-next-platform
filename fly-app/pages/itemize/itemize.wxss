@@ -1,0 +1,108 @@
+/* 页面背景颜色 */
+page {
+ 
+}
+/* 滚动条消失 */
+::-webkit-scrollbar{
+  width: 0;
+  height: 0;
+  color: transparent;
+  }
+/* 导航栏 */
+.window {
+  width: 100vw;
+  height: 170rpx;
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+}
+
+.window-widch {
+  width: 600rpx;
+  height: 136rpx;
+  padding-top: 30rpx;
+  display: flex;
+  align-items: flex-end;
+
+}
+
+/* 搜索 */
+.window-input {
+  width: 510rpx;
+  height: 70rpx;
+  background-color: #eeeeee;
+  /* margin: 0 auto; */
+  border-radius: 35rpx;
+margin-left: 40rpx;
+  font-size: 10pt;
+  color: #cccccc;
+}
+.two-item{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+.scroll-left{
+  width: 250rpx;
+  background-color: #fff;
+}
+.scroll-left-item{
+  height:100rpx ;
+  font-size: 10pt;
+  display: flex;
+  align-items: center;
+  padding-left: 25rpx;
+}
+.scroll-right{
+  width: 480rpx;
+}
+.scroll-right-img{
+ padding-top: 180rpx;
+}
+.scroll-right-image{
+  width: 480rpx;
+  border-radius: 15rpx;
+}
+.scroll-right-bar{
+  margin-top: 30rpx;
+  margin-bottom: 10rpx;
+}
+.scroll-right-list{
+  margin-bottom: 50rpx;
+  
+}
+.scroll-right-list-item{
+  height: 150rpx;
+  border-radius: 15rpx;
+  margin-bottom: 15rpx;
+  display: flex;
+  align-items: center;
+  background-color: #f8f8f8;
+}
+.scroll-right-list-item-img{
+  width: 130rpx;
+}
+.scroll-right-list-item-reight-top{
+  margin-bottom: 20rpx;
+}
+.scroll-list{
+  display: flex;
+  flex-wrap: wrap;
+
+}
+.scroll-list-item{
+  width: 33%;
+  margin-bottom:50rpx ;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.scroll-list-item-img{
+  width: 120rpx;
+  margin-bottom: 10rpx;
+}
+.scroll-list-item-text{
+  font-size: 10pt;
+}

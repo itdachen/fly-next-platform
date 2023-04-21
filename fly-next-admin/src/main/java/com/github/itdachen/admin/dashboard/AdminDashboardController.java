@@ -2,9 +2,9 @@ package com.github.itdachen.admin.dashboard;
 
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.permission.PermissionInfo;
-import com.github.itdachen.security.client.WebAppClientConfig;
+import com.github.itdachen.config.WebAppClientConfig;
 import com.github.itdachen.security.properties.SecurityBrowserProperties;
-import com.github.itdachen.security.properties.enums.TemplateEnum;
+import com.github.itdachen.config.TemplateEnum;
 import com.github.itdachen.admin.service.IPermsAuthWebService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.env.Environment;
@@ -26,13 +26,13 @@ public class AdminDashboardController {
     private final Environment environment;
     private final WebAppClientConfig webAppClientConfig;
     private final IPermsAuthWebService permsAuthService;
-    private final SecurityBrowserProperties browserProperties;
 
-    public AdminDashboardController(Environment environment, WebAppClientConfig webAppClientConfig, IPermsAuthWebService permsAuthService, SecurityBrowserProperties browserProperties) {
+    public AdminDashboardController(Environment environment,
+                                    WebAppClientConfig webAppClientConfig,
+                                    IPermsAuthWebService permsAuthService) {
         this.environment = environment;
         this.webAppClientConfig = webAppClientConfig;
         this.permsAuthService = permsAuthService;
-        this.browserProperties = browserProperties;
     }
 
     /***
@@ -47,13 +47,13 @@ public class AdminDashboardController {
     @GetMapping({"/", "/index"})
     public String index(ModelMap modelMap) {
         clientInfo(modelMap);
-        if (TemplateEnum.LYEAR == browserProperties.getTemplate()) {
+        if (TemplateEnum.LYEAR == webAppClientConfig.getTemplate()) {
             return LYEAR_PREFIX + "/index";
-        } else if (TemplateEnum.LAYUI == browserProperties.getTemplate()) {
+        } else if (TemplateEnum.LAYUI == webAppClientConfig.getTemplate()) {
             String permsAuthUri = contextPath() + "/perms/auth/menu";
             modelMap.put("permsAuthUri", permsAuthUri);
             return PATH_PREFIX + "/index";
-        } else if (TemplateEnum.OKADMIN == browserProperties.getTemplate()) {
+        } else if (TemplateEnum.OKADMIN == webAppClientConfig.getTemplate()) {
             return OK_PATH_PREFIX + "/index";
         } else {
             //  return LYEAR_PREFIX + "/index";

@@ -26,6 +26,9 @@ $(function () {
              * @returns {*|string|string}
              */
             verifyURL: function (uri) {
+                if ($.string.contain(uri, 'http://') || $.string.contain(uri, 'https://')) {
+                    return uri;
+                }
                 if ($.string.isNotEmpty(HTTP_BIZ_URI) && uri.substring(0, HTTP_BIZ_URI.length) !== HTTP_BIZ_URI) {
                     return HTTP_BIZ_URI + uri;
                 }

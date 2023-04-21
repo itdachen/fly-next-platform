@@ -2,7 +2,7 @@ package com.github.itdachen.security.properties;
 
 import com.github.itdachen.security.constants.SecurityBrowserConstants;
 import com.github.itdachen.security.properties.code.ValidateCodeProperties;
-import com.github.itdachen.security.properties.enums.TemplateEnum;
+import com.github.itdachen.config.TemplateEnum;
 import com.github.itdachen.security.properties.rememberme.RememberMeProperties;
 import com.github.itdachen.security.properties.session.SessionProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -38,12 +38,6 @@ public class SecurityBrowserProperties {
      * 登录成功之后,默认跳转地址
      */
     private String successForwardUrl = "/";
-
-    /*
-     * 默认后台模板类型
-     */
-    private TemplateEnum template = TemplateEnum.OKADMIN;
-
 
     /**
      * 验证码
@@ -139,14 +133,6 @@ public class SecurityBrowserProperties {
 
     public void setMatchers(List<String> matchers) {
         this.matchers = matchers;
-    }
-
-    public TemplateEnum getTemplate() {
-        return template;
-    }
-
-    public void setTemplate(TemplateEnum template) {
-        this.template = template;
     }
 
 }

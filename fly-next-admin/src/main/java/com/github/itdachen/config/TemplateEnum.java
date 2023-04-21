@@ -1,4 +1,4 @@
-package com.github.itdachen.security.properties.enums;
+package com.github.itdachen.config;
 
 /**
  * Description:
