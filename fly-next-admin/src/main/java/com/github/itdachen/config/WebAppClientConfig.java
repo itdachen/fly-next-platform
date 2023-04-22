@@ -58,7 +58,7 @@ public class WebAppClientConfig implements Serializable {
     /**
      * 请求地址
      */
-    private String askUri;
+    private String askUri = "http://127.0.0.1:8080";
 
     public String getId() {
         return id;

@@ -1,6 +1,33 @@
-# 🎉FLY-NEXT-PLATFORM
+<div align="center">
+<br/>
+<br/>
+  <h1 align="center">
+    fly-next-platform
+  </h1>
+  <h4 align="center">
+    开 箱 即 用 的 前 后 端 脚 手 架 框 架
+  </h4>
+</div>
 
-🎉🎉🔥
+<p align="center">
+    <a href="#">
+        <img src="https://img.shields.io/badge/SpringBoot-2.7.10+-green.svg" alt="Pear Admin Layui Version">
+    </a>
+    <a href="#">
+        <img src="https://img.shields.io/badge/JQuery-3.6.4+-green.svg" alt="Jquery Version">
+    </a>
+    <a href="#">
+        <img src="https://img.shields.io/badge/Layui-2.7.6+-green.svg" alt="Layui Version">
+    </a>
+    <a href="#">
+        <img src="https://img.shields.io/badge/node-16.12.0+-green.svg" alt="Layui Version">
+    </a>
+    <a href="#">
+        <img src="https://img.shields.io/badge/vue-3.2.0+-green.svg" alt="Layui Version">
+    </a>
+</p>
+
+<br>
 
 ### 🌈 介绍
 
@@ -16,11 +43,11 @@
 
 ### ⛱️ 预览界面
 
-| 界面                                                                            | 界面                                                                            |
-|-------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
-| ![](fly-next-admin/src/main/resources/static/assets/backstage/images/001.png) | ![](fly-next-admin/src/main/resources/static/assets/backstage/images/002.png) |
-| ![](fly-next-admin/src/main/resources/static/assets/backstage/images/003.png) | ![](fly-next-admin/src/main/resources/static/assets/backstage/images/004.png) |
-| ![](fly-next-admin/src/main/resources/static/assets/backstage/images/005.png) | ![](fly-next-admin/src/main/resources/static/assets/backstage/images/006.png) ||
+| 界面                                 | 界面                                 |
+|------------------------------------|------------------------------------|
+| ![](docs/resources/images/001.png) | ![](docs/resources/images/002.png) |
+| ![](docs/resources/images/003.png) | ![](docs/resources/images/004.png) |
+| ![](docs/resources/images/005.png) | ![](docs/resources/images/006.png) ||
 
 ### 💒 代码依赖仓库
 
