@@ -57,7 +57,7 @@
     <!-- 获取用户可以授权的应用 -->
     <select id="getPermsAuthApp" parameterType="java.lang.String"
             resultType="com.github.itdachen.framework.assets.tree.ZTreeNode">
-        SELECT a.app_code AS id, a.name, '1' AS parentId
+        SELECT a.app_code AS id, a.app_title AS NAME, '1' AS parentId
         FROM sys_app_client a
                  LEFT JOIN sys_perms_auth b ON a.app_code = b.menu_id
         WHERE b.user_id = #{userId}
@@ -66,7 +66,7 @@
     <select id="permsAuthMenu" parameterType="java.lang.String"
             resultType="com.github.itdachen.framework.assets.tree.ZTreeNode">
         SELECT a.id, a.parent_id AS parentId, a.title AS name
-        FROM sys_menu a
+        FROM sys_menu_info a
                  LEFT JOIN sys_perms_auth b ON a.id = b.menu_id
         WHERE b.user_id = #{userId}
         ORDER BY a.order_num ASC
@@ -75,7 +75,7 @@
     <select id="permsAuthElement" parameterType="java.lang.String"
             resultType="com.github.itdachen.framework.assets.tree.ZTreeNode">
         SELECT a.id, a.menu_id AS parentId, a.title AS name
-        FROM sys_element a
+        FROM sys_element_info a
                  LEFT JOIN sys_perms_auth b ON a.id = b.menu_id
         WHERE b.user_id = #{userId}
           AND a.menu_id = #{menuId}
