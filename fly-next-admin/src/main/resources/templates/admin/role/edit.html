@@ -10,10 +10,21 @@
     <div class="layui-form-body">
         <div class="layui-form-item">
             <label class="layui-form-label">
+                <span class="required">*</span>角色编码
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="roleCode" name="roleCode" th:field="*{roleCode}"
+                       placeholder="例如: ROLE_USER" value="ROLE_USER" maxlength="30"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
                 <span class="required">*</span>角色名称
             </label>
             <div class="layui-input-block">
-                <input type="text" id="title" name="title" th:field="*{title}"
+                <input type="text" id="title" name="title" th:field="*{title}" maxlength="50"
                        autocomplete="off" lay-verify="required" class="layui-input">
             </div>
         </div>
@@ -23,8 +34,8 @@
                 描述
             </label>
             <div class="layui-input-block">
-                        <textarea id="remarks" name="remarks" th:field="*{remarks}" maxlength="200"
-                                  autocomplete="off" class="layui-textarea"></textarea>
+                <textarea id="remarks" name="remarks" th:field="*{remarks}" maxlength="100"
+                          autocomplete="off" class="layui-textarea"></textarea>
             </div>
         </div>
     </div>

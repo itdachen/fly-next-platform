@@ -97,6 +97,7 @@ function options() {
         url: path + "/page",
         where: queryWhere(),
         cols: [[
+            {field: 'roleCode', title: '角色编码', align: "center"},
             {field: 'title', title: '角色名称', align: "center"},
             {field: 'remarks', title: '备注', align: "center"},
             {fixed: 'right', title: '操作', toolbar: '#toolbarHandle',  align: "center"}
