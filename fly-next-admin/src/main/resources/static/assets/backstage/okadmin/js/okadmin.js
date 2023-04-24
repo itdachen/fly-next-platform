@@ -11,19 +11,18 @@ layui.use(["element", "form", "layer", "okUtils", "okTab", "okLayer", "okContext
     var okHoliday = layui.okHoliday;
     var okTab = layui.okTab({
         // 菜单请求路径
-     //   url: "/static/assets/backstage/okadmin/data/navs.json",
+        //   url: "/static/assets/backstage/okadmin/data/navs.json",
         url: '/perms/okadmin/menu',
         // 允许同时选项卡的个数
         openTabNum: 30,
         // 如果返回的结果和navs.json中的数据结构一致可省略这个方法
         parseData: function (data) {
-            console.log('data==>', data)
             return data;
         }
     });
     var config = okUtils.local("okConfig") || okConfig || {};
     objOkTab = okTab;
-  //  okLoading && okLoading.close();
+    //  okLoading && okLoading.close();
     /**关闭加载动画*/
 
     $(".layui-layout-admin").removeClass("orange_theme blue_theme");
@@ -346,9 +345,18 @@ layui.use(["element", "form", "layer", "okUtils", "okTab", "okLayer", "okContext
      */
     $("#logout").click(function () {
         okLayer.confirm("确定要退出吗？", function (index) {
+            // $.http.get(HTTP_BIZ_URI + "/logout", function (res) {
+            //     let url = res.data;
+            //     okTab.removeTabStorage(function (res) {
+            //         okTab.removeTabStorage();
+            //         window.location = url;
+            //     });
+            // })
+
             okTab.removeTabStorage(function (res) {
                 okTab.removeTabStorage();
-                window.location = "pages/login.html";
+              //  window.location = "pages/login.html";
+                window.location = HTTP_BIZ_URI + "/logout"
             });
         });
     });
