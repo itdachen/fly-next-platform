@@ -1,6 +1,9 @@
 package com.github.itdachen.config;
 
+import com.github.itdachen.auth.service.IVerifyTicketTokenService;
 import com.github.itdachen.framework.body.advice.handler.GlobalExceptionHandler;
+import com.github.itdachen.framework.jjwt.JWTHelper;
+import com.github.itdachen.framework.jjwt.config.SecretKeyConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +25,13 @@ import java.util.List;
 @Configuration
 public class FlyAdminBootstrapWebMvcConfig implements WebMvcConfigurer {
     private static final Logger logger = LoggerFactory.getLogger(FlyAdminBootstrapWebMvcConfig.class);
+
+    private final IVerifyTicketTokenService verifyTicketTokenService;
+
+    public FlyAdminBootstrapWebMvcConfig(IVerifyTicketTokenService verifyTicketTokenService) {
+        this.verifyTicketTokenService = verifyTicketTokenService;
+    }
+
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -50,19 +60,19 @@ public class FlyAdminBootstrapWebMvcConfig implements WebMvcConfigurer {
                 .excludePathPatterns(passMatchers());
     }
 
-//    @Override
-//    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-//        resolvers.add(currentUserMethodArgumentResolver());
-//    }
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(userAuthRestMethodArgumentResolver());
+    }
 
-//    @Bean
-//    public CurrentUserMethodArgumentResolver currentUserMethodArgumentResolver() {
-//        return new CurrentUserMethodArgumentResolver();
-//    }
+    @Bean
+    public UserAuthRestMethodArgumentResolver userAuthRestMethodArgumentResolver() {
+        return new UserAuthRestMethodArgumentResolver();
+    }
 
     @Bean
     public UserAuthRestInterceptor authInterceptor() {
-        return new UserAuthRestInterceptor();
+        return new UserAuthRestInterceptor(verifyTicketTokenService);
     }
 
 

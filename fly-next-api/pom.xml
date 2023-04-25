@@ -21,6 +21,14 @@
             <groupId>com.github.itdachen.framework</groupId>
             <artifactId>fly-runner</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-datasource</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-jjwt</artifactId>
+        </dependency>
 
         <!-- 項目启动容器 -->
         <dependency>
@@ -93,19 +101,11 @@
             <artifactId>fly-body-advice</artifactId>
         </dependency>
 
-
-        <!-- https://mvnrepository.com/artifact/org.bitbucket.b_c/jose4j -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis -->
         <dependency>
-            <groupId>org.bitbucket.b_c</groupId>
-            <artifactId>jose4j</artifactId>
-            <version>0.9.3</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.9.1</version>
-        </dependency>
-
 
 
     </dependencies>

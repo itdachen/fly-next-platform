@@ -1,0 +1,14 @@
+### 测试登录
+POST http://localhost:8081/oauth/token
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "123456"
+}
+
+
+### 测试登录用户
+GET http://localhost:8081/current/user/details
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJuaWNrTmFtZSI6IueOi-Wkp-WuuCIsInRlbmFudElkIjoiMTU0MTIzMDExMzk1MjIzOTYxMCIsInVzZXJUeXBlIjoiNCIsImF2YXRhciI6Imh0dHBzOi8vaXRkYWNoZW4uY29tL3VwbG9hZC8yMDIyLzMvMjAyMjAzMjMyMTMyMDU3MDQxMjIzOTIyNDY4OTQ1OTIucG5nIiwidXNlcklkIjoiMTU0MTIzMDExMzk1MjIzOTYxNyIsImFjY291bnQiOiJhZG1pbiIsImp0aSI6IjEzZDA2M2ZhLTE3NmYtNDY4Ny04NDJlLWFmOGEzMmQyYTEyZiIsImlzcyI6ImNvbS5naXRodWIuaXRkYWNoZW4iLCJpYXQiOjE2ODI0MzYwNDIsImV4cCI6MTY4MjQ1NDA0Mn0.TXyZfKAoEra0CwnoTTohWuWqw-DWdBN2SozE3FDPJ4K1G4VBOWd_D1lQpKF7UaJHM4Y7FonFoohkdFN_qLBAuw
