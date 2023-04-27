@@ -1,9 +1,13 @@
 package com.github.itdachen.admin.service.impl;
 
 import com.github.itdachen.admin.constants.AppClientConstant;
+import com.github.itdachen.admin.convert.RoleUserConvert;
+import com.github.itdachen.admin.convert.UserInfoConvert;
 import com.github.itdachen.admin.entity.SetUserPassword;
 import com.github.itdachen.admin.entity.UserLogin;
+import com.github.itdachen.admin.mapper.IRoleUserMapper;
 import com.github.itdachen.admin.mapper.IUserLoginMapper;
+import com.github.itdachen.admin.sdk.dto.UserInfoDto;
 import com.github.itdachen.admin.sdk.vo.UserLoginVo;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.constants.UserTypeConstant;
@@ -37,15 +41,19 @@ import java.util.List;
  * @date 2023-04-04 21:44:46
  */
 @Service
-public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, UserInfo, UserInfoVo, UserInfoQuery, String> implements IUserInfoService {
+public class UserInfoServiceImpl extends BizServiceImpl<UserInfo, UserInfoDto, UserInfoVo, UserInfoQuery, String> implements IUserInfoService {
     private static final Logger logger = LoggerFactory.getLogger(UserInfoServiceImpl.class);
-
+    private static final UserInfoConvert bizConvert = new UserInfoConvert();
+    private final IUserInfoMapper bizMapper;
     private final PasswordEncoder passwordEncoder;
     private final IUserLoginMapper userLoginMapper;
 
 
-    public UserInfoServiceImpl(PasswordEncoder passwordEncoder,
+    public UserInfoServiceImpl(IUserInfoMapper bizMapper,
+                               PasswordEncoder passwordEncoder,
                                IUserLoginMapper userLoginMapper) {
+        super(bizMapper, bizConvert);
+        this.bizMapper = bizMapper;
         this.passwordEncoder = passwordEncoder;
         this.userLoginMapper = userLoginMapper;
     }
@@ -74,37 +82,40 @@ public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, UserInf
      *
      * @author 王大宸
      * @date 2022/8/27 18:55
-     * @param entity entity
+     * @param userInfoDto userInfoDto
      * @return com.itdachen.admin.entity.User
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public UserInfo save(UserInfo entity) throws Exception {
-        if (StringUtils.isEmpty(entity.getUsername())) {
+    public UserInfoVo save(UserInfoDto userInfoDto) throws Exception {
+        if (StringUtils.isEmpty(userInfoDto.getUsername())) {
             throw new BizException("登录账号不能为空!");
         }
-        if (StringUtils.isEmpty(entity.getPassword())) {
+        if (StringUtils.isEmpty(userInfoDto.getPassword())) {
             throw new BizException("密码不能为空!");
         }
-        UserInfoVo one = bizMapper.findUserByUsername(entity.getUsername());
+        UserInfoVo one = bizMapper.findUserByUsername(userInfoDto.getUsername());
         if (null != one) {
-            throw new BizException("登录账号 " + entity.getUsername() + " 已经存在!");
+            throw new BizException("登录账号 " + userInfoDto.getUsername() + " 已经存在!");
         }
-        entity.setStatus(UserStatusConstant.IS_OK);
-        entity.setType(UserTypeConstant.MEMBER);
-        EntityUtils.setCreatAndUpdateInfo(entity);
+
+        UserInfo userInfo = bizConvert.toJavaObject(userInfoDto);
+
+        userInfo.setStatus(UserStatusConstant.IS_OK);
+        userInfo.setType(UserTypeConstant.MEMBER);
+        EntityUtils.setCreatAndUpdateInfo(userInfo);
 
         userLoginMapper.saveUserLogin(UserLogin.builder()
-                .id(entity.getId())
-                .userId(entity.getId())
-                .tenantId(entity.getTenantId())
+                .id(userInfo.getId())
+                .userId(userInfo.getId())
+                .tenantId(userInfo.getTenantId())
                 .appId(AppClientConstant.WEB_APP)
-                .username(entity.getUsername())
-                .password(passwordEncoder.encode(entity.getPassword()))
-                .status(entity.getStatus())
-                .userType(entity.getType())
-                .nickName(entity.getName())
-                .avatar(entity.getAvatar())
+                .username(userInfo.getUsername())
+                .password(passwordEncoder.encode(userInfo.getPassword()))
+                .status(userInfo.getStatus())
+                .userType(userInfo.getType())
+                .nickName(userInfo.getName())
+                .avatar(userInfo.getAvatar())
                 .delFlag(YesOrNotConstant.NOT)
                 .canDel(YesOrNotConstant.YES)
                 .expireTime(LocalDateTime.now().minusDays(180))
@@ -112,8 +123,8 @@ public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, UserInf
                 .updateTime(LocalDateTime.now())
                 .build());
 
-        bizMapper.insertSelective(entity);
-        return entity;
+        bizMapper.insertSelective(userInfo);
+        return bizConvert.toJavaObjectVo(userInfo);
     }
 
 
@@ -122,19 +133,19 @@ public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, UserInf
      *
      * @author 王大宸
      * @date 2022/8/27 18:58
-     * @param entity entity
+     * @param userInfoDto userInfoDto
      * @return com.itdachen.admin.entity.User
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public UserInfo update(UserInfo entity) throws Exception {
-        UserInfo user = bizMapper.selectByPrimaryKey(entity.getId());
-        if (UserStatusConstant.IS_LOCKED.equals(entity.getStatus())) {
+    public UserInfoVo update(UserInfoDto userInfoDto) throws Exception {
+        UserInfo user = bizMapper.selectByPrimaryKey(userInfoDto.getId());
+        if (UserStatusConstant.IS_LOCKED.equals(userInfoDto.getStatus())) {
             if (UserTypeConstant.SUPER_ADMINISTRATOR_USERNAME.equals(user.getUsername())
                     || UserTypeConstant.SUPER_ADMINISTRATOR.equals(user.getType())) {
                 throw new BizException(UserTypeConstant.SUPER_ADMINISTRATOR_USERNAME + " 账号不能被冻结");
             }
-            entity.setUsername(user.getUsername());
+            userInfoDto.setUsername(user.getUsername());
 
             userLoginMapper.updateUserLogin(UserLogin.builder()
                     .id(user.getId())
@@ -143,7 +154,7 @@ public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, UserInf
                     .build());
         }
 
-        return super.update(entity);
+        return super.update(userInfoDto);
     }
 
     /***

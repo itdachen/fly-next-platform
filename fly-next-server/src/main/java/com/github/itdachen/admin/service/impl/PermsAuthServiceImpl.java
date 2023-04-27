@@ -1,7 +1,9 @@
 package com.github.itdachen.admin.service.impl;
 
+import com.github.itdachen.admin.convert.PermsAuthConvert;
 import com.github.itdachen.admin.mapper.IAppClientMapper;
 import com.github.itdachen.admin.mapper.IRoleMenuMapper;
+import com.github.itdachen.admin.sdk.dto.PermsAuthDto;
 import com.github.itdachen.admin.utils.LoadUserMenuUtils;
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import com.github.itdachen.framework.context.exception.BizException;
@@ -31,14 +33,18 @@ import java.util.List;
  * @date 2023-04-04 21:44:46
  */
 @Service
-public class PermsAuthServiceImpl extends BizServiceImpl<IPermsAuthMapper, PermsAuth, PermsAuthVo, PermsAuthQuery, String> implements IPermsAuthService {
+public class PermsAuthServiceImpl extends BizServiceImpl<PermsAuth, PermsAuthDto, PermsAuthVo, PermsAuthQuery, String> implements IPermsAuthService {
     private static final Logger logger = LoggerFactory.getLogger(PermsAuthServiceImpl.class);
-
+    private static final PermsAuthConvert bizConvert = new PermsAuthConvert();
+    private final IPermsAuthMapper bizMapper;
     private final IAppClientMapper appClientMapper;
     private final IRoleMenuMapper roleMenuMapper;
 
-    public PermsAuthServiceImpl(IAppClientMapper appClientMapper,
+    public PermsAuthServiceImpl(IPermsAuthMapper bizMapper,
+                                IAppClientMapper appClientMapper,
                                 IRoleMenuMapper roleMenuMapper) {
+        super(bizMapper, bizConvert);
+        this.bizMapper = bizMapper;
         this.appClientMapper = appClientMapper;
         this.roleMenuMapper = roleMenuMapper;
     }
@@ -61,16 +67,17 @@ public class PermsAuthServiceImpl extends BizServiceImpl<IPermsAuthMapper, Perms
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public PermsAuth save(PermsAuth entity) throws BizException {
+    public PermsAuthVo save(PermsAuthDto permsAuthDto) throws BizException {
+
         bizMapper.delete(PermsAuth.builder()
-                .userId(entity.getUserId())
-                .clientId(entity.getClientId())
+                .userId(permsAuthDto.getUserId())
+                .clientId(permsAuthDto.getClientId())
                 .build());
 
-        String menuIds = entity.getMenuId();
+        String menuIds = permsAuthDto.getMenuId();
         List<String> menuList = new ArrayList<>(Arrays.asList(menuIds.split(",")));
         if (0 == menuList.size()) {
-            return entity;
+            return null;
         }
 
         PermsAuth one = null;
@@ -82,12 +89,12 @@ public class PermsAuthServiceImpl extends BizServiceImpl<IPermsAuthMapper, Perms
             one = new PermsAuth();
             one.setId(EntityUtils.getId());
             one.setMenuId(menuId);
-            one.setUserId(entity.getUserId());
-            one.setClientId(entity.getClientId());
+            one.setUserId(permsAuthDto.getUserId());
+            one.setClientId(permsAuthDto.getClientId());
             list.add(one);
         }
         bizMapper.batchSave(list);
-        return entity;
+        return null;
     }
 
     /***

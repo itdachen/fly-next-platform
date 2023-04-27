@@ -1,5 +1,7 @@
 package com.github.itdachen.admin.controller;
 
+import com.github.itdachen.admin.sdk.dto.RoleInfoDto;
+import com.github.itdachen.admin.service.IMenuInfoService;
 import com.github.itdachen.admin.service.IRoleInfoService;
 import com.github.itdachen.admin.entity.RoleInfo;
 import com.github.itdachen.admin.sdk.query.RoleInfoQuery;
@@ -31,9 +33,15 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin/role")
 @CheckApiClient(title = "角色", clientId = ClientConstant.CLIENT_WEB)
-public class RoleInfoController extends BizController< IRoleInfoService, RoleInfo, RoleInfoVo, RoleInfoQuery, String > {
+public class RoleInfoController extends BizController<RoleInfoDto, RoleInfoVo, RoleInfoQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(RoleInfoController.class);
-    private static final String PATH_PREFIX = "admin/role";
+    private static final String PATH_PREFIX = "admin/role" ;
+    private final IRoleInfoService bizService;
+
+    public RoleInfoController(IRoleInfoService bizService) {
+        super(bizService);
+        this.bizService = bizService;
+    }
 
     /***
      * 跳转到信息管理界面
@@ -45,7 +53,7 @@ public class RoleInfoController extends BizController< IRoleInfoService, RoleInf
     @GetMapping(value = "/index")
     @PreAuthorize("hasAuthority('admin:role:index')")
     public String index() {
-        return PATH_PREFIX + "/index";
+        return PATH_PREFIX + "/index" ;
     }
 
     /***
@@ -58,7 +66,7 @@ public class RoleInfoController extends BizController< IRoleInfoService, RoleInf
     @GetMapping(value = "/add")
     @PreAuthorize("hasAuthority('admin:role:save')")
     public String add() {
-        return PATH_PREFIX + "/add";
+        return PATH_PREFIX + "/add" ;
     }
 
     /***
@@ -74,14 +82,14 @@ public class RoleInfoController extends BizController< IRoleInfoService, RoleInf
     @PreAuthorize("hasAuthority('admin:role:update')")
     public String edit(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("roleInfo", bizService.getById(id));
-        return PATH_PREFIX + "/edit";
+        return PATH_PREFIX + "/edit" ;
     }
 
     /***
      * 跳转到查看页面
      *
      * @author 王大宸
-     * @date  2023-04-04 21:44:46
+     * @date 2023-04-04 21:44:46
      * @param id          需要查看数据的id
      * @param modelMap    modelMap
      * @return java.lang.String
@@ -90,7 +98,7 @@ public class RoleInfoController extends BizController< IRoleInfoService, RoleInf
     @PreAuthorize("hasAuthority('admin:role:view')")
     public String see(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("roleInfo", bizService.getById(id));
-        return PATH_PREFIX + "/see";
+        return PATH_PREFIX + "/see" ;
     }
 
     /***
@@ -106,7 +114,7 @@ public class RoleInfoController extends BizController< IRoleInfoService, RoleInf
     @PreAuthorize("hasAuthority('admin:role:power')")
     public String power(@PathVariable("id") String id, ModelMap modelMap) throws BizException {
         modelMap.put("roleId", id);
-        return PATH_PREFIX + "/power";
+        return PATH_PREFIX + "/power" ;
     }
 
 

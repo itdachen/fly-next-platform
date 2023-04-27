@@ -1,5 +1,6 @@
 package com.github.itdachen.admin.service.impl;
 
+import com.github.itdachen.admin.convert.NetDiskInfoConvert;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.itdachen.admin.entity.NetDiskInfo;
@@ -60,7 +61,7 @@ public class NetDiskInfoServiceImpl implements INetDiskInfoService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public NetDiskInfoDto saveNetDiskInfo(NetDiskInfoDto netDiskInfoDto) throws Exception {
-        NetDiskInfo netDiskInfo = new NetDiskInfo();
+        NetDiskInfo netDiskInfo = NetDiskInfoConvert.toJavaObject(netDiskInfoDto);
         BeanUtils.copyProperties(netDiskInfoDto, netDiskInfo);
         EntityUtils.setCreatAndUpdateInfo(netDiskInfo);
         netDiskInfoMapper.saveNetDiskInfo(netDiskInfo);
@@ -92,8 +93,7 @@ public class NetDiskInfoServiceImpl implements INetDiskInfoService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public NetDiskInfoDto updateNetDiskInfo(NetDiskInfoDto netDiskInfoDto) throws Exception {
-        NetDiskInfo netDiskInfo = new NetDiskInfo();
-        BeanUtils.copyProperties(netDiskInfoDto, netDiskInfo);
+        NetDiskInfo netDiskInfo = NetDiskInfoConvert.toJavaObject(netDiskInfoDto);
         EntityUtils.setUpdatedInfo(netDiskInfo);
         netDiskInfoMapper.updateNetDiskInfo(netDiskInfo);
         return netDiskInfoDto;

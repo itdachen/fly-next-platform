@@ -1,5 +1,7 @@
 package com.github.itdachen.admin.service.impl;
 
+import com.github.itdachen.admin.convert.ElementInfoConvert;
+import com.github.itdachen.admin.sdk.dto.ElementInfoDto;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
 import com.github.pagehelper.Page;
@@ -24,8 +26,15 @@ import java.util.List;
  * @date 2023-04-04 21:44:47
  */
 @Service
-public class ElementInfoServiceImpl extends BizServiceImpl<IElementInfoMapper, ElementInfo, ElementInfoVo, ElementInfoQuery, String> implements IElementInfoService {
+public class ElementInfoServiceImpl extends BizServiceImpl<ElementInfo, ElementInfoDto, ElementInfoVo, ElementInfoQuery, String> implements IElementInfoService {
     private static final Logger logger = LoggerFactory.getLogger(ElementInfoServiceImpl.class);
+    private static final ElementInfoConvert bizConvert = new ElementInfoConvert();
+    private final IElementInfoMapper bizMapper;
+
+    public ElementInfoServiceImpl(IElementInfoMapper bizMapper) {
+        super(bizMapper, bizConvert);
+        this.bizMapper = bizMapper;
+    }
 
     /***
      * 分页

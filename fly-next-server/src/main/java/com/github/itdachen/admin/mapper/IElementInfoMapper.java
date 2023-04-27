@@ -25,6 +25,8 @@ public interface IElementInfoMapper extends Mapper< ElementInfo > {
      */
     List< ElementInfoVo > page(ElementInfoQuery params);
 
+    void remove(String menuId);
+
 
 
     /***

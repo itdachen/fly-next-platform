@@ -6,21 +6,31 @@
 
     <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.github.itdachen.admin.sdk.vo.ElementInfoVo" id="elementInfoMap">
-            <result property="id" column="id"/>
-            <result property="menuId" column="menu_id"/>
-            <result property="title" column="title"/>
-            <result property="code" column="code"/>
-            <result property="type" column="type"/>
-            <result property="href" column="href"/>
-            <result property="path" column="path"/>
-            <result property="method" column="method"/>
-            <result property="orderNum" column="order_num"/>
-            <result property="visible" column="visible"/>
-            <result property="remarks" column="remarks"/>
+        <result property="id" column="id"/>
+        <result property="menuId" column="menu_id"/>
+        <result property="title" column="title"/>
+        <result property="code" column="code"/>
+        <result property="type" column="type"/>
+        <result property="href" column="href"/>
+        <result property="path" column="path"/>
+        <result property="method" column="method"/>
+        <result property="orderNum" column="order_num"/>
+        <result property="visible" column="visible"/>
+        <result property="remarks" column="remarks"/>
     </resultMap>
 
     <sql id="selectElementInfoVo">
-        SELECT id, menu_id, title, code, type, href, path, method, order_num, visible, remarks
+        SELECT id,
+               menu_id,
+               title,
+               code,
+               type,
+               href,
+               path,
+               method,
+               order_num,
+               visible,
+               remarks
         FROM sys_element_info
     </sql>
 
@@ -60,29 +70,37 @@
     </select>
 
 
+    <delete id="remove" parameterType="java.lang.String">
+        DELETE
+        FROM sys_element_info
+        WHERE menu_id = #{menuId}
+    </delete>
+
+
     <!-- 批量添加 -->
     <insert id="batchSave" parameterType="java.util.List">
-        INSERT INTO sys_element_info (id        , menu_id        , title        , code        , type        , href        , path        , method        , order_num        , visible        , remarks        , create_time        , create_user        , create_user_id        , update_time        , update_user        , update_user_id)
+        INSERT INTO sys_element_info (id , menu_id , title , code , type , href , path , method , order_num , visible ,
+        remarks , create_time , create_user , create_user_id , update_time , update_user , update_user_id)
         (
         <foreach collection="list" item="item" separator="UNION ALL">
             SELECT
-                #{item.id}, 
-                #{item.menuId}, 
-                #{item.title}, 
-                #{item.code}, 
-                #{item.type}, 
-                #{item.href}, 
-                #{item.path}, 
-                #{item.method}, 
-                #{item.orderNum}, 
-                #{item.visible}, 
-                #{item.remarks}, 
-                #{item.createTime}, 
-                #{item.createUser}, 
-                #{item.createUserId}, 
-                #{item.updateTime}, 
-                #{item.updateUser}, 
-                #{item.updateUserId}
+            #{item.id},
+            #{item.menuId},
+            #{item.title},
+            #{item.code},
+            #{item.type},
+            #{item.href},
+            #{item.path},
+            #{item.method},
+            #{item.orderNum},
+            #{item.visible},
+            #{item.remarks},
+            #{item.createTime},
+            #{item.createUser},
+            #{item.createUserId},
+            #{item.updateTime},
+            #{item.updateUser},
+            #{item.updateUserId}
             FROM DUAL
         </foreach>
         )
@@ -91,59 +109,59 @@
     <!-- 批量更新 -->
     <update id="batchUpdate" parameterType="java.util.List">
         <foreach collection="list" item="item" index="index" open="" close="" separator=";">
-            UPDATE  sys_element_info
+            UPDATE sys_element_info
             <set>
-                        <if test="null != item.id  and '' != item.id ">id =
-                            #{item.id},
-                        </if>
-                        <if test="null != item.menuId  and '' != item.menuId ">menu_id =
-                            #{item.menuId},
-                        </if>
-                        <if test="null != item.title  and '' != item.title ">title =
-                            #{item.title},
-                        </if>
-                        <if test="null != item.code  and '' != item.code ">code =
-                            #{item.code},
-                        </if>
-                        <if test="null != item.type  and '' != item.type ">type =
-                            #{item.type},
-                        </if>
-                        <if test="null != item.href  and '' != item.href ">href =
-                            #{item.href},
-                        </if>
-                        <if test="null != item.path  and '' != item.path ">path =
-                            #{item.path},
-                        </if>
-                        <if test="null != item.method  and '' != item.method ">method =
-                            #{item.method},
-                        </if>
-                        <if test="null != item.orderNum ">order_num =
-                            #{item.orderNum},
-                        </if>
-                        <if test="null != item.visible  and '' != item.visible ">visible =
-                            #{item.visible},
-                        </if>
-                        <if test="null != item.remarks  and '' != item.remarks ">remarks =
-                            #{item.remarks},
-                        </if>
-                        <if test="null != item.createTime ">create_time =
-                            #{item.createTime},
-                        </if>
-                        <if test="null != item.createUser  and '' != item.createUser ">create_user =
-                            #{item.createUser},
-                        </if>
-                        <if test="null != item.createUserId  and '' != item.createUserId ">create_user_id =
-                            #{item.createUserId},
-                        </if>
-                        <if test="null != item.updateTime ">update_time =
-                            #{item.updateTime},
-                        </if>
-                        <if test="null != item.updateUser  and '' != item.updateUser ">update_user =
-                            #{item.updateUser},
-                        </if>
-                        <if test="null != item.updateUserId  and '' != item.updateUserId ">update_user_id =
-                            #{item.updateUserId},
-                        </if>
+                <if test="null != item.id  and '' != item.id ">id =
+                    #{item.id},
+                </if>
+                <if test="null != item.menuId  and '' != item.menuId ">menu_id =
+                    #{item.menuId},
+                </if>
+                <if test="null != item.title  and '' != item.title ">title =
+                    #{item.title},
+                </if>
+                <if test="null != item.code  and '' != item.code ">code =
+                    #{item.code},
+                </if>
+                <if test="null != item.type  and '' != item.type ">type =
+                    #{item.type},
+                </if>
+                <if test="null != item.href  and '' != item.href ">href =
+                    #{item.href},
+                </if>
+                <if test="null != item.path  and '' != item.path ">path =
+                    #{item.path},
+                </if>
+                <if test="null != item.method  and '' != item.method ">method =
+                    #{item.method},
+                </if>
+                <if test="null != item.orderNum ">order_num =
+                    #{item.orderNum},
+                </if>
+                <if test="null != item.visible  and '' != item.visible ">visible =
+                    #{item.visible},
+                </if>
+                <if test="null != item.remarks  and '' != item.remarks ">remarks =
+                    #{item.remarks},
+                </if>
+                <if test="null != item.createTime ">create_time =
+                    #{item.createTime},
+                </if>
+                <if test="null != item.createUser  and '' != item.createUser ">create_user =
+                    #{item.createUser},
+                </if>
+                <if test="null != item.createUserId  and '' != item.createUserId ">create_user_id =
+                    #{item.createUserId},
+                </if>
+                <if test="null != item.updateTime ">update_time =
+                    #{item.updateTime},
+                </if>
+                <if test="null != item.updateUser  and '' != item.updateUser ">update_user =
+                    #{item.updateUser},
+                </if>
+                <if test="null != item.updateUserId  and '' != item.updateUserId ">update_user_id =
+                    #{item.updateUserId},
+                </if>
             </set>
             WHERE id = #{item.id}
         </foreach>

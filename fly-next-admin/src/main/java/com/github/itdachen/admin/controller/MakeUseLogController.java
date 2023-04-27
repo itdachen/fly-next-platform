@@ -1,5 +1,7 @@
 package com.github.itdachen.admin.controller;
 
+import com.github.itdachen.admin.sdk.dto.MakeUseLogDto;
+import com.github.itdachen.admin.service.IElementInfoService;
 import com.github.itdachen.admin.service.IMakeUseLogService;
 import com.github.itdachen.admin.entity.MakeUseLog;
 import com.github.itdachen.admin.sdk.query.MakeUseLogQuery;
@@ -25,9 +27,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/admin/make/use/log")
 @CheckApiClient(title = "操作日志", clientId = ClientConstant.CLIENT_WEB)
-public class MakeUseLogController extends BizController< IMakeUseLogService, MakeUseLog, MakeUseLogVo, MakeUseLogQuery, String > {
+public class MakeUseLogController extends BizController<MakeUseLogDto, MakeUseLogVo, MakeUseLogQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(MakeUseLogController.class);
-    private static final String PATH_PREFIX = "admin/log";
+    private static final String PATH_PREFIX = "admin/log" ;
+    private final IMakeUseLogService bizService;
+
+    public MakeUseLogController(IMakeUseLogService bizService) {
+        super(bizService);
+        this.bizService = bizService;
+    }
+
 
     /***
      * 跳转到信息管理界面
@@ -39,14 +48,14 @@ public class MakeUseLogController extends BizController< IMakeUseLogService, Mak
     @GetMapping(value = "/index")
     @PreAuthorize("hasAuthority('admin:make:use:log:index')")
     public String index() {
-        return PATH_PREFIX + "/index";
+        return PATH_PREFIX + "/index" ;
     }
 
     /***
      * 跳转到查看页面
      *
      * @author 王大宸
-     * @date  2023-04-04 21:44:45
+     * @date 2023-04-04 21:44:45
      * @param id          需要查看数据的id
      * @param modelMap    modelMap
      * @return java.lang.String
@@ -55,7 +64,7 @@ public class MakeUseLogController extends BizController< IMakeUseLogService, Mak
     @PreAuthorize("hasAuthority('admin:make:use:log:view')")
     public String view(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("makeUseLog", bizService.getById(id));
-        return PATH_PREFIX + "/view";
+        return PATH_PREFIX + "/view" ;
     }
 
 }

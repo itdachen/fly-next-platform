@@ -1,5 +1,7 @@
 package com.github.itdachen.admin.service.impl;
 
+import com.github.itdachen.admin.convert.AppClientConvert;
+import com.github.itdachen.admin.sdk.dto.AppClientDto;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
@@ -25,8 +27,16 @@ import java.util.List;
  * @date 2023-04-04 21:26:23
  */
 @Service
-public class AppClientServiceImpl extends BizServiceImpl<IAppClientMapper, AppClient, AppClientVo, AppClientQuery, String> implements IAppClientService {
+public class AppClientServiceImpl extends BizServiceImpl<AppClient, AppClientDto, AppClientVo, AppClientQuery, String> implements IAppClientService {
     private static final Logger logger = LoggerFactory.getLogger(AppClientServiceImpl.class);
+    private static final AppClientConvert bizConvert = new AppClientConvert();
+    private final IAppClientMapper bizMapper;
+
+    public AppClientServiceImpl(IAppClientMapper bizMapper) {
+        super(bizMapper, bizConvert);
+        this.bizMapper = bizMapper;
+    }
+
 
     /***
      * 分页
@@ -48,15 +58,16 @@ public class AppClientServiceImpl extends BizServiceImpl<IAppClientMapper, AppCl
      *
      * @author 王大宸
      * @date 2023/4/5 21:06
-     * @param entity entity
+     * @param appClientDto appClientDto
      * @return com.github.itdachen.admin.entity.AppClient
      */
     @Override
-    public AppClient save(AppClient entity) throws BizException {
-        entity.setCanDel(YesOrNotConstant.YES);
-        EntityUtils.setCreatAndUpdateInfo(entity);
-        bizMapper.insertSelective(entity);
-        return entity;
+    public AppClientVo save(AppClientDto appClientDto) throws BizException {
+        AppClient appClient = bizConvert.toJavaObject(appClientDto);
+        appClient.setCanDel(YesOrNotConstant.YES);
+        EntityUtils.setCreatAndUpdateInfo(appClient);
+        bizMapper.insertSelective(appClient);
+        return bizConvert.toJavaObjectVo(appClient);
     }
 
     /***
@@ -64,22 +75,23 @@ public class AppClientServiceImpl extends BizServiceImpl<IAppClientMapper, AppCl
      *
      * @author 王大宸
      * @date 2023/4/5 21:08
-     * @param entity entity
+     * @param appClientDto appClientDto
      * @return com.github.itdachen.admin.entity.AppClient
      */
     @Override
-    public AppClient update(AppClient entity) throws BizException {
-        AppClient appClient = bizMapper.selectByPrimaryKey(entity.getId());
-        if (YesOrNotConstant.NOT.equals(appClient.getCanDel())) {
+    public AppClientVo update(AppClientDto appClientDto) throws BizException {
+        AppClient appClient = bizConvert.toJavaObject(appClientDto);
+        AppClient dnAppClient = bizMapper.selectByPrimaryKey(appClient.getId());
+        if (YesOrNotConstant.NOT.equals(dnAppClient.getCanDel())) {
             // 不能删除的应用,这里不能修改不能删除其状态和禁用状态
-            if (YesOrNotConstant.YES.equals(entity.getCanDel())
-                    || YesOrNotConstant.NOT.equals(entity.getStatus())) {
+            if (YesOrNotConstant.YES.equals(appClient.getCanDel())
+                    || YesOrNotConstant.NOT.equals(appClient.getStatus())) {
                 throw new BizException("非法操作");
             }
         }
-        EntityUtils.setUpdatedInfo(entity);
-        bizMapper.updateByPrimaryKeySelective(entity);
-        return entity;
+        EntityUtils.setUpdatedInfo(appClient);
+        bizMapper.updateByPrimaryKeySelective(appClient);
+        return bizConvert.toJavaObjectVo(appClient);
     }
 
     /***
@@ -116,7 +128,7 @@ public class AppClientServiceImpl extends BizServiceImpl<IAppClientMapper, AppCl
      * @return com.github.itdachen.admin.sdk.vo.AppClientVo
      */
     @Override
-    public AppClientVo updateStatus(String id, Boolean status) throws BizException {
+    public void updateStatus(String id, Boolean status) throws BizException {
         AppClient appClient = bizMapper.selectByPrimaryKey(id);
         if (YesOrNotConstant.NOT.equals(appClient.getCanDel())
                 && YesOrNotConstant.YES.equals(appClient.getStatus())) {
@@ -130,6 +142,6 @@ public class AppClientServiceImpl extends BizServiceImpl<IAppClientMapper, AppCl
         }
         EntityUtils.setUpdatedInfo(appClient);
         bizMapper.updateByPrimaryKeySelective(appClient);
-        return null;
     }
+
 }

@@ -1,5 +1,6 @@
 package com.github.itdachen.admin.controller;
 
+import com.github.itdachen.admin.sdk.dto.PermsAuthDto;
 import com.github.itdachen.admin.service.IPermsAuthService;
 import com.github.itdachen.admin.entity.PermsAuth;
 import com.github.itdachen.admin.sdk.query.PermsAuthQuery;
@@ -68,7 +69,7 @@ public class PermsAuthController {
     @PostMapping(value = "")
     @ResponseBody
     @PreAuthorize("hasAuthority('admin:perms:auth:index')")
-    public ServerResponse<PermsAuth> save(@RequestBody PermsAuth entity) throws Exception {
+    public ServerResponse<PermsAuthVo> save(@RequestBody PermsAuthDto entity) throws Exception {
         return ServerResponse.okData(permsAuthService.save(entity));
     }
 

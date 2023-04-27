@@ -1,5 +1,6 @@
 package com.github.itdachen.admin.service.impl;
 
+import com.github.itdachen.admin.convert.NetDiskMd5Convert;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.itdachen.admin.entity.NetDiskMd5;
@@ -73,8 +74,7 @@ public class NetDiskMd5ServiceImpl implements INetDiskMd5Service {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public NetDiskMd5Dto saveNetDiskMd5(NetDiskMd5Dto netDiskMd5Dto) throws Exception {
-        NetDiskMd5 netDiskMd5 = new NetDiskMd5();
-        BeanUtils.copyProperties(netDiskMd5Dto, netDiskMd5);
+        NetDiskMd5 netDiskMd5 = NetDiskMd5Convert.toJavaObject(netDiskMd5Dto);
         EntityUtils.setCreatAndUpdateInfo(netDiskMd5);
         netDiskMd5Mapper.saveNetDiskMd5(netDiskMd5);
         netDiskMd5Dto.setId(netDiskMd5.getId());
@@ -105,8 +105,7 @@ public class NetDiskMd5ServiceImpl implements INetDiskMd5Service {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public NetDiskMd5Dto updateNetDiskMd5(NetDiskMd5Dto netDiskMd5Dto) throws Exception {
-        NetDiskMd5 netDiskMd5 = new NetDiskMd5();
-        BeanUtils.copyProperties(netDiskMd5Dto, netDiskMd5);
+        NetDiskMd5 netDiskMd5 = NetDiskMd5Convert.toJavaObject(netDiskMd5Dto);
         EntityUtils.setUpdatedInfo(netDiskMd5);
         netDiskMd5Mapper.updateNetDiskMd5(netDiskMd5);
         return netDiskMd5Dto;

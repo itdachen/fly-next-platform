@@ -1,5 +1,7 @@
 package com.github.itdachen.admin.controller;
 
+import com.github.itdachen.admin.sdk.dto.ElementInfoDto;
+import com.github.itdachen.admin.service.IDictTypeService;
 import com.github.itdachen.admin.service.IElementInfoService;
 import com.github.itdachen.admin.entity.ElementInfo;
 import com.github.itdachen.admin.sdk.query.ElementInfoQuery;
@@ -25,9 +27,15 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/admin/element/info")
 @CheckApiClient(title = "按钮资源", clientId = ClientConstant.CLIENT_WEB)
-public class ElementInfoController extends BizController<IElementInfoService, ElementInfo, ElementInfoVo, ElementInfoQuery, String> {
+public class ElementInfoController extends BizController<ElementInfoDto, ElementInfoVo, ElementInfoQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(ElementInfoController.class);
     private static final String PATH_PREFIX = "admin/menu/element" ;
+    private final IElementInfoService bizService;
+
+    public ElementInfoController(IElementInfoService bizService) {
+        super(bizService);
+        this.bizService = bizService;
+    }
 
     /***
      * 跳转到信息管理界面

@@ -1,6 +1,6 @@
 package com.github.itdachen.admin.service;
 
-import com.github.itdachen.admin.entity.MenuInfo;
+import com.github.itdachen.admin.sdk.dto.MenuInfoDto;
 import com.github.itdachen.admin.sdk.query.MenuInfoQuery;
 import com.github.itdachen.admin.sdk.vo.MenuInfoVo;
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
@@ -15,7 +15,7 @@ import java.util.List;
  * @author 王大宸
  * @date 2023-04-04 21:44:46
  */
-public interface IMenuInfoService extends IBizService<MenuInfo, MenuInfoVo, MenuInfoQuery, String> {
+public interface IMenuInfoService extends IBizService<MenuInfoDto, MenuInfoVo, MenuInfoQuery, String> {
 
 
     /***

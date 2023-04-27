@@ -1,6 +1,10 @@
 package com.github.itdachen.admin.service.impl;
 
+import com.github.itdachen.admin.convert.DeptInfoConvert;
+import com.github.itdachen.admin.convert.DictDataConvert;
+import com.github.itdachen.admin.mapper.IDeptInfoMapper;
 import com.github.itdachen.admin.sdk.constants.DictDataStatusConstant;
+import com.github.itdachen.admin.sdk.dto.DictDataDto;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
 import com.github.pagehelper.Page;
@@ -26,8 +30,16 @@ import java.util.List;
  * @date 2023-04-04 21:44:47
  */
 @Service
-public class DictDataServiceImpl extends BizServiceImpl< IDictDataMapper, DictData,  DictDataVo, DictDataQuery, String > implements IDictDataService {
+public class DictDataServiceImpl extends BizServiceImpl<DictData, DictDataDto, DictDataVo, DictDataQuery, String> implements IDictDataService {
     private static final Logger logger = LoggerFactory.getLogger(DictDataServiceImpl.class);
+    private static final DictDataConvert bizConvert = new DictDataConvert();
+    private final IDictDataMapper bizMapper;
+
+    public DictDataServiceImpl(IDictDataMapper bizMapper) {
+        super(bizMapper, bizConvert);
+        this.bizMapper = bizMapper;
+    }
+
 
     /***
      * 分页
@@ -49,17 +61,20 @@ public class DictDataServiceImpl extends BizServiceImpl< IDictDataMapper, DictDa
      *
      * @author 王大宸
      * @date 2023/4/5 21:18
-     * @param entity entity
+     * @param dictDataDto dictDataDto
      * @return com.github.itdachen.admin.entity.DictData
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public DictData save(DictData entity) throws Exception {
-        DictDataVo data = bizMapper.findByTypeAndValue(entity.getDictType(), entity.getDictValue());
+    public DictDataVo save(DictDataDto dictDataDto) throws Exception {
+        DictData dictData = bizConvert.toJavaObject(dictDataDto);
+        DictDataVo data = bizMapper.findByTypeAndValue(dictData.getDictType(), dictData.getDictValue());
         if (null != data) {
             throw new BizException("该值已经存在");
         }
-        return super.save(entity);
+        EntityUtils.setCreatAndUpdateInfo(dictData);
+        bizMapper.insertSelective(dictData);
+        return bizConvert.toJavaObjectVo(dictData);
     }
 
     /***
@@ -67,16 +82,19 @@ public class DictDataServiceImpl extends BizServiceImpl< IDictDataMapper, DictDa
      *
      * @author 王大宸
      * @date 2023/4/5 21:18
-     * @param entity entity
+     * @param dictDataDto dictDataDto
      * @return com.github.itdachen.admin.entity.DictData
      */
     @Override
-    public DictData update(DictData entity) throws Exception {
-        DictDataVo data = bizMapper.findByTypeAndValue(entity.getDictType(), entity.getDictValue());
-        if (null != data && !entity.getId().equals(data.getId())) {
+    public DictDataVo update(DictDataDto dictDataDto) throws Exception {
+        DictData dictData = bizConvert.toJavaObject(dictDataDto);
+        DictDataVo data = bizMapper.findByTypeAndValue(dictData.getDictType(), dictData.getDictValue());
+        if (null != data && !dictData.getId().equals(data.getId())) {
             throw new BizException("该值已经存在");
         }
-        return super.update(entity);
+        EntityUtils.setUpdatedInfo(dictData);
+        bizMapper.updateByPrimaryKeySelective(dictData);
+        return bizConvert.toJavaObjectVo(dictData);
     }
 
     /***

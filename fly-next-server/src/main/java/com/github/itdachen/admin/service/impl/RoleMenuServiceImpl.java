@@ -1,7 +1,11 @@
 package com.github.itdachen.admin.service.impl;
 
+import com.github.itdachen.admin.convert.RoleInfoConvert;
+import com.github.itdachen.admin.convert.RoleMenuConvert;
 import com.github.itdachen.admin.mapper.IAppClientMapper;
 import com.github.itdachen.admin.mapper.IPermsAuthMapper;
+import com.github.itdachen.admin.mapper.IRoleInfoMapper;
+import com.github.itdachen.admin.sdk.dto.RoleMenuDto;
 import com.github.itdachen.admin.utils.LoadUserMenuUtils;
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import com.github.itdachen.framework.context.exception.BizException;
@@ -31,14 +35,18 @@ import java.util.List;
  * @date 2023-04-04 21:44:46
  */
 @Service
-public class RoleMenuServiceImpl extends BizServiceImpl<IRoleMenuMapper, RoleMenu, RoleMenuVo, RoleMenuQuery, String> implements IRoleMenuService {
+public class RoleMenuServiceImpl extends BizServiceImpl<RoleMenu, RoleMenuDto, RoleMenuVo, RoleMenuQuery, String> implements IRoleMenuService {
     private static final Logger logger = LoggerFactory.getLogger(RoleMenuServiceImpl.class);
-
+    private static final RoleMenuConvert bizConvert = new RoleMenuConvert();
+    private final IRoleMenuMapper bizMapper;
     private final IAppClientMapper appClientMapper;
     private final IPermsAuthMapper permsAuthMapper;
 
-    public RoleMenuServiceImpl(IAppClientMapper appClientMapper,
+    public RoleMenuServiceImpl(IRoleMenuMapper bizMapper,
+                               IAppClientMapper appClientMapper,
                                IPermsAuthMapper permsAuthMapper) {
+        super(bizMapper, bizConvert);
+        this.bizMapper = bizMapper;
         this.appClientMapper = appClientMapper;
         this.permsAuthMapper = permsAuthMapper;
     }
@@ -64,27 +72,27 @@ public class RoleMenuServiceImpl extends BizServiceImpl<IRoleMenuMapper, RoleMen
      *
      * @author 王大宸
      * @date 2022/8/25 22:02
-     * @param entity entity
+     * @param roleMenuDto roleMenuDto
      * @return com.itdachen.admin.entity.RoleMenu
      */
     @Override
-    public RoleMenu save(RoleMenu entity) throws BizException {
-        if (null == entity) {
+    public RoleMenuVo save(RoleMenuDto roleMenuDto) throws BizException {
+        if (null == roleMenuDto) {
             throw new BizException("添加的角色菜单不能为空");
         }
         bizMapper.delete(RoleMenu.builder()
-                .clientId(entity.getClientId())
-                .roleId(entity.getRoleId())
+                .clientId(roleMenuDto.getClientId())
+                .roleId(roleMenuDto.getRoleId())
                 .build());
 
-        if (StringUtils.isEmpty(entity.getMenuId())) {
-            return entity;
+        if (StringUtils.isEmpty(roleMenuDto.getMenuId())) {
+            return null;
         }
 
-        String menuIds = entity.getMenuId();
+        String menuIds = roleMenuDto.getMenuId();
         List<String> menuList = new ArrayList<>(Arrays.asList(menuIds.split(",")));
         if (0 == menuList.size()) {
-            return entity;
+            return null;
         }
 
         RoleMenu one = null;
@@ -96,12 +104,12 @@ public class RoleMenuServiceImpl extends BizServiceImpl<IRoleMenuMapper, RoleMen
             one = new RoleMenu();
             one.setId(EntityUtils.getId());
             one.setMenuId(menuId);
-            one.setRoleId(entity.getRoleId());
-            one.setClientId(entity.getClientId());
+            one.setRoleId(roleMenuDto.getRoleId());
+            one.setClientId(roleMenuDto.getClientId());
             list.add(one);
         }
         bizMapper.batchSave(list);
-        return entity;
+        return null;
     }
 
     /***

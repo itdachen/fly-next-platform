@@ -1,6 +1,6 @@
 package com.github.itdachen.admin.service;
 
-import com.github.itdachen.admin.entity.RoleMenu;
+import com.github.itdachen.admin.sdk.dto.RoleMenuDto;
 import com.github.itdachen.admin.sdk.query.RoleMenuQuery;
 import com.github.itdachen.admin.sdk.vo.RoleMenuVo;
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
@@ -15,7 +15,7 @@ import java.util.List;
  * @author 王大宸
  * @date 2023-04-04 21:44:46
  */
-public interface IRoleMenuService extends IBizService<RoleMenu, RoleMenuVo, RoleMenuQuery, String> {
+public interface IRoleMenuService extends IBizService<RoleMenuDto, RoleMenuVo, RoleMenuQuery, String> {
 
     /***
      * 获取菜单树

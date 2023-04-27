@@ -1,6 +1,10 @@
 package com.github.itdachen.admin.service.impl;
 
+import com.github.itdachen.admin.convert.DictDataConvert;
+import com.github.itdachen.admin.convert.DictTypeConvert;
 import com.github.itdachen.admin.mapper.IDictDataMapper;
+import com.github.itdachen.admin.sdk.dto.DictDataDto;
+import com.github.itdachen.admin.sdk.dto.DictTypeDto;
 import com.github.itdachen.admin.sdk.vo.DataDictVo;
 import com.github.itdachen.admin.sdk.vo.DictDataVo;
 import com.github.itdachen.framework.context.exception.BizException;
@@ -28,13 +32,17 @@ import java.util.List;
  * @date 2023-04-04 21:44:47
  */
 @Service
-public class DictTypeServiceImpl extends BizServiceImpl<IDictTypeMapper, DictType, DictTypeVo, DictTypeQuery, String> implements IDictTypeService {
+public class DictTypeServiceImpl extends BizServiceImpl<DictType, DictTypeDto, DictTypeVo, DictTypeQuery, String> implements IDictTypeService {
     private static final Logger logger = LoggerFactory.getLogger(DictTypeServiceImpl.class);
-
+    private static final DictTypeConvert bizConvert = new DictTypeConvert();
     private final IDictDataMapper dictDataMapper;
+    private final IDictTypeMapper bizMapper;
 
-    public DictTypeServiceImpl(IDictDataMapper dictDataMapper) {
+    public DictTypeServiceImpl(IDictDataMapper dictDataMapper,
+                               IDictTypeMapper bizMapper) {
+        super(bizMapper, bizConvert);
         this.dictDataMapper = dictDataMapper;
+        this.bizMapper = bizMapper;
     }
 
 
@@ -58,17 +66,17 @@ public class DictTypeServiceImpl extends BizServiceImpl<IDictTypeMapper, DictTyp
      *
      * @author 王大宸
      * @date 2022/8/23 22:59
-     * @param entity entity
+     * @param dictTypeDto entity
      * @return com.itdachen.admin.entity.DictType
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public DictType save(DictType entity) throws Exception {
-        DictTypeVo vo = bizMapper.findByDictType(entity.getDictType());
+    public DictTypeVo save(DictTypeDto dictTypeDto) throws Exception {
+        DictTypeVo vo = bizMapper.findByDictType(dictTypeDto.getDictType());
         if (null != vo) {
             throw new BizException("该数据字典类型已经存在");
         }
-        return super.save(entity);
+        return super.save(dictTypeDto);
     }
 
     /***
@@ -76,17 +84,17 @@ public class DictTypeServiceImpl extends BizServiceImpl<IDictTypeMapper, DictTyp
      *
      * @author 王大宸
      * @date 2022/8/23 23:03
-     * @param entity entity
+     * @param dictTypeDto dictTypeDto
      * @return com.itdachen.admin.entity.DictType
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public DictType update(DictType entity) throws Exception {
-        DictTypeVo vo = bizMapper.findByDictType(entity.getDictType());
-        if (null != vo && !entity.getId().equals(vo.getId())) {
+    public DictTypeVo update(DictTypeDto dictTypeDto) throws Exception {
+        DictTypeVo vo = bizMapper.findByDictType(dictTypeDto.getDictType());
+        if (null != vo && !dictTypeDto.getId().equals(vo.getId())) {
             throw new BizException("该数据字典类型已经存在");
         }
-        return super.update(entity);
+        return super.update(dictTypeDto);
     }
 
     /***

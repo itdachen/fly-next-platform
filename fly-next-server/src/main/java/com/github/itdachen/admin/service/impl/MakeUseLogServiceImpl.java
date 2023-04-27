@@ -1,5 +1,7 @@
 package com.github.itdachen.admin.service.impl;
 
+import com.github.itdachen.admin.convert.MakeUseLogConvert;
+import com.github.itdachen.admin.sdk.dto.MakeUseLogDto;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.pagehelper.Page;
@@ -25,8 +27,16 @@ import java.util.List;
  * @date 2023-04-04 21:44:45
  */
 @Service
-public class MakeUseLogServiceImpl extends BizServiceImpl<IMakeUseLogMapper, MakeUseLog, MakeUseLogVo, MakeUseLogQuery, String> implements IMakeUseLogService {
+public class MakeUseLogServiceImpl extends BizServiceImpl<MakeUseLog, MakeUseLogDto, MakeUseLogVo, MakeUseLogQuery, String> implements IMakeUseLogService {
     private static final Logger logger = LoggerFactory.getLogger(MakeUseLogServiceImpl.class);
+    private static final MakeUseLogConvert bizConvert = new MakeUseLogConvert();
+    private final IMakeUseLogMapper bizMapper;
+
+    public MakeUseLogServiceImpl(IMakeUseLogMapper bizMapper) {
+        super(bizMapper, bizConvert);
+        this.bizMapper = bizMapper;
+    }
+
 
     /***
      * 分页

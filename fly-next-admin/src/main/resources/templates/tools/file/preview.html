@@ -11,11 +11,12 @@
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    <link rel="shortcut icon" th:href="@{/assets/images/logo.png}" type="image/x-icon"/>
-    <link th:href="@{/assets/preview/css/style.css}" rel="stylesheet" media="all"/>
-    <script type="text/javascript" th:src="@{/assets/common/js/jquery-3.4.1.min.js}"></script>
-    <script type="text/javascript" th:src="@{/assets/preview/js/base64.min.js}"></script>
-    <script type="text/javascript" th:src="@{/assets/preview/js/index.js}"></script>
+    <link rel="shortcut icon" th:href="@{/static/assets/logo.png}" type="image/x-icon"/>
+    <link th:href="@{/static/assets/preview/css/style.css}" rel="stylesheet" media="all"/>
+    <script type="text/javascript" th:src="@{/assets/fly/js/fly-config.js}"></script>
+    <script type="text/javascript" th:src="@{/static/assets/fly/jquery-3.6.4.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/assets/preview/js/base64.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/assets/preview/js/index.js}"></script>
 </head>
 <body>
 <input type="text" th:value="*{title}" id="title" name="title" style="display: none">

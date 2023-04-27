@@ -1,5 +1,6 @@
 package com.github.itdachen.admin.controller;
 
+import com.github.itdachen.admin.sdk.dto.RoleUserDto;
 import com.github.itdachen.admin.service.IRoleUserService;
 import com.github.itdachen.admin.entity.RoleUser;
 import com.github.itdachen.admin.sdk.query.RoleUserQuery;
@@ -71,7 +72,7 @@ public class RoleUserController {
     @PostMapping(value = "")
     @ResponseBody
     @PreAuthorize("hasAuthority('admin:user:role:index')")
-    public ServerResponse<RoleUser> save(@RequestBody RoleUser entity) throws Exception {
+    public ServerResponse<RoleUserVo> save(@RequestBody RoleUserDto entity) throws Exception {
         return ServerResponse.okData(roleUserService.save(entity));
     }
 

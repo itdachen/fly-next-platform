@@ -1,5 +1,7 @@
 package com.github.itdachen.admin.controller;
 
+import com.github.itdachen.admin.sdk.dto.MenuInfoDto;
+import com.github.itdachen.admin.service.IMakeUseLogService;
 import com.github.itdachen.admin.service.IMenuInfoService;
 import com.github.itdachen.admin.entity.MenuInfo;
 import com.github.itdachen.admin.sdk.query.MenuInfoQuery;
@@ -29,9 +31,15 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin/menu/info")
 @CheckApiClient(title = "菜单管理", clientId = ClientConstant.CLIENT_WEB)
-public class MenuInfoController extends BizController<IMenuInfoService, MenuInfo, MenuInfoVo, MenuInfoQuery, String> {
+public class MenuInfoController extends BizController<MenuInfoDto, MenuInfoVo, MenuInfoQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(MenuInfoController.class);
     private static final String PATH_PREFIX = "admin/menu" ;
+    private final IMenuInfoService bizService;
+
+    public MenuInfoController(IMenuInfoService bizService) {
+        super(bizService);
+        this.bizService = bizService;
+    }
 
     /***
      * 跳转到信息管理界面

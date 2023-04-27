@@ -1,5 +1,7 @@
 package com.github.itdachen.admin.controller;
 
+import com.github.itdachen.admin.sdk.dto.DeptInfoDto;
+import com.github.itdachen.admin.service.IAppClientService;
 import com.github.itdachen.admin.service.IDeptInfoService;
 import com.github.itdachen.admin.entity.DeptInfo;
 import com.github.itdachen.admin.sdk.query.DeptInfoQuery;
@@ -31,9 +33,16 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin/dept/info")
 @CheckApiClient(title = "部门管理", clientId = ClientConstant.CLIENT_WEB)
-public class DeptInfoController extends BizController< IDeptInfoService, DeptInfo, DeptInfoVo, DeptInfoQuery, String > {
+public class DeptInfoController extends BizController<DeptInfoDto, DeptInfoVo, DeptInfoQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(DeptInfoController.class);
-    private static final String PATH_PREFIX = "admin/dept";
+    private final IDeptInfoService bizService;
+    public DeptInfoController(IDeptInfoService bizService) {
+        super(bizService);
+        this.bizService = bizService;
+    }
+
+    private static final String PATH_PREFIX = "admin/dept" ;
+
 
     /***
      * 跳转到信息管理界面
@@ -45,7 +54,7 @@ public class DeptInfoController extends BizController< IDeptInfoService, DeptInf
     @GetMapping(value = "/index")
     @PreAuthorize("hasAuthority('admin:dept:index')")
     public String index() {
-        return PATH_PREFIX + "/index";
+        return PATH_PREFIX + "/index" ;
     }
 
     /***
@@ -59,7 +68,7 @@ public class DeptInfoController extends BizController< IDeptInfoService, DeptInf
     @PreAuthorize("hasAuthority('admin:dept:save')")
     public String add(@PathVariable("parentId") String parentId, ModelMap modelMap) throws Exception {
         modelMap.put("parentId", parentId);
-        return PATH_PREFIX + "/add";
+        return PATH_PREFIX + "/add" ;
     }
 
     /***
@@ -75,14 +84,14 @@ public class DeptInfoController extends BizController< IDeptInfoService, DeptInf
     @PreAuthorize("hasAuthority('admin:dept:update')")
     public String edit(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("deptInfo", bizService.getById(id));
-        return PATH_PREFIX + "/edit";
+        return PATH_PREFIX + "/edit" ;
     }
 
     /***
      * 跳转到查看页面
      *
      * @author 王大宸
-     * @date  2023-04-04 21:44:47
+     * @date 2023-04-04 21:44:47
      * @param id          需要查看数据的id
      * @param modelMap    modelMap
      * @return java.lang.String
@@ -91,7 +100,7 @@ public class DeptInfoController extends BizController< IDeptInfoService, DeptInf
     @PreAuthorize("hasAuthority('admin:dept:view')")
     public String see(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("deptInfo", bizService.getById(id));
-        return PATH_PREFIX + "/see";
+        return PATH_PREFIX + "/see" ;
     }
 
 
@@ -100,7 +109,7 @@ public class DeptInfoController extends BizController< IDeptInfoService, DeptInf
      *
      * @author 王大宸
      * @date 2023/4/4 23:46
-     * @return com.github.itdachen.framework.core.response.ServerResponse<java.util.List<com.github.itdachen.framework.assets.tree.ZTreeNode>>
+     * @return com.github.itdachen.framework.core.response.ServerResponse<java.util.List < com.github.itdachen.framework.assets.tree.ZTreeNode>>
      */
     @GetMapping(value = "/zTree")
     @ResponseBody

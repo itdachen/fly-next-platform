@@ -1,5 +1,7 @@
 package com.github.itdachen.admin.service.impl;
 
+import com.github.itdachen.admin.convert.RoleUserConvert;
+import com.github.itdachen.admin.sdk.dto.RoleUserDto;
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.exception.BizException;
@@ -30,8 +32,16 @@ import java.util.List;
  * @date 2023-04-04 21:44:46
  */
 @Service
-public class RoleUserServiceImpl extends BizServiceImpl<IRoleUserMapper, RoleUser, RoleUserVo, RoleUserQuery, String> implements IRoleUserService {
+public class RoleUserServiceImpl extends BizServiceImpl<RoleUser, RoleUserDto, RoleUserVo, RoleUserQuery, String> implements IRoleUserService {
     private static final Logger logger = LoggerFactory.getLogger(RoleUserServiceImpl.class);
+    private static final RoleUserConvert bizConvert = new RoleUserConvert();
+    private final IRoleUserMapper bizMapper;
+
+    public RoleUserServiceImpl(IRoleUserMapper bizMapper) {
+        super(bizMapper, bizConvert);
+        this.bizMapper = bizMapper;
+    }
+
 
     /***
      * 分页
@@ -50,18 +60,18 @@ public class RoleUserServiceImpl extends BizServiceImpl<IRoleUserMapper, RoleUse
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public RoleUser save(RoleUser entity) throws BizException {
-        if (null == entity) {
+    public RoleUserVo save(RoleUserDto roleUserDto) throws BizException {
+        if (null == roleUserDto) {
             throw new BizException("用户角色不能为空");
         }
-        bizMapper.delete(RoleUser.builder().clientId(entity.getClientId()).userId(entity.getUserId()).build());
-        if (StringUtils.isEmpty(entity.getRoleId())) {
-            return entity;
+        bizMapper.delete(RoleUser.builder().clientId(roleUserDto.getClientId()).userId(roleUserDto.getUserId()).build());
+        if (StringUtils.isEmpty(roleUserDto.getRoleId())) {
+            return null;
         }
 
-        List<String> roleList = new ArrayList<>(Arrays.asList(entity.getRoleId().split(",")));
+        List<String> roleList = new ArrayList<>(Arrays.asList(roleUserDto.getRoleId().split(",")));
         if (0 == roleList.size()) {
-            return entity;
+            return null;
         }
 
         RoleUser one = null;
@@ -72,15 +82,15 @@ public class RoleUserServiceImpl extends BizServiceImpl<IRoleUserMapper, RoleUse
             }
             one = new RoleUser();
             one.setId(EntityUtils.getId());
-            one.setUserId(entity.getUserId());
+            one.setUserId(roleUserDto.getUserId());
             one.setRoleId(roleId);
-            one.setClientId(entity.getClientId());
+            one.setClientId(roleUserDto.getClientId());
             list.add(one);
         }
         if (0 < list.size()) {
             bizMapper.batchSave(list);
         }
-        return entity;
+        return null;
     }
 
     @Override

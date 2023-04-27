@@ -1,5 +1,6 @@
 package com.github.itdachen.admin.controller;
 
+import com.github.itdachen.admin.sdk.dto.RoleMenuDto;
 import com.github.itdachen.admin.service.IRoleMenuService;
 import com.github.itdachen.admin.entity.RoleMenu;
 import com.github.itdachen.admin.sdk.query.RoleMenuQuery;
@@ -50,7 +51,7 @@ public class RoleMenuController {
      */
     @PostMapping("")
     @ResponseBody
-    public ServerResponse<RoleMenu> save(@RequestBody RoleMenu roleMenu) throws Exception {
+    public ServerResponse<RoleMenuVo> save(@RequestBody RoleMenuDto roleMenu) throws Exception {
         return ServerResponse.okData(roleMenuService.save(roleMenu));
     }
 

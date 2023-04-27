@@ -1,7 +1,9 @@
 package com.github.itdachen.admin.service.impl;
 
+import com.github.itdachen.admin.convert.MenuInfoConvert;
 import com.github.itdachen.admin.mapper.IAppClientMapper;
 import com.github.itdachen.admin.mapper.IElementInfoMapper;
+import com.github.itdachen.admin.sdk.dto.MenuInfoDto;
 import com.github.itdachen.admin.sdk.vo.AppClientVo;
 import com.github.itdachen.admin.utils.AppClientUtils;
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
@@ -23,6 +25,7 @@ import com.github.itdachen.admin.service.IMenuInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.awt.*;
 import java.util.List;
@@ -34,13 +37,18 @@ import java.util.List;
  * @date 2023-04-04 21:44:46
  */
 @Service
-public class MenuInfoServiceImpl extends BizServiceImpl<IMenuInfoMapper, MenuInfo, MenuInfoVo, MenuInfoQuery, String> implements IMenuInfoService {
+public class MenuInfoServiceImpl extends BizServiceImpl<MenuInfo, MenuInfoDto, MenuInfoVo, MenuInfoQuery, String> implements IMenuInfoService {
     private static final Logger logger = LoggerFactory.getLogger(MenuInfoServiceImpl.class);
-
+    private static final MenuInfoConvert bizConvert = new MenuInfoConvert();
+    private final IMenuInfoMapper bizMapper;
     private final IAppClientMapper appClientMapper;
     private final IElementInfoMapper elementMapper;
 
-    public MenuInfoServiceImpl(IAppClientMapper appClientMapper, IElementInfoMapper elementMapper) {
+    public MenuInfoServiceImpl(IMenuInfoMapper bizMapper,
+                               IAppClientMapper appClientMapper,
+                               IElementInfoMapper elementMapper) {
+        super(bizMapper, bizConvert);
+        this.bizMapper = bizMapper;
         this.appClientMapper = appClientMapper;
         this.elementMapper = elementMapper;
     }
@@ -66,15 +74,16 @@ public class MenuInfoServiceImpl extends BizServiceImpl<IMenuInfoMapper, MenuInf
      *
      * @author 王大宸
      * @date 2023/4/6 10:42
-     * @param entity entity
+     * @param menuInfoDto menuInfoDto
      * @return com.github.itdachen.admin.entity.MenuInfo
      */
     @Override
-    public MenuInfo save(MenuInfo entity) throws Exception {
-        if (StringUtils.isEmpty(entity.getName())) {
-            entity.setName("C" + UuidUtils.generateShortUuid() + "Component");
+    @Transactional(rollbackFor = Exception.class)
+    public MenuInfoVo save(MenuInfoDto menuInfoDto) throws Exception {
+        if (StringUtils.isEmpty(menuInfoDto.getName())) {
+            menuInfoDto.setName("C" + UuidUtils.generateShortUuid() + "Component");
         }
-        return super.save(entity);
+        return super.save(menuInfoDto);
     }
 
     /***
@@ -82,15 +91,23 @@ public class MenuInfoServiceImpl extends BizServiceImpl<IMenuInfoMapper, MenuInf
      *
      * @author 王大宸
      * @date 2023/4/6 10:44
-     * @param entity entity
+     * @param menuInfoDto menuInfoDto
      * @return com.github.itdachen.admin.entity.MenuInfo
      */
     @Override
-    public MenuInfo update(MenuInfo entity) throws Exception {
-        if (StringUtils.isEmpty(entity.getName())) {
-            entity.setName("C" + UuidUtils.generateShortUuid() + "Component");
+    @Transactional(rollbackFor = Exception.class)
+    public MenuInfoVo update(MenuInfoDto menuInfoDto) throws Exception {
+        if (StringUtils.isEmpty(menuInfoDto.getName())) {
+            menuInfoDto.setName("C" + UuidUtils.generateShortUuid() + "Component");
         }
-        return super.update(entity);
+        return super.update(menuInfoDto);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int remove(String id) throws Exception {
+        elementMapper.remove(id);
+        return super.remove(id);
     }
 
     /***
@@ -166,7 +183,7 @@ public class MenuInfoServiceImpl extends BizServiceImpl<IMenuInfoMapper, MenuInf
         if (null != menu) {
             return menu.getTitle();
         }
-        String parentTitle = "资源目录";
+        String parentTitle = "资源目录" ;
         AppClientVo appClient = appClientMapper.findAppClient(parentTitle);
         if (null != appClient) {
             parentTitle = appClient.getAppTitle();

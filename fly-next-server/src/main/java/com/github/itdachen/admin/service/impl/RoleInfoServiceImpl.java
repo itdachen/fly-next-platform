@@ -1,5 +1,8 @@
 package com.github.itdachen.admin.service.impl;
 
+import com.github.itdachen.admin.convert.PermsAuthConvert;
+import com.github.itdachen.admin.convert.RoleInfoConvert;
+import com.github.itdachen.admin.sdk.dto.RoleInfoDto;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -23,8 +26,16 @@ import java.util.List;
  * @date 2023-04-04 21:44:46
  */
 @Service
-public class RoleInfoServiceImpl extends BizServiceImpl< IRoleInfoMapper, RoleInfo,  RoleInfoVo, RoleInfoQuery, String > implements IRoleInfoService {
+public class RoleInfoServiceImpl extends BizServiceImpl< RoleInfo, RoleInfoDto,  RoleInfoVo, RoleInfoQuery, String > implements IRoleInfoService {
     private static final Logger logger = LoggerFactory.getLogger(RoleInfoServiceImpl.class);
+    private static final RoleInfoConvert bizConvert = new RoleInfoConvert();
+    private final IRoleInfoMapper bizMapper;
+
+    public RoleInfoServiceImpl(IRoleInfoMapper bizMapper) {
+        super(bizMapper, bizConvert);
+        this.bizMapper = bizMapper;
+    }
+
 
     /***
      * 分页
@@ -46,13 +57,13 @@ public class RoleInfoServiceImpl extends BizServiceImpl< IRoleInfoMapper, RoleIn
      *
      * @author 王大宸
      * @date 2023/4/5 22:28
-     * @param entity entity
+     * @param roleInfoDto roleInfoDto
      * @return com.github.itdachen.admin.entity.RoleInfo
      */
     @Override
-    public RoleInfo save(RoleInfo entity) throws Exception {
-        entity.setDeptId(BizContextHandler.getDeptId());
-        return super.save(entity);
+    public RoleInfoVo save(RoleInfoDto roleInfoDto) throws Exception {
+        roleInfoDto.setDeptId(BizContextHandler.getDeptId());
+        return super.save(roleInfoDto);
     }
 
 }

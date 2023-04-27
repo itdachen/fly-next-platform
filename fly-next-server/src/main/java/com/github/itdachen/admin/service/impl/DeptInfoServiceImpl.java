@@ -1,5 +1,9 @@
 package com.github.itdachen.admin.service.impl;
 
+import com.github.itdachen.admin.convert.AppClientConvert;
+import com.github.itdachen.admin.convert.DeptInfoConvert;
+import com.github.itdachen.admin.mapper.IAppClientMapper;
+import com.github.itdachen.admin.sdk.dto.DeptInfoDto;
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.exception.BizException;
@@ -26,8 +30,15 @@ import java.util.List;
  * @date 2023-04-04 21:44:47
  */
 @Service
-public class DeptInfoServiceImpl extends BizServiceImpl<IDeptInfoMapper, DeptInfo, DeptInfoVo, DeptInfoQuery, String> implements IDeptInfoService {
+public class DeptInfoServiceImpl extends BizServiceImpl<DeptInfo, DeptInfoDto, DeptInfoVo, DeptInfoQuery, String> implements IDeptInfoService {
     private static final Logger logger = LoggerFactory.getLogger(DeptInfoServiceImpl.class);
+    private static final DeptInfoConvert bizConvert = new DeptInfoConvert();
+    private final IDeptInfoMapper bizMapper;
+
+    public DeptInfoServiceImpl(IDeptInfoMapper bizMapper) {
+        super(bizMapper, bizConvert);
+        this.bizMapper = bizMapper;
+    }
 
     /***
      * 分页
@@ -49,13 +60,16 @@ public class DeptInfoServiceImpl extends BizServiceImpl<IDeptInfoMapper, DeptInf
      *
      * @author 王大宸
      * @date 2023/4/5 0:46
-     * @param entity entity
+     * @param deptInfoDto deptInfoDto
      * @return com.github.itdachen.admin.entity.DeptInfo
      */
     @Override
-    public DeptInfo save(DeptInfo entity) throws Exception {
-        entity.setIsCanDel(YesOrNotConstant.YES);
-        return super.save(entity);
+    public DeptInfoVo save(DeptInfoDto deptInfoDto) throws Exception {
+        DeptInfo deptInfo = bizConvert.toJavaObject(deptInfoDto);
+        deptInfo.setIsCanDel(YesOrNotConstant.YES);
+        EntityUtils.setCreatAndUpdateInfo(deptInfo);
+        bizMapper.insertSelective(deptInfo);
+        return bizConvert.toJavaObjectVo(deptInfo);
     }
 
     /***
@@ -63,20 +77,21 @@ public class DeptInfoServiceImpl extends BizServiceImpl<IDeptInfoMapper, DeptInf
      *
      * @author 王大宸
      * @date 2023/4/5 0:46
-     * @param entity entity
+     * @param deptInfoDto deptInfoDto
      * @return com.github.itdachen.admin.entity.DeptInfo
      */
     @Override
-    public DeptInfo update(DeptInfo entity) throws Exception {
-        DeptInfo dept = bizMapper.selectByPrimaryKey(entity.getId());
-        if (YesOrNotConstant.NOT.equals(dept.getIsCanDel())) {
-            if (YesOrNotConstant.YES.equals(entity.getIsCanDel())) {
+    public DeptInfoVo update(DeptInfoDto deptInfoDto) throws Exception {
+        DeptInfo deptInfo = bizConvert.toJavaObject(deptInfoDto);
+        DeptInfo dBdept = bizMapper.selectByPrimaryKey(deptInfo.getId());
+        if (YesOrNotConstant.NOT.equals(dBdept.getIsCanDel())) {
+            if (YesOrNotConstant.YES.equals(deptInfo.getIsCanDel())) {
                 throw new BizException("非法操作");
             }
         }
-        EntityUtils.setUpdatedInfo(entity);
-        bizMapper.updateByPrimaryKeySelective(entity);
-        return entity;
+        EntityUtils.setUpdatedInfo(deptInfo);
+        bizMapper.updateByPrimaryKeySelective(deptInfo);
+        return bizConvert.toJavaObjectVo(deptInfo);
     }
 
     /***

@@ -1,5 +1,7 @@
 package com.github.itdachen.admin.controller;
 
+import com.github.itdachen.admin.sdk.dto.DictDataDto;
+import com.github.itdachen.admin.service.IDeptInfoService;
 import com.github.itdachen.admin.service.IDictDataService;
 import com.github.itdachen.admin.entity.DictData;
 import com.github.itdachen.admin.sdk.query.DictDataQuery;
@@ -25,8 +27,15 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/admin/dict/data")
 @CheckApiClient(title = "字典数据表", clientId = ClientConstant.CLIENT_WEB)
-public class DictDataController extends BizController<IDictDataService, DictData, DictDataVo, DictDataQuery, String> {
+public class DictDataController extends BizController<DictDataDto, DictDataVo, DictDataQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(DictDataController.class);
+    private final IDictDataService bizService;
+
+    public DictDataController(IDictDataService bizService) {
+        super(bizService);
+        this.bizService = bizService;
+    }
+
     private static final String PATH_PREFIX = "admin/dict/data" ;
 
     /***
