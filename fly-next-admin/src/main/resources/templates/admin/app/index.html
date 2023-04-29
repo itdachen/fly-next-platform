@@ -61,7 +61,7 @@
 
 
 <script type="text/html" id="stateTpl">
-    <input type="checkbox" name="state" value="{{d.id}}" title="锁定"
+    <input type="checkbox" name="state" lay-skin="tag" value="{{d.id}}" title="锁定"
            lay-filter="stateFilter" {{ d.state== 1 ? 'checked' : '' }}>
 </script>
 

@@ -69,7 +69,7 @@
 
     <select id="hasMenu" resultType="java.lang.Integer">
         SELECT 1
-        FROM sys_menu
+        FROM sys_menu_info
         WHERE parent_id = #{appCode} LIMIT 1
     </select>
 

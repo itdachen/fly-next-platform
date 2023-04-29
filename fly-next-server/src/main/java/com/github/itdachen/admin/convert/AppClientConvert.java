@@ -51,7 +51,7 @@ public class AppClientConvert extends BizConvert<AppClient, AppClientDto, AppCli
         return appClientVo;
     }
 
-    public static AppClient toJavaObject(AppClientVo appClientVo) {
+    public AppClient toJavaObject(AppClientVo appClientVo) {
         if (null == appClientVo){
             return null;
         }
@@ -69,22 +69,22 @@ public class AppClientConvert extends BizConvert<AppClient, AppClientDto, AppCli
         return appClient;
     }
 
-    public static AppClient toAppClient(AppClientVo appClientVo) {
-        if (null == appClientVo){
+    public AppClientVo toJavaObjectVo(AppClientDto appClientDto) {
+        if (null == appClientDto){
             return null;
         }
-        AppClient appClient = new AppClient();
-        appClient.setId(appClientVo.getId());
-        appClient.setAppCode(appClientVo.getAppCode());
-        appClient.setAppType(appClientVo.getAppType());
-        appClient.setAppTitle(appClientVo.getAppTitle());
-        appClient.setAskUri(appClientVo.getAskUri());
-        appClient.setLanUri(appClientVo.getLanUri());
-        appClient.setIcon(appClientVo.getIcon());
-        appClient.setStatus(appClientVo.getStatus());
-        appClient.setRemarks(appClientVo.getRemarks());
-        appClient.setCanDel(appClientVo.getCanDel());
-        return appClient;
+        AppClientVo appClientVo = new AppClientVo();
+        appClientVo.setId(appClientDto.getId());
+        appClientVo.setAppCode(appClientDto.getAppCode());
+        appClientVo.setAppType(appClientDto.getAppType());
+        appClientVo.setAppTitle(appClientDto.getAppTitle());
+        appClientVo.setAskUri(appClientDto.getAskUri());
+        appClientVo.setLanUri(appClientDto.getLanUri());
+        appClientVo.setIcon(appClientDto.getIcon());
+        appClientVo.setStatus(appClientDto.getStatus());
+        appClientVo.setRemarks(appClientDto.getRemarks());
+        appClientVo.setCanDel(appClientDto.getCanDel());
+        return appClientVo;
     }
 
 
