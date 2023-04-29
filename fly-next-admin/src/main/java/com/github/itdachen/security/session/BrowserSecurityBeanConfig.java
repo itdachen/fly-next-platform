@@ -1,8 +1,8 @@
 package com.github.itdachen.security.session;
 
 import com.github.itdachen.framework.boot.runner.handler.ContextPathHandler;
-import com.github.itdachen.security.handler.BrowserClientSessionExceptionHandler;
-import com.github.itdachen.security.handler.BrowserLogoutSuccessHandler;
+import com.github.itdachen.security.handler.FlyClientSessionExceptionHandler;
+import com.github.itdachen.security.handler.FlyLogoutSuccessHandler;
 import com.github.itdachen.security.properties.SecurityBrowserProperties;
 import com.github.itdachen.security.session.strategy.BrowserExpiredSessionStrategy;
 import com.github.itdachen.security.session.strategy.BrowserInvalidSessionStrategy;
@@ -78,7 +78,7 @@ public class BrowserSecurityBeanConfig {
         String signOutUrl = securityProperties.getSignOutUrl();
         final String contextPath = ContextPathHandler.contextPath();
         signOutUrl = AuthorizeHttpRequestsHandler.anyRequestUriHandler(contextPath, signOutUrl);
-        return new BrowserLogoutSuccessHandler(signOutUrl);
+        return new FlyLogoutSuccessHandler(signOutUrl);
     }
 
     /***
@@ -89,9 +89,9 @@ public class BrowserSecurityBeanConfig {
      * @return BrowserClientSessionExceptionHandler
      */
     @Bean
-    public BrowserClientSessionExceptionHandler clientSessionStrategy() {
+    public FlyClientSessionExceptionHandler clientSessionStrategy() {
         logger.info("正在配置全局客户端 session 处理 ...");
-        return new BrowserClientSessionExceptionHandler(securityProperties);
+        return new FlyClientSessionExceptionHandler(securityProperties);
     }
 
 

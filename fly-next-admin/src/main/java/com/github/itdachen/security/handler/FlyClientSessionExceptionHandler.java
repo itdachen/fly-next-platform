@@ -2,6 +2,8 @@ package com.github.itdachen.security.handler;
 
 import com.github.itdachen.security.exception.ClientTokenException;
 import com.github.itdachen.security.properties.SecurityBrowserProperties;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -11,8 +13,6 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -21,8 +21,8 @@ import java.io.IOException;
  * Created with IntelliJ IDEA.
  */
 @RestControllerAdvice(basePackages = {"com.itdachen"})
-public class BrowserClientSessionExceptionHandler {
-    private static final Logger logger = LoggerFactory.getLogger(BrowserClientSessionExceptionHandler.class);
+public class FlyClientSessionExceptionHandler {
+    private static final Logger logger = LoggerFactory.getLogger(FlyClientSessionExceptionHandler.class);
     /**
      * 重定向策略
      */
@@ -30,7 +30,7 @@ public class BrowserClientSessionExceptionHandler {
 
     private final SecurityBrowserProperties securityProperties;
 
-    public BrowserClientSessionExceptionHandler(SecurityBrowserProperties securityProperties) {
+    public FlyClientSessionExceptionHandler(SecurityBrowserProperties securityProperties) {
         this.securityProperties = securityProperties;
     }
 

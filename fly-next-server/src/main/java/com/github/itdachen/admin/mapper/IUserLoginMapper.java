@@ -13,6 +13,16 @@ import java.util.List;
  * @date 2023-04-16 17:39:59
  */
 public interface IUserLoginMapper {
+    
+    /***
+     * 根据登录账号查询用户信息
+     *
+     * @author 王大宸
+     * @date 2023/4/29 20:28
+     * @param username username
+     * @return com.github.itdachen.admin.entity.UserLogin
+     */
+    UserLogin findUserLoginByUsername(String username);
 
     /***
      * 分页

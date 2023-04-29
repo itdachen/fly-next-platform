@@ -35,7 +35,7 @@ public class DefaultSecurityPassMatchers implements ISecurityPassMatchers {
                 contextPath + SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_OPENID,
                 contextPath + SecurityConstants.DEFAULT_UN_AUTHENTICATION_URL,
                 contextPath + SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM,
-                contextPath + SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
+                contextPath + SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/**",
                 contextPath + "/login", contextPath + "/admin/login",
                 /* 开放 api 接口 */
                 contextPath + "/open/**", contextPath + "/api/open/**",
@@ -50,9 +50,8 @@ public class DefaultSecurityPassMatchers implements ISecurityPassMatchers {
                 contextPath + "/assets/**", contextPath + "/static/**", contextPath + "/heartbeat",
                 contextPath + "/forget", contextPath + "/upload/**",
                 contextPath + "/webjars/**",
-                "**.js", "**/**.css", "**/**.png", "**/**.jpg",
 
-                "/login", "/admin/login",
+                "/login",
                 /* 开放 api 接口 */
                 "/open/**", "/api/open/**",
                 /* SpringBootAdmin 系统检测 */
@@ -64,7 +63,6 @@ public class DefaultSecurityPassMatchers implements ISecurityPassMatchers {
                 "/favicon.ico", "/favicon", "favicon",
                 "/assets/**", "/static/**", "/heartbeat", "/forget", "/upload/**",
                 "/webjars/**",
-                "**.js", "**/**.css", "**/**.png", "**/**.jpg", "/favicon", "favicon",
 
                 //=== 登录 ===//
                 securityProperties.getSignInPage(),
@@ -75,7 +73,7 @@ public class DefaultSecurityPassMatchers implements ISecurityPassMatchers {
                 SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_OPENID,
                 SecurityConstants.DEFAULT_UN_AUTHENTICATION_URL,
                 SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM,
-                SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
+                SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/**",
         };
     }
 

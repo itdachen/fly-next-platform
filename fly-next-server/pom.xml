@@ -17,6 +17,13 @@
 
     <dependencies>
         <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+
+
+        <dependency>
             <groupId>com.github.itdachen.framework</groupId>
             <artifactId>fly-runner</artifactId>
         </dependency>
@@ -47,6 +54,12 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
         </dependency>
 
+
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>3.0.1</version>
+        </dependency>
         <dependency>
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper-spring-boot-starter</artifactId>

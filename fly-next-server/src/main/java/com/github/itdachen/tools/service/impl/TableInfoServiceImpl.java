@@ -23,13 +23,13 @@ import com.github.itdachen.tools.mapper.ITableInfoMapper;
 import com.github.itdachen.tools.service.ITableInfoService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**

@@ -18,6 +18,7 @@ import com.github.itdachen.framework.webmvc.controller.BizController;
 import com.github.itdachen.security.context.SecurityContextHandler;
 import com.github.itdachen.security.exception.ClientTokenException;
 import com.github.itdachen.security.user.CurrentUserInfo;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,7 +26,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -130,19 +130,18 @@ public class UserInfoController extends BizController<UserInfoDto, UserInfoVo, U
      *
      * @author 王大宸
      * @date 2023/4/17 21:07
-     * @param session session
      * @return com.github.itdachen.framework.core.response.ServerResponse<com.github.itdachen.admin.sdk.vo.UserInfoVo>
      */
     @GetMapping("/reload/user/authority")
     @ResponseBody
-    public ServerResponse<UserInfoVo> reloadUserAuthority(HttpSession session) throws ClientTokenException {
+    public ServerResponse<Object> reloadUserAuthority() throws ClientTokenException {
         System.err.println(BizContextHandler.getDeptId());
         List<String> userAuthority = SecurityContextHandler.getUserAuthority();
         CurrentUserInfo userInfo = (CurrentUserInfo) SecurityContextHandler.getUserInfo();
         userInfo.setDeptId("123321");
         userInfo.setGrade("21");
         SecurityContextHandler.reloadUserAuthority(userInfo, String.valueOf(userAuthority));
-        return ServerResponse.ok();
+        return ServerResponse.okData(SecurityContextHandler.getAuthentication());
     }
 
     /***
@@ -171,7 +170,6 @@ public class UserInfoController extends BizController<UserInfoDto, UserInfoVo, U
     @ResponseBody
     public ServerResponse<CurrentUserDetails> getCurrentUser(@CurrentUser CurrentUserDetails info) throws ClientTokenException {
         System.err.println(info.getDeptId());
-        System.err.println(info.toString());
         return ServerResponse.okData(info);
     }
 

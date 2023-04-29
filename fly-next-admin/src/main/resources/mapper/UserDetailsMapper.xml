@@ -29,6 +29,7 @@
                tenant_id   AS tenantId,
                nick_name   AS nickName,
                username    AS account,
+               password    AS accountSecret,
                user_type   AS userType,
                status,
                app_id      AS appId,

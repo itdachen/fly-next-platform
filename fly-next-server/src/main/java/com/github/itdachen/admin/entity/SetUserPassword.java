@@ -1,6 +1,7 @@
 package com.github.itdachen.admin.entity;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
+
 import java.io.Serializable;
 
 /**

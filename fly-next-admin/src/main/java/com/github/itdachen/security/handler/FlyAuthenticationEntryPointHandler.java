@@ -1,12 +1,12 @@
 package com.github.itdachen.security.handler;
 
 import com.github.itdachen.security.properties.SecurityBrowserProperties;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -14,11 +14,11 @@ import java.io.IOException;
  * Created by 王大宸 on 2022-09-23 16:42
  * Created with IntelliJ IDEA.
  */
-public class CustomerAuthenticationEntryPointHandler implements AuthenticationEntryPoint {
+public class FlyAuthenticationEntryPointHandler implements AuthenticationEntryPoint {
 
     private final SecurityBrowserProperties securityProperties;
 
-    public CustomerAuthenticationEntryPointHandler(SecurityBrowserProperties securityProperties) {
+    public FlyAuthenticationEntryPointHandler(SecurityBrowserProperties securityProperties) {
         this.securityProperties = securityProperties;
     }
 

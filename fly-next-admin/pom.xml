@@ -16,11 +16,7 @@
     <description>后台管理系统</description>
 
     <dependencies>
-        <!-- 启动日志打印模块放在最前面, spring-boot-starter 使用的是 logback-classic 日志, 跟系统配置日志框架会冲突  -->
-        <dependency>
-            <groupId>com.github.itdachen.framework</groupId>
-            <artifactId>fly-runner</artifactId>
-        </dependency>
+
 
         <!-- 項目启动容器 -->
         <dependency>
@@ -36,6 +32,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
+
+        <!-- 启动日志打印模块放在最前面, spring-boot-starter 使用的是 logback-classic 日志, 跟系统配置日志框架会冲突  -->
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-runner</artifactId>
         </dependency>
 
         <dependency>
@@ -73,6 +75,12 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity6</artifactId>
+            <version>3.1.1.RELEASE</version>
+        </dependency>
+
+        <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
         </dependency>
@@ -86,6 +94,14 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
         <!-- mysql -->

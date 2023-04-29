@@ -1,5 +1,8 @@
 package com.github.itdachen.security.handler;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -7,9 +10,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -17,12 +17,12 @@ import java.io.IOException;
  * Created by 王大宸 on 2022-09-23 16:43
  * Created with IntelliJ IDEA.
  */
-public class BrowserLogoutSuccessHandler implements LogoutSuccessHandler {
-    private static final Logger logger = LoggerFactory.getLogger(BrowserLogoutSuccessHandler.class);
+public class FlyLogoutSuccessHandler implements LogoutSuccessHandler {
+    private static final Logger logger = LoggerFactory.getLogger(FlyLogoutSuccessHandler.class);
 
-    private String signOutSuccessUrl;
+    private final String signOutSuccessUrl;
 
-    public BrowserLogoutSuccessHandler(String signOutSuccessUrl) {
+    public FlyLogoutSuccessHandler(String signOutSuccessUrl) {
         this.signOutSuccessUrl = signOutSuccessUrl;
     }
 

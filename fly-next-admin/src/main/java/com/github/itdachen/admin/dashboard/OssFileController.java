@@ -1,6 +1,5 @@
 package com.github.itdachen.admin.dashboard;
 
-import com.github.itdachen.admin.mapper.INetDiskMd5Mapper;
 import com.github.itdachen.admin.sdk.dto.NetDiskMd5Dto;
 import com.github.itdachen.admin.sdk.vo.NetDiskMd5Vo;
 import com.github.itdachen.admin.service.INetDiskMd5Service;
@@ -9,10 +8,9 @@ import com.github.itdachen.framework.core.response.ServerResponse;
 import com.github.itdachen.framework.core.utils.StringUtils;
 import com.github.itdachen.framework.file.FileHelper;
 import com.github.itdachen.framework.file.entity.FileInfo;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Description: 文件上传

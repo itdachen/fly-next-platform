@@ -1,23 +1,28 @@
 package com.github.itdachen.security;
 
 
+import com.github.itdachen.admin.service.impl.AdminSecurityUserDetailsService;
+import com.github.itdachen.admin.service.impl.AdminUserDetailsPasswordService;
 import com.github.itdachen.security.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.github.itdachen.security.constants.SecurityConstants;
-import com.github.itdachen.security.handler.CustomerAccessDeniedExceptionHandler;
+import com.github.itdachen.security.handler.FlyAccessDeniedExceptionHandler;
 import com.github.itdachen.security.matchers.IFilterMatchers;
 import com.github.itdachen.security.properties.SecurityBrowserProperties;
 import com.github.itdachen.security.rememberme.CustomJdbcPersistentTokenRepository;
-import com.github.itdachen.security.validate.code.ValidateCodeSecurityConfig;
+import com.github.itdachen.security.validate.code.filter.ValidateCodeFilter;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.session.InvalidSessionStrategy;
@@ -33,6 +38,7 @@ import javax.sql.DataSource;
 @Configuration
 // 添加 security 过滤器
 @EnableWebSecurity
+@EnableConfigurationProperties(SecurityBrowserProperties.class)
 // 开启方法权限注解
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfiguration {
@@ -41,7 +47,8 @@ public class WebSecurityConfiguration {
     /* 安全配置文件 */
     private final SecurityBrowserProperties securityProperties;
     private final DataSource dataSource;
-    private final UserDetailsService userDetailsService;
+    private final AdminSecurityUserDetailsService userDetailsService;
+    private final AdminUserDetailsPasswordService adminUserDetailsPasswordService;
     /* 退出处理 */
     private final LogoutSuccessHandler logoutSuccessHandler;
     /* 登录成功处理 */
@@ -53,23 +60,24 @@ public class WebSecurityConfiguration {
     /* session 失效处理 */
     private final InvalidSessionStrategy invalidSessionStrategy;
     /* 权限异常配置 */
-    private final CustomerAccessDeniedExceptionHandler accessDeniedExceptionHandler;
+    private final FlyAccessDeniedExceptionHandler accessDeniedExceptionHandler;
     /* 短信验证码登录 */
     private final SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
-    private final ValidateCodeSecurityConfig validateCodeSecurityConfig;
+    private final ValidateCodeFilter validateCodeFilter;
 
     public WebSecurityConfiguration(IFilterMatchers filterMatchers,
                                     SecurityBrowserProperties securityProperties,
                                     AuthenticationSuccessHandler authenticationSuccessHandler,
                                     AuthenticationFailureHandler authenticationFailureHandler,
                                     DataSource dataSource,
-                                    UserDetailsService userDetailsService,
+                                    AdminSecurityUserDetailsService userDetailsService,
                                     LogoutSuccessHandler logoutSuccessHandler,
                                     SessionInformationExpiredStrategy sessionInformationExpiredStrategy,
                                     InvalidSessionStrategy invalidSessionStrategy,
-                                    CustomerAccessDeniedExceptionHandler accessDeniedExceptionHandler,
+                                    FlyAccessDeniedExceptionHandler accessDeniedExceptionHandler,
                                     SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig,
-                                    ValidateCodeSecurityConfig validateCodeSecurityConfig) {
+                                    AdminUserDetailsPasswordService adminUserDetailsPasswordService,
+                                    ValidateCodeFilter validateCodeFilter) {
         this.filterMatchers = filterMatchers;
         this.securityProperties = securityProperties;
         this.authenticationSuccessHandler = authenticationSuccessHandler;
@@ -81,8 +89,31 @@ public class WebSecurityConfiguration {
         this.invalidSessionStrategy = invalidSessionStrategy;
         this.accessDeniedExceptionHandler = accessDeniedExceptionHandler;
         this.smsCodeAuthenticationSecurityConfig = smsCodeAuthenticationSecurityConfig;
-        this.validateCodeSecurityConfig = validateCodeSecurityConfig;
+        this.adminUserDetailsPasswordService = adminUserDetailsPasswordService;
+        this.validateCodeFilter = validateCodeFilter;
     }
+
+    /**
+     * 获取AuthenticationManager（认证管理器），登录时认证使用
+     */
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    /**
+     * 允许抛出用户不存在的异常
+     *
+     * @return DaoAuthenticationProvider
+     */
+//    @Bean
+//    public DaoAuthenticationProvider daoAuthenticationProvider() {
+//        final DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+//        provider.setUserDetailsService(userDetailsService);
+//        provider.setUserDetailsPasswordService(adminUserDetailsPasswordService);
+//        provider.setHideUserNotFoundExceptions(false);
+//        return provider;
+//    }
 
     /***
      * WebSecurityConfigurerAdapter 被弃用, 替代方案: 申明 SecurityFilterChain 的Bean
@@ -98,6 +129,9 @@ public class WebSecurityConfiguration {
         http.apply(smsCodeAuthenticationSecurityConfig);
         // .addFilterBefore(new SmsCodeAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
 
+
+        // http.addFilterAt(mobileAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
         /* 表单登录 */
         http.formLogin(login -> login
                 .loginPage(securityProperties.getSignInPage()) // 登录页面路径
@@ -107,14 +141,13 @@ public class WebSecurityConfiguration {
                 .permitAll()
         );
 
+        //  http.addFilterAt(smsCodeAuthenticationSecurityConfig, UsernamePasswordAuthenticationFilter.class);
+
         /* 授权请求控制 */
-        http.authorizeRequests(authorize -> authorize
-                // 请求放开
-                .antMatchers(filterMatchers.matchers())
+        http.authorizeHttpRequests()
+                .requestMatchers(filterMatchers.matchers())
                 .permitAll()
-                // 其他地址的访问均需验证权限
-                .anyRequest().authenticated()
-        );
+                .anyRequest().authenticated();
 
         /*
          * 记住我, 原理: 使用 Cookie 存储用户名, 过期时间, 以及一个 Hash
@@ -168,6 +201,9 @@ public class WebSecurityConfiguration {
                 .maxSessionsPreventsLogin(securityProperties.getSession().getMaxSessionsPreventsLogin())
                 /* 会话过期后的配置 */
                 .expiredSessionStrategy(sessionInformationExpiredStrategy);
+
+        http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class);
+
 
         return http.csrf(AbstractHttpConfigurer::disable)
                 // .cors(cors -> cors.configurationSource(corsConfigurationSource())) // 跨越配置
@@ -225,7 +261,7 @@ public class WebSecurityConfiguration {
 //        tokenRepository.setDataSource(dataSource);
 //        return tokenRepository;
 
-        CustomJdbcPersistentTokenRepository tokenRepository = new CustomJdbcPersistentTokenRepository();
+        final CustomJdbcPersistentTokenRepository tokenRepository = new CustomJdbcPersistentTokenRepository();
         tokenRepository.setDataSource(dataSource);
         return tokenRepository;
     }
@@ -244,6 +280,15 @@ public class WebSecurityConfiguration {
 //        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
 //        return source;
 //    }
+
+
+    /***
+     * 指定项目加密策略
+     *
+     * @author 王大宸
+     * @date 2022/10/16 13:55
+     * @return org.springframework.security.crypto.password.PasswordEncoder
+     */
 
 
 }

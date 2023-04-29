@@ -47,6 +47,30 @@
         FROM sys_user_login
     </sql>
 
+    <select id="findUserLoginByUsername" parameterType="java.lang.String"
+            resultType="com.github.itdachen.admin.entity.UserLogin">
+        SELECT id,
+               user_id,
+               tenant_id,
+               app_id,
+               open_id,
+               username,
+               password,
+               status,
+               user_type,
+               nick_name,
+               profile_url,
+               avatar,
+               del_flag,
+               can_del,
+               expire_time,
+               create_time,
+               update_time
+        FROM sys_user_login
+        WHERE username = - #{username} LIMIT 1
+    </select>
+
+
     <!-- 分页查询 -->
     <select id="findUserLoginPage" parameterType="com.github.itdachen.admin.sdk.query.UserLoginQuery"
             resultMap="userLoginMap">

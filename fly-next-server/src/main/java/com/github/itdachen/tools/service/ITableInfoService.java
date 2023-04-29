@@ -10,8 +10,8 @@ import com.github.itdachen.framework.code.sdk.query.TableInfoQuery;
 import com.github.itdachen.framework.code.sdk.vo.TableInfoVo;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.core.response.TableData;
+import jakarta.servlet.http.HttpServletResponse;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 

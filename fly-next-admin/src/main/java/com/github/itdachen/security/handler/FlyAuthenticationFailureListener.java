@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * Created with IntelliJ IDEA.
  */
 @Component
-public class AuthenticationFailureListener implements ApplicationListener<AuthenticationFailureBadCredentialsEvent> {
+public class FlyAuthenticationFailureListener implements ApplicationListener<AuthenticationFailureBadCredentialsEvent> {
 
     @Override
     public void onApplicationEvent(AuthenticationFailureBadCredentialsEvent e) {

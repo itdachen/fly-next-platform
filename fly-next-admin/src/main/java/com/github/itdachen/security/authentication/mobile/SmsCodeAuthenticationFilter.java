@@ -1,15 +1,14 @@
 package com.github.itdachen.security.authentication.mobile;
 
 import com.github.itdachen.security.constants.SecurityConstants;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.util.Assert;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Description: 短信验证码过滤器
@@ -41,11 +40,7 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
 
         String mobile = obtainMobile(request);
 
-        if (mobile == null) {
-            mobile = "";
-        }
-
-        mobile = mobile.trim();
+        mobile = (mobile != null) ? mobile.trim() : "";
 
         SmsCodeAuthenticationToken authRequest = new SmsCodeAuthenticationToken(mobile);
 

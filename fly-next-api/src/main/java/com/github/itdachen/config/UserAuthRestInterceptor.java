@@ -7,6 +7,9 @@ import com.github.itdachen.framework.context.constants.UserInfoConstant;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.core.utils.StringUtils;
 import com.github.itdachen.framework.jjwt.core.IJWTInfo;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
@@ -14,9 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
