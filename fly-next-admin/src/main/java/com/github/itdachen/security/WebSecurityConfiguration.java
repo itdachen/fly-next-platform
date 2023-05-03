@@ -96,10 +96,10 @@ public class WebSecurityConfiguration {
     /**
      * 获取AuthenticationManager（认证管理器），登录时认证使用
      */
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
+//    @Bean
+//    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+//        return authenticationConfiguration.getAuthenticationManager();
+//    }
 
     /**
      * 允许抛出用户不存在的异常

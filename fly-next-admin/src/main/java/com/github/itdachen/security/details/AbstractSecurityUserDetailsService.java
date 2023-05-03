@@ -110,19 +110,17 @@ public abstract class AbstractSecurityUserDetailsService implements UserDetailsS
      * @author 王大宸
      * @date 2021/11/27 11:39
      * @param user                  SysUserModel
-     * @param userPermission        用户权限
+     * @param authorities           用户权限
      * @return com.itdachen.security.core.model.CurrentUser
      */
     protected CurrentUserInfo setUserPermission(CurrentUserDetails user,
-                                                Set<PermissionInfo> userPermission) {
+                                                Set<String> authorities) {
         boolean enabled = isEnabled();
         boolean accountNonExpired = accountNonExpired();
         boolean credentialsNonExpired = credentialsNonExpired();
         boolean accountNonLocked = accountNonLocked(user.getStatus());
 
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        // 后端校验权限
-        Set<String> perms = new HashSet<>();
 
         /* 如果账户被冻结或者不可用 */
         if (!enabled || !accountNonExpired
@@ -134,9 +132,8 @@ public abstract class AbstractSecurityUserDetailsService implements UserDetailsS
         // 前端标签权限
         StringBuffer sb = new StringBuffer();
         sb.append("ROLE_USER").append(",");
-        for (PermissionInfo permission : userPermission) {
-            perms.add(permission.getPermission());
-            sb.append(permission.getPermission()).append(",");
+        for (String permission : authorities) {
+            sb.append(permission).append(",");
         }
         grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList(sb.toString());
 
@@ -147,6 +144,10 @@ public abstract class AbstractSecurityUserDetailsService implements UserDetailsS
                 accountNonLocked,
                 grantedAuthorities
         );
+    }
+
+    protected CurrentUserInfo setUserPermission(CurrentUserDetails user) {
+       return setUserPermission(user, new HashSet<>());
     }
 
     /***

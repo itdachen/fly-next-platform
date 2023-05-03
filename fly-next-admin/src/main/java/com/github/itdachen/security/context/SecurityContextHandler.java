@@ -46,17 +46,18 @@ public class SecurityContextHandler {
      * @return void
      */
     public static void refreshAuthorities(List<String> list) {
+        final SecurityContext context = SecurityContextHolder.getContext();
         // 得到当前的认证信息
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        final Authentication auth = context.getAuthentication();
         //  生成当前的所有授权
         List<GrantedAuthority> updatedAuthorities = new ArrayList<>();
         for (String s : list) {
             updatedAuthorities.add(new SimpleGrantedAuthority(s));
         }
         // 生成新的认证信息
-        Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
+        UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
         // 重置认证信息
-        SecurityContextHolder.getContext().setAuthentication(newAuth);
+        context.setAuthentication(newAuth);
     }
 
     /***

@@ -1,6 +1,7 @@
 package com.github.itdachen.admin.service.impl;
 
 import com.github.itdachen.admin.entity.UserInfo;
+import com.github.itdachen.admin.mapper.IAuthenticationAuthorityMapper;
 import com.github.itdachen.admin.mapper.IUserDetailsMapper;
 import com.github.itdachen.admin.mapper.IUserInfoMapper;
 import com.github.itdachen.framework.context.constants.UserTypeConstant;
@@ -17,6 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Description: 登录用户信息查询
@@ -26,12 +28,14 @@ import java.util.HashSet;
 @Service
 public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetailsService {
     private static final Logger logger = LoggerFactory.getLogger(AdminSecurityUserDetailsService.class);
-
+    private final IAuthenticationAuthorityMapper permsAuthMapper;
     private final IUserDetailsMapper userDetailsMapper;
     private final IUserInfoMapper userInfoMapper;
 
-    public AdminSecurityUserDetailsService(IUserDetailsMapper userDetailsMapper,
+    public AdminSecurityUserDetailsService(IAuthenticationAuthorityMapper permsAuthMapper,
+                                           IUserDetailsMapper userDetailsMapper,
                                            IUserInfoMapper userInfoMapper) {
+        this.permsAuthMapper = permsAuthMapper;
         this.userDetailsMapper = userDetailsMapper;
         this.userInfoMapper = userInfoMapper;
     }
@@ -69,25 +73,18 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
      */
     private CurrentUserInfo getUserPermission(CurrentUserDetails user) {
         // todo 登录时不查询用户权限, 进入首页时动态更新用户权限
-
-//        Set<PermissionInfo> userPermission = null;
-//        if (UserTypeConstant.SUPER_ADMINISTRATOR.equals(user.getType())) {
-//            userPermission = userDetailsMapper.findPermissionAll();
-//            userPermission.addAll(userDetailsMapper.findPermissionMenuAll());
-//        } else {
-//            userPermission = userDetailsMapper.findUserPermission(user.getId());
-//            userPermission.addAll(userDetailsMapper.findUserPermissionMenu(user.getId()));
-//        }
-//        return setUserPermission(user, userPermission);
-
-        if (UserTypeConstant.SUPER_ADMINISTRATOR.equals(user.getUserType())){
+        if (UserTypeConstant.SUPER_ADMINISTRATOR.equals(user.getUserType())) {
             user.setIsSuperAdmin(true);
         }
-        if (StringUtils.isEmpty(user.getAccountSecret())){
-            user.setAccountSecret("@#$^$fsdfbDFWSDFSGs");
+        if (StringUtils.isEmpty(user.getAccountSecret())) {
+            user.setAccountSecret("0");
             user.setIsSuperAdmin(false);
         }
-        return setUserPermission(user, new HashSet<>());
+        //  return setUserPermission(user);
+
+        // 新版本动态添加权限不生效,这里登录的时候添加权限
+        Set<String> permissions = findUserPermission(user);
+        return setUserPermission(user, permissions);
     }
 
     /***
@@ -105,6 +102,25 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
         user.setEmail(userInfo.getEmail());
         user.setSex(user.getSex());
         user.setGrade(user.getGrade());
+    }
+
+
+    /***
+     * 查询用户权限
+     *
+     * @author 王大宸
+     * @date 2023/5/3 22:46
+     * @param user user
+     * @return java.util.Set<java.lang.String>
+     */
+    private Set<String> findUserPermission(CurrentUserDetails user) {
+        Set<String> userPermission = null;
+        if (UserTypeConstant.SUPER_ADMINISTRATOR.equals(user.getUserType())) {
+            userPermission = permsAuthMapper.findPermissionAll();
+        } else {
+            userPermission = permsAuthMapper.findUserPermission(user.getId());
+        }
+        return userPermission;
     }
 
 }
