@@ -1,7 +1,5 @@
 package com.github.itdachen.security.config;
 
-import com.github.itdachen.security.properties.SecurityBrowserProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

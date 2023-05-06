@@ -282,13 +282,4 @@ public class WebSecurityConfiguration {
 //    }
 
 
-    /***
-     * 指定项目加密策略
-     *
-     * @author 王大宸
-     * @date 2022/10/16 13:55
-     * @return org.springframework.security.crypto.password.PasswordEncoder
-     */
-
-
 }
