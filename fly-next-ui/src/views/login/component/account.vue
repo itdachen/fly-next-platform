@@ -1,7 +1,7 @@
 <template>
   <el-form size="large" class="login-content-form">
     <el-form-item class="login-animation1">
-      <el-input text :placeholder="$t('message.account.accountPlaceholder1')" v-model="state.ruleForm.userName"
+      <el-input text :placeholder="$t('message.account.accountPlaceholder1')" v-model="state.ruleForm.username"
                 clearable autocomplete="off">
         <template #prefix>
           <el-icon class="el-input__icon">
@@ -13,8 +13,7 @@
     <el-form-item class="login-animation2">
       <el-input :type="state.isShowPassword ? 'text' : 'password'"
                 :placeholder="$t('message.account.accountPlaceholder2')"
-                v-model="state.ruleForm.password"
-                autocomplete="off">
+                v-model="state.ruleForm.password" autocomplete="off">
         <template #prefix>
           <el-icon class="el-input__icon">
             <ele-Unlock/>
@@ -30,12 +29,10 @@
     </el-form-item>
     <el-form-item class="login-animation3">
       <el-col :span="15">
-        <el-input text
-                  maxlength="4"
+        <el-input text maxlength="4"
                   :placeholder="$t('message.account.accountPlaceholder3')"
                   v-model="state.ruleForm.code"
-                  clearable
-                  autocomplete="off">
+                  clearable autocomplete="off">
           <template #prefix>
             <el-icon class="el-input__icon">
               <ele-Position/>
@@ -83,7 +80,7 @@ const router = useRouter();
 const state = reactive({
   isShowPassword: false,
   ruleForm: {
-    userName: 'admin',
+    username: 'admin',
     password: '123456',
     code: '1234',
   },
@@ -101,13 +98,13 @@ const currentTime = computed(() => {
 const onSignIn = async () => {
   signIn(state.ruleForm).then(async res => {
     // 存储 token 到浏览器缓存
-    Session.set('token', res.data.access_token);
-    Cookies.set('userName', res.data.info.userName);
+    Session.set('access_token', res.data.access_token);
+    Cookies.set('userName', res.data.info.nickName);
 
     // 这里是这个框架需要的参数
     const userInfo = res.data.info;
     userInfo.roles = ['admin'];
-    userInfo.userName = res.data.info.userName;
+    userInfo.userName = res.data.info.nickName;
     userInfo.photo = res.data.info.avatar;
     Session.set('userInfo', userInfo);
 

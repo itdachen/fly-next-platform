@@ -2,7 +2,7 @@
 server:
   port: 8081
   servlet:
-   # context-path: /${spring.application.name}
+    context-path: /api
     session:
       #会话过期时间默认是30m过期,最少为1分钟, 单位: 秒
       timeout: 18000

@@ -41,7 +41,7 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
                     rewrite: (path) => path.replace(/^\/gitee/, ''),
                 },
                 '/api': {
-                    target: env.VITE_PUBLIC_PATH as string,
+                    target: env.VITE_API_URL as string,
                     ws: true,
                     changeOrigin: true,
                     rewrite: (path) => path.replace(/^\/api/, ''),

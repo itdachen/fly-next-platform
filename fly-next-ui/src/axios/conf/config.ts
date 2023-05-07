@@ -12,7 +12,7 @@ const CLIENT_SECRET = 'aXRkYWNoZW5fZmFzdDppdGRhY2hlbl9mYXN0';
 /**
  * 不需要携带 token 的请求路径
  */
-const OPEN_URL = '/auth/oauth/access_token,/login,/oauth/token,/api/oauth/token,/api/open,/api/admin/open,/auth/oauth/jwt/token,/auth/oauth/jwt/refresh';
+const OPEN_URL = 'oauth/token,/auth/oauth/access_token,/login,/oauth/token,/api/oauth/token,/api/open,/api/admin/open,/auth/oauth/jwt/token,/auth/oauth/jwt/refresh';
 
 /**
  * 不携带 token 时的客户端秘钥
