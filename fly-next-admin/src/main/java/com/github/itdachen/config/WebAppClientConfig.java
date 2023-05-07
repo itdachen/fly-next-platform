@@ -53,7 +53,7 @@ public class WebAppClientConfig implements Serializable {
     /**
      * 默认后台模板类型
      */
-    private TemplateEnum template = TemplateEnum.OKADMIN;
+    private TemplateEnum template = TemplateEnum.PEAR;
 
     /**
      * 请求地址

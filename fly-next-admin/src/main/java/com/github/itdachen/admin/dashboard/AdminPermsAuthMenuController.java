@@ -1,5 +1,6 @@
 package com.github.itdachen.admin.dashboard;
 
+import com.github.itdachen.admin.service.IPearAdminMenuWebService;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.annotation.IgnoreResponseAdvice;
 import com.github.itdachen.framework.context.exception.BizException;
@@ -9,6 +10,8 @@ import com.github.itdachen.security.user.LYearAdminMenu;
 import com.github.itdachen.security.user.LayuiAdminMenu;
 import com.github.itdachen.security.user.OkAdminMenu;
 import com.github.itdachen.admin.service.IPermsAuthWebService;
+import com.github.itdachen.security.user.PearAdminMenu;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,10 +28,14 @@ public class AdminPermsAuthMenuController {
 
     private final IPermsAuthWebService permsAuthService;
     private final WebAppClientConfig webAppClientConfig;
+    private final IPearAdminMenuWebService pearAdminMenuWebService;
 
-    public AdminPermsAuthMenuController(IPermsAuthWebService permsAuthService, WebAppClientConfig webAppClientConfig) {
+    public AdminPermsAuthMenuController(IPermsAuthWebService permsAuthService,
+                                        WebAppClientConfig webAppClientConfig,
+                                        IPearAdminMenuWebService pearAdminMenuWebService) {
         this.permsAuthService = permsAuthService;
         this.webAppClientConfig = webAppClientConfig;
+        this.pearAdminMenuWebService = pearAdminMenuWebService;
     }
 
     /***
@@ -69,6 +76,19 @@ public class AdminPermsAuthMenuController {
                 BizContextHandler.getUserType(),
                 BizContextHandler.getUserId())
         );
+    }
+
+    /***
+     * PearAdmin 后台管理系统
+     *
+     * @author 王大宸
+     * @date 2023/5/6 23:54
+     * @return com.github.itdachen.framework.core.response.ServerResponse<java.util.List < com.github.itdachen.security.user.PearAdminMenu>>
+     */
+    @GetMapping("/pear/admin/menu")
+    @IgnoreResponseAdvice
+    public List<PearAdminMenu> findPearAdminMenu(HttpServletRequest request) throws Exception {
+        return pearAdminMenuWebService.findPearAdminMenu(request, webAppClientConfig.getId());
     }
 
 }

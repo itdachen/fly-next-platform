@@ -1,0 +1,18 @@
+1、修改项目名称及logo
+pear.config.yml 文件下 logo 配置
+动态加载项目名称及logo:
+ component/pear/module/admin.js 下 this.logoRender = function (param) 方法通过js加载
+
+2、获取菜单地址
+pear.config.yml 文件下 menu 配置
+
+3、首页菜单加载配置
+默认配置：
+  pear.config.yml 文件下 tab.index 配置
+动态配置:
+ component/pear/module/admin.js 下 this.bodyRender 方法通过js加载
+  param.tab.index.id = $('#mainHomeId').val();
+  param.tab.index.href = $('#mainHomeUri').val();
+  param.tab.index.title = $('#mainHomeTitle').val();
+
+

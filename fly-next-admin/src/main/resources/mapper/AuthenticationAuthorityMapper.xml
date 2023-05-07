@@ -37,7 +37,7 @@
 
     <select id="findIndexPath" parameterType="java.lang.String"
             resultType="com.github.itdachen.framework.context.permission.PermissionInfo">
-        SELECT c.path AS uri, c.title AS name, c.code AS permission, 'GET' AS method, 'jump' AS type
+        SELECT c.id, c.path AS uri, c.title AS name, c.code AS permission, 'GET' AS method, 'jump' AS type
         FROM sys_role_user a
                  LEFT JOIN sys_role_menu b ON a.role_id = b.role_id
                  LEFT JOIN sys_menu_info c ON b.menu_id = c.id

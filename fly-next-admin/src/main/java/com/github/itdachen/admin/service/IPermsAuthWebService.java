@@ -4,6 +4,7 @@ import com.github.itdachen.framework.context.permission.PermissionInfo;
 import com.github.itdachen.security.user.LYearAdminMenu;
 import com.github.itdachen.security.user.LayuiAdminMenu;
 import com.github.itdachen.security.user.OkAdminMenu;
+import com.github.itdachen.security.user.PearAdminMenu;
 
 import java.util.List;
 

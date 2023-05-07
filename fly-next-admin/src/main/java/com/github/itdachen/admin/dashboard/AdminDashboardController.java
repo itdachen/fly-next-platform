@@ -22,6 +22,7 @@ public class AdminDashboardController {
     private static final String PATH_PREFIX = "backstage/layui";
     private static final String LYEAR_PREFIX = "backstage/lyear";
     private static final String OK_PATH_PREFIX = "backstage/okadmin";
+    private static final String PEAR_PREFIX = "backstage/pear";
 
     private final Environment environment;
     private final WebAppClientConfig webAppClientConfig;
@@ -47,6 +48,8 @@ public class AdminDashboardController {
     @GetMapping({"/", "/index"})
     public String index(ModelMap modelMap) {
         clientInfo(modelMap);
+
+
         if (TemplateEnum.LYEAR == webAppClientConfig.getTemplate()) {
             return LYEAR_PREFIX + "/index";
         } else if (TemplateEnum.LAYUI == webAppClientConfig.getTemplate()) {
@@ -55,11 +58,10 @@ public class AdminDashboardController {
             return PATH_PREFIX + "/index";
         } else if (TemplateEnum.OKADMIN == webAppClientConfig.getTemplate()) {
             return OK_PATH_PREFIX + "/index";
+        } else if (TemplateEnum.PEAR == webAppClientConfig.getTemplate()) {
+            return PEAR_PREFIX + "/index";
         } else {
-            //  return LYEAR_PREFIX + "/index";
-            String permsAuthUri = contextPath() + "/perms/auth/menu";
-            modelMap.put("permsAuthUri", permsAuthUri);
-            return PATH_PREFIX + "/index";
+            return PEAR_PREFIX + "/index";
         }
     }
 
@@ -108,8 +110,8 @@ public class AdminDashboardController {
 
         /* 默认跳转页面 */
         PermissionInfo homeUri = permsAuthService.getHomeUri(webAppClientConfig.getId());
+        modelMap.put("homeId", homeUri.getId());
         modelMap.put("homeUri", homeUri.getUri());
-        //    modelMap.put("homeUri", "/tools/table/info/index");
         modelMap.put("menuName", homeUri.getName());
 
         /* 退出登录 */
