@@ -2,9 +2,9 @@ import axios, {
     AxiosInstance,
     AxiosRequestConfig,
     AxiosResponse,
-    AxiosResponseHeaders,
-    ServerResponse
+    AxiosResponseHeaders
 } from 'axios';
+import {ServerResponse} from "/@/hooks/biz/BizModel";
 import {TOKEN_TYPE, OPEN_URL, CONTENT_TYPE} from '/@/axios/conf/config';
 import {ElMessage} from 'element-plus';
 import useStringComposable from '/@/utils/string';
@@ -297,13 +297,13 @@ function removePending(config: AxiosRequestConfig) {
  */
 function getPendingKey(config: AxiosRequestConfig) {
     let {url, method, params, data} = config;
-    // if ('/oauth/token' === url && typeof data === 'string') {
-    //     let str = data as string;
-    //     data = '{"' + str.replaceAll('&', '\",\"').replaceAll('=', '":"') + '"}' as string;
-    // }
-    // if (typeof data === 'string') {
-    //     data = JSON.parse(data);
-    // }
+    if ('/oauth/token' === url && typeof data === 'string') {
+        let str = data as string;
+        data = '{"' + str.replaceAll('&', '\",\"').replaceAll('=', '":"') + '"}' as string;
+    }
+    if (typeof data === 'string') {
+        data = JSON.parse(data);
+    }
 
     // response里面返回的config.data是个字符串对象
     return [url, method, JSON.stringify(params), JSON.stringify(data)].join('&');

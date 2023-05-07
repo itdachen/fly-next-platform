@@ -39,9 +39,7 @@
         <ele-Search/>
       </el-icon>
     </div>
-    <div class="layout-navbars-breadcrumb-user-icon" @click="onLayoutSetingClick">
-      <i class="icon-skin iconfont" :title="$t('message.user.title3')"></i>
-    </div>
+
     <div class="layout-navbars-breadcrumb-user-icon" ref="userNewsBadgeRef" v-click-outside="onUserNewsClick">
       <el-badge :is-dot="true">
         <el-icon :title="$t('message.user.title4')">
@@ -85,6 +83,9 @@
       </template>
     </el-dropdown>
     <Search ref="searchRef"/>
+    <div class="layout-navbars-breadcrumb-user-icon" @click="onLayoutSetingClick">
+      <i class="icon-skin iconfont" :title="$t('message.user.title3')"></i>
+    </div>
   </div>
 </template>
 

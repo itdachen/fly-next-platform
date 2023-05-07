@@ -33,7 +33,8 @@
     </sql>
 
     <!-- 集合查询 -->
-    <select id="page" parameterType="com.github.itdachen.admin.sdk.query.AppClientQuery" resultMap="appClientMap">
+    <select id="page" parameterType="com.github.itdachen.admin.sdk.query.AppClientQuery"
+            resultMap="appClientMap">
         <include refid="selectAppClientVo"/>
         <where>
             <if test="null != appCode  and '' != appCode ">

@@ -1,301 +1,278 @@
 <template>
-	<div class="table-container">
-		<el-table
-			:data="data"
-			:border="setBorder"
-			v-bind="$attrs"
-			row-key="id"
-			stripe
-			style="width: 100%"
-			v-loading="config.loading"
-			@selection-change="onSelectionChange"
-		>
-			<el-table-column type="selection" :reserve-selection="true" width="30" v-if="config.isSelection" />
-			<el-table-column type="index" label="序号" width="60" v-if="config.isSerialNo" />
-			<el-table-column
-				v-for="(item, index) in setHeader"
-				:key="index"
-				show-overflow-tooltip
-				:prop="item.key"
-				:width="item.colWidth"
-				:label="item.title"
-			>
-				<template v-slot="scope">
-					<template v-if="item.type === 'image'">
-						<el-image
-							:style="{ width: `${item.width}px`, height: `${item.height}px` }"
-							:src="scope.row[item.key]"
-							:zoom-rate="1.2"
-							:preview-src-list="[scope.row[item.key]]"
-							preview-teleported
-							fit="cover"
-						/>
-					</template>
-					<template v-else>
-						{{ scope.row[item.key] }}
-					</template>
-				</template>
-			</el-table-column>
-			<el-table-column label="操作" width="100" v-if="config.isOperate">
-				<template v-slot="scope">
-					<el-popconfirm title="确定删除吗？" @confirm="onDelRow(scope.row)">
-						<template #reference>
-							<el-button text type="primary">删除</el-button>
-						</template>
-					</el-popconfirm>
-				</template>
-			</el-table-column>
-			<template #empty>
-				<el-empty description="暂无数据" />
-			</template>
-		</el-table>
-		<div class="table-footer mt15">
-			<el-pagination
-				v-model:current-page="state.page.pageNum"
-				v-model:page-size="state.page.pageSize"
-				:pager-count="5"
-				:page-sizes="[10, 20, 30]"
-				:total="config.total"
-				layout="total, sizes, prev, pager, next, jumper"
-				background
-				@size-change="onHandleSizeChange"
-				@current-change="onHandleCurrentChange"
-			>
-			</el-pagination>
-			<div class="table-footer-tool">
-				<SvgIcon name="iconfont icon-dayin" :size="19" title="打印" @click="onPrintTable" />
-				<SvgIcon name="iconfont icon-yunxiazai_o" :size="22" title="导出" @click="onImportTable" />
-				<SvgIcon name="iconfont icon-shuaxin" :size="22" title="刷新" @click="onRefreshTable" />
-				<el-popover
-					placement="top-end"
-					trigger="click"
-					transition="el-zoom-in-top"
-					popper-class="table-tool-popper"
-					:width="300"
-					:persistent="false"
-					@show="onSetTable"
-				>
-					<template #reference>
-						<SvgIcon name="iconfont icon-quanjushezhi_o" :size="22" title="设置" />
-					</template>
-					<template #default>
-						<div class="tool-box">
-							<el-tooltip content="拖动进行排序" placement="top-start">
-								<SvgIcon name="fa fa-question-circle-o" :size="17" class="ml11" color="#909399" />
-							</el-tooltip>
-							<el-checkbox
-								v-model="state.checkListAll"
-								:indeterminate="state.checkListIndeterminate"
-								class="ml10 mr1"
-								label="列显示"
-								@change="onCheckAllChange"
-							/>
-							<el-checkbox v-model="getConfig.isSerialNo" class="ml12 mr1" label="序号" />
-							<el-checkbox v-model="getConfig.isSelection" class="ml12 mr1" label="多选" />
-						</div>
-						<el-scrollbar>
-							<div ref="toolSetRef" class="tool-sortable">
-								<div class="tool-sortable-item" v-for="v in header" :key="v.key" :data-key="v.key">
-									<i class="fa fa-arrows-alt handle cursor-pointer"></i>
-									<el-checkbox v-model="v.isCheck" size="default" class="ml12 mr8" :label="v.title" @change="onCheckChange" />
-								</div>
-							</div>
-						</el-scrollbar>
-					</template>
-				</el-popover>
-			</div>
-		</div>
-	</div>
+  <div class='table-box'>
+    <!-- 表格头部 操作按钮 -->
+    <div class='table-header'>
+      <div class='header-button-lf'>
+        <slot name='tableHeader' :ids='selectedListIds' :isSelected='isSelected'></slot>
+      </div>
+      <div class='header-button-ri' v-if='toolButton'>
+        <el-button round size='mini' :icon='Refresh' circle @click='reloadDate'></el-button>
+        <el-button round size='mini' :icon='Operation' circle @click='openColSetting'></el-button>
+      </div>
+    </div>
+
+    <!-- :height='height'  -->
+    <el-table fit='true'
+              max-height="570"
+              ref='tableRef'
+              :data='data.rows'
+              :border='border'
+              :default-expand-all='expandAll'
+              :row-key='rowKey'
+              :stripe='stripe'
+              :size="size"
+              @selection-change='selectionChange'
+              :tree-props='{ children: childrenName }'>
+
+      <template v-for='item in tableColumns' :key='item'>
+        <!-- selection || index -->
+        <el-table-column v-if="item.type === 'selection' || item.type === 'index'"
+                         :type='item.type'
+                         :reserve-selection="item.type === 'selection'"
+                         :label='item.label'
+                         :width='item.width'
+                         :align='item.align'
+                         :fixed='item.fixed'>
+        </el-table-column>
+        <!-- expand（展开查看详情，请使用作用域插槽） -->
+        <el-table-column v-if="item.type === 'expand'"
+                         :type='item.type'
+                         :label='item.label'
+                         :width='item.width'
+                         :align='item.align'
+                         :fixed='item.fixed'
+                         v-slot='scope'>
+          <slot :name='item.type' :row='scope.row'></slot>
+        </el-table-column>
+        <!-- other -->
+        <el-table-column v-if='!item.type && item.prop && item.isShow'
+                         :prop='item.prop'
+                         :label='item.label'
+                         :width='item.width'
+                         :align='item.align'
+                         :sortable='item.sortable'
+                         :show-overflow-tooltip="item.prop !== 'operation'"
+                         :resizable='true'
+                         :fixed='item.fixed'>
+          <!-- 自定义 header (使用组件渲染 tsx 语法) -->
+          <template #header v-if='item.renderHeader'>
+            <component :is='item.renderHeader' :row='item'></component>
+          </template>
+
+          <!-- 自定义配置每一列 slot（使用作用域插槽） -->
+          <template #default='scope'>
+            <slot :name='item.prop' :row='scope.row'>
+              <!-- 图片(自带预览) -->
+              <el-image v-if='item.image'
+                        :src='scope.row[item.prop!]'
+                        :preview-src-list='[scope.row[item.prop!]]'
+                        fit='cover'
+                        class='table-image'
+                        preview-teleported/>
+              <!-- tag 标签（自带格式化内容） -->
+              <el-tag v-else-if='item.tag' :type="filterEnum(scope.row[item.prop!],item.enum,'tag')">
+                {{
+                  item.enum?.length ? filterEnum(scope.row[item.prop!],item.enum): defaultFormat(0, 0, scope.row[item.prop!])
+                }}
+              </el-tag>
+              <!-- 文字（自带格式化内容） -->
+              <span v-else>
+								{{
+                  item.enum?.length ? filterEnum(scope.row[item.prop!],item.enum): defaultFormat(0, 0, scope.row[item.prop!])
+                }}
+							</span>
+            </slot>
+          </template>
+
+        </el-table-column>
+      </template>
+    </el-table>
+
+    <!--  分页 :hide-on-single-page="pagination"   class="mt15"   -->
+    <el-pagination v-if="pagination"
+                   @size-change="handleSizeChange"
+                   @current-change="handleCurrentChange"
+                   :pager-count="10"
+                   :page-sizes="[10,25,50,100]"
+                   prev-text="上一页"
+                   next-text="下一页"
+                   v-model:current-page="currentPage"
+                   :background="background"
+                   v-model:page-size="pageSize"
+                   :hide-on-single-page="hideOnSinglePage"
+                   :layout="layout"
+                   :total="data.total"></el-pagination>
+
+    <!-- 列设置 -->
+    <ColSetting v-if='toolButton' ref='colRef' :tableRef='tableRef' :colSetting='colSetting'></ColSetting>
+
+  </div>
 </template>
 
-<script setup lang="ts" name="netxTable">
-import { reactive, computed, nextTick, ref } from 'vue';
-import { ElMessage } from 'element-plus';
-import printJs from 'print-js';
-import table2excel from 'js-table2excel';
-import Sortable from 'sortablejs';
-import { storeToRefs } from 'pinia';
-import { useThemeConfig } from '/@/stores/themeConfig';
-import '/@/theme/tableTool.scss';
+<script setup lang='ts' name='proTable'>
+import {computed, ref} from 'vue';
+// import Pagination from './pagination/index.vue';
+import ColSetting from './coll/ColSetting.vue';
+import {ColumnProps} from '/@/components/table/interface';
+import {defaultFormat, filterEnum} from '/@/utils/util';
+import {Operation, Refresh} from '@element-plus/icons-vue';
 
-// 定义父组件传过来的值
-const props = defineProps({
-	// 列表内容
-	data: {
-		type: Array<EmptyObjectType>,
-		default: () => [],
-	},
-	// 表头内容
-	header: {
-		type: Array<EmptyObjectType>,
-		default: () => [],
-	},
-	// 配置项
-	config: {
-		type: Object,
-		default: () => {},
-	},
-	// 打印标题
-	printName: {
-		type: String,
-		default: () => '',
-	},
+interface ProTableProps {
+  columns: Partial<ColumnProps>[]; // 列配置项
+  data?: any; // 表格展示数据
+  border?: boolean; // 表格是否显示边框 ==> 非必传（默认为true）
+  stripe?: boolean; // 是否带斑马纹表格 ==> 非必传（默认为true）
+  childrenName?: string; // 当数据存在 children 时，指定 children key 名字 ==> 非必传（默认为"children"）
+  pagination?: boolean; // 是否展示分页, 默认展示
+  toolButton?: boolean; // 是否显示表格功能按钮 ==> 非必传（默认为true）
+  rowKey?: string;
+  expandAll?: boolean; // 树结构是否展开全部
+  height?: number;
+  size?: string,
+  hideOnSinglePage: boolean,
+  layout?: string
+}
+
+/**
+ * 接受父组件参数，配置默认值
+ */
+const props = withDefaults(defineProps<ProTableProps>(), {
+  columns: () => [],
+  data: {
+    type: Object,
+    default: {
+      total: 0,
+      rows: [],
+    },
+  },
+  border: false,
+  stripe: true,
+  pagination: true,
+  childrenName: 'children',
+  toolButton: true,
+  rowKey: 'id',
+  expandAll: false,
+  height: 570,
+  size: 'default',
+  background: false,
+  hideOnSinglePage: false,
+  layout: 'prev, pager,next, total, sizes, jumper'
 });
 
-// 定义子组件向父组件传值/事件
-const emit = defineEmits(['delRow', 'pageChange', 'sortHeader']);
+const currentPage = ref<number>(1);
+const pageSize = ref<number>(10);
 
-// 定义变量内容
-const toolSetRef = ref();
-const storesThemeConfig = useThemeConfig();
-const { themeConfig } = storeToRefs(storesThemeConfig);
-const state = reactive({
-	page: {
-		pageNum: 1,
-		pageSize: 10,
-	},
-	selectlist: [] as EmptyObjectType[],
-	checkListAll: true,
-	checkListIndeterminate: false,
+
+// 是否选中数据
+const isSelected = ref<boolean>(false);
+// 选中的数据列表
+const selectedList = ref([]);
+// 当前选中的所有ids(数组)
+const selectedListIds = computed((): string[] => {
+  let ids: string[] = [];
+  if (null === selectedList.value || undefined === selectedList.value || 0 === selectedList.value.length) {
+    return ids;
+  }
+  selectedList.value.forEach(item => {
+    ids.push(item['id']);
+  });
+  return ids;
 });
 
-// 设置边框显示/隐藏
-const setBorder = computed(() => {
-	return props.config.isBorder ? true : false;
-});
-// 获取父组件 配置项（必传）
-const getConfig = computed(() => {
-	return props.config;
-});
-// 设置 tool header 数据
-const setHeader = computed(() => {
-	return props.header.filter((v) => v.isCheck);
-});
-// tool 列显示全选改变时
-const onCheckAllChange = <T>(val: T) => {
-	if (val) props.header.forEach((v) => (v.isCheck = true));
-	else props.header.forEach((v) => (v.isCheck = false));
-	state.checkListIndeterminate = false;
-};
-// tool 列显示当前项改变时
-const onCheckChange = () => {
-	const headers = props.header.filter((v) => v.isCheck).length;
-	state.checkListAll = headers === props.header.length;
-	state.checkListIndeterminate = headers > 0 && headers < props.header.length;
-};
-// 表格多选改变时，用于导出
-const onSelectionChange = (val: EmptyObjectType[]) => {
-	state.selectlist = val;
-};
-// 删除当前项
-const onDelRow = (row: EmptyObjectType) => {
-	emit('delRow', row);
-};
-// 分页改变
-const onHandleSizeChange = (val: number) => {
-	state.page.pageSize = val;
-	emit('pageChange', state.page);
-};
-// 分页改变
-const onHandleCurrentChange = (val: number) => {
-	state.page.pageNum = val;
-	emit('pageChange', state.page);
-};
-// 搜索时，分页还原成默认
-const pageReset = () => {
-	state.page.pageNum = 1;
-	state.page.pageSize = 10;
-	emit('pageChange', state.page);
-};
-// 打印
-const onPrintTable = () => {
-	// https://printjs.crabbly.com/#documentation
-	// 自定义打印
-	let tableTh = '';
-	let tableTrTd = '';
-	let tableTd: any = {};
-	// 表头
-	props.header.forEach((v) => {
-		tableTh += `<th class="table-th">${v.title}</th>`;
-	});
-	// 表格内容
-	props.data.forEach((val, key) => {
-		if (!tableTd[key]) tableTd[key] = [];
-		props.header.forEach((v) => {
-			if (v.type === 'text') {
-				tableTd[key].push(`<td class="table-th table-center">${val[v.key]}</td>`);
-			} else if (v.type === 'image') {
-				tableTd[key].push(`<td class="table-th table-center"><img src="${val[v.key]}" style="width:${v.width}px;height:${v.height}px;"/></td>`);
-			}
-		});
-		tableTrTd += `<tr>${tableTd[key].join('')}</tr>`;
-	});
-	// 打印
-	printJs({
-		printable: `<div style=display:flex;flex-direction:column;text-align:center><h3>${props.printName}</h3></div><table border=1 cellspacing=0><tr>${tableTh}${tableTrTd}</table>`,
-		type: 'raw-html',
-		css: ['//at.alicdn.com/t/c/font_2298093_rnp72ifj3ba.css', '//unpkg.com/element-plus/dist/index.css'],
-		style: `@media print{.mb15{margin-bottom:15px;}.el-button--small i.iconfont{font-size: 12px !important;margin-right: 5px;}}; .table-th{word-break: break-all;white-space: pre-wrap;}.table-center{text-align: center;}`,
-	});
-};
-// 导出
-const onImportTable = () => {
-	if (state.selectlist.length <= 0) return ElMessage.warning('请先选择要导出的数据');
-	table2excel(props.header, state.selectlist, `${themeConfig.value.globalTitle} ${new Date().toLocaleString()}`);
-};
-// 刷新
-const onRefreshTable = () => {
-	emit('pageChange', state.page);
-};
-// 设置
-const onSetTable = () => {
-	nextTick(() => {
-		const sortable = Sortable.create(toolSetRef.value, {
-			handle: '.handle',
-			dataIdAttr: 'data-key',
-			animation: 150,
-			onEnd: () => {
-				const headerList: EmptyObjectType[] = [];
-				sortable.toArray().forEach((val: string) => {
-					props.header.forEach((v) => {
-						if (v.key === val) headerList.push({ ...v });
-					});
-				});
-				emit('sortHeader', headerList);
-			},
-		});
-	});
+/* 重置复选框选中的 ids */
+const resetIds = () => {
+  selectionChange([]);
 };
 
-// 暴露变量
-defineExpose({
-	pageReset,
+const selectionChange = (rowArr: any) => {
+  rowArr.length === 0 ? (isSelected.value = false) : (isSelected.value = true);
+  selectedList.value = rowArr;
+};
+
+/**
+ * 修改每页展示多少条
+ * @param val 需要展示的条数
+ */
+const handleSizeChange = (val: number) => {
+  pageSize.value = val;
+  currentPage.value = 1;
+  searchFunction(currentPage.value, val);
+};
+
+/**
+ * 上一页/下一页 按钮
+ * @param val 第多少页
+ */
+const handleCurrentChange = (val: number) => {
+  currentPage.value = val;
+  searchFunction(val, pageSize.value);
+};
+
+/**
+ * 重载数据
+ */
+const reloadDate = () => {
+  currentPage.value = 1;
+  searchFunction(currentPage.value, pageSize.value);
+};
+
+
+// 表格 DOM 元素
+const tableRef = ref();
+
+// 表格列配置项处理（添加 isShow 属性，控制显示/隐藏）
+const tableColumns = ref<Partial<ColumnProps>[]>();
+tableColumns.value = props.columns.map(item => {
+  return {
+    ...item,
+    isShow: true,
+  };
 });
+
+// * 列设置
+const colRef = ref();
+// 过滤掉不需要设置显隐的列
+const colSetting = tableColumns.value.filter((item: Partial<ColumnProps>) => {
+  return item.type !== 'selection' && item.type !== 'index' && item.type !== 'expand';
+});
+const openColSetting = () => {
+  colRef.value.openColSetting();
+};
+
+// 过滤需要搜索的配置项
+const searchColumns = props.columns.filter(item => item.search);
+
+const emits = defineEmits(['reloadDate']);
+
+/**
+ * 抛给组件调用(组件方主动调用)
+ */
+defineExpose({resetIds});
+
+/**
+ * 重新加载数据, 将方法抛给调用方(父组件被动调用, 好比是组件主动去调用父组件的方法)
+ * @param page   当前页
+ * @param limit  当前页展示多少条数据
+ */
+const searchFunction = (page: number = 1, limit: number = 10) => {
+  emits('reloadDate', page, limit);
+};
+
 </script>
 
-<style scoped lang="scss">
-.table-container {
-	display: flex;
-	flex-direction: column;
-	.el-table {
-		flex: 1;
-	}
-	.table-footer {
-		display: flex;
-		.table-footer-tool {
-			flex: 1;
-			display: flex;
-			align-items: center;
-			justify-content: flex-end;
-			i {
-				margin-right: 10px;
-				cursor: pointer;
-				color: var(--el-text-color-regular);
-				&:last-of-type {
-					margin-right: 0;
-				}
-			}
-		}
-	}
+<style lang='scss' scoped>
+.table-box .el-table {
+  flex: none;
 }
+
+.header-button-lf .el-form--inline .el-form-item {
+  vertical-align: super;
+  margin-bottom: 0 !important;
+}
+
+/* 表头颜色, 但是没有生效 */
+.el-table th.el-table__cell > .cell {
+  color: #909399 !important;
+}
+
 </style>

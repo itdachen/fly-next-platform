@@ -109,9 +109,9 @@
       white-space: nowrap;
     }
 
-    .el-table__row {
-      height: 52px;
-    }
+    //.el-table__row {
+    //  height: 52px;
+    //}
 
     // 解决表格空白样式不居中问题(仅在element-plus中)
     .el-table__empty-block {
@@ -129,7 +129,6 @@
   // 表格 pagination 样式
   .el-pagination {
     display: flex;
-    justify-content: flex-end;
     margin: 23px 0 10px;
   }
 }

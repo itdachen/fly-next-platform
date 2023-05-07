@@ -9,24 +9,6 @@ declare module 'axios' {
     }
 
     /**
-     * 后端请求返回数据类型
-     */
-    interface ServerResponse<T> {
-        success: boolean,
-        status: number,
-        msg: string,
-        data: T
-    }
-
-    /**
-     * table 表格返回数据
-     */
-    export interface TableData<T> {
-        total: number,
-        rows: T[]
-    }
-
-    /**
      * 数据请求格式
      */
     export enum ContentType {
