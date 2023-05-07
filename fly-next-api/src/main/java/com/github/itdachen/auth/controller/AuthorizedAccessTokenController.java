@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/oauth")
-public class AuthorizedController {
+public class AuthorizedAccessTokenController {
 
     private final IAuthorizedService authorizedService;
 
-    public AuthorizedController(IAuthorizedService authorizedService) {
+    public AuthorizedAccessTokenController(IAuthorizedService authorizedService) {
         this.authorizedService = authorizedService;
     }
     
