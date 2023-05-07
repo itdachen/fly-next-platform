@@ -1,10 +1,7 @@
 import useStringComposable from '/@/utils/string';
 import useTable from '/@/components/ProTable/TableComposables';
 import {DialogTypeEnum} from '/@/components/dialog/Dialog';
-import useAppClientBuilder, {
-    AppClient,
-    AppClientQuery
-} from '/@/api/admin/model/AppClientModel';
+import useAppClientBuilder, {AppClient, AppClientQuery} from '/@/api/admin/model/AppClientModel';
 import AppClientApi from '/@/api/admin/AppClientApi';
 
 const appClientApi = new AppClientApi();
@@ -17,7 +14,6 @@ const {
     tableDataVo,
     refAppClient
 } = useAppClientBuilder();
-
 
 /**
  * 应用管理 处理

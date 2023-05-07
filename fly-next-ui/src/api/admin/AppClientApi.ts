@@ -1,6 +1,6 @@
 import {HttpRequest} from '/@/axios/rest/HttpRequest';
 import {AppClient, AppClientQuery} from '/@/api/admin/model/AppClientModel';
-import {ServerResponse} from 'axios';
+import {ServerResponse} from '/@/hooks/biz/BizModel';
 
 /**
  * 请求路径

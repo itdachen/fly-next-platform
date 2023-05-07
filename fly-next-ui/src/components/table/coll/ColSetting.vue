@@ -20,7 +20,7 @@
 
 <script setup lang="ts" name="colSetting">
 import {ref} from "vue";
-import {ColumnProps} from "@/components/table/interface";
+import {ColumnProps} from "/@/components/table/interface";
 
 defineProps<{ colSetting: Partial<ColumnProps>[]; tableRef: any }>();
 

@@ -111,7 +111,6 @@
 
 <script setup lang='ts' name='proTable'>
 import {computed, ref} from 'vue';
-// import Pagination from './pagination/index.vue';
 import ColSetting from './coll/ColSetting.vue';
 import {ColumnProps} from '/@/components/table/interface';
 import {defaultFormat, filterEnum} from '/@/utils/util';

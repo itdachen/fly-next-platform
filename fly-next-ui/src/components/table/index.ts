@@ -1,7 +1,5 @@
 import {ElMessage} from 'element-plus'
 import {ElMessageBox} from 'element-plus'
-import {ColumnProps} from "/@/components/table/interface";
-
 
 /**
  * 消息提示封装

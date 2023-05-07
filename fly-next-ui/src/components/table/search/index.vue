@@ -22,7 +22,7 @@
 
 <script setup lang="ts" name="searchForm">
 import { ref, computed, onMounted } from "vue";
-import { ColumnProps } from "@/components/table/interface";
+import { ColumnProps } from "/@/components/table/interface";
 import SearchFormItem from "./components/SearchFormItem.vue";
 import { Delete, Search, ArrowDown, ArrowUp } from "@element-plus/icons-vue";
 

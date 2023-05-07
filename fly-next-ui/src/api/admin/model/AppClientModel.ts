@@ -52,6 +52,23 @@ export interface AppClient {
 export default function useAppClientBuilder() {
 
     /**
+     * 实例化查询数据对象
+     */
+    const queryParams = reactive<AppClientQuery>({
+        page: 1,
+        limit: 10,
+        appTitle: ''
+    });
+
+    /**
+     * 分页数据
+     */
+    const tableDataVo = reactive<TableData<AppClient>>({
+        total: 0,
+        rows: [],
+    });
+
+    /**
      * 实例化对象
      */
     const appClient = reactive<AppClient>({
@@ -109,23 +126,6 @@ export default function useAppClientBuilder() {
     ];
 
     /**
-     * 实例化查询数据对象
-     */
-    const queryParams = reactive<AppClientQuery>({
-        page: 1,
-        limit: 10,
-        appTitle: ''
-    });
-
-    /**
-     * 分页数据
-     */
-    const tableDataVo = reactive<TableData<AppClient>>({
-        total: 0,
-        rows: [],
-    });
-
-    /**
      *  新增/修改/查看 弹窗
      */
     const refAppClient = ref<{
@@ -134,10 +134,10 @@ export default function useAppClientBuilder() {
     }>();
 
     return {
-        appClient,
-        columns,
         queryParams,
         tableDataVo,
+        appClient,
+        columns,
         refAppClient
     }
 
