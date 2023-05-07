@@ -7,17 +7,27 @@
     <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.github.itdachen.admin.sdk.vo.DeptInfoVo" id="deptInfoMap">
         <result property="id" column="id"/>
+        <result property="tenantId" column="tenant_id"/>
         <result property="title" column="title"/>
         <result property="parentId" column="parent_id"/>
+        <result property="deptType" column="dept_type"/>
         <result property="remarks" column="remarks"/>
         <result property="isCanDel" column="is_can_del"/>
         <result property="personCharge" column="person_charge"/>
     </resultMap>
 
     <sql id="selectDeptInfoVo">
-        SELECT id, title, parent_id, remarks, is_can_del, person_charge
+        SELECT id,
+               tenant_id,
+               title,
+               parent_id,
+               dept_type,
+               remarks,
+               is_can_del,
+               person_charge
         FROM sys_dept_info
     </sql>
+
 
     <!-- 集合查询 -->
     <select id="page" parameterType="com.github.itdachen.admin.sdk.query.DeptInfoQuery" resultMap="deptInfoMap">
