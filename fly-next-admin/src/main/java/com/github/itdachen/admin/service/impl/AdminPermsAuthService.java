@@ -6,17 +6,13 @@ import com.github.itdachen.admin.mapper.IAuthenticationAuthorityMapper;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.constants.UserTypeConstant;
 import com.github.itdachen.framework.context.permission.PermissionInfo;
-import com.github.itdachen.security.context.SecurityContextHandler;
-import com.github.itdachen.security.user.LYearAdminMenu;
-import com.github.itdachen.security.user.LayuiAdminMenu;
-import com.github.itdachen.security.user.OkAdminMenu;
+import com.github.itdachen.admin.entity.LYearAdminMenu;
+import com.github.itdachen.admin.entity.LayuiAdminMenu;
+import com.github.itdachen.admin.entity.OkAdminMenu;
 import com.github.itdachen.admin.service.IPermsAuthWebService;
-import com.github.itdachen.security.user.PearAdminMenu;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Description: 获取菜单

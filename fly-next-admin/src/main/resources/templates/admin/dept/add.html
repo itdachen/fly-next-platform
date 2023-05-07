@@ -11,6 +11,20 @@
     <div class="layui-form-body">
         <div class="layui-form-item">
             <label class="layui-form-label">
+                <span class="required">*</span>部门类型
+            </label>
+            <div class="layui-input-block">
+                <select id="deptType" name="deptType" th:with="dicts=${@dict.data('dept_type')}">
+                    <option value="">请选择部门类型</option>
+                    <option th:each="dict : ${dicts}"
+                            th:text="${dict.label}"
+                            th:value="${dict.value}">
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
                 <span class="required">*</span>部门名称
             </label>
             <div class="layui-input-block">

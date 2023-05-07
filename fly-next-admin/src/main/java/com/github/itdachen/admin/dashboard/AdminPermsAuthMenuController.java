@@ -1,16 +1,17 @@
 package com.github.itdachen.admin.dashboard;
 
 import com.github.itdachen.admin.service.IPearAdminMenuWebService;
+import com.github.itdachen.admin.service.IRefreshAuthoritiesService;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.annotation.IgnoreResponseAdvice;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.core.response.ServerResponse;
 import com.github.itdachen.config.WebAppClientConfig;
-import com.github.itdachen.security.user.LYearAdminMenu;
-import com.github.itdachen.security.user.LayuiAdminMenu;
-import com.github.itdachen.security.user.OkAdminMenu;
+import com.github.itdachen.admin.entity.LYearAdminMenu;
+import com.github.itdachen.admin.entity.LayuiAdminMenu;
+import com.github.itdachen.admin.entity.OkAdminMenu;
 import com.github.itdachen.admin.service.IPermsAuthWebService;
-import com.github.itdachen.security.user.PearAdminMenu;
+import com.github.itdachen.admin.entity.PearAdminMenu;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,17 +30,20 @@ public class AdminPermsAuthMenuController {
     private final IPermsAuthWebService permsAuthService;
     private final WebAppClientConfig webAppClientConfig;
     private final IPearAdminMenuWebService pearAdminMenuWebService;
+    private final IRefreshAuthoritiesService refreshAuthoritiesService;
 
     public AdminPermsAuthMenuController(IPermsAuthWebService permsAuthService,
                                         WebAppClientConfig webAppClientConfig,
-                                        IPearAdminMenuWebService pearAdminMenuWebService) {
+                                        IPearAdminMenuWebService pearAdminMenuWebService,
+                                        IRefreshAuthoritiesService refreshAuthoritiesService) {
         this.permsAuthService = permsAuthService;
         this.webAppClientConfig = webAppClientConfig;
         this.pearAdminMenuWebService = pearAdminMenuWebService;
+        this.refreshAuthoritiesService = refreshAuthoritiesService;
     }
 
     /***
-     * layuiAdmin 界面菜单
+     * layui 界面菜单
      *
      * @author 王大宸
      * @date 2022/10/7 16:26
@@ -47,6 +51,7 @@ public class AdminPermsAuthMenuController {
      */
     @RequestMapping(value = "/perms/auth/menu")
     public ServerResponse<List<LayuiAdminMenu>> findPermsAuthMenu() throws BizException {
+        //  refreshAuthoritiesService.refreshAuthorities(webAppClientConfig.getId());
         return ServerResponse.okData(permsAuthService.findPermsAuthMenu(webAppClientConfig.getId(), BizContextHandler.getUserType(), BizContextHandler.getUserId()));
     }
 
@@ -60,6 +65,7 @@ public class AdminPermsAuthMenuController {
     @GetMapping("/perms/okadmin/menu")
     @IgnoreResponseAdvice
     public List<OkAdminMenu> findOkAdminPermsAuthMenu() throws BizException {
+        //  refreshAuthoritiesService.refreshAuthorities(webAppClientConfig.getId());
         return permsAuthService.getUserOkAdminMenu(webAppClientConfig.getId(), BizContextHandler.getUserType(), BizContextHandler.getUserId());
     }
 
@@ -72,6 +78,7 @@ public class AdminPermsAuthMenuController {
      */
     @GetMapping("/lyear/admin/menu")
     public ServerResponse<List<LYearAdminMenu>> findLYearAdminMenu() throws Exception {
+        //  refreshAuthoritiesService.refreshAuthorities(webAppClientConfig.getId());
         return ServerResponse.okData(permsAuthService.findLYearAdminMenu(webAppClientConfig.getId(),
                 BizContextHandler.getUserType(),
                 BizContextHandler.getUserId())
@@ -83,11 +90,12 @@ public class AdminPermsAuthMenuController {
      *
      * @author 王大宸
      * @date 2023/5/6 23:54
-     * @return com.github.itdachen.framework.core.response.ServerResponse<java.util.List < com.github.itdachen.security.user.PearAdminMenu>>
+     * @return com.github.itdachen.framework.core.response.ServerResponse<java.util.List < com.github.itdachen.admin.entity.PearAdminMenu>>
      */
     @GetMapping("/pear/admin/menu")
     @IgnoreResponseAdvice
     public List<PearAdminMenu> findPearAdminMenu(HttpServletRequest request) throws Exception {
+      //  refreshAuthoritiesService.refreshAuthorities(webAppClientConfig.getId());
         return pearAdminMenuWebService.findPearAdminMenu(request, webAppClientConfig.getId());
     }
 

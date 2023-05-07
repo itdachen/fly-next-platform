@@ -4,7 +4,7 @@ import com.github.itdachen.admin.mapper.IPearAdminMenuWebMapper;
 import com.github.itdachen.admin.service.IPearAdminMenuWebService;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.constants.UserTypeConstant;
-import com.github.itdachen.security.user.PearAdminMenu;
+import com.github.itdachen.admin.entity.PearAdminMenu;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 

@@ -83,8 +83,8 @@ public class DeptInfoServiceImpl extends BizServiceImpl<DeptInfo, DeptInfoDto, D
     @Override
     public DeptInfoVo update(DeptInfoDto deptInfoDto) throws Exception {
         DeptInfo deptInfo = bizConvert.toJavaObject(deptInfoDto);
-        DeptInfo dBdept = bizMapper.selectByPrimaryKey(deptInfo.getId());
-        if (YesOrNotConstant.NOT.equals(dBdept.getIsCanDel())) {
+        DeptInfo dbDept = bizMapper.selectByPrimaryKey(deptInfo.getId());
+        if (YesOrNotConstant.NOT.equals(dbDept.getIsCanDel())) {
             if (YesOrNotConstant.YES.equals(deptInfo.getIsCanDel())) {
                 throw new BizException("非法操作");
             }

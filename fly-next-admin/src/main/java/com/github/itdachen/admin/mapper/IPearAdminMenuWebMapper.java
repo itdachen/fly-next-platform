@@ -1,6 +1,6 @@
 package com.github.itdachen.admin.mapper;
 
-import com.github.itdachen.security.user.PearAdminMenu;
+import com.github.itdachen.admin.entity.PearAdminMenu;
 
 import java.util.List;
 

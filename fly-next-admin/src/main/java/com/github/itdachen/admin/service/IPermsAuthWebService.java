@@ -1,10 +1,9 @@
 package com.github.itdachen.admin.service;
 
 import com.github.itdachen.framework.context.permission.PermissionInfo;
-import com.github.itdachen.security.user.LYearAdminMenu;
-import com.github.itdachen.security.user.LayuiAdminMenu;
-import com.github.itdachen.security.user.OkAdminMenu;
-import com.github.itdachen.security.user.PearAdminMenu;
+import com.github.itdachen.admin.entity.LYearAdminMenu;
+import com.github.itdachen.admin.entity.LayuiAdminMenu;
+import com.github.itdachen.admin.entity.OkAdminMenu;
 
 import java.util.List;
 

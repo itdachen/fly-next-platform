@@ -1,6 +1,6 @@
 package com.github.itdachen.admin.service;
 
-import com.github.itdachen.security.user.PearAdminMenu;
+import com.github.itdachen.admin.entity.PearAdminMenu;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public interface IPearAdminMenuWebService {
      * @author 王大宸
      * @date 2023/5/6 23:55
      * @param client client
-     * @return java.util.List<com.github.itdachen.security.user.PearAdminMenu>
+     * @return java.util.List<com.github.itdachen.admin.entity.PearAdminMenu>
      */
     List<PearAdminMenu> findPearAdminMenu(HttpServletRequest request, String client) throws Exception;
 

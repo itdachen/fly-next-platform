@@ -23,14 +23,23 @@
     <select id="page" parameterType="com.github.itdachen.admin.sdk.query.DeptInfoQuery" resultMap="deptInfoMap">
         <include refid="selectDeptInfoVo"/>
         <where>
+            <if test="null != tenantId  and '' != tenantId ">
+                AND tenant_id = #{tenantId}
+            </if>
             <if test="null != title  and '' != title ">
                 AND title LIKE CONCAT(CONCAT('%',#{title}),'%')
             </if>
             <if test="null != parentId  and '' != parentId ">
                 AND parent_id = #{parentId}
             </if>
+            <if test="null != deptType  and '' != deptType ">
+                AND dept_type = #{deptType}
+            </if>
             <if test="null != isCanDel  and '' != isCanDel ">
                 AND is_can_del = #{isCanDel}
+            </if>
+            <if test="null != personCharge  and '' != personCharge ">
+                AND person_charge = #{personCharge}
             </if>
         </where>
         ORDER BY id DESC

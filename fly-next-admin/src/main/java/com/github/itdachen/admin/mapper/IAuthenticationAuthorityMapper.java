@@ -2,8 +2,8 @@ package com.github.itdachen.admin.mapper;
 
 import com.github.itdachen.admin.entity.PermsAuth;
 import com.github.itdachen.framework.context.permission.PermissionInfo;
-import com.github.itdachen.security.user.LayuiAdminMenu;
-import com.github.itdachen.security.user.OkAdminMenu;
+import com.github.itdachen.admin.entity.LayuiAdminMenu;
+import com.github.itdachen.admin.entity.OkAdminMenu;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;

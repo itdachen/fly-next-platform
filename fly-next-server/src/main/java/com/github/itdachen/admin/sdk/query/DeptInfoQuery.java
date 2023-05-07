@@ -17,24 +17,48 @@ import java.io.Serializable;
 public class DeptInfoQuery extends BizQuery implements Serializable {
     private static final long serialVersionUID = 1L;
 
-            /** 部门名称 */
-            private String title;
+    /**
+     * 租户标识
+     */
+    private String tenantId;
 
-            /** 上级id */
-            private String parentId;
+    /**
+     * 部门名称
+     */
+    private String title;
 
-            /** 是否可删除: 1-可删除;0-不可删 */
-            private String isCanDel;
+    /**
+     * 上级id
+     */
+    private String parentId;
+
+    /**
+     * 部门类型
+     */
+    private String deptType;
+
+    /**
+     * 是否可删除: 1-可删除;0-不可删
+     */
+    private String isCanDel;
+
+    /**
+     * 负责人
+     */
+    private String personCharge;
 
 
     public DeptInfoQuery() {
     }
 
-    public DeptInfoQuery(int page, int limit, String title, String parentId, String isCanDel) {
+    public DeptInfoQuery(int page, int limit, String tenantId, String title, String parentId, String deptType, String isCanDel, String personCharge) {
         super(page, limit);
-            this.title = title;
-            this.parentId = parentId;
-            this.isCanDel = isCanDel;
+        this.tenantId = tenantId;
+        this.title = title;
+        this.parentId = parentId;
+        this.deptType = deptType;
+        this.isCanDel = isCanDel;
+        this.personCharge = personCharge;
     }
 
     public static DeptInfoQueryBuilder builder() {
@@ -44,9 +68,12 @@ public class DeptInfoQuery extends BizQuery implements Serializable {
     public static class DeptInfoQueryBuilder {
         private Integer page = 1;
         private Integer limit = 10;
-            private String title;
-            private String parentId;
-            private String isCanDel;
+        private String tenantId;
+        private String title;
+        private String parentId;
+        private String deptType;
+        private String isCanDel;
+        private String personCharge;
 
         public DeptInfoQueryBuilder() {
         }
@@ -61,64 +88,110 @@ public class DeptInfoQuery extends BizQuery implements Serializable {
             return this;
         }
 
-            /* 部门名称 */
-            public DeptInfoQueryBuilder title(String title) {
-                this.title = title;
-                return this;
-            }
-            /* 上级id */
-            public DeptInfoQueryBuilder parentId(String parentId) {
-                this.parentId = parentId;
-                return this;
-            }
-            /* 是否可删除: 1-可删除;0-不可删 */
-            public DeptInfoQueryBuilder isCanDel(String isCanDel) {
-                this.isCanDel = isCanDel;
-                return this;
-            }
+        /* 租户标识 */
+        public DeptInfoQueryBuilder tenantId(String tenantId) {
+            this.tenantId = tenantId;
+            return this;
+        }
+
+        /* 部门名称 */
+        public DeptInfoQueryBuilder title(String title) {
+            this.title = title;
+            return this;
+        }
+
+        /* 上级id */
+        public DeptInfoQueryBuilder parentId(String parentId) {
+            this.parentId = parentId;
+            return this;
+        }
+
+        /* 部门类型 */
+        public DeptInfoQueryBuilder deptType(String deptType) {
+            this.deptType = deptType;
+            return this;
+        }
+
+        /* 是否可删除: 1-可删除;0-不可删 */
+        public DeptInfoQueryBuilder isCanDel(String isCanDel) {
+            this.isCanDel = isCanDel;
+            return this;
+        }
+
+        /* 负责人 */
+        public DeptInfoQueryBuilder personCharge(String personCharge) {
+            this.personCharge = personCharge;
+            return this;
+        }
 
         public DeptInfoQuery build() {
-            return new DeptInfoQuery(page, limit, title, parentId, isCanDel);
+            return new DeptInfoQuery(page, limit, tenantId, title, parentId, deptType, isCanDel, personCharge);
         }
 
     }
 
 
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
 
+    public String getTenantId() {
+        return tenantId;
+    }
 
-        public void setTitle(String title) {
-            this.title = title;
-        }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-        public String getTitle() {
-            return title;
-        }
+    public String getTitle() {
+        return title;
+    }
 
-        public void setParentId(String parentId) {
-            this.parentId = parentId;
-        }
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
 
-        public String getParentId() {
-            return parentId;
-        }
+    public String getParentId() {
+        return parentId;
+    }
 
-        public void setIsCanDel(String isCanDel) {
-            this.isCanDel = isCanDel;
-        }
+    public void setDeptType(String deptType) {
+        this.deptType = deptType;
+    }
 
-        public String getIsCanDel() {
-            return isCanDel;
-        }
+    public String getDeptType() {
+        return deptType;
+    }
+
+    public void setIsCanDel(String isCanDel) {
+        this.isCanDel = isCanDel;
+    }
+
+    public String getIsCanDel() {
+        return isCanDel;
+    }
+
+    public void setPersonCharge(String personCharge) {
+        this.personCharge = personCharge;
+    }
+
+    public String getPersonCharge() {
+        return personCharge;
+    }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-        .append("page", getPage())
-        .append("limit", getLimit())
-                    .append("title", getTitle())
-                    .append("parentId", getParentId())
-                    .append("isCanDel", getIsCanDel())
+                .append("page", getPage())
+                .append("limit", getLimit())
+                .append("tenantId", getTenantId())
+                .append("title", getTitle())
+                .append("parentId", getParentId())
+                .append("deptType", getDeptType())
+                .append("isCanDel", getIsCanDel())
+                .append("personCharge", getPersonCharge())
                 .toString();
     }
+
 
 }

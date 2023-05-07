@@ -1,4 +1,4 @@
-package com.github.itdachen.security.user;
+package com.github.itdachen.admin.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;

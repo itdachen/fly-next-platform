@@ -7,8 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
-    import java.time.LocalDateTime;
-
+import java.time.LocalDateTime;
 
 
 /**
@@ -18,85 +17,126 @@ import java.io.Serializable;
  * @date 2023-04-04 21:44:47
  */
 @Table(name = "sys_dept_info")
-public class DeptInfo implements Serializable{
-private static final long serialVersionUID=1L;
+public class DeptInfo implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    /** 主键唯一标识 */
+    /**
+     * 主键唯一标识
+     */
     @Id
     @Column(name = "id")
     private String id;
 
-    /** 部门名称 */
+    /**
+     * 租户标识
+     */
+    @Column(name = "tenant_id")
+    private String tenantId;
+
+    /**
+     * 部门名称
+     */
     @Column(name = "title")
     private String title;
 
-    /** 上级id */
+    /**
+     * 上级id
+     */
     @Column(name = "parent_id")
     private String parentId;
 
-    /** 备注 */
+    /**
+     * 部门类型
+     */
+    @Column(name = "dept_type")
+    private String deptType;
+
+    /**
+     * 备注
+     */
     @Column(name = "remarks")
     private String remarks;
 
-    /** 是否可删除: 1-可删除;0-不可删 */
+    /**
+     * 是否可删除: 1-可删除;0-不可删
+     */
     @Column(name = "is_can_del")
     private String isCanDel;
 
-    /** 负责人 */
+    /**
+     * 负责人
+     */
     @Column(name = "person_charge")
     private String personCharge;
 
-    /** 创建时间 */
+    /**
+     * 创建时间
+     */
     @Column(name = "create_time")
     private LocalDateTime createTime;
 
-    /** 创建人ID */
+    /**
+     * 创建人ID
+     */
     @Column(name = "create_user_id")
     private String createUserId;
 
-    /** 创建人 */
+    /**
+     * 创建人
+     */
     @Column(name = "create_user")
     private String createUser;
 
-    /** 更新时间 */
+    /**
+     * 更新时间
+     */
     @Column(name = "update_time")
     private LocalDateTime updateTime;
 
-    /** 更新人ID */
+    /**
+     * 更新人ID
+     */
     @Column(name = "update_user_id")
     private String updateUserId;
 
-    /** 更新人 */
+    /**
+     * 更新人
+     */
     @Column(name = "update_user")
     private String updateUser;
 
 
-public DeptInfo(){}
+    public DeptInfo() {
+    }
 
 
-public DeptInfo(    String id,     String title,     String parentId,     String remarks,     String isCanDel,     String personCharge,     LocalDateTime createTime,     String createUserId,     String createUser,     LocalDateTime updateTime,     String updateUserId,     String updateUser){
-            this.id = id;
-            this.title = title;
-            this.parentId = parentId;
-            this.remarks = remarks;
-            this.isCanDel = isCanDel;
-            this.personCharge = personCharge;
-            this.createTime = createTime;
-            this.createUserId = createUserId;
-            this.createUser = createUser;
-            this.updateTime = updateTime;
-            this.updateUserId = updateUserId;
-            this.updateUser = updateUser;
-}
+    public DeptInfo(String id, String tenantId, String title, String parentId, String deptType, String remarks, String isCanDel, String personCharge, LocalDateTime createTime, String createUserId, String createUser, LocalDateTime updateTime, String updateUserId, String updateUser) {
+        this.id = id;
+        this.tenantId = tenantId;
+        this.title = title;
+        this.parentId = parentId;
+        this.deptType = deptType;
+        this.remarks = remarks;
+        this.isCanDel = isCanDel;
+        this.personCharge = personCharge;
+        this.createTime = createTime;
+        this.createUserId = createUserId;
+        this.createUser = createUser;
+        this.updateTime = updateTime;
+        this.updateUserId = updateUserId;
+        this.updateUser = updateUser;
+    }
 
-public static DeptInfoBuilder builder(){
+    public static DeptInfoBuilder builder() {
         return new DeptInfoBuilder();
-        }
+    }
 
-public static class DeptInfoBuilder {
+    public static class DeptInfoBuilder {
         private String id;
+        private String tenantId;
         private String title;
         private String parentId;
+        private String deptType;
         private String remarks;
         private String isCanDel;
         private String personCharge;
@@ -107,203 +147,245 @@ public static class DeptInfoBuilder {
         private String updateUserId;
         private String updateUser;
 
-    public DeptInfoBuilder() {
-    }
+        public DeptInfoBuilder() {
+        }
 
         /* 主键唯一标识 */
         public DeptInfoBuilder id(String id) {
             this.id = id;
             return this;
         }
+
+        /* 租户标识 */
+        public DeptInfoBuilder tenantId(String tenantId) {
+            this.tenantId = tenantId;
+            return this;
+        }
+
         /* 部门名称 */
         public DeptInfoBuilder title(String title) {
             this.title = title;
             return this;
         }
+
         /* 上级id */
         public DeptInfoBuilder parentId(String parentId) {
             this.parentId = parentId;
             return this;
         }
+
+        /* 部门类型 */
+        public DeptInfoBuilder deptType(String deptType) {
+            this.deptType = deptType;
+            return this;
+        }
+
         /* 备注 */
         public DeptInfoBuilder remarks(String remarks) {
             this.remarks = remarks;
             return this;
         }
+
         /* 是否可删除: 1-可删除;0-不可删 */
         public DeptInfoBuilder isCanDel(String isCanDel) {
             this.isCanDel = isCanDel;
             return this;
         }
+
         /* 负责人 */
         public DeptInfoBuilder personCharge(String personCharge) {
             this.personCharge = personCharge;
             return this;
         }
+
         /* 创建时间 */
         public DeptInfoBuilder createTime(LocalDateTime createTime) {
             this.createTime = createTime;
             return this;
         }
+
         /* 创建人ID */
         public DeptInfoBuilder createUserId(String createUserId) {
             this.createUserId = createUserId;
             return this;
         }
+
         /* 创建人 */
         public DeptInfoBuilder createUser(String createUser) {
             this.createUser = createUser;
             return this;
         }
+
         /* 更新时间 */
         public DeptInfoBuilder updateTime(LocalDateTime updateTime) {
             this.updateTime = updateTime;
             return this;
         }
+
         /* 更新人ID */
         public DeptInfoBuilder updateUserId(String updateUserId) {
             this.updateUserId = updateUserId;
             return this;
         }
+
         /* 更新人 */
         public DeptInfoBuilder updateUser(String updateUser) {
             this.updateUser = updateUser;
             return this;
         }
 
-    public DeptInfo build() {
-        return new DeptInfo(            id, 
-            title, 
-            parentId, 
-            remarks, 
-            isCanDel, 
-            personCharge, 
-            createTime, 
-            createUserId, 
-            createUser, 
-            updateTime, 
-            updateUserId, 
-            updateUser
-);
+        public DeptInfo build() {
+            return new DeptInfo(id,
+                    tenantId,
+                    title,
+                    parentId,
+                    deptType,
+                    remarks,
+                    isCanDel,
+                    personCharge,
+                    createTime,
+                    createUserId,
+                    createUser,
+                    updateTime,
+                    updateUserId,
+                    updateUser
+            );
+        }
+
     }
 
-}
 
+    public void setId(String id) {
+        this.id = id;
+    }
 
-            public void setId(String id) {
-                this.id = id;
-            }
+    public String getId() {
+        return id;
+    }
 
-            public String getId() {
-                return id;
-            }
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
 
-            public void setTitle(String title) {
-                this.title = title;
-            }
+    public String getTenantId() {
+        return tenantId;
+    }
 
-            public String getTitle() {
-                return title;
-            }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-            public void setParentId(String parentId) {
-                this.parentId = parentId;
-            }
+    public String getTitle() {
+        return title;
+    }
 
-            public String getParentId() {
-                return parentId;
-            }
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
 
-            public void setRemarks(String remarks) {
-                this.remarks = remarks;
-            }
+    public String getParentId() {
+        return parentId;
+    }
 
-            public String getRemarks() {
-                return remarks;
-            }
+    public void setDeptType(String deptType) {
+        this.deptType = deptType;
+    }
 
-            public void setIsCanDel(String isCanDel) {
-                this.isCanDel = isCanDel;
-            }
+    public String getDeptType() {
+        return deptType;
+    }
 
-            public String getIsCanDel() {
-                return isCanDel;
-            }
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
 
-            public void setPersonCharge(String personCharge) {
-                this.personCharge = personCharge;
-            }
+    public String getRemarks() {
+        return remarks;
+    }
 
-            public String getPersonCharge() {
-                return personCharge;
-            }
+    public void setIsCanDel(String isCanDel) {
+        this.isCanDel = isCanDel;
+    }
 
-            public void setCreateTime(LocalDateTime createTime) {
-                this.createTime = createTime;
-            }
+    public String getIsCanDel() {
+        return isCanDel;
+    }
 
-            public LocalDateTime getCreateTime() {
-                return createTime;
-            }
+    public void setPersonCharge(String personCharge) {
+        this.personCharge = personCharge;
+    }
 
-            public void setCreateUserId(String createUserId) {
-                this.createUserId = createUserId;
-            }
+    public String getPersonCharge() {
+        return personCharge;
+    }
 
-            public String getCreateUserId() {
-                return createUserId;
-            }
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
 
-            public void setCreateUser(String createUser) {
-                this.createUser = createUser;
-            }
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
 
-            public String getCreateUser() {
-                return createUser;
-            }
+    public void setCreateUserId(String createUserId) {
+        this.createUserId = createUserId;
+    }
 
-            public void setUpdateTime(LocalDateTime updateTime) {
-                this.updateTime = updateTime;
-            }
+    public String getCreateUserId() {
+        return createUserId;
+    }
 
-            public LocalDateTime getUpdateTime() {
-                return updateTime;
-            }
+    public void setCreateUser(String createUser) {
+        this.createUser = createUser;
+    }
 
-            public void setUpdateUserId(String updateUserId) {
-                this.updateUserId = updateUserId;
-            }
+    public String getCreateUser() {
+        return createUser;
+    }
 
-            public String getUpdateUserId() {
-                return updateUserId;
-            }
+    public void setUpdateTime(LocalDateTime updateTime) {
+        this.updateTime = updateTime;
+    }
 
-            public void setUpdateUser(String updateUser) {
-                this.updateUser = updateUser;
-            }
+    public LocalDateTime getUpdateTime() {
+        return updateTime;
+    }
 
-            public String getUpdateUser() {
-                return updateUser;
-            }
+    public void setUpdateUserId(String updateUserId) {
+        this.updateUserId = updateUserId;
+    }
+
+    public String getUpdateUserId() {
+        return updateUserId;
+    }
+
+    public void setUpdateUser(String updateUser) {
+        this.updateUser = updateUser;
+    }
+
+    public String getUpdateUser() {
+        return updateUser;
+    }
 
 
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                    .append("id", getId())
-                    .append("title", getTitle())
-                    .append("parentId", getParentId())
-                    .append("remarks", getRemarks())
-                    .append("isCanDel", getIsCanDel())
-                    .append("personCharge", getPersonCharge())
-                    .append("createTime", getCreateTime())
-                    .append("createUserId", getCreateUserId())
-                    .append("createUser", getCreateUser())
-                    .append("updateTime", getUpdateTime())
-                    .append("updateUserId", getUpdateUserId())
-                    .append("updateUser", getUpdateUser())
+                .append("id", getId())
+                .append("tenantId", getTenantId())
+                .append("title", getTitle())
+                .append("parentId", getParentId())
+                .append("deptType", getDeptType())
+                .append("remarks", getRemarks())
+                .append("isCanDel", getIsCanDel())
+                .append("personCharge", getPersonCharge())
+                .append("createTime", getCreateTime())
+                .append("createUserId", getCreateUserId())
+                .append("createUser", getCreateUser())
+                .append("updateTime", getUpdateTime())
+                .append("updateUserId", getUpdateUserId())
+                .append("updateUser", getUpdateUser())
                 .toString();
     }
-
 
 }

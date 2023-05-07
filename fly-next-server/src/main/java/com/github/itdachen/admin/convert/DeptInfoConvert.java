@@ -19,8 +19,10 @@ public class DeptInfoConvert extends BizConvert<DeptInfo, DeptInfoDto, DeptInfoV
         }
         DeptInfo deptInfo = new DeptInfo();
         deptInfo.setId(deptInfoDto.getId());
+        deptInfo.setTenantId(deptInfoDto.getTenantId());
         deptInfo.setTitle(deptInfoDto.getTitle());
         deptInfo.setParentId(deptInfoDto.getParentId());
+        deptInfo.setDeptType(deptInfoDto.getDeptType());
         deptInfo.setRemarks(deptInfoDto.getRemarks());
         deptInfo.setIsCanDel(deptInfoDto.getIsCanDel());
         deptInfo.setPersonCharge(deptInfoDto.getPersonCharge());
@@ -35,36 +37,42 @@ public class DeptInfoConvert extends BizConvert<DeptInfo, DeptInfoDto, DeptInfoV
         }
         DeptInfoVo deptInfoVo = new DeptInfoVo();
         deptInfoVo.setId(deptInfo.getId());
+        deptInfoVo.setTenantId(deptInfo.getTenantId());
         deptInfoVo.setTitle(deptInfo.getTitle());
         deptInfoVo.setParentId(deptInfo.getParentId());
+        deptInfoVo.setDeptType(deptInfo.getDeptType());
         deptInfoVo.setRemarks(deptInfo.getRemarks());
         deptInfoVo.setIsCanDel(deptInfo.getIsCanDel());
         deptInfoVo.setPersonCharge(deptInfo.getPersonCharge());
         return deptInfoVo;
     }
 
-    public static DeptInfo toJavaObject(DeptInfoVo deptInfoVo) {
+    public DeptInfo toJavaObject(DeptInfoVo deptInfoVo) {
         if (null == deptInfoVo){
             return null;
         }
         DeptInfo deptInfo = new DeptInfo();
         deptInfo.setId(deptInfoVo.getId());
+        deptInfo.setTenantId(deptInfoVo.getTenantId());
         deptInfo.setTitle(deptInfoVo.getTitle());
         deptInfo.setParentId(deptInfoVo.getParentId());
+        deptInfo.setDeptType(deptInfoVo.getDeptType());
         deptInfo.setRemarks(deptInfoVo.getRemarks());
         deptInfo.setIsCanDel(deptInfoVo.getIsCanDel());
         deptInfo.setPersonCharge(deptInfoVo.getPersonCharge());
         return deptInfo;
     }
 
-    public static DeptInfoVo toJavaObjectVo(DeptInfoDto deptInfoDto) {
+    public DeptInfoVo toJavaObjectVo(DeptInfoDto deptInfoDto) {
         if (null == deptInfoDto){
             return null;
         }
         DeptInfoVo deptInfoVo = new DeptInfoVo();
         deptInfoVo.setId(deptInfoDto.getId());
+        deptInfoVo.setTenantId(deptInfoDto.getTenantId());
         deptInfoVo.setTitle(deptInfoDto.getTitle());
         deptInfoVo.setParentId(deptInfoDto.getParentId());
+        deptInfoVo.setDeptType(deptInfoDto.getDeptType());
         deptInfoVo.setRemarks(deptInfoDto.getRemarks());
         deptInfoVo.setIsCanDel(deptInfoDto.getIsCanDel());
         deptInfoVo.setPersonCharge(deptInfoDto.getPersonCharge());

@@ -5,7 +5,7 @@
 <mapper namespace="com.github.itdachen.admin.mapper.IPearAdminMenuWebMapper">
 
     <select id="findMenuAll" parameterType="java.lang.String"
-            resultType="com.github.itdachen.security.user.PearAdminMenu">
+            resultType="com.github.itdachen.admin.entity.PearAdminMenu">
         SELECT id,
                title,
                CONCAT('layui-icon ', icon)              AS icon,
@@ -18,7 +18,7 @@
     </select>
 
     <select id="findChildrenMenu" parameterType="java.lang.String"
-            resultType="com.github.itdachen.security.user.PearAdminMenu">
+            resultType="com.github.itdachen.admin.entity.PearAdminMenu">
         SELECT DISTINCT a.id, a.title, a.path AS href,
         CONCAT('layui-icon ', a.icon) AS icon,
         IF(a.type ='menu',1,0) AS type,
