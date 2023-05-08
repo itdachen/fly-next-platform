@@ -89,10 +89,10 @@ public interface ITableInfoService {
      * @author 王大宸
      * @date 2023/4/11 21:05
      * @param tableName tableName
- * @param uiStyle uiStyle
+     * @param uiStyle uiStyle
      * @return void
      */
-    void importGenTable(String tableName, String uiStyle) throws BizException;
+    void importGenTable(String tableName, String clientId, String uiStyle) throws BizException;
 
     /***
      * 生成代码
@@ -102,7 +102,7 @@ public interface ITableInfoService {
      * @param tableNames tableNames
      * @return byte[]
      */
-   void downloadCode(String[] tableNames, HttpServletResponse response)throws Exception ;
+    void downloadCode(String[] tableNames, HttpServletResponse response) throws Exception;
 
     /***
      * 预览代码
@@ -149,7 +149,7 @@ public interface ITableInfoService {
      * @param tableColumn tableColumn
      * @return com.github.itdachen.framework.code.entity.TableColumn
      */
-    TableColumn saveTableColumn(TableColumn tableColumn)throws BizException;
+    TableColumn saveTableColumn(TableColumn tableColumn) throws BizException;
 
     /***
      * 新增表
@@ -159,7 +159,7 @@ public interface ITableInfoService {
      * @param tableInfo tableInfo
      * @return com.github.itdachen.framework.code.entity.TableInfo
      */
-    TableInfo saveTable(TableInfo tableInfo)throws BizException;
+    TableInfo saveTable(TableInfo tableInfo) throws BizException;
 
 
 }

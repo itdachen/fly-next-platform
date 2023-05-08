@@ -13,6 +13,7 @@
         <result property="columnType" column="column_type"/>
         <result property="javaType" column="java_type"/>
         <result property="javaField" column="java_field"/>
+        <result property="tsType" column="ts_type"/>
         <result property="isPk" column="is_pk"/>
         <result property="isDtoVo" column="is_dto_vo"/>
         <result property="isRequired" column="is_required"/>
@@ -34,6 +35,7 @@
                column_type,
                java_type,
                java_field,
+               ts_type,
                is_pk,
                is_dto_vo,
                is_required,
@@ -89,6 +91,7 @@
             <if test="null != columnType  and '' != columnType ">column_type,</if>
             <if test="null != javaType  and '' != javaType ">java_type,</if>
             <if test="null != javaField  and '' != javaField ">java_field,</if>
+            <if test="null != tsType  and '' != tsType ">ts_type,</if>
             <if test="null != isPk  and '' != isPk ">is_pk,</if>
             <if test="null != isDtoVo  and '' != isDtoVo ">is_dto_vo,</if>
             <if test="null != isRequired  and '' != isRequired ">is_required,</if>
@@ -114,6 +117,7 @@
             <if test="null != columnType  and '' != columnType">#{columnType},</if>
             <if test="null != javaType  and '' != javaType">#{javaType},</if>
             <if test="null != javaField  and '' != javaField">#{javaField},</if>
+            <if test="null != tsType  and '' != tsType ">#{tsType},</if>
             <if test="null != isPk  and '' != isPk">#{isPk},</if>
             <if test="null != isDtoVo  and '' != isDtoVo">#{isDtoVo},</if>
             <if test="null != isRequired  and '' != isRequired">#{isRequired},</if>
@@ -142,6 +146,7 @@
             <if test="null != columnType  and '' !=  columnType ">column_type = #{columnType},</if>
             <if test="null != javaType  and '' !=  javaType ">java_type = #{javaType},</if>
             <if test="null != javaField  and '' !=  javaField ">java_field = #{javaField},</if>
+            <if test="null != tsType  and '' != tsType ">ts_type = #{tsType},</if>
             <if test="null != isPk  and '' !=  isPk ">is_pk = #{isPk},</if>
             <if test="null != isDtoVo  and '' !=  isDtoVo ">is_dto_vo = #{isDtoVo},</if>
             <if test="null != isRequired  and '' !=  isRequired ">is_required = #{isRequired},</if>

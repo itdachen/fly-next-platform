@@ -35,6 +35,7 @@ import java.util.Map;
 @RequestMapping("/tools/table/info")
 public class TableInfoController {
     private static final Logger logger = LoggerFactory.getLogger(TableInfoController.class);
+    private static final String CLIENT_ID = "web_app";
     private static final String PATH_PREFIX = "tools/code";
 
     private final ITableInfoService tableInfoService;
@@ -212,7 +213,7 @@ public class TableInfoController {
     @PostMapping(value = "/import/db")
     @ResponseBody
     public ServerResponse<ProtoTable> importGenTable(@RequestParam String tableNames) throws BizException {
-        tableInfoService.importGenTable(tableNames, UiStyleConstant.LAY_UI);
+        tableInfoService.importGenTable(tableNames, CLIENT_ID, UiStyleConstant.LAY_UI);
         return ServerResponse.ok();
     }
 
@@ -278,7 +279,7 @@ public class TableInfoController {
      *
      * @author 王大宸
      * @date 2023/4/11 21:04
-     * @return com.github.itdachen.framework.core.response.ServerResponse<java.util.List<com.github.itdachen.framework.assets.tree.ZTreeNode>>
+     * @return com.github.itdachen.framework.core.response.ServerResponse<java.util.List < com.github.itdachen.framework.assets.tree.ZTreeNode>>
      */
     @GetMapping("/app/list")
     @ResponseBody
@@ -313,9 +314,9 @@ public class TableInfoController {
     @ResponseBody
     public ServerResponse<TableInfo> saveTable(@RequestBody TableInfo tableInfo) throws BizException {
         tableInfo.setUiStyle(UiStyleConstant.LAY_UI);
+        tableInfo.setClientId(CLIENT_ID);
         return ServerResponse.okData(tableInfoService.saveTable(tableInfo));
     }
-
 
 
 }

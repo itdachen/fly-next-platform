@@ -153,7 +153,7 @@ public class TableInfoServiceImpl implements ITableInfoService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void importGenTable(String tableNames, String uiStyle) throws BizException {
+    public void importGenTable(String tableNames, String clientId, String uiStyle) throws BizException {
         if (null == tableNames) {
             throw new BizException("请选择表");
         }
@@ -169,7 +169,7 @@ public class TableInfoServiceImpl implements ITableInfoService {
         for (ProtoTable protoTable : tableList) {
             protoTable.setColumns(tableInfoMapper.findTableColumns(protoTable.getTableName()));
         }
-        ProtoTableInfo protoTableInfo = TableColumnFieldUtils.pottingTableInfo(tableList, uiStyle);
+        ProtoTableInfo protoTableInfo = TableColumnFieldUtils.pottingTableInfo(tableList, clientId, uiStyle);
         if (0 < protoTableInfo.getTableInfos().size()) {
             tableInfoMapper.batchSave(protoTableInfo.getTableInfos());
         }
