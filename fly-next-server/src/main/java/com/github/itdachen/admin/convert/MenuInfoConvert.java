@@ -14,7 +14,7 @@ public class MenuInfoConvert extends BizConvert<MenuInfo, MenuInfoDto, MenuInfoV
 
     @Override
     public MenuInfo toJavaObject(MenuInfoDto menuInfoDto) {
-        if (null == menuInfoDto){
+        if (null == menuInfoDto) {
             return null;
         }
         MenuInfo menuInfo = new MenuInfo();
@@ -26,6 +26,8 @@ public class MenuInfoConvert extends BizConvert<MenuInfo, MenuInfoDto, MenuInfoV
         menuInfo.setPath(menuInfoDto.getPath());
         menuInfo.setRedirect(menuInfoDto.getRedirect());
         menuInfo.setIcon(menuInfoDto.getIcon());
+        menuInfo.setElementIcon(menuInfoDto.getElementIcon());
+        menuInfo.setLayuiIcon(menuInfoDto.getLayuiIcon());
         menuInfo.setType(menuInfoDto.getType());
         menuInfo.setOrderNum(menuInfoDto.getOrderNum());
         menuInfo.setVisible(menuInfoDto.getVisible());
@@ -42,7 +44,7 @@ public class MenuInfoConvert extends BizConvert<MenuInfo, MenuInfoDto, MenuInfoV
 
     @Override
     public MenuInfoVo toJavaObjectVo(MenuInfo menuInfo) {
-        if (null == menuInfo){
+        if (null == menuInfo) {
             return null;
         }
         MenuInfoVo menuInfoVo = new MenuInfoVo();
@@ -54,6 +56,8 @@ public class MenuInfoConvert extends BizConvert<MenuInfo, MenuInfoDto, MenuInfoV
         menuInfoVo.setPath(menuInfo.getPath());
         menuInfoVo.setRedirect(menuInfo.getRedirect());
         menuInfoVo.setIcon(menuInfo.getIcon());
+        menuInfoVo.setElementIcon(menuInfo.getElementIcon());
+        menuInfoVo.setLayuiIcon(menuInfo.getLayuiIcon());
         menuInfoVo.setType(menuInfo.getType());
         menuInfoVo.setOrderNum(menuInfo.getOrderNum());
         menuInfoVo.setVisible(menuInfo.getVisible());
@@ -67,8 +71,8 @@ public class MenuInfoConvert extends BizConvert<MenuInfo, MenuInfoDto, MenuInfoV
         return menuInfoVo;
     }
 
-    public static MenuInfo toJavaObject(MenuInfoVo menuInfoVo) {
-        if (null == menuInfoVo){
+    public MenuInfo toJavaObject(MenuInfoVo menuInfoVo) {
+        if (null == menuInfoVo) {
             return null;
         }
         MenuInfo menuInfo = new MenuInfo();
@@ -80,6 +84,8 @@ public class MenuInfoConvert extends BizConvert<MenuInfo, MenuInfoDto, MenuInfoV
         menuInfo.setPath(menuInfoVo.getPath());
         menuInfo.setRedirect(menuInfoVo.getRedirect());
         menuInfo.setIcon(menuInfoVo.getIcon());
+        menuInfo.setElementIcon(menuInfoVo.getElementIcon());
+        menuInfo.setLayuiIcon(menuInfoVo.getLayuiIcon());
         menuInfo.setType(menuInfoVo.getType());
         menuInfo.setOrderNum(menuInfoVo.getOrderNum());
         menuInfo.setVisible(menuInfoVo.getVisible());
@@ -93,8 +99,8 @@ public class MenuInfoConvert extends BizConvert<MenuInfo, MenuInfoDto, MenuInfoV
         return menuInfo;
     }
 
-    public static MenuInfoVo toJavaObjectVo(MenuInfoDto menuInfoDto) {
-        if (null == menuInfoDto){
+    public MenuInfoVo toJavaObjectVo(MenuInfoDto menuInfoDto) {
+        if (null == menuInfoDto) {
             return null;
         }
         MenuInfoVo menuInfoVo = new MenuInfoVo();
@@ -106,6 +112,8 @@ public class MenuInfoConvert extends BizConvert<MenuInfo, MenuInfoDto, MenuInfoV
         menuInfoVo.setPath(menuInfoDto.getPath());
         menuInfoVo.setRedirect(menuInfoDto.getRedirect());
         menuInfoVo.setIcon(menuInfoDto.getIcon());
+        menuInfoVo.setElementIcon(menuInfoDto.getElementIcon());
+        menuInfoVo.setLayuiIcon(menuInfoDto.getLayuiIcon());
         menuInfoVo.setType(menuInfoDto.getType());
         menuInfoVo.setOrderNum(menuInfoDto.getOrderNum());
         menuInfoVo.setVisible(menuInfoDto.getVisible());

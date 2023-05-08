@@ -93,6 +93,21 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							icon: 'iconfont icon-caidan',
 						},
 					},
+                    {
+                        path: '/admin/menu',
+                        name: 'MenuInfo',
+                        component: () => import('/@/views/admin/menu/index.vue'),
+                        meta: {
+                            title: '菜单管理',
+                            isLink: '',
+                            isHide: false,
+                            isKeepAlive: true,
+                            isAffix: false,
+                            isIframe: false,
+                            roles: ['admin'],
+                            icon: 'iconfont icon-caidan',
+                        },
+                    },
 				]
             },
 

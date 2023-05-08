@@ -50,9 +50,17 @@ private static final long serialVersionUID=1L;
     @Column(name = "redirect")
     private String redirect;
 
-    /** 图标 */
+    /** Layui图标(JQ) */
     @Column(name = "icon")
     private String icon;
+
+    /** ElementUI图标 */
+    @Column(name = "element_icon")
+    private String elementIcon;
+
+    /** LayuiUIVue图标 */
+    @Column(name = "layui_icon")
+    private String layuiIcon;
 
     /** 类型:dirt-目录;menu-菜单;uri-外链 */
     @Column(name = "type")
@@ -119,41 +127,43 @@ private static final long serialVersionUID=1L;
     private String updateUserId;
 
 
-public MenuInfo(){}
+    public MenuInfo(){}
 
 
-public MenuInfo(    String id,     String code,     String title,     String clientId,     String parentId,     String path,     String redirect,     String icon,     String type,     Integer orderNum,     String visible,     String name,     String component,     String link,     String affix,     String iframe,     String keepAlive,     String remarks,     LocalDateTime createTime,     String createUser,     String createUserId,     LocalDateTime updateTime,     String updateUser,     String updateUserId){
-            this.id = id;
-            this.code = code;
-            this.title = title;
-            this.clientId = clientId;
-            this.parentId = parentId;
-            this.path = path;
-            this.redirect = redirect;
-            this.icon = icon;
-            this.type = type;
-            this.orderNum = orderNum;
-            this.visible = visible;
-            this.name = name;
-            this.component = component;
-            this.link = link;
-            this.affix = affix;
-            this.iframe = iframe;
-            this.keepAlive = keepAlive;
-            this.remarks = remarks;
-            this.createTime = createTime;
-            this.createUser = createUser;
-            this.createUserId = createUserId;
-            this.updateTime = updateTime;
-            this.updateUser = updateUser;
-            this.updateUserId = updateUserId;
-}
+    public MenuInfo(    String id,     String code,     String title,     String clientId,     String parentId,     String path,     String redirect,     String icon,     String elementIcon,     String layuiIcon,     String type,     Integer orderNum,     String visible,     String name,     String component,     String link,     String affix,     String iframe,     String keepAlive,     String remarks,     LocalDateTime createTime,     String createUser,     String createUserId,     LocalDateTime updateTime,     String updateUser,     String updateUserId){
+        this.id = id;
+        this.code = code;
+        this.title = title;
+        this.clientId = clientId;
+        this.parentId = parentId;
+        this.path = path;
+        this.redirect = redirect;
+        this.icon = icon;
+        this.elementIcon = elementIcon;
+        this.layuiIcon = layuiIcon;
+        this.type = type;
+        this.orderNum = orderNum;
+        this.visible = visible;
+        this.name = name;
+        this.component = component;
+        this.link = link;
+        this.affix = affix;
+        this.iframe = iframe;
+        this.keepAlive = keepAlive;
+        this.remarks = remarks;
+        this.createTime = createTime;
+        this.createUser = createUser;
+        this.createUserId = createUserId;
+        this.updateTime = updateTime;
+        this.updateUser = updateUser;
+        this.updateUserId = updateUserId;
+    }
 
-public static MenuInfoBuilder builder(){
+    public static MenuInfoBuilder builder(){
         return new MenuInfoBuilder();
-        }
+    }
 
-public static class MenuInfoBuilder {
+    public static class MenuInfoBuilder {
         private String id;
         private String code;
         private String title;
@@ -162,6 +172,8 @@ public static class MenuInfoBuilder {
         private String path;
         private String redirect;
         private String icon;
+        private String elementIcon;
+        private String layuiIcon;
         private String type;
         private Integer orderNum;
         private String visible;
@@ -179,8 +191,8 @@ public static class MenuInfoBuilder {
         private String updateUser;
         private String updateUserId;
 
-    public MenuInfoBuilder() {
-    }
+        public MenuInfoBuilder() {
+        }
 
         /* 主键唯一标识 */
         public MenuInfoBuilder id(String id) {
@@ -217,9 +229,19 @@ public static class MenuInfoBuilder {
             this.redirect = redirect;
             return this;
         }
-        /* 图标 */
+        /* Layui图标(JQ) */
         public MenuInfoBuilder icon(String icon) {
             this.icon = icon;
+            return this;
+        }
+        /* ElementUI图标 */
+        public MenuInfoBuilder elementIcon(String elementIcon) {
+            this.elementIcon = elementIcon;
+            return this;
+        }
+        /* LayuiUIVue图标 */
+        public MenuInfoBuilder layuiIcon(String layuiIcon) {
+            this.layuiIcon = layuiIcon;
             return this;
         }
         /* 类型:dirt-目录;menu-菜单;uri-外链 */
@@ -303,259 +325,278 @@ public static class MenuInfoBuilder {
             return this;
         }
 
-    public MenuInfo build() {
-        return new MenuInfo(            id, 
-            code, 
-            title, 
-            clientId, 
-            parentId, 
-            path, 
-            redirect, 
-            icon, 
-            type, 
-            orderNum, 
-            visible, 
-            name, 
-            component, 
-            link, 
-            affix, 
-            iframe, 
-            keepAlive, 
-            remarks, 
-            createTime, 
-            createUser, 
-            createUserId, 
-            updateTime, 
-            updateUser, 
-            updateUserId
-);
+        public MenuInfo build() {
+            return new MenuInfo(            id,
+                    code,
+                    title,
+                    clientId,
+                    parentId,
+                    path,
+                    redirect,
+                    icon,
+                    elementIcon,
+                    layuiIcon,
+                    type,
+                    orderNum,
+                    visible,
+                    name,
+                    component,
+                    link,
+                    affix,
+                    iframe,
+                    keepAlive,
+                    remarks,
+                    createTime,
+                    createUser,
+                    createUserId,
+                    updateTime,
+                    updateUser,
+                    updateUserId
+            );
+        }
+
     }
 
-}
 
+    public void setId(String id) {
+        this.id = id;
+    }
 
-            public void setId(String id) {
-                this.id = id;
-            }
+    public String getId() {
+        return id;
+    }
 
-            public String getId() {
-                return id;
-            }
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-            public void setCode(String code) {
-                this.code = code;
-            }
+    public String getCode() {
+        return code;
+    }
 
-            public String getCode() {
-                return code;
-            }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-            public void setTitle(String title) {
-                this.title = title;
-            }
+    public String getTitle() {
+        return title;
+    }
 
-            public String getTitle() {
-                return title;
-            }
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
 
-            public void setClientId(String clientId) {
-                this.clientId = clientId;
-            }
+    public String getClientId() {
+        return clientId;
+    }
 
-            public String getClientId() {
-                return clientId;
-            }
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
 
-            public void setParentId(String parentId) {
-                this.parentId = parentId;
-            }
+    public String getParentId() {
+        return parentId;
+    }
 
-            public String getParentId() {
-                return parentId;
-            }
+    public void setPath(String path) {
+        this.path = path;
+    }
 
-            public void setPath(String path) {
-                this.path = path;
-            }
+    public String getPath() {
+        return path;
+    }
 
-            public String getPath() {
-                return path;
-            }
+    public void setRedirect(String redirect) {
+        this.redirect = redirect;
+    }
 
-            public void setRedirect(String redirect) {
-                this.redirect = redirect;
-            }
+    public String getRedirect() {
+        return redirect;
+    }
 
-            public String getRedirect() {
-                return redirect;
-            }
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 
-            public void setIcon(String icon) {
-                this.icon = icon;
-            }
+    public String getIcon() {
+        return icon;
+    }
 
-            public String getIcon() {
-                return icon;
-            }
+    public void setElementIcon(String elementIcon) {
+        this.elementIcon = elementIcon;
+    }
 
-            public void setType(String type) {
-                this.type = type;
-            }
+    public String getElementIcon() {
+        return elementIcon;
+    }
 
-            public String getType() {
-                return type;
-            }
+    public void setLayuiIcon(String layuiIcon) {
+        this.layuiIcon = layuiIcon;
+    }
 
-            public void setOrderNum(Integer orderNum) {
-                this.orderNum = orderNum;
-            }
+    public String getLayuiIcon() {
+        return layuiIcon;
+    }
 
-            public Integer getOrderNum() {
-                return orderNum;
-            }
+    public void setType(String type) {
+        this.type = type;
+    }
 
-            public void setVisible(String visible) {
-                this.visible = visible;
-            }
+    public String getType() {
+        return type;
+    }
 
-            public String getVisible() {
-                return visible;
-            }
+    public void setOrderNum(Integer orderNum) {
+        this.orderNum = orderNum;
+    }
 
-            public void setName(String name) {
-                this.name = name;
-            }
+    public Integer getOrderNum() {
+        return orderNum;
+    }
 
-            public String getName() {
-                return name;
-            }
+    public void setVisible(String visible) {
+        this.visible = visible;
+    }
 
-            public void setComponent(String component) {
-                this.component = component;
-            }
+    public String getVisible() {
+        return visible;
+    }
 
-            public String getComponent() {
-                return component;
-            }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-            public void setLink(String link) {
-                this.link = link;
-            }
+    public String getName() {
+        return name;
+    }
 
-            public String getLink() {
-                return link;
-            }
+    public void setComponent(String component) {
+        this.component = component;
+    }
 
-            public void setAffix(String affix) {
-                this.affix = affix;
-            }
+    public String getComponent() {
+        return component;
+    }
 
-            public String getAffix() {
-                return affix;
-            }
+    public void setLink(String link) {
+        this.link = link;
+    }
 
-            public void setIframe(String iframe) {
-                this.iframe = iframe;
-            }
+    public String getLink() {
+        return link;
+    }
 
-            public String getIframe() {
-                return iframe;
-            }
+    public void setAffix(String affix) {
+        this.affix = affix;
+    }
 
-            public void setKeepAlive(String keepAlive) {
-                this.keepAlive = keepAlive;
-            }
+    public String getAffix() {
+        return affix;
+    }
 
-            public String getKeepAlive() {
-                return keepAlive;
-            }
+    public void setIframe(String iframe) {
+        this.iframe = iframe;
+    }
 
-            public void setRemarks(String remarks) {
-                this.remarks = remarks;
-            }
+    public String getIframe() {
+        return iframe;
+    }
 
-            public String getRemarks() {
-                return remarks;
-            }
+    public void setKeepAlive(String keepAlive) {
+        this.keepAlive = keepAlive;
+    }
 
-            public void setCreateTime(LocalDateTime createTime) {
-                this.createTime = createTime;
-            }
+    public String getKeepAlive() {
+        return keepAlive;
+    }
 
-            public LocalDateTime getCreateTime() {
-                return createTime;
-            }
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
 
-            public void setCreateUser(String createUser) {
-                this.createUser = createUser;
-            }
+    public String getRemarks() {
+        return remarks;
+    }
 
-            public String getCreateUser() {
-                return createUser;
-            }
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
 
-            public void setCreateUserId(String createUserId) {
-                this.createUserId = createUserId;
-            }
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
 
-            public String getCreateUserId() {
-                return createUserId;
-            }
+    public void setCreateUser(String createUser) {
+        this.createUser = createUser;
+    }
 
-            public void setUpdateTime(LocalDateTime updateTime) {
-                this.updateTime = updateTime;
-            }
+    public String getCreateUser() {
+        return createUser;
+    }
 
-            public LocalDateTime getUpdateTime() {
-                return updateTime;
-            }
+    public void setCreateUserId(String createUserId) {
+        this.createUserId = createUserId;
+    }
 
-            public void setUpdateUser(String updateUser) {
-                this.updateUser = updateUser;
-            }
+    public String getCreateUserId() {
+        return createUserId;
+    }
 
-            public String getUpdateUser() {
-                return updateUser;
-            }
+    public void setUpdateTime(LocalDateTime updateTime) {
+        this.updateTime = updateTime;
+    }
 
-            public void setUpdateUserId(String updateUserId) {
-                this.updateUserId = updateUserId;
-            }
+    public LocalDateTime getUpdateTime() {
+        return updateTime;
+    }
 
-            public String getUpdateUserId() {
-                return updateUserId;
-            }
+    public void setUpdateUser(String updateUser) {
+        this.updateUser = updateUser;
+    }
+
+    public String getUpdateUser() {
+        return updateUser;
+    }
+
+    public void setUpdateUserId(String updateUserId) {
+        this.updateUserId = updateUserId;
+    }
+
+    public String getUpdateUserId() {
+        return updateUserId;
+    }
 
 
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                    .append("id", getId())
-                    .append("code", getCode())
-                    .append("title", getTitle())
-                    .append("clientId", getClientId())
-                    .append("parentId", getParentId())
-                    .append("path", getPath())
-                    .append("redirect", getRedirect())
-                    .append("icon", getIcon())
-                    .append("type", getType())
-                    .append("orderNum", getOrderNum())
-                    .append("visible", getVisible())
-                    .append("name", getName())
-                    .append("component", getComponent())
-                    .append("link", getLink())
-                    .append("affix", getAffix())
-                    .append("iframe", getIframe())
-                    .append("keepAlive", getKeepAlive())
-                    .append("remarks", getRemarks())
-                    .append("createTime", getCreateTime())
-                    .append("createUser", getCreateUser())
-                    .append("createUserId", getCreateUserId())
-                    .append("updateTime", getUpdateTime())
-                    .append("updateUser", getUpdateUser())
-                    .append("updateUserId", getUpdateUserId())
+                .append("id", getId())
+                .append("code", getCode())
+                .append("title", getTitle())
+                .append("clientId", getClientId())
+                .append("parentId", getParentId())
+                .append("path", getPath())
+                .append("redirect", getRedirect())
+                .append("icon", getIcon())
+                .append("elementIcon", getElementIcon())
+                .append("layuiIcon", getLayuiIcon())
+                .append("type", getType())
+                .append("orderNum", getOrderNum())
+                .append("visible", getVisible())
+                .append("name", getName())
+                .append("component", getComponent())
+                .append("link", getLink())
+                .append("affix", getAffix())
+                .append("iframe", getIframe())
+                .append("keepAlive", getKeepAlive())
+                .append("remarks", getRemarks())
+                .append("createTime", getCreateTime())
+                .append("createUser", getCreateUser())
+                .append("createUserId", getCreateUserId())
+                .append("updateTime", getUpdateTime())
+                .append("updateUser", getUpdateUser())
+                .append("updateUserId", getUpdateUserId())
                 .toString();
     }
-
 
 }

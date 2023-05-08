@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.auth.mapper.INextMenuMapper">
+
+
+    <!-- 根据上级菜单id, 获取菜单id -->
+    <select id="findIdByParentId" resultType="java.lang.String" parameterType="java.lang.String">
+        SELECT id
+        FROM sys_menu_info
+        WHERE parent_id = #{parentId} LIMIT 1
+    </select>
+
+    <select id="userOAuthMenuAll" parameterType="java.lang.String"
+            resultType="com.github.itdachen.auth.entity.MenuRoutePo">
+        SELECT id,
+               path,
+               `name`,
+               component,
+               redirect,
+               title,
+               link         AS isLink,
+               keep_alive   AS isKeepAlive,
+               affix        AS isAffix,
+               iframe       AS isIframe,
+               element_icon AS icon,
+               type
+        FROM sys_menu_info
+        WHERE parent_id = #{parentId} AND client_id = #{clientId}
+        ORDER BY order_num ASC
+    </select>
+
+    <!-- 获取用户菜单 -->
+    <select id="userOAuthMenu" parameterType="java.lang.String"
+            resultType="com.github.itdachen.auth.entity.MenuRoutePo">
+        SELECT DISTINCT c.id,
+                        c.path,
+                        c.name,
+                        c.component,
+                        c.redirect,
+                        c.title,
+                        c.link         AS isLink,
+                        c.keep_alive   AS isKeepAlive,
+                        c.affix        AS isAffix,
+                        c.iframe       AS isIframe,
+                        c.element_icon AS icon,
+        FROM sys_role_user a
+                 INNER JOIN sys_role_menu b ON a.role_id = b.role_id
+                 INNER JOIN sys_menu_info c ON b.menu_id = c.id
+        WHERE a.user_id = #{userId}
+          AND c.visible = '1'
+          AND c.parent_id = #{parentId} AND c.client_id = #{clientId}
+        ORDER BY orderNum ASC
+    </select>
+
+    <select id="permissionAll" resultType="java.lang.String">
+        SELECT code
+        FROM sys_element_info
+        WHERE client_id = #{clientId}
+    </select>
+
+    <select id="userPermission" resultType="java.lang.String" parameterType="java.lang.String">
+        SELECT DISTINCT c.code
+        FROM sys_role_user a
+                 INNER JOIN sys_role_menu b ON a.role_id = b.role_id
+                 INNER JOIN sys_element_info c ON b.menu_id = c.id
+                 INNER JOIN sys_menu_info d ON c.menu_id = d.id
+        WHERE a.user_id = #{userId}
+          AND c.visible = '1'
+          AND d.visible = '1'
+          AND d.client_id = #{clientId}
+    </select>
+
+
+</mapper>

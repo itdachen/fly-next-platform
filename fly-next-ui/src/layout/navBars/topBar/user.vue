@@ -40,13 +40,14 @@
       </el-icon>
     </div>
 
-    <div class="layout-navbars-breadcrumb-user-icon" ref="userNewsBadgeRef" v-click-outside="onUserNewsClick">
-      <el-badge :is-dot="true">
-        <el-icon :title="$t('message.user.title4')">
-          <ele-Bell/>
-        </el-icon>
-      </el-badge>
-    </div>
+<!--    <div class="layout-navbars-breadcrumb-user-icon" ref="userNewsBadgeRef" v-click-outside="onUserNewsClick">-->
+<!--      <el-badge :is-dot="true">-->
+<!--        <el-icon :title="$t('message.user.title4')">-->
+<!--          <ele-Bell/>-->
+<!--        </el-icon>-->
+<!--      </el-badge>-->
+<!--    </div>-->
+
     <el-popover ref="userNewsRef"
                 :virtual-ref="userNewsBadgeRef"
                 placement="bottom"

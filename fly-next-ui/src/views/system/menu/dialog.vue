@@ -5,14 +5,12 @@
 				<el-row :gutter="35">
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="上级菜单">
-							<el-cascader
-								:options="state.menuData"
+							<el-cascader :options="state.menuData"
 								:props="{ checkStrictly: true, value: 'path', label: 'title' }"
 								placeholder="请选择上级菜单"
 								clearable
 								class="w100"
-								v-model="state.ruleForm.menuSuperior"
-							>
+								v-model="state.ruleForm.menuSuperior" >
 								<template #default="{ node, data }">
 									<span>{{ data.title }}</span>
 									<span v-if="!node.isLeaf"> ({{ data.children.length }}) </span>

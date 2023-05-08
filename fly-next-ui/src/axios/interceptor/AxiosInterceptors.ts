@@ -297,13 +297,13 @@ function removePending(config: AxiosRequestConfig) {
  */
 function getPendingKey(config: AxiosRequestConfig) {
     let {url, method, params, data} = config;
-    if ('/oauth/token' === url && typeof data === 'string') {
-        let str = data as string;
-        data = '{"' + str.replaceAll('&', '\",\"').replaceAll('=', '":"') + '"}' as string;
-    }
-    if (typeof data === 'string') {
-        data = JSON.parse(data);
-    }
+    // if ('/oauth/token' === url && typeof data === 'string') {
+    //     let str = data as string;
+    //     data = '{"' + str.replaceAll('&', '\",\"').replaceAll('=', '":"') + '"}' as string;
+    // }
+    // if (typeof data === 'string') {
+    //     data = JSON.parse(data);
+    // }
 
     // response里面返回的config.data是个字符串对象
     return [url, method, JSON.stringify(params), JSON.stringify(data)].join('&');
