@@ -3,7 +3,10 @@ import useTable from '/@/components/ProTable/TableComposables';
 import {DialogTypeEnum} from '/@/components/dialog/Dialog';
 import useMenuInfoBuilder, {MenuInfo, MenuInfoQuery} from "/@/api/admin/model/MenuInfoModel";
 import MenuInfoApi from '/@/api/admin/MenuInfoApi'
+import {ElementInfo} from "/@/api/admin/model/ElementInfoModel";
+import ElementInfoApi from "/@/api/admin/ElementInfoApi";
 
+const elementInfoApi = new ElementInfoApi();
 const menuInfoApi = new MenuInfoApi();
 const {isEmpty} = useStringComposable();
 const {successMsg, confirmMsgBox} = useTable();
@@ -12,7 +15,9 @@ const {
     columns,
     queryParams,
     tableData,
-    refMenuInfo
+    refMenuInfo,
+    elementInfo,
+    refElementInfo
 } = useMenuInfoBuilder();
 
 
@@ -30,7 +35,7 @@ export default function useMenuInfoComposable() {
      * @param params
      */
     const loadTableData = (params: MenuInfoQuery) => {
-            menuInfoApi.page(params).then(res => {
+        menuInfoApi.page(params).then(res => {
             tableData.total = res.data.total;
             tableData.rows = res.data.rows;
         });
@@ -66,7 +71,7 @@ export default function useMenuInfoComposable() {
     const tapSubmitHandler = (data: MenuInfo) => {
         let id: string | undefined = data.id;
         if (isEmpty(id)) {
-           menuInfoApi.saveInfo(data).then(res => {
+            menuInfoApi.saveInfo(data).then(res => {
                 successMsg(res.msg);
                 refMenuInfo.value?.onClose();
                 loadTableData(queryParams);
@@ -88,21 +93,38 @@ export default function useMenuInfoComposable() {
      */
     const tapRemoveHandler = (id: string, title: string) => {
         confirmMsgBox('数据删除后将无法恢复，确定要删除 ' + title + ' 吗?').then(res => {
-           menuInfoApi.remove(id).then(res => {
+            menuInfoApi.remove(id).then(res => {
                 successMsg(res.msg);
                 loadTableData(queryParams);
             });
         });
     };
 
+    /**
+     * 新增按钮
+     * @param data
+     */
+    const tapAddHandler = (data: MenuInfo) => {
+        if ('menu' === data.type) {
+            elementInfo.menuId = data.id;
+            elementInfo.visible = '1';
+            elementInfo.orderNum = '99'
+            tapSaveElementHandler(elementInfo);
+        } else {
+            menuInfo.parentId = data.id;
+            menuInfo.parentTitle = data.title
+            tapSaveHandler(menuInfo)
+        }
+    }
 
     /**
      * 新增按钮处理
      * @author 王大宸
      */
-    const tapSaveHandler = () => {
-        refMenuInfo.value?.show(DialogTypeEnum.SAVE, null);
+    const tapSaveHandler = (data: MenuInfo) => {
+        refMenuInfo.value?.show(DialogTypeEnum.SAVE, data);
     };
+
 
     /**
      * 编辑按钮
@@ -110,7 +132,11 @@ export default function useMenuInfoComposable() {
      * @param data
      */
     const tapUpdateHandler = (data: MenuInfo) => {
-        refMenuInfo.value?.show(DialogTypeEnum.UPDATE, data);
+        if ('button' === data.type || 'uri' === data.type) {
+            tapUpdateElementHandler(data);
+        } else {
+            refMenuInfo.value?.show(DialogTypeEnum.UPDATE, data);
+        }
     };
 
     /**
@@ -122,6 +148,66 @@ export default function useMenuInfoComposable() {
         refMenuInfo.value?.show(DialogTypeEnum.VIEW, data);
     };
 
+    /****  按钮 START  ******************************************************************************************************/
+
+
+    /**
+     * 表单提交
+     * @author 王大宸
+     * @param data 需要提交的参数
+     */
+    const tapSubmitElementHandler = (data: ElementInfo) => {
+        let id: string | undefined = data.id;
+        if (isEmpty(id)) {
+            elementInfoApi.saveInfo(data).then(res => {
+                successMsg(res.msg);
+                refElementInfo.value?.onClose();
+                loadTableData(queryParams);
+            });
+        } else {
+            elementInfoApi.updateInfo(data, data.id).then(res => {
+                successMsg(res.msg);
+                refElementInfo.value?.onClose();
+                loadTableData(queryParams);
+            });
+        }
+    };
+
+    /**
+     * 删除
+     * @author 王大宸
+     * @param id 需要删除的时间id
+     * @param title 标题
+     */
+    const tapRemoveElementHandler = (id: string, title: string) => {
+        confirmMsgBox('数据删除后将无法恢复，确定要删除 ' + title + ' 吗?').then(res => {
+            elementInfoApi.remove(id).then(res => {
+                successMsg(res.msg);
+                loadTableData(queryParams);
+            });
+        });
+    };
+
+
+    /**
+     * 新增按钮处理
+     * @author 王大宸
+     */
+    const tapSaveElementHandler = (data: ElementInfo) => {
+        refElementInfo.value?.show(DialogTypeEnum.SAVE, data);
+    };
+
+    /**
+     * 编辑按钮
+     * @author 王大宸
+     * @param data
+     */
+    const tapUpdateElementHandler = (data: ElementInfo) => {
+        refElementInfo.value?.show(DialogTypeEnum.UPDATE, data);
+    };
+
+    /****  按钮 END  ******************************************************************************************************/
+
     return {
         refMenuInfo,
         menuInfo,
@@ -130,11 +216,20 @@ export default function useMenuInfoComposable() {
         queryParams,
         tapSearchHandler,
         tapSaveHandler,
+        tapAddHandler,
         tapUpdateHandler,
         tapViewHandler,
         tapRemoveHandler,
         tapSubmitHandler,
         reloadDate,
-        loadTableData
+        loadTableData,
+
+        refElementInfo,
+        elementInfo,
+        tapSubmitElementHandler,
+        tapRemoveElementHandler,
+        tapSaveElementHandler,
+        tapUpdateElementHandler
+
     };
 }

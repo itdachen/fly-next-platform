@@ -43,6 +43,7 @@ export interface MenuInfo {
     clientId?: string,
     /** 父级节点 */
     parentId?: string,
+    parentTitle?: string,
     /** 资源路径,浏览器访问地址 */
     path?: string,
     /** 重定向路径 */
@@ -75,6 +76,59 @@ export interface MenuInfo {
     remarks?: string
 }
 
+/**
+ * 按钮资源 查询参数
+ *
+ * @author 王大宸
+ * @date 2023-05-08 22:40:36
+ */
+export interface ElementInfoQuery extends BizQuery {
+    /** 客户端 */
+    clientId?: string,
+    /** 资源关联菜单 */
+    menuId?: string,
+    /** 资源名称: 新增,编辑,删除 ... 等 */
+    title?: string,
+    /** 资源类型: button,uri */
+    type?: string,
+    /** 状态:1-可用,0-禁用 */
+    visible?: string,
+}
+
+
+/**
+ * 按钮资源 向后端传值对象
+ *
+ * @author 王大宸
+ * @date 2023-05-08 22:40:36
+ */
+export interface ElementInfo {
+    /** 主键唯一标识 */
+    id?: string,
+    /** 客户端 */
+    clientId?: string,
+    /** 资源关联菜单 */
+    menuId?: string,
+    /** 资源名称: 新增,编辑,删除 ... 等 */
+    title?: string,
+    /** 资源编码: 权限编码 */
+    code?: string,
+    /** 资源类型: button,uri */
+    type?: string,
+    /** 资源路径, 路径动态参数使用{*}: /admin/user/{*} */
+    href?: string,
+    /** 视图路径, 路径动态参数使用{*}: /admin/user/{*} */
+    path?: string,
+    /** 资源请求类型:GET,POST,PUT,DELETE */
+    method?: string,
+    /** 排序 */
+    orderNum?: string,
+    /** 状态:1-可用,0-禁用 */
+    visible?: string,
+    /** 描述 */
+    remarks?: string
+}
+
 
 /**
  * 初始化方法
@@ -92,7 +146,7 @@ export default function useMenuInfoBuilder() {
         /** 客户端 */
         clientId: 'NEXT_APP',
         /** 父级节点 */
-        parentId: ''
+        parentId: 'NEXT_APP'
     });
 
     /**
@@ -117,6 +171,7 @@ export default function useMenuInfoBuilder() {
         clientId: 'NEXT_APP',
         /** 父级节点 */
         parentId: '',
+        parentTitle: '',
         /** 资源路径,浏览器访问地址 */
         path: '',
         /** 重定向路径 */
@@ -200,12 +255,58 @@ export default function useMenuInfoBuilder() {
         onClose: () => void
     }>();
 
+
+    /****** 按钮 element Start *********************************************************************/
+
+    /**
+     * 实例化对象
+     */
+    const elementInfo = reactive<ElementInfo>({
+        /** 主键唯一标识 */
+        id: '',
+        /** 客户端 */
+        clientId: '',
+        /** 资源关联菜单 */
+        menuId: '',
+        /** 资源名称: 新增,编辑,删除 ... 等 */
+        title: '',
+        /** 资源编码: 权限编码 */
+        code: '',
+        /** 资源类型: button,uri */
+        type: '',
+        /** 资源路径, 路径动态参数使用{*}: /admin/user/{*} */
+        href: '',
+        /** 视图路径, 路径动态参数使用{*}: /admin/user/{*} */
+        path: '',
+        /** 资源请求类型:GET,POST,PUT,DELETE */
+        method: '',
+        /** 排序 */
+        orderNum: '',
+        /** 状态:1-可用,0-禁用 */
+        visible: '',
+        /** 描述 */
+        remarks: ''
+    });
+
+    /**
+     *  新增/修改/查看 弹窗
+     */
+    const refElementInfo = ref<{
+        show: (type: DialogTypeEnum, data?: ElementInfo | null) => void,
+        onClose: () => void
+    }>();
+
+    /****** 按钮 element End *********************************************************************/
+
     return {
         queryParams,
         tableData,
         menuInfo,
         columns,
-        refMenuInfo
+        refMenuInfo,
+
+        elementInfo,
+        refElementInfo
     }
 
 }

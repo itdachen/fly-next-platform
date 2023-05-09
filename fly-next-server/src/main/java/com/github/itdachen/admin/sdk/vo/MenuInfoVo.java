@@ -5,6 +5,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -115,6 +117,24 @@ public class MenuInfoVo implements Serializable {
      * 描述
      */
     private String remarks;
+
+    private List<MenuInfoVo> children = new ArrayList<>();
+
+
+    /**
+     * 资源关联菜单
+     */
+    private String menuId;
+
+    /**
+     * 资源请求类型:GET,POST,PUT,DELETE
+     */
+    private String method;
+
+    /**
+     * 资源路径, 路径动态参数使用{*}: /admin/user/{*}
+     */
+    private String href;
 
 
     public MenuInfoVo() {
@@ -479,6 +499,37 @@ public class MenuInfoVo implements Serializable {
         return remarks;
     }
 
+    public List<MenuInfoVo> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<MenuInfoVo> children) {
+        this.children = children;
+    }
+
+    public String getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(String menuId) {
+        this.menuId = menuId;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public String getHref() {
+        return href;
+    }
+
+    public void setHref(String href) {
+        this.href = href;
+    }
 
     @Override
     public String toString() {

@@ -38,7 +38,6 @@
 
         <el-form-item label="图标" prop="elementIcon" class="mb20">
           <IconSelector placeholder="请输入菜单图标" v-model="menuInfo.elementIcon" style="width: 230px !important;"/>
-          <!--          <el-input v-model="menuInfo.elementIcon" placeholder="请输入ElementUI图标"/>-->
         </el-form-item>
 
         <el-form-item label='排序' prop='orderNum' class="mb20">
@@ -128,7 +127,7 @@ const {
  * @param type
  * @param data
  */
-const show = (type: DialogTypeEnum, data?: MenuInfo) => {
+const show = (type: DialogTypeEnum, data: MenuInfo) => {
   //设置弹框的属性
   dialog.height = '380px';
   dialog.width = '769px';
@@ -152,6 +151,8 @@ const show = (type: DialogTypeEnum, data?: MenuInfo) => {
     menuInfo.clientId = 'NEXT_APP';
     menuInfo.elementIcon = 'iconfont icon-shouye';
     menuInfo.visible = '1';
+    menuInfo.parentId = data?.parentId;
+    menuInfo.parentTitle = data?.parentTitle
     menuInfo.orderNum = '99';
     menuInfo.affix = '1';
     menuInfo.iframe = '1';
@@ -185,27 +186,10 @@ const rules = reactive({
   code: [{required: true, message: '权限编码不能为空', trigger: 'blur'}],
   title: [{required: true, message: '标题不能为空', trigger: 'blur'}],
   clientId: [{required: true, message: '客户端不能为空', trigger: 'blur'}],
-  parentId: [{required: true, message: '父级节点不能为空', trigger: 'blur'}],
   path: [{required: true, message: '资源路径不能为空', trigger: 'blur'}],
-  redirect: [{required: true, message: '重定向路径不能为空', trigger: 'blur'}],
   elementIcon: [{required: true, message: '图标不能为空', trigger: 'blur'}],
   type: [{required: true, message: '类型不能为空', trigger: 'blur'}],
   orderNum: [{required: true, message: '排序不能为空', trigger: 'blur'}],
-  visible: [{required: true, message: '是否显示不能为空', trigger: 'blur'}],
-  name: [{required: true, message: '组件名称不能为空', trigger: 'blur'}],
-  component: [{required: true, message: '组件地址不能为空', trigger: 'blur'}],
-  link: [{required: true, message: '外链地址不能为空', trigger: 'blur'}],
-  affix: [{
-    required: true,
-    message: '菜单是否固定不能为空',
-    trigger: 'blur'
-  }],
-  iframe: [{
-    required: true,
-    message: '是否内嵌不能为空',
-    trigger: 'blur'
-  }],
-  keepAlive: [{required: true, message: '菜单是否缓存不能为空', trigger: 'blur'}],
 });
 </script>
 

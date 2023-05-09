@@ -252,5 +252,10 @@
         WHERE id = #{id}
     </select>
 
+    <select id="findMenuInfoByParentId" resultType="java.lang.String" resultMap="menuInfoMap">
+        <include refid="selectMenuInfoVo"></include>
+        WHERE parent_id = #{parentId}
+    </select>
+
 
 </mapper>

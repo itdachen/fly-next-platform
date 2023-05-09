@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,9 +45,7 @@ public class MenuInfoServiceImpl extends BizServiceImpl<MenuInfo, MenuInfoDto, M
     private final IAppClientMapper appClientMapper;
     private final IElementInfoMapper elementMapper;
 
-    public MenuInfoServiceImpl(IMenuInfoMapper bizMapper,
-                               IAppClientMapper appClientMapper,
-                               IElementInfoMapper elementMapper) {
+    public MenuInfoServiceImpl(IMenuInfoMapper bizMapper, IAppClientMapper appClientMapper, IElementInfoMapper elementMapper) {
         super(bizMapper, bizConvert);
         this.bizMapper = bizMapper;
         this.appClientMapper = appClientMapper;
@@ -66,6 +65,11 @@ public class MenuInfoServiceImpl extends BizServiceImpl<MenuInfo, MenuInfoDto, M
     public TableData<MenuInfoVo> page(MenuInfoQuery params) throws Exception {
         Page<MenuInfoVo> page = PageHelper.startPage(params.getPage(), params.getLimit());
         List<MenuInfoVo> list = bizMapper.page(params);
+        if ("NEXT_APP".equals(params.getClientId())) {
+            for (MenuInfoVo menuInfoVo : list) {
+                menuInfoVo.setChildren(findMenuTree(menuInfoVo.getId()));
+            }
+        }
         return new TableData<MenuInfoVo>(page.getTotal(), list);
     }
 
@@ -183,12 +187,57 @@ public class MenuInfoServiceImpl extends BizServiceImpl<MenuInfo, MenuInfoDto, M
         if (null != menu) {
             return menu.getTitle();
         }
-        String parentTitle = "资源目录" ;
+        String parentTitle = "资源目录";
         AppClientVo appClient = appClientMapper.findAppClient(parentTitle);
         if (null != appClient) {
             parentTitle = appClient.getAppTitle();
         }
         return parentTitle;
     }
+
+
+    /***
+     * 递归获取菜单树
+     *
+     * @author 王大宸
+     * @date 2022/6/23 9:27
+     * @param parentId   上级id
+     * @return java.util.List<com.itdachen.admin.sdk.vo.SysMenuVo>
+     */
+    private List<MenuInfoVo> findMenuTree(String parentId) {
+        List<MenuInfoVo> menuTree = bizMapper.findMenuInfoByParentId(parentId);
+        List<MenuInfoVo> children = null;
+        for (MenuInfoVo menuVo : menuTree) {
+            if ("uri".equals(menuVo.getType())) {
+                continue;
+            }
+            if ("menu".equals(menuVo.getType())) {
+                menuVo.setChildren(elementMapper.findElementInfo(menuVo.getId()));
+                continue;
+            }
+            children = findMenuTree(menuVo.getId());
+            if (0 == children.size()) {
+                continue;
+            }
+            menuVo.setChildren(children);
+        }
+        return menuTree;
+    }
+
+//    private List<MenuInfoVo> findDirtTree(String parentId) {
+//        List<MenuInfoVo> list = bizMapper.findDirtTree(parentId, MenuDirtConstant.DIRT);
+//        List<MenuInfoVo> children = null;
+//        for (MenuInfoVo menuVo : list) {
+//            if (MenuDirtConstant.URI.equals(menuVo.getType()) || MenuDirtConstant.MENU.equals(menuVo.getType())) {
+//                continue;
+//            }
+//            children = findDirtTree(menuVo.getId());
+//            if (0 == children.size()) {
+//                continue;
+//            }
+//            menuVo.setChildren(children);
+//        }
+//        return list;
+//    }
 
 }

@@ -167,5 +167,24 @@
         </foreach>
     </update>
 
+    <select id="findElementInfo" parameterType="java.lang.String"
+            resultType="com.github.itdachen.admin.sdk.vo.MenuInfoVo">
+        SELECT id,
+               menu_id,
+               menu_id AS parentId,
+               title,
+               code,
+               type,
+               href,
+               href AS path,
+               path,
+               method,
+               order_num,
+               visible,
+               remarks
+        FROM sys_element_info
+        WHERE menu_id = #{menuId}
+        ORDER BY order_num ASC
+    </select>
 
 </mapper>

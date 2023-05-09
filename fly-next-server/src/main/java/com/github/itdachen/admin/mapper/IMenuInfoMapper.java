@@ -14,7 +14,7 @@ import java.util.List;
  * @author 王大宸
  * @date 2023-04-04 21:44:46
  */
-public interface IMenuInfoMapper extends Mapper< MenuInfo > {
+public interface IMenuInfoMapper extends Mapper<MenuInfo> {
 
     /***
      * 查询集合
@@ -24,7 +24,7 @@ public interface IMenuInfoMapper extends Mapper< MenuInfo > {
      * @param params params
      * @return com.github.itdachen.admin.sdk.vo.menuInfoVo
      */
-    List< MenuInfoVo > page(MenuInfoQuery params);
+    List<MenuInfoVo> page(MenuInfoQuery params);
 
     List<ZTreeNode> findZTree();
 
@@ -46,7 +46,7 @@ public interface IMenuInfoMapper extends Mapper< MenuInfo > {
      * @date 2023-04-04 21:44:46
      * @param list java.util.List<com.github.itdachen.admin.entity.MenuInfo>
      */
-    void  batchSave(List< MenuInfo > list);
+    void batchSave(List<MenuInfo> list);
 
     /***
      * 批量修改
@@ -55,9 +55,12 @@ public interface IMenuInfoMapper extends Mapper< MenuInfo > {
      * @date 2023-04-04 21:44:46
      * @param list java.util.List<com.github.itdachen.admin.entity.MenuInfo>
      */
-    void batchUpdate(List< MenuInfo > list);
+    void batchUpdate(List<MenuInfo> list);
 
     MenuInfoVo findMenuInfoVo(String id);
+
+
+    List<MenuInfoVo> findMenuInfoByParentId(String parentId);
 
 
 }

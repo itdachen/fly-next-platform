@@ -1,4 +1,6 @@
 <template>
+
+
   <div class="template-container layout-padding">
     <div class="template-container-padding layout-padding-auto layout-padding-view">
       <!-- 表格展示 -->
@@ -15,24 +17,38 @@
             <!--  v-permission="['admin:admin:menu:info:save']"          -->
             <el-button size="default" type="success" :icon="Plus" class="ml10"
 
-                       @click='tapSaveHandler()'> 新增
+                       @click='tapSaveBtnHandler()'>新增菜单
             </el-button>
           </div>
         </template>
-        <template #type='scope'>
-          <el-tag type="success" v-if="'dirt'===scope.row.type">目录</el-tag>
-          <el-tag type="info" v-if="'menu'===scope.row.type">菜单</el-tag>
-          <el-tag type="warning" v-if="'uri'===scope.row.type">地址</el-tag>
-        </template>
+        <!--        <template #type='scope'>-->
+        <!--          <el-tag type="success" v-if="'dirt'===scope.row.type">目录</el-tag>-->
+        <!--          <el-tag type="info" v-if="'menu'===scope.row.type">菜单</el-tag>-->
+        <!--          <el-tag type="warning" v-if="'uri'===scope.row.type">地址</el-tag>-->
+        <!--        </template>-->
         <template #visible='scope'>
           <el-tag type="success" v-if="'1'===scope.row.visible">显示</el-tag>
           <el-tag type="info" v-else>不显示</el-tag>
         </template>
+        <template #type='scope'>
+          <div v-if="'dirt' === scope.row.type">
+            <div class='menu-type'>目录</div>
+          </div>
+          <div v-if="'menu' === scope.row.type">
+            <div class='menu-type'>菜单</div>
+          </div>
+          <div v-if="'uri' === scope.row.type">
+            <div class='menu-type'>路径</div>
+          </div>
+          <div v-if="'button' === scope.row.type">
+            <div class='menu-type'>按钮</div>
+          </div>
+        </template>
         <!-- 表格操作 -->
         <template #operation="scope">
-          <!-- v-permission="['admin:admin:menu:info:view']"   -->
-          <el-button type="primary" plain :icon="View" size="small"
-                     @click="tapViewHandler(scope.row)">查看
+          <!--    v-permission="['admin:menu:view']" -->
+          <el-button v-if="'dirt' === scope.row.type || 'menu' === scope.row.type" :icon="Plus"
+                     type="success" size="small" @click="tapAddHandler(scope.row)">新增
           </el-button>
           <!--  v-permission="['admin:admin:menu:info:update']"        -->
           <el-button type="primary" plain :icon="Edit"
@@ -47,20 +63,26 @@
       </pro-table>
 
     </div>
-
-    <!-- 新增/修改/查看 弹窗 -->
-    <RefMenuInfo ref="refMenuInfo" @bindtap="tapSubmitHandler"></RefMenuInfo>
-
   </div>
+
+
+  <!-- 新增/修改/查看 弹窗 -->
+  <RefMenuInfo ref="refMenuInfo" @bindtap="tapSubmitHandler"></RefMenuInfo>
+
+  <RefElementInfo ref="refElementInfo" @bindtap="tapSubmitElementHandler"></RefElementInfo>
 </template>
 
 <script setup lang="ts" name="MenuInfoComponent">
 import {defineAsyncComponent, onMounted} from 'vue';
-import {Search, Edit, View, Delete, Plus} from '@element-plus/icons-vue';
+import {Search, Edit, Delete, Plus} from '@element-plus/icons-vue';
 import ProTable from '/@/components/table/index.vue';
 import useMenuInfoComposable from "/@/composables/admin/MenuInfoComposable";
+import useMenuInfoBuilder from '/@/api/admin/model/MenuInfoModel';
 
 const RefMenuInfo = defineAsyncComponent(() => import('./RefMenuInfo.vue'));
+const RefElementInfo = defineAsyncComponent(() => import('./RefElementInfo.vue'));
+
+const {menuInfo} = useMenuInfoBuilder();
 
 const {
   refMenuInfo,
@@ -69,12 +91,15 @@ const {
   queryParams,
   tapSearchHandler,
   tapSaveHandler,
+  tapAddHandler,
   tapUpdateHandler,
-  tapViewHandler,
   tapRemoveHandler,
   tapSubmitHandler,
   reloadDate,
-  loadTableData
+  loadTableData,
+
+  refElementInfo,
+  tapSubmitElementHandler
 } = useMenuInfoComposable();
 
 /**
@@ -83,6 +108,16 @@ const {
 onMounted(() => {
   loadTableData(queryParams);
 })
+
+/**
+ * 新增菜单
+ */
+const tapSaveBtnHandler = () => {
+  menuInfo.parentId = 'NEXT_APP';
+  menuInfo.clientId = 'NEXT_APP';
+  tapSaveHandler(menuInfo);
+}
+
 
 </script>
 
