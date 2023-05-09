@@ -22,7 +22,8 @@
         SELECT DISTINCT a.id, a.title, a.path AS href,
         CONCAT('layui-icon ', a.icon) AS icon,
         IF(a.type ='menu',1,0) AS type,
-        IF(a.iframe = 'iframe', '_iframe', a.iframe) AS openType
+        IF(a.iframe = 'iframe', '_iframe', a.iframe) AS openType,
+        a.order_num
         FROM sys_menu_info a
         LEFT JOIN sys_role_menu b ON a.id = b.menu_id
         LEFT JOIN sys_role_user c ON c.role_id = b.role_id

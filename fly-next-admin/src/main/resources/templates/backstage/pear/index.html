@@ -52,22 +52,22 @@
         <div id="control" class="layui-layout-control"></div>
         <!-- 顶 部 右 侧 菜 单 -->
         <ul class="layui-nav layui-layout-right">
-<!--            <li class="layui-nav-item layui-hide-xs"><a href="#" class="menuSearch layui-icon layui-icon-search"></a>-->
-<!--            </li>-->
+            <!--            <li class="layui-nav-item layui-hide-xs"><a href="#" class="menuSearch layui-icon layui-icon-search"></a>-->
+            <!--            </li>-->
             <li class="layui-nav-item layui-hide-xs">
                 <a href="#" class="fullScreen layui-icon layui-icon-screen-full"></a>
             </li>
-<!--            <li class="layui-nav-item layui-hide-xs">-->
-<!--                <a href="http://www.pearadmin.com" class="layui-icon layui-icon-website"></a>-->
-<!--            </li>-->
-<!--            <li class="layui-nav-item layui-hide-xs message"></li>-->
+            <!--            <li class="layui-nav-item layui-hide-xs">-->
+            <!--                <a href="http://www.pearadmin.com" class="layui-icon layui-icon-website"></a>-->
+            <!--            </li>-->
+            <!--            <li class="layui-nav-item layui-hide-xs message"></li>-->
             <li class="layui-nav-item user">
-<!--                <a class="layui-icon layui-icon-username" href="javascript:;"></a>-->
-<!--                <dl class="layui-nav-child">-->
-<!--                    <dd><a user-menu-url="view/system/person.html" user-menu-id="5555"-->
-<!--                           user-menu-title="基本资料">基本资料</a></dd>-->
-<!--                    <dd><a href="javascript:void(0);" class="logout">注销登录</a></dd>-->
-<!--                </dl>-->
+                <!--                <a class="layui-icon layui-icon-username" href="javascript:;"></a>-->
+                <!--                <dl class="layui-nav-child">-->
+                <!--                    <dd><a user-menu-url="view/system/person.html" user-menu-id="5555"-->
+                <!--                           user-menu-title="基本资料">基本资料</a></dd>-->
+                <!--                    <dd><a href="javascript:void(0);" class="logout">注销登录</a></dd>-->
+                <!--                </dl>-->
                 <a href="javascript:">
                     <img th:src="(${avatar} eq null or ${avatar} eq '') ? @{/static/assets/fly/images/avatar.jpg} : @{${avatar}}"
                          class="layui-nav-img">
@@ -78,7 +78,8 @@
                     <dd><a href="javascript:" onclick="editPaw()">修改密码</a></dd>
                     <hr>
                     <dd style="text-align: center;">
-                        <a href="/logout">注销登录</a>
+                        <!--                        <a href="/logout">注销登录</a>-->
+                        <a href="javascript:void(0);" class="logout">注销登录</a>
                     </dd>
                 </dl>
             </li>
@@ -148,7 +149,13 @@
         // 登出逻辑
         admin.logout(function () {
             popup.success("注销成功", function () {
-                location.href = "/login";
+                $.ajax({
+                    type: 'get',
+                    url: '/login',
+                    success: function (res) {
+                        location.href = "/login";
+                    },
+                })
             })
             // 注销逻辑 返回 true / false
             return true;

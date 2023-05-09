@@ -28,7 +28,7 @@ tab:
   enable: true
   ## 保持视图状态
   keepState: true
-  ## 开启选项卡记忆
+  ## 开启选项卡记忆, true 时,浏览器刷新之后选项卡继续存在
   session: true
   ## 浏览器刷新时是否预加载非激活标签页
   preload: true
@@ -67,6 +67,9 @@ colors:
   second: "#fef0f0"
 - id: "5"
   color: "#3963bc"
+  second: "#ecf5ff"
+- id: "6"
+  color: "#428df5"
   second: "#ecf5ff"
 ## 其他配置
 other: 

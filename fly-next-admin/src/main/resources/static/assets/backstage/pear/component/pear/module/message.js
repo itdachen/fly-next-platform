@@ -34,13 +34,13 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 					}
 				}
 			});
-			mutationObserver.observe(targetNode, {
-				attributes: true,
-				childList: false,
-				subtree: false,
-				attributeOldValue: false,
-				attributeFilter: ['class']
-			});
+			// mutationObserver.observe(targetNode, {
+			// 	attributes: true,
+			// 	childList: false,
+			// 	subtree: false,
+			// 	attributeOldValue: false,
+			// 	attributeFilter: ['class']
+			// });
 		}
 		setTimeout(function () {
 			element.init();
