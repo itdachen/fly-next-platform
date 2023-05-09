@@ -64,6 +64,10 @@
 | ![](docs/resources/images/003.png) | ![](docs/resources/images/004.png) |
 | ![](docs/resources/images/005.png) | ![](docs/resources/images/006.png) ||
 
+### 📚 前端UI
+* JQ版本 [Pear Admin Layui](https://gitee.com/pear-admin/Pear-Admin-Layui)
+* ElementUI [vue-next-admin](https://gitee.com/lyt-top/vue-next-admin)
+
 ### 💒 代码依赖仓库
 
 * fly-framework [码云](https://gitee.com/itdachen/fly-framework)
