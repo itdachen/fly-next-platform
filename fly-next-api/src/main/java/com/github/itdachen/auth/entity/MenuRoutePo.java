@@ -1,6 +1,7 @@
 package com.github.itdachen.auth.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,7 +34,7 @@ public class MenuRoutePo implements Serializable {
     private Boolean isHide = false;
 
     // 菜单是否缓存
-    private Boolean isKeepAlive = false;
+    private Boolean isKeepAlive = true;
 
     // 菜单是否固定（固定在 tagsView 中，不可进行关闭），右键菜单无 `关闭` 项
     private Boolean isAffix = false;
@@ -44,7 +45,7 @@ public class MenuRoutePo implements Serializable {
 
     // 当前路由权限标识，取角色管理。控制路由显示、隐藏。超级管理员：admin 普通角色：common
     // 之前 auth 取用户（角色下有多个用户）
-    private List<String> roles;
+    private List<String> roles = new ArrayList<>();
 
     public String getId() {
         return id;

@@ -66,7 +66,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
                 path: '/admin',
                 name: 'admin',
                 component: () => import('/@/layout/routerView/parent.vue'),
-                redirect: '/admin/menu',
+                redirect: '/admin/app',
                 meta: {
                     title: '系统管理',
                     isLink: '',
@@ -80,7 +80,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
                 children: [
 					{
 						path: '/admin/app',
-						name: 'AppClient',
+						name: 'appClient',
 						component: () => import('/@/views/admin/app/index.vue'),
 						meta: {
 							title: '应用管理',
@@ -95,7 +95,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 					},
                     {
                         path: '/admin/menu',
-                        name: 'MenuInfo',
+                        name: 'menuInfo',
                         component: () => import('/@/views/admin/menu/index.vue'),
                         meta: {
                             title: '菜单管理',

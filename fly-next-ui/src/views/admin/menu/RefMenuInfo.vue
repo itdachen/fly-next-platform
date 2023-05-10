@@ -154,9 +154,9 @@ const show = (type: DialogTypeEnum, data: MenuInfo) => {
     menuInfo.parentId = data?.parentId;
     menuInfo.parentTitle = data?.parentTitle
     menuInfo.orderNum = '99';
-    menuInfo.affix = '1';
-    menuInfo.iframe = '1';
-    menuInfo.keepAlive = '0';
+    menuInfo.affix = '0';
+    menuInfo.iframe = '0';
+    menuInfo.keepAlive = '1';
   }
 
   onShow();

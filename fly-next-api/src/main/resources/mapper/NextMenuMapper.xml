@@ -20,14 +20,15 @@
                component,
                redirect,
                title,
-               link         AS isLink,
-               keep_alive   AS isKeepAlive,
-               affix        AS isAffix,
-               iframe       AS isIframe,
-               element_icon AS icon,
+               IFNULL(link, '')                  AS isLink,
+               IF(keep_alive = '1', true, false) AS isKeepAlive,
+               IF(affix = '1', true, false) AS isAffix,
+               IF(iframe = '1', true, false)     AS isIframe,
+               element_icon                      AS icon,
                type
         FROM sys_menu_info
-        WHERE parent_id = #{parentId} AND client_id = #{clientId}
+        WHERE parent_id = #{parentId}
+          AND client_id = #{clientId}
         ORDER BY order_num ASC
     </select>
 

@@ -1,6 +1,7 @@
 package com.github.itdachen.auth.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,7 +41,7 @@ public class NextMetaMenu implements Serializable {
     // 当前路由权限标识，取角色管理。控制路由显示、隐藏。超级管理员：admin 普通角色：common
     // 之前 auth 取用户（角色下有多个用户）
     // 已废弃
-    private List<String> roles;
+    private List<String> roles = new ArrayList<>();
 
 
     public String getTitle() {

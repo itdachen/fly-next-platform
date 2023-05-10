@@ -1,4 +1,5 @@
 import request from '/@/utils/request';
+import httpAxios from "/@/axios";
 
 /**
  * 以下为模拟接口地址，gitee 的不通，就换自己的真实接口地址
@@ -13,11 +14,7 @@ import request from '/@/utils/request';
 export function useMenuApi() {
 	return {
 		getAdminMenu: (params?: object) => {
-			return request({
-				url: '/gitee/lyt-top/vue-next-admin-images/raw/master/menu/adminMenu.json',
-				method: 'get',
-				params,
-			});
+			return httpAxios.get('/next/menu/routes')
 		},
 		getTestMenu: (params?: object) => {
 			return request({

@@ -26,6 +26,10 @@
         <!--          <el-tag type="info" v-if="'menu'===scope.row.type">菜单</el-tag>-->
         <!--          <el-tag type="warning" v-if="'uri'===scope.row.type">地址</el-tag>-->
         <!--        </template>-->
+        <template #title='scope'>
+          <SvgIcon :name="scope.row.elementIcon" />
+          <span class="ml10">{{ $t(scope.row.title) }}</span>
+        </template>
         <template #visible='scope'>
           <el-tag type="success" v-if="'1'===scope.row.visible">显示</el-tag>
           <el-tag type="info" v-else>不显示</el-tag>

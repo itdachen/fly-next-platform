@@ -1,6 +1,7 @@
 package com.github.itdachen.auth.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ public class NextMenuRoute  implements Serializable {
 
     private String redirect;
 
-    private List<NextMenuRoute> children;
+    private List<NextMenuRoute> children = new ArrayList<>();
 
     public String getPath() {
         return path;
