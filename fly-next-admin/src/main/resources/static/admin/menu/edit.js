@@ -1,7 +1,29 @@
-layui.use(['form'], function () {
+layui.use(['form', 'iconPicker'], function () {
     let form = layui.form;
     form.render();
+    let iconPicker = layui.iconPicker;
 
+    iconPicker.render({
+        // 选择器，推荐使用input
+        elem: '#icon',
+        // 数据类型：fontClass/unicode，推荐使用fontClass
+        type: 'fontClass',
+        // 是否开启搜索：true/false
+        search: true,
+        // 是否开启分页
+        page: false,
+        // 每页显示数量，默认12
+        limit: 16,
+        // 点击回调
+        click: function (data) {
+            let icon = data.icon;
+            $('#icon').val(icon);
+        },
+        // 渲染成功后的回调
+        success: function (d) {
+            console.log(d);
+        }
+    });
 
     /* 提交 */
     form.on('submit(editMenuInfo)', function (data) {

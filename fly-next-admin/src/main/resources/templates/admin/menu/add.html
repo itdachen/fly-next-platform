@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="common/common::common('新增菜单管理')"/>
+    <script th:src="@{/static/assets/backstage/pear/component/pear/pear.js}"></script>
     <script th:src="@{/static/admin/menu/add.js}" charset="utf-8"></script>
 </head>
 <body>
@@ -57,8 +58,9 @@
                 <span class="required">*</span>图标
             </label>
             <div class="layui-input-block">
-                <input type="text" id="icon" name="icon"
-                       autocomplete="off" lay-verify="required" class="layui-input">
+                <input type="text" id="icon" name="icon" class="layui-input" value="layui-icon-face-smile-fine" lay-filter="iconPicker3">
+<!--                <input type="text" id="icon" name="icon"-->
+<!--                       autocomplete="off" lay-verify="required" class="layui-input">-->
             </div>
         </div>
 
