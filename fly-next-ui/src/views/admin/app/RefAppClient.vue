@@ -54,7 +54,7 @@ import {reactive} from 'vue';
 import DialogPopup from '/@/components/dialog/DialogPopup.vue';
 import useDialog from '/@/components/dialog/DialogPopup';
 import {DialogTypeEnum} from '/@/components/dialog/Dialog';
-import useElementFromComposable from '/@/composables/element/ElementFromComposable';
+import useElementFromComposable from '/@/composables/fly/ElementFromComposable';
 import {ElForm} from 'element-plus/es';
 import useAppClientBuilder, {AppClient} from '/@/api/admin/model/AppClientModel';
 

@@ -4,11 +4,11 @@
  * Created with IntelliJ Webstorm.
  */
 
-import {BizQuery} from "/@/hooks/biz/BizModel";
+import {BizQuery} from "/@/hooks/fly/biz/BizModel";
 import {reactive, ref} from "vue";
 import {ColumnProps} from '/@/components/table/interface';
 import {DialogTypeEnum} from "/@/components/dialog/Dialog";
-import {TableData} from "/@/hooks/biz/BizModel";
+import {TableData} from "/@/hooks/fly/biz/BizModel";
 
 /**
  * 按钮资源 查询参数

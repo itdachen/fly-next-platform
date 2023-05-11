@@ -1,7 +1,6 @@
 /**
  * pinia 类型定义
  */
-import {Dict} from "/@/hooks/biz/Dict";
 
 // 用户信息
 declare interface UserInfos<T = any> {

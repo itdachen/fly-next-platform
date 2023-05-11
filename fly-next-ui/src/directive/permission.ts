@@ -1,5 +1,5 @@
 import {Directive} from 'vue'
-import useStringComposable from "/@/utils/string";
+import useStringComposable from "/@/utils/fly/string";
 
 const {split} = useStringComposable()
 /**

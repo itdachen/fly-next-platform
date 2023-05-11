@@ -1,6 +1,6 @@
-import {ServerResponse, TableData, BizQuery} from '/@/hooks/biz/BizModel';
+import {ServerResponse, TableData, BizQuery} from '/@/hooks/fly/biz/BizModel';
 import httpAxios from '/@/axios';
-import useStringComposable from '/@/utils/string';
+import useStringComposable from '/@/utils/fly/string';
 
 const {isEmpty} = useStringComposable();
 

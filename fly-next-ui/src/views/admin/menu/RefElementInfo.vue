@@ -63,7 +63,7 @@ import {reactive} from 'vue';
 import DialogPopup from '/@/components/dialog/DialogPopup.vue';
 import useDialog from '/@/components/dialog/DialogPopup';
 import {DialogTypeEnum} from '/@/components/dialog/Dialog';
-import useElementFromComposable from '/@/composables/element/ElementFromComposable';
+import useElementFromComposable from '/@/composables/fly/ElementFromComposable';
 import useMenuInfoInfoBuilder, {ElementInfo} from '/@/api/admin/model/MenuInfoModel';
 
 /**

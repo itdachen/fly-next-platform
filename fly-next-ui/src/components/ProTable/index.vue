@@ -105,7 +105,7 @@ import {computed, ref} from 'vue';
 import Pagination from './components/Pagination.vue';
 import ColSetting from './components/ColSetting.vue';
 import {ColumnProps} from '/@/components/table/interface';
-import {defaultFormat, filterEnum} from '/@/utils/util';
+import {defaultFormat, filterEnum} from '/@/utils/fly/util';
 import {Operation, Refresh} from '@element-plus/icons-vue';
 
 interface ProTableProps {

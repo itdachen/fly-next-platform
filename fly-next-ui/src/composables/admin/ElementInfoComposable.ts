@@ -1,4 +1,4 @@
-import useStringComposable from '/@/utils/string';
+import useStringComposable from '/@/utils/fly/string';
 import useTable from '/@/components/ProTable/TableComposables';
 import {DialogTypeEnum} from '/@/components/dialog/Dialog';
 import useElementInfoBuilder, {ElementInfo, ElementInfoQuery} from "/@/api/admin/model/ElementInfoModel";

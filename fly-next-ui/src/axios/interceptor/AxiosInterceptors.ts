@@ -4,10 +4,10 @@ import axios, {
     AxiosResponse,
     AxiosResponseHeaders
 } from 'axios';
-import {ServerResponse} from "/@/hooks/biz/BizModel";
+import {ServerResponse} from "/@/hooks/fly/biz/BizModel";
 import {TOKEN_TYPE, OPEN_URL, CONTENT_TYPE} from '/@/axios/conf/config';
 import {ElMessage} from 'element-plus';
-import useStringComposable from '/@/utils/string';
+import useStringComposable from '/@/utils/fly/string';
 import {ResultStatusCode} from '/@/axios/enums/ResultStatusCode';
 import {useRouter} from 'vue-router';
 import {getToken} from '/@/axios/jwt/JwtService';
