@@ -35,6 +35,16 @@
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">
+                <span class="required">*</span>图标
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="icon" name="icon" th:field="*{icon}" class="layui-input" lay-filter="iconPicker3">
+
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
                 <span class="required">*</span>权限编码
             </label>
             <div class="layui-input-block">
@@ -60,16 +70,6 @@
             <div class="layui-input-block">
                 <input type="text" id="path" name="path" th:field="*{path}"
                        autocomplete="off" lay-verify="required" class="layui-input">
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">
-                <span class="required">*</span>图标
-            </label>
-            <div class="layui-input-block">
-                <input type="text" id="icon" name="icon" th:field="*{icon}" class="layui-input" lay-filter="iconPicker3">
-
             </div>
         </div>
 
