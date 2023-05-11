@@ -141,7 +141,13 @@
                     layer.alert("密码修改成功!",
                         {title: "系统提示", icon: $.msg.icon(LAYER_STATUS.SUCCESS)},
                         function () {
-                            top.location.href = '/login';
+                            $.ajax({
+                                type: 'GET',
+                                url: HTTP_BIZ_URI + '/logout',
+                                success: function (res) {
+                                    top.location.href = '/login';
+                                }
+                            })
                         }
                     );
                 }

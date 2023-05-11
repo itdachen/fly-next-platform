@@ -72,12 +72,14 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
             }
 
             this.logoRender = function (param) {
-                // 动态加载项目名称和logo
+                param.logo.image = $('#logImage').val();
+                param.logo.title = $('#clientName').val();
                 $(".layui-logo .logo").attr("src", param.logo.image);
                 $(".layui-logo .title").html(param.logo.title);
             }
 
             this.menuRender = function (param) {
+                param.menu.data = $('#permsAuthUri').val();
                 sideMenu = pearMenu.render({
                     elem: 'sideMenu',
                     async: param.menu.async !== undefined ? param.menu.async : true,

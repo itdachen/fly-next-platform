@@ -48,8 +48,6 @@ public class AdminDashboardController {
     @GetMapping({"/", "/index"})
     public String index(ModelMap modelMap) {
         clientInfo(modelMap);
-
-
         if (TemplateEnum.LYEAR == webAppClientConfig.getTemplate()) {
             return LYEAR_PREFIX + "/index";
         } else if (TemplateEnum.LAYUI == webAppClientConfig.getTemplate()) {
@@ -58,9 +56,9 @@ public class AdminDashboardController {
             return PATH_PREFIX + "/index";
         } else if (TemplateEnum.OKADMIN == webAppClientConfig.getTemplate()) {
             return OK_PATH_PREFIX + "/index";
-        } else if (TemplateEnum.PEAR == webAppClientConfig.getTemplate()) {
-            return PEAR_PREFIX + "/index";
         } else {
+            String permsAuthUri = contextPath() + "/pear/admin/menu";
+            modelMap.put("permsAuthUri", permsAuthUri);
             return PEAR_PREFIX + "/index";
         }
     }
