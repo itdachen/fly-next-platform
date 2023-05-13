@@ -34,6 +34,17 @@ class TableInfoApi extends HttpRequest<TableInfo, TableInfoQuery, string> {
         return this.http.get(path + '/preview/' + id);
     }
 
+    /**
+     * 下载代码
+     * @param id
+     */
+    downloadCode(id) {
+        this.http.download({
+            url: path + `/code?id=${id}`,
+            method: 'GET',
+        })
+    }
+
 
 }
 

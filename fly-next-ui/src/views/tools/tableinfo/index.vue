@@ -6,22 +6,27 @@
         <pro-table :data="tableData" :columns="columns" @reloadDate="reloadDate">
           <template #tableHeader="scope">
             <div class="system-user-search mb15">
-              <el-input size="default" placeholder="表名称" class="ml10" style="max-width: 180px;"
-                        v-model='queryParams.tableName'></el-input>
-              <el-input size="default" placeholder="生成功能名" class="ml10" style="max-width: 180px;"
-                        v-model='queryParams.functionName'></el-input>
-              <!--   v-permission="['admin:table:info:query']"            -->
-              <el-button size="default" type="primary" :icon="Search" class="ml10"
+              <el-form label-width="80px" :inline="true">
+                <el-input size="default" placeholder="表名称" class="ml10" style="max-width: 180px;"
+                          v-model='queryParams.tableName'></el-input>
+                <el-input size="default" placeholder="生成功能名" class="ml10" style="max-width: 180px;"
+                          v-model='queryParams.functionName'></el-input>
 
-                         @click='tapSearchHandler(queryParams)'> 搜索
-              </el-button>
-              <!-- v-permission="['admin:table:info:save']" -->
-              <el-button size="default" type="success" :icon="BottomRight" class="ml10"
-                         @click='tapSaveHandler()'> 导入表
-              </el-button>
-              <el-button size="default" type="danger" :icon="Download" class="ml10"
-                         @click='tapSaveHandler()'> 下载代码
-              </el-button>
+                <!--   v-permission="['admin:table:info:query']"            -->
+                <el-button size="default" type="primary" :icon="Search" class="ml10"
+
+                           @click='tapSearchHandler(queryParams)'> 搜索
+                </el-button>
+                <!-- v-permission="['admin:table:info:save']" -->
+                <el-button size="default" type="success" :icon="BottomRight" class="ml10"
+                           @click='tapSaveHandler()'> 导入表
+                </el-button>
+                <el-button size="default" type="danger" :icon="Download"
+                           class="ml10" :disabled="!scope.isSelected"
+                           @click='tapDownloadHandler(scope.ids)'> 下载代码
+                </el-button>
+              </el-form>
+
             </div>
           </template>
           <!-- 表格操作 -->
@@ -36,7 +41,7 @@
                        @click="tapUpdateHandler(scope.row)">编辑
             </el-button>
             <el-button type="danger" size="small" :icon="Download"
-                       @click="tapDownloadHandler(scope.row)">下载
+                       @click="tapDownloadCodeHandler(scope.row.id)">下载
             </el-button>
             <!--   v-permission="['admin:table:info:delete']"         -->
             <el-button type="warning" :icon="Delete" size="small"
@@ -79,7 +84,8 @@ const {
   tapRemoveHandler,
   tapSubmitHandler,
   reloadDate,
-  loadTableData
+  loadTableData,
+  tapDownloadCodeHandler
 } = useTableInfoComposable();
 
 /**
@@ -89,6 +95,13 @@ onMounted(() => {
   loadTableData(queryParams);
 })
 
+/**
+ * 下载代码
+ * @param ids
+ */
+const tapDownloadHandler = (ids) => {
+  tapDownloadCodeHandler(ids.join(','))
+}
 
 </script>
 

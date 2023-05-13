@@ -254,6 +254,11 @@ export default function useTableInfoBuilder() {
      */
     const columns: Partial<ColumnProps>[] = [
         {
+            type: "selection",
+            width: 80,
+            fixed: "left"
+        },
+        {
             prop: "tableName",
             label: "表名称",
             align: "center"
@@ -294,7 +299,6 @@ export default function useTableInfoBuilder() {
         show: (type: DialogTypeEnum, data?: TableInfo | null) => void,
         onClose: () => void
     }>();
-
 
 
     return {

@@ -128,6 +128,14 @@ export default function useTableInfoComposable() {
     };
 
     /**
+     * 下载代码
+     * @param idStr
+     */
+    const tapDownloadCodeHandler = (idStr: string) => {
+        tableInfoApi.downloadCode(idStr);
+    }
+
+    /**
      * 编辑时, 查询数据
      * @param id
      */
@@ -150,6 +158,7 @@ export default function useTableInfoComposable() {
         tapViewHandler,
         tapRemoveHandler,
         tapSubmitHandler,
+        tapDownloadCodeHandler,
         reloadDate,
         loadTableData,
         findTableInfo
