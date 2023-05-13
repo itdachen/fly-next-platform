@@ -1,6 +1,6 @@
-import useStringComposable from '/@/utils/fly/string';
-import useTable from '/@/components/ProTable/TableComposables';
-import {DialogTypeEnum} from '/@/components/dialog/Dialog';
+import useStringComposable from '/@/fly/utils/string';
+import useTable from '/@/fly/components/table/TableComposables';
+import {DialogTypeEnum} from '/@/fly/components/dialog/Dialog';
 import useAppClientBuilder, {AppClient, AppClientQuery} from '/@/api/admin/model/AppClientModel';
 import AppClientApi from '/@/api/admin/AppClientApi';
 

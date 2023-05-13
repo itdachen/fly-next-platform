@@ -4,7 +4,7 @@ import App from '/@/App.vue';
 import router from '/@/router';
 import {directive} from '/@/directive/index';
 //引入按钮权限
-import { permission } from '/@/directive/permission';
+import { permission } from '/@/fly/directive/permission';
 import {i18n} from '/@/i18n/index';
 import other from '/@/utils/other';
 
@@ -13,14 +13,10 @@ import '/@/theme/index.scss';
 import VueGridLayout from 'vue-grid-layout';
 
 
-// custom element dark
-import '/@/styles/element-dark.scss';
-// custom element css
-import '/@/styles/element.scss';
-// reset style sheet
-import '/@/styles/reset.scss';
-// CSS common style sheet
-import '/@/styles/common.scss';
+import '/@/fly/styles/element-dark.scss';
+import '/@/fly/styles/element.scss';
+import '/@/fly/styles/reset.scss';
+import '/@/fly/styles/common.scss';
 
 
 const app = createApp(App);

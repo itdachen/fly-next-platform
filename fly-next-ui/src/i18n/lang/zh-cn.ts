@@ -123,8 +123,8 @@ export default {
 	},
 	noAccess: {
 		accessTitle: '您未被授权，没有操作权限~',
-		accessMsg: '请联系管理员授权',
-		accessBtn: '重新登录',
+		accessMsg: '联系方式：加QQ群探讨 665452019',
+		accessBtn: '重新授权',
 	},
 	layout: {
 		configTitle: '布局配置',

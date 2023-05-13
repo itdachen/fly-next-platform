@@ -1,6 +1,6 @@
-import useStringComposable from '/@/utils/fly/string';
-import useTable from '/@/components/ProTable/TableComposables';
-import {DialogTypeEnum} from '/@/components/dialog/Dialog';
+import useStringComposable from '/@/fly/utils/string';
+import useTable from '/@/fly/components/table/TableComposables';
+import {DialogTypeEnum} from '/@/fly/components/dialog/Dialog';
 import useElementInfoBuilder, {ElementInfo, ElementInfoQuery} from "/@/api/admin/model/ElementInfoModel";
 import ElementInfoApi from '/@/api/admin/ElementInfoApi'
 

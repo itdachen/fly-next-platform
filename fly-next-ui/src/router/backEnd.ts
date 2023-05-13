@@ -37,7 +37,9 @@ export async function initBackEndControlRoutes() {
 	// 界面 loading 动画开始执行
 	if (window.nextLoading === undefined) NextLoading.start();
 	// 无 token 停止执行下一步
-	if (!Session.get('access_token')) return false;
+	if (!Session.get('access_token')) {
+		return false;
+	}
 	// 触发初始化用户信息 pinia
 	// https://gitee.com/lyt-top/vue-next-admin/issues/I5F1HP
 	await useUserInfo().setUserInfos();
@@ -45,7 +47,9 @@ export async function initBackEndControlRoutes() {
 	const res = await getBackEndControlRoutes();
 	// 无登录权限时，添加判断
 	// https://gitee.com/lyt-top/vue-next-admin/issues/I64HVO
-	if (res.data.length <= 0) return Promise.resolve(true);
+	if (res.data.length <= 0) {
+		return Promise.resolve(true);
+	}
 	// 存储接口原始路由（未处理component），根据需求选择使用
 	useRequestOldRoutes().setRequestOldRoutes(JSON.parse(JSON.stringify(res.data)));
 	// 处理路由（component），替换 dynamicRoutes（/@/router/route）第一个顶级 children 的路由
@@ -108,13 +112,18 @@ export async function setAddRoute() {
  */
 export function getBackEndControlRoutes() {
 	// 模拟 admin 与 test
-	const stores = useUserInfo(pinia);
-	const { userInfos } = storeToRefs(stores);
-	const auth = userInfos.value.roles[0];
+	// const stores = useUserInfo(pinia);
+	//const { userInfos } = storeToRefs(stores);
+	//const auth = userInfos.value.roles[0];
+
+	return menuApi.getAdminMenu();
+
 	// 管理员 admin
-	if (auth === 'admin') return menuApi.getAdminMenu();
-	// 其它用户 test
-	else return menuApi.getTestMenu();
+	// if (auth === 'admin'){
+	// 	return menuApi.getAdminMenu();
+	// }
+	// // 其它用户 test
+	// else return menuApi.getTestMenu();
 }
 
 /**

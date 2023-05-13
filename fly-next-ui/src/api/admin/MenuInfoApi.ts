@@ -1,4 +1,4 @@
-import {HttpRequest} from "/@/axios/rest/HttpRequest";
+import {HttpRequest} from "/@/fly/axios/rest/HttpRequest";
 import {MenuInfo, MenuInfoQuery} from "/@/api/admin/model/MenuInfoModel";
 
 /**

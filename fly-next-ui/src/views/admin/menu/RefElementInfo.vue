@@ -1,4 +1,5 @@
 <template>
+  <div>
   <dialog-popup :title="dialog.title"
                 :visible="dialog.visible"
                 :width="dialog.width"
@@ -56,14 +57,15 @@
       </el-form>
     </template>
   </dialog-popup>
+  </div>
 </template>
 
 <script setup lang="ts" name="RefElementInfo">
 import {reactive} from 'vue';
-import DialogPopup from '/@/components/dialog/DialogPopup.vue';
-import useDialog from '/@/components/dialog/DialogPopup';
-import {DialogTypeEnum} from '/@/components/dialog/Dialog';
-import useElementFromComposable from '/@/composables/fly/ElementFromComposable';
+import DialogPopup from '/@/fly/components/dialog/DialogPopup.vue';
+import useDialog from '/@/fly/components/dialog/DialogPopup';
+import {DialogTypeEnum} from '/@/fly/components/dialog/Dialog';
+import useElementFromComposable from '/@/fly/composables/ElementFromComposable';
 import useMenuInfoInfoBuilder, {ElementInfo} from '/@/api/admin/model/MenuInfoModel';
 
 /**

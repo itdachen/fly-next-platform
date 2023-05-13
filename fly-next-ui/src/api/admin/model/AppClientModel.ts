@@ -4,11 +4,11 @@
  * Created with IntelliJ Webstorm.
  */
 
-import {BizQuery} from "/@/hooks/fly/biz/BizModel";
+import {BizQuery} from "/@/fly/biz/BizModel";
 import {reactive, ref} from "vue";
-import {ColumnProps} from '/@/components/table/interface';
-import {DialogTypeEnum} from "/@/components/dialog/Dialog";
-import {TableData} from "/@/hooks/fly/biz/BizModel";
+import {ColumnProps} from '/@/fly/components/table/interface';
+import {DialogTypeEnum} from "/@/fly/components/dialog/Dialog";
+import {TableData} from "axios";
 
 /**
  * 应用管理 查询参数

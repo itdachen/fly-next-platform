@@ -1,4 +1,4 @@
-import {HttpRequest} from "/@/axios/rest/HttpRequest";
+import {HttpRequest} from "/@/fly/axios/rest/HttpRequest";
 import {ElementInfo, ElementInfoQuery} from "/@/api/admin/model/ElementInfoModel";
 
 /**

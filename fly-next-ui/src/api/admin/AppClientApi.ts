@@ -1,6 +1,6 @@
-import {HttpRequest} from '/@/axios/rest/HttpRequest';
+import {HttpRequest} from '/@/fly/axios/rest/HttpRequest';
 import {AppClient, AppClientQuery} from '/@/api/admin/model/AppClientModel';
-import {ServerResponse} from '/@/hooks/fly/biz/BizModel';
+import {ServerResponse} from "axios";
 
 /**
  * 请求路径

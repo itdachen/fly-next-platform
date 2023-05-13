@@ -1,4 +1,5 @@
 <template>
+  <div>
   <div class="template-container layout-padding">
     <div class="template-container-padding layout-padding-auto layout-padding-view">
       <!-- 表格展示 -->
@@ -44,12 +45,13 @@
 
   </div>
   <RefAppClient ref="refAppClient" @submit="onSubmit"/>
+  </div>
 </template>
 
-<script lang='ts' setup name='AppClientManagement'>
+<script lang='ts' setup name="AppClientComponent">
 import {defineAsyncComponent, onMounted} from 'vue';
 import {Search, Edit, View, Delete, Plus} from '@element-plus/icons-vue';
-import ProTable from '/@/components/table/index.vue';
+import ProTable from '/@/fly/components/table/index.vue';
 import useAppClientComposable from '/@/composables/admin/AppClientComposable';
 
 const RefAppClient = defineAsyncComponent(() => import('./RefAppClient.vue'));

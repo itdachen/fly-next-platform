@@ -1,5 +1,5 @@
-import httpAxios from '/@/axios';
-// import request from '/@/utils/request';
+import request from '/@/utils/request';
+import httpAxios from "/@/fly/axios";
 
 /**
  * （不建议写成 request.post(xxx)，因为这样 post 时，无法 params 与 data 同时传参）
@@ -11,32 +11,31 @@ import httpAxios from '/@/axios';
 export function useLoginApi() {
     return {
 
-        signIn: (params: object) => {
+        /**
+         * 登录
+         * @param data
+         */
+        signIn: (data: object) => {
             return httpAxios.request({
                 url: '/oauth/token',
-                method: 'post',
-                data: params,
-            });
-
-            // return request({
-            //     url: '/oauth/token',
-            //     method: 'post',
-            //     params,
-            // });
-        },
-
-        signOut: (data: object) => {
-            return httpAxios.request({
-                url: '/user/signOut',
                 method: 'post',
                 data: data,
             });
 
             // return request({
-            // 	url: '/user/signOut',
+            // 	url: '/user/signIn',
             // 	method: 'post',
             // 	data,
             // });
+        },
+
+
+        signOut: (data: object) => {
+            return request({
+                url: '/user/signOut',
+                method: 'post',
+                data,
+            });
         },
     };
 }

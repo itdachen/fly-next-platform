@@ -1,4 +1,5 @@
 <template>
+  <div>
   <dialog-popup :title="dialog.title"
                 :visible="dialog.visible"
                 :width="dialog.width"
@@ -93,14 +94,15 @@
       </el-form>
     </template>
   </dialog-popup>
+  </div>
 </template>
 
 <script setup lang="ts" name="RefMenuInfo">
 import {defineAsyncComponent, reactive} from 'vue';
-import DialogPopup from '/@/components/dialog/DialogPopup.vue';
-import useDialog from '/@/components/dialog/DialogPopup';
-import {DialogTypeEnum} from '/@/components/dialog/Dialog';
-import useElementFromComposable from '/@/composables/fly/ElementFromComposable';
+import DialogPopup from '/@/fly/components/dialog/DialogPopup.vue';
+import useDialog from '/@/fly/components/dialog/DialogPopup';
+import {DialogTypeEnum} from '/@/fly/components/dialog/Dialog';
+import useElementFromComposable from '/@/fly/composables/ElementFromComposable';
 import useMenuInfoBuilder, {MenuInfo} from '/@/api/admin/model/MenuInfoModel';
 
 const IconSelector = defineAsyncComponent(() => import('/@/components/iconSelector/index.vue'));
