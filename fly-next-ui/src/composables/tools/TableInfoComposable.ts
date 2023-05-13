@@ -12,7 +12,8 @@ const {
     columns,
     queryParams,
     tableData,
-    refTableInfo
+    refTableInfo,
+    refViewTableInfo
 } = useTableInfoBuilder();
 
 
@@ -30,7 +31,7 @@ export default function useTableInfoComposable() {
      * @param params
      */
     const loadTableData = (params: TableInfoQuery) => {
-            tableInfoApi.page(params).then(res => {
+        tableInfoApi.page(params).then(res => {
             tableData.total = res.data.total;
             tableData.rows = res.data.rows;
         });
@@ -66,7 +67,7 @@ export default function useTableInfoComposable() {
     const tapSubmitHandler = (data: TableInfo) => {
         let id: string | undefined = data.id;
         if (isEmpty(id)) {
-           tableInfoApi.saveInfo(data).then(res => {
+            tableInfoApi.saveInfo(data).then(res => {
                 successMsg(res.msg);
                 refTableInfo.value?.onClose();
                 loadTableData(queryParams);
@@ -88,7 +89,7 @@ export default function useTableInfoComposable() {
      */
     const tapRemoveHandler = (id: string, title: string) => {
         confirmMsgBox('数据删除后将无法恢复，确定要删除 ' + title + ' 吗?').then(res => {
-           tableInfoApi.remove(id).then(res => {
+            tableInfoApi.remove(id).then(res => {
                 successMsg(res.msg);
                 loadTableData(queryParams);
             });
@@ -110,7 +111,9 @@ export default function useTableInfoComposable() {
      * @param data
      */
     const tapUpdateHandler = (data: TableInfo) => {
-        refTableInfo.value?.show(DialogTypeEnum.UPDATE, data);
+        tableInfoApi.findTableInfo(data.id).then(res => {
+            refTableInfo.value?.show(DialogTypeEnum.UPDATE, res.data);
+        })
     };
 
     /**
@@ -119,11 +122,24 @@ export default function useTableInfoComposable() {
      * @param data
      */
     const tapViewHandler = (data: TableInfo) => {
-        refTableInfo.value?.show(DialogTypeEnum.VIEW, data);
+        tableInfoApi.findPreviewTableInfo(data.id).then(res => {
+            refViewTableInfo.value?.show(DialogTypeEnum.VIEW, res.data);
+        })
+    };
+
+    /**
+     * 编辑时, 查询数据
+     * @param id
+     */
+    const findTableInfo = (id: string | undefined) => {
+        tableInfoApi.findTableInfo(id).then(res => {
+            return res.data;
+        })
     };
 
     return {
         refTableInfo,
+        refViewTableInfo,
         tableInfo,
         tableData,
         columns,
@@ -135,6 +151,7 @@ export default function useTableInfoComposable() {
         tapRemoveHandler,
         tapSubmitHandler,
         reloadDate,
-        loadTableData
+        loadTableData,
+        findTableInfo
     };
 }

@@ -18,6 +18,22 @@ class TableInfoApi extends HttpRequest<TableInfo, TableInfoQuery, string> {
         super(path)
     }
 
+    /**
+     * 查询表信息
+     * @param id
+     */
+    findTableInfo(id: string | undefined) {
+        return this.http.get(path + '/' + id);
+    }
+
+    /**
+     * 预览代码
+     * @param id
+     */
+    findPreviewTableInfo(id: string | undefined) {
+        return this.http.get(path + '/preview/' + id);
+    }
+
 
 }
 

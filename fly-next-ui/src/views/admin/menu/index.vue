@@ -64,9 +64,9 @@
     </div>
 
 
-    <!-- 新增/修改/查看 弹窗 -->
+    <!-- 菜单 弹窗 -->
     <RefMenuInfo ref="refMenuInfo" @bindtap="tapSubmitHandler"></RefMenuInfo>
-
+    <!--  按钮  -->
     <RefElementInfo ref="refElementInfo" @bindtap="tapSubmitElementHandler"></RefElementInfo>
   </div>
 </template>

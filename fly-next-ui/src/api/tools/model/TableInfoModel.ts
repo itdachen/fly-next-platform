@@ -98,7 +98,55 @@ export interface TableInfo {
     /** 其它生成选项 */
     options?: string,
     /** 备注 */
-    remarks?: string
+    remarks?: string,
+    /**  */
+    columns?: TableColumn[],
+}
+
+
+/**
+ * 代码生成业务表字段 向后端传值对象
+ *
+ * @author 王大宸
+ * @date 2023-05-13 15:03:04
+ */
+export interface TableColumn {
+    /** 编号 */
+    id?: string,
+    /** 归属表编号 */
+    tableId?: string,
+    /** 列名称 */
+    columnName?: string,
+    /** 列描述 */
+    columnComment?: string,
+    /** 列类型 */
+    columnType?: string,
+    /** JAVA类型 */
+    javaType?: string,
+    /** JAVA字段名 */
+    javaField?: string,
+    /** 前端TS类型 */
+    tsType?: string,
+    /** 是否主键（1是） */
+    isPk?: string,
+    /** 是否Dto/Vo类字段 */
+    isDtoVo?: string,
+    /** 是否必填（1是） */
+    isRequired?: string,
+    /** 是否为表单字段（1是） */
+    isForm?: string,
+    /** 是否列表字段（1是） */
+    isList?: string,
+    /** 是否查询字段（1是） */
+    isQuery?: string,
+    /** 查询方式（等于、不等于、大于、小于、范围） */
+    queryType?: string,
+    /** 显示类型（文本框、文本域、下拉框、复选框、单选框、日期控件） */
+    htmlType?: string,
+    /** 字典类型 */
+    dictType?: string,
+    /** 排序 */
+    sort?: string
 }
 
 
@@ -242,12 +290,20 @@ export default function useTableInfoBuilder() {
         onClose: () => void
     }>();
 
+    const refViewTableInfo = ref<{
+        show: (type: DialogTypeEnum, data?: TableInfo | null) => void,
+        onClose: () => void
+    }>();
+
+
+
     return {
         queryParams,
         tableData,
         tableInfo,
         columns,
-        refTableInfo
+        refTableInfo,
+        refViewTableInfo
     }
 
 }
