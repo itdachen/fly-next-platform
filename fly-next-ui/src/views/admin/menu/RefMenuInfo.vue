@@ -13,7 +13,7 @@
                :rules="rules" :disabled="isDisabled"
                :inline="true" class="demo-form-inline"
                label-width="120px">
-        <el-form-item label='类型' prop='type' class="mb20">
+        <el-form-item label='类型' prop='type' class="mb10">
           <el-select v-model='menuInfo.type' style="width: 160px;">
             <el-option label='目录' value='dirt'/>
             <el-option label='菜单' value='menu'/>
@@ -21,66 +21,66 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="标题" prop="title" class="mb20">
+        <el-form-item label="标题" prop="title" class="mb10">
           <el-input v-model="menuInfo.title" placeholder="请输入标题"/>
         </el-form-item>
 
-        <el-form-item label="权限编码" prop="code" class="mb20">
+        <el-form-item label="权限编码" prop="code" class="mb10">
           <el-input v-model="menuInfo.code" placeholder="权限编码"/>
         </el-form-item>
 
-        <el-form-item label="资源路径" prop="path" class="mb20">
+        <el-form-item label="资源路径" prop="path" class="mb10">
           <el-input v-model="menuInfo.path" placeholder="请输入资源路径"/>
         </el-form-item>
 
-        <el-form-item label="重定向路径" prop="redirect" class="mb20">
+        <el-form-item label="重定向路径" prop="redirect" class="mb10">
           <el-input v-model="menuInfo.redirect" placeholder="请输入重定向路径"/>
         </el-form-item>
 
-        <el-form-item label="图标" prop="elementIcon" class="mb20">
+        <el-form-item label="图标" prop="elementIcon" class="mb10">
           <IconSelector placeholder="请输入菜单图标" v-model="menuInfo.elementIcon" style="width: 230px !important;"/>
         </el-form-item>
 
-        <el-form-item label='排序' prop='orderNum' class="mb20">
+        <el-form-item label='排序' prop='orderNum' class="mb10">
           <el-input v-model='menuInfo.orderNum'
                     maxlength='3' onkeyup="value=value.replace(/[^\d]/g,'')"
                     placeholder='请输入排序'/>
         </el-form-item>
 
-        <el-form-item label='是否显示' prop='visible' class="mb20">
+        <el-form-item label='是否显示' prop='visible' class="mb10">
           <el-select v-model='menuInfo.visible' style="width: 160px;">
             <el-option label='显示' value='1'/>
             <el-option label='不显示' value='0'/>
           </el-select>
         </el-form-item>
 
-        <el-form-item label="组件名称" prop="name" class="mb20">
+        <el-form-item label="组件名称" prop="name" class="mb10">
           <el-input v-model="menuInfo.name" placeholder="请输入组件名称"/>
         </el-form-item>
 
-        <el-form-item label="组件地址" prop="component" class="mb20">
+        <el-form-item label="组件地址" prop="component" class="mb10">
           <el-input v-model="menuInfo.component" placeholder="请输入组件地址"/>
         </el-form-item>
 
-        <el-form-item label="外链地址" prop="link" class="mb20">
+        <el-form-item label="外链地址" prop="link" class="mb10">
           <el-input v-model="menuInfo.link" placeholder="请输入外链地址"/>
         </el-form-item>
 
-        <el-form-item label='菜单是否固定' prop='affix' class="mb20">
+        <el-form-item label='菜单是否固定' prop='affix' class="mb10">
           <el-select v-model='menuInfo.affix' style="width: 160px;">
             <el-option label='是' value='1'/>
             <el-option label='否' value='0'/>
           </el-select>
         </el-form-item>
 
-        <el-form-item label='是否内嵌' prop='iframe' class="mb20">
+        <el-form-item label='是否内嵌' prop='iframe' class="mb10">
           <el-select v-model='menuInfo.iframe' style="width: 160px;">
             <el-option label='是' value='1'/>
             <el-option label='否' value='0'/>
           </el-select>
         </el-form-item>
 
-        <el-form-item label='是否缓存' prop='keepAlive' class="mb20">
+        <el-form-item label='是否缓存' prop='keepAlive' class="mb10">
           <el-select v-model='menuInfo.keepAlive' style="width: 160px;">
             <el-option label='是' value='1'/>
             <el-option label='否' value='0'/>
@@ -88,7 +88,7 @@
 
         </el-form-item>
 
-        <el-form-item label="描述" prop="remarks" class="mb20">
+        <el-form-item label="描述" prop="remarks" class="mb10">
           <el-input v-model="menuInfo.remarks" placeholder="请输入描述"/>
         </el-form-item>
       </el-form>

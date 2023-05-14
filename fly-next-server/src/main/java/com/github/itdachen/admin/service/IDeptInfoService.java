@@ -28,4 +28,13 @@ public interface IDeptInfoService extends IBizService<DeptInfoDto, DeptInfoVo, D
      */
     List<ZTreeNode> zTree() throws BizException;
 
+    /***
+     * 获取集合
+     *
+     * @author 王大宸
+     * @date 2023/5/14 22:24
+     * @return java.util.List<com.github.itdachen.admin.sdk.vo.DeptInfoVo>
+     */
+    List<DeptInfoVo> apiDeptInfoList() throws Exception;
+
 }

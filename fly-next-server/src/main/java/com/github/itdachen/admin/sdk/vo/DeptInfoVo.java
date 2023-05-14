@@ -5,6 +5,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -56,11 +58,14 @@ public class DeptInfoVo implements Serializable {
      */
     private String personCharge;
 
+    private List<DeptInfoVo> children = new ArrayList<>();
 
     public DeptInfoVo() {
     }
 
-    public DeptInfoVo(String id, String tenantId, String title, String parentId, String deptType, String remarks, String isCanDel, String personCharge) {
+    public DeptInfoVo(String id, String tenantId, String title, String parentId,
+                      String deptType, String remarks, String isCanDel,
+                      String personCharge, List<DeptInfoVo> children) {
         this.id = id;
         this.tenantId = tenantId;
         this.title = title;
@@ -69,6 +74,7 @@ public class DeptInfoVo implements Serializable {
         this.remarks = remarks;
         this.isCanDel = isCanDel;
         this.personCharge = personCharge;
+        this.children = children;
     }
 
     public static DeptInfoVoBuilder builder() {
@@ -84,6 +90,7 @@ public class DeptInfoVo implements Serializable {
         private String remarks;
         private String isCanDel;
         private String personCharge;
+        private List<DeptInfoVo> children;
 
         public DeptInfoVoBuilder() {
         }
@@ -135,6 +142,11 @@ public class DeptInfoVo implements Serializable {
             this.personCharge = personCharge;
             return this;
         }
+        public DeptInfoVoBuilder children(List<DeptInfoVo>  children) {
+            this.children = children;
+            return this;
+        }
+
 
         public DeptInfoVo build() {
             return new DeptInfoVo(id,
@@ -144,7 +156,8 @@ public class DeptInfoVo implements Serializable {
                     deptType,
                     remarks,
                     isCanDel,
-                    personCharge
+                    personCharge,
+                    children
             );
         }
 
@@ -215,6 +228,13 @@ public class DeptInfoVo implements Serializable {
         return personCharge;
     }
 
+    public List<DeptInfoVo> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<DeptInfoVo> children) {
+        this.children = children;
+    }
 
     @Override
     public String toString() {
@@ -227,6 +247,7 @@ public class DeptInfoVo implements Serializable {
                 .append("remarks", getRemarks())
                 .append("isCanDel", getIsCanDel())
                 .append("personCharge", getPersonCharge())
+                .append("children", getChildren())
                 .toString();
     }
 

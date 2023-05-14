@@ -65,4 +65,13 @@ public interface IDeptInfoMapper extends Mapper< DeptInfo > {
      */
     List<ZTreeNode> zTree();
 
+    /***
+     * 获取集合
+     *
+     * @author 王大宸
+     * @date 2023/5/14 22:34
+     * @return java.util.List<com.github.itdachen.admin.sdk.vo.DeptInfoVo>
+     */
+    List<DeptInfoVo> apiDeptInfoList();
+
 }

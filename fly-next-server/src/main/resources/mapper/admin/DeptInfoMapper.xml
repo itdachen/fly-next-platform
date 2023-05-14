@@ -145,4 +145,10 @@
         WHERE parent_id != 'ROOT'
     </select>
 
+    <!-- 获取集合 -->
+    <select id="apiDeptInfoList" resultMap="deptInfoMap">
+        <include refid="selectDeptInfoVo"></include>
+        ORDER BY id DESC
+    </select>
+
 </mapper>

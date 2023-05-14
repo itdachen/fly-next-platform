@@ -10,39 +10,39 @@
       <template v-slot:content>
         <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
           <el-tab-pane label="基础信息" name="first">
-            <el-form :model="tableInfo" ref="formRef" size="small"
+            <el-form :model="tableInfo" ref="formRef"
                      :rules="rules" :disabled="isDisabled" label-width="120px">
-              <el-form-item label="表名称" prop="tableName">
-                <el-input v-model="tableInfo.tableName" placeholder="请输入表名称"/>
+              <el-form-item label="表名称" prop="tableName"  class="mb10">
+                <el-input v-model="tableInfo.tableName" readonly placeholder="请输入表名称"/>
               </el-form-item>
-              <el-form-item label="表描述" prop="tableComment">
+              <el-form-item label="表描述" prop="tableComment" class="mb10">
                 <el-input v-model="tableInfo.tableComment" placeholder="请输入表描述"/>
               </el-form-item>
-              <el-form-item label="实体类名称" prop="className">
+              <el-form-item label="实体类名称" prop="className" class="mb10">
                 <el-input v-model="tableInfo.className" placeholder="请输入实体类名称"/>
               </el-form-item>
-              <el-form-item label="Java包路径" prop="packageName">
+              <el-form-item label="Java包路径" prop="packageName" class="mb10">
                 <el-input v-model="tableInfo.packageName"
                           placeholder="请输入使用Java包路径, 例如: com.github.itdachen.admin"/>
               </el-form-item>
-              <el-form-item label="控制层路径" prop="businessName">
+              <el-form-item label="控制层路径" prop="businessName" class="mb10">
                 <el-input v-model="tableInfo.businessName"
                           placeholder="控制层路径, 例如: /admin/user/info"/>
               </el-form-item>
-              <el-form-item label="后端模板类型" prop="tplCategory">
+              <el-form-item label="后端模板类型" prop="tplCategory" class="mb10">
                 <el-select v-model='tableInfo.tplCategory' style="width: 160px;">
                   <el-option label='biz' value='biz'/>
                   <el-option label='default' value='default'/>
                 </el-select>
               </el-form-item>
-              <el-form-item label="功能名" prop="functionName">
+              <el-form-item label="功能名" prop="functionName" class="mb10">
                 <el-input v-model="tableInfo.functionName" placeholder="请输入生成功能名"/>
               </el-form-item>
-              <el-form-item label="程序员" prop="functionAuthor">
+              <el-form-item label="程序员" prop="functionAuthor" class="mb10">
                 <el-input v-model="tableInfo.functionAuthor" placeholder="请输入程序员"/>
               </el-form-item>
 
-              <el-form-item label="备注" prop="remarks">
+              <el-form-item label="备注" prop="remarks" class="mb10">
                 <el-input v-model="tableInfo.remarks" placeholder="请输入备注"/>
               </el-form-item>
             </el-form>
@@ -50,7 +50,7 @@
 
           <el-tab-pane label="字段设置" name="second">
             <el-table ref="dragTable" :data="columns">
-              <el-table-column label="序号" type="index" min-width="5%" class-name="allowDrag"/>
+<!--              <el-table-column label="序号" type="index" min-width="5%" class-name="allowDrag"/>-->
               <el-table-column label="字段列名"
                                prop="columnName"
                                min-width="10%"
@@ -139,10 +139,20 @@
                     <el-option label="日期控件" value="datetime"/>
                     <el-option label="图片上传" value="imageUpload"/>
                     <el-option label="文件上传" value="fileUpload"/>
-                    <!--  <el-option label="富文本控件" value="editor"/>-->
                   </el-select>
                 </template>
               </el-table-column>
+
+              <el-table-column label="排序"
+                               prop="sort"
+                               min-width="8%"
+                               :show-overflow-tooltip="true">
+                <template #default="scope">
+                  <el-input v-model="scope.row.sort" placeholder="Please input"/>
+                </template>
+              </el-table-column>
+
+
               <!--              <el-table-column label="字典类型" min-width="12%">-->
               <!--                <template slot-scope="scope">-->
               <!--                  <el-select v-model="scope.row.dictType" clearable filterable placeholder="请选择">-->

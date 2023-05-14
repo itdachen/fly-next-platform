@@ -1,9 +1,7 @@
 package com.github.itdachen.config;
 
-import com.github.itdachen.auth.service.IVerifyTicketTokenService;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.annotation.CurrentUser;
-import com.github.itdachen.framework.context.constants.UserInfoConstant;
 import com.github.itdachen.framework.context.userdetails.CurrentUserDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,8 +1,6 @@
 package com.github.itdachen.admin.service.impl;
 
-import com.github.itdachen.admin.convert.AppClientConvert;
 import com.github.itdachen.admin.convert.DeptInfoConvert;
-import com.github.itdachen.admin.mapper.IAppClientMapper;
 import com.github.itdachen.admin.sdk.dto.DeptInfoDto;
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
@@ -149,6 +147,18 @@ public class DeptInfoServiceImpl extends BizServiceImpl<DeptInfo, DeptInfoDto, D
         zTreeNode.add(rootDept);
 
         return zTreeNode;
+    }
+
+    /***
+     * 获取集合
+     *
+     * @author 王大宸
+     * @date 2023/5/14 22:34
+     * @return java.util.List<com.github.itdachen.admin.sdk.vo.DeptInfoVo>
+     */
+    @Override
+    public List<DeptInfoVo> apiDeptInfoList() throws Exception {
+        return bizMapper.apiDeptInfoList();
     }
 
 }
