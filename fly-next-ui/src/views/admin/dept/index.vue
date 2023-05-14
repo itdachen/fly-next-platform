@@ -1,52 +1,55 @@
 <template>
   <div>
-    <el-container>
-      <el-aside>
-        <left-tree :data="treeData" :title="'部门树'" :defaultProps="defaultProps"
-                   @treeClick="treeClick"></left-tree>
-      </el-aside>
+    <div class="template-container layout-padding">
+      <div class="template-container-padding layout-padding-auto layout-padding-view"
+           style="display: flex; flex-direction: row">
+        <el-aside>
+          <left-tree :data="treeData" :title="'部门树'" :defaultProps="defaultProps"
+                     @treeClick="treeClick"></left-tree>
+        </el-aside>
 
-      <el-main>
-        <!-- 表格展示 -->
-        <pro-table :data="tableData" :columns="columns" @reloadDate="reloadDate">
-          <template #tableHeader="scope">
-            <div class="system-user-search mb15">
-              <el-input size="default" placeholder="部门名称" class="ml10" style="max-width: 180px"
-                        v-model='queryParams.title'></el-input>
-              <!-- v-permission="['admin:dept:info:query']" -->
-              <el-button size="default" type="primary" :icon="Search" class="ml10"
-                         @click='tapSearchHandler(queryParams)'> 搜索
+        <el-main>
+          <!-- 表格展示 -->
+          <pro-table :data="tableData" :columns="columns" @reloadDate="reloadDate">
+            <template #tableHeader="scope">
+              <div class="system-user-search mb15">
+                <el-input size="default" placeholder="部门名称" class="ml10" style="max-width: 180px"
+                          v-model='queryParams.title'></el-input>
+                <!-- v-permission="['admin:dept:info:query']" -->
+                <el-button size="default" type="primary" :icon="Search" class="ml10"
+                           @click='tapSearchHandler(queryParams)'> 搜索
+                </el-button>
+                <!-- v-permission="['admin:dept:info:save']" -->
+                <el-button size="default" type="success" :icon="Plus" class="ml10"
+                           @click='tapAddHandler()'> 新增部门
+                </el-button>
+              </div>
+            </template>
+            <!-- 表格操作 -->
+            <template #operation="scope">
+              <!--      v-permission="['admin:dept:info:view']"       -->
+              <el-button type="primary" plain :icon="View"
+                         size="small" @click="tapViewHandler(scope.row)">查看
               </el-button>
-              <!-- v-permission="['admin:dept:info:save']" -->
-              <el-button size="default" type="success" :icon="Plus" class="ml10"
-                         @click='tapAddHandler()'> 新增部门
+              <!--    v-permission="['admin:dept:info:update']"        -->
+              <el-button type="primary" plain :icon="Edit"
+                         color="#626aef" size="small"
+                         @click="tapUpdateHandler(scope.row)">编辑
               </el-button>
-            </div>
-          </template>
-          <!-- 表格操作 -->
-          <template #operation="scope">
-            <!--      v-permission="['admin:dept:info:view']"       -->
-            <el-button type="primary" plain :icon="View"
-                       size="small" @click="tapViewHandler(scope.row)">查看
-            </el-button>
-            <!--    v-permission="['admin:dept:info:update']"        -->
-            <el-button type="primary" plain :icon="Edit"
-                       color="#626aef" size="small"
-                       @click="tapUpdateHandler(scope.row)">编辑
-            </el-button>
-            <!--      v-permission="['admin:dept:info:delete']"      -->
-            <el-button type="warning" plain :icon="Delete"
-                       size="small" @click="tapRemoveHandler(scope.row.id, scope.row.title)">删除
-            </el-button>
-          </template>
-        </pro-table>
+              <!--      v-permission="['admin:dept:info:delete']"      -->
+              <el-button type="warning" plain :icon="Delete"
+                         size="small" @click="tapRemoveHandler(scope.row.id, scope.row.title)">删除
+              </el-button>
+            </template>
+          </pro-table>
+        </el-main>
+      </div>
+    </div>
 
-      </el-main>
 
-      <!-- 新增/修改/查看 弹窗 -->
-      <RefDeptInfo ref="refDeptInfo" @bindtap="tapSubmitHandler"></RefDeptInfo>
+    <!-- 新增/修改/查看 弹窗 -->
+    <RefDeptInfo ref="refDeptInfo" @bindtap="tapSubmitHandler"></RefDeptInfo>
 
-    </el-container>
   </div>
 </template>
 

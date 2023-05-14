@@ -54,21 +54,30 @@ const handleNodeClick = (data: any) => {
 
 </script>
 
-<style lang="scss" scoped>
+<!-- scoped -->
+<style lang="scss" >
 
 .left-tree-title {
-  padding-top: 20px;
-  text-align: center;
+  padding: 20px 20px 10px 10px;
+  text-align: left;
   border-bottom: #dfe6ec 1px solid;
   background-color: #ffffff;
   font-size: 18px;
-  padding-bottom: 10px;
   color: #606266;
+  margin-right: 20px;
 }
 
 .el-tree {
-  padding: 20px;
-  --el-tree-node-hover-bg-color: #e8e8e8;
+  padding: 10px 20px 10px 0;
+  --el-tree-node-hover-bg-color: #f1f1f1;
 }
+
+//使用的地方  不要加scoped
+.el-tree-node.is-current > .el-tree-node__content {
+  background-color: #cce1fb !important;
+  border-radius: 3px;
+  padding-right: 20px;
+}
+
 
 </style>
