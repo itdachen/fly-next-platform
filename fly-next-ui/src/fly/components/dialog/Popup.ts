@@ -4,7 +4,7 @@ import {DialogModel} from "/@/fly/components/dialog/Dialog";
 /**
  * 弹窗统一封装
  */
-export default function dialogPopup() {
+export default function popup() {
 
     //定义弹框属性
     const dialog = reactive<DialogModel>({

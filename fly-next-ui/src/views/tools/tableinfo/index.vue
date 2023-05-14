@@ -11,10 +11,8 @@
                           v-model='queryParams.tableName'></el-input>
                 <el-input size="default" placeholder="生成功能名" class="ml10" style="max-width: 180px;"
                           v-model='queryParams.functionName'></el-input>
-
                 <!--   v-permission="['admin:table:info:query']"            -->
                 <el-button size="default" type="primary" :icon="Search" class="ml10"
-
                            @click='tapSearchHandler(queryParams)'> 搜索
                 </el-button>
                 <!-- v-permission="['admin:table:info:save']" -->
@@ -36,8 +34,7 @@
                        @click="tapViewHandler(scope.row)">预览
             </el-button>
             <!--   v-permission="['admin:table:info:update']"         -->
-            <el-button type="primary" :icon="Edit" size="small"
-                       color="#626aef"
+            <el-button type="primary" :icon="Edit" size="small" color="#626aef"
                        @click="tapUpdateHandler(scope.row)">编辑
             </el-button>
             <el-button type="danger" size="small" :icon="Download"
@@ -56,7 +53,10 @@
       <RefTableInfo ref="refTableInfo" @bindtap="tapSubmitHandler"></RefTableInfo>
 
       <!-- 查看 -->
-      <RefViewTableInfo ref="refViewTableInfo" @bindtap="tapSubmitHandler"></RefViewTableInfo>
+      <RefViewTableInfo ref="refViewTableInfo"></RefViewTableInfo>
+
+      <!-- 导入表 -->
+      <RefImportTable ref="refImportTable" @bindtap="tapImportTableHandler"/>
 
     </div>
   </div>
@@ -70,8 +70,11 @@ import useTableInfoComposable from "/@/composables/tools/TableInfoComposable";
 
 const RefTableInfo = defineAsyncComponent(() => import('./RefTableInfo.vue'));
 const RefViewTableInfo = defineAsyncComponent(() => import('./RefViewTableInfo.vue'));
+const RefImportTable = defineAsyncComponent(() => import('./RefImportTable.vue'));
+
 
 const {
+  refImportTable,
   refTableInfo,
   refViewTableInfo,
   tableData,
@@ -83,6 +86,7 @@ const {
   tapViewHandler,
   tapRemoveHandler,
   tapSubmitHandler,
+  tapImportTableHandler,
   reloadDate,
   loadTableData,
   tapDownloadCodeHandler
@@ -97,10 +101,10 @@ onMounted(() => {
 
 /**
  * 下载代码
- * @param ids
+ * @param tableIds
  */
-const tapDownloadHandler = (ids) => {
-  tapDownloadCodeHandler(ids.join(','))
+const tapDownloadHandler = (tableIds: string[]) => {
+  tapDownloadCodeHandler(tableIds.join(','))
 }
 
 </script>

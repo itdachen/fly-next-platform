@@ -100,8 +100,7 @@
 <script setup lang="ts" name="RefMenuInfo">
 import {defineAsyncComponent, reactive} from 'vue';
 import DialogPopup from '/@/fly/components/dialog/DialogPopup.vue';
-import useDialog from '/@/fly/components/dialog/DialogPopup';
-import {DialogTypeEnum} from '/@/fly/components/dialog/Dialog';
+import useDialogPopup, {DialogTypeEnum} from '/@/fly/components/dialog/Dialog';
 import useElementFromComposable from '/@/fly/composables/ElementFromComposable';
 import useMenuInfoBuilder, {MenuInfo} from '/@/api/admin/model/MenuInfoModel';
 
@@ -109,7 +108,7 @@ const IconSelector = defineAsyncComponent(() => import('/@/components/iconSelect
 /**
  * 弹框属性
  */
-const {dialog, onShow, onClose} = useDialog();
+const {dialog, onShow, onClose} = useDialogPopup();
 
 const {menuInfo} = useMenuInfoBuilder();
 

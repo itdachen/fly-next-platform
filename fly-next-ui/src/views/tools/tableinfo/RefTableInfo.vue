@@ -173,12 +173,11 @@
 import {reactive, ref} from 'vue';
 import type {TabsPaneContext} from 'element-plus'
 import DialogPopup from '/@/fly/components/dialog/DialogPopup.vue';
-import useDialog from '/@/fly/components/dialog/DialogPopup';
-import {DialogTypeEnum} from '/@/fly/components/dialog/Dialog';
+import useDialogPopup, {DialogTypeEnum} from '/@/fly/components/dialog/Dialog';
 import useElementFromComposable from '/@/fly/composables/ElementFromComposable';
 import useTableInfoBuilder, {TableInfo} from '/@/api/tools/model/TableInfoModel';
 
-const {dialog, onShow, onClose} = useDialog();
+const {dialog, onShow, onClose} = useDialogPopup();
 const {tableInfo} = useTableInfoBuilder();
 
 const columns = ref([]);
@@ -214,10 +213,8 @@ const show = (type: DialogTypeEnum, data: TableInfo) => {
   /* 清空表单内容 */
   resetForm(formRef.value, tableInfo);
   objCopy(data, tableInfo)
-  dialog.showSubmit = true
-  isDisabled.value = false
-  dialog.showSubmit = true
-  isDisabled.value = false
+  dialog.showSubmit = true;
+  isDisabled.value = false;
 
   onShow();
 }

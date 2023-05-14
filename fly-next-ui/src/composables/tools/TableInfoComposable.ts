@@ -1,7 +1,7 @@
 import useStringComposable from '/@/fly/utils/string';
 import useTable from '/@/fly/components/table/TableComposables';
 import {DialogTypeEnum} from '/@/fly/components/dialog/Dialog';
-import useTableInfoBuilder, {TableInfo, TableInfoQuery} from "/@/api/tools//model/TableInfoModel";
+import useTableInfoBuilder, {TableInfo, TableInfoQuery} from "/@/api/tools/model/TableInfoModel";
 import TableInfoApi from '/@/api/tools/TableInfoApi'
 
 const tableInfoApi = new TableInfoApi();
@@ -13,7 +13,8 @@ const {
     queryParams,
     tableData,
     refTableInfo,
-    refViewTableInfo
+    refViewTableInfo,
+    refImportTable
 } = useTableInfoBuilder();
 
 
@@ -102,7 +103,8 @@ export default function useTableInfoComposable() {
      * @author 王大宸
      */
     const tapSaveHandler = () => {
-        refTableInfo.value?.show(DialogTypeEnum.SAVE, null);
+        console.log('tapSaveHandler===>')
+        refImportTable.value?.show();
     };
 
     /**
@@ -145,9 +147,30 @@ export default function useTableInfoComposable() {
         })
     };
 
+    /**
+     * 导入表
+     * @param tableNames
+     */
+    const tapImportTableHandler = (tableNames: string) => {
+        tableInfoApi.importDbTable(tableNames).then(res => {
+            loadTableData(queryParams);
+        })
+    }
+
+    /**
+     * 获取数据库列表
+     * @param params
+     */
+    // const findDbTableList = (params) => {
+    //     tableInfoApi.findDbTableList(params).then(res => {
+    //         return res.data;
+    //     })
+    // }
+
     return {
         refTableInfo,
         refViewTableInfo,
+        refImportTable,
         tableInfo,
         tableData,
         columns,
@@ -159,6 +182,7 @@ export default function useTableInfoComposable() {
         tapRemoveHandler,
         tapSubmitHandler,
         tapDownloadCodeHandler,
+        tapImportTableHandler,
         reloadDate,
         loadTableData,
         findTableInfo

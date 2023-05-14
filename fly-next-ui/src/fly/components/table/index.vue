@@ -92,8 +92,8 @@
     <el-pagination v-if="pagination"
                    @size-change="handleSizeChange"
                    @current-change="handleCurrentChange"
-                   :pager-count="10"
-                   :page-sizes="[10,25,50,100]"
+                   pager-count="10"
+                   page-sizes="[10,25,50,100]"
                    prev-text="上一页"
                    next-text="下一页"
                    v-model:current-page="currentPage"
@@ -128,8 +128,9 @@ interface ProTableProps {
   expandAll?: boolean; // 树结构是否展开全部
   height?: number;
   size?: string,
-  hideOnSinglePage: boolean,
-  layout?: string
+  hideOnSinglePage?: boolean,
+  layout?: string,
+  background?: boolean,
 }
 
 /**

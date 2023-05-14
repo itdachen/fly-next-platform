@@ -12,8 +12,8 @@
     </div>
     <template v-if='showFooter' #footer>
        <span class='dialog-footer'>
-         <el-button @click='onClose' type="primary" plain size="default">取消</el-button>
          <el-button type="success" size="default" @click='onConfirm' v-if='showSubmit'>确定</el-button>
+         <el-button @click='onClose' type="primary" plain size="default">关闭</el-button>
        </span>
     </template>
   </el-dialog>

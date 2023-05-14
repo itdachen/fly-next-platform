@@ -142,8 +142,19 @@ class ApiRequest {
     /**
      * get 请求路径
      * @param url 请求路径
+     * @param params
      */
-    get(url: string = '') {
+    get(url: string = '', params?: any) {
+        if (params) {
+            if (url.concat("?")) {
+                url += "&"
+            } else {
+                url += "?"
+            }
+            for (let Key in params) {
+                url += `${Key}=${params[Key]}&`;
+            }
+        }
         return this.request({
             url: url,
             method: 'GET',

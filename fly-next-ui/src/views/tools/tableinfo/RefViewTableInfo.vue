@@ -35,8 +35,7 @@ import {ref} from 'vue';
 import {DocumentCopy} from '@element-plus/icons-vue';
 import useClipboard from 'vue-clipboard3'
 import DialogPopup from '/@/fly/components/dialog/DialogPopup.vue';
-import useDialog from '/@/fly/components/dialog/DialogPopup';
-import {DialogTypeEnum} from '/@/fly/components/dialog/Dialog';
+import useDialogPopup, {DialogTypeEnum} from '/@/fly/components/dialog/Dialog';
 import useElementFromComposable from '/@/fly/composables/ElementFromComposable';
 import useTableInfoBuilder from '/@/api/tools/model/TableInfoModel';
 
@@ -59,7 +58,7 @@ hljs.registerLanguage("sql", sql);
 
 const {toClipboard} = useClipboard()
 const {successMsg} = useTable();
-const {dialog, onShow, onClose} = useDialog();
+const {dialog, onShow, onClose} = useDialogPopup();
 const {tableInfo} = useTableInfoBuilder();
 
 const activeName = ref('dto.java');

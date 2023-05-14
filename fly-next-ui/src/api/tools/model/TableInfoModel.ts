@@ -300,6 +300,49 @@ export default function useTableInfoBuilder() {
         onClose: () => void
     }>();
 
+    const refImportTable = ref<{
+        show: () => void,
+        onClose: () => void
+    }>();
+
+    /**
+     * 导入表页面数据处理
+     */
+    const dbColumns: Partial<ColumnProps>[] = [
+        {
+            type: "selection",
+            width: 80,
+            fixed: "left"
+        },
+        {
+            prop: "tableName",
+            label: "表名称",
+            align: "center"
+        },
+        {
+            prop: "tableComment",
+            label: "表描述",
+            align: "center"
+        },
+        // {
+        //     prop: "createTime",
+        //     label: "创建时间",
+        //     align: "center"
+        // },
+        // {
+        //     prop: "updateTime",
+        //     label: "最后更新时间",
+        //     align: "center"
+        // },
+        {
+            prop: "operation",
+            label: "操作",
+            width: 180,
+            align: "center",
+            fixed: "right"
+        }
+    ];
+
 
     return {
         queryParams,
@@ -307,7 +350,9 @@ export default function useTableInfoBuilder() {
         tableInfo,
         columns,
         refTableInfo,
-        refViewTableInfo
+        refViewTableInfo,
+        refImportTable,
+        dbColumns
     }
 
 }

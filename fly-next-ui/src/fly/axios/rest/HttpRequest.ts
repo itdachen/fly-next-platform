@@ -71,6 +71,15 @@ export class HttpRequest<T, Q extends BizQuery, PK> {
         return httpAxios.get(this.path + `/${id}`);
     }
 
+    /**
+     * 请求参数处理
+     * @param url    请求路径
+     * @param params 请求参数
+     */
+    params(url: string, params: any): string {
+        return url + urlParams(params);
+    }
+
 
 }
 
@@ -83,10 +92,9 @@ export const urlParams = (params: any): string => {
     if (null === params || undefined === params) {
         return result;
     }
-    let item;
-    for (item in params) {
-        if (params[item] && String(params[item])) {
-            result += `&${item}=${params[item]}`;
+    for (let key in params) {
+        if (params[key] && String(params[key])) {
+            result += `&${key}=${params[key]}`;
         }
     }
     if (result) {
