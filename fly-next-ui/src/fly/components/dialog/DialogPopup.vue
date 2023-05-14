@@ -13,12 +13,12 @@
     <template v-if='showFooter' #footer>
        <span class='dialog-footer'>
          <el-button type="success" size="default" @click='onConfirm' v-if='showSubmit'>确定</el-button>
-         <el-button @click='onClose' type="primary" plain size="default">关闭</el-button>
+         <el-button type="primary" size="default" @click='onClose' v-if="showClose" plain>关闭</el-button>
        </span>
     </template>
   </el-dialog>
 </template>
-<script setup lang='ts'>
+<script setup lang='ts' name="DialogPopup">
 const props = defineProps({
   title: {
     type: String,

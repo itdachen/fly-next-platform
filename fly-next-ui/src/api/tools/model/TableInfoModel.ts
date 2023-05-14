@@ -300,7 +300,7 @@ export default function useTableInfoBuilder() {
         onClose: () => void
     }>();
 
-    const refImportTable = ref<{
+    const refImportTableInfo = ref<{
         show: () => void,
         onClose: () => void
     }>();
@@ -351,7 +351,7 @@ export default function useTableInfoBuilder() {
         columns,
         refTableInfo,
         refViewTableInfo,
-        refImportTable,
+        refImportTableInfo,
         dbColumns
     }
 

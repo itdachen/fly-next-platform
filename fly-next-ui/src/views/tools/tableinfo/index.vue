@@ -56,7 +56,7 @@
       <RefViewTableInfo ref="refViewTableInfo"></RefViewTableInfo>
 
       <!-- 导入表 -->
-      <RefImportTable ref="refImportTable" @bindtap="tapImportTableHandler"/>
+      <RefImportTable ref="refImportTableInfo" @bindtap="tapImportTableHandler"/>
 
     </div>
   </div>
@@ -74,7 +74,7 @@ const RefImportTable = defineAsyncComponent(() => import('./RefImportTable.vue')
 
 
 const {
-  refImportTable,
+  refImportTableInfo,
   refTableInfo,
   refViewTableInfo,
   tableData,

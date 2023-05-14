@@ -14,7 +14,7 @@ const {
     tableData,
     refTableInfo,
     refViewTableInfo,
-    refImportTable
+    refImportTableInfo
 } = useTableInfoBuilder();
 
 
@@ -103,8 +103,7 @@ export default function useTableInfoComposable() {
      * @author 王大宸
      */
     const tapSaveHandler = () => {
-        console.log('tapSaveHandler===>')
-        refImportTable.value?.show();
+        refImportTableInfo.value?.show();
     };
 
     /**
@@ -170,7 +169,7 @@ export default function useTableInfoComposable() {
     return {
         refTableInfo,
         refViewTableInfo,
-        refImportTable,
+        refImportTableInfo,
         tableInfo,
         tableData,
         columns,

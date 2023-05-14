@@ -1,7 +1,16 @@
 <template>
   <div>
-    <div class="template-container layout-padding">
-      <div class="template-container-padding layout-padding-auto layout-padding-view">
+    <dialog-popup :title="dialog.title"
+                  :visible="dialog.visible"
+                  :width="dialog.width"
+                  :height="dialog.height"
+                  :showSubmit="dialog.showSubmit"
+                  @onClose="onClose()"
+                  @onConfirm="confirm()">
+      <template v-slot:content>
+
+        <!--        <div class="template-container layout-padding">-->
+        <!--          <div class="template-container-padding layout-padding-auto layout-padding-view">-->
         <!-- 表格展示 -->
         <pro-table :data="tableDataVo" :columns="dbColumns" @reloadDate="reloadDbTableDate">
           <template #tableHeader="scope">
@@ -17,7 +26,6 @@
                            @click='tapBatchImportHandler(scope.ids)'> 导入表
                 </el-button>
               </el-form>
-
             </div>
           </template>
           <!-- 表格操作 -->
@@ -29,23 +37,28 @@
           </template>
         </pro-table>
 
-      </div>
+        <!--          </div>-->
+        <!--        </div>-->
 
-    </div>
+
+      </template>
+    </dialog-popup>
   </div>
 </template>
 
+
 <script setup lang="ts" name="RefImportTable">
-import {onMounted, reactive} from 'vue';
+import {reactive} from 'vue';
 import {Search, BottomRight} from '@element-plus/icons-vue';
 import ProTable from '/@/fly/components/table/index.vue';
-import useTableInfoBuilder, {TableInfo, TableInfoQuery} from "/@/api/tools/model/TableInfoModel";
+import useTableInfoBuilder, {TableInfoQuery} from "/@/api/tools/model/TableInfoModel";
 import {TableData} from "axios";
 import TableInfoApi from "/@/api/tools/TableInfoApi";
+import DialogPopup from '/@/fly/components/dialog/DialogPopup.vue';
 import useDialogPopup from '/@/fly/components/dialog/Dialog';
 
 const tableInfoApi = new TableInfoApi();
-const {dialog, onShow, onClose} = useDialogPopup();
+const {dialog, onClose} = useDialogPopup();
 const {dbColumns} = useTableInfoBuilder();
 
 /**
@@ -61,7 +74,7 @@ const queryParams = reactive<TableInfoQuery>({
 /**
  * 分页数据
  */
-const tableDataVo = reactive<TableData<TableInfo>>({
+const tableDataVo = reactive<TableData<any>>({
   total: 0,
   rows: [],
 });
@@ -94,24 +107,16 @@ const tapBatchImportHandler = (tableNames: string[]) => {
  * 弹框展示(当成组件使用)
  */
 const show = () => {
-  console.log('RefImportTable show===>')
   //设置弹框的属性
   dialog.height = '90%'
   dialog.width = '95%'
   dialog.title = '导入表';
-
+  dialog.visible = true;
   dialog.showSubmit = false;
+
   loadDbTableData(queryParams);
-  onShow();
+  // onShow();
 }
-
-
-/**
- * 初始化页面时加载
- */
-// onMounted(() => {
-//   loadDbTableData(queryParams);
-// })
 
 /**
  * 加载数据库数据列表
@@ -139,8 +144,8 @@ const emits = defineEmits(['bindtap'])
  * 提交到父组件
  */
 const confirmTableNames = (tableNames: string) => {
+  onClose();
   emits('bindtap', tableNames)
-
 }
 
 
