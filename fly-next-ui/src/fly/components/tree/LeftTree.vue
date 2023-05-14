@@ -7,7 +7,7 @@
            :props="defaultProps"
            default-expand-all
            @node-click="handleNodeClick"
-           :expand-on-click-node="true">
+           :expand-on-click-node="clickExpand">
   </el-tree>
 
 </template>
@@ -29,6 +29,10 @@ const props = defineProps({
   nodeKey: {
     type: String,
     default: 'id'
+  },
+  clickExpand: {
+    type: Boolean,
+    default: true
   },
   defaultProps: {
     type: Object,
