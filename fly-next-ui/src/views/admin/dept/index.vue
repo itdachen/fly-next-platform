@@ -1,51 +1,45 @@
 <template>
   <div>
     <el-container>
-      <el-aside width="240px" style="border-right: 1px solid #dfe6ec;height: 800px">
-        <!-- Aside content 左侧部门-->
+      <el-aside>
         <left-tree :data="treeData" :title="'部门树'" :defaultProps="defaultProps"
                    @treeClick="treeClick"></left-tree>
       </el-aside>
 
       <el-main>
-<!--        <div class="template-container layout-padding">-->
-<!--          <div class="template-container-padding layout-padding-auto layout-padding-view">-->
-            <!-- 表格展示 -->
-            <pro-table :data="tableData" :columns="columns" @reloadDate="reloadDate">
-              <template #tableHeader="scope">
-                <div class="system-user-search mb15">
-                  <el-input size="default" placeholder="部门名称" class="ml10" style="max-width: 180px"
-                            v-model='queryParams.title'></el-input>
-                  <!-- v-permission="['admin:dept:info:query']" -->
-                  <el-button size="default" type="primary" :icon="Search" class="ml10"
-                             @click='tapSearchHandler(queryParams)'> 搜索
-                  </el-button>
-                  <!-- v-permission="['admin:dept:info:save']" -->
-                  <el-button size="default" type="success" :icon="Plus" class="ml10"
-                             @click='tapAddHandler()'> 新增部门
-                  </el-button>
-                </div>
-              </template>
-              <!-- 表格操作 -->
-              <template #operation="scope">
-                <!--      v-permission="['admin:dept:info:view']"       -->
-                <el-button type="primary" plain :icon="View"
-                           size="small" @click="tapViewHandler(scope.row)">查看
-                </el-button>
-                <!--    v-permission="['admin:dept:info:update']"        -->
-                <el-button type="primary" plain :icon="Edit"
-                           color="#626aef" size="small"
-                           @click="tapUpdateHandler(scope.row)">编辑
-                </el-button>
-                <!--      v-permission="['admin:dept:info:delete']"      -->
-                <el-button type="warning" plain :icon="Delete"
-                           size="small" @click="tapRemoveHandler(scope.row.id, scope.row.name)">删除
-                </el-button>
-              </template>
-            </pro-table>
-
-<!--          </div>-->
-<!--        </div>-->
+        <!-- 表格展示 -->
+        <pro-table :data="tableData" :columns="columns" @reloadDate="reloadDate">
+          <template #tableHeader="scope">
+            <div class="system-user-search mb15">
+              <el-input size="default" placeholder="部门名称" class="ml10" style="max-width: 180px"
+                        v-model='queryParams.title'></el-input>
+              <!-- v-permission="['admin:dept:info:query']" -->
+              <el-button size="default" type="primary" :icon="Search" class="ml10"
+                         @click='tapSearchHandler(queryParams)'> 搜索
+              </el-button>
+              <!-- v-permission="['admin:dept:info:save']" -->
+              <el-button size="default" type="success" :icon="Plus" class="ml10"
+                         @click='tapAddHandler()'> 新增部门
+              </el-button>
+            </div>
+          </template>
+          <!-- 表格操作 -->
+          <template #operation="scope">
+            <!--      v-permission="['admin:dept:info:view']"       -->
+            <el-button type="primary" plain :icon="View"
+                       size="small" @click="tapViewHandler(scope.row)">查看
+            </el-button>
+            <!--    v-permission="['admin:dept:info:update']"        -->
+            <el-button type="primary" plain :icon="Edit"
+                       color="#626aef" size="small"
+                       @click="tapUpdateHandler(scope.row)">编辑
+            </el-button>
+            <!--      v-permission="['admin:dept:info:delete']"      -->
+            <el-button type="warning" plain :icon="Delete"
+                       size="small" @click="tapRemoveHandler(scope.row.id, scope.row.title)">删除
+            </el-button>
+          </template>
+        </pro-table>
 
       </el-main>
 
@@ -94,7 +88,7 @@ onMounted(() => {
 /**
  * 上级
  */
-const parentId = ref('ROOT');
+const parentId = ref('root');
 
 /**
  * 树数据点击
@@ -125,5 +119,10 @@ const defaultProps = reactive({
 </script>
 
 <style lang="scss" scoped>
-
+.el-aside {
+  width: 350px;
+  height: 100vh;
+  background-color: #ffffff;
+  border-right: 1px solid #dfe6ec;
+}
 </style>

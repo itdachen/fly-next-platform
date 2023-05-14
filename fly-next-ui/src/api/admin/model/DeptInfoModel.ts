@@ -74,13 +74,9 @@ export default function useDeptInfoBuilder() {
         /** 部门名称 */
         title: '',
         /** 上级id */
-        parentId: '',
+        parentId: 'root',
         /** 部门类型 */
         deptType: '',
-        /** 是否可删除: 1-可删除;0-不可删 */
-        isCanDel: '',
-        /** 负责人 */
-        personCharge: ''
     });
 
     /**
