@@ -2,13 +2,15 @@ package com.github.itdachen.admin.service.impl;
 
 import com.github.itdachen.admin.convert.RoleInfoConvert;
 import com.github.itdachen.admin.convert.RoleMenuConvert;
-import com.github.itdachen.admin.mapper.IAppClientMapper;
-import com.github.itdachen.admin.mapper.IPermsAuthMapper;
-import com.github.itdachen.admin.mapper.IRoleInfoMapper;
+import com.github.itdachen.admin.mapper.*;
 import com.github.itdachen.admin.sdk.dto.RoleMenuDto;
+import com.github.itdachen.admin.sdk.query.MenuInfoQuery;
+import com.github.itdachen.admin.sdk.vo.MenuInfoVo;
 import com.github.itdachen.admin.utils.LoadUserMenuUtils;
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import com.github.itdachen.framework.context.exception.BizException;
+import com.github.itdachen.framework.context.node.TreeNode;
+import com.github.itdachen.framework.context.permission.PermissionInfo;
 import com.github.itdachen.framework.core.utils.StringUtils;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
 import com.github.pagehelper.Page;
@@ -18,7 +20,6 @@ import com.github.itdachen.admin.sdk.query.RoleMenuQuery;
 import com.github.itdachen.admin.sdk.vo.RoleMenuVo;
 import com.github.itdachen.framework.core.response.TableData;
 import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
-import com.github.itdachen.admin.mapper.IRoleMenuMapper;
 import com.github.itdachen.admin.service.IRoleMenuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,14 +42,20 @@ public class RoleMenuServiceImpl extends BizServiceImpl<RoleMenu, RoleMenuDto, R
     private final IRoleMenuMapper bizMapper;
     private final IAppClientMapper appClientMapper;
     private final IPermsAuthMapper permsAuthMapper;
+    private final IMenuInfoMapper menuInfoMapper;
+    private final IElementInfoMapper elementMapper;
 
     public RoleMenuServiceImpl(IRoleMenuMapper bizMapper,
                                IAppClientMapper appClientMapper,
-                               IPermsAuthMapper permsAuthMapper) {
+                               IPermsAuthMapper permsAuthMapper,
+                               IMenuInfoMapper menuInfoMapper,
+                               IElementInfoMapper elementMapper) {
         super(bizMapper, bizConvert);
         this.bizMapper = bizMapper;
         this.appClientMapper = appClientMapper;
         this.permsAuthMapper = permsAuthMapper;
+        this.menuInfoMapper = menuInfoMapper;
+        this.elementMapper = elementMapper;
     }
 
     /***
@@ -128,4 +135,58 @@ public class RoleMenuServiceImpl extends BizServiceImpl<RoleMenu, RoleMenuDto, R
         LoadUserMenuUtils utils = new LoadUserMenuUtils(appClientMapper, permsAuthMapper, bizMapper);
         return utils.findMenuWithUser(menuIds, userType, userId);
     }
+
+    /***
+     * 获取权限树数据
+     *
+     * @author 王大宸
+     * @date 2023/5/15 21:51
+     * @param roleId roleId
+     * @return java.util.List<com.github.itdachen.framework.context.node.TreeNode>
+     */
+    @Override
+    public TreeNode<MenuInfoVo, String> roleMenuElTreeData(String roleId) {
+        MenuInfoQuery params = MenuInfoQuery.builder()
+                .clientId("NEXT_APP")
+                .parentId("NEXT_APP")
+                .build();
+        List<MenuInfoVo> list = menuInfoMapper.page(params);
+        if ("NEXT_APP".equals(params.getClientId())) {
+            for (MenuInfoVo menuInfoVo : list) {
+                menuInfoVo.setChildren(findMenuTree(menuInfoVo.getId()));
+            }
+        }
+        List<String> menuIds = bizMapper.findMenuByRoleId(roleId);
+        return new TreeNode<MenuInfoVo, String>(list, menuIds);
+    }
+
+    /***
+     * 递归获取菜单树
+     *
+     * @author 王大宸
+     * @date 2022/6/23 9:27
+     * @param parentId   上级id
+     * @return java.util.List<com.itdachen.admin.sdk.vo.SysMenuVo>
+     */
+    private List<MenuInfoVo> findMenuTree(String parentId) {
+        List<MenuInfoVo> menuTree = menuInfoMapper.findMenuInfoByParentId(parentId);
+        List<MenuInfoVo> children = null;
+        for (MenuInfoVo menuVo : menuTree) {
+            if ("uri".equals(menuVo.getType())) {
+                continue;
+            }
+            if ("menu".equals(menuVo.getType())) {
+                menuVo.setChildren(elementMapper.findElementInfo(menuVo.getId()));
+                continue;
+            }
+            children = findMenuTree(menuVo.getId());
+            if (0 == children.size()) {
+                continue;
+            }
+            menuVo.setChildren(children);
+        }
+        return menuTree;
+    }
+
+
 }

@@ -23,6 +23,7 @@ public class DeptInfoConvert extends BizConvert<DeptInfo, DeptInfoDto, DeptInfoV
         deptInfo.setTitle(deptInfoDto.getTitle());
         deptInfo.setParentId(deptInfoDto.getParentId());
         deptInfo.setDeptType(deptInfoDto.getDeptType());
+        deptInfo.setDeptLevel(deptInfoDto.getDeptLevel());
         deptInfo.setRemarks(deptInfoDto.getRemarks());
         deptInfo.setIsCanDel(deptInfoDto.getIsCanDel());
         deptInfo.setPersonCharge(deptInfoDto.getPersonCharge());
@@ -41,6 +42,7 @@ public class DeptInfoConvert extends BizConvert<DeptInfo, DeptInfoDto, DeptInfoV
         deptInfoVo.setTitle(deptInfo.getTitle());
         deptInfoVo.setParentId(deptInfo.getParentId());
         deptInfoVo.setDeptType(deptInfo.getDeptType());
+        deptInfoVo.setDeptLevel(deptInfo.getDeptLevel());
         deptInfoVo.setRemarks(deptInfo.getRemarks());
         deptInfoVo.setIsCanDel(deptInfo.getIsCanDel());
         deptInfoVo.setPersonCharge(deptInfo.getPersonCharge());
@@ -57,6 +59,7 @@ public class DeptInfoConvert extends BizConvert<DeptInfo, DeptInfoDto, DeptInfoV
         deptInfo.setTitle(deptInfoVo.getTitle());
         deptInfo.setParentId(deptInfoVo.getParentId());
         deptInfo.setDeptType(deptInfoVo.getDeptType());
+        deptInfo.setDeptLevel(deptInfoVo.getDeptLevel());
         deptInfo.setRemarks(deptInfoVo.getRemarks());
         deptInfo.setIsCanDel(deptInfoVo.getIsCanDel());
         deptInfo.setPersonCharge(deptInfoVo.getPersonCharge());
@@ -73,6 +76,7 @@ public class DeptInfoConvert extends BizConvert<DeptInfo, DeptInfoDto, DeptInfoV
         deptInfoVo.setTitle(deptInfoDto.getTitle());
         deptInfoVo.setParentId(deptInfoDto.getParentId());
         deptInfoVo.setDeptType(deptInfoDto.getDeptType());
+        deptInfoVo.setDeptLevel(deptInfoDto.getDeptLevel());
         deptInfoVo.setRemarks(deptInfoDto.getRemarks());
         deptInfoVo.setIsCanDel(deptInfoDto.getIsCanDel());
         deptInfoVo.setPersonCharge(deptInfoDto.getPersonCharge());

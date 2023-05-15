@@ -43,6 +43,9 @@ public class DeptInfoVo implements Serializable {
      */
     private String deptType;
 
+    /** 部门级次 */
+    private String deptLevel;
+
     /**
      * 备注
      */
@@ -64,7 +67,8 @@ public class DeptInfoVo implements Serializable {
     }
 
     public DeptInfoVo(String id, String tenantId, String title, String parentId,
-                      String deptType, String remarks, String isCanDel,
+                      String deptType, String deptLevel,
+                      String remarks, String isCanDel,
                       String personCharge, List<DeptInfoVo> children) {
         this.id = id;
         this.tenantId = tenantId;
@@ -75,6 +79,7 @@ public class DeptInfoVo implements Serializable {
         this.isCanDel = isCanDel;
         this.personCharge = personCharge;
         this.children = children;
+        this.deptLevel=deptLevel;
     }
 
     public static DeptInfoVoBuilder builder() {
@@ -87,6 +92,7 @@ public class DeptInfoVo implements Serializable {
         private String title;
         private String parentId;
         private String deptType;
+        private String deptLevel;
         private String remarks;
         private String isCanDel;
         private String personCharge;
@@ -124,6 +130,10 @@ public class DeptInfoVo implements Serializable {
             this.deptType = deptType;
             return this;
         }
+        public DeptInfoVoBuilder deptLevel(String deptLevel) {
+            this.deptLevel = deptLevel;
+            return this;
+        }
 
         /* 备注 */
         public DeptInfoVoBuilder remarks(String remarks) {
@@ -154,6 +164,7 @@ public class DeptInfoVo implements Serializable {
                     title,
                     parentId,
                     deptType,
+                    deptLevel,
                     remarks,
                     isCanDel,
                     personCharge,
@@ -236,6 +247,14 @@ public class DeptInfoVo implements Serializable {
         this.children = children;
     }
 
+    public String getDeptLevel() {
+        return deptLevel;
+    }
+
+    public void setDeptLevel(String deptLevel) {
+        this.deptLevel = deptLevel;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
@@ -244,6 +263,7 @@ public class DeptInfoVo implements Serializable {
                 .append("title", getTitle())
                 .append("parentId", getParentId())
                 .append("deptType", getDeptType())
+                .append("deptLevel", getDeptLevel())
                 .append("remarks", getRemarks())
                 .append("isCanDel", getIsCanDel())
                 .append("personCharge", getPersonCharge())

@@ -17,48 +17,34 @@ import java.io.Serializable;
 public class DeptInfoQuery extends BizQuery implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 租户标识
-     */
+
+
+    /** 租户标识 */
     private String tenantId;
 
-    /**
-     * 部门名称
-     */
+    /** 部门名称 */
     private String title;
 
-    /**
-     * 上级id
-     */
+    /** 上级id */
     private String parentId;
 
-    /**
-     * 部门类型
-     */
+    /** 部门类型 */
     private String deptType;
 
-    /**
-     * 是否可删除: 1-可删除;0-不可删
-     */
-    private String isCanDel;
-
-    /**
-     * 负责人
-     */
-    private String personCharge;
+    /** 部门级次 */
+    private String deptLevel;
 
 
     public DeptInfoQuery() {
     }
 
-    public DeptInfoQuery(int page, int limit, String tenantId, String title, String parentId, String deptType, String isCanDel, String personCharge) {
+    public DeptInfoQuery(int page, int limit, String tenantId, String title, String parentId, String deptType, String deptLevel) {
         super(page, limit);
         this.tenantId = tenantId;
         this.title = title;
         this.parentId = parentId;
         this.deptType = deptType;
-        this.isCanDel = isCanDel;
-        this.personCharge = personCharge;
+        this.deptLevel = deptLevel;
     }
 
     public static DeptInfoQueryBuilder builder() {
@@ -72,8 +58,7 @@ public class DeptInfoQuery extends BizQuery implements Serializable {
         private String title;
         private String parentId;
         private String deptType;
-        private String isCanDel;
-        private String personCharge;
+        private String deptLevel;
 
         public DeptInfoQueryBuilder() {
         }
@@ -93,42 +78,34 @@ public class DeptInfoQuery extends BizQuery implements Serializable {
             this.tenantId = tenantId;
             return this;
         }
-
         /* 部门名称 */
         public DeptInfoQueryBuilder title(String title) {
             this.title = title;
             return this;
         }
-
         /* 上级id */
         public DeptInfoQueryBuilder parentId(String parentId) {
             this.parentId = parentId;
             return this;
         }
-
         /* 部门类型 */
         public DeptInfoQueryBuilder deptType(String deptType) {
             this.deptType = deptType;
             return this;
         }
-
-        /* 是否可删除: 1-可删除;0-不可删 */
-        public DeptInfoQueryBuilder isCanDel(String isCanDel) {
-            this.isCanDel = isCanDel;
-            return this;
-        }
-
-        /* 负责人 */
-        public DeptInfoQueryBuilder personCharge(String personCharge) {
-            this.personCharge = personCharge;
+        /* 部门级次 */
+        public DeptInfoQueryBuilder deptLevel(String deptLevel) {
+            this.deptLevel = deptLevel;
             return this;
         }
 
         public DeptInfoQuery build() {
-            return new DeptInfoQuery(page, limit, tenantId, title, parentId, deptType, isCanDel, personCharge);
+            return new DeptInfoQuery(page, limit, tenantId, title, parentId, deptType, deptLevel);
         }
 
     }
+
+
 
 
     public void setTenantId(String tenantId) {
@@ -163,20 +140,12 @@ public class DeptInfoQuery extends BizQuery implements Serializable {
         return deptType;
     }
 
-    public void setIsCanDel(String isCanDel) {
-        this.isCanDel = isCanDel;
+    public void setDeptLevel(String deptLevel) {
+        this.deptLevel = deptLevel;
     }
 
-    public String getIsCanDel() {
-        return isCanDel;
-    }
-
-    public void setPersonCharge(String personCharge) {
-        this.personCharge = personCharge;
-    }
-
-    public String getPersonCharge() {
-        return personCharge;
+    public String getDeptLevel() {
+        return deptLevel;
     }
 
     @Override
@@ -188,8 +157,7 @@ public class DeptInfoQuery extends BizQuery implements Serializable {
                 .append("title", getTitle())
                 .append("parentId", getParentId())
                 .append("deptType", getDeptType())
-                .append("isCanDel", getIsCanDel())
-                .append("personCharge", getPersonCharge())
+                .append("deptLevel", getDeptLevel())
                 .toString();
     }
 

@@ -20,102 +20,78 @@ import java.time.LocalDateTime;
 public class DeptInfo implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键唯一标识
-     */
+    /** 主键唯一标识 */
     @Id
     @Column(name = "id")
     private String id;
 
-    /**
-     * 租户标识
-     */
+    /** 租户标识 */
     @Column(name = "tenant_id")
     private String tenantId;
 
-    /**
-     * 部门名称
-     */
+    /** 部门名称 */
     @Column(name = "title")
     private String title;
 
-    /**
-     * 上级id
-     */
+    /** 上级id */
     @Column(name = "parent_id")
     private String parentId;
 
-    /**
-     * 部门类型
-     */
+    /** 部门类型 */
     @Column(name = "dept_type")
     private String deptType;
 
-    /**
-     * 备注
-     */
+    /** 部门级次 */
+    @Column(name = "dept_level")
+    private String deptLevel;
+
+    /** 备注 */
     @Column(name = "remarks")
     private String remarks;
 
-    /**
-     * 是否可删除: 1-可删除;0-不可删
-     */
+    /** 是否可删除: 1-可删除;0-不可删 */
     @Column(name = "is_can_del")
     private String isCanDel;
 
-    /**
-     * 负责人
-     */
+    /** 负责人 */
     @Column(name = "person_charge")
     private String personCharge;
 
-    /**
-     * 创建时间
-     */
+    /** 创建时间 */
     @Column(name = "create_time")
     private LocalDateTime createTime;
 
-    /**
-     * 创建人ID
-     */
+    /** 创建人ID */
     @Column(name = "create_user_id")
     private String createUserId;
 
-    /**
-     * 创建人
-     */
+    /** 创建人 */
     @Column(name = "create_user")
     private String createUser;
 
-    /**
-     * 更新时间
-     */
+    /** 更新时间 */
     @Column(name = "update_time")
     private LocalDateTime updateTime;
 
-    /**
-     * 更新人ID
-     */
+    /** 更新人ID */
     @Column(name = "update_user_id")
     private String updateUserId;
 
-    /**
-     * 更新人
-     */
+    /** 更新人 */
     @Column(name = "update_user")
     private String updateUser;
 
 
-    public DeptInfo() {
-    }
+    public DeptInfo(){}
 
 
-    public DeptInfo(String id, String tenantId, String title, String parentId, String deptType, String remarks, String isCanDel, String personCharge, LocalDateTime createTime, String createUserId, String createUser, LocalDateTime updateTime, String updateUserId, String updateUser) {
+    public DeptInfo(    String id,     String tenantId,     String title,     String parentId,     String deptType,     String deptLevel,     String remarks,     String isCanDel,     String personCharge,     LocalDateTime createTime,     String createUserId,     String createUser,     LocalDateTime updateTime,     String updateUserId,     String updateUser){
         this.id = id;
         this.tenantId = tenantId;
         this.title = title;
         this.parentId = parentId;
         this.deptType = deptType;
+        this.deptLevel = deptLevel;
         this.remarks = remarks;
         this.isCanDel = isCanDel;
         this.personCharge = personCharge;
@@ -127,7 +103,7 @@ public class DeptInfo implements Serializable {
         this.updateUser = updateUser;
     }
 
-    public static DeptInfoBuilder builder() {
+    public static DeptInfoBuilder builder(){
         return new DeptInfoBuilder();
     }
 
@@ -137,6 +113,7 @@ public class DeptInfo implements Serializable {
         private String title;
         private String parentId;
         private String deptType;
+        private String deptLevel;
         private String remarks;
         private String isCanDel;
         private String personCharge;
@@ -155,79 +132,71 @@ public class DeptInfo implements Serializable {
             this.id = id;
             return this;
         }
-
         /* 租户标识 */
         public DeptInfoBuilder tenantId(String tenantId) {
             this.tenantId = tenantId;
             return this;
         }
-
         /* 部门名称 */
         public DeptInfoBuilder title(String title) {
             this.title = title;
             return this;
         }
-
         /* 上级id */
         public DeptInfoBuilder parentId(String parentId) {
             this.parentId = parentId;
             return this;
         }
-
         /* 部门类型 */
         public DeptInfoBuilder deptType(String deptType) {
             this.deptType = deptType;
             return this;
         }
-
+        /* 部门级次 */
+        public DeptInfoBuilder deptLevel(String deptLevel) {
+            this.deptLevel = deptLevel;
+            return this;
+        }
         /* 备注 */
         public DeptInfoBuilder remarks(String remarks) {
             this.remarks = remarks;
             return this;
         }
-
         /* 是否可删除: 1-可删除;0-不可删 */
         public DeptInfoBuilder isCanDel(String isCanDel) {
             this.isCanDel = isCanDel;
             return this;
         }
-
         /* 负责人 */
         public DeptInfoBuilder personCharge(String personCharge) {
             this.personCharge = personCharge;
             return this;
         }
-
         /* 创建时间 */
         public DeptInfoBuilder createTime(LocalDateTime createTime) {
             this.createTime = createTime;
             return this;
         }
-
         /* 创建人ID */
         public DeptInfoBuilder createUserId(String createUserId) {
             this.createUserId = createUserId;
             return this;
         }
-
         /* 创建人 */
         public DeptInfoBuilder createUser(String createUser) {
             this.createUser = createUser;
             return this;
         }
-
         /* 更新时间 */
         public DeptInfoBuilder updateTime(LocalDateTime updateTime) {
             this.updateTime = updateTime;
             return this;
         }
-
         /* 更新人ID */
         public DeptInfoBuilder updateUserId(String updateUserId) {
             this.updateUserId = updateUserId;
             return this;
         }
-
         /* 更新人 */
         public DeptInfoBuilder updateUser(String updateUser) {
             this.updateUser = updateUser;
@@ -235,11 +204,12 @@ public class DeptInfo implements Serializable {
         }
 
         public DeptInfo build() {
-            return new DeptInfo(id,
+            return new DeptInfo(            id,
                     tenantId,
                     title,
                     parentId,
                     deptType,
+                    deptLevel,
                     remarks,
                     isCanDel,
                     personCharge,
@@ -293,6 +263,14 @@ public class DeptInfo implements Serializable {
 
     public String getDeptType() {
         return deptType;
+    }
+
+    public void setDeptLevel(String deptLevel) {
+        this.deptLevel = deptLevel;
+    }
+
+    public String getDeptLevel() {
+        return deptLevel;
     }
 
     public void setRemarks(String remarks) {
@@ -376,6 +354,7 @@ public class DeptInfo implements Serializable {
                 .append("title", getTitle())
                 .append("parentId", getParentId())
                 .append("deptType", getDeptType())
+                .append("deptLevel", getDeptLevel())
                 .append("remarks", getRemarks())
                 .append("isCanDel", getIsCanDel())
                 .append("personCharge", getPersonCharge())

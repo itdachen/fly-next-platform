@@ -15,63 +15,52 @@ import java.io.Serializable;
 public class DeptInfoDto implements Serializable {
     private static final long serialVersionUID = 1163032218075732991L;
 
-    /**
-     * 主键唯一标识
-     */
+
+    /** 主键唯一标识 */
     private String id;
 
 
-    /**
-     * 租户标识
-     */
+    /** 租户标识 */
     private String tenantId;
 
 
-    /**
-     * 部门名称
-     */
+    /** 部门名称 */
     private String title;
 
 
-    /**
-     * 上级id
-     */
+    /** 上级id */
     private String parentId;
 
 
-    /**
-     * 部门类型
-     */
+    /** 部门类型 */
     private String deptType;
 
 
-    /**
-     * 备注
-     */
+    /** 部门级次 */
+    private String deptLevel;
+
+
+    /** 备注 */
     private String remarks;
 
 
-    /**
-     * 是否可删除: 1-可删除;0-不可删
-     */
+    /** 是否可删除: 1-可删除;0-不可删 */
     private String isCanDel;
 
 
-    /**
-     * 负责人
-     */
+    /** 负责人 */
     private String personCharge;
 
 
-    public DeptInfoDto() {
-    }
+    public DeptInfoDto() {}
 
-    public DeptInfoDto(String id, String tenantId, String title, String parentId, String deptType, String remarks, String isCanDel, String personCharge) {
+    public DeptInfoDto(String id, String tenantId, String title, String parentId, String deptType, String deptLevel, String remarks, String isCanDel, String personCharge) {
         this.id = id;
         this.tenantId = tenantId;
         this.title = title;
         this.parentId = parentId;
         this.deptType = deptType;
+        this.deptLevel = deptLevel;
         this.remarks = remarks;
         this.isCanDel = isCanDel;
         this.personCharge = personCharge;
@@ -87,55 +76,53 @@ public class DeptInfoDto implements Serializable {
         private String title;
         private String parentId;
         private String deptType;
+        private String deptLevel;
         private String remarks;
         private String isCanDel;
         private String personCharge;
 
-        public DeptInfoDtoBuilder() {
-        }
+        public DeptInfoDtoBuilder() {}
 
         /* 主键唯一标识 */
         public DeptInfoDtoBuilder id(String id) {
             this.id = id;
             return this;
         }
-
         /* 租户标识 */
         public DeptInfoDtoBuilder tenantId(String tenantId) {
             this.tenantId = tenantId;
             return this;
         }
-
         /* 部门名称 */
         public DeptInfoDtoBuilder title(String title) {
             this.title = title;
             return this;
         }
-
         /* 上级id */
         public DeptInfoDtoBuilder parentId(String parentId) {
             this.parentId = parentId;
             return this;
         }
-
         /* 部门类型 */
         public DeptInfoDtoBuilder deptType(String deptType) {
             this.deptType = deptType;
             return this;
         }
-
+        /* 部门级次 */
+        public DeptInfoDtoBuilder deptLevel(String deptLevel) {
+            this.deptLevel = deptLevel;
+            return this;
+        }
         /* 备注 */
         public DeptInfoDtoBuilder remarks(String remarks) {
             this.remarks = remarks;
             return this;
         }
-
         /* 是否可删除: 1-可删除;0-不可删 */
         public DeptInfoDtoBuilder isCanDel(String isCanDel) {
             this.isCanDel = isCanDel;
             return this;
         }
-
         /* 负责人 */
         public DeptInfoDtoBuilder personCharge(String personCharge) {
             this.personCharge = personCharge;
@@ -143,10 +130,11 @@ public class DeptInfoDto implements Serializable {
         }
 
         public DeptInfoDto build() {
-            return new DeptInfoDto(id, tenantId, title, parentId, deptType, remarks, isCanDel, personCharge);
+            return new DeptInfoDto(id, tenantId, title, parentId, deptType, deptLevel, remarks, isCanDel, personCharge);
         }
 
     }
+
 
 
     public void setId(String id) {
@@ -156,7 +144,6 @@ public class DeptInfoDto implements Serializable {
     public String getId() {
         return id;
     }
-
     public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
     }
@@ -164,7 +151,6 @@ public class DeptInfoDto implements Serializable {
     public String getTenantId() {
         return tenantId;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -172,7 +158,6 @@ public class DeptInfoDto implements Serializable {
     public String getTitle() {
         return title;
     }
-
     public void setParentId(String parentId) {
         this.parentId = parentId;
     }
@@ -180,7 +165,6 @@ public class DeptInfoDto implements Serializable {
     public String getParentId() {
         return parentId;
     }
-
     public void setDeptType(String deptType) {
         this.deptType = deptType;
     }
@@ -188,7 +172,13 @@ public class DeptInfoDto implements Serializable {
     public String getDeptType() {
         return deptType;
     }
+    public void setDeptLevel(String deptLevel) {
+        this.deptLevel = deptLevel;
+    }
 
+    public String getDeptLevel() {
+        return deptLevel;
+    }
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
@@ -196,7 +186,6 @@ public class DeptInfoDto implements Serializable {
     public String getRemarks() {
         return remarks;
     }
-
     public void setIsCanDel(String isCanDel) {
         this.isCanDel = isCanDel;
     }
@@ -204,7 +193,6 @@ public class DeptInfoDto implements Serializable {
     public String getIsCanDel() {
         return isCanDel;
     }
-
     public void setPersonCharge(String personCharge) {
         this.personCharge = personCharge;
     }
@@ -221,6 +209,7 @@ public class DeptInfoDto implements Serializable {
                 .append("title", getTitle())
                 .append("parentId", getParentId())
                 .append("deptType", getDeptType())
+                .append("deptLevel", getDeptLevel())
                 .append("remarks", getRemarks())
                 .append("isCanDel", getIsCanDel())
                 .append("personCharge", getPersonCharge())

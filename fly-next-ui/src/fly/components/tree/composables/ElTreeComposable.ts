@@ -4,7 +4,7 @@ import {ElTree} from "element-plus";
 /**
  * 树结构数据
  */
-interface ElTreeModel {
+export interface ElTreeModel {
     /* 展示的数据内容 */
     data: any[],
     /* 回显的数据 */
@@ -14,7 +14,7 @@ interface ElTreeModel {
 /**
  * 后端返回通用树数据结构
  */
-interface TreeNode {
+export interface TreeNode {
     id: string | number,
     title: string,
     children?: TreeNode[]
@@ -29,7 +29,7 @@ export default function useElTreeComposable() {
     /**
      * 树空间数据初始化
      */
-    const tree = reactive<ElTreeModel>({
+    const elTreeData = reactive<ElTreeModel>({
         data: [],
         checked: []
     })
@@ -37,7 +37,12 @@ export default function useElTreeComposable() {
     /**
      * 树的 ref 属性
      */
-    const refTree = ref<InstanceType<typeof ElTree>>()
+    const refTree = ref<InstanceType<typeof ElTree>>();
+
+    /**
+     * 组件的ref属性
+     */
+    const refTreePopup = ref<{ show: (treeDate: ElTreeModel, title: string) => void }>()
 
     /**
      * 获取选择的末节点
@@ -59,7 +64,8 @@ export default function useElTreeComposable() {
 
     return {
         refTree,
-        tree,
+        refTreePopup,
+        elTreeData,
         getCheckedNode
     }
 

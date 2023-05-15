@@ -45,11 +45,8 @@
             <if test="null != deptType  and '' != deptType ">
                 AND dept_type = #{deptType}
             </if>
-            <if test="null != isCanDel  and '' != isCanDel ">
-                AND is_can_del = #{isCanDel}
-            </if>
-            <if test="null != personCharge  and '' != personCharge ">
-                AND person_charge = #{personCharge}
+            <if test="null != deptLevel  and '' != deptLevel ">
+                AND dept_level = #{deptLevel}
             </if>
         </where>
         ORDER BY id DESC

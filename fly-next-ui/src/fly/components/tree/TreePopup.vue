@@ -10,7 +10,7 @@
 
     <template v-slot:content>
       <el-tree ref="refTree"
-               :data="tree.data"
+               :data="elTreeData.data"
                node-key="id"
                :props="defaultProps"
                empty-text="暂无数据"
@@ -18,7 +18,7 @@
                default-expand-all
                :highlight-current="highlight"
                @node-click="handleNodeClick"
-               :default-checked-keys="tree.checked"/>
+               :default-checked-keys="elTreeData.checked"/>
     </template>
 
   </dialog-popup>
@@ -27,14 +27,14 @@
 
 <script lang="ts" setup name="RadioTree">
 import {ref} from "vue";
-import DialogPopup from '@/components/dialog/DialogPopup.vue'
-import useDialog from "@/components/dialog/DialogPopup";
-import useElTreeComposable from "@/components/tree/composables/ElTreeComposable";
+import DialogPopup from '/@/fly/components/dialog/DialogPopup.vue'
+import useDialog from "/@/fly/components/dialog/Dialog";
+import useElTreeComposable, {ElTreeModel} from "/@/fly/components/tree/composables/ElTreeComposable";
 
 //弹框属性
 const {dialog, onShow, onClose} = useDialog();
 
-const {refTree, tree, getCheckedNode} = useElTreeComposable();
+const {refTree, elTreeData, getCheckedNode} = useElTreeComposable();
 
 const props = defineProps({
   // 是否显示多选框
@@ -76,7 +76,7 @@ const handleNodeClick = (data: any) => {
  * 子组件传值给父组件
  * 这里传输整个对象, 方便父组件灵活拓展
  */
-const emits = defineEmits(['select'])
+const emits = defineEmits(['bindtap'])
 const confirm = () => {
   if (props.showCheckbox) {
     // 获取选中的数据
@@ -84,9 +84,9 @@ const confirm = () => {
     // 获取半节点ids
     const hlfIds = refTree.value?.getHalfCheckedKeys() || [];
     const ids = checkedIds?.concat(hlfIds).join(',');
-    emits('select', ids)
+    emits('bindtap', ids)
   } else {
-    emits('select', selectNode.value)
+    emits('bindtap', selectNode.value)
   }
   // 点击确定按钮的时候, 向父组件传输数据, 关闭弹窗
   onClose();
@@ -103,16 +103,16 @@ const show = async (data: ElTreeModel, title?: string | undefined) => {
   dialog.width = '350px';
   dialog.title = title
 
-  tree.data = [];
-  tree.checked = [];
+  elTreeData.data = [];
+  elTreeData.checked = [];
 
   /**
    * 选中的数据, Element 有个坑, 需要选择最后一个, 才能正常回显
    */
   const checkedIds = await getCheckedNode(data.checked, data.data);
 
-  tree.data = data.data;
-  tree.checked = checkedIds;
+  elTreeData.data = data.data;
+  elTreeData.checked = checkedIds;
 
   //显示
   onShow();
