@@ -46,6 +46,12 @@
         ORDER BY id DESC
     </select>
 
+    <!-- 根据部门查询岗位 -->
+    <select id="findPositionByDept" resultMap="positionInfoMap" parameterType="java.lang.String">
+        <include refid="selectPositionInfoVo"></include>
+        WHERE dept_id = #{deptId} AND status = #{status}
+    </select>
+
 
     <!-- 批量添加 -->
     <insert id="batchSave" parameterType="java.util.List">

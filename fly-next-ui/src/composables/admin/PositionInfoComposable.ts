@@ -2,7 +2,7 @@ import {ref} from 'vue';
 import useStringComposable from '/@/fly/utils/string';
 import useTable from '/@/fly/components/table/TableComposables';
 import {DialogTypeEnum} from '/@/fly/components/dialog/Dialog';
-import usePositionInfoBuilder, {PositionInfo, PositionInfoQuery, RoleMenu} from "/@/api/admin/model/PositionInfoModel";
+import usePositionInfoBuilder, {PositionInfo, PositionInfoQuery} from "/@/api/admin/model/PositionInfoModel";
 import PositionInfoApi from '/@/api/admin/PositionInfoApi'
 import useDeptInfoBuilder from "/@/api/admin/model/DeptInfoModel";
 import {toTreeArr} from "/@/fly/utils/ArrayUtils";

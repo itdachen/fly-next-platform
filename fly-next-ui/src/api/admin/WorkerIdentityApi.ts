@@ -18,6 +18,14 @@ class WorkerIdentityApi extends HttpRequest<WorkerIdentity, WorkerIdentityQuery,
         super(path)
     }
 
+    /**
+     * 设置身份岗位信息
+     * @param data
+     */
+    saveIdentityPosition(data) {
+        return this.http.post(path + '/position', data);
+    }
+
 
 }
 

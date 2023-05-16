@@ -1,5 +1,9 @@
 package com.github.itdachen.admin.service.impl;
 
+import com.github.itdachen.admin.mapper.IWorkerIdentityPositionMapper;
+import com.github.itdachen.admin.sdk.vo.MenuInfoVo;
+import com.github.itdachen.framework.context.constants.YesOrNotConstant;
+import com.github.itdachen.framework.context.node.TreeNode;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.itdachen.admin.convert.PositionInfoConvert;
@@ -15,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,30 +29,52 @@ import java.util.List;
  * @date 2023-05-15 20:13:36
  */
 @Service
-public class PositionInfoServiceImpl extends BizServiceImpl< PositionInfo, PositionInfoDto,  PositionInfoVo, PositionInfoQuery, String > implements IPositionInfoService {
+public class PositionInfoServiceImpl extends BizServiceImpl<PositionInfo, PositionInfoDto, PositionInfoVo, PositionInfoQuery, String> implements IPositionInfoService {
     private static final Logger logger = LoggerFactory.getLogger(PositionInfoServiceImpl.class);
     private static final PositionInfoConvert bizConvert = new PositionInfoConvert();
     private final IPositionInfoMapper bizMapper;
+    private final IWorkerIdentityPositionMapper identityPositionMapper;
 
-    public PositionInfoServiceImpl(IPositionInfoMapper positionInfoMapper) {
+    public PositionInfoServiceImpl(IPositionInfoMapper positionInfoMapper,
+                                   IWorkerIdentityPositionMapper identityPositionMapper) {
         super(positionInfoMapper, bizConvert);
         this.bizMapper = positionInfoMapper;
+        this.identityPositionMapper=identityPositionMapper;
     }
 
     /***
-    * 分页
-    *
-    * @author 王大宸
-    * @date 2023-05-15 20:13:36
-    * @param params params
-    * @return com.github.itdachen.framework.core.response.TableData<com.github.itdachen.admin.sdk.vo.positionInfoVo>
-    */
+     * 分页
+     *
+     * @author 王大宸
+     * @date 2023-05-15 20:13:36
+     * @param params params
+     * @return com.github.itdachen.framework.core.response.TableData<com.github.itdachen.admin.sdk.vo.positionInfoVo>
+     */
     @Override
-    public TableData< PositionInfoVo > page(PositionInfoQuery params) throws Exception {
-        Page< PositionInfoVo > page = PageHelper.startPage(params.getPage(), params.getLimit());
-        List< PositionInfoVo > list = bizMapper.page(params);
-        return new TableData< PositionInfoVo >(page.getTotal(), list);
+    public TableData<PositionInfoVo> page(PositionInfoQuery params) throws Exception {
+        Page<PositionInfoVo> page = PageHelper.startPage(params.getPage(), params.getLimit());
+        List<PositionInfoVo> list = bizMapper.page(params);
+        return new TableData<PositionInfoVo>(page.getTotal(), list);
     }
 
 
+    /***
+     * 根据部门查询岗位
+     *
+     * @author 王大宸
+     * @date 2023/5/16 22:46
+     * @param deptId deptId
+     * @return com.github.itdachen.framework.context.node.TreeNode<com.github.itdachen.admin.sdk.vo.MenuInfoVo, java.lang.String>
+     */
+    @Override
+    public TreeNode<PositionInfoVo, String> findPositionByDept(String deptId,String identityId) throws Exception {
+        List<PositionInfoVo> positions = bizMapper.findPositionByDept(deptId, YesOrNotConstant.YES);
+        positions.add(PositionInfoVo.builder()
+                .title("请选择岗位")
+                .id(deptId)
+                .deptId("0")
+                .build());
+        List<String> position = identityPositionMapper.findPosition(identityId);
+        return new TreeNode<PositionInfoVo, String>(positions, position);
+    }
 }

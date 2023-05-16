@@ -5,6 +5,7 @@ import {PositionInfo, PositionInfoQuery, RoleMenu} from "/@/api/admin/model/Posi
  * 请求路径
  */
 const path = '/admin/position/info';
+const roleMenuPath = '/admin/role/menu';
 
 /**
  * 岗位信息 接口
@@ -23,7 +24,7 @@ class PositionInfoApi extends HttpRequest<PositionInfo, PositionInfoQuery, strin
      * @param postId
      */
     findPositionAuthorize(postId: string) {
-        return this.http.get('/admin/role/menu/el/tree/' + postId);
+        return this.http.get(roleMenuPath + '/el/tree/' + postId);
     }
 
     /**
@@ -31,7 +32,16 @@ class PositionInfoApi extends HttpRequest<PositionInfo, PositionInfoQuery, strin
      * @param data
      */
     savePositionAuthorize(data: RoleMenu) {
-        return this.http.post('/admin/role/menu', data);
+        return this.http.post(roleMenuPath, data);
+    }
+
+    /**
+     * 根据部门ID查询岗位信息
+     * @param deptId 部门ID
+     * @param identityId 身份ID
+     */
+    findPositionByDept(deptId: string | undefined, identityId: string | undefined) {
+        return this.http.get(path + '/el/tree/' + deptId + '/identity/' + identityId);
     }
 
 

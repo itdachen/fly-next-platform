@@ -44,7 +44,7 @@
               <template #operation="scope">
                 <el-button type="primary" plain :icon="UserFilled"
                            color="#626aef" size="small"
-                           @click="tapUpdateHandler(scope.row)">身份岗位
+                           @click="tapIdentityPositionHandler(scope.row.id, scope.row.deptId, scope.row.title)">身份岗位
                 </el-button>
                 <el-button type="primary" plain :icon="Edit"
                            color="#626aef" size="small"
@@ -65,6 +65,12 @@
     <!-- 新增/修改/查看 弹窗 -->
     <RefWorkerIdentity ref="refWorkerIdentity" @bindtap="tapSubmitHandler"></RefWorkerIdentity>
 
+
+    <!-- 部门岗位弹窗   -->
+    <TreePopup ref="refTreePopup"
+               :show-checkbox="true"
+               @bindtap="tapSaveAuthorizeHandler"></TreePopup>
+
   </div>
 </template>
 
@@ -75,6 +81,7 @@ import ProTable from '/@/fly/components/table/index.vue';
 import DialogPopup from '/@/fly/components/dialog/DialogPopup.vue';
 import useWorkerIdentityComposable from "/@/composables/admin/WorkerIdentityComposable";
 import useDialogPopup from "/@/fly/components/dialog/Dialog";
+import TreePopup from '/@/fly/components/tree/TreePopup.vue';
 
 const RefWorkerIdentity = defineAsyncComponent(() => import('./RefWorkerIdentity.vue'));
 
@@ -93,9 +100,12 @@ const {
   tapSaveHandler,
   tapUpdateHandler,
   tapRemoveHandler,
+  tapIdentityPositionHandler,
   tapSubmitHandler,
   reloadDate,
-  loadTableData
+  loadTableData,
+  refTreePopup,
+  tapSaveIdentityPositionHandler
 } = useWorkerIdentityComposable();
 
 
@@ -108,6 +118,15 @@ const show = (id: string, workerName: string) => {
   workerId.value = id;
   queryParams.workerId = id;
   loadTableData(queryParams);
+}
+
+/**
+ * 身份岗位设置
+ * @param data
+ */
+const tapSaveAuthorizeHandler = (data: any) => {
+  console.log(data)
+  tapSaveIdentityPositionHandler(data);
 }
 
 

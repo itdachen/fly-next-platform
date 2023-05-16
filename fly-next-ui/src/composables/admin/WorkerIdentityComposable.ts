@@ -4,7 +4,11 @@ import {DialogTypeEnum} from '/@/fly/components/dialog/Dialog';
 import useWorkerIdentityBuilder, {WorkerIdentity, WorkerIdentityQuery} from "/@/api/admin/model/WorkerIdentityModel";
 import WorkerIdentityApi from '/@/api/admin/WorkerIdentityApi'
 import {ref} from "vue-demi";
+import useElTreeComposable from "/@/fly/components/tree/composables/ElTreeComposable";
+import PositionInfoApi from "/@/api/admin/PositionInfoApi";
+import {toTreeDataArr} from "/@/fly/utils/ArrayUtils";
 
+const positionInfoApi = new PositionInfoApi();
 const workerIdentityApi = new WorkerIdentityApi();
 const {isEmpty} = useStringComposable();
 const {successMsg, confirmMsgBox} = useTable();
@@ -15,6 +19,11 @@ const {
     tableData,
     refWorkerIdentity
 } = useWorkerIdentityBuilder();
+
+const {
+    refTreePopup,
+    elTreeData,
+} = useElTreeComposable();
 
 
 /**
@@ -128,6 +137,38 @@ export default function useWorkerIdentityComposable() {
         refWorkerIdentity.value?.show(DialogTypeEnum.VIEW, data);
     };
 
+
+    const selectIdentityId = ref('');
+
+    /**
+     * 身份岗位设置
+     * @param id      身份ID
+     * @param deptId  部门ID
+     * @param title   身份名称
+     */
+    const tapIdentityPositionHandler = (id: string, deptId: string, title: string) => {
+        selectIdentityId.value = id;
+        positionInfoApi.findPositionByDept(deptId, id).then(async res => {
+            elTreeData.data = toTreeDataArr(res.data.data, 'deptId');
+            elTreeData.checked = res.data.checked;
+            refTreePopup.value?.show(elTreeData, '为【 ' + title + ' 】身份授权');
+        })
+    }
+
+    /**
+     * 设置身份岗位信息入库
+     * @param positionIds
+     */
+    const tapSaveIdentityPositionHandler = (positionIds: string) => {
+        workerIdentityApi.saveIdentityPosition({
+            positionId: positionIds,
+            identityId: selectIdentityId.value,
+            clientId: 'NEXT_APP'
+        }).then(res => {
+            successMsg(res.msg);
+        })
+    }
+
     return {
         workerId,
         refWorkerIdentity,
@@ -142,6 +183,10 @@ export default function useWorkerIdentityComposable() {
         tapRemoveHandler,
         tapSubmitHandler,
         reloadDate,
-        loadTableData
+        loadTableData,
+        refTreePopup,
+        elTreeData,
+        tapIdentityPositionHandler,
+        tapSaveIdentityPositionHandler
     };
 }
