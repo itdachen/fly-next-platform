@@ -10,9 +10,14 @@ const TIME_OUT = 10000;
 const CLIENT_SECRET = 'aXRkYWNoZW5fZmFzdDppdGRhY2hlbl9mYXN0';
 
 /**
+ * 文件上传地址
+ */
+const OSS_URI = '/oss/file/upload';
+
+/**
  * 不需要携带 token 的请求路径
  */
-const OPEN_URL = 'oauth/token,/auth/oauth/access_token,/login,/oauth/token,/api/oauth/token,/api/open,/api/admin/open,/auth/oauth/jwt/token,/auth/oauth/jwt/refresh';
+const OPEN_URL = OSS_URI + ',oauth/token,/auth/oauth/access_token,/login,/oauth/token,/api/oauth/token,/api/open,/api/admin/open,/auth/oauth/jwt/token,/auth/oauth/jwt/refresh';
 
 /**
  * 不携带 token 时的客户端秘钥
@@ -27,4 +32,4 @@ const TOKEN_TYPE = 'Bearer ';
 const CONTENT_TYPE = 'application/json;charset=UTF-8'
 
 
-export {TIME_OUT, OPEN_URL, BASIC, TOKEN_TYPE, CONTENT_TYPE}
+export {TIME_OUT, OSS_URI, OPEN_URL, BASIC, TOKEN_TYPE, CONTENT_TYPE}

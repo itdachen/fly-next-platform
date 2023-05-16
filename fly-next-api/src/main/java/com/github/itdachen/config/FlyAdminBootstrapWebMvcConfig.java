@@ -111,7 +111,9 @@ public class FlyAdminBootstrapWebMvcConfig implements WebMvcConfigurer {
      */
     private String[] passMatchers() {
         return new String[]{
-                "/oauth/token"
+                "/oauth/token",
+                "/oss/file/upload",
+                "/upload/**"
         };
     }
 

@@ -4,7 +4,7 @@ import axios, {
     AxiosResponse,
     AxiosResponseHeaders, ServerResponse
 } from 'axios';
-import {TOKEN_TYPE, OPEN_URL, CONTENT_TYPE} from '/@/fly/axios/conf/config';
+import {TOKEN_TYPE, OPEN_URL, OSS_URI, CONTENT_TYPE} from '/@/fly/axios/conf/config';
 import {ElMessage} from 'element-plus';
 import useStringComposable from '/@/fly/utils/string';
 import {ResultStatusCode} from '/@/fly/axios/enums/ResultStatusCode';
@@ -37,7 +37,10 @@ class ApiRequest {
                     console.warn('请求路径不能为空');
                     url = '/404';
                 }
-                config.headers = basicHeaders();
+                if (OSS_URI !== url) {
+                    config.headers = basicHeaders();
+                }
+
                 let strings = split(OPEN_URL, ',');
                 let isOpen = false; // false 需要拦截, true 的时候, 是不需要拦截的
                 for (let i = 0; i < strings.length; i++) {
@@ -55,7 +58,7 @@ class ApiRequest {
                     // 路由跳转
                     router.push('/login');
                 }
-                if (!isEmpty(token)) {
+                if (!isEmpty(token) && OSS_URI !== url) {
                     config.headers = {
                         'content-type': CONTENT_TYPE,
                         'Authorization': TOKEN_TYPE + token,

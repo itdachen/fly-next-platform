@@ -30,6 +30,12 @@
             <artifactId>fly-jjwt</artifactId>
         </dependency>
 
+        <!-- 文件上传 -->
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-file</artifactId>
+        </dependency>
+
         <!-- 項目启动容器 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
