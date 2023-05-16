@@ -49,7 +49,7 @@
             </el-button>
             <el-button type="primary" plain :icon="UserFilled"
                        color="#626aef" size="small"
-                       @click="tapAuthorizeHandler(scope.row.id, scope.row.workerName)">员工身份
+                       @click="tapWorkerIdentityHandler(scope.row.id, scope.row.workerName)">员工身份
             </el-button>
             <!--  v-permission="['admin:admin:worker:info:delete']" -->
             <el-button type="warning" plain :icon="Delete"
@@ -64,16 +64,20 @@
     <!-- 新增/修改/查看 弹窗 -->
     <RefWorkerInfo ref="refWorkerInfo" @bindtap="tapSubmitHandler"></RefWorkerInfo>
 
+    <!-- 职工身份弹窗 -->
+    <RefWorkerIndex ref="refWorkerIndex"></RefWorkerIndex>
+
   </div>
 </template>
 
 <script setup lang="ts" name="WorkerInfoComponent">
-import {defineAsyncComponent, onMounted} from 'vue';
+import {defineAsyncComponent, onMounted, ref} from 'vue';
 import {Search, Edit, View, Delete, Plus, UserFilled} from '@element-plus/icons-vue';
 import ProTable from '/@/fly/components/table/index.vue';
 import useWorkerInfoComposable from "/@/composables/admin/WorkerInfoComposable";
 
 const RefWorkerInfo = defineAsyncComponent(() => import('./RefWorkerInfo.vue'));
+const RefWorkerIndex = defineAsyncComponent(() => import('./RefWorkerIndex.vue'));
 
 const {
   refWorkerInfo,
@@ -96,6 +100,20 @@ const {
 onMounted(() => {
   loadTableData(queryParams);
 })
+
+
+/**  职工身份  START  *********/
+
+const refWorkerIndex = ref<{
+  show: (id: string, workerName: string) => void,
+  onClose: () => void
+}>();
+
+const tapWorkerIdentityHandler = (id: string, workerName: string) => {
+  refWorkerIndex.value?.show(id, workerName);
+}
+
+/**  职工身份  END  *********/
 
 </script>
 

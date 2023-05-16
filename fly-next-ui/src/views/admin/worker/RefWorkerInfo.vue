@@ -90,8 +90,6 @@
 <script setup lang="ts" name="RefWorkerInfo">
 import {reactive, ref} from 'vue';
 import {Plus} from '@element-plus/icons-vue';
-import type {UploadProps} from 'element-plus'
-import {ElMessage} from "element-plus";
 import DialogPopup from '/@/fly/components/dialog/DialogPopup.vue';
 import useDialogPopup, {DialogTypeEnum} from '/@/fly/components/dialog/Dialog';
 import useElementFromComposable from '/@/fly/composables/ElementFromComposable';
