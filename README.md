@@ -56,13 +56,22 @@
 * 操作日志: 系统正常操作日志记录和查询。
 * 代码生成器: 前后端代码的生成（java、html、xml、sql）支持CRUD下载。
 
-### ⛱️ fly-next-admin 预览界面
+### ⛱️ JQuery 版预览界面
 
-| 界面                                 | 界面                                 |
-|------------------------------------|------------------------------------|
-| ![](docs/resources/images/001.png) | ![](docs/resources/images/002.png) |
-| ![](docs/resources/images/003.png) | ![](docs/resources/images/004.png) |
-| ![](docs/resources/images/005.png) | ![](docs/resources/images/006.png) ||
+| 界面                                | 界面                                |
+|-----------------------------------|-----------------------------------|
+| ![](docs/resources/admin/001.png) | ![](docs/resources/admin/002.png) |
+| ![](docs/resources/admin/003.png) | ![](docs/resources/admin/004.png) |
+| ![](docs/resources/admin/005.png) | ![](docs/resources/admin/006.png) ||
+| ![](docs/resources/admin/007.png) | ![](docs/resources/admin/008.png) ||
+
+### ⛱️ VUE 版预览界面
+
+| 界面                                | 界面                                |
+|-----------------------------------|-----------------------------------|
+| ![](docs/resources/vue/001.png)   | ![](docs/resources/vue/002.png) |
+| ![](docs/resources/vue/003.png) | ![](docs/resources/vue/004.png) |
+| ![](docs/resources/vue/005.png) | ![](docs/resources/vue/006.png) ||
 
 ### 📚 前端UI
 * JQ版本 [Pear Admin Layui](https://gitee.com/pear-admin/Pear-Admin-Layui)

@@ -133,13 +133,13 @@
     <select id="findRootDept" resultType="com.github.itdachen.framework.assets.tree.ZTreeNode">
         SELECT id, title AS name, parent_id AS parent_id
         FROM sys_dept_info
-        WHERE parent_id = 'ROOT'
+        WHERE parent_id = '0'
     </select>
 
     <select id="zTree" resultType="com.github.itdachen.framework.assets.tree.ZTreeNode">
         SELECT id, title AS name, parent_id AS parent_id
         FROM sys_dept_info
-        WHERE parent_id != 'ROOT'
+        WHERE parent_id != '0'
     </select>
 
     <!-- 获取集合 -->
