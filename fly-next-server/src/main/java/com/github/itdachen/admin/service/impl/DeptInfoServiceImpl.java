@@ -129,9 +129,9 @@ public class DeptInfoServiceImpl extends BizServiceImpl<DeptInfo, DeptInfoDto, D
         ZTreeNode rootDept = bizMapper.findRootDept();
         if (null == rootDept) {
             rootDept = new ZTreeNode.Builder()
-                    .id("ROOT")
-                    .name("王牌平台")
-                    .parentId("0")
+                    .id("0")
+                    .name("FLY-NEXT")
+                    .parentId("ROOT")
                     .build();
         }
         rootDept.setOpen(true);
