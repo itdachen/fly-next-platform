@@ -12,13 +12,16 @@
         <el-form :model="workerIdentity" ref="formRef"
                  :rules="rules" :disabled="isDisabled"
                  size="small" label-width="120px">
+          <el-form-item label="所属部门" prop="deptId" class="mb20">
+<!--            <el-input type="hidden" v-model="workerIdentity.deptId" placeholder="请输入部门ID"/>-->
+            <el-input v-model="workerIdentity.deptTitle" placeholder="请选择所在部门" @click="selectParent"/>
+          </el-form-item>
+
+
           <el-form-item label="身份名称" prop="title" class="mb20">
             <el-input v-model="workerIdentity.title" placeholder="请输入身份名称"/>
           </el-form-item>
 
-          <el-form-item label="部门ID" prop="deptId" class="mb20">
-            <el-input v-model="workerIdentity.deptId" placeholder="请输入部门ID"/>
-          </el-form-item>
 
           <el-form-item label="是否有效" class="mb20">
             <el-select v-model='workerIdentity.status' style="width: 160px;">
@@ -41,6 +44,13 @@
         </el-form>
       </template>
     </dialog-popup>
+
+
+    <!-- 岗位权限弹窗   -->
+    <TreePopup ref="refTreePopup"
+               @bindtap="tapSaveDeptHandler"></TreePopup>
+
+
   </div>
 </template>
 
@@ -50,6 +60,16 @@ import DialogPopup from '/@/fly/components/dialog/DialogPopup.vue';
 import useDialogPopup, {DialogTypeEnum} from '/@/fly/components/dialog/Dialog';
 import useElementFromComposable from '/@/fly/composables/ElementFromComposable';
 import useWorkerIdentityBuilder, {WorkerIdentity} from '/@/api/admin/model/WorkerIdentityModel';
+import DeptInfoApi from "/@/api/admin/DeptInfoApi";
+import {toTreeArr} from "/@/fly/utils/ArrayUtils";
+import useElTreeComposable from "/@/fly/components/tree/composables/ElTreeComposable";
+import TreePopup from '/@/fly/components/tree/TreePopup.vue';
+
+const deptInfoApi = new DeptInfoApi();
+const {
+  refTreePopup,
+  elTreeData,
+} = useElTreeComposable();
 
 /**
  * 弹框属性
@@ -109,6 +129,22 @@ const rules = reactive({
   title: [{required: true, message: '身份名称不能为空', trigger: 'blur'}],
   deptId: [{required: true, message: '部门不能为空', trigger: 'blur'}]
 });
+
+const selectParent = () => {
+  let checkedData = [];
+  checkedData.push(workerIdentity.deptId);
+  deptInfoApi.list().then(res => {
+    elTreeData.data = toTreeArr(res.data);
+    elTreeData.checked = checkedData;
+    refTreePopup.value?.show(elTreeData, '请选择部门');
+  })
+}
+
+const tapSaveDeptHandler = (checkedData) => {
+  workerIdentity.deptId = checkedData.id;
+  workerIdentity.deptTitle = checkedData.title
+}
+
 
 //定义事件
 const emits = defineEmits(['bindtap'])

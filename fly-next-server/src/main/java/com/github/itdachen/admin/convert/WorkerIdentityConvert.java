@@ -9,7 +9,7 @@ import com.github.itdachen.framework.webmvc.convert.BizConvert;
  * 职工身份 类型转换
  *
  * @author 王大宸
- * @date 2023-05-16 21:19:44
+ * @date 2023-05-17 21:20:37
  */
 public class WorkerIdentityConvert extends BizConvert< WorkerIdentity, WorkerIdentityDto, WorkerIdentityVo > {
 
@@ -18,15 +18,16 @@ public class WorkerIdentityConvert extends BizConvert< WorkerIdentity, WorkerIde
         if (null == workerIdentityDto){
             return null;
         }
-       WorkerIdentity workerIdentity = new WorkerIdentity();
-                    workerIdentity.setId(workerIdentityDto.getId());
-                    workerIdentity.setTenantId(workerIdentityDto.getTenantId());
-                    workerIdentity.setWorkerId(workerIdentityDto.getWorkerId());
-                    workerIdentity.setTitle(workerIdentityDto.getTitle());
-                    workerIdentity.setDeptId(workerIdentityDto.getDeptId());
-                    workerIdentity.setStatus(workerIdentityDto.getStatus());
-                    workerIdentity.setIsPrimary(workerIdentityDto.getIsPrimary());
-                    workerIdentity.setRemarks(workerIdentityDto.getRemarks());
+        WorkerIdentity workerIdentity = new WorkerIdentity();
+        workerIdentity.setId(workerIdentityDto.getId());
+        workerIdentity.setTenantId(workerIdentityDto.getTenantId());
+        workerIdentity.setWorkerId(workerIdentityDto.getWorkerId());
+        workerIdentity.setTitle(workerIdentityDto.getTitle());
+        workerIdentity.setDeptId(workerIdentityDto.getDeptId());
+        workerIdentity.setDeptTitle(workerIdentityDto.getDeptTitle());
+        workerIdentity.setStatus(workerIdentityDto.getStatus());
+        workerIdentity.setIsPrimary(workerIdentityDto.getIsPrimary());
+        workerIdentity.setRemarks(workerIdentityDto.getRemarks());
         return workerIdentity;
     }
 
@@ -37,14 +38,15 @@ public class WorkerIdentityConvert extends BizConvert< WorkerIdentity, WorkerIde
             return null;
         }
         WorkerIdentityVo workerIdentityVo = new WorkerIdentityVo();
-                    workerIdentityVo.setId(workerIdentity.getId());
-                    workerIdentityVo.setTenantId(workerIdentity.getTenantId());
-                    workerIdentityVo.setWorkerId(workerIdentity.getWorkerId());
-                    workerIdentityVo.setTitle(workerIdentity.getTitle());
-                    workerIdentityVo.setDeptId(workerIdentity.getDeptId());
-                    workerIdentityVo.setStatus(workerIdentity.getStatus());
-                    workerIdentityVo.setIsPrimary(workerIdentity.getIsPrimary());
-                    workerIdentityVo.setRemarks(workerIdentity.getRemarks());
+        workerIdentityVo.setId(workerIdentity.getId());
+        workerIdentityVo.setTenantId(workerIdentity.getTenantId());
+        workerIdentityVo.setWorkerId(workerIdentity.getWorkerId());
+        workerIdentityVo.setTitle(workerIdentity.getTitle());
+        workerIdentityVo.setDeptId(workerIdentity.getDeptId());
+        workerIdentityVo.setDeptTitle(workerIdentity.getDeptTitle());
+        workerIdentityVo.setStatus(workerIdentity.getStatus());
+        workerIdentityVo.setIsPrimary(workerIdentity.getIsPrimary());
+        workerIdentityVo.setRemarks(workerIdentity.getRemarks());
         return workerIdentityVo;
     }
 
@@ -53,14 +55,15 @@ public class WorkerIdentityConvert extends BizConvert< WorkerIdentity, WorkerIde
             return null;
         }
         WorkerIdentity workerIdentity = new WorkerIdentity();
-                    workerIdentity.setId(workerIdentityVo.getId());
-                    workerIdentity.setTenantId(workerIdentityVo.getTenantId());
-                    workerIdentity.setWorkerId(workerIdentityVo.getWorkerId());
-                    workerIdentity.setTitle(workerIdentityVo.getTitle());
-                    workerIdentity.setDeptId(workerIdentityVo.getDeptId());
-                    workerIdentity.setStatus(workerIdentityVo.getStatus());
-                    workerIdentity.setIsPrimary(workerIdentityVo.getIsPrimary());
-                    workerIdentity.setRemarks(workerIdentityVo.getRemarks());
+        workerIdentity.setId(workerIdentityVo.getId());
+        workerIdentity.setTenantId(workerIdentityVo.getTenantId());
+        workerIdentity.setWorkerId(workerIdentityVo.getWorkerId());
+        workerIdentity.setTitle(workerIdentityVo.getTitle());
+        workerIdentity.setDeptId(workerIdentityVo.getDeptId());
+        workerIdentity.setDeptTitle(workerIdentityVo.getDeptTitle());
+        workerIdentity.setStatus(workerIdentityVo.getStatus());
+        workerIdentity.setIsPrimary(workerIdentityVo.getIsPrimary());
+        workerIdentity.setRemarks(workerIdentityVo.getRemarks());
         return workerIdentity;
     }
 
@@ -69,14 +72,15 @@ public class WorkerIdentityConvert extends BizConvert< WorkerIdentity, WorkerIde
             return null;
         }
         WorkerIdentityVo workerIdentityVo = new WorkerIdentityVo();
-                workerIdentityVo.setId(workerIdentityDto.getId());
-                workerIdentityVo.setTenantId(workerIdentityDto.getTenantId());
-                workerIdentityVo.setWorkerId(workerIdentityDto.getWorkerId());
-                workerIdentityVo.setTitle(workerIdentityDto.getTitle());
-                workerIdentityVo.setDeptId(workerIdentityDto.getDeptId());
-                workerIdentityVo.setStatus(workerIdentityDto.getStatus());
-                workerIdentityVo.setIsPrimary(workerIdentityDto.getIsPrimary());
-                workerIdentityVo.setRemarks(workerIdentityDto.getRemarks());
+        workerIdentityVo.setId(workerIdentityDto.getId());
+        workerIdentityVo.setTenantId(workerIdentityDto.getTenantId());
+        workerIdentityVo.setWorkerId(workerIdentityDto.getWorkerId());
+        workerIdentityVo.setTitle(workerIdentityDto.getTitle());
+        workerIdentityVo.setDeptId(workerIdentityDto.getDeptId());
+        workerIdentityVo.setDeptTitle(workerIdentityDto.getDeptTitle());
+        workerIdentityVo.setStatus(workerIdentityDto.getStatus());
+        workerIdentityVo.setIsPrimary(workerIdentityDto.getIsPrimary());
+        workerIdentityVo.setRemarks(workerIdentityDto.getRemarks());
         return workerIdentityVo;
     }
 

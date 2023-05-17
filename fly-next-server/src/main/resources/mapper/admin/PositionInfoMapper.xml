@@ -47,8 +47,16 @@
     </select>
 
     <!-- 根据部门查询岗位 -->
-    <select id="findPositionByDept" resultMap="positionInfoMap" parameterType="java.lang.String">
-        <include refid="selectPositionInfoVo"></include>
+    <select id="findPositionByDept" parameterType="java.lang.String"
+            resultType="com.github.itdachen.admin.sdk.vo.PositionInfoVo">
+        SELECT id,
+               tenant_id,
+               title,
+               position_code,
+               dept_id AS parentId,
+               status,
+               remarks
+        FROM sys_position_info
         WHERE dept_id = #{deptId} AND status = #{status}
     </select>
 

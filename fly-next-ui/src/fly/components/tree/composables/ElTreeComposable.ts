@@ -81,11 +81,11 @@ export default function useElTreeComposable() {
 export function checked(id: string | number, data: any, newArr: string[], children = 'children') {
     data.forEach((item: { id: string; children: any[]; }) => {
         if (item.id == id) {
-            if (item.children.length == 0) {
+            if (!item.children || 0 === item.children.length) {
                 newArr.push(item.id)
             }
         } else {
-            if (item[children].length != 0) {
+            if (item.children.length != 0) {
                 checked(id, item.children, newArr, children)
             }
         }

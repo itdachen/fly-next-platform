@@ -6,7 +6,7 @@ import WorkerIdentityApi from '/@/api/admin/WorkerIdentityApi'
 import {ref} from "vue-demi";
 import useElTreeComposable from "/@/fly/components/tree/composables/ElTreeComposable";
 import PositionInfoApi from "/@/api/admin/PositionInfoApi";
-import {toTreeDataArr} from "/@/fly/utils/ArrayUtils";
+import {toTreeArr} from "/@/fly/utils/ArrayUtils";
 
 const positionInfoApi = new PositionInfoApi();
 const workerIdentityApi = new WorkerIdentityApi();
@@ -149,7 +149,7 @@ export default function useWorkerIdentityComposable() {
     const tapIdentityPositionHandler = (id: string, deptId: string, title: string) => {
         selectIdentityId.value = id;
         positionInfoApi.findPositionByDept(deptId, id).then(async res => {
-            elTreeData.data = toTreeDataArr(res.data.data, 'deptId');
+            elTreeData.data = toTreeArr(res.data.data);
             elTreeData.checked = res.data.checked;
             refTreePopup.value?.show(elTreeData, '为【 ' + title + ' 】身份授权');
         })

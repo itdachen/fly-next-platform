@@ -39,7 +39,7 @@ public class PositionInfoServiceImpl extends BizServiceImpl<PositionInfo, Positi
                                    IWorkerIdentityPositionMapper identityPositionMapper) {
         super(positionInfoMapper, bizConvert);
         this.bizMapper = positionInfoMapper;
-        this.identityPositionMapper=identityPositionMapper;
+        this.identityPositionMapper = identityPositionMapper;
     }
 
     /***
@@ -67,8 +67,11 @@ public class PositionInfoServiceImpl extends BizServiceImpl<PositionInfo, Positi
      * @return com.github.itdachen.framework.context.node.TreeNode<com.github.itdachen.admin.sdk.vo.MenuInfoVo, java.lang.String>
      */
     @Override
-    public TreeNode<PositionInfoVo, String> findPositionByDept(String deptId,String identityId) throws Exception {
+    public TreeNode<PositionInfoVo, String> findPositionByDept(String deptId, String identityId) throws Exception {
         List<PositionInfoVo> positions = bizMapper.findPositionByDept(deptId, YesOrNotConstant.YES);
+        if (0 == positions.size()) {
+            return new TreeNode<PositionInfoVo, String>(positions, new ArrayList<>());
+        }
         positions.add(PositionInfoVo.builder()
                 .title("请选择岗位")
                 .id(deptId)

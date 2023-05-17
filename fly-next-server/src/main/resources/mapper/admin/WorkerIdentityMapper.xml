@@ -11,6 +11,7 @@
         <result property="workerId" column="worker_id"/>
         <result property="title" column="title"/>
         <result property="deptId" column="dept_id"/>
+        <result property="deptTitle" column="dept_title"/>
         <result property="status" column="status"/>
         <result property="isPrimary" column="is_primary"/>
         <result property="remarks" column="remarks"/>
@@ -22,11 +23,13 @@
                worker_id,
                title,
                dept_id,
+               dept_title,
                status,
                is_primary,
                remarks
         FROM sys_worker_identity
     </sql>
+
 
     <!-- 集合查询 -->
     <select id="page" parameterType="com.github.itdachen.admin.sdk.query.WorkerIdentityQuery"

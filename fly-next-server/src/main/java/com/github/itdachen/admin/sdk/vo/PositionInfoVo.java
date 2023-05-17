@@ -5,6 +5,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -51,6 +53,12 @@ public class PositionInfoVo implements Serializable {
      */
     private String remarks;
 
+    /**
+     * 部门ID
+     */
+    private String parentId;
+
+    private List<PositionInfoVo> children = new ArrayList<>();
 
     public PositionInfoVo() {
     }
@@ -193,6 +201,21 @@ public class PositionInfoVo implements Serializable {
         return remarks;
     }
 
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
+
+    public List<PositionInfoVo> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<PositionInfoVo> children) {
+        this.children = children;
+    }
 
     @Override
     public String toString() {

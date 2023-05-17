@@ -49,6 +49,7 @@ export interface WorkerIdentity {
     title?: string,
     /** 部门ID */
     deptId?: string,
+    deptTitle?: string,
     /** 是否有效: 1-有效;0-无效 */
     status?: string,
     /** 是否主身份标识(1-是,0-不是) */
@@ -105,6 +106,7 @@ export default function useWorkerIdentityBuilder() {
         title: '',
         /** 部门ID */
         deptId: '',
+        deptTitle: '',
         /** 是否有效: 1-有效;0-无效 */
         status: '',
         /** 是否主身份标识(1-是,0-不是) */
@@ -123,8 +125,8 @@ export default function useWorkerIdentityBuilder() {
             align: "center"
         },
         {
-            prop: "deptId",
-            label: "部门ID",
+            prop: "deptTitle",
+            label: "所属部门",
             align: "center"
         },
         {
