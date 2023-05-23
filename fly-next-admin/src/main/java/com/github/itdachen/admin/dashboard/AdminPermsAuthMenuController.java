@@ -93,9 +93,9 @@ public class AdminPermsAuthMenuController {
      * @return com.github.itdachen.framework.core.response.ServerResponse<java.util.List < com.github.itdachen.admin.entity.PearAdminMenu>>
      */
     @GetMapping("/pear/admin/menu")
-    @IgnoreResponseAdvice
+    //   @IgnoreResponseAdvice
     public List<PearAdminMenu> findPearAdminMenu(HttpServletRequest request) throws Exception {
-      //  refreshAuthoritiesService.refreshAuthorities(webAppClientConfig.getId());
+        //  refreshAuthoritiesService.refreshAuthorities(webAppClientConfig.getId());
         return pearAdminMenuWebService.findPearAdminMenu(request, webAppClientConfig.getId());
     }
 

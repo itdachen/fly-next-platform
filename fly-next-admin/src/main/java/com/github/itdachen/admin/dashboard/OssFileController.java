@@ -3,14 +3,19 @@ package com.github.itdachen.admin.dashboard;
 import com.github.itdachen.admin.sdk.dto.NetDiskMd5Dto;
 import com.github.itdachen.admin.sdk.vo.NetDiskMd5Vo;
 import com.github.itdachen.admin.service.INetDiskMd5Service;
+import com.github.itdachen.framework.context.annotation.IgnoreResponseAdvice;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.core.response.ServerResponse;
 import com.github.itdachen.framework.core.utils.StringUtils;
 import com.github.itdachen.framework.file.FileHelper;
 import com.github.itdachen.framework.file.entity.FileInfo;
+import com.github.itdachen.framework.file.properties.LocalCloudStorageProperties;
+import com.github.itdachen.framework.file.utils.MapPathUtils;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.*;
 
 /**
  * Description: 文件上传
@@ -20,12 +25,14 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/oss/file")
 public class OssFileController {
-
+    protected LocalCloudStorageProperties properties;
     private final FileHelper fileHelper;
     private final INetDiskMd5Service netDiskMd5Service;
 
-    public OssFileController(FileHelper fileHelper,
+    public OssFileController(LocalCloudStorageProperties properties,
+                             FileHelper fileHelper,
                              INetDiskMd5Service netDiskMd5Service) {
+        this.properties = properties;
         this.fileHelper = fileHelper;
         this.netDiskMd5Service = netDiskMd5Service;
     }
@@ -73,6 +80,7 @@ public class OssFileController {
      * @return void
      */
     @RequestMapping(value = "/download")
+    @IgnoreResponseAdvice
     public void download(HttpServletResponse response,
                          String uri,
                          String filename) throws Exception {
