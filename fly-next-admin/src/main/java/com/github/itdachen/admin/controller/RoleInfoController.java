@@ -33,15 +33,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin/role")
 @CheckApiClient(title = "角色", clientId = ClientConstant.CLIENT_WEB)
-public class RoleInfoController extends BizController<RoleInfoDto, RoleInfoVo, RoleInfoQuery, String> {
+public class RoleInfoController extends BizController<IRoleInfoService, RoleInfoDto, RoleInfoVo, RoleInfoQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(RoleInfoController.class);
     private static final String PATH_PREFIX = "admin/role" ;
-    private final IRoleInfoService bizService;
-
-    public RoleInfoController(IRoleInfoService bizService) {
-        super(bizService);
-        this.bizService = bizService;
-    }
 
     /***
      * 跳转到信息管理界面

@@ -41,19 +41,16 @@ import java.util.List;
  * @date 2023-04-04 21:44:46
  */
 @Service
-public class UserInfoServiceImpl extends BizServiceImpl<UserInfo, UserInfoDto, UserInfoVo, UserInfoQuery, String> implements IUserInfoService {
+public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, UserInfo, UserInfoDto, UserInfoVo, UserInfoQuery, String> implements IUserInfoService {
     private static final Logger logger = LoggerFactory.getLogger(UserInfoServiceImpl.class);
     private static final UserInfoConvert bizConvert = new UserInfoConvert();
-    private final IUserInfoMapper bizMapper;
     private final PasswordEncoder passwordEncoder;
     private final IUserLoginMapper userLoginMapper;
 
 
-    public UserInfoServiceImpl(IUserInfoMapper bizMapper,
-                               PasswordEncoder passwordEncoder,
+    public UserInfoServiceImpl(PasswordEncoder passwordEncoder,
                                IUserLoginMapper userLoginMapper) {
-        super(bizMapper, bizConvert);
-        this.bizMapper = bizMapper;
+        super(bizConvert);
         this.passwordEncoder = passwordEncoder;
         this.userLoginMapper = userLoginMapper;
     }

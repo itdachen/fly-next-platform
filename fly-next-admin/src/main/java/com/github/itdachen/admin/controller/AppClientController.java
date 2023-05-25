@@ -26,14 +26,8 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/admin/app/client")
 @CheckApiClient(title = "应用管理", clientId = ClientConstant.CLIENT_WEB)
-public class AppClientController extends BizController<AppClientDto, AppClientVo, AppClientQuery, String> {
+public class AppClientController extends BizController<IAppClientService, AppClientDto, AppClientVo, AppClientQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(AppClientController.class);
-    private final IAppClientService bizService;
-    public AppClientController(IAppClientService bizService) {
-        super(bizService);
-        this.bizService = bizService;
-    }
-
 
     private static final String PATH_PREFIX = "admin/app" ;
 

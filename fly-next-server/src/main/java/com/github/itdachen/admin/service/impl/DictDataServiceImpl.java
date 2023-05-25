@@ -30,14 +30,12 @@ import java.util.List;
  * @date 2023-04-04 21:44:47
  */
 @Service
-public class DictDataServiceImpl extends BizServiceImpl<DictData, DictDataDto, DictDataVo, DictDataQuery, String> implements IDictDataService {
+public class DictDataServiceImpl extends BizServiceImpl<IDictDataMapper, DictData, DictDataDto, DictDataVo, DictDataQuery, String> implements IDictDataService {
     private static final Logger logger = LoggerFactory.getLogger(DictDataServiceImpl.class);
     private static final DictDataConvert bizConvert = new DictDataConvert();
-    private final IDictDataMapper bizMapper;
 
-    public DictDataServiceImpl(IDictDataMapper bizMapper) {
-        super(bizMapper, bizConvert);
-        this.bizMapper = bizMapper;
+    public DictDataServiceImpl() {
+        super(bizConvert);
     }
 
 

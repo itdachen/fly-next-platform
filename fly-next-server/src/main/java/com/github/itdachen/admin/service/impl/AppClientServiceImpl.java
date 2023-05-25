@@ -27,14 +27,12 @@ import java.util.List;
  * @date 2023-04-04 21:26:23
  */
 @Service
-public class AppClientServiceImpl extends BizServiceImpl<AppClient, AppClientDto, AppClientVo, AppClientQuery, String> implements IAppClientService {
+public class AppClientServiceImpl extends BizServiceImpl<IAppClientMapper, AppClient, AppClientDto, AppClientVo, AppClientQuery, String> implements IAppClientService {
     private static final Logger logger = LoggerFactory.getLogger(AppClientServiceImpl.class);
     private static final AppClientConvert bizConvert = new AppClientConvert();
-    private final IAppClientMapper bizMapper;
 
-    public AppClientServiceImpl(IAppClientMapper bizMapper) {
-        super(bizMapper, bizConvert);
-        this.bizMapper = bizMapper;
+    public AppClientServiceImpl() {
+        super(bizConvert);
     }
 
 

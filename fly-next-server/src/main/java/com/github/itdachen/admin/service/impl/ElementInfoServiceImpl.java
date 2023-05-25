@@ -26,14 +26,12 @@ import java.util.List;
  * @date 2023-04-04 21:44:47
  */
 @Service
-public class ElementInfoServiceImpl extends BizServiceImpl<ElementInfo, ElementInfoDto, ElementInfoVo, ElementInfoQuery, String> implements IElementInfoService {
+public class ElementInfoServiceImpl extends BizServiceImpl<IElementInfoMapper, ElementInfo, ElementInfoDto, ElementInfoVo, ElementInfoQuery, String> implements IElementInfoService {
     private static final Logger logger = LoggerFactory.getLogger(ElementInfoServiceImpl.class);
     private static final ElementInfoConvert bizConvert = new ElementInfoConvert();
-    private final IElementInfoMapper bizMapper;
 
-    public ElementInfoServiceImpl(IElementInfoMapper bizMapper) {
-        super(bizMapper, bizConvert);
-        this.bizMapper = bizMapper;
+    public ElementInfoServiceImpl() {
+        super(bizConvert);
     }
 
     /***

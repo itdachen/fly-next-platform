@@ -24,29 +24,27 @@ import java.util.List;
  * @date 2023-05-16 19:37:24
  */
 @Service
-public class WorkerInfoServiceImpl extends BizServiceImpl< WorkerInfo, WorkerInfoDto,  WorkerInfoVo, WorkerInfoQuery, String > implements IWorkerInfoService {
+public class WorkerInfoServiceImpl extends BizServiceImpl<IWorkerInfoMapper, WorkerInfo, WorkerInfoDto, WorkerInfoVo, WorkerInfoQuery, String> implements IWorkerInfoService {
     private static final Logger logger = LoggerFactory.getLogger(WorkerInfoServiceImpl.class);
     private static final WorkerInfoConvert bizConvert = new WorkerInfoConvert();
-    private final IWorkerInfoMapper bizMapper;
 
-    public WorkerInfoServiceImpl(IWorkerInfoMapper workerInfoMapper) {
-        super(workerInfoMapper, bizConvert);
-        this.bizMapper = workerInfoMapper;
+    public WorkerInfoServiceImpl() {
+        super(bizConvert);
     }
 
     /***
-    * 分页
-    *
-    * @author 王大宸
-    * @date 2023-05-16 19:37:24
-    * @param params params
-    * @return com.github.itdachen.framework.core.response.TableData<com.github.itdachen.admin.sdk.vo.workerInfoVo>
-    */
+     * 分页
+     *
+     * @author 王大宸
+     * @date 2023-05-16 19:37:24
+     * @param params params
+     * @return com.github.itdachen.framework.core.response.TableData<com.github.itdachen.admin.sdk.vo.workerInfoVo>
+     */
     @Override
-    public TableData< WorkerInfoVo > page(WorkerInfoQuery params) throws Exception {
-        Page< WorkerInfoVo > page = PageHelper.startPage(params.getPage(), params.getLimit());
-        List< WorkerInfoVo > list = bizMapper.page(params);
-        return new TableData< WorkerInfoVo >(page.getTotal(), list);
+    public TableData<WorkerInfoVo> page(WorkerInfoQuery params) throws Exception {
+        Page<WorkerInfoVo> page = PageHelper.startPage(params.getPage(), params.getLimit());
+        List<WorkerInfoVo> list = bizMapper.page(params);
+        return new TableData<WorkerInfoVo>(page.getTotal(), list);
     }
 
 

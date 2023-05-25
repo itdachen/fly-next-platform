@@ -27,16 +27,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/admin/make/use/log")
 @CheckApiClient(title = "操作日志", clientId = ClientConstant.CLIENT_WEB)
-public class MakeUseLogController extends BizController<MakeUseLogDto, MakeUseLogVo, MakeUseLogQuery, String> {
+public class MakeUseLogController extends BizController<IMakeUseLogService, MakeUseLogDto, MakeUseLogVo, MakeUseLogQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(MakeUseLogController.class);
-    private static final String PATH_PREFIX = "admin/log" ;
-    private final IMakeUseLogService bizService;
-
-    public MakeUseLogController(IMakeUseLogService bizService) {
-        super(bizService);
-        this.bizService = bizService;
-    }
-
+    private static final String PATH_PREFIX = "admin/log";
 
     /***
      * 跳转到信息管理界面
@@ -48,7 +41,7 @@ public class MakeUseLogController extends BizController<MakeUseLogDto, MakeUseLo
     @GetMapping(value = "/index")
     @PreAuthorize("hasAuthority('admin:make:use:log:index')")
     public String index() {
-        return PATH_PREFIX + "/index" ;
+        return PATH_PREFIX + "/index";
     }
 
     /***
@@ -64,7 +57,7 @@ public class MakeUseLogController extends BizController<MakeUseLogDto, MakeUseLo
     @PreAuthorize("hasAuthority('admin:make:use:log:view')")
     public String view(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("makeUseLog", bizService.getById(id));
-        return PATH_PREFIX + "/view" ;
+        return PATH_PREFIX + "/view";
     }
 
 }

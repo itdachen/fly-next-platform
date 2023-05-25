@@ -27,14 +27,12 @@ import java.util.List;
  * @date 2023-04-04 21:44:45
  */
 @Service
-public class MakeUseLogServiceImpl extends BizServiceImpl<MakeUseLog, MakeUseLogDto, MakeUseLogVo, MakeUseLogQuery, String> implements IMakeUseLogService {
+public class MakeUseLogServiceImpl extends BizServiceImpl<IMakeUseLogMapper, MakeUseLog, MakeUseLogDto, MakeUseLogVo, MakeUseLogQuery, String> implements IMakeUseLogService {
     private static final Logger logger = LoggerFactory.getLogger(MakeUseLogServiceImpl.class);
     private static final MakeUseLogConvert bizConvert = new MakeUseLogConvert();
-    private final IMakeUseLogMapper bizMapper;
 
-    public MakeUseLogServiceImpl(IMakeUseLogMapper bizMapper) {
-        super(bizMapper, bizConvert);
-        this.bizMapper = bizMapper;
+    public MakeUseLogServiceImpl() {
+        super(bizConvert);
     }
 
 

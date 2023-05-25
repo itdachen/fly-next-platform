@@ -24,14 +24,12 @@ import java.util.List;
  * @date 2023-05-16 21:19:44
  */
 @Service
-public class WorkerIdentityServiceImpl extends BizServiceImpl< WorkerIdentity, WorkerIdentityDto,  WorkerIdentityVo, WorkerIdentityQuery, String > implements IWorkerIdentityService {
+public class WorkerIdentityServiceImpl extends BizServiceImpl<IWorkerIdentityMapper, WorkerIdentity, WorkerIdentityDto,  WorkerIdentityVo, WorkerIdentityQuery, String > implements IWorkerIdentityService {
     private static final Logger logger = LoggerFactory.getLogger(WorkerIdentityServiceImpl.class);
     private static final WorkerIdentityConvert bizConvert = new WorkerIdentityConvert();
-    private final IWorkerIdentityMapper bizMapper;
 
-    public WorkerIdentityServiceImpl(IWorkerIdentityMapper workerIdentityMapper) {
-        super(workerIdentityMapper, bizConvert);
-        this.bizMapper = workerIdentityMapper;
+    public WorkerIdentityServiceImpl() {
+        super(bizConvert);
     }
 
     /***

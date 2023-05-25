@@ -33,18 +33,15 @@ import java.util.List;
  * @date 2023-04-04 21:44:46
  */
 @Service
-public class PermsAuthServiceImpl extends BizServiceImpl<PermsAuth, PermsAuthDto, PermsAuthVo, PermsAuthQuery, String> implements IPermsAuthService {
+public class PermsAuthServiceImpl extends BizServiceImpl<IPermsAuthMapper, PermsAuth, PermsAuthDto, PermsAuthVo, PermsAuthQuery, String> implements IPermsAuthService {
     private static final Logger logger = LoggerFactory.getLogger(PermsAuthServiceImpl.class);
     private static final PermsAuthConvert bizConvert = new PermsAuthConvert();
-    private final IPermsAuthMapper bizMapper;
     private final IAppClientMapper appClientMapper;
     private final IRoleMenuMapper roleMenuMapper;
 
-    public PermsAuthServiceImpl(IPermsAuthMapper bizMapper,
-                                IAppClientMapper appClientMapper,
+    public PermsAuthServiceImpl(IAppClientMapper appClientMapper,
                                 IRoleMenuMapper roleMenuMapper) {
-        super(bizMapper, bizConvert);
-        this.bizMapper = bizMapper;
+        super(bizConvert);
         this.appClientMapper = appClientMapper;
         this.roleMenuMapper = roleMenuMapper;
     }

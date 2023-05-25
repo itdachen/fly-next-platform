@@ -36,22 +36,19 @@ import java.util.List;
  * @date 2023-04-04 21:44:46
  */
 @Service
-public class RoleMenuServiceImpl extends BizServiceImpl<RoleMenu, RoleMenuDto, RoleMenuVo, RoleMenuQuery, String> implements IRoleMenuService {
+public class RoleMenuServiceImpl extends BizServiceImpl<IRoleMenuMapper, RoleMenu, RoleMenuDto, RoleMenuVo, RoleMenuQuery, String> implements IRoleMenuService {
     private static final Logger logger = LoggerFactory.getLogger(RoleMenuServiceImpl.class);
     private static final RoleMenuConvert bizConvert = new RoleMenuConvert();
-    private final IRoleMenuMapper bizMapper;
     private final IAppClientMapper appClientMapper;
     private final IPermsAuthMapper permsAuthMapper;
     private final IMenuInfoMapper menuInfoMapper;
     private final IElementInfoMapper elementMapper;
 
-    public RoleMenuServiceImpl(IRoleMenuMapper bizMapper,
-                               IAppClientMapper appClientMapper,
+    public RoleMenuServiceImpl(IAppClientMapper appClientMapper,
                                IPermsAuthMapper permsAuthMapper,
                                IMenuInfoMapper menuInfoMapper,
                                IElementInfoMapper elementMapper) {
-        super(bizMapper, bizConvert);
-        this.bizMapper = bizMapper;
+        super(bizConvert);
         this.appClientMapper = appClientMapper;
         this.permsAuthMapper = permsAuthMapper;
         this.menuInfoMapper = menuInfoMapper;

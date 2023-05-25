@@ -24,14 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/admin/menu/info")
 @CheckApiClient(title = "菜单管理", clientId = ClientConstant.CLIENT_WEB)
-public class MenuInfoController extends BizController<MenuInfoDto, MenuInfoVo, MenuInfoQuery, String> {
+public class MenuInfoController extends BizController<IMenuInfoService, MenuInfoDto, MenuInfoVo, MenuInfoQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(MenuInfoController.class);
-    private final IMenuInfoService bizService;
-
-    public MenuInfoController(IMenuInfoService bizService) {
-        super(bizService);
-        this.bizService = bizService;
-    }
 
 
 }

@@ -28,14 +28,12 @@ import java.util.List;
  * @date 2023-04-04 21:44:47
  */
 @Service
-public class DeptInfoServiceImpl extends BizServiceImpl<DeptInfo, DeptInfoDto, DeptInfoVo, DeptInfoQuery, String> implements IDeptInfoService {
+public class DeptInfoServiceImpl extends BizServiceImpl<IDeptInfoMapper, DeptInfo, DeptInfoDto, DeptInfoVo, DeptInfoQuery, String> implements IDeptInfoService {
     private static final Logger logger = LoggerFactory.getLogger(DeptInfoServiceImpl.class);
     private static final DeptInfoConvert bizConvert = new DeptInfoConvert();
-    private final IDeptInfoMapper bizMapper;
 
-    public DeptInfoServiceImpl(IDeptInfoMapper bizMapper) {
-        super(bizMapper, bizConvert);
-        this.bizMapper = bizMapper;
+    public DeptInfoServiceImpl() {
+        super(bizConvert);
     }
 
     /***

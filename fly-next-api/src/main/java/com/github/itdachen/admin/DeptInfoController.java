@@ -26,14 +26,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin/dept/info")
 @CheckApiClient(title = "部门管理", clientId = ClientConstant.CLIENT_WEB)
-public class DeptInfoController extends BizController<DeptInfoDto, DeptInfoVo, DeptInfoQuery, String> {
+public class DeptInfoController extends BizController<IDeptInfoService, DeptInfoDto, DeptInfoVo, DeptInfoQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(DeptInfoController.class);
-    private final IDeptInfoService bizService;
-
-    public DeptInfoController(IDeptInfoService bizService) {
-        super(bizService);
-        this.bizService = bizService;
-    }
     
     /***
      * 获取集合

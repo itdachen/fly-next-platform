@@ -21,14 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/admin/worker/info")
 @CheckApiClient(title = "员工信息", clientId = ClientConstant.CLIENT_WEB)
-public class WorkerInfoController extends BizController<WorkerInfoDto, WorkerInfoVo, WorkerInfoQuery, String> {
+public class WorkerInfoController extends BizController<IWorkerInfoService, WorkerInfoDto, WorkerInfoVo, WorkerInfoQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(WorkerInfoController.class);
-    private final IWorkerInfoService bizService;
-
-    public WorkerInfoController(IWorkerInfoService bizService) {
-        super(bizService);
-        this.bizService = bizService;
-    }
 
 
 }

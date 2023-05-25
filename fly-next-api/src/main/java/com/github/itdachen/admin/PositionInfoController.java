@@ -26,14 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/admin/position/info")
 @CheckApiClient(title = "岗位信息", clientId = ClientConstant.CLIENT_WEB)
-public class PositionInfoController extends BizController<PositionInfoDto, PositionInfoVo, PositionInfoQuery, String> {
+public class PositionInfoController extends BizController<IPositionInfoService, PositionInfoDto, PositionInfoVo, PositionInfoQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(PositionInfoController.class);
-    private final IPositionInfoService bizService;
-
-    public PositionInfoController(IPositionInfoService bizService) {
-        super(bizService);
-        this.bizService = bizService;
-    }
 
     /***
      * 根据部门查询岗位

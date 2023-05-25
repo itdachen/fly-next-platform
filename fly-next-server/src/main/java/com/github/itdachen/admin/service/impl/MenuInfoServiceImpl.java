@@ -38,16 +38,14 @@ import java.util.List;
  * @date 2023-04-04 21:44:46
  */
 @Service
-public class MenuInfoServiceImpl extends BizServiceImpl<MenuInfo, MenuInfoDto, MenuInfoVo, MenuInfoQuery, String> implements IMenuInfoService {
+public class MenuInfoServiceImpl extends BizServiceImpl<IMenuInfoMapper, MenuInfo, MenuInfoDto, MenuInfoVo, MenuInfoQuery, String> implements IMenuInfoService {
     private static final Logger logger = LoggerFactory.getLogger(MenuInfoServiceImpl.class);
     private static final MenuInfoConvert bizConvert = new MenuInfoConvert();
-    private final IMenuInfoMapper bizMapper;
     private final IAppClientMapper appClientMapper;
     private final IElementInfoMapper elementMapper;
 
-    public MenuInfoServiceImpl(IMenuInfoMapper bizMapper, IAppClientMapper appClientMapper, IElementInfoMapper elementMapper) {
-        super(bizMapper, bizConvert);
-        this.bizMapper = bizMapper;
+    public MenuInfoServiceImpl(IAppClientMapper appClientMapper, IElementInfoMapper elementMapper) {
+        super(bizConvert);
         this.appClientMapper = appClientMapper;
         this.elementMapper = elementMapper;
     }

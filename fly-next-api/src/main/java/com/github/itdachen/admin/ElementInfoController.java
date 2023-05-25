@@ -21,14 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/admin/element/info")
 @CheckApiClient(title = "按钮资源", clientId = ClientConstant.CLIENT_WEB)
-public class ElementInfoController extends BizController<ElementInfoDto, ElementInfoVo, ElementInfoQuery, String > {
+public class ElementInfoController extends BizController<IElementInfoService, ElementInfoDto, ElementInfoVo, ElementInfoQuery, String > {
     private static final Logger logger = LoggerFactory.getLogger(ElementInfoController.class);
-    private final IElementInfoService bizService;
-
-    public ElementInfoController(IElementInfoService bizService) {
-        super(bizService);
-        this.bizService = bizService;
-    }
 
 
 }

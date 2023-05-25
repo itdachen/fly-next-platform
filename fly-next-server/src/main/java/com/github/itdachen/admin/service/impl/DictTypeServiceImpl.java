@@ -32,17 +32,14 @@ import java.util.List;
  * @date 2023-04-04 21:44:47
  */
 @Service
-public class DictTypeServiceImpl extends BizServiceImpl<DictType, DictTypeDto, DictTypeVo, DictTypeQuery, String> implements IDictTypeService {
+public class DictTypeServiceImpl extends BizServiceImpl<IDictTypeMapper, DictType, DictTypeDto, DictTypeVo, DictTypeQuery, String> implements IDictTypeService {
     private static final Logger logger = LoggerFactory.getLogger(DictTypeServiceImpl.class);
     private static final DictTypeConvert bizConvert = new DictTypeConvert();
     private final IDictDataMapper dictDataMapper;
-    private final IDictTypeMapper bizMapper;
 
-    public DictTypeServiceImpl(IDictDataMapper dictDataMapper,
-                               IDictTypeMapper bizMapper) {
-        super(bizMapper, bizConvert);
-        this.dictDataMapper = dictDataMapper;
-        this.bizMapper = bizMapper;
+    public DictTypeServiceImpl(IDictDataMapper dictDataMapperr) {
+        super( bizConvert);
+        this.dictDataMapper = dictDataMapperr;
     }
 
 

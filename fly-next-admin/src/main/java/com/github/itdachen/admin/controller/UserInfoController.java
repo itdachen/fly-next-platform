@@ -37,16 +37,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin/user/info")
 @CheckApiClient(title = "用户信息", clientId = ClientConstant.CLIENT_WEB)
-public class UserInfoController extends BizController<UserInfoDto, UserInfoVo, UserInfoQuery, String> {
+public class UserInfoController extends BizController<IUserInfoService, UserInfoDto, UserInfoVo, UserInfoQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(UserInfoController.class);
     private static final String PATH_PREFIX = "admin/user" ;
-    private final IUserInfoService bizService;
-
-    public UserInfoController(IUserInfoService bizService) {
-        super(bizService);
-        this.bizService = bizService;
-    }
-
 
     /***
      * 跳转到信息管理界面

@@ -28,15 +28,8 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/admin/dict/type")
 @CheckApiClient(title = "字典类型表", clientId = ClientConstant.CLIENT_WEB)
-public class DictTypeController extends BizController<DictTypeDto, DictTypeVo, DictTypeQuery, String> {
+public class DictTypeController extends BizController<IDictTypeService, DictTypeDto, DictTypeVo, DictTypeQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(DictTypeController.class);
-    private final IDictTypeService bizService;
-
-    public DictTypeController(IDictTypeService bizService) {
-        super(bizService);
-        this.bizService = bizService;
-    }
-
     private static final String PATH_PREFIX = "admin/dict/type" ;
 
     /***

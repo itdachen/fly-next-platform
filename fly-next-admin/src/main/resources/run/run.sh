@@ -1,10 +1,11 @@
 #!/bin/sh
 # ./run.sh start 启动 stop 停止 restart 重启 status 状态
 AppName=fly-next-admin.jar
-
-# JVM参数
-JVM_OPTS="-Dname=$AppName  -Duser.timezone=Asia/Shanghai -Xms512m -Xmx1024m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError -XX:+PrintGCDateStamps  -XX:+PrintGCDetails -XX:NewRatio=1 -XX:SurvivorRatio=30 -XX:+UseParallelGC -XX:+UseParallelOldGC"
 APP_HOME=`pwd`
+
+#JVM参数
+JVM_OPTS="-Dname=$AppName  -Duser.timezone=Asia/Shanghai -Xms128M -Xmx128M -XX:ParallelGCThreads=2"
+# JVM_OPTS="-Dname=$AppName  -Duser.timezone=Asia/Shanghai -Xms512m -Xmx1024m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError -XX:+PrintGCDateStamps  -XX:+PrintGCDetails -XX:NewRatio=1 -XX:SurvivorRatio=30 -XX:+UseParallelGC -XX:+UseParallelOldGC"
 LOG_PATH=$APP_HOME/logs/$AppName.log
 
 if [ "$1" = "" ];

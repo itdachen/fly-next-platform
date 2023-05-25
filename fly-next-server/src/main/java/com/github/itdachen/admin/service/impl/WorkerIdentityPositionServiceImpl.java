@@ -31,14 +31,12 @@ import java.util.List;
  * @date 2023-05-16 23:12:21
  */
 @Service
-public class WorkerIdentityPositionServiceImpl extends BizServiceImpl<WorkerIdentityPosition, WorkerIdentityPositionDto, WorkerIdentityPositionVo, WorkerIdentityPositionQuery, String> implements IWorkerIdentityPositionService {
+public class WorkerIdentityPositionServiceImpl extends BizServiceImpl<IWorkerIdentityPositionMapper, WorkerIdentityPosition, WorkerIdentityPositionDto, WorkerIdentityPositionVo, WorkerIdentityPositionQuery, String> implements IWorkerIdentityPositionService {
     private static final Logger logger = LoggerFactory.getLogger(WorkerIdentityPositionServiceImpl.class);
     private static final WorkerIdentityPosttionConvert bizConvert = new WorkerIdentityPosttionConvert();
-    private final IWorkerIdentityPositionMapper bizMapper;
 
-    public WorkerIdentityPositionServiceImpl(IWorkerIdentityPositionMapper workerIdentityPosttionMapper) {
-        super(workerIdentityPosttionMapper, bizConvert);
-        this.bizMapper = workerIdentityPosttionMapper;
+    public WorkerIdentityPositionServiceImpl() {
+        super(bizConvert);
     }
 
     /***

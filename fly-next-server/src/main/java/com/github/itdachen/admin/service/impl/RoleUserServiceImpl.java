@@ -32,14 +32,13 @@ import java.util.List;
  * @date 2023-04-04 21:44:46
  */
 @Service
-public class RoleUserServiceImpl extends BizServiceImpl<RoleUser, RoleUserDto, RoleUserVo, RoleUserQuery, String> implements IRoleUserService {
+public class RoleUserServiceImpl extends BizServiceImpl<IRoleUserMapper, RoleUser, RoleUserDto, RoleUserVo, RoleUserQuery, String> implements IRoleUserService {
     private static final Logger logger = LoggerFactory.getLogger(RoleUserServiceImpl.class);
     private static final RoleUserConvert bizConvert = new RoleUserConvert();
-    private final IRoleUserMapper bizMapper;
 
-    public RoleUserServiceImpl(IRoleUserMapper bizMapper) {
-        super(bizMapper, bizConvert);
-        this.bizMapper = bizMapper;
+
+    public RoleUserServiceImpl() {
+        super(bizConvert);
     }
 
 

@@ -28,15 +28,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/admin/worker/identity")
 @CheckApiClient(title = "职工身份", clientId = ClientConstant.CLIENT_WEB)
-public class WorkerIdentityController extends BizController<WorkerIdentityDto, WorkerIdentityVo, WorkerIdentityQuery, String> {
+public class WorkerIdentityController extends BizController<IWorkerIdentityService, WorkerIdentityDto, WorkerIdentityVo, WorkerIdentityQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(WorkerIdentityController.class);
-    private final IWorkerIdentityService bizService;
     private final IWorkerIdentityPositionService identityPositionService;
 
-    public WorkerIdentityController(IWorkerIdentityService bizService,
-                                    IWorkerIdentityPositionService identityPositionService) {
-        super(bizService);
-        this.bizService = bizService;
+    public WorkerIdentityController(IWorkerIdentityPositionService identityPositionService) {
         this.identityPositionService = identityPositionService;
     }
 

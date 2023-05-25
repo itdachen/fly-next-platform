@@ -29,16 +29,14 @@ import java.util.List;
  * @date 2023-05-15 20:13:36
  */
 @Service
-public class PositionInfoServiceImpl extends BizServiceImpl<PositionInfo, PositionInfoDto, PositionInfoVo, PositionInfoQuery, String> implements IPositionInfoService {
+public class PositionInfoServiceImpl extends BizServiceImpl<IPositionInfoMapper, PositionInfo, PositionInfoDto, PositionInfoVo, PositionInfoQuery, String> implements IPositionInfoService {
     private static final Logger logger = LoggerFactory.getLogger(PositionInfoServiceImpl.class);
     private static final PositionInfoConvert bizConvert = new PositionInfoConvert();
-    private final IPositionInfoMapper bizMapper;
     private final IWorkerIdentityPositionMapper identityPositionMapper;
 
     public PositionInfoServiceImpl(IPositionInfoMapper positionInfoMapper,
                                    IWorkerIdentityPositionMapper identityPositionMapper) {
-        super(positionInfoMapper, bizConvert);
-        this.bizMapper = positionInfoMapper;
+        super(bizConvert);
         this.identityPositionMapper = identityPositionMapper;
     }
 

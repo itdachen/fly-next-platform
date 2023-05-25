@@ -26,14 +26,12 @@ import java.util.List;
  * @date 2023-04-04 21:44:46
  */
 @Service
-public class RoleInfoServiceImpl extends BizServiceImpl< RoleInfo, RoleInfoDto,  RoleInfoVo, RoleInfoQuery, String > implements IRoleInfoService {
+public class RoleInfoServiceImpl extends BizServiceImpl<IRoleInfoMapper, RoleInfo, RoleInfoDto, RoleInfoVo, RoleInfoQuery, String> implements IRoleInfoService {
     private static final Logger logger = LoggerFactory.getLogger(RoleInfoServiceImpl.class);
     private static final RoleInfoConvert bizConvert = new RoleInfoConvert();
-    private final IRoleInfoMapper bizMapper;
 
-    public RoleInfoServiceImpl(IRoleInfoMapper bizMapper) {
-        super(bizMapper, bizConvert);
-        this.bizMapper = bizMapper;
+    public RoleInfoServiceImpl() {
+        super(bizConvert);
     }
 
 
