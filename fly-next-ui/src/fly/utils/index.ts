@@ -1,5 +1,5 @@
 import { isArray } from "/@/fly/utils/is";
-import { FieldNamesProps } from "/@/components/ProTable/interface";
+import { FieldNamesProps } from "/@/fly/components/table/interface";
 
 /**
  * @description 获取localStorage
