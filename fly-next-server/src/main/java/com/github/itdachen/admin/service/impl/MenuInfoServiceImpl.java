@@ -85,6 +85,7 @@ public class MenuInfoServiceImpl extends BizServiceImpl<IMenuInfoMapper, MenuInf
         if (StringUtils.isEmpty(menuInfoDto.getName())) {
             menuInfoDto.setName("C" + UuidUtils.generateShortUuid() + "Component");
         }
+        verifyClient(menuInfoDto);
         return super.save(menuInfoDto);
     }
 
@@ -102,6 +103,7 @@ public class MenuInfoServiceImpl extends BizServiceImpl<IMenuInfoMapper, MenuInf
         if (StringUtils.isEmpty(menuInfoDto.getName())) {
             menuInfoDto.setName("C" + UuidUtils.generateShortUuid() + "Component");
         }
+        verifyClient(menuInfoDto);
         return super.update(menuInfoDto);
     }
 
@@ -221,6 +223,27 @@ public class MenuInfoServiceImpl extends BizServiceImpl<IMenuInfoMapper, MenuInf
         }
         return menuTree;
     }
+    
+    /***
+     * 客户端校验
+     *
+     * @author 王大宸
+     * @date 2023/5/30 10:31
+     * @param menuInfoDto menuInfoDto
+     * @return void
+     */
+    private void verifyClient(MenuInfoDto menuInfoDto) throws BizException {
+        menuInfoDto.setClientId(menuInfoDto.getParentId());
+        AppClientVo appClient = appClientMapper.findAppClient(menuInfoDto.getParentId());
+        if (null == appClient) {
+            MenuInfo menuInfo = bizMapper.selectByPrimaryKey(menuInfoDto.getParentId());
+            if (null == menuInfo) {
+                throw new BizException("数据错误, 未找到客户端标识");
+            }
+            menuInfoDto.setClientId(menuInfo.getClientId());
+        }
+    }
+
 
 //    private List<MenuInfoVo> findDirtTree(String parentId) {
 //        List<MenuInfoVo> list = bizMapper.findDirtTree(parentId, MenuDirtConstant.DIRT);
