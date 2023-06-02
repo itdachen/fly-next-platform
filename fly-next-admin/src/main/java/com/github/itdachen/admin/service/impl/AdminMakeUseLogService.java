@@ -2,7 +2,7 @@ package com.github.itdachen.admin.service.impl;
 
 import com.github.itdachen.admin.entity.MakeUseLog;
 import com.github.itdachen.admin.mapper.IMakeUseLogMapper;
-import com.github.itdachen.framework.log.entity.ApiLogClient;
+import com.github.itdachen.framework.context.entity.ApiLogClient;
 import com.github.itdachen.framework.log.manager.service.IApiLogClientService;
 import org.springframework.stereotype.Service;
 
