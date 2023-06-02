@@ -65,7 +65,7 @@
 | ![](docs/resources/admin/005.png) | ![](docs/resources/admin/006.png) ||
 | ![](docs/resources/admin/007.png) | ![](docs/resources/admin/008.png) ||
 
-### ⛱️ VUE 版预览界面(VUE版本未完善)
+### ⛱️ VUE 版预览界面(未完善)
 
 | 界面                                | 界面                                |
 |-----------------------------------|-----------------------------------|
