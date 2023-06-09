@@ -75,12 +75,11 @@
 
 ### 📚 前端UI
 * JQ版本 [Pear Admin Layui](https://gitee.com/pear-admin/Pear-Admin-Layui)
-* ElementUI [vue-next-admin](https://gitee.com/lyt-top/vue-next-admin)
+* vue版本 [vue-next-admin](https://gitee.com/lyt-top/vue-next-admin)
 
 ### 💒 代码依赖仓库
 
-* fly-framework [码云](https://gitee.com/itdachen/fly-framework)
-* fly-framework [Github](https://github.com/itdachen/fly-framework)
+[码云](https://gitee.com/itdachen/fly-framework) | [Github](https://github.com/itdachen/fly-framework)
 
 ### 🚧 安装方式
 
@@ -90,7 +89,7 @@
 git clone https://gitee.com/itdachen/fly-framework.git
 ```
 
-* IDEA 打开 fly-framework
+*  打开 fly-framework
 
 ```lua 
 cd /fly-dependencies
@@ -114,6 +113,6 @@ fly-next-platform
 ├── fly-next-admin -- 后台管理系统
 ├── fly-next-api -- 前后端分离接口模块
 ├── fly-next-server -- 项目开发模块
-├── fly-ui -- 前后端分离VUE前端
+├── fly-next-ui -- 前后端分离VUE前端
 └── end
 ```
