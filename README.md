@@ -79,9 +79,10 @@
 
 ### 💒 代码依赖仓库
 
-[码云](https://gitee.com/itdachen/fly-framework) | [Github](https://github.com/itdachen/fly-framework)
+* 码云 [https://gitee.com/itdachen/fly-framework](https://gitee.com/itdachen/fly-framework) 
+* Github [https://github.com/itdachen/fly-framework](https://github.com/itdachen/fly-framework)
 
-### 🚧 安装方式
+#### 安装方式
 
 * 基础依赖项目:
 
