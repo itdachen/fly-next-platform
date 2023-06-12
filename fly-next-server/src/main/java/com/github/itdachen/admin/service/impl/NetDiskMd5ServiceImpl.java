@@ -14,6 +14,7 @@ import com.github.itdachen.framework.webmvc.entity.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -79,6 +80,23 @@ public class NetDiskMd5ServiceImpl implements INetDiskMd5Service {
         netDiskMd5Mapper.saveNetDiskMd5(netDiskMd5);
         netDiskMd5Dto.setId(netDiskMd5.getId());
         return netDiskMd5Dto;
+    }
+
+    /***
+     * 新增
+     *
+     * @author 王大宸
+     * @date 2023/6/12 23:13
+     * @param netDiskMd5Dto netDiskMd5Dto
+     * @return void
+     */
+    @Async
+    @Override
+    public void netDiskMd5(NetDiskMd5Dto netDiskMd5Dto) throws Exception {
+        NetDiskMd5 netDiskMd5 = NetDiskMd5Convert.toJavaObject(netDiskMd5Dto);
+        EntityUtils.setCreatAndUpdateInfo(netDiskMd5);
+        netDiskMd5Mapper.saveNetDiskMd5(netDiskMd5);
+        netDiskMd5Dto.setId(netDiskMd5.getId());
     }
 
     /***

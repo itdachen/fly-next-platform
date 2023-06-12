@@ -9,8 +9,6 @@ import com.github.itdachen.framework.core.response.ServerResponse;
 import com.github.itdachen.framework.core.utils.StringUtils;
 import com.github.itdachen.framework.file.FileHelper;
 import com.github.itdachen.framework.file.entity.FileInfo;
-import com.github.itdachen.framework.file.properties.LocalCloudStorageProperties;
-import com.github.itdachen.framework.file.utils.MapPathUtils;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,14 +23,11 @@ import java.io.*;
 @RestController
 @RequestMapping("/oss/file")
 public class OssFileController {
-    protected LocalCloudStorageProperties properties;
     private final FileHelper fileHelper;
     private final INetDiskMd5Service netDiskMd5Service;
 
-    public OssFileController(LocalCloudStorageProperties properties,
-                             FileHelper fileHelper,
+    public OssFileController(FileHelper fileHelper,
                              INetDiskMd5Service netDiskMd5Service) {
-        this.properties = properties;
         this.fileHelper = fileHelper;
         this.netDiskMd5Service = netDiskMd5Service;
     }
@@ -51,7 +46,7 @@ public class OssFileController {
         if (null == netDiskMd5) {
             FileInfo upload = fileHelper.upload(file);
             upload.setMd5(md5Hex);
-            netDiskMd5Service.saveNetDiskMd5(NetDiskMd5Dto.builder()
+            netDiskMd5Service.netDiskMd5(NetDiskMd5Dto.builder()
                     .fileFormat(upload.getFormat())
                     .fileSize(upload.getSize())
                     .url(upload.getUrl())
