@@ -45,6 +45,16 @@ public interface INetDiskMd5Service {
     NetDiskMd5Dto saveNetDiskMd5(NetDiskMd5Dto netDiskMd5Dto) throws Exception;
 
     /***
+     * 新增
+     *
+     * @author 王大宸
+     * @date 2023/6/13 0:15
+     * @param netDiskMd5Dto netDiskMd5Dto
+     * @return void
+     */
+    void netDiskMd5(NetDiskMd5Dto netDiskMd5Dto) throws Exception;
+
+    /***
      * 根据id查询
      *
      * @author 王大宸

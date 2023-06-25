@@ -2,6 +2,7 @@ package com.github.itdachen;
 
 import com.github.itdachen.framework.boot.runner.SpringBootBootstrap;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 import tk.mybatis.spring.annotation.MapperScan;
 
 /**
@@ -9,6 +10,7 @@ import tk.mybatis.spring.annotation.MapperScan;
  * Created by 王大宸 on 2023/03/30 21:26
  * Created with IntelliJ IDEA.
  */
+@EnableAsync
 @SpringBootApplication
 @MapperScan(basePackages = "com.github.itdachen.**.mapper")
 public class NextAdminBootstrap {

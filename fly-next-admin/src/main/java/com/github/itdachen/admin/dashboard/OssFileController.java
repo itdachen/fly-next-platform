@@ -44,7 +44,7 @@ public class OssFileController {
         if (null == netDiskMd5) {
             FileInfo upload = fileHelper.upload(file);
             upload.setMd5(md5Hex);
-            netDiskMd5Service.saveNetDiskMd5(NetDiskMd5Dto.builder()
+            netDiskMd5Service.netDiskMd5(NetDiskMd5Dto.builder()
                     .fileFormat(upload.getFormat())
                     .fileSize(upload.getSize())
                     .url(upload.getUrl())

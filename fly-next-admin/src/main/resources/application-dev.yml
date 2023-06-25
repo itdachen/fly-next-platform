@@ -84,7 +84,7 @@ spring:
     browser:
       signInPage: /login
       signOutUrl: /login
-     # successForwardUrl: /index
+      # successForwardUrl: /index
       session:
         sessionInvalidUrl: /login
 
@@ -112,5 +112,13 @@ pagehelper:
 
 # 文件上传
 oss:
-  localHttp: http://127.0.0.1:8080
-  diskFolder: D:/upload/
+  ## 文件上传类型: LOCAL-本地服务存储; ALI-阿里云存储服务器, 默认是 LOCAL
+  type: LOCAL
+  local:
+    localHttp: http://127.0.0.1:8080
+    diskFolder: D:/upload/
+  ali:
+    endpoint: oss-cn-chengdu.aliyuncs.com
+    access-key-id: 123
+    access-key-secret: 123
+    bucket: itdachen
