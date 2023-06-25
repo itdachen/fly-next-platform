@@ -1,31 +1,28 @@
-package com.github.itdachen.admin.utils;
+package com.github.itdachen.admin.manager.impl;
 
+import com.github.itdachen.admin.manager.IAppClientManager;
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import com.github.itdachen.framework.boot.runner.handler.ContextPathHandler;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Description:
- * Created by 王大宸 on 2023/02/02 15:21
+ * Created by 王大宸 on 2023-06-25 20:02
  * Created with IntelliJ IDEA.
  */
-public class AppClientUtils {
+@Component
+public class AppClientManagerImpl implements IAppClientManager {
 
-    public static List<ZTreeNode> arrangeAppMenu(List<ZTreeNode> apps) {
-       return arrangeAppMenu(ContextPathHandler.contextPath(), apps);
+    @Override
+    public List<ZTreeNode> arrangeAppMenu(List<ZTreeNode> apps) {
+        return arrangeAppMenu(ContextPathHandler.contextPath(), apps);
     }
 
-    /***
-     * 返回菜单树时,应用校验
-     *
-     * @author 王大宸
-     * @date 2021/11/23 21:52
-     * @param apps
-     * @return java.util.List<com.itdachen.common.model.ZTreeNode>
-     */
-    public static List<ZTreeNode> arrangeAppMenu(String contextPath, List<ZTreeNode> apps) {
+    @Override
+    public List<ZTreeNode> arrangeAppMenu(String contextPath, List<ZTreeNode> apps) {
         if (null == apps || 0 == apps.size()) {
             apps = new ArrayList<>();
             apps.add(addRootZTreeNode(contextPath, "请选择菜单"));
@@ -45,7 +42,8 @@ public class AppClientUtils {
         return apps;
     }
 
-    public static ZTreeNode addRootZTreeNode(String contextPath, String rootName) {
+    @Override
+    public ZTreeNode addRootZTreeNode(String contextPath, String rootName) {
         return new ZTreeNode.Builder()
                 .id(ZTreeNode.ROOT_ID)
                 .name(rootName)

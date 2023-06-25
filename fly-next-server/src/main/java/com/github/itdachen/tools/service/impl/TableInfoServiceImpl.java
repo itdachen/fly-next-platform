@@ -1,5 +1,6 @@
 package com.github.itdachen.tools.service.impl;
 
+import com.github.itdachen.admin.manager.IAppClientManager;
 import com.github.itdachen.admin.utils.AppClientUtils;
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import com.github.itdachen.framework.boot.runner.handler.ContextPathHandler;
@@ -44,11 +45,14 @@ public class TableInfoServiceImpl implements ITableInfoService {
 
     private final ITableInfoMapper tableInfoMapper;
     private final ITableColumnMapper tableColumnMapper;
+    private final IAppClientManager appClientManager;
 
     public TableInfoServiceImpl(ITableInfoMapper tableInfoMapper,
-                                ITableColumnMapper tableColumnMapper) {
+                                ITableColumnMapper tableColumnMapper,
+                                IAppClientManager appClientManager) {
         this.tableInfoMapper = tableInfoMapper;
         this.tableColumnMapper = tableColumnMapper;
+        this.appClientManager=appClientManager;
     }
 
     /***
@@ -219,7 +223,7 @@ public class TableInfoServiceImpl implements ITableInfoService {
     @Override
     public List<ZTreeNode> dirtZTree() throws BizException {
         List<ZTreeNode> apps = tableInfoMapper.findAppAll();
-        apps = AppClientUtils.arrangeAppMenu(ContextPathHandler.contextPath(), apps);
+        apps = appClientManager.arrangeAppMenu(ContextPathHandler.contextPath(), apps);
         List<ZTreeNode> zTree = tableInfoMapper.findDirtZTree();
         apps.addAll(zTree);
         return apps;

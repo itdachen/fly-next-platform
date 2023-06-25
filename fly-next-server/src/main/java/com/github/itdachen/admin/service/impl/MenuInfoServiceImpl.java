@@ -1,11 +1,11 @@
 package com.github.itdachen.admin.service.impl;
 
 import com.github.itdachen.admin.convert.MenuInfoConvert;
+import com.github.itdachen.admin.manager.IAppClientManager;
 import com.github.itdachen.admin.mapper.IAppClientMapper;
 import com.github.itdachen.admin.mapper.IElementInfoMapper;
 import com.github.itdachen.admin.sdk.dto.MenuInfoDto;
 import com.github.itdachen.admin.sdk.vo.AppClientVo;
-import com.github.itdachen.admin.utils.AppClientUtils;
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import com.github.itdachen.framework.boot.runner.handler.ContextPathHandler;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
@@ -27,8 +27,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,11 +41,15 @@ public class MenuInfoServiceImpl extends BizServiceImpl<IMenuInfoMapper, MenuInf
     private static final MenuInfoConvert bizConvert = new MenuInfoConvert();
     private final IAppClientMapper appClientMapper;
     private final IElementInfoMapper elementMapper;
+    private final IAppClientManager appClientManager;
 
-    public MenuInfoServiceImpl(IAppClientMapper appClientMapper, IElementInfoMapper elementMapper) {
+    public MenuInfoServiceImpl(IAppClientMapper appClientMapper,
+                               IElementInfoMapper elementMapper,
+                               IAppClientManager appClientManager) {
         super(bizConvert);
         this.appClientMapper = appClientMapper;
         this.elementMapper = elementMapper;
+        this.appClientManager = appClientManager;
     }
 
 
@@ -124,7 +126,7 @@ public class MenuInfoServiceImpl extends BizServiceImpl<IMenuInfoMapper, MenuInf
     @Override
     public List<ZTreeNode> zTree() {
         List<ZTreeNode> apps = appClientMapper.findAppAll();
-        apps = AppClientUtils.arrangeAppMenu(apps);
+        apps = appClientManager.arrangeAppMenu(apps);
         List<ZTreeNode> zTree = bizMapper.findZTree();
         apps.addAll(zTree);
         return apps;
@@ -168,7 +170,7 @@ public class MenuInfoServiceImpl extends BizServiceImpl<IMenuInfoMapper, MenuInf
     @Override
     public List<ZTreeNode> findCatalogZTree() throws BizException {
         List<ZTreeNode> apps = appClientMapper.findAppAll();
-        apps = AppClientUtils.arrangeAppMenu(ContextPathHandler.contextPath(), apps);
+        apps = appClientManager.arrangeAppMenu(ContextPathHandler.contextPath(), apps);
         apps.addAll(bizMapper.zTreeCatalog());
         return apps;
     }
@@ -223,7 +225,7 @@ public class MenuInfoServiceImpl extends BizServiceImpl<IMenuInfoMapper, MenuInf
         }
         return menuTree;
     }
-    
+
     /***
      * 客户端校验
      *

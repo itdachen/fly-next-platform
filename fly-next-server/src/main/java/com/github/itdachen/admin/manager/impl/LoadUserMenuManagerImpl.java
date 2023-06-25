@@ -1,56 +1,50 @@
-package com.github.itdachen.admin.utils;
+package com.github.itdachen.admin.manager.impl;
 
 import com.github.itdachen.admin.constants.MenuValidConstant;
+import com.github.itdachen.admin.manager.IAppClientManager;
+import com.github.itdachen.admin.manager.ILoadUserMenuManager;
 import com.github.itdachen.admin.mapper.IAppClientMapper;
 import com.github.itdachen.admin.mapper.IPermsAuthMapper;
 import com.github.itdachen.admin.mapper.IRoleMenuMapper;
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import com.github.itdachen.framework.context.constants.UserTypeConstant;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Description: 加载个人可下发的菜单
- * Created by 王大宸 on 2023/04/05 21:22
+ * Description:
+ * Created by 王大宸 on 2023-06-25 20:08
  * Created with IntelliJ IDEA.
  */
-public class LoadUserMenuUtils {
-
+@Component
+public class LoadUserMenuManagerImpl implements ILoadUserMenuManager {
     private final IAppClientMapper appClientMapper;
     private final IPermsAuthMapper permsAuthMapper;
     private final IRoleMenuMapper roleMenuMapper;
+    private final IAppClientManager appClientManager;
 
-    public LoadUserMenuUtils(IAppClientMapper appClientMapper,
-                             IPermsAuthMapper permsAuthMapper,
-                             IRoleMenuMapper roleMenuMapper) {
+    public LoadUserMenuManagerImpl(IAppClientMapper appClientMapper,
+                                   IPermsAuthMapper permsAuthMapper,
+                                   IRoleMenuMapper roleMenuMapper,
+                                   IAppClientManager appClientManager) {
         this.appClientMapper = appClientMapper;
         this.permsAuthMapper = permsAuthMapper;
         this.roleMenuMapper = roleMenuMapper;
+        this.appClientManager = appClientManager;
     }
 
 
-
-    /***
-     * 加载个人可下发菜单
-     *
-     * @author 王大宸
-     * @date 2022/9/7 17:53
-     * @param menuIds  已选中的菜单集合
-     * @param userType 用户类型
-     * @param userId   当前登录用户id
-     * @return java.util.List<com.itdachen.common.node.ZTreeNode>
-     */
-    public List<ZTreeNode> findMenuWithUser(List<String> menuIds,
-                                            String userType,
-                                            String userId) {
+    @Override
+    public List<ZTreeNode> findMenuWithUser(List<String> menuIds, String userType, String userId) {
         List<ZTreeNode> apps, list = new ArrayList<>();
         if (UserTypeConstant.SUPER_ADMINISTRATOR.equals(userType)) {
             apps = appClientMapper.findAppAll();
             if (null == apps || 0 == apps.size()) {
                 return null;
             }
-            apps = AppClientUtils.arrangeAppMenu(apps);
+            apps = appClientManager.arrangeAppMenu(apps);
 
             apps.forEach(item -> {
                 findValidMenu(list, menuIds, item.getId());
@@ -70,7 +64,7 @@ public class LoadUserMenuUtils {
                     .build()
             );
         }
-        AppClientUtils.arrangeAppMenu(apps);
+        appClientManager.arrangeAppMenu(apps);
         apps.forEach(item -> {
             item.setOpen(true);
             loadUserMenu(list, menuIds, item.getId(), userId);
@@ -160,6 +154,5 @@ public class LoadUserMenuUtils {
             list.addAll(validElement);
         }
     }
-
 
 }

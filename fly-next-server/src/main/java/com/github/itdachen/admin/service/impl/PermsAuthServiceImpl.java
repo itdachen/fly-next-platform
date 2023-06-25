@@ -1,10 +1,8 @@
 package com.github.itdachen.admin.service.impl;
 
 import com.github.itdachen.admin.convert.PermsAuthConvert;
-import com.github.itdachen.admin.mapper.IAppClientMapper;
-import com.github.itdachen.admin.mapper.IRoleMenuMapper;
+import com.github.itdachen.admin.manager.ILoadUserMenuManager;
 import com.github.itdachen.admin.sdk.dto.PermsAuthDto;
-import com.github.itdachen.admin.utils.LoadUserMenuUtils;
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
@@ -36,14 +34,11 @@ import java.util.List;
 public class PermsAuthServiceImpl extends BizServiceImpl<IPermsAuthMapper, PermsAuth, PermsAuthDto, PermsAuthVo, PermsAuthQuery, String> implements IPermsAuthService {
     private static final Logger logger = LoggerFactory.getLogger(PermsAuthServiceImpl.class);
     private static final PermsAuthConvert bizConvert = new PermsAuthConvert();
-    private final IAppClientMapper appClientMapper;
-    private final IRoleMenuMapper roleMenuMapper;
+    private final ILoadUserMenuManager loadUserMenuManager;
 
-    public PermsAuthServiceImpl(IAppClientMapper appClientMapper,
-                                IRoleMenuMapper roleMenuMapper) {
+    public PermsAuthServiceImpl(ILoadUserMenuManager loadUserMenuManager) {
         super(bizConvert);
-        this.appClientMapper = appClientMapper;
-        this.roleMenuMapper = roleMenuMapper;
+        this.loadUserMenuManager=loadUserMenuManager;
     }
 
 
@@ -107,8 +102,7 @@ public class PermsAuthServiceImpl extends BizServiceImpl<IPermsAuthMapper, Perms
     @Override
     public List<ZTreeNode> findMenuWithUser(String userId, String userType, String currentUserId) throws Exception {
         List<String> menuIds = bizMapper.findMenuByUser(userId);
-        LoadUserMenuUtils utils = new LoadUserMenuUtils(appClientMapper, bizMapper, roleMenuMapper);
-        return utils.findMenuWithUser(menuIds, userType, currentUserId);
+        return loadUserMenuManager.findMenuWithUser(menuIds, userType, currentUserId);
     }
 
 

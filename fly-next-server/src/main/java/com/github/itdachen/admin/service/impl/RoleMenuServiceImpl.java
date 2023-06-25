@@ -1,16 +1,14 @@
 package com.github.itdachen.admin.service.impl;
 
-import com.github.itdachen.admin.convert.RoleInfoConvert;
 import com.github.itdachen.admin.convert.RoleMenuConvert;
+import com.github.itdachen.admin.manager.ILoadUserMenuManager;
 import com.github.itdachen.admin.mapper.*;
 import com.github.itdachen.admin.sdk.dto.RoleMenuDto;
 import com.github.itdachen.admin.sdk.query.MenuInfoQuery;
 import com.github.itdachen.admin.sdk.vo.MenuInfoVo;
-import com.github.itdachen.admin.utils.LoadUserMenuUtils;
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.context.node.TreeNode;
-import com.github.itdachen.framework.context.permission.PermissionInfo;
 import com.github.itdachen.framework.core.utils.StringUtils;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
 import com.github.pagehelper.Page;
@@ -39,20 +37,18 @@ import java.util.List;
 public class RoleMenuServiceImpl extends BizServiceImpl<IRoleMenuMapper, RoleMenu, RoleMenuDto, RoleMenuVo, RoleMenuQuery, String> implements IRoleMenuService {
     private static final Logger logger = LoggerFactory.getLogger(RoleMenuServiceImpl.class);
     private static final RoleMenuConvert bizConvert = new RoleMenuConvert();
-    private final IAppClientMapper appClientMapper;
-    private final IPermsAuthMapper permsAuthMapper;
+
     private final IMenuInfoMapper menuInfoMapper;
     private final IElementInfoMapper elementMapper;
+    private final ILoadUserMenuManager loadUserMenuManager;
 
-    public RoleMenuServiceImpl(IAppClientMapper appClientMapper,
-                               IPermsAuthMapper permsAuthMapper,
-                               IMenuInfoMapper menuInfoMapper,
-                               IElementInfoMapper elementMapper) {
+    public RoleMenuServiceImpl(IMenuInfoMapper menuInfoMapper,
+                               IElementInfoMapper elementMapper,
+                               ILoadUserMenuManager loadUserMenuManager) {
         super(bizConvert);
-        this.appClientMapper = appClientMapper;
-        this.permsAuthMapper = permsAuthMapper;
         this.menuInfoMapper = menuInfoMapper;
         this.elementMapper = elementMapper;
+        this.loadUserMenuManager=loadUserMenuManager;
     }
 
     /***
@@ -129,8 +125,7 @@ public class RoleMenuServiceImpl extends BizServiceImpl<IRoleMenuMapper, RoleMen
     @Override
     public List<ZTreeNode> roleMenuTreeData(String roleId, String userType, String userId) throws BizException {
         List<String> menuIds = bizMapper.findMenuByRoleId(roleId);
-        LoadUserMenuUtils utils = new LoadUserMenuUtils(appClientMapper, permsAuthMapper, bizMapper);
-        return utils.findMenuWithUser(menuIds, userType, userId);
+        return loadUserMenuManager.findMenuWithUser(menuIds, userType, userId);
     }
 
     /***
