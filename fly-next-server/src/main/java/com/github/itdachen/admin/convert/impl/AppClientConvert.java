@@ -1,16 +1,18 @@
-package com.github.itdachen.admin.convert;
+package com.github.itdachen.admin.convert.impl;
 
+import com.github.itdachen.admin.convert.IAppClientConvert;
 import com.github.itdachen.admin.entity.AppClient;
 import com.github.itdachen.admin.sdk.dto.AppClientDto;
 import com.github.itdachen.admin.sdk.vo.AppClientVo;
-import com.github.itdachen.framework.webmvc.convert.BizConvert;
+import org.springframework.stereotype.Component;
 
 /**
  * Description:
  * Created by 王大宸 on 2023/04/27 20:04
  * Created with IntelliJ IDEA.
  */
-public class AppClientConvert extends BizConvert<AppClient, AppClientDto, AppClientVo> {
+@Component
+public class AppClientConvert implements IAppClientConvert {
 
     @Override
     public AppClient toJavaObject(AppClientDto appClientDto) {
@@ -51,6 +53,7 @@ public class AppClientConvert extends BizConvert<AppClient, AppClientDto, AppCli
         return appClientVo;
     }
 
+    @Override
     public AppClient toJavaObject(AppClientVo appClientVo) {
         if (null == appClientVo){
             return null;
@@ -69,6 +72,7 @@ public class AppClientConvert extends BizConvert<AppClient, AppClientDto, AppCli
         return appClient;
     }
 
+    @Override
     public AppClientVo toJavaObjectVo(AppClientDto appClientDto) {
         if (null == appClientDto){
             return null;

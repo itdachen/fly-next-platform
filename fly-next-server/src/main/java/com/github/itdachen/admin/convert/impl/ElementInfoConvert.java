@@ -1,20 +1,22 @@
-package com.github.itdachen.admin.convert;
+package com.github.itdachen.admin.convert.impl;
 
+import com.github.itdachen.admin.convert.IElementInfoConvert;
 import com.github.itdachen.admin.entity.ElementInfo;
 import com.github.itdachen.admin.sdk.dto.ElementInfoDto;
 import com.github.itdachen.admin.sdk.vo.ElementInfoVo;
-import com.github.itdachen.framework.webmvc.convert.BizConvert;
+import org.springframework.stereotype.Component;
 
 /**
  * Description:
  * Created by 王大宸 on 2023/04/27 20:22
  * Created with IntelliJ IDEA.
  */
-public class ElementInfoConvert extends BizConvert<ElementInfo, ElementInfoDto, ElementInfoVo> {
+@Component
+public class ElementInfoConvert implements IElementInfoConvert {
 
     @Override
     public ElementInfo toJavaObject(ElementInfoDto elementInfoDto) {
-        if (null == elementInfoDto){
+        if (null == elementInfoDto) {
             return null;
         }
         ElementInfo elementInfo = new ElementInfo();
@@ -35,7 +37,7 @@ public class ElementInfoConvert extends BizConvert<ElementInfo, ElementInfoDto, 
 
     @Override
     public ElementInfoVo toJavaObjectVo(ElementInfo elementInfo) {
-        if (null == elementInfo){
+        if (null == elementInfo) {
             return null;
         }
         ElementInfoVo elementInfoVo = new ElementInfoVo();
@@ -54,7 +56,7 @@ public class ElementInfoConvert extends BizConvert<ElementInfo, ElementInfoDto, 
     }
 
     public static ElementInfo toJavaObject(ElementInfoVo elementInfoVo) {
-        if (null == elementInfoVo){
+        if (null == elementInfoVo) {
             return null;
         }
         ElementInfo elementInfo = new ElementInfo();
@@ -73,7 +75,7 @@ public class ElementInfoConvert extends BizConvert<ElementInfo, ElementInfoDto, 
     }
 
     public static ElementInfoVo toJavaObjectVo(ElementInfoDto elementInfoDto) {
-        if (null == elementInfoDto){
+        if (null == elementInfoDto) {
             return null;
         }
         ElementInfoVo elementInfoVo = new ElementInfoVo();

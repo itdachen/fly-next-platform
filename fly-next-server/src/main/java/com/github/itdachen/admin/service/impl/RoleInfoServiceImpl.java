@@ -1,18 +1,17 @@
 package com.github.itdachen.admin.service.impl;
 
-import com.github.itdachen.admin.convert.PermsAuthConvert;
-import com.github.itdachen.admin.convert.RoleInfoConvert;
-import com.github.itdachen.admin.sdk.dto.RoleInfoDto;
-import com.github.itdachen.framework.context.BizContextHandler;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
+import com.github.itdachen.admin.convert.IRoleInfoConvert;
 import com.github.itdachen.admin.entity.RoleInfo;
+import com.github.itdachen.admin.mapper.IRoleInfoMapper;
+import com.github.itdachen.admin.sdk.dto.RoleInfoDto;
 import com.github.itdachen.admin.sdk.query.RoleInfoQuery;
 import com.github.itdachen.admin.sdk.vo.RoleInfoVo;
+import com.github.itdachen.admin.service.IRoleInfoService;
+import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.core.response.TableData;
 import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
-import com.github.itdachen.admin.mapper.IRoleInfoMapper;
-import com.github.itdachen.admin.service.IRoleInfoService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -26,14 +25,8 @@ import java.util.List;
  * @date 2023-04-04 21:44:46
  */
 @Service
-public class RoleInfoServiceImpl extends BizServiceImpl<IRoleInfoMapper, RoleInfo, RoleInfoDto, RoleInfoVo, RoleInfoQuery, String> implements IRoleInfoService {
+public class RoleInfoServiceImpl extends BizServiceImpl<IRoleInfoMapper, IRoleInfoConvert, RoleInfo, RoleInfoDto, RoleInfoVo, RoleInfoQuery, String> implements IRoleInfoService {
     private static final Logger logger = LoggerFactory.getLogger(RoleInfoServiceImpl.class);
-    private static final RoleInfoConvert bizConvert = new RoleInfoConvert();
-
-    public RoleInfoServiceImpl() {
-        super(bizConvert);
-    }
-
 
     /***
      * 分页

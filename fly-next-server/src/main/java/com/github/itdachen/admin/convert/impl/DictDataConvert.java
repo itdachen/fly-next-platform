@@ -1,16 +1,18 @@
-package com.github.itdachen.admin.convert;
+package com.github.itdachen.admin.convert.impl;
 
+import com.github.itdachen.admin.convert.IDictDataConvert;
 import com.github.itdachen.admin.entity.DictData;
 import com.github.itdachen.admin.sdk.dto.DictDataDto;
 import com.github.itdachen.admin.sdk.vo.DictDataVo;
-import com.github.itdachen.framework.webmvc.convert.BizConvert;
+import org.springframework.stereotype.Component;
 
 /**
  * Description:
  * Created by 王大宸 on 2023/04/27 20:13
  * Created with IntelliJ IDEA.
  */
-public class DictDataConvert extends BizConvert<DictData, DictDataDto, DictDataVo> {
+@Component
+public class DictDataConvert implements IDictDataConvert {
 
     @Override
     public DictData toJavaObject(DictDataDto dictDataDto) {

@@ -1,21 +1,23 @@
-package com.github.itdachen.admin.convert;
+package com.github.itdachen.admin.convert.impl;
 
+import com.github.itdachen.admin.convert.IRoleInfoConvert;
 import com.github.itdachen.admin.entity.RoleInfo;
 import com.github.itdachen.admin.sdk.dto.RoleInfoDto;
 import com.github.itdachen.admin.sdk.vo.RoleInfoVo;
-import com.github.itdachen.framework.webmvc.convert.BizConvert;
+import org.springframework.stereotype.Component;
 
 /**
  * Description:
  * Created by 王大宸 on 2023/04/27 20:33
  * Created with IntelliJ IDEA.
  */
-public class RoleInfoConvert extends BizConvert<RoleInfo, RoleInfoDto, RoleInfoVo> {
+@Component
+public class RoleInfoConvert implements IRoleInfoConvert {
 
 
     @Override
     public RoleInfo toJavaObject(RoleInfoDto roleInfoDto) {
-        if (null == roleInfoDto){
+        if (null == roleInfoDto) {
             return null;
         }
         RoleInfo roleInfo = new RoleInfo();
@@ -31,7 +33,7 @@ public class RoleInfoConvert extends BizConvert<RoleInfo, RoleInfoDto, RoleInfoV
 
     @Override
     public RoleInfoVo toJavaObjectVo(RoleInfo roleInfo) {
-        if (null == roleInfo){
+        if (null == roleInfo) {
             return null;
         }
         RoleInfoVo roleInfoVo = new RoleInfoVo();
@@ -45,7 +47,7 @@ public class RoleInfoConvert extends BizConvert<RoleInfo, RoleInfoDto, RoleInfoV
     }
 
     public static RoleInfo toJavaObject(RoleInfoVo roleInfoVo) {
-        if (null == roleInfoVo){
+        if (null == roleInfoVo) {
             return null;
         }
         RoleInfo roleInfo = new RoleInfo();
@@ -59,7 +61,7 @@ public class RoleInfoConvert extends BizConvert<RoleInfo, RoleInfoDto, RoleInfoV
     }
 
     public static RoleInfoVo toJavaObjectVo(RoleInfoDto roleInfoDto) {
-        if (null == roleInfoDto){
+        if (null == roleInfoDto) {
             return null;
         }
         RoleInfoVo roleInfoVo = new RoleInfoVo();

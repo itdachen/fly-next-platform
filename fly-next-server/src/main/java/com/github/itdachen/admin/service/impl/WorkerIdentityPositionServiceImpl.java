@@ -1,21 +1,20 @@
 package com.github.itdachen.admin.service.impl;
 
-import com.github.itdachen.admin.entity.RoleMenu;
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
-import com.github.itdachen.framework.context.exception.BizException;
-import com.github.itdachen.framework.core.utils.StringUtils;
-import com.github.itdachen.framework.webmvc.entity.EntityUtils;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
-import com.github.itdachen.admin.convert.WorkerIdentityPosttionConvert;
+import com.github.itdachen.admin.convert.IWorkerIdentityPosttionConvert;
 import com.github.itdachen.admin.entity.WorkerIdentityPosition;
+import com.github.itdachen.admin.mapper.IWorkerIdentityPositionMapper;
 import com.github.itdachen.admin.sdk.dto.WorkerIdentityPositionDto;
 import com.github.itdachen.admin.sdk.query.WorkerIdentityPositionQuery;
 import com.github.itdachen.admin.sdk.vo.WorkerIdentityPositionVo;
-import com.github.itdachen.framework.core.response.TableData;
-import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
-import com.github.itdachen.admin.mapper.IWorkerIdentityPositionMapper;
 import com.github.itdachen.admin.service.IWorkerIdentityPositionService;
+import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.context.exception.BizException;
+import com.github.itdachen.framework.core.response.TableData;
+import com.github.itdachen.framework.core.utils.StringUtils;
+import com.github.itdachen.framework.webmvc.entity.EntityUtils;
+import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -31,13 +30,8 @@ import java.util.List;
  * @date 2023-05-16 23:12:21
  */
 @Service
-public class WorkerIdentityPositionServiceImpl extends BizServiceImpl<IWorkerIdentityPositionMapper, WorkerIdentityPosition, WorkerIdentityPositionDto, WorkerIdentityPositionVo, WorkerIdentityPositionQuery, String> implements IWorkerIdentityPositionService {
+public class WorkerIdentityPositionServiceImpl extends BizServiceImpl<IWorkerIdentityPositionMapper, IWorkerIdentityPosttionConvert, WorkerIdentityPosition, WorkerIdentityPositionDto, WorkerIdentityPositionVo, WorkerIdentityPositionQuery, String> implements IWorkerIdentityPositionService {
     private static final Logger logger = LoggerFactory.getLogger(WorkerIdentityPositionServiceImpl.class);
-    private static final WorkerIdentityPosttionConvert bizConvert = new WorkerIdentityPosttionConvert();
-
-    public WorkerIdentityPositionServiceImpl() {
-        super(bizConvert);
-    }
 
     /***
      * 分页

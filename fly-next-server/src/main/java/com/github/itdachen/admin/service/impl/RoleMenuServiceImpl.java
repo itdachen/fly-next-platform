@@ -1,24 +1,26 @@
 package com.github.itdachen.admin.service.impl;
 
-import com.github.itdachen.admin.convert.RoleMenuConvert;
+import com.github.itdachen.admin.convert.IRoleMenuConvert;
+import com.github.itdachen.admin.entity.RoleMenu;
 import com.github.itdachen.admin.manager.ILoadUserMenuManager;
-import com.github.itdachen.admin.mapper.*;
+import com.github.itdachen.admin.mapper.IElementInfoMapper;
+import com.github.itdachen.admin.mapper.IMenuInfoMapper;
+import com.github.itdachen.admin.mapper.IRoleMenuMapper;
 import com.github.itdachen.admin.sdk.dto.RoleMenuDto;
 import com.github.itdachen.admin.sdk.query.MenuInfoQuery;
+import com.github.itdachen.admin.sdk.query.RoleMenuQuery;
 import com.github.itdachen.admin.sdk.vo.MenuInfoVo;
+import com.github.itdachen.admin.sdk.vo.RoleMenuVo;
+import com.github.itdachen.admin.service.IRoleMenuService;
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.context.node.TreeNode;
+import com.github.itdachen.framework.core.response.TableData;
 import com.github.itdachen.framework.core.utils.StringUtils;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
+import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.github.itdachen.admin.entity.RoleMenu;
-import com.github.itdachen.admin.sdk.query.RoleMenuQuery;
-import com.github.itdachen.admin.sdk.vo.RoleMenuVo;
-import com.github.itdachen.framework.core.response.TableData;
-import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
-import com.github.itdachen.admin.service.IRoleMenuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -34,9 +36,8 @@ import java.util.List;
  * @date 2023-04-04 21:44:46
  */
 @Service
-public class RoleMenuServiceImpl extends BizServiceImpl<IRoleMenuMapper, RoleMenu, RoleMenuDto, RoleMenuVo, RoleMenuQuery, String> implements IRoleMenuService {
+public class RoleMenuServiceImpl extends BizServiceImpl<IRoleMenuMapper, IRoleMenuConvert, RoleMenu, RoleMenuDto, RoleMenuVo, RoleMenuQuery, String> implements IRoleMenuService {
     private static final Logger logger = LoggerFactory.getLogger(RoleMenuServiceImpl.class);
-    private static final RoleMenuConvert bizConvert = new RoleMenuConvert();
 
     private final IMenuInfoMapper menuInfoMapper;
     private final IElementInfoMapper elementMapper;
@@ -45,7 +46,6 @@ public class RoleMenuServiceImpl extends BizServiceImpl<IRoleMenuMapper, RoleMen
     public RoleMenuServiceImpl(IMenuInfoMapper menuInfoMapper,
                                IElementInfoMapper elementMapper,
                                ILoadUserMenuManager loadUserMenuManager) {
-        super(bizConvert);
         this.menuInfoMapper = menuInfoMapper;
         this.elementMapper = elementMapper;
         this.loadUserMenuManager=loadUserMenuManager;

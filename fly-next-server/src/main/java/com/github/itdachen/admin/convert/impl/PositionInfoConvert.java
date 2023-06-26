@@ -1,9 +1,10 @@
-package com.github.itdachen.admin.convert;
+package com.github.itdachen.admin.convert.impl;
 
+import com.github.itdachen.admin.convert.IPositionInfoConvert;
 import com.github.itdachen.admin.entity.PositionInfo;
 import com.github.itdachen.admin.sdk.dto.PositionInfoDto;
 import com.github.itdachen.admin.sdk.vo.PositionInfoVo;
-import com.github.itdachen.framework.webmvc.convert.BizConvert;
+import org.springframework.stereotype.Component;
 
 /**
  * 岗位信息 类型转换
@@ -11,7 +12,8 @@ import com.github.itdachen.framework.webmvc.convert.BizConvert;
  * @author 王大宸
  * @date 2023-05-15 20:13:36
  */
-public class PositionInfoConvert extends BizConvert<PositionInfo, PositionInfoDto, PositionInfoVo> {
+@Component
+public class PositionInfoConvert implements IPositionInfoConvert {
 
     @Override
     public PositionInfo toJavaObject(PositionInfoDto positionInfoDto) {

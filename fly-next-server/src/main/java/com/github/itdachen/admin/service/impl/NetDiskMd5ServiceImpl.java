@@ -1,6 +1,6 @@
 package com.github.itdachen.admin.service.impl;
 
-import com.github.itdachen.admin.convert.NetDiskMd5Convert;
+import com.github.itdachen.admin.convert.impl.NetDiskMd5Convert;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.itdachen.admin.entity.NetDiskMd5;

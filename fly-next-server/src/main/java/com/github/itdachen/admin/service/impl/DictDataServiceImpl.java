@@ -1,21 +1,19 @@
 package com.github.itdachen.admin.service.impl;
 
-import com.github.itdachen.admin.convert.DeptInfoConvert;
-import com.github.itdachen.admin.convert.DictDataConvert;
-import com.github.itdachen.admin.mapper.IDeptInfoMapper;
+import com.github.itdachen.admin.convert.IDictDataConvert;
+import com.github.itdachen.admin.entity.DictData;
+import com.github.itdachen.admin.mapper.IDictDataMapper;
 import com.github.itdachen.admin.sdk.constants.DictDataStatusConstant;
 import com.github.itdachen.admin.sdk.dto.DictDataDto;
-import com.github.itdachen.framework.context.exception.BizException;
-import com.github.itdachen.framework.webmvc.entity.EntityUtils;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
-import com.github.itdachen.admin.entity.DictData;
 import com.github.itdachen.admin.sdk.query.DictDataQuery;
 import com.github.itdachen.admin.sdk.vo.DictDataVo;
-import com.github.itdachen.framework.core.response.TableData;
-import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
-import com.github.itdachen.admin.mapper.IDictDataMapper;
 import com.github.itdachen.admin.service.IDictDataService;
+import com.github.itdachen.framework.context.exception.BizException;
+import com.github.itdachen.framework.core.response.TableData;
+import com.github.itdachen.framework.webmvc.entity.EntityUtils;
+import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -30,14 +28,8 @@ import java.util.List;
  * @date 2023-04-04 21:44:47
  */
 @Service
-public class DictDataServiceImpl extends BizServiceImpl<IDictDataMapper, DictData, DictDataDto, DictDataVo, DictDataQuery, String> implements IDictDataService {
+public class DictDataServiceImpl extends BizServiceImpl<IDictDataMapper, IDictDataConvert, DictData, DictDataDto, DictDataVo, DictDataQuery, String> implements IDictDataService {
     private static final Logger logger = LoggerFactory.getLogger(DictDataServiceImpl.class);
-    private static final DictDataConvert bizConvert = new DictDataConvert();
-
-    public DictDataServiceImpl() {
-        super(bizConvert);
-    }
-
 
     /***
      * 分页

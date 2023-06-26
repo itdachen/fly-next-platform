@@ -1,20 +1,20 @@
 package com.github.itdachen.admin.service.impl;
 
-import com.github.itdachen.admin.convert.DeptInfoConvert;
+import com.github.itdachen.admin.convert.IDeptInfoConvert;
+import com.github.itdachen.admin.entity.DeptInfo;
+import com.github.itdachen.admin.mapper.IDeptInfoMapper;
 import com.github.itdachen.admin.sdk.dto.DeptInfoDto;
+import com.github.itdachen.admin.sdk.query.DeptInfoQuery;
+import com.github.itdachen.admin.sdk.vo.DeptInfoVo;
+import com.github.itdachen.admin.service.IDeptInfoService;
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.exception.BizException;
+import com.github.itdachen.framework.core.response.TableData;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
+import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.github.itdachen.admin.entity.DeptInfo;
-import com.github.itdachen.admin.sdk.query.DeptInfoQuery;
-import com.github.itdachen.admin.sdk.vo.DeptInfoVo;
-import com.github.itdachen.framework.core.response.TableData;
-import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
-import com.github.itdachen.admin.mapper.IDeptInfoMapper;
-import com.github.itdachen.admin.service.IDeptInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -28,13 +28,8 @@ import java.util.List;
  * @date 2023-04-04 21:44:47
  */
 @Service
-public class DeptInfoServiceImpl extends BizServiceImpl<IDeptInfoMapper, DeptInfo, DeptInfoDto, DeptInfoVo, DeptInfoQuery, String> implements IDeptInfoService {
+public class DeptInfoServiceImpl extends BizServiceImpl<IDeptInfoMapper, IDeptInfoConvert, DeptInfo, DeptInfoDto, DeptInfoVo, DeptInfoQuery, String> implements IDeptInfoService {
     private static final Logger logger = LoggerFactory.getLogger(DeptInfoServiceImpl.class);
-    private static final DeptInfoConvert bizConvert = new DeptInfoConvert();
-
-    public DeptInfoServiceImpl() {
-        super(bizConvert);
-    }
 
     /***
      * 分页

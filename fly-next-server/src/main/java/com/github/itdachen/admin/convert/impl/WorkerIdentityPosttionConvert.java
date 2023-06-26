@@ -1,9 +1,10 @@
-package com.github.itdachen.admin.convert;
+package com.github.itdachen.admin.convert.impl;
 
+import com.github.itdachen.admin.convert.IWorkerIdentityPosttionConvert;
 import com.github.itdachen.admin.entity.WorkerIdentityPosition;
 import com.github.itdachen.admin.sdk.dto.WorkerIdentityPositionDto;
 import com.github.itdachen.admin.sdk.vo.WorkerIdentityPositionVo;
-import com.github.itdachen.framework.webmvc.convert.BizConvert;
+import org.springframework.stereotype.Component;
 
 /**
  * 身份岗位 类型转换
@@ -11,7 +12,8 @@ import com.github.itdachen.framework.webmvc.convert.BizConvert;
  * @author 王大宸
  * @date 2023-05-16 23:12:21
  */
-public class WorkerIdentityPosttionConvert extends BizConvert<WorkerIdentityPosition, WorkerIdentityPositionDto, WorkerIdentityPositionVo> {
+@Component
+public class WorkerIdentityPosttionConvert implements IWorkerIdentityPosttionConvert {
 
     @Override
     public WorkerIdentityPosition toJavaObject(WorkerIdentityPositionDto workerIdentityPositionDto) {
@@ -52,6 +54,7 @@ public class WorkerIdentityPosttionConvert extends BizConvert<WorkerIdentityPosi
         return workerIdentityPosition;
     }
 
+    @Override
     public WorkerIdentityPositionVo toJavaObjectVo(WorkerIdentityPositionDto workerIdentityPositionDto) {
         if (null == workerIdentityPositionDto){
             return null;

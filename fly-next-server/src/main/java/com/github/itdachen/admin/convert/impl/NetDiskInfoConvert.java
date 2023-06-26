@@ -1,4 +1,4 @@
-package com.github.itdachen.admin.convert;
+package com.github.itdachen.admin.convert.impl;
 
 import com.github.itdachen.admin.entity.NetDiskInfo;
 import com.github.itdachen.admin.sdk.dto.NetDiskInfoDto;

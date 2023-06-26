@@ -1,21 +1,23 @@
-package com.github.itdachen.admin.convert;
+package com.github.itdachen.admin.convert.impl;
 
+import com.github.itdachen.admin.convert.IRoleUserConvert;
 import com.github.itdachen.admin.entity.RoleUser;
 import com.github.itdachen.admin.sdk.dto.RoleUserDto;
 import com.github.itdachen.admin.sdk.vo.RoleUserVo;
-import com.github.itdachen.framework.webmvc.convert.BizConvert;
+import org.springframework.stereotype.Component;
 
 /**
  * Description:
  * Created by 王大宸 on 2023/04/27 20:37
  * Created with IntelliJ IDEA.
  */
-public class RoleUserConvert extends BizConvert<RoleUser, RoleUserDto, RoleUserVo> {
+@Component
+public class RoleUserConvert implements IRoleUserConvert {
 
 
     @Override
     public RoleUser toJavaObject(RoleUserDto roleUserDto) {
-        if (null == roleUserDto){
+        if (null == roleUserDto) {
             return null;
         }
         RoleUser roleUser = new RoleUser();
@@ -29,7 +31,7 @@ public class RoleUserConvert extends BizConvert<RoleUser, RoleUserDto, RoleUserV
 
     @Override
     public RoleUserVo toJavaObjectVo(RoleUser roleUser) {
-        if (null == roleUser){
+        if (null == roleUser) {
             return null;
         }
         RoleUserVo roleUserVo = new RoleUserVo();
@@ -41,7 +43,7 @@ public class RoleUserConvert extends BizConvert<RoleUser, RoleUserDto, RoleUserV
     }
 
     public static RoleUser toJavaObject(RoleUserVo roleUserVo) {
-        if (null == roleUserVo){
+        if (null == roleUserVo) {
             return null;
         }
         RoleUser roleUser = new RoleUser();
@@ -53,7 +55,7 @@ public class RoleUserConvert extends BizConvert<RoleUser, RoleUserDto, RoleUserV
     }
 
     public static RoleUserVo toJavaObjectVo(RoleUserDto roleUserDto) {
-        if (null == roleUserDto){
+        if (null == roleUserDto) {
             return null;
         }
         RoleUserVo roleUserVo = new RoleUserVo();

@@ -1,6 +1,6 @@
 package com.github.itdachen.admin.service.impl;
 
-import com.github.itdachen.admin.convert.NetDiskInfoConvert;
+import com.github.itdachen.admin.convert.impl.NetDiskInfoConvert;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.itdachen.admin.entity.NetDiskInfo;

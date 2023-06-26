@@ -1,19 +1,20 @@
 package com.github.itdachen.admin.service.impl;
 
-import com.github.itdachen.admin.convert.AppClientConvert;
-import com.github.itdachen.admin.sdk.dto.AppClientDto;
-import com.github.itdachen.framework.context.constants.YesOrNotConstant;
-import com.github.itdachen.framework.context.exception.BizException;
-import com.github.itdachen.framework.webmvc.entity.EntityUtils;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
+import com.github.itdachen.admin.convert.IAppClientConvert;
+import com.github.itdachen.admin.convert.impl.AppClientConvert;
 import com.github.itdachen.admin.entity.AppClient;
+import com.github.itdachen.admin.mapper.IAppClientMapper;
+import com.github.itdachen.admin.sdk.dto.AppClientDto;
 import com.github.itdachen.admin.sdk.query.AppClientQuery;
 import com.github.itdachen.admin.sdk.vo.AppClientVo;
-import com.github.itdachen.framework.core.response.TableData;
-import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
-import com.github.itdachen.admin.mapper.IAppClientMapper;
 import com.github.itdachen.admin.service.IAppClientService;
+import com.github.itdachen.framework.context.constants.YesOrNotConstant;
+import com.github.itdachen.framework.context.exception.BizException;
+import com.github.itdachen.framework.core.response.TableData;
+import com.github.itdachen.framework.webmvc.entity.EntityUtils;
+import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -27,14 +28,9 @@ import java.util.List;
  * @date 2023-04-04 21:26:23
  */
 @Service
-public class AppClientServiceImpl extends BizServiceImpl<IAppClientMapper, AppClient, AppClientDto, AppClientVo, AppClientQuery, String> implements IAppClientService {
+public class AppClientServiceImpl extends BizServiceImpl<IAppClientMapper, IAppClientConvert, AppClient, AppClientDto, AppClientVo, AppClientQuery, String> implements IAppClientService {
     private static final Logger logger = LoggerFactory.getLogger(AppClientServiceImpl.class);
     private static final AppClientConvert bizConvert = new AppClientConvert();
-
-    public AppClientServiceImpl() {
-        super(bizConvert);
-    }
-
 
     /***
      * 分页

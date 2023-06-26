@@ -1,20 +1,22 @@
-package com.github.itdachen.admin.convert;
+package com.github.itdachen.admin.convert.impl;
 
+import com.github.itdachen.admin.convert.IMakeUseLogConvert;
 import com.github.itdachen.admin.entity.MakeUseLog;
 import com.github.itdachen.admin.sdk.dto.MakeUseLogDto;
 import com.github.itdachen.admin.sdk.vo.MakeUseLogVo;
-import com.github.itdachen.framework.webmvc.convert.BizConvert;
+import org.springframework.stereotype.Component;
 
 /**
  * Description:
  * Created by 王大宸 on 2023/04/27 20:24
  * Created with IntelliJ IDEA.
  */
-public class MakeUseLogConvert extends BizConvert<MakeUseLog, MakeUseLogDto, MakeUseLogVo> {
+@Component
+public class MakeUseLogConvert implements IMakeUseLogConvert {
 
     @Override
     public MakeUseLog toJavaObject(MakeUseLogDto makeUseLogDto) {
-        if (null == makeUseLogDto){
+        if (null == makeUseLogDto) {
             return null;
         }
         MakeUseLog makeUseLog = new MakeUseLog();
@@ -45,7 +47,7 @@ public class MakeUseLogConvert extends BizConvert<MakeUseLog, MakeUseLogDto, Mak
 
     @Override
     public MakeUseLogVo toJavaObjectVo(MakeUseLog makeUseLog) {
-        if (null == makeUseLog){
+        if (null == makeUseLog) {
             return null;
         }
         MakeUseLogVo makeUseLogVo = new MakeUseLogVo();
@@ -74,7 +76,7 @@ public class MakeUseLogConvert extends BizConvert<MakeUseLog, MakeUseLogDto, Mak
     }
 
     public static MakeUseLog toJavaObject(MakeUseLogVo makeUseLogVo) {
-        if (null == makeUseLogVo){
+        if (null == makeUseLogVo) {
             return null;
         }
         MakeUseLog makeUseLog = new MakeUseLog();
@@ -103,7 +105,7 @@ public class MakeUseLogConvert extends BizConvert<MakeUseLog, MakeUseLogDto, Mak
     }
 
     public static MakeUseLogVo toJavaObjectVo(MakeUseLogDto makeUseLogDto) {
-        if (null == makeUseLogDto){
+        if (null == makeUseLogDto) {
             return null;
         }
         MakeUseLogVo makeUseLogVo = new MakeUseLogVo();

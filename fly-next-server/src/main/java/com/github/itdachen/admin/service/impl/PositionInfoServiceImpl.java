@@ -1,20 +1,19 @@
 package com.github.itdachen.admin.service.impl;
 
-import com.github.itdachen.admin.mapper.IWorkerIdentityPositionMapper;
-import com.github.itdachen.admin.sdk.vo.MenuInfoVo;
-import com.github.itdachen.framework.context.constants.YesOrNotConstant;
-import com.github.itdachen.framework.context.node.TreeNode;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
-import com.github.itdachen.admin.convert.PositionInfoConvert;
+import com.github.itdachen.admin.convert.IPositionInfoConvert;
 import com.github.itdachen.admin.entity.PositionInfo;
+import com.github.itdachen.admin.mapper.IPositionInfoMapper;
+import com.github.itdachen.admin.mapper.IWorkerIdentityPositionMapper;
 import com.github.itdachen.admin.sdk.dto.PositionInfoDto;
 import com.github.itdachen.admin.sdk.query.PositionInfoQuery;
 import com.github.itdachen.admin.sdk.vo.PositionInfoVo;
+import com.github.itdachen.admin.service.IPositionInfoService;
+import com.github.itdachen.framework.context.constants.YesOrNotConstant;
+import com.github.itdachen.framework.context.node.TreeNode;
 import com.github.itdachen.framework.core.response.TableData;
 import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
-import com.github.itdachen.admin.mapper.IPositionInfoMapper;
-import com.github.itdachen.admin.service.IPositionInfoService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -29,14 +28,11 @@ import java.util.List;
  * @date 2023-05-15 20:13:36
  */
 @Service
-public class PositionInfoServiceImpl extends BizServiceImpl<IPositionInfoMapper, PositionInfo, PositionInfoDto, PositionInfoVo, PositionInfoQuery, String> implements IPositionInfoService {
+public class PositionInfoServiceImpl extends BizServiceImpl<IPositionInfoMapper, IPositionInfoConvert, PositionInfo, PositionInfoDto, PositionInfoVo, PositionInfoQuery, String> implements IPositionInfoService {
     private static final Logger logger = LoggerFactory.getLogger(PositionInfoServiceImpl.class);
-    private static final PositionInfoConvert bizConvert = new PositionInfoConvert();
     private final IWorkerIdentityPositionMapper identityPositionMapper;
 
-    public PositionInfoServiceImpl(IPositionInfoMapper positionInfoMapper,
-                                   IWorkerIdentityPositionMapper identityPositionMapper) {
-        super(bizConvert);
+    public PositionInfoServiceImpl(IWorkerIdentityPositionMapper identityPositionMapper) {
         this.identityPositionMapper = identityPositionMapper;
     }
 

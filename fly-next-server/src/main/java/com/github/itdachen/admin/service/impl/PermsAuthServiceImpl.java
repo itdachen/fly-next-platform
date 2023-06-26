@@ -1,20 +1,20 @@
 package com.github.itdachen.admin.service.impl;
 
-import com.github.itdachen.admin.convert.PermsAuthConvert;
-import com.github.itdachen.admin.manager.ILoadUserMenuManager;
-import com.github.itdachen.admin.sdk.dto.PermsAuthDto;
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
-import com.github.itdachen.framework.context.exception.BizException;
-import com.github.itdachen.framework.webmvc.entity.EntityUtils;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
+import com.github.itdachen.admin.convert.IPermsAuthConvert;
 import com.github.itdachen.admin.entity.PermsAuth;
+import com.github.itdachen.admin.manager.ILoadUserMenuManager;
+import com.github.itdachen.admin.mapper.IPermsAuthMapper;
+import com.github.itdachen.admin.sdk.dto.PermsAuthDto;
 import com.github.itdachen.admin.sdk.query.PermsAuthQuery;
 import com.github.itdachen.admin.sdk.vo.PermsAuthVo;
-import com.github.itdachen.framework.core.response.TableData;
-import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
-import com.github.itdachen.admin.mapper.IPermsAuthMapper;
 import com.github.itdachen.admin.service.IPermsAuthService;
+import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.context.exception.BizException;
+import com.github.itdachen.framework.core.response.TableData;
+import com.github.itdachen.framework.webmvc.entity.EntityUtils;
+import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -31,13 +31,11 @@ import java.util.List;
  * @date 2023-04-04 21:44:46
  */
 @Service
-public class PermsAuthServiceImpl extends BizServiceImpl<IPermsAuthMapper, PermsAuth, PermsAuthDto, PermsAuthVo, PermsAuthQuery, String> implements IPermsAuthService {
+public class PermsAuthServiceImpl extends BizServiceImpl<IPermsAuthMapper, IPermsAuthConvert, PermsAuth, PermsAuthDto, PermsAuthVo, PermsAuthQuery, String> implements IPermsAuthService {
     private static final Logger logger = LoggerFactory.getLogger(PermsAuthServiceImpl.class);
-    private static final PermsAuthConvert bizConvert = new PermsAuthConvert();
     private final ILoadUserMenuManager loadUserMenuManager;
 
     public PermsAuthServiceImpl(ILoadUserMenuManager loadUserMenuManager) {
-        super(bizConvert);
         this.loadUserMenuManager=loadUserMenuManager;
     }
 

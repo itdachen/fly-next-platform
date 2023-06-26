@@ -1,20 +1,22 @@
-package com.github.itdachen.admin.convert;
+package com.github.itdachen.admin.convert.impl;
 
+import com.github.itdachen.admin.convert.IRoleMenuConvert;
 import com.github.itdachen.admin.entity.RoleMenu;
 import com.github.itdachen.admin.sdk.dto.RoleMenuDto;
 import com.github.itdachen.admin.sdk.vo.RoleMenuVo;
-import com.github.itdachen.framework.webmvc.convert.BizConvert;
+import org.springframework.stereotype.Component;
 
 /**
  * Description:
  * Created by 王大宸 on 2023/04/27 20:35
  * Created with IntelliJ IDEA.
  */
-public class RoleMenuConvert extends BizConvert<RoleMenu, RoleMenuDto, RoleMenuVo> {
+@Component
+public class RoleMenuConvert implements IRoleMenuConvert {
 
     @Override
     public RoleMenu toJavaObject(RoleMenuDto roleMenuDto) {
-        if (null == roleMenuDto){
+        if (null == roleMenuDto) {
             return null;
         }
         RoleMenu roleMenu = new RoleMenu();
@@ -28,7 +30,7 @@ public class RoleMenuConvert extends BizConvert<RoleMenu, RoleMenuDto, RoleMenuV
 
     @Override
     public RoleMenuVo toJavaObjectVo(RoleMenu roleMenu) {
-        if (null == roleMenu){
+        if (null == roleMenu) {
             return null;
         }
         RoleMenuVo roleMenuVo = new RoleMenuVo();
@@ -40,7 +42,7 @@ public class RoleMenuConvert extends BizConvert<RoleMenu, RoleMenuDto, RoleMenuV
     }
 
     public static RoleMenu toJavaObject(RoleMenuVo roleMenuVo) {
-        if (null == roleMenuVo){
+        if (null == roleMenuVo) {
             return null;
         }
         RoleMenu roleMenu = new RoleMenu();
@@ -52,7 +54,7 @@ public class RoleMenuConvert extends BizConvert<RoleMenu, RoleMenuDto, RoleMenuV
     }
 
     public static RoleMenuVo toJavaObjectVo(RoleMenuDto roleMenuDto) {
-        if (null == roleMenuDto){
+        if (null == roleMenuDto) {
             return null;
         }
         RoleMenuVo roleMenuVo = new RoleMenuVo();

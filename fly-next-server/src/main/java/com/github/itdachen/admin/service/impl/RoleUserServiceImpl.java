@@ -1,21 +1,21 @@
 package com.github.itdachen.admin.service.impl;
 
-import com.github.itdachen.admin.convert.RoleUserConvert;
+import com.github.itdachen.admin.convert.IRoleUserConvert;
+import com.github.itdachen.admin.entity.RoleUser;
+import com.github.itdachen.admin.mapper.IRoleUserMapper;
 import com.github.itdachen.admin.sdk.dto.RoleUserDto;
+import com.github.itdachen.admin.sdk.query.RoleUserQuery;
+import com.github.itdachen.admin.sdk.vo.RoleUserVo;
+import com.github.itdachen.admin.service.IRoleUserService;
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.exception.BizException;
+import com.github.itdachen.framework.core.response.TableData;
 import com.github.itdachen.framework.core.utils.StringUtils;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
+import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.github.itdachen.admin.entity.RoleUser;
-import com.github.itdachen.admin.sdk.query.RoleUserQuery;
-import com.github.itdachen.admin.sdk.vo.RoleUserVo;
-import com.github.itdachen.framework.core.response.TableData;
-import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
-import com.github.itdachen.admin.mapper.IRoleUserMapper;
-import com.github.itdachen.admin.service.IRoleUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -32,15 +32,8 @@ import java.util.List;
  * @date 2023-04-04 21:44:46
  */
 @Service
-public class RoleUserServiceImpl extends BizServiceImpl<IRoleUserMapper, RoleUser, RoleUserDto, RoleUserVo, RoleUserQuery, String> implements IRoleUserService {
+public class RoleUserServiceImpl extends BizServiceImpl<IRoleUserMapper, IRoleUserConvert, RoleUser, RoleUserDto, RoleUserVo, RoleUserQuery, String> implements IRoleUserService {
     private static final Logger logger = LoggerFactory.getLogger(RoleUserServiceImpl.class);
-    private static final RoleUserConvert bizConvert = new RoleUserConvert();
-
-
-    public RoleUserServiceImpl() {
-        super(bizConvert);
-    }
-
 
     /***
      * 分页

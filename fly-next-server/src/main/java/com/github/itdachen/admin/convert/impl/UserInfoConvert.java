@@ -1,16 +1,18 @@
-package com.github.itdachen.admin.convert;
+package com.github.itdachen.admin.convert.impl;
 
+import com.github.itdachen.admin.convert.IUserInfoConvert;
 import com.github.itdachen.admin.entity.UserInfo;
 import com.github.itdachen.admin.sdk.dto.UserInfoDto;
 import com.github.itdachen.admin.sdk.vo.UserInfoVo;
-import com.github.itdachen.framework.webmvc.convert.BizConvert;
+import org.springframework.stereotype.Component;
 
 /**
  * Description:
  * Created by 王大宸 on 2023/04/27 20:41
  * Created with IntelliJ IDEA.
  */
-public class UserInfoConvert extends BizConvert<UserInfo, UserInfoDto, UserInfoVo> {
+@Component
+public class UserInfoConvert implements IUserInfoConvert {
 
     @Override
     public UserInfo toJavaObject(UserInfoDto userInfoDto) {

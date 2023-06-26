@@ -1,16 +1,18 @@
-package com.github.itdachen.admin.convert;
+package com.github.itdachen.admin.convert.impl;
 
+import com.github.itdachen.admin.convert.IMenuInfoConvert;
 import com.github.itdachen.admin.entity.MenuInfo;
 import com.github.itdachen.admin.sdk.dto.MenuInfoDto;
 import com.github.itdachen.admin.sdk.vo.MenuInfoVo;
-import com.github.itdachen.framework.webmvc.convert.BizConvert;
+import org.springframework.stereotype.Component;
 
 /**
  * Description:
  * Created by 王大宸 on 2023/04/27 20:26
  * Created with IntelliJ IDEA.
  */
-public class MenuInfoConvert extends BizConvert<MenuInfo, MenuInfoDto, MenuInfoVo> {
+@Component
+public class MenuInfoConvert implements IMenuInfoConvert {
 
     @Override
     public MenuInfo toJavaObject(MenuInfoDto menuInfoDto) {

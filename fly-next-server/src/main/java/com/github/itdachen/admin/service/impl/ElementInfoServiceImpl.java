@@ -1,18 +1,18 @@
 package com.github.itdachen.admin.service.impl;
 
-import com.github.itdachen.admin.convert.ElementInfoConvert;
-import com.github.itdachen.admin.sdk.dto.ElementInfoDto;
-import com.github.itdachen.framework.context.constants.YesOrNotConstant;
-import com.github.itdachen.framework.webmvc.entity.EntityUtils;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
+import com.github.itdachen.admin.convert.IElementInfoConvert;
 import com.github.itdachen.admin.entity.ElementInfo;
+import com.github.itdachen.admin.mapper.IElementInfoMapper;
+import com.github.itdachen.admin.sdk.dto.ElementInfoDto;
 import com.github.itdachen.admin.sdk.query.ElementInfoQuery;
 import com.github.itdachen.admin.sdk.vo.ElementInfoVo;
-import com.github.itdachen.framework.core.response.TableData;
-import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
-import com.github.itdachen.admin.mapper.IElementInfoMapper;
 import com.github.itdachen.admin.service.IElementInfoService;
+import com.github.itdachen.framework.context.constants.YesOrNotConstant;
+import com.github.itdachen.framework.core.response.TableData;
+import com.github.itdachen.framework.webmvc.entity.EntityUtils;
+import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -26,13 +26,8 @@ import java.util.List;
  * @date 2023-04-04 21:44:47
  */
 @Service
-public class ElementInfoServiceImpl extends BizServiceImpl<IElementInfoMapper, ElementInfo, ElementInfoDto, ElementInfoVo, ElementInfoQuery, String> implements IElementInfoService {
+public class ElementInfoServiceImpl extends BizServiceImpl<IElementInfoMapper, IElementInfoConvert, ElementInfo, ElementInfoDto, ElementInfoVo, ElementInfoQuery, String> implements IElementInfoService {
     private static final Logger logger = LoggerFactory.getLogger(ElementInfoServiceImpl.class);
-    private static final ElementInfoConvert bizConvert = new ElementInfoConvert();
-
-    public ElementInfoServiceImpl() {
-        super(bizConvert);
-    }
 
     /***
      * 分页

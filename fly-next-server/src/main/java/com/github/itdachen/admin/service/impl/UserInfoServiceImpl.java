@@ -1,30 +1,28 @@
 package com.github.itdachen.admin.service.impl;
 
 import com.github.itdachen.admin.constants.AppClientConstant;
-import com.github.itdachen.admin.convert.RoleUserConvert;
-import com.github.itdachen.admin.convert.UserInfoConvert;
+import com.github.itdachen.admin.convert.IUserInfoConvert;
 import com.github.itdachen.admin.entity.SetUserPassword;
+import com.github.itdachen.admin.entity.UserInfo;
 import com.github.itdachen.admin.entity.UserLogin;
-import com.github.itdachen.admin.mapper.IRoleUserMapper;
+import com.github.itdachen.admin.mapper.IUserInfoMapper;
 import com.github.itdachen.admin.mapper.IUserLoginMapper;
 import com.github.itdachen.admin.sdk.dto.UserInfoDto;
+import com.github.itdachen.admin.sdk.query.UserInfoQuery;
+import com.github.itdachen.admin.sdk.vo.UserInfoVo;
 import com.github.itdachen.admin.sdk.vo.UserLoginVo;
+import com.github.itdachen.admin.service.IUserInfoService;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.constants.UserTypeConstant;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.core.constants.UserStatusConstant;
+import com.github.itdachen.framework.core.response.TableData;
 import com.github.itdachen.framework.core.utils.StringUtils;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
+import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.github.itdachen.admin.entity.UserInfo;
-import com.github.itdachen.admin.sdk.query.UserInfoQuery;
-import com.github.itdachen.admin.sdk.vo.UserInfoVo;
-import com.github.itdachen.framework.core.response.TableData;
-import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
-import com.github.itdachen.admin.mapper.IUserInfoMapper;
-import com.github.itdachen.admin.service.IUserInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -41,16 +39,14 @@ import java.util.List;
  * @date 2023-04-04 21:44:46
  */
 @Service
-public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, UserInfo, UserInfoDto, UserInfoVo, UserInfoQuery, String> implements IUserInfoService {
+public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, IUserInfoConvert, UserInfo, UserInfoDto, UserInfoVo, UserInfoQuery, String> implements IUserInfoService {
     private static final Logger logger = LoggerFactory.getLogger(UserInfoServiceImpl.class);
-    private static final UserInfoConvert bizConvert = new UserInfoConvert();
     private final PasswordEncoder passwordEncoder;
     private final IUserLoginMapper userLoginMapper;
 
 
     public UserInfoServiceImpl(PasswordEncoder passwordEncoder,
                                IUserLoginMapper userLoginMapper) {
-        super(bizConvert);
         this.passwordEncoder = passwordEncoder;
         this.userLoginMapper = userLoginMapper;
     }

@@ -1,27 +1,27 @@
 package com.github.itdachen.admin.service.impl;
 
-import com.github.itdachen.admin.convert.MenuInfoConvert;
+import com.github.itdachen.admin.convert.IMenuInfoConvert;
+import com.github.itdachen.admin.entity.MenuInfo;
 import com.github.itdachen.admin.manager.IAppClientManager;
 import com.github.itdachen.admin.mapper.IAppClientMapper;
 import com.github.itdachen.admin.mapper.IElementInfoMapper;
+import com.github.itdachen.admin.mapper.IMenuInfoMapper;
 import com.github.itdachen.admin.sdk.dto.MenuInfoDto;
+import com.github.itdachen.admin.sdk.query.MenuInfoQuery;
 import com.github.itdachen.admin.sdk.vo.AppClientVo;
+import com.github.itdachen.admin.sdk.vo.MenuInfoVo;
+import com.github.itdachen.admin.service.IMenuInfoService;
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import com.github.itdachen.framework.boot.runner.handler.ContextPathHandler;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.exception.BizException;
+import com.github.itdachen.framework.core.response.TableData;
 import com.github.itdachen.framework.core.utils.StringUtils;
 import com.github.itdachen.framework.core.utils.UuidUtils;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
+import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.github.itdachen.admin.entity.MenuInfo;
-import com.github.itdachen.admin.sdk.query.MenuInfoQuery;
-import com.github.itdachen.admin.sdk.vo.MenuInfoVo;
-import com.github.itdachen.framework.core.response.TableData;
-import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
-import com.github.itdachen.admin.mapper.IMenuInfoMapper;
-import com.github.itdachen.admin.service.IMenuInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -36,9 +36,8 @@ import java.util.List;
  * @date 2023-04-04 21:44:46
  */
 @Service
-public class MenuInfoServiceImpl extends BizServiceImpl<IMenuInfoMapper, MenuInfo, MenuInfoDto, MenuInfoVo, MenuInfoQuery, String> implements IMenuInfoService {
+public class MenuInfoServiceImpl extends BizServiceImpl<IMenuInfoMapper, IMenuInfoConvert, MenuInfo, MenuInfoDto, MenuInfoVo, MenuInfoQuery, String> implements IMenuInfoService {
     private static final Logger logger = LoggerFactory.getLogger(MenuInfoServiceImpl.class);
-    private static final MenuInfoConvert bizConvert = new MenuInfoConvert();
     private final IAppClientMapper appClientMapper;
     private final IElementInfoMapper elementMapper;
     private final IAppClientManager appClientManager;
@@ -46,7 +45,6 @@ public class MenuInfoServiceImpl extends BizServiceImpl<IMenuInfoMapper, MenuInf
     public MenuInfoServiceImpl(IAppClientMapper appClientMapper,
                                IElementInfoMapper elementMapper,
                                IAppClientManager appClientManager) {
-        super(bizConvert);
         this.appClientMapper = appClientMapper;
         this.elementMapper = elementMapper;
         this.appClientManager = appClientManager;

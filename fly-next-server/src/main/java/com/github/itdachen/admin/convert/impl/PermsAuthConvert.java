@@ -1,20 +1,22 @@
-package com.github.itdachen.admin.convert;
+package com.github.itdachen.admin.convert.impl;
 
+import com.github.itdachen.admin.convert.IPermsAuthConvert;
 import com.github.itdachen.admin.entity.PermsAuth;
 import com.github.itdachen.admin.sdk.dto.PermsAuthDto;
 import com.github.itdachen.admin.sdk.vo.PermsAuthVo;
-import com.github.itdachen.framework.webmvc.convert.BizConvert;
+import org.springframework.stereotype.Component;
 
 /**
  * Description:
  * Created by 王大宸 on 2023/04/27 20:31
  * Created with IntelliJ IDEA.
  */
-public class PermsAuthConvert extends BizConvert<PermsAuth, PermsAuthDto, PermsAuthVo> {
+@Component
+public class PermsAuthConvert implements IPermsAuthConvert {
 
     @Override
     public PermsAuth toJavaObject(PermsAuthDto permsAuthDto) {
-        if (null == permsAuthDto){
+        if (null == permsAuthDto) {
             return null;
         }
         PermsAuth permsAuth = new PermsAuth();
@@ -28,7 +30,7 @@ public class PermsAuthConvert extends BizConvert<PermsAuth, PermsAuthDto, PermsA
 
     @Override
     public PermsAuthVo toJavaObjectVo(PermsAuth permsAuth) {
-        if (null == permsAuth){
+        if (null == permsAuth) {
             return null;
         }
         PermsAuthVo permsAuthVo = new PermsAuthVo();
@@ -40,7 +42,7 @@ public class PermsAuthConvert extends BizConvert<PermsAuth, PermsAuthDto, PermsA
     }
 
     public static PermsAuth toJavaObject(PermsAuthVo permsAuthVo) {
-        if (null == permsAuthVo){
+        if (null == permsAuthVo) {
             return null;
         }
         PermsAuth permsAuth = new PermsAuth();
@@ -52,7 +54,7 @@ public class PermsAuthConvert extends BizConvert<PermsAuth, PermsAuthDto, PermsA
     }
 
     public static PermsAuthVo toJavaObjectVo(PermsAuthDto permsAuthDto) {
-        if (null == permsAuthDto){
+        if (null == permsAuthDto) {
             return null;
         }
         PermsAuthVo permsAuthVo = new PermsAuthVo();

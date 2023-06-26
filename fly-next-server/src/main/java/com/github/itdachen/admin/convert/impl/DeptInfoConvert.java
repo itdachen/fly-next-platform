@@ -1,16 +1,18 @@
-package com.github.itdachen.admin.convert;
+package com.github.itdachen.admin.convert.impl;
 
+import com.github.itdachen.admin.convert.IDeptInfoConvert;
 import com.github.itdachen.admin.entity.DeptInfo;
 import com.github.itdachen.admin.sdk.dto.DeptInfoDto;
 import com.github.itdachen.admin.sdk.vo.DeptInfoVo;
-import com.github.itdachen.framework.webmvc.convert.BizConvert;
+import org.springframework.stereotype.Component;
 
 /**
  * Description:
  * Created by 王大宸 on 2023/04/27 20:09
  * Created with IntelliJ IDEA.
  */
-public class DeptInfoConvert extends BizConvert<DeptInfo, DeptInfoDto, DeptInfoVo> {
+@Component
+public class DeptInfoConvert implements IDeptInfoConvert {
 
     @Override
     public DeptInfo toJavaObject(DeptInfoDto deptInfoDto) {
@@ -49,6 +51,7 @@ public class DeptInfoConvert extends BizConvert<DeptInfo, DeptInfoDto, DeptInfoV
         return deptInfoVo;
     }
 
+    @Override
     public DeptInfo toJavaObject(DeptInfoVo deptInfoVo) {
         if (null == deptInfoVo){
             return null;
@@ -66,6 +69,7 @@ public class DeptInfoConvert extends BizConvert<DeptInfo, DeptInfoDto, DeptInfoV
         return deptInfo;
     }
 
+    @Override
     public DeptInfoVo toJavaObjectVo(DeptInfoDto deptInfoDto) {
         if (null == deptInfoDto){
             return null;

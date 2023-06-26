@@ -1,20 +1,22 @@
-package com.github.itdachen.admin.convert;
+package com.github.itdachen.admin.convert.impl;
 
+import com.github.itdachen.admin.convert.IDictTypeConvert;
 import com.github.itdachen.admin.entity.DictType;
 import com.github.itdachen.admin.sdk.dto.DictTypeDto;
 import com.github.itdachen.admin.sdk.vo.DictTypeVo;
-import com.github.itdachen.framework.webmvc.convert.BizConvert;
+import org.springframework.stereotype.Component;
 
 /**
  * Description:
  * Created by 王大宸 on 2023/04/27 20:18
  * Created with IntelliJ IDEA.
  */
-public class DictTypeConvert extends BizConvert<DictType, DictTypeDto, DictTypeVo> {
+@Component
+public class DictTypeConvert implements IDictTypeConvert {
 
     @Override
     public DictType toJavaObject(DictTypeDto dictTypeDto) {
-        if (null == dictTypeDto){
+        if (null == dictTypeDto) {
             return null;
         }
         DictType dictType = new DictType();
@@ -29,7 +31,7 @@ public class DictTypeConvert extends BizConvert<DictType, DictTypeDto, DictTypeV
 
     @Override
     public DictTypeVo toJavaObjectVo(DictType dictType) {
-        if (null == dictType){
+        if (null == dictType) {
             return null;
         }
         DictTypeVo dictTypeVo = new DictTypeVo();
@@ -42,7 +44,7 @@ public class DictTypeConvert extends BizConvert<DictType, DictTypeDto, DictTypeV
     }
 
     public static DictType toJavaObject(DictTypeVo dictTypeVo) {
-        if (null == dictTypeVo){
+        if (null == dictTypeVo) {
             return null;
         }
         DictType dictType = new DictType();
@@ -55,7 +57,7 @@ public class DictTypeConvert extends BizConvert<DictType, DictTypeDto, DictTypeV
     }
 
     public static DictTypeVo toJavaObjectVo(DictTypeDto dictTypeDto) {
-        if (null == dictTypeDto){
+        if (null == dictTypeDto) {
             return null;
         }
         DictTypeVo dictTypeVo = new DictTypeVo();

@@ -1,9 +1,10 @@
-package com.github.itdachen.admin.convert;
+package com.github.itdachen.admin.convert.impl;
 
+import com.github.itdachen.admin.convert.IWorkerIdentityConvert;
 import com.github.itdachen.admin.entity.WorkerIdentity;
 import com.github.itdachen.admin.sdk.dto.WorkerIdentityDto;
 import com.github.itdachen.admin.sdk.vo.WorkerIdentityVo;
-import com.github.itdachen.framework.webmvc.convert.BizConvert;
+import org.springframework.stereotype.Component;
 
 /**
  * 职工身份 类型转换
@@ -11,7 +12,8 @@ import com.github.itdachen.framework.webmvc.convert.BizConvert;
  * @author 王大宸
  * @date 2023-05-17 21:20:37
  */
-public class WorkerIdentityConvert extends BizConvert< WorkerIdentity, WorkerIdentityDto, WorkerIdentityVo > {
+@Component
+public class WorkerIdentityConvert implements IWorkerIdentityConvert {
 
     @Override
     public WorkerIdentity toJavaObject(WorkerIdentityDto workerIdentityDto) {

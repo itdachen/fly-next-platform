@@ -1,23 +1,21 @@
 package com.github.itdachen.admin.service.impl;
 
-import com.github.itdachen.admin.convert.DictDataConvert;
-import com.github.itdachen.admin.convert.DictTypeConvert;
+import com.github.itdachen.admin.convert.IDictTypeConvert;
+import com.github.itdachen.admin.entity.DictType;
 import com.github.itdachen.admin.mapper.IDictDataMapper;
-import com.github.itdachen.admin.sdk.dto.DictDataDto;
+import com.github.itdachen.admin.mapper.IDictTypeMapper;
 import com.github.itdachen.admin.sdk.dto.DictTypeDto;
+import com.github.itdachen.admin.sdk.query.DictTypeQuery;
 import com.github.itdachen.admin.sdk.vo.DataDictVo;
 import com.github.itdachen.admin.sdk.vo.DictDataVo;
+import com.github.itdachen.admin.sdk.vo.DictTypeVo;
+import com.github.itdachen.admin.service.IDictTypeService;
 import com.github.itdachen.framework.context.exception.BizException;
+import com.github.itdachen.framework.core.response.TableData;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
+import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.github.itdachen.admin.entity.DictType;
-import com.github.itdachen.admin.sdk.query.DictTypeQuery;
-import com.github.itdachen.admin.sdk.vo.DictTypeVo;
-import com.github.itdachen.framework.core.response.TableData;
-import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
-import com.github.itdachen.admin.mapper.IDictTypeMapper;
-import com.github.itdachen.admin.service.IDictTypeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -32,14 +30,12 @@ import java.util.List;
  * @date 2023-04-04 21:44:47
  */
 @Service
-public class DictTypeServiceImpl extends BizServiceImpl<IDictTypeMapper, DictType, DictTypeDto, DictTypeVo, DictTypeQuery, String> implements IDictTypeService {
+public class DictTypeServiceImpl extends BizServiceImpl<IDictTypeMapper, IDictTypeConvert, DictType, DictTypeDto, DictTypeVo, DictTypeQuery, String> implements IDictTypeService {
     private static final Logger logger = LoggerFactory.getLogger(DictTypeServiceImpl.class);
-    private static final DictTypeConvert bizConvert = new DictTypeConvert();
     private final IDictDataMapper dictDataMapper;
 
-    public DictTypeServiceImpl(IDictDataMapper dictDataMapperr) {
-        super( bizConvert);
-        this.dictDataMapper = dictDataMapperr;
+    public DictTypeServiceImpl(IDictDataMapper dictDataMapper) {
+        this.dictDataMapper = dictDataMapper;
     }
 
 
