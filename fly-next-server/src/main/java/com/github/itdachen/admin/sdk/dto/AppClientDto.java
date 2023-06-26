@@ -8,6 +8,9 @@ import java.io.Serializable;
 
 /**
  * 应用管理 请求参数数据
+ * NotEmpty用在集合类上面,不能为null，并且长度必须大于0
+ * NotBlank 用在String上面, 只能作用在String上，不能为null，而且调用trim()后，长度必须大于0
+ * NotNull 用在基本类型上, 不能为null，但可以为空字符串
  *
  * @author 王大宸
  * @date 2023-04-04 21:26:23
@@ -261,16 +264,16 @@ public class AppClientDto implements Serializable {
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                .append("id", getId())
-                .append("appCode", getAppCode())
-                .append("appType", getAppType())
-                .append("appTitle", getAppTitle())
-                .append("askUri", getAskUri())
-                .append("lanUri", getLanUri())
-                .append("icon", getIcon())
-                .append("status", getStatus())
-                .append("remarks", getRemarks())
-                .append("canDel", getCanDel())
+                .append("id" , getId())
+                .append("appCode" , getAppCode())
+                .append("appType" , getAppType())
+                .append("appTitle" , getAppTitle())
+                .append("askUri" , getAskUri())
+                .append("lanUri" , getLanUri())
+                .append("icon" , getIcon())
+                .append("status" , getStatus())
+                .append("remarks" , getRemarks())
+                .append("canDel" , getCanDel())
                 .toString();
     }
 
