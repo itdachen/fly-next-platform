@@ -6,7 +6,7 @@
     <!-- 服务描述 -->
     <description>fly-next-admin</description>
     <executable>java</executable>
-    <!-- 启动可执行文件的路径 -->
+    <!-- 启动可执行文件的路径, 后面的 jar 名称与打包的 jar 名称保持一致 -->
     <arguments>-jar -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=128m -Xms512m -Xmx1024m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=512m -Xss256k -XX:SurvivorRatio=8 "../fly-next-admin.jar"</arguments>
 
     <!-- 启动模式，开机启动 -->
