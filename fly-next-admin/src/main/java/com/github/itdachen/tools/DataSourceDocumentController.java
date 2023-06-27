@@ -37,9 +37,9 @@ public class DataSourceDocumentController {
     @ResponseBody
     public void document(@PathVariable("type") String type) {
         EngineFileType fileType;
-        if ("HTML".equals(type)) {
+        if ("HTML".equalsIgnoreCase(type)) {
             fileType = EngineFileType.HTML;
-        } else if ("WORD".equals(type)) {
+        } else if ("WORD".equalsIgnoreCase(type)) {
             fileType = EngineFileType.WORD;
         } else {
             fileType = EngineFileType.MD;
