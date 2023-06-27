@@ -48,9 +48,9 @@ pause
 goto:eof
 
 :installandstart
-%AppName%  install
+%AppName% install
 echo -------------------------------------------
-%AppName% restart
+%AppName% start
 pause
 goto:eof
 
