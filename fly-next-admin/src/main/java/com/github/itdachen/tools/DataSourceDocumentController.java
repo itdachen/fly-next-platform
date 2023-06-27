@@ -46,7 +46,7 @@ public class DataSourceDocumentController {
         }
 
         TableDocsInfo tableDocsInfo = TableDocsInfo.builder()
-                .fileName("数据库表设计文档")
+                .fileName("FLY-NEXT 数据库表设计文档")
                 .fileType(fileType)
                 .openOutputDir(false)
                 .fileOutputDir("d:\\Downloads")
