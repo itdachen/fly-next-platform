@@ -23,6 +23,7 @@ public class DataSourceTableDocumentTests {
     public void tableDocument() {
         TableDocsInfo tableDocsInfo = TableDocsInfo.builder()
                 .fileName("数据库表设计文档")
+                .title("FlyNext 数据库文档")
                 .fileType(EngineFileType.HTML)
                 .openOutputDir(false)
                 .fileOutputDir("d:\\Downloads")

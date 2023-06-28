@@ -1,11 +1,5 @@
 package com.github.itdachen.tools;
 
-/**
- * Description:
- * Created by 王大宸 on 2023-06-27 16:01
- * Created with IntelliJ IDEA.
- */
-
 import cn.smallbun.screw.core.engine.EngineFileType;
 import com.github.itdachen.framework.code.TableDocsHelper;
 import com.github.itdachen.framework.code.entity.TableDocsInfo;
@@ -24,7 +18,7 @@ import javax.sql.DataSource;
  * @date 2023/6/27 16:01
  */
 @Controller
-@RequestMapping("/db/document")
+@RequestMapping("/db/docs")
 public class DataSourceDocumentController {
 
     private final DataSource dataSource;
@@ -37,16 +31,17 @@ public class DataSourceDocumentController {
     @ResponseBody
     public void document(@PathVariable("type") String type) {
         EngineFileType fileType;
-        if ("HTML".equalsIgnoreCase(type)) {
-            fileType = EngineFileType.HTML;
+        if ("MD".equalsIgnoreCase(type)) {
+            fileType = EngineFileType.MD;
         } else if ("WORD".equalsIgnoreCase(type)) {
             fileType = EngineFileType.WORD;
         } else {
-            fileType = EngineFileType.MD;
+            fileType = EngineFileType.HTML;
         }
 
         TableDocsInfo tableDocsInfo = TableDocsInfo.builder()
                 .fileName("FLY-NEXT 数据库表设计文档")
+                .title("FLY-NEXT 数据库表设计文档")
                 .fileType(fileType)
                 .openOutputDir(false)
                 .fileOutputDir("d:\\Downloads")
