@@ -1,18 +1,7 @@
-# 端口配置
-#server:
-#  port: 8080
-#  servlet:
-#    session:
-#      timeout: 18000
-
-
-config:
-  datasource:
-    encoder: AES
 
 # 日志配置
 logging:
-  config: classpath:fly-admin.xml
+  config: classpath:fly.xml
   level:
     cn.jay.repository: trace
 
@@ -66,10 +55,10 @@ spring:
       session:
         sessionInvalidUrl: /login
 
-  redis:
-    host: 127.0.0.1
-    database: 3
-
+  data:
+    redis:
+      database: 3
+      host: 127.0.0.1
 
 # mybatis
 mybatis:

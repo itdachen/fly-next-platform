@@ -5,14 +5,9 @@
 #    session:
 #      timeout: 18000
 
-
-config:
-  datasource:
-    encoder: AES
-
 # 日志配置
 logging:
-  config: classpath:fly-admin.xml
+  config: classpath:fly.xml
   level:
     cn.jay.repository: trace
 

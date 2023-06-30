@@ -8,7 +8,12 @@
     <Properties>
         <!-- 格式化输出：%date表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度 %msg：日志消息，%n是换行符-->
         <!-- %logger{36} 表示 Logger 名字最长36个字符 -->
-        <property name="LOG_PATTERN" value="%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+
+        <Property name="LOG_PATTERN">
+            %d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${hostName} -&#45;&#45; [%15.15t] %-40.40c{1.} : %m%n%ex
+        </Property>
+        <!-- <property name="LOG_PATTERN" value="%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>  -->
+
         <!-- 定义日志存储的路径 -->
         <property name="FILE_PATH" value="./logs/admin"/>
         <property name="FILE_NAME" value="fly-next-admin"/>
@@ -34,9 +39,10 @@
             <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
-                <!--interval属性用来指定多久滚动一次，默认是1 hour-->
-                <TimeBasedTriggeringPolicy interval="1"/>
+                <!-- 此处为每个文件大小策略限制，使用它一般会在文件中filePattern采用%i模式 -->
                 <SizeBasedTriggeringPolicy size="10MB"/>
+                <!-- 每天创建一个日志文件 -->
+                <TimeBasedTriggeringPolicy interval="1"/>
             </Policies>
             <!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件开始覆盖-->
             <DefaultRolloverStrategy max="45"/>
@@ -69,7 +75,19 @@
                 <SizeBasedTriggeringPolicy size="10MB"/>
             </Policies>
             <!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件开始覆盖-->
-            <DefaultRolloverStrategy max="45"/>
+            <!-- <DefaultRolloverStrategy max="45"/> -->
+
+            <DefaultRolloverStrategy max="30">
+                <Delete basePath="${LOG_FILE_PATH}" maxDepth="2">
+                    <IfFileName glob="*.log"/>
+                    <!--
+                    !Note: 这里的age必须和filePattern协调, 后者是精确到dd, 这里就要写成xd, xD就不起作用
+                    另外, 数字最好>2, 否则可能造成删除的时候, 最近的文件还处于被占用状态,导致删除不成功!-->
+                    <!--7天-->
+                    <IfLastModified age="7d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+
         </RollingFile>
     </appenders>
 
@@ -86,7 +104,7 @@
             <AppenderRef ref="Console"/>
         </Logger>
         <!-- 系统日志 -->
-        <Logger name="com.home" level="info" additivity="false">
+        <Logger name="com.github.itdachen" level="info" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
 

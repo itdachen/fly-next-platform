@@ -36,7 +36,7 @@
       * roll - 根据大小自动循环分割日志
       * roll-by-time - 根据日期循环分割日志
     默认模式: append
-    
+
     每种模式都有不同的设置。https://github.com/kohsuke/winsw/blob/master/doc/loggingAndErrorReporting.md
   -->
 
