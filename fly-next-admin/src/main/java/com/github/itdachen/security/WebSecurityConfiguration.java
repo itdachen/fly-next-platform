@@ -1,8 +1,8 @@
 package com.github.itdachen.security;
 
 
-import com.github.itdachen.admin.service.impl.AdminSecurityUserDetailsService;
-import com.github.itdachen.admin.service.impl.AdminUserDetailsPasswordService;
+import com.github.itdachen.dashboard.service.impl.AdminSecurityUserDetailsService;
+import com.github.itdachen.dashboard.service.impl.AdminUserDetailsPasswordService;
 import com.github.itdachen.security.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.github.itdachen.security.constants.SecurityConstants;
 import com.github.itdachen.security.handler.FlyAccessDeniedExceptionHandler;
@@ -13,8 +13,6 @@ import com.github.itdachen.security.validate.code.filter.ValidateCodeFilter;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
