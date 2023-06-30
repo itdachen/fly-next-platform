@@ -86,8 +86,6 @@ public class FlyAuthenticationFailureHandler extends SimpleUrlAuthenticationFail
                 .clientId("web_app")
                 .ip(request.getRemoteAddr())
                 .requestId(request.getRequestId())
-                .username(body.get("username"))
-                .password(body.get("password"))
                 .message(exception.getMessage())
                 .build();
 
@@ -96,10 +94,14 @@ public class FlyAuthenticationFailureHandler extends SimpleUrlAuthenticationFail
         if (body.containsKey("imageCode")) {
             build.setVerificationCode(body.get("imageCode"));
             build.setErrorType("password");
+            build.setUsername(body.get("username"));
+            build.setPassword(body.get("password"));
             type = "password";
         }
         if (body.containsKey("smsCode")) {
             build.setVerificationCode(body.get("smsCode"));
+            build.setUsername(body.get("mobile"));
+            build.setPassword(body.get("smsCode"));
             build.setErrorType("sms");
             type = "sms";
         }
