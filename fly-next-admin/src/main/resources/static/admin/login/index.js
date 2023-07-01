@@ -15,8 +15,6 @@ layui.use(['table'], function () {
     /* 表头事件监听 */
     toolBar(table);
 
-    /* 操作栏监听 */
-    tool(table);
 });
 
 /**
