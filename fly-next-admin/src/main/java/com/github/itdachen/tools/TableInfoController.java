@@ -38,6 +38,8 @@ public class TableInfoController {
     private static final Logger logger = LoggerFactory.getLogger(TableInfoController.class);
     private static final String CLIENT_ID = "web_app";
     private static final String PATH_PREFIX = "tools/code";
+    /* 代码生成时默认的菜单上级 */
+    private static final String MENU_ID = "1539506077102641152";
 
     private final ITableInfoService tableInfoService;
     private final WebAppClientConfig webAppClientConfig;
@@ -217,7 +219,7 @@ public class TableInfoController {
     @PostMapping(value = "/import/db")
     @ResponseBody
     public ServerResponse<ProtoTable> importGenTable(@RequestParam String tableNames) throws BizException {
-        tableInfoService.importGenTable(tableNames, webAppClientConfig.getId(), UiStyleConstant.LAY_UI);
+        tableInfoService.importGenTable(tableNames, webAppClientConfig.getId(), UiStyleConstant.LAY_UI, MENU_ID);
         return ServerResponse.ok();
     }
 

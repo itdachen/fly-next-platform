@@ -155,9 +155,19 @@ public class TableInfoServiceImpl implements ITableInfoService {
         return new TableData<ProtoTable>(page.getTotal(), list);
     }
 
+    /***
+     * 导入表
+     *
+     * @author 王大宸
+     * @date 2023/4/11 21:05
+     * @param tableNames tableNames
+     * @param uiStyle uiStyle
+     * @param menuId menuId
+     * @return void
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void importGenTable(String tableNames, String clientId, String uiStyle) throws BizException {
+    public void importGenTable(String tableNames, String clientId, String uiStyle,String menuId) throws BizException {
         if (null == tableNames) {
             throw new BizException("请选择表");
         }
@@ -173,7 +183,7 @@ public class TableInfoServiceImpl implements ITableInfoService {
         for (ProtoTable protoTable : tableList) {
             protoTable.setColumns(tableInfoMapper.findTableColumns(protoTable.getTableName()));
         }
-        ProtoTableInfo protoTableInfo = TableColumnFieldUtils.pottingTableInfo(tableList, clientId, uiStyle, MENU_ID);
+        ProtoTableInfo protoTableInfo = TableColumnFieldUtils.pottingTableInfo(tableList, clientId, uiStyle, menuId);
         if (0 < protoTableInfo.getTableInfos().size()) {
             tableInfoMapper.batchSave(protoTableInfo.getTableInfos());
         }

@@ -88,11 +88,12 @@ public interface ITableInfoService {
      *
      * @author 王大宸
      * @date 2023/4/11 21:05
-     * @param tableName tableName
+     * @param tableNames tableNames
      * @param uiStyle uiStyle
+     * @param menuId menuId
      * @return void
      */
-    void importGenTable(String tableName, String clientId, String uiStyle) throws BizException;
+    void importGenTable(String tableNames, String clientId, String uiStyle, String menuId) throws BizException;
 
     /***
      * 生成代码

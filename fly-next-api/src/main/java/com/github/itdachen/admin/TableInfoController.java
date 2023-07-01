@@ -35,6 +35,8 @@ import java.util.Map;
 public class TableInfoController {
     private static final Logger logger = LoggerFactory.getLogger(TableInfoController.class);
     private static final String CLIENT_ID = "NEXT_APP";
+    /* 代码生成时默认的菜单上级 */
+    private static final String MENU_ID = "1657266958112002048";
 
     private final ITableInfoService tableInfoService;
 
@@ -125,7 +127,7 @@ public class TableInfoController {
     @PostMapping(value = "/import/db")
     @ResponseBody
     public ServerResponse<ProtoTable> importGenTable(@RequestParam String tableNames) throws BizException {
-        tableInfoService.importGenTable(tableNames, CLIENT_ID, UiStyleConstant.VUE_ELEMENT);
+        tableInfoService.importGenTable(tableNames, CLIENT_ID, UiStyleConstant.VUE_ELEMENT, MENU_ID);
         return ServerResponse.ok();
     }
 
