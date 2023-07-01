@@ -41,6 +41,7 @@ import java.util.*;
 @Service
 public class TableInfoServiceImpl implements ITableInfoService {
     private static final Logger logger = LoggerFactory.getLogger(TableInfoServiceImpl.class);
+    private static final String MENU_ID = "1539506077102641152";
 
     private final ITableInfoMapper tableInfoMapper;
     private final ITableColumnMapper tableColumnMapper;
@@ -172,7 +173,7 @@ public class TableInfoServiceImpl implements ITableInfoService {
         for (ProtoTable protoTable : tableList) {
             protoTable.setColumns(tableInfoMapper.findTableColumns(protoTable.getTableName()));
         }
-        ProtoTableInfo protoTableInfo = TableColumnFieldUtils.pottingTableInfo(tableList, clientId, uiStyle);
+        ProtoTableInfo protoTableInfo = TableColumnFieldUtils.pottingTableInfo(tableList, clientId, uiStyle, MENU_ID);
         if (0 < protoTableInfo.getTableInfos().size()) {
             tableInfoMapper.batchSave(protoTableInfo.getTableInfos());
         }

@@ -1,5 +1,6 @@
 package com.github.itdachen.tools;
 
+import com.github.itdachen.config.WebAppClientConfig;
 import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import com.github.itdachen.framework.code.constants.UiStyleConstant;
 import com.github.itdachen.framework.code.entity.ProtoTable;
@@ -39,9 +40,12 @@ public class TableInfoController {
     private static final String PATH_PREFIX = "tools/code";
 
     private final ITableInfoService tableInfoService;
+    private final WebAppClientConfig webAppClientConfig;
 
-    public TableInfoController(ITableInfoService tableInfoService) {
+    public TableInfoController(ITableInfoService tableInfoService,
+                               WebAppClientConfig webAppClientConfig) {
         this.tableInfoService = tableInfoService;
+        this.webAppClientConfig = webAppClientConfig;
     }
 
 
@@ -213,7 +217,7 @@ public class TableInfoController {
     @PostMapping(value = "/import/db")
     @ResponseBody
     public ServerResponse<ProtoTable> importGenTable(@RequestParam String tableNames) throws BizException {
-        tableInfoService.importGenTable(tableNames, CLIENT_ID, UiStyleConstant.LAY_UI);
+        tableInfoService.importGenTable(tableNames, webAppClientConfig.getId(), UiStyleConstant.LAY_UI);
         return ServerResponse.ok();
     }
 

@@ -1136,7 +1136,7 @@ $(function () {
                     theme: '#1E9FFF',
                     groups: 5,
                     limits: [10, 15, 30, 50, 100, 500, 10000],
-                    layout: ['prev', 'page', 'next', 'limit', 'count'],
+                    layout: ['prev', 'page', 'next', 'limit', 'skip', 'refresh', 'count'],
                     prev: '上一页',
                     next: '下一页'
                 },
