@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <th:block th:include="common/common::common('登录日志')"/>
+    <script th:src="@{/static/admin/login/index.js}" charset="utf-8"></script>
+    <style>
+        .layui-table-cell,
+        .layui-table-tool-panel li {
+            text-overflow: unset !important;
+            white-space: unset !important;
+            word-wrap: break-word !important;
+            word-break: break-all;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-color">
+
+<!-- 表头工具栏 -->
+<script type="text/html" id="toolbar">
+    <div class="tool-head-bar">
+        <div class="head-search">
+            <input class="layui-input float_left" placeholder="登录者姓名"
+                   id="nickname" name="nickname" autocomplete="off">
+            <input class="layui-input float_left" placeholder="登录账号"
+                   id="username" name="username" autocomplete="off">
+            <!--  th:with="dicts=${@dict.data('log_business_type')}" -->
+            <select id="status" name="status">
+                <option value="">登录状态</option>
+                <option value="1">成功</option>
+                <option value="0">失败</option>
+<!--                <option th:each="dict : ${dicts}"-->
+<!--                        th:text="${dict.label}"-->
+<!--                        th:value="${dict.value}">-->
+<!--                </option>-->
+            </select>
+            <button class="layui-btn layui-btn-sm layui-btn-normal search-btn float_left"
+                    lay-event="search">
+                <i class="layui-icon layui-icon-search"></i>搜索
+            </button>
+        </div>
+        <button sec:authorize="hasAuthority('admin:login:record:save')"
+                class="layui-btn layui-btn-sm layui-btn-normal add-btn"
+                lay-event="saveLoginRecord">
+            <i class="layui-icon"></i>新增
+        </button>
+    </div>
+</script>
+
+<div class="body_info">
+    <div class="data_div">
+        <!-- 表格 -->
+        <div class="layui_table">
+            <table class="layui-hide" id="layTable" lay-filter="layFilter"></table>
+            <div id="layPage"></div>
+        </div>
+    </div>
+</div>
+
+<!-- 操作工具栏 -->
+<script type="text/html" id="toolbarHandle">
+    <button class="tool-bar-btn see-button" lay-event="view">
+        <i class="layui-icon layui-icon-list"></i>查看
+    </button>
+</script>
+
+</body>
+</html>

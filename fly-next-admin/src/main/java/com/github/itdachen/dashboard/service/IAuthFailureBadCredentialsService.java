@@ -1,7 +1,6 @@
 package com.github.itdachen.dashboard.service;
 
-import com.github.itdachen.dashboard.entity.LoginErrorRecord;
-import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * Description: 认证失败监听
@@ -10,8 +9,6 @@ import org.springframework.security.authentication.event.AuthenticationFailureBa
  */
 public interface IAuthFailureBadCredentialsService {
 
-    void onApplicationEvent(AuthenticationFailureBadCredentialsEvent e);
-
-    void onApplicationEvent(LoginErrorRecord e);
+    void onApplicationEvent(HttpServletRequest request, String message, String sessionId);
 
 }

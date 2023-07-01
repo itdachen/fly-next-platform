@@ -1,5 +1,6 @@
 package com.github.itdachen.security.handler;
 
+import com.github.itdachen.dashboard.service.IAuthSuccessService;
 import com.github.itdachen.security.constants.SecurityBrowserConstants;
 import com.github.itdachen.security.properties.SecurityBrowserProperties;
 import jakarta.servlet.ServletException;
@@ -24,9 +25,12 @@ public class FlyAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
     private static final Logger logger = LoggerFactory.getLogger(FlyAuthenticationSuccessHandler.class);
 
     private final SecurityBrowserProperties securityProperties;
+    private final IAuthSuccessService authSuccessService;
 
-    public FlyAuthenticationSuccessHandler(SecurityBrowserProperties securityProperties) {
+    public FlyAuthenticationSuccessHandler(SecurityBrowserProperties securityProperties,
+                                           IAuthSuccessService authSuccessService) {
         this.securityProperties = securityProperties;
+        this.authSuccessService = authSuccessService;
     }
 
     @Override
@@ -38,8 +42,15 @@ public class FlyAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
 //        CurrentUser user = (CurrentUser) authentication.getPrincipal();
 //        user.setType(netType);
 
+        /**
+         * 登录记录入库
+         */
+        authSuccessService.onAuthenticationSuccess(request, request.getSession().getId());
+
         String redirect_uri = request.getParameter(SecurityBrowserConstants.REDIRECT_URI);
         String targetUrl = StringUtils.isEmpty(redirect_uri) ? securityProperties.getSuccessForwardUrl() : redirect_uri;
+
+
 
         // 登录成功之后跳转地址
         setAlwaysUseDefaultTargetUrl(true);
