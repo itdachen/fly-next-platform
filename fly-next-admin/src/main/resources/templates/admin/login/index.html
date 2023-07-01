@@ -28,15 +28,10 @@
                    id="nickname" name="nickname" autocomplete="off">
             <input class="layui-input float_left" placeholder="登录账号"
                    id="username" name="username" autocomplete="off">
-            <!--  th:with="dicts=${@dict.data('log_business_type')}" -->
             <select id="status" name="status">
                 <option value="">登录状态</option>
                 <option value="1">成功</option>
                 <option value="0">失败</option>
-<!--                <option th:each="dict : ${dicts}"-->
-<!--                        th:text="${dict.label}"-->
-<!--                        th:value="${dict.value}">-->
-<!--                </option>-->
             </select>
             <button class="layui-btn layui-btn-sm layui-btn-normal search-btn float_left"
                     lay-event="search">
@@ -60,13 +55,6 @@
         </div>
     </div>
 </div>
-
-<!-- 操作工具栏 -->
-<script type="text/html" id="toolbarHandle">
-    <button class="tool-bar-btn see-button" lay-event="view">
-        <i class="layui-icon layui-icon-list"></i>查看
-    </button>
-</script>
 
 </body>
 </html>

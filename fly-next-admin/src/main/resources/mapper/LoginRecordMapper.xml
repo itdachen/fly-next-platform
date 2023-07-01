@@ -17,20 +17,23 @@
             <result property="os" column="os"/>
             <result property="status" column="status"/>
             <result property="msg" column="msg"/>
+        <result property="createTime" column="create_time"/>
+
     </resultMap>
 
     <sql id="selectLoginRecordVo">
-        SELECT id, 
-session_id, 
-client_id, 
-nickname, 
-username, 
-ip, 
-access_address, 
-browser, 
-os, 
-status, 
-msg
+        SELECT id,
+               session_id,
+               client_id,
+               nickname,
+               username,
+               ip,
+               access_address,
+               browser,
+               os,
+               status,
+               msg,
+               create_time
         FROM sys_login_record
     </sql>
 

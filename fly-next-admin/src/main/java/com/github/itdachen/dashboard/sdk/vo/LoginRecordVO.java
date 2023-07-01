@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 
 /**
@@ -71,6 +72,7 @@ public class LoginRecordVO implements Serializable {
      */
     private String msg;
 
+    private LocalDateTime createTime;
 
     public LoginRecordVO() {
     }
@@ -281,6 +283,13 @@ public class LoginRecordVO implements Serializable {
         return msg;
     }
 
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
 
     @Override
     public String toString() {
@@ -296,6 +305,7 @@ public class LoginRecordVO implements Serializable {
                 .append("os", getOs())
                 .append("status", getStatus())
                 .append("msg", getMsg())
+                .append("createTime", getCreateTime())
                 .toString();
     }
 
