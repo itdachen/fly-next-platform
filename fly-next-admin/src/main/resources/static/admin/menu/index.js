@@ -25,7 +25,7 @@ layui.use(['table', 'form'], function () {
     tool(table);
 
     /* 隐藏新增按钮 */
-    if ('ROOT' === parentId || '0' === parentId) {
+    if ('ROOT' === parentId || '0' === parentId || '1' === parentId) {
         $('#headBarTool').attr('style', 'display:none')
     }
 
@@ -176,6 +176,11 @@ function initTree() {
                 $('#headBarTool').attr('style', 'display:block')
                 reloadTableData()
             }
+
+            if ('1' === parentId) {
+                $('#headBarTool').attr('style', 'display:none')
+            }
+
         }
     })
 }
