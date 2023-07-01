@@ -43,16 +43,16 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
 
     @Override
     public CurrentUserInfo loadUserByUsername(String username) throws UsernameNotFoundException {
+        /* 根据登录账号, 查询 5 分钟内登录失败次数 */
+        Integer errTotal = loginErrorRecordMapper.findErrTotal(username);
+        if (10 <= errTotal) {
+            throw new BizSecurityException("您已在 5 分钟内登录错误 10 次, 请 10 分钟之后再登录！");
+        }
+
         CurrentUserDetails user = userDetailsMapper.loadUserByUsername(username);
         if (null == user) {
             logger.error("登录账号: " + username + " 不存在");
             throw new BizSecurityException("登录账号 " + username + " 不存在,请检查账号是否正确");
-        }
-
-        Integer errTotal = loginErrorRecordMapper.findErrTotal(username);
-
-        if (10 <= errTotal) {
-            throw new BizSecurityException("您已在 5 分钟内登录错误 10 次, 请 10 分钟之后再登录！");
         }
 
         setUserInfo(user);
@@ -61,7 +61,14 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
 
     @Override
     public CurrentUserInfo loadUserByMobile(String mobile) throws UsernameNotFoundException {
-        mobile = "admin";
+      //  mobile = "admin";
+
+        /* 根据登录账号, 查询 5 分钟内登录失败次数 */
+        Integer errTotal = loginErrorRecordMapper.findErrTotal(mobile);
+        if (10 <= errTotal) {
+            throw new BizSecurityException("您已在 5 分钟内登录错误 10 次, 请 10 分钟之后再登录！");
+        }
+
         CurrentUserDetails user = userDetailsMapper.loadUserByMobile(mobile);
         if (null == user) {
             logger.error("登录手机号: " + mobile + " 不存在");
