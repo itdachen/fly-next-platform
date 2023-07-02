@@ -101,13 +101,19 @@ public class AuthSuccessServiceImpl implements IAuthSuccessService {
         if (authentication.getClass().equals(RememberMeAuthenticationToken.class)) {
             RememberMeAuthenticationToken authenticationToken = (RememberMeAuthenticationToken) authentication;
             Object principal = authenticationToken.getPrincipal();
-            return (CurrentUserDetails) principal;
+            CurrentUserDetails userDetails =  (CurrentUserDetails) principal;
+            userDetails.setSignMethod("RememberMe");
+            return userDetails;
         }
         final Map<String, String> body = BodyUtils.requestBody(request);
         if (body.containsKey("imageCode")) {
-            return userDetailsMapper.loadUserByUsername(body.get("username"));
+            CurrentUserDetails userDetails = userDetailsMapper.loadUserByUsername(body.get("username"));
+            userDetails.setSignMethod(LoginModeConstant.PASSWORD);
+            return userDetails;
         }
-        return userDetailsMapper.loadUserByMobile(body.get("mobile"));
+        CurrentUserDetails userDetails = userDetailsMapper.loadUserByMobile(body.get("mobile"));
+        userDetails.setSignMethod(LoginModeConstant.SMS);
+        return userDetails;
     }
 
 }
