@@ -8,18 +8,21 @@ import com.github.itdachen.dashboard.mapper.IUserDetailsMapper;
 import com.github.itdachen.dashboard.service.IAuthSuccessService;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.userdetails.CurrentUserDetails;
+import com.github.itdachen.framework.core.utils.StringUtils;
 import com.github.itdachen.framework.tools.ip.AddressUtils;
 import com.github.itdachen.framework.tools.request.BodyUtils;
 import com.github.itdachen.framework.tools.request.BrowserUtils;
 import com.github.itdachen.framework.tools.request.OSUtils;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
+import com.github.itdachen.security.authentication.mobile.SmsCodeAuthenticationToken;
 import com.github.itdachen.security.constants.LoginModeConstant;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.authentication.RememberMeAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import javax.swing.text.html.parser.Entity;
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -33,41 +36,32 @@ public class AuthSuccessServiceImpl implements IAuthSuccessService {
 
     private final IUserDetailsMapper userDetailsMapper;
     private final ILoginRecordMapper loginRecordMapper;
-    private final WebAppClientConfig webAppClientConfig;
 
     public AuthSuccessServiceImpl(IUserDetailsMapper userDetailsMapper,
-                                  ILoginRecordMapper loginRecordMapper,
-                                  WebAppClientConfig webAppClientConfig) {
+                                  ILoginRecordMapper loginRecordMapper) {
         this.userDetailsMapper = userDetailsMapper;
         this.loginRecordMapper = loginRecordMapper;
-        this.webAppClientConfig = webAppClientConfig;
     }
 
     @Override
     @Async
-    public void onAuthenticationSuccess(HttpServletRequest request, String sessionId) {
+    public void onAuthenticationSuccess(HttpServletRequest request, Authentication authentication, String sessionId) {
+        /* 获取登录用户信息 */
+        CurrentUserDetails userDetails = getUserDetails(request, authentication);
 
-        final Map<String, String> body = BodyUtils.requestBody(request);
-        CurrentUserDetails userDetails;
-        if (body.containsKey("imageCode")) {
-            userDetails = userDetailsMapper.loadUserByUsername(body.get("username"));
-        } else {
-            userDetails = userDetailsMapper.loadUserByMobile(body.get("mobile"));
+        if (null == userDetails || StringUtils.isEmpty(userDetails.getAccount()) || StringUtils.isEmpty(userDetails.getNickName())) {
+            return;
         }
 
-        if (null == userDetails) {
-            userDetails = new CurrentUserDetails();
-        }
-
+        // final String remoteAddr = "223.73.144.233";
         final String remoteAddr = request.getRemoteAddr();
         final String realAddress = AddressUtils.getRealAddressByIP(remoteAddr);
 
-        //  final String realAddress = AddressUtils.getRealAddressByIP("223.73.144.233");
-
         LoginRecord loginRecord = LoginRecord.builder()
                 .id(EntityUtils.getId())
-                // .sessionId(sessionId)
-                .clientId(webAppClientConfig.getId())
+                .sessionId(sessionId)
+                .clientId(userDetails.getClientId())
+                .signMethod(userDetails.getSignMethod())
                 .nickname(userDetails.getNickName())
                 .username(userDetails.getAccount())
                 .ip(remoteAddr)
@@ -79,6 +73,41 @@ public class AuthSuccessServiceImpl implements IAuthSuccessService {
                 .accessAddress(realAddress)
                 .build();
         loginRecordMapper.insertSelective(loginRecord);
+    }
+
+    /***
+     * 获取登录用户信息
+     *
+     * @author 王大宸
+     * @date 2023/7/2 14:27
+     * @param request request
+     * @param authentication authentication
+     * @return com.github.itdachen.framework.context.userdetails.CurrentUserDetails
+     */
+    private CurrentUserDetails getUserDetails(HttpServletRequest request, Authentication authentication) {
+        /* 账号密码登录 */
+        if (authentication.getClass().equals(UsernamePasswordAuthenticationToken.class)) {
+            UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) authentication;
+            Object principal = authenticationToken.getPrincipal();
+            return (CurrentUserDetails) principal;
+        }
+        /* 短信验证码登录 */
+        if (authentication.getClass().equals(SmsCodeAuthenticationToken.class)) {
+            SmsCodeAuthenticationToken authenticationToken = (SmsCodeAuthenticationToken) authentication;
+            Object principal = authenticationToken.getPrincipal();
+            return (CurrentUserDetails) principal;
+        }
+        /* 记住我 */
+        if (authentication.getClass().equals(RememberMeAuthenticationToken.class)) {
+            RememberMeAuthenticationToken authenticationToken = (RememberMeAuthenticationToken) authentication;
+            Object principal = authenticationToken.getPrincipal();
+            return (CurrentUserDetails) principal;
+        }
+        final Map<String, String> body = BodyUtils.requestBody(request);
+        if (body.containsKey("imageCode")) {
+            return userDetailsMapper.loadUserByUsername(body.get("username"));
+        }
+        return userDetailsMapper.loadUserByMobile(body.get("mobile"));
     }
 
 }

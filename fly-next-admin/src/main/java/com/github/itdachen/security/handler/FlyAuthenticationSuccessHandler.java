@@ -45,7 +45,7 @@ public class FlyAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
         /**
          * 登录记录入库
          */
-        authSuccessService.onAuthenticationSuccess(request, request.getSession().getId());
+        authSuccessService.onAuthenticationSuccess(request, authentication, request.getSession().getId());
 
         String redirect_uri = request.getParameter(SecurityBrowserConstants.REDIRECT_URI);
         String targetUrl = StringUtils.isEmpty(redirect_uri) ? securityProperties.getSuccessForwardUrl() : redirect_uri;

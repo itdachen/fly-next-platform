@@ -38,6 +38,11 @@ public class LoginRecordVO implements Serializable {
     private String nickname;
 
     /**
+     * 登录放肆
+     */
+    private String signMethod;
+
+    /**
      * 登录账号
      */
     private String username;
@@ -72,16 +77,21 @@ public class LoginRecordVO implements Serializable {
      */
     private String msg;
 
+    /**
+     * 访问时间
+     */
     private LocalDateTime createTime;
+
 
     public LoginRecordVO() {
     }
 
-    public LoginRecordVO(String id, String sessionId, String clientId, String nickname, String username, String ip, String accessAddress, String browser, String os, String status, String msg) {
+    public LoginRecordVO(String id, String sessionId, String clientId, String nickname, String signMethod, String username, String ip, String accessAddress, String browser, String os, String status, String msg, LocalDateTime createTime) {
         this.id = id;
         this.sessionId = sessionId;
         this.clientId = clientId;
         this.nickname = nickname;
+        this.signMethod = signMethod;
         this.username = username;
         this.ip = ip;
         this.accessAddress = accessAddress;
@@ -89,6 +99,7 @@ public class LoginRecordVO implements Serializable {
         this.os = os;
         this.status = status;
         this.msg = msg;
+        this.createTime = createTime;
     }
 
     public static LoginRecordVOBuilder builder() {
@@ -100,6 +111,7 @@ public class LoginRecordVO implements Serializable {
         private String sessionId;
         private String clientId;
         private String nickname;
+        private String signMethod;
         private String username;
         private String ip;
         private String accessAddress;
@@ -107,6 +119,7 @@ public class LoginRecordVO implements Serializable {
         private String os;
         private String status;
         private String msg;
+        private LocalDateTime createTime;
 
         public LoginRecordVOBuilder() {
         }
@@ -132,6 +145,12 @@ public class LoginRecordVO implements Serializable {
         /* 登陆者姓名 */
         public LoginRecordVOBuilder nickname(String nickname) {
             this.nickname = nickname;
+            return this;
+        }
+
+        /* 登录放肆 */
+        public LoginRecordVOBuilder signMethod(String signMethod) {
+            this.signMethod = signMethod;
             return this;
         }
 
@@ -177,18 +196,26 @@ public class LoginRecordVO implements Serializable {
             return this;
         }
 
+        /* 访问时间 */
+        public LoginRecordVOBuilder createTime(LocalDateTime createTime) {
+            this.createTime = createTime;
+            return this;
+        }
+
         public LoginRecordVO build() {
             return new LoginRecordVO(id,
                     sessionId,
                     clientId,
                     nickname,
+                    signMethod,
                     username,
                     ip,
                     accessAddress,
                     browser,
                     os,
                     status,
-                    msg
+                    msg,
+                    createTime
             );
         }
 
@@ -225,6 +252,14 @@ public class LoginRecordVO implements Serializable {
 
     public String getNickname() {
         return nickname;
+    }
+
+    public void setSignMethod(String signMethod) {
+        this.signMethod = signMethod;
+    }
+
+    public String getSignMethod() {
+        return signMethod;
     }
 
     public void setUsername(String username) {
@@ -283,13 +318,14 @@ public class LoginRecordVO implements Serializable {
         return msg;
     }
 
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
     public LocalDateTime getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
 
     @Override
     public String toString() {
@@ -298,6 +334,7 @@ public class LoginRecordVO implements Serializable {
                 .append("sessionId", getSessionId())
                 .append("clientId", getClientId())
                 .append("nickname", getNickname())
+                .append("signMethod", getSignMethod())
                 .append("username", getUsername())
                 .append("ip", getIp())
                 .append("accessAddress", getAccessAddress())

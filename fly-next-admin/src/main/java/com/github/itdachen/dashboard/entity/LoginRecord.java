@@ -46,6 +46,12 @@ public class LoginRecord implements Serializable {
     private String nickname;
 
     /**
+     * 登录放肆
+     */
+    @Column(name = "sign_method")
+    private String signMethod;
+
+    /**
      * 登录账号
      */
     @Column(name = "username")
@@ -98,11 +104,12 @@ public class LoginRecord implements Serializable {
     }
 
 
-    public LoginRecord(String id, String sessionId, String clientId, String nickname, String username, String ip, String accessAddress, String browser, String os, String status, String msg, LocalDateTime createTime) {
+    public LoginRecord(String id, String sessionId, String clientId, String nickname, String signMethod, String username, String ip, String accessAddress, String browser, String os, String status, String msg, LocalDateTime createTime) {
         this.id = id;
         this.sessionId = sessionId;
         this.clientId = clientId;
         this.nickname = nickname;
+        this.signMethod = signMethod;
         this.username = username;
         this.ip = ip;
         this.accessAddress = accessAddress;
@@ -122,6 +129,7 @@ public class LoginRecord implements Serializable {
         private String sessionId;
         private String clientId;
         private String nickname;
+        private String signMethod;
         private String username;
         private String ip;
         private String accessAddress;
@@ -155,6 +163,12 @@ public class LoginRecord implements Serializable {
         /* 登陆者姓名 */
         public LoginRecordBuilder nickname(String nickname) {
             this.nickname = nickname;
+            return this;
+        }
+
+        /* 登录放肆 */
+        public LoginRecordBuilder signMethod(String signMethod) {
+            this.signMethod = signMethod;
             return this;
         }
 
@@ -211,6 +225,7 @@ public class LoginRecord implements Serializable {
                     sessionId,
                     clientId,
                     nickname,
+                    signMethod,
                     username,
                     ip,
                     accessAddress,
@@ -255,6 +270,14 @@ public class LoginRecord implements Serializable {
 
     public String getNickname() {
         return nickname;
+    }
+
+    public void setSignMethod(String signMethod) {
+        this.signMethod = signMethod;
+    }
+
+    public String getSignMethod() {
+        return signMethod;
     }
 
     public void setUsername(String username) {
@@ -329,6 +352,7 @@ public class LoginRecord implements Serializable {
                 .append("sessionId", getSessionId())
                 .append("clientId", getClientId())
                 .append("nickname", getNickname())
+                .append("signMethod", getSignMethod())
                 .append("username", getUsername())
                 .append("ip", getIp())
                 .append("accessAddress", getAccessAddress())

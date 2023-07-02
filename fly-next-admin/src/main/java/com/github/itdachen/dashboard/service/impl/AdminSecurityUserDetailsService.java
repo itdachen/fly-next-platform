@@ -1,5 +1,6 @@
 package com.github.itdachen.dashboard.service.impl;
 
+import com.github.itdachen.config.WebAppClientConfig;
 import com.github.itdachen.dashboard.mapper.IAuthenticationAuthorityMapper;
 import com.github.itdachen.dashboard.mapper.ILoginErrorRecordMapper;
 import com.github.itdachen.dashboard.mapper.IUserDetailsMapper;
@@ -7,6 +8,7 @@ import com.github.itdachen.admin.entity.UserInfo;
 import com.github.itdachen.admin.mapper.IUserInfoMapper;
 import com.github.itdachen.framework.context.constants.UserTypeConstant;
 import com.github.itdachen.framework.context.userdetails.CurrentUserDetails;
+import com.github.itdachen.security.constants.LoginModeConstant;
 import com.github.itdachen.security.details.AbstractSecurityUserDetailsService;
 import com.github.itdachen.security.exception.BizSecurityException;
 import com.github.itdachen.security.user.CurrentUserInfo;
@@ -30,15 +32,18 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
     private final IUserDetailsMapper userDetailsMapper;
     private final IUserInfoMapper userInfoMapper;
     private final ILoginErrorRecordMapper loginErrorRecordMapper;
+    private final WebAppClientConfig webAppClientConfig;
 
     public AdminSecurityUserDetailsService(IAuthenticationAuthorityMapper permsAuthMapper,
                                            IUserDetailsMapper userDetailsMapper,
                                            IUserInfoMapper userInfoMapper,
-                                           ILoginErrorRecordMapper loginErrorRecordMapper) {
+                                           ILoginErrorRecordMapper loginErrorRecordMapper,
+                                           WebAppClientConfig webAppClientConfig) {
         this.permsAuthMapper = permsAuthMapper;
         this.userDetailsMapper = userDetailsMapper;
         this.userInfoMapper = userInfoMapper;
         this.loginErrorRecordMapper = loginErrorRecordMapper;
+        this.webAppClientConfig = webAppClientConfig;
     }
 
     @Override
@@ -54,14 +59,15 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
             logger.error("登录账号: " + username + " 不存在");
             throw new BizSecurityException("登录账号 " + username + " 不存在,请检查账号是否正确");
         }
-
+        user.setSignMethod(LoginModeConstant.PASSWORD);
+        user.setClientId(webAppClientConfig.getId());
         setUserInfo(user);
         return getUserPermission(user);
     }
 
     @Override
     public CurrentUserInfo loadUserByMobile(String mobile) throws UsernameNotFoundException {
-      //  mobile = "admin";
+        mobile = "admin";
 
         /* 根据登录账号, 查询 5 分钟内登录失败次数 */
         Integer errTotal = loginErrorRecordMapper.findErrTotal(mobile);
@@ -74,6 +80,8 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
             logger.error("登录手机号: " + mobile + " 不存在");
             throw new BizSecurityException("登录手机号 " + mobile + " 不存在,请检查登录手机号是否正确");
         }
+        user.setSignMethod(LoginModeConstant.SMS);
+        user.setClientId(webAppClientConfig.getId());
         setUserInfo(user);
         return getUserPermission(user);
     }

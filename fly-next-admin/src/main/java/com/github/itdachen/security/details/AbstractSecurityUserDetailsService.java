@@ -180,6 +180,8 @@ public abstract class AbstractSecurityUserDetailsService implements UserDetailsS
 
         info.setId(user.getId());
         info.setTenantId(user.getTenantId());
+        info.setClientId(user.getClientId());
+        info.setSignMethod(user.getSignMethod());
         info.setNickName(user.getNickName());
         info.setAvatar(user.getAvatar());
         info.setTelephone(user.getTelephone());

@@ -59,6 +59,7 @@ function options() {
         cols: [[
             {field: 'nickname', title: '登录者姓名', align: "center"},
             {field: 'username', title: '登录账号', align: "center"},
+            {field: 'signMethod', title: '登录方式', align: "center"},
             {field: 'os', title: '操作系统', align: "center"},
             {field: 'browser', title: '浏览器', align: "center"},
             {

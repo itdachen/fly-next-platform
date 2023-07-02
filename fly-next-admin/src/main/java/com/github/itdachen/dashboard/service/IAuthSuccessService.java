@@ -1,6 +1,7 @@
 package com.github.itdachen.dashboard.service;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.core.Authentication;
 
 /**
  * Description:
@@ -10,6 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 public interface IAuthSuccessService {
 
 
-    void onAuthenticationSuccess(HttpServletRequest request, String sessionId);
+    void onAuthenticationSuccess(HttpServletRequest request, Authentication authentication, String sessionId);
 
 }
