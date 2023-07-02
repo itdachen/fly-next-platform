@@ -49,10 +49,7 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
     @Override
     public CurrentUserInfo loadUserByUsername(String username) throws UsernameNotFoundException {
         /* 根据登录账号, 查询 5 分钟内登录失败次数 */
-        Integer errTotal = loginErrorRecordMapper.findErrTotal(username);
-        if (10 <= errTotal) {
-            throw new BizSecurityException("您已在 5 分钟内登录错误 10 次, 请 10 分钟之后再登录！");
-        }
+        checkUpErrorTotal(username);
 
         CurrentUserDetails user = userDetailsMapper.loadUserByUsername(username);
         if (null == user) {
@@ -67,13 +64,10 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
 
     @Override
     public CurrentUserInfo loadUserByMobile(String mobile) throws UsernameNotFoundException {
-        mobile = "admin";
+       // mobile = "admin";
 
         /* 根据登录账号, 查询 5 分钟内登录失败次数 */
-        Integer errTotal = loginErrorRecordMapper.findErrTotal(mobile);
-        if (10 <= errTotal) {
-            throw new BizSecurityException("您已在 5 分钟内登录错误 10 次, 请 10 分钟之后再登录！");
-        }
+        checkUpErrorTotal(mobile);
 
         CurrentUserDetails user = userDetailsMapper.loadUserByMobile(mobile);
         if (null == user) {
@@ -85,6 +79,22 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
         setUserInfo(user);
         return getUserPermission(user);
     }
+
+    /***
+     * 检查是否登录超次数
+     *
+     * @author 王大宸
+     * @date 2023/7/2 15:11
+     * @param username 登录账号
+     * @return void
+     */
+    private void checkUpErrorTotal(String username) throws UsernameNotFoundException {
+        Integer errTotal = loginErrorRecordMapper.findErrTotal(username);
+        if (10 <= errTotal) {
+            throw new BizSecurityException("您已在 5 分钟内登录错误 10 次, 请 10 分钟之后再登录！");
+        }
+    }
+
 
     /***
      * 查询用户权限
