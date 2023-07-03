@@ -16,7 +16,10 @@
     <description>后台管理系统</description>
 
     <dependencies>
-
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-body-advice</artifactId>
+        </dependency>
 
         <!-- 項目启动容器 -->
         <dependency>
@@ -40,6 +43,12 @@
             <artifactId>fly-runner</artifactId>
         </dependency>
 
+        <!-- 自定义接口限流 -->
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-rate-limiter</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.github.itdachen</groupId>
             <artifactId>fly-next-server</artifactId>
@@ -57,10 +66,6 @@
             <artifactId>fly-hardware</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.github.itdachen.framework</groupId>
-            <artifactId>fly-body-advice</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.github.itdachen.framework</groupId>
             <artifactId>fly-log</artifactId>

@@ -30,18 +30,17 @@ public class FlyAdminBootstrapWebMvcConfig implements WebMvcConfigurer {
         this.filterMatchers = filterMatchers;
     }
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**")
-                .addResourceLocations("classpath:/static/");
-    }
-
     @Bean
     public GlobalExceptionHandler getGlobalExceptionHandler() {
         logger.info("正在配置全局异常处理 ...");
         return new GlobalExceptionHandler();
     }
 
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("classpath:/static/");
+    }
 
     /***
      * 拦截器配置
