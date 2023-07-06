@@ -36,9 +36,15 @@
             <groupId>com.github.itdachen.framework</groupId>
             <artifactId>fly-assets</artifactId>
         </dependency>
+        <!-- 代码生成器模块 -->
         <dependency>
             <groupId>com.github.itdachen.framework</groupId>
             <artifactId>fly-code-tools</artifactId>
+        </dependency>
+        <!-- 数据脱敏模块 -->
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-sensitive</artifactId>
         </dependency>
 
         <dependency>
