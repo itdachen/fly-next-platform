@@ -2,6 +2,7 @@ package com.github.itdachen.admin.sdk.vo;
 
 import com.github.itdachen.framework.sensitive.annotation.CustomSensitive;
 import com.github.itdachen.framework.sensitive.annotation.Sensitive;
+import com.github.itdachen.framework.sensitive.handler.EmailSensitiveHandler;
 import com.github.itdachen.framework.sensitive.handler.PhoneSensitiveHandler;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -63,6 +64,7 @@ public class UserInfoVo implements Serializable {
     /**
      * 电子邮箱
      */
+    @Sensitive(EmailSensitiveHandler.class)
     private String email;
 
     /**

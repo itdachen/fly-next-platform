@@ -37,7 +37,6 @@ spring:
       auto-commit: true
       validation-timeout: 5000
       leak-detection-threshold: 0
-      #连接池母子
       pool-name: adminHikariPC
 
 

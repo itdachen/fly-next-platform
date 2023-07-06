@@ -36,6 +36,11 @@
             <artifactId>fly-file</artifactId>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba</groupId>-->
+<!--            <artifactId>druid-spring-boot-3-starter</artifactId>-->
+<!--        </dependency>-->
+
         <!-- 項目启动容器 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
