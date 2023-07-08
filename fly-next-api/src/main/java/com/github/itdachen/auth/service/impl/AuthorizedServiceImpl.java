@@ -3,7 +3,7 @@ package com.github.itdachen.auth.service.impl;
 import com.github.itdachen.auth.entity.AuthUserInfo;
 import com.github.itdachen.auth.mapper.IAuthorizedMapper;
 import com.github.itdachen.auth.service.IAuthorizedService;
-import com.github.itdachen.framework.autoconfigure.jwt.FlyJwtAutoconfigureProperties;
+import com.github.itdachen.framework.autoconfigure.jwt.properties.FlyJwtProperties;
 import com.github.itdachen.framework.context.constants.UserInfoConstant;
 import com.github.itdachen.framework.context.constants.UserTypeConstant;
 import com.github.itdachen.framework.context.exception.BizException;
@@ -30,13 +30,13 @@ public class AuthorizedServiceImpl implements IAuthorizedService {
     private final IAuthorizedMapper authorizedMapper;
     private final JWTHelper jwtHelper;
     private final SecretKeyConfiguration secretKeyConfiguration;
-    private final FlyJwtAutoconfigureProperties autoconfigureProperties;
+    private final FlyJwtProperties autoconfigureProperties;
     private final PasswordEncoder passwordEncoder;
 
     public AuthorizedServiceImpl(IAuthorizedMapper authorizedMapper,
                                  JWTHelper jwtHelper,
                                  SecretKeyConfiguration secretKeyConfiguration,
-                                 FlyJwtAutoconfigureProperties autoconfigureProperties,
+                                 FlyJwtProperties autoconfigureProperties,
                                  PasswordEncoder passwordEncoder) {
         this.authorizedMapper = authorizedMapper;
         this.jwtHelper = jwtHelper;

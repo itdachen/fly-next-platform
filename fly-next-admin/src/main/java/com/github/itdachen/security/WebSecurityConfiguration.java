@@ -2,7 +2,6 @@ package com.github.itdachen.security;
 
 
 import com.github.itdachen.dashboard.service.impl.AdminSecurityUserDetailsService;
-import com.github.itdachen.dashboard.service.impl.AdminUserDetailsPasswordService;
 import com.github.itdachen.security.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.github.itdachen.security.constants.SecurityConstants;
 import com.github.itdachen.security.handler.FlyAccessDeniedExceptionHandler;
@@ -16,7 +15,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -46,7 +47,6 @@ public class WebSecurityConfiguration {
     private final SecurityBrowserProperties securityProperties;
     private final DataSource dataSource;
     private final AdminSecurityUserDetailsService userDetailsService;
-    private final AdminUserDetailsPasswordService adminUserDetailsPasswordService;
     /* 退出处理 */
     private final LogoutSuccessHandler logoutSuccessHandler;
     /* 登录成功处理 */
@@ -74,7 +74,6 @@ public class WebSecurityConfiguration {
                                     InvalidSessionStrategy invalidSessionStrategy,
                                     FlyAccessDeniedExceptionHandler accessDeniedExceptionHandler,
                                     SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig,
-                                    AdminUserDetailsPasswordService adminUserDetailsPasswordService,
                                     ValidateCodeFilter validateCodeFilter) {
         this.filterMatchers = filterMatchers;
         this.securityProperties = securityProperties;
@@ -87,7 +86,6 @@ public class WebSecurityConfiguration {
         this.invalidSessionStrategy = invalidSessionStrategy;
         this.accessDeniedExceptionHandler = accessDeniedExceptionHandler;
         this.smsCodeAuthenticationSecurityConfig = smsCodeAuthenticationSecurityConfig;
-        this.adminUserDetailsPasswordService = adminUserDetailsPasswordService;
         this.validateCodeFilter = validateCodeFilter;
     }
 
@@ -97,20 +95,6 @@ public class WebSecurityConfiguration {
 //    @Bean
 //    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
 //        return authenticationConfiguration.getAuthenticationManager();
-//    }
-
-    /**
-     * 允许抛出用户不存在的异常
-     *
-     * @return DaoAuthenticationProvider
-     */
-//    @Bean
-//    public DaoAuthenticationProvider daoAuthenticationProvider() {
-//        final DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-//        provider.setUserDetailsService(userDetailsService);
-//        provider.setUserDetailsPasswordService(adminUserDetailsPasswordService);
-//        provider.setHideUserNotFoundExceptions(false);
-//        return provider;
 //    }
 
     /***
@@ -125,10 +109,6 @@ public class WebSecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         /* 短信验证码登录 */
         http.apply(smsCodeAuthenticationSecurityConfig);
-        // .addFilterBefore(new SmsCodeAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-
-
-        // http.addFilterAt(mobileAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         /* 表单登录 */
         http.formLogin(login -> login
@@ -142,10 +122,10 @@ public class WebSecurityConfiguration {
         //  http.addFilterAt(smsCodeAuthenticationSecurityConfig, UsernamePasswordAuthenticationFilter.class);
 
         /* 授权请求控制 */
-        http.authorizeHttpRequests()
+        http.authorizeHttpRequests(requests -> requests
                 .requestMatchers(filterMatchers.matchers())
-                .permitAll()
-                .anyRequest().authenticated();
+                .permitAll().anyRequest()
+                .authenticated());
 
         /*
          * 记住我, 原理: 使用 Cookie 存储用户名, 过期时间, 以及一个 Hash
@@ -183,7 +163,7 @@ public class WebSecurityConfiguration {
         );
 
         /* session 管理 */
-        http.sessionManagement()
+        http.sessionManagement(session -> session
                 /*
                  * Spring Security下的枚举 SessionCreationPolicy, 管理session的创建策略
                  *   ALWAYS :总是创建HttpSession
@@ -192,21 +172,25 @@ public class WebSecurityConfiguration {
                  *   STATELESS: Spring Security永远不会创建HttpSession，它不会使用HttpSession来获取SecurityContext
                  */
                 // .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                /* 会话失效 */
                 .invalidSessionStrategy(invalidSessionStrategy)
                 /* 限制同一账号最大同时在线 */
                 .maximumSessions(securityProperties.getSession().getMaximumSessions())
                 .maxSessionsPreventsLogin(securityProperties.getSession().getMaxSessionsPreventsLogin())
                 /* 会话过期后的配置 */
-                .expiredSessionStrategy(sessionInformationExpiredStrategy);
+                .expiredSessionStrategy(sessionInformationExpiredStrategy)
+        );
+
 
         http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class);
 
 
         return http.csrf(AbstractHttpConfigurer::disable)
+
                 // .cors(cors -> cors.configurationSource(corsConfigurationSource())) // 跨越配置
-                .headers().frameOptions().sameOrigin()
-                .and().build();
+                .headers(header -> header
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
+                )
+                .build();
     }
 
     /***
@@ -241,8 +225,7 @@ public class WebSecurityConfiguration {
 //    @Bean
 //    public WebSecurityCustomizer webSecurityCustomizer() {
 //        return web -> web.ignoring()
-//                .antMatchers(filterMatchers.matchers())
-//                .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+//                .requestMatchers(filterMatchers.matchers());
 //    }
 
 
