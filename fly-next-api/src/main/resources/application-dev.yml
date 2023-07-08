@@ -4,10 +4,24 @@ logging:
   level:
     cn.jay.repository: trace
 
-jjwt:
-  type: HMAC # token生成方式
-  issuer: com.github.itdachen # 签发者
-  expires: 18000 # 过期时间, 300分钟
+fly:
+  jjwt:
+    type: HMAC # token生成方式
+    issuer: com.github.itdachen # 签发者
+    expires: 18000 # 过期时间, 300分钟
+  # 文件上传
+  oss:
+    ## 文件上传类型: LOCAL-本地服务存储; ALI-阿里云存储服务器, 默认是 LOCAL
+    type: LOCAL
+    local:
+      localHttp: http://127.0.0.1:8080
+      diskFolder: D:/upload/
+    ali:
+      endpoint: oss-cn-chengdu.aliyuncs.com
+      access-key-id: 123
+      access-key-secret: 123
+      bucket: itdachen
+
 
 spring:
   main:
@@ -21,7 +35,7 @@ spring:
     name: mysql
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://127.0.0.1:3306/ace_platform?useUnicode=true&characterEncoding=UTF8&createDatabaseIfNotExist=true&useUnicode=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&allowMultiQueries=true
+    url: jdbc:mysql://127.0.0.1:3306/fly-next?useUnicode=true&characterEncoding=UTF8&createDatabaseIfNotExist=true&useUnicode=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&allowMultiQueries=true
     username: root
     password: root
     hikari:
@@ -65,15 +79,3 @@ pagehelper:
   supportMethodsArguments: true
   params: count=countSql
 
-# 文件上传
-oss:
-  ## 文件上传类型: LOCAL-本地服务存储; ALI-阿里云存储服务器, 默认是 LOCAL
-  type: LOCAL
-  local:
-    localHttp: http://127.0.0.1:8080
-    diskFolder: D:/upload/
-  ali:
-    endpoint: oss-cn-chengdu.aliyuncs.com
-    access-key-id: 123
-    access-key-secret: 123
-    bucket: itdachen

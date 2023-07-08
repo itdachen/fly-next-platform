@@ -3,6 +3,7 @@ package com.github.itdachen.auth.service.impl;
 import com.github.itdachen.auth.entity.AuthUserInfo;
 import com.github.itdachen.auth.mapper.IAuthorizedMapper;
 import com.github.itdachen.auth.service.IAuthorizedService;
+import com.github.itdachen.framework.autoconfigure.properties.FlyAutoconfigureProperties;
 import com.github.itdachen.framework.context.constants.UserInfoConstant;
 import com.github.itdachen.framework.context.constants.UserTypeConstant;
 import com.github.itdachen.framework.context.exception.BizException;
@@ -12,7 +13,6 @@ import com.github.itdachen.framework.jjwt.JWTHelper;
 import com.github.itdachen.framework.jjwt.config.SecretKeyConfiguration;
 import com.github.itdachen.framework.jjwt.core.JWTInfo;
 import com.github.itdachen.framework.jjwt.core.JwtTokenInfo;
-import com.github.itdachen.framework.jjwt.properties.JJwtProperties;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,18 +30,18 @@ public class AuthorizedServiceImpl implements IAuthorizedService {
     private final IAuthorizedMapper authorizedMapper;
     private final JWTHelper jwtHelper;
     private final SecretKeyConfiguration secretKeyConfiguration;
-    private final JJwtProperties jwtProperties;
+    private final FlyAutoconfigureProperties autoconfigureProperties;
     private final PasswordEncoder passwordEncoder;
 
     public AuthorizedServiceImpl(IAuthorizedMapper authorizedMapper,
                                  JWTHelper jwtHelper,
                                  SecretKeyConfiguration secretKeyConfiguration,
-                                 JJwtProperties jwtProperties,
+                                 FlyAutoconfigureProperties autoconfigureProperties,
                                  PasswordEncoder passwordEncoder) {
         this.authorizedMapper = authorizedMapper;
         this.jwtHelper = jwtHelper;
         this.secretKeyConfiguration = secretKeyConfiguration;
-        this.jwtProperties = jwtProperties;
+        this.autoconfigureProperties = autoconfigureProperties;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -85,7 +85,7 @@ public class AuthorizedServiceImpl implements IAuthorizedService {
                         .otherInfo(otherInfo)
                         .build(),
                 secretKeyConfiguration.getUserPriKey(),
-                jwtProperties.getExpires());
+                autoconfigureProperties.getJjwt().getExpires());
 
 
         Map<String, Object> infoMap = new HashMap<>(8);
@@ -98,7 +98,7 @@ public class AuthorizedServiceImpl implements IAuthorizedService {
 
         return new JwtTokenInfo.Builder()
                 .access_token(access_token)
-                .expires_in(Integer.parseInt(String.valueOf(jwtProperties.getExpires())))
+                .expires_in(Integer.parseInt(String.valueOf(autoconfigureProperties.getJjwt().getExpires())))
                 .info(infoMap)
                 .build();
     }
