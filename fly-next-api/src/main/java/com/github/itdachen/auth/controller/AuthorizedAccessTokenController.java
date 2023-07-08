@@ -3,7 +3,7 @@ package com.github.itdachen.auth.controller;
 import com.github.itdachen.auth.entity.AuthUserInfo;
 import com.github.itdachen.auth.service.IAuthorizedService;
 import com.github.itdachen.framework.core.response.ServerResponse;
-import com.github.itdachen.framework.jjwt.core.JwtTokenInfo;
+import com.github.itdachen.framework.jwt.core.JwtTokenInfo;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,7 +1,7 @@
 package com.github.itdachen.auth.service;
 
 import com.github.itdachen.auth.entity.AuthUserInfo;
-import com.github.itdachen.framework.jjwt.core.JwtTokenInfo;
+import com.github.itdachen.framework.jwt.core.JwtTokenInfo;
 
 /**
  * Description:
