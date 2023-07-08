@@ -5,7 +5,7 @@ logging:
     cn.jay.repository: trace
 
 fly:
-  jjwt:
+  jwt:
     type: HMAC # token生成方式
     issuer: com.github.itdachen # 签发者
     expires: 18000 # 过期时间, 300分钟

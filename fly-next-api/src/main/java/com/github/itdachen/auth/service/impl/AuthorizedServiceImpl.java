@@ -3,7 +3,7 @@ package com.github.itdachen.auth.service.impl;
 import com.github.itdachen.auth.entity.AuthUserInfo;
 import com.github.itdachen.auth.mapper.IAuthorizedMapper;
 import com.github.itdachen.auth.service.IAuthorizedService;
-import com.github.itdachen.framework.autoconfigure.properties.FlyAutoconfigureProperties;
+import com.github.itdachen.framework.autoconfigure.properties.jjwt.FlyJwtAutoconfigureProperties;
 import com.github.itdachen.framework.context.constants.UserInfoConstant;
 import com.github.itdachen.framework.context.constants.UserTypeConstant;
 import com.github.itdachen.framework.context.exception.BizException;
@@ -30,13 +30,13 @@ public class AuthorizedServiceImpl implements IAuthorizedService {
     private final IAuthorizedMapper authorizedMapper;
     private final JWTHelper jwtHelper;
     private final SecretKeyConfiguration secretKeyConfiguration;
-    private final FlyAutoconfigureProperties autoconfigureProperties;
+    private final FlyJwtAutoconfigureProperties autoconfigureProperties;
     private final PasswordEncoder passwordEncoder;
 
     public AuthorizedServiceImpl(IAuthorizedMapper authorizedMapper,
                                  JWTHelper jwtHelper,
                                  SecretKeyConfiguration secretKeyConfiguration,
-                                 FlyAutoconfigureProperties autoconfigureProperties,
+                                 FlyJwtAutoconfigureProperties autoconfigureProperties,
                                  PasswordEncoder passwordEncoder) {
         this.authorizedMapper = authorizedMapper;
         this.jwtHelper = jwtHelper;
@@ -85,7 +85,7 @@ public class AuthorizedServiceImpl implements IAuthorizedService {
                         .otherInfo(otherInfo)
                         .build(),
                 secretKeyConfiguration.getUserPriKey(),
-                autoconfigureProperties.getJjwt().getExpires());
+                autoconfigureProperties.getExpires());
 
 
         Map<String, Object> infoMap = new HashMap<>(8);
@@ -98,7 +98,7 @@ public class AuthorizedServiceImpl implements IAuthorizedService {
 
         return new JwtTokenInfo.Builder()
                 .access_token(access_token)
-                .expires_in(Integer.parseInt(String.valueOf(autoconfigureProperties.getJjwt().getExpires())))
+                .expires_in(Integer.parseInt(String.valueOf(autoconfigureProperties.getExpires())))
                 .info(infoMap)
                 .build();
     }

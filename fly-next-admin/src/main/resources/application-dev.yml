@@ -10,7 +10,7 @@ fly:
     ## 文件上传类型: LOCAL-本地服务存储; ALI-阿里云存储服务器, 默认是 LOCAL
     type: LOCAL
     local:
-      localHttp: http://192.168.198.1:8080
+      localHttp: http://127.0.0.1:8080
       diskFolder: D:/upload/
     ali:
       endpoint: oss-cn-chengdu.aliyuncs.com
