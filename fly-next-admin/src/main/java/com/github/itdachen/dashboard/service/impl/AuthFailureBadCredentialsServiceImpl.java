@@ -1,7 +1,5 @@
 package com.github.itdachen.dashboard.service.impl;
 
-import com.github.itdachen.admin.entity.UserLogin;
-import com.github.itdachen.admin.mapper.IUserLoginMapper;
 import com.github.itdachen.config.WebAppClientConfig;
 import com.github.itdachen.dashboard.entity.LoginErrorRecord;
 import com.github.itdachen.dashboard.entity.LoginRecord;
@@ -11,23 +9,17 @@ import com.github.itdachen.dashboard.mapper.IUserDetailsMapper;
 import com.github.itdachen.dashboard.service.IAuthFailureBadCredentialsService;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.userdetails.CurrentUserDetails;
+import com.github.itdachen.framework.security.constants.LoginModeConstant;
 import com.github.itdachen.framework.tools.ip.AddressUtils;
 import com.github.itdachen.framework.tools.request.BodyUtils;
 import com.github.itdachen.framework.tools.request.BrowserUtils;
 import com.github.itdachen.framework.tools.request.OSUtils;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
-import com.github.itdachen.security.constants.LoginModeConstant;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Map;
 
 /**

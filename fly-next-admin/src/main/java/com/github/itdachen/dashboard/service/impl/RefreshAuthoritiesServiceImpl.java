@@ -4,7 +4,7 @@ import com.github.itdachen.dashboard.mapper.IRefreshAuthoritiesMapper;
 import com.github.itdachen.dashboard.service.IRefreshAuthoritiesService;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.constants.UserTypeConstant;
-import com.github.itdachen.security.context.SecurityContextHandler;
+import com.github.itdachen.framework.security.context.SecurityContextHandler;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;

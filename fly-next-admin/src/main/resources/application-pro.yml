@@ -1,9 +1,22 @@
-
 # 日志配置
 logging:
   config: classpath:fly.xml
   level:
     cn.jay.repository: trace
+
+fly:
+  # 文件上传
+  oss:
+    ## 文件上传类型: LOCAL-本地服务存储; ALI-阿里云存储服务器, 默认是 LOCAL
+    type: LOCAL
+    local:
+      localHttp: http://127.0.0.1:8080
+      diskFolder: D:/upload/
+    ali:
+      endpoint: oss-cn-chengdu.aliyuncs.com
+      access-key-id: 123
+      access-key-secret: 123
+      bucket: itdachen
 
 spring:
   main:
@@ -45,15 +58,6 @@ spring:
     cache: false
     encoding: utf-8
 
-  # 安全认证配置
-  security:
-    browser:
-      signInPage: /login
-      signOutUrl: /login
-      successForwardUrl: /index
-      session:
-        sessionInvalidUrl: /login
-
   data:
     redis:
       database: 3
@@ -75,7 +79,3 @@ pagehelper:
   reasonable: false
   supportMethodsArguments: true
   params: count=countSql
-
-oss:
-  local:
-    uploadPath: D:/upload/

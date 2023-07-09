@@ -6,7 +6,7 @@ import com.github.itdachen.framework.context.annotation.IgnoreUserToken;
 import com.github.itdachen.framework.context.constants.UserInfoConstant;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.core.utils.StringUtils;
-import com.github.itdachen.framework.jjwt.core.IJWTInfo;
+import com.github.itdachen.framework.jwt.core.IJWTInfo;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

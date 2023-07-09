@@ -1,9 +1,9 @@
 package com.github.itdachen.config;
 
-import com.github.itdachen.framework.jjwt.SecretKeyHelper;
-import com.github.itdachen.framework.jjwt.config.SecretKeyConfiguration;
-import com.github.itdachen.framework.jjwt.constants.JwtRedisKeyConstants;
-import com.github.itdachen.framework.jjwt.core.JwtSecretKey;
+import com.github.itdachen.framework.jwt.SecretKeyHelper;
+import com.github.itdachen.framework.jwt.config.SecretKeyConfiguration;
+import com.github.itdachen.framework.jwt.constants.JwtRedisKeyConstants;
+import com.github.itdachen.framework.jwt.core.JwtSecretKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

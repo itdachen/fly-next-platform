@@ -50,6 +50,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-security</artifactId>
+        </dependency>
+
+
+        <dependency>
             <groupId>com.github.itdachen</groupId>
             <artifactId>fly-next-server</artifactId>
             <version>0.0.1</version>
@@ -114,9 +120,15 @@
             <artifactId>spring-session-jdbc</artifactId>
         </dependency>
 
+        <!-- redis -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <!-- session 集群管理 -->
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
         </dependency>
 
         <!-- mysql -->

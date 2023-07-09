@@ -2,8 +2,6 @@ package com.github.itdachen.config;
 
 import com.github.itdachen.auth.service.IVerifyTicketTokenService;
 import com.github.itdachen.framework.body.advice.handler.GlobalExceptionHandler;
-import com.github.itdachen.framework.jjwt.JWTHelper;
-import com.github.itdachen.framework.jjwt.config.SecretKeyConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;

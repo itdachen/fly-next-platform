@@ -18,6 +18,13 @@ fly:
       access-key-secret: 123
       bucket: itdachen
 
+  # 安全认证配置
+  security:
+    signInPage: /login
+    signOutUrl: /login
+    session:
+      sessionInvalidUrl: /login
+
 spring:
   main:
     allow-circular-references: true
@@ -82,9 +89,9 @@ spring:
         login-username: admin
         login-password: admin
         # IP白名单
-       # allow: 127.0.0.1
+        # allow: 127.0.0.1
         # IP黑名单（共同存在时，deny优先于allow）
-       # deny:
+        # deny:
 
 
 
@@ -93,14 +100,6 @@ spring:
     cache: false
     encoding: utf-8
 
-  # 安全认证配置
-  security:
-    browser:
-      signInPage: /login
-      signOutUrl: /login
-      # successForwardUrl: /index
-      session:
-        sessionInvalidUrl: /login
 
   data:
     redis:

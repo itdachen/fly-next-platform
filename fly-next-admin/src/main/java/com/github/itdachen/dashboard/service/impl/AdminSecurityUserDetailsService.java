@@ -8,10 +8,10 @@ import com.github.itdachen.admin.entity.UserInfo;
 import com.github.itdachen.admin.mapper.IUserInfoMapper;
 import com.github.itdachen.framework.context.constants.UserTypeConstant;
 import com.github.itdachen.framework.context.userdetails.CurrentUserDetails;
-import com.github.itdachen.security.constants.LoginModeConstant;
-import com.github.itdachen.security.details.AbstractSecurityUserDetailsService;
-import com.github.itdachen.security.exception.BizSecurityException;
-import com.github.itdachen.security.user.CurrentUserInfo;
+import com.github.itdachen.framework.security.constants.LoginModeConstant;
+import com.github.itdachen.framework.security.details.AbstractSecurityUserDetailsService;
+import com.github.itdachen.framework.security.exception.BizSecurityException;
+import com.github.itdachen.framework.security.user.CurrentUserInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +64,7 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
 
     @Override
     public CurrentUserInfo loadUserByMobile(String mobile) throws UsernameNotFoundException {
-       // mobile = "admin";
+        // mobile = "admin";
 
         /* 根据登录账号, 查询 5 分钟内登录失败次数 */
         checkUpErrorTotal(mobile);

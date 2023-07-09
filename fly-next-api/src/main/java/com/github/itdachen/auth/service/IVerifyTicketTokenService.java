@@ -1,6 +1,6 @@
 package com.github.itdachen.auth.service;
 
-import com.github.itdachen.framework.jjwt.core.IJWTInfo;
+import com.github.itdachen.framework.jwt.core.IJWTInfo;
 
 /**
  * Description:

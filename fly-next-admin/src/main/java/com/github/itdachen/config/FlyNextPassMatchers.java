@@ -1,7 +1,7 @@
 package com.github.itdachen.config;
 
-import com.github.itdachen.security.matchers.pass.IPassMatchers;
-import com.github.itdachen.security.properties.SecurityBrowserProperties;
+import com.github.itdachen.framework.autoconfigure.security.properties.FlySecurityProperties;
+import com.github.itdachen.framework.security.matchers.pass.IPassMatchers;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,9 +14,9 @@ import java.util.List;
  */
 @Service
 public class FlyNextPassMatchers implements IPassMatchers {
-    private final SecurityBrowserProperties securityProperties;
+    private final FlySecurityProperties securityProperties;
 
-    public FlyNextPassMatchers(SecurityBrowserProperties securityProperties) {
+    public FlyNextPassMatchers(FlySecurityProperties securityProperties) {
         this.securityProperties = securityProperties;
     }
 

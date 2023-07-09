@@ -2,9 +2,9 @@ package com.github.itdachen.auth.service.impl;
 
 import com.github.itdachen.auth.service.IVerifyTicketTokenService;
 import com.github.itdachen.framework.context.exception.BizException;
-import com.github.itdachen.framework.jjwt.JWTHelper;
-import com.github.itdachen.framework.jjwt.config.SecretKeyConfiguration;
-import com.github.itdachen.framework.jjwt.core.IJWTInfo;
+import com.github.itdachen.framework.jwt.JWTHelper;
+import com.github.itdachen.framework.jwt.config.SecretKeyConfiguration;
+import com.github.itdachen.framework.jwt.core.IJWTInfo;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
