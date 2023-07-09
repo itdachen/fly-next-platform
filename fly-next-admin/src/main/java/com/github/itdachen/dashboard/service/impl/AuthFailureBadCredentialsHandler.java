@@ -6,39 +6,41 @@ import com.github.itdachen.dashboard.entity.LoginRecord;
 import com.github.itdachen.dashboard.mapper.ILoginErrorRecordMapper;
 import com.github.itdachen.dashboard.mapper.ILoginRecordMapper;
 import com.github.itdachen.dashboard.mapper.IUserDetailsMapper;
-import com.github.itdachen.dashboard.service.IAuthFailureBadCredentialsService;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.userdetails.CurrentUserDetails;
 import com.github.itdachen.framework.security.constants.LoginModeConstant;
+import com.github.itdachen.framework.security.log.IAuthFailureCredentialsLogHandler;
 import com.github.itdachen.framework.tools.ip.AddressUtils;
 import com.github.itdachen.framework.tools.request.BodyUtils;
 import com.github.itdachen.framework.tools.request.BrowserUtils;
 import com.github.itdachen.framework.tools.request.OSUtils;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Map;
 
 /**
- * Description: 记录登录记录
+ * Description: 记录登录失败
  * Created by 王大宸 on 2023-06-30 22:08
  * Created with IntelliJ IDEA.
  */
 @Component
-public class AuthFailureBadCredentialsServiceImpl implements IAuthFailureBadCredentialsService {
+public class AuthFailureBadCredentialsHandler implements IAuthFailureCredentialsLogHandler {
 
     private final ILoginErrorRecordMapper loginErrorRecordMapper;
     private final IUserDetailsMapper userDetailsMapper;
     private final ILoginRecordMapper loginRecordMapper;
     private final WebAppClientConfig webAppClientConfig;
 
-    public AuthFailureBadCredentialsServiceImpl(ILoginErrorRecordMapper loginErrorRecordMapper,
-                                                IUserDetailsMapper userDetailsMapper,
-                                                ILoginRecordMapper loginRecordMapper,
-                                                WebAppClientConfig webAppClientConfig) {
+    public AuthFailureBadCredentialsHandler(ILoginErrorRecordMapper loginErrorRecordMapper,
+                                            IUserDetailsMapper userDetailsMapper,
+                                            ILoginRecordMapper loginRecordMapper,
+                                            WebAppClientConfig webAppClientConfig) {
         this.loginErrorRecordMapper = loginErrorRecordMapper;
         this.userDetailsMapper = userDetailsMapper;
         this.loginRecordMapper = loginRecordMapper;
@@ -47,7 +49,10 @@ public class AuthFailureBadCredentialsServiceImpl implements IAuthFailureBadCred
 
     @Override
     @Async
-    public void onApplicationEvent(HttpServletRequest request, String message, String sessionId) {
+    public void handler(HttpServletRequest request,
+                        HttpServletResponse response,
+                        AuthenticationException exception,
+                        String sessionId) {
         final String realAddress = AddressUtils.getRealAddressByIP(request.getRemoteAddr());
         final Map<String, String> body = BodyUtils.requestBody(request);
 
@@ -58,7 +63,7 @@ public class AuthFailureBadCredentialsServiceImpl implements IAuthFailureBadCred
                 .clientId(webAppClientConfig.getId())
                 .ip(request.getRemoteAddr())
                 .requestId(request.getRequestId())
-                .message(message)
+                .message(exception.getMessage())
                 .os(OSUtils.osInfo(request))
                 .browser(BrowserUtils.browserInfo(request))
                 .accessAddress(realAddress)

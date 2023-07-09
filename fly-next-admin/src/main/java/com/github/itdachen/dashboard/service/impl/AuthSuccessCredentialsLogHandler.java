@@ -3,18 +3,19 @@ package com.github.itdachen.dashboard.service.impl;
 import com.github.itdachen.dashboard.entity.LoginRecord;
 import com.github.itdachen.dashboard.mapper.ILoginRecordMapper;
 import com.github.itdachen.dashboard.mapper.IUserDetailsMapper;
-import com.github.itdachen.dashboard.service.IAuthSuccessService;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.userdetails.CurrentUserDetails;
 import com.github.itdachen.framework.core.utils.StringUtils;
 import com.github.itdachen.framework.security.authentication.mobile.SmsCodeAuthenticationToken;
 import com.github.itdachen.framework.security.constants.LoginModeConstant;
+import com.github.itdachen.framework.security.log.IAuthSuccessCredentialsLogHandler;
 import com.github.itdachen.framework.tools.ip.AddressUtils;
 import com.github.itdachen.framework.tools.request.BodyUtils;
 import com.github.itdachen.framework.tools.request.BrowserUtils;
 import com.github.itdachen.framework.tools.request.OSUtils;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.authentication.RememberMeAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,20 +31,23 @@ import java.util.Map;
  * Created with IntelliJ IDEA.
  */
 @Component
-public class AuthSuccessServiceImpl implements IAuthSuccessService {
+public class AuthSuccessCredentialsLogHandler implements IAuthSuccessCredentialsLogHandler {
 
     private final IUserDetailsMapper userDetailsMapper;
     private final ILoginRecordMapper loginRecordMapper;
 
-    public AuthSuccessServiceImpl(IUserDetailsMapper userDetailsMapper,
-                                  ILoginRecordMapper loginRecordMapper) {
+    public AuthSuccessCredentialsLogHandler(IUserDetailsMapper userDetailsMapper,
+                                            ILoginRecordMapper loginRecordMapper) {
         this.userDetailsMapper = userDetailsMapper;
         this.loginRecordMapper = loginRecordMapper;
     }
 
     @Override
     @Async
-    public void onAuthenticationSuccess(HttpServletRequest request, Authentication authentication, String sessionId) {
+    public void handler(HttpServletRequest request,
+                        HttpServletResponse response,
+                        Authentication authentication,
+                        String sessionId) {
         /* 获取登录用户信息 */
         CurrentUserDetails userDetails = getUserDetails(request, authentication);
 
