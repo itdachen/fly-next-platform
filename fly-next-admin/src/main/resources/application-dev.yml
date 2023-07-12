@@ -33,6 +33,11 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
 
+  # 单机版, 不依赖 Redis
+  session:
+    timeout: 18000
+   # store-type: NONE
+
   datasource:
     name: mysql
     driver-class-name: com.mysql.cj.jdbc.Driver
