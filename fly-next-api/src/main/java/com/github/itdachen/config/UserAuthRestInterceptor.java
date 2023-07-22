@@ -1,12 +1,12 @@
 package com.github.itdachen.config;
 
 import com.github.itdachen.auth.service.IVerifyTicketTokenService;
+import com.github.itdachen.framework.cloud.jwt.core.IJwtInfo;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.annotation.IgnoreUserToken;
 import com.github.itdachen.framework.context.constants.UserInfoConstant;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.core.utils.StringUtils;
-import com.github.itdachen.framework.jwt.core.IJWTInfo;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -72,11 +72,11 @@ public class UserAuthRestInterceptor implements HandlerInterceptor {
         }
         try {
 
-            final IJWTInfo ijwtInfo = verifyTicketTokenService.verifyTicketToken(token);
+            final IJwtInfo ijwtInfo = verifyTicketTokenService.verifyTicketToken(token);
 
             BizContextHandler.setAccount(ijwtInfo.getUniqueName());
-            BizContextHandler.setUserId(ijwtInfo.getId());
-            BizContextHandler.setNickName(ijwtInfo.getName());
+            BizContextHandler.setUserId(ijwtInfo.getUserId());
+            BizContextHandler.setNickName(ijwtInfo.getNickName());
             BizContextHandler.setTenantId(ijwtInfo.getTenantId());
 
             final Map<String, String> otherInfo = ijwtInfo.getOtherInfo();

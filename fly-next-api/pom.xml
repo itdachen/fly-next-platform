@@ -27,7 +27,7 @@
         </dependency>
         <dependency>
             <groupId>com.github.itdachen.framework</groupId>
-            <artifactId>fly-jjwt</artifactId>
+            <artifactId>fly-jwt</artifactId>
         </dependency>
 
         <!-- 文件上传 -->

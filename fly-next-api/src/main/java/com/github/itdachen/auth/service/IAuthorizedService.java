@@ -1,7 +1,7 @@
 package com.github.itdachen.auth.service;
 
 import com.github.itdachen.auth.entity.AuthUserInfo;
-import com.github.itdachen.framework.jwt.core.JwtTokenInfo;
+import com.github.itdachen.framework.cloud.jwt.core.AccessTokenInfo;
 
 /**
  * Description:
@@ -18,6 +18,6 @@ public interface IAuthorizedService {
      * @param authUserInfo authUserInfo
      * @return com.github.itdachen.framework.jjwt.core.JwtTokenInfo
      */
-    JwtTokenInfo authAccountToken(AuthUserInfo authUserInfo) throws Exception;
+    AccessTokenInfo authAccountToken(AuthUserInfo authUserInfo) throws Exception;
 
 }

@@ -1,6 +1,6 @@
 package com.github.itdachen.auth.service;
 
-import com.github.itdachen.framework.jwt.core.IJWTInfo;
+import com.github.itdachen.framework.cloud.jwt.core.IJwtInfo;
 
 /**
  * Description:
@@ -9,7 +9,7 @@ import com.github.itdachen.framework.jwt.core.IJWTInfo;
  */
 public interface IVerifyTicketTokenService {
 
-    IJWTInfo verifyTicketToken(String token) throws Exception;
+    IJwtInfo verifyTicketToken(String token) throws Exception;
 
 
 }
