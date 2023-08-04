@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.github.itdachen</groupId>
         <artifactId>fly-next-platform</artifactId>
-        <version>0.0.1</version>
+        <version>1.0.1</version>
     </parent>
 
     <artifactId>fly-next-api</artifactId>
