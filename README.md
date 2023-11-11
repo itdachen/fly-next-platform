@@ -2,7 +2,7 @@
 <br/>
 <br/>
   <h1 align="center">
-    fly-next-platform
+    fly-next-admin
   </h1>
   <h4 align="center">
     开 箱 即 用 的 前 后 端 脚 手 架 框 架
@@ -11,7 +11,7 @@
 
 <p align="center">
     <a href="#">
-        <img src="https://img.shields.io/badge/SpringBoot-3.0.6+-green.svg" alt="Pear Admin Layui Version">
+        <img src="https://img.shields.io/badge/SpringBoot-3.1.2+-green.svg" alt="Pear Admin Layui Version">
     </a>
     <a href="#">
         <img src="https://img.shields.io/badge/JQuery-3.6.4+-green.svg" alt="Jquery Version">
