@@ -1,0 +1,8 @@
+
+Date 类型格式化处理
+
+<p th:text="${#dates.format(info.create_time,'yyyy-MM-dd HH:mm:ss')}"/>
+
+LocalDateTime 类型格式化处理
+
+<th:block th:text="${#temporals.format(localDateTime,'yyyy-MM-dd hh:mm:ss')}"></th:block>
