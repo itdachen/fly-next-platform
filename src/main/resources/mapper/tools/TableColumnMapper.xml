@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.tools.mapper.ITableColumnMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.github.itdachen.framework.code.sdk.vo.TableColumnVo" id="tableColumnMap">
+        <result property="id" column="id"/>
+        <result property="tableId" column="table_id"/>
+        <result property="columnName" column="column_name"/>
+        <result property="columnComment" column="column_comment"/>
+        <result property="columnType" column="column_type"/>
+        <result property="javaType" column="java_type"/>
+        <result property="javaField" column="java_field"/>
+        <result property="tsType" column="ts_type"/>
+        <result property="isPk" column="is_pk"/>
+        <result property="isDtoVo" column="is_dto_vo"/>
+        <result property="isRequired" column="is_required"/>
+        <result property="isForm" column="is_form"/>
+        <result property="isList" column="is_list"/>
+        <result property="isQuery" column="is_query"/>
+        <result property="queryType" column="query_type"/>
+        <result property="htmlType" column="html_type"/>
+        <result property="dictType" column="dict_type"/>
+        <result property="sort" column="sort"/>
+    </resultMap>
+
+    <!-- 查收 sql -->
+    <sql id="selectTableColumnVo">
+        SELECT id,
+               table_id,
+               column_name,
+               column_comment,
+               column_type,
+               java_type,
+               java_field,
+               ts_type,
+               is_pk,
+               is_dto_vo,
+               is_required,
+               is_form,
+               is_list,
+               is_query,
+               query_type,
+               html_type,
+               dict_type,
+               sort
+        FROM sys_gen_table_column
+    </sql>
+
+    <!-- 分页查询 -->
+    <select id="findTableColumnPage" parameterType="com.github.itdachen.framework.code.sdk.query.TableColumnQuery"
+            resultMap="tableColumnMap">
+        <include refid="selectTableColumnVo"/>
+        <where>
+            <if test="null != tableId  and '' != tableId ">AND table_id = #{tableId}</if>
+            <if test="null != columnName  and '' != columnName ">
+                AND column_name LIKE CONCAT(CONCAT('%',#{columnName}),'%')
+            </if>
+            <if test="null != columnComment  and '' != columnComment ">AND column_comment = #{columnComment}</if>
+            <if test="null != columnType  and '' != columnType ">AND column_type = #{columnType}</if>
+            <if test="null != javaType  and '' != javaType ">AND java_type = #{javaType}</if>
+            <if test="null != javaField  and '' != javaField ">AND java_field = #{javaField}</if>
+            <if test="null != isPk  and '' != isPk ">AND is_pk = #{isPk}</if>
+            <if test="null != isDtoVo  and '' != isDtoVo ">AND is_dto_vo = #{isDtoVo}</if>
+            <if test="null != isRequired  and '' != isRequired ">AND is_required = #{isRequired}</if>
+            <if test="null != isForm  and '' != isForm ">AND is_form = #{isForm}</if>
+            <if test="null != isList  and '' != isList ">AND is_list = #{isList}</if>
+            <if test="null != isQuery  and '' != isQuery ">AND is_query = #{isQuery}</if>
+            <if test="null != queryType  and '' != queryType ">AND query_type = #{queryType}</if>
+            <if test="null != htmlType  and '' != htmlType ">AND html_type = #{htmlType}</if>
+            <if test="null != dictType  and '' != dictType ">AND dict_type = #{dictType}</if>
+            <if test="null != sort ">AND sort = #{sort}</if>
+        </where>
+    </select>
+
+    <!-- 根据id查询 -->
+    <select id="getById" parameterType="java.lang.String" resultMap="tableColumnMap">
+        <include refid="selectTableColumnVo"/>
+        WHERE id = #{id}
+    </select>
+
+    <insert id="saveTableColumn" parameterType="com.github.itdachen.framework.code.entity.TableColumn">
+        INSERT INTO sys_gen_table_column
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="null != id  and '' != id ">id,</if>
+            <if test="null != tableId  and '' != tableId ">table_id,</if>
+            <if test="null != columnName  and '' != columnName ">column_name,</if>
+            <if test="null != columnComment  and '' != columnComment ">column_comment,</if>
+            <if test="null != columnType  and '' != columnType ">column_type,</if>
+            <if test="null != javaType  and '' != javaType ">java_type,</if>
+            <if test="null != javaField  and '' != javaField ">java_field,</if>
+            <if test="null != tsType  and '' != tsType ">ts_type,</if>
+            <if test="null != isPk  and '' != isPk ">is_pk,</if>
+            <if test="null != isDtoVo  and '' != isDtoVo ">is_dto_vo,</if>
+            <if test="null != isRequired  and '' != isRequired ">is_required,</if>
+            <if test="null != isForm  and '' != isForm ">is_form,</if>
+            <if test="null != isList  and '' != isList ">is_list,</if>
+            <if test="null != isQuery  and '' != isQuery ">is_query,</if>
+            <if test="null != queryType  and '' != queryType ">query_type,</if>
+            <if test="null != htmlType  and '' != htmlType ">html_type,</if>
+            <if test="null != dictType  and '' != dictType ">dict_type,</if>
+            <if test="null != sort ">sort,</if>
+            <if test="null != createTime ">create_time,</if>
+            <if test="null != createUser  and '' != createUser ">create_user,</if>
+            <if test="null != createUserId  and '' != createUserId ">create_user_id,</if>
+            <if test="null != updateTime ">update_time,</if>
+            <if test="null != updateUser  and '' != updateUser ">update_user,</if>
+            <if test="null != updateUserId  and '' != updateUserId ">update_user_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="null != id  and '' != id">#{id},</if>
+            <if test="null != tableId  and '' != tableId">#{tableId},</if>
+            <if test="null != columnName  and '' != columnName">#{columnName},</if>
+            <if test="null != columnComment  and '' != columnComment">#{columnComment},</if>
+            <if test="null != columnType  and '' != columnType">#{columnType},</if>
+            <if test="null != javaType  and '' != javaType">#{javaType},</if>
+            <if test="null != javaField  and '' != javaField">#{javaField},</if>
+            <if test="null != tsType  and '' != tsType ">#{tsType},</if>
+            <if test="null != isPk  and '' != isPk">#{isPk},</if>
+            <if test="null != isDtoVo  and '' != isDtoVo">#{isDtoVo},</if>
+            <if test="null != isRequired  and '' != isRequired">#{isRequired},</if>
+            <if test="null != isForm  and '' != isForm">#{isForm},</if>
+            <if test="null != isList  and '' != isList">#{isList},</if>
+            <if test="null != isQuery  and '' != isQuery">#{isQuery},</if>
+            <if test="null != queryType  and '' != queryType">#{queryType},</if>
+            <if test="null != htmlType  and '' != htmlType">#{htmlType},</if>
+            <if test="null != dictType  and '' != dictType">#{dictType},</if>
+            <if test="null != sort ">#{sort},</if>
+            <if test="null != createTime ">#{createTime},</if>
+            <if test="null != createUser  and '' != createUser">#{createUser},</if>
+            <if test="null != createUserId  and '' != createUserId">#{createUserId},</if>
+            <if test="null != updateTime ">#{updateTime},</if>
+            <if test="null != updateUser  and '' != updateUser">#{updateUser},</if>
+            <if test="null != updateUserId  and '' != updateUserId">#{updateUserId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTableColumn" parameterType="com.github.itdachen.framework.code.entity.TableColumn">
+        UPDATE sys_gen_table_column
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="null != tableId  and '' !=  tableId ">table_id = #{tableId},</if>
+            <if test="null != columnName  and '' !=  columnName ">column_name = #{columnName},</if>
+            <if test="null != columnComment  and '' !=  columnComment ">column_comment = #{columnComment},</if>
+            <if test="null != columnType  and '' !=  columnType ">column_type = #{columnType},</if>
+            <if test="null != javaType  and '' !=  javaType ">java_type = #{javaType},</if>
+            <if test="null != javaField  and '' !=  javaField ">java_field = #{javaField},</if>
+            <if test="null != tsType  and '' != tsType ">ts_type = #{tsType},</if>
+            <if test="null != isPk  and '' !=  isPk ">is_pk = #{isPk},</if>
+            <if test="null != isDtoVo  and '' !=  isDtoVo ">is_dto_vo = #{isDtoVo},</if>
+            <if test="null != isRequired  and '' !=  isRequired ">is_required = #{isRequired},</if>
+            <if test="null != isForm  and '' !=  isForm ">is_form = #{isForm},</if>
+            <if test="null != isList  and '' !=  isList ">is_list = #{isList},</if>
+            <if test="null != isQuery  and '' !=  isQuery ">is_query = #{isQuery},</if>
+            <if test="null != queryType  and '' !=  queryType ">query_type = #{queryType},</if>
+            <if test="null != htmlType  and '' !=  htmlType ">html_type = #{htmlType},</if>
+            <if test="null != dictType  and '' !=  dictType ">dict_type = #{dictType},</if>
+            <if test="null != sort ">sort = #{sort},</if>
+            <if test="null != createTime ">create_time = #{createTime},</if>
+            <if test="null != createUser  and '' !=  createUser ">create_user = #{createUser},</if>
+            <if test="null != createUserId  and '' !=  createUserId ">create_user_id = #{createUserId},</if>
+            <if test="null != updateTime ">update_time = #{updateTime},</if>
+            <if test="null != updateUser  and '' !=  updateUser ">update_user = #{updateUser},</if>
+            <if test="null != updateUserId  and '' !=  updateUserId ">update_user_id = #{updateUserId},</if>
+        </trim>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteTableColumnById" parameterType="java.lang.String">
+        DELETE
+        FROM sys_gen_table_column
+        WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteByTable" parameterType="java.lang.String">
+        DELETE
+        FROM sys_gen_table_column
+        WHERE table_id = #{tableId}
+    </delete>
+
+    <!-- 批量添加 -->
+    <insert id="batchSave" parameterType="java.util.List">
+        INSERT INTO sys_gen_table_column (id ,
+        table_id ,
+        column_name ,
+        column_comment ,
+        column_type ,
+        java_type ,
+        java_field ,
+        is_pk ,
+        is_dto_vo ,
+        is_required ,
+        is_form ,
+        is_list ,
+        is_query ,
+        query_type ,
+        html_type ,
+        dict_type ,
+        sort ,
+        create_time ,
+        create_user ,
+        create_user_id ,
+        update_time ,
+        update_user ,
+        update_user_id ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},
+            #{item.tableId},
+            #{item.columnName},
+            #{item.columnComment},
+            #{item.columnType},
+            #{item.javaType},
+            #{item.javaField},
+            #{item.isPk},
+            #{item.isDtoVo},
+            #{item.isRequired},
+            #{item.isForm},
+            #{item.isList},
+            #{item.isQuery},
+            #{item.queryType},
+            #{item.htmlType},
+            #{item.dictType},
+            #{item.sort},
+            #{item.createTime},
+            #{item.createUser},
+            #{item.createUserId},
+            #{item.updateTime},
+            #{item.updateUser},
+            #{item.updateUserId})
+        </foreach>
+    </insert>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE  sys_gen_table_column
+            <set>
+                <if test="null != item.id  and '' != item.id ">id =
+                    #{item.id},
+                </if>
+                <if test="null != item.tableId  and '' != item.tableId ">table_id =
+                    #{item.tableId},
+                </if>
+                <if test="null != item.columnName  and '' != item.columnName ">column_name =
+                    #{item.columnName},
+                </if>
+                <if test="null != item.columnComment  and '' != item.columnComment ">column_comment =
+                    #{item.columnComment},
+                </if>
+                <if test="null != item.columnType  and '' != item.columnType ">column_type =
+                    #{item.columnType},
+                </if>
+                <if test="null != item.javaType  and '' != item.javaType ">java_type =
+                    #{item.javaType},
+                </if>
+                <if test="null != item.javaField  and '' != item.javaField ">java_field =
+                    #{item.javaField},
+                </if>
+                <if test="null != item.isPk  and '' != item.isPk ">is_pk =
+                    #{item.isPk},
+                </if>
+                <if test="null != item.isDtoVo  and '' != item.isDtoVo ">is_dto_vo =
+                    #{item.isDtoVo},
+                </if>
+                <if test="null != item.isRequired  and '' != item.isRequired ">is_required =
+                    #{item.isRequired},
+                </if>
+                <if test="null != item.isForm  and '' != item.isForm ">is_form =
+                    #{item.isForm},
+                </if>
+                <if test="null != item.isList  and '' != item.isList ">is_list =
+                    #{item.isList},
+                </if>
+                <if test="null != item.isQuery  and '' != item.isQuery ">is_query =
+                    #{item.isQuery},
+                </if>
+                <if test="null != item.queryType  and '' != item.queryType ">query_type =
+                    #{item.queryType},
+                </if>
+                <if test="null != item.htmlType  and '' != item.htmlType ">html_type =
+                    #{item.htmlType},
+                </if>
+                <if test="null != item.dictType  and '' != item.dictType ">dict_type =
+                    #{item.dictType},
+                </if>
+                <if test="null != item.sort ">sort =
+                    #{item.sort},
+                </if>
+                <if test="null != item.createTime ">create_time =
+                    #{item.createTime},
+                </if>
+                <if test="null != item.createUser  and '' != item.createUser ">create_user =
+                    #{item.createUser},
+                </if>
+                <if test="null != item.createUserId  and '' != item.createUserId ">create_user_id =
+                    #{item.createUserId},
+                </if>
+                <if test="null != item.updateTime ">update_time =
+                    #{item.updateTime},
+                </if>
+                <if test="null != item.updateUser  and '' != item.updateUser ">update_user =
+                    #{item.updateUser},
+                </if>
+                <if test="null != item.updateUserId  and '' != item.updateUserId ">update_user_id =
+                    #{item.updateUserId},
+                </if>
+            </set>
+            WHERE id = #{item.id}
+        </foreach>
+    </update>
+
+
+
+</mapper>

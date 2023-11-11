@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('查看用户信息')"/>
+    <script>
+        layui.use(['form'], function () {
+            form = layui.form;
+            form.render();
+        });
+    </script>
+</head>
+<body class="bg-color">
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12" style="background-color: #FFF; margin-top: 15px">
+            <div class="layui-card">
+                <div class="layui-card-header">查看用户</div>
+                <div class="layui-card-body" pad15>
+
+                    <form class="layui-form" id="seeUserInfoForm" th:object="${userInfo}">
+                        <div class="layui-form-body-see">
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    登录账户
+                                </label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="username" name="username" th:field="*{username}"
+                                           readonly="readonly"
+                                           autocomplete="off"
+                                           lay-verify="required" class="layui-input">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    姓名
+                                </label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="name" name="name" th:field="*{name}" readonly="readonly"
+                                           autocomplete="off"
+                                           lay-verify="required" class="layui-input">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    头像
+                                </label>
+                                <div class="layui-input-block">
+                                    <div id="avatarUploadImage">
+                                        <img th:src="*{avatar}" id="avatarImgSrc" class="upload-block">
+                                    </div>
+                                    <input type="text" id="avatar" name="avatar" readonly="readonly"
+                                           th:field="*{avatar}" style="display: none" class="layui-input">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    电话号码
+                                </label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="telephone" name="telephone" th:field="*{telephone}"
+                                           readonly="readonly"
+                                           autocomplete="off"
+                                           lay-verify="required" class="layui-input">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    电子邮箱
+                                </label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="email" name="email" th:field="*{email}" readonly="readonly"
+                                           autocomplete="off"
+                                           lay-verify="required" class="layui-input">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    地址
+                                </label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="address" name="address" th:field="*{address}"
+                                           readonly="readonly"
+                                           autocomplete="off"
+                                           lay-verify="required" class="layui-input">
+                                </div>
+                            </div>
+
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    性别
+                                </label>
+                                <div class="layui-input-block" th:with="dicts=${@dict.data('sys_sex')}">
+                                    <input type="radio" name="sex" th:each="dict : ${dicts}"
+                                           th:id="${'sex_' + dict.value}" disabled="disabled"
+                                           th:field="*{sex}"
+                                           th:title="${dict.label}"
+                                           th:value="${dict.value}"
+                                           th:checked="${userInfo.sex}">
+                                </div>
+                            </div>
+
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    状态
+                                </label>
+                                <div class="layui-input-block" th:with="dicts=${@dict.data('user_status')}">
+                                    <input type="radio" name="status" th:each="dict : ${dicts}"
+                                           th:id="${'status_' + dict.value}" disabled="disabled"
+                                           th:field="*{status}"
+                                           th:title="${dict.label}"
+                                           th:value="${dict.value}"
+                                           th:checked="${userInfo.status}">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    描述
+                                </label>
+                                <div class="layui-input-block">
+                        <textarea id="remarks" name="remarks" th:field="*{remarks}" maxlength="200"
+                                  readonly="readonly"
+                                  autocomplete="off"
+                                  class="layui-textarea"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-footer-center">
+                            <button type="button" class="button-close" onclick="goBackPreviousPage()">返回</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

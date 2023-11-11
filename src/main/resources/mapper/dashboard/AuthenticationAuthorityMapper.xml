@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.dashboard.mapper.IAuthenticationAuthorityMapper">
+
+    <select id="getChildrenMenu" parameterType="java.lang.String"
+            resultType="com.github.itdachen.dashboard.entity.LayuiAdminMenu">
+        SELECT DISTINCT a.id, a.id AS name, a.title, a.icon, a.path AS jump, a.order_num AS orderNum
+        FROM sys_menu_info a
+        LEFT JOIN sys_role_menu b ON a.id = b.menu_id
+        LEFT JOIN sys_role_user c ON c.role_id = b.role_id
+        <where>
+            a.parent_id=#{parentId} AND a.visible = '1'
+            <if test="null != userId and '' !=  userId ">
+                AND c.user_id = #{userId}
+            </if>
+        </where>
+        ORDER BY a.order_num ASC
+    </select>
+
+    <select id="findMenuAll" parameterType="java.lang.String"
+            resultType="com.github.itdachen.dashboard.entity.LayuiAdminMenu">
+        SELECT id, title, icon, path AS jump, id AS name, order_num AS orderNum
+        FROM sys_menu_info
+        WHERE parent_id = #{parentId}
+        ORDER BY order_num ASC
+    </select>
+
+    <select id="findHomePage" parameterType="java.lang.String"
+            resultType="com.github.itdachen.framework.context.permission.PermissionInfo">
+        SELECT id, path AS uri, title AS name, code AS permission, 'GET' AS method, type
+        FROM sys_menu_info
+        WHERE parent_id = #{parentId}
+        ORDER BY order_num ASC LIMIT 1
+    </select>
+
+    <select id="findIndexPath" parameterType="java.lang.String"
+            resultType="com.github.itdachen.framework.context.permission.PermissionInfo">
+        SELECT c.id, c.path AS uri, c.title AS name, c.code AS permission, 'GET' AS method, 'jump' AS type
+        FROM sys_role_user a
+                 LEFT JOIN sys_role_menu b ON a.role_id = b.role_id
+                 LEFT JOIN sys_menu_info c ON b.menu_id = c.id
+        WHERE a.user_id = #{userId}
+          AND c.visible = '1'
+          AND c.type = 'menu'
+          AND c.parent_id = #{parentId}
+        ORDER BY c.order_num ASC LIMIT 1
+    </select>
+
+    <select id="findMenuPath" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT c.id
+        FROM sys_role_user a
+                 LEFT JOIN sys_role_menu b ON a.role_id = b.role_id
+                 LEFT JOIN sys_menu_info c ON b.menu_id = c.id
+        WHERE a.user_id = #{userId}
+          AND c.visible = '1'
+          AND c.type = 'dirt'
+          AND c.parent_id = #{parentId}
+        ORDER BY c.order_num ASC LIMIT 1
+    </select>
+
+    <select id="getOkAdminMenuAll" resultType="com.github.itdachen.dashboard.entity.OkAdminMenu"
+            parameterType="java.lang.String">
+        SELECT id,
+               title,
+               code      AS perms,
+               parent_id AS parentId,
+               icon,
+               type      AS menuType,
+               false     AS isCheck,
+               false     AS spread,
+               visible,
+               order_num AS orderNum,
+               path      AS href
+        FROM sys_menu_info
+        WHERE parent_id = #{parentId}
+        ORDER BY order_num
+    </select>
+
+    <select id="getOkAdminChildrenMenu" resultType="com.github.itdachen.dashboard.entity.OkAdminMenu"
+            parameterType="java.lang.String">
+        SELECT DISTINCT a.id,
+                        a.title,
+                        a.code      AS perms,
+                        a.parent_id AS parentId,
+                        icon,
+                        a.type      AS menuType,
+                        false       AS isCheck,
+                        false       AS spread,
+                        a.visible,
+                        a.order_num AS orderNum,
+                        a.path      AS href
+        FROM sys_menu_info a
+                 LEFT JOIN sys_role_menu b ON a.id = b.menu_id
+                 LEFT JOIN sys_role_user c ON c.role_id = b.role_id
+        WHERE c.user_id = #{userId}
+          AND a.parent_id = #{parentId}
+          AND a.visible = '1'
+        ORDER BY order_num
+    </select>
+
+    <select id="findPermissionAll" resultType="java.lang.String">
+        SELECT code
+        FROM sys_menu_info
+        WHERE type = 'menu'
+        UNION ALL
+        SELECT code
+        FROM sys_element_info
+    </select>
+
+    <select id="findUserPermission" resultType="java.lang.String">
+        SELECT DISTINCT c.code
+        FROM sys_role_user a
+                 LEFT JOIN sys_role_menu b ON a.role_id = b.role_id
+                 LEFT JOIN sys_menu_info c ON b.menu_id = c.id
+        WHERE c.visible = '1'
+          AND c.type = 'menu'
+          AND a.user_id = #{userId}
+        UNION ALL
+        SELECT DISTINCT c.code
+        FROM sys_role_user a
+                 LEFT JOIN sys_role_menu b ON a.role_id = b.role_id
+                 LEFT JOIN sys_element_info c ON b.menu_id = c.id
+        WHERE c.visible = '1'
+          AND a.user_id = #{userId}
+    </select>
+
+</mapper>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title th:text="${clientName}">主页</title>
+    <link rel="shortcut icon" th:href="@{/static/assets/images/logo.png}" type="image/x-icon"/>
+    <!-- 依 赖 样 式 -->
+    <link rel="stylesheet" th:href="@{/static/assets/backstage/pear/component/pear/css/pear.css}"/>
+    <!-- 加 载 样 式 -->
+    <link rel="stylesheet" th:href="@{/static/assets/backstage/pear/admin/css/loader.css}"/>
+    <!-- 布 局 样 式 -->
+    <link rel="stylesheet" th:href="@{/static/assets/backstage/pear/admin/css/admin.css}"/>
+
+    <style>
+        .pear-nav-tree .layui-nav-item dd a {
+            height: 40px !important;
+            line-height: 40px !important;
+        }
+
+        .pear-nav-tree .layui-nav-item > a {
+            height: 40px !important;
+            line-height: 40px !important;
+        }
+
+        .pear-nav-tree.arrow .layui-nav-more {
+            margin-top: -10px;
+        }
+
+    </style>
+
+</head>
+<input type="text" th:value="*{permsAuthUri}" id="permsAuthUri" name="permsAuthUri" style="display: none">
+<input type="text" value="/static/assets/images/logo.png" id="logImage" name="logImage" style="display: none">
+<input type="text" th:value="*{clientName}" id="clientName" name="clientName" style="display: none">
+<input type="text" th:value="*{homeId}" id="mainHomeId" name="mainHomeId" style="display: none">
+<input type="text" th:value="*{homeUri}" id="mainHomeUri" name="mainHomeUri" style="display: none">
+<input type="text" th:value="*{menuName}" id="mainHomeTitle" name="mainHomeTitle" style="display: none">
+
+<!-- 结 构 代 码 -->
+<body class="layui-layout-body pear-admin">
+<!-- 布 局 框 架 -->
+<div class="layui-layout layui-layout-admin">
+    <!-- 顶 部 样 式 -->
+    <div class="layui-header">
+        <!-- 菜 单 顶 部 -->
+        <div class="layui-logo">
+            <!-- 图 标 -->
+            <img class="logo">
+            <!-- 标 题 -->
+            <span class="title"></span>
+        </div>
+        <!-- 顶 部 左 侧 功 能 -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="collapse layui-nav-item">
+                <a href="javascript:void(0);" class="layui-icon layui-icon-shrink-right"></a>
+            </li>
+
+        </ul>
+        <!-- 多 系 统 菜 单 -->
+        <div id="control" class="layui-layout-control"></div>
+        <!-- 顶 部 右 侧 菜 单 -->
+        <ul class="layui-nav layui-layout-right">
+            <li class="refresh layui-nav-item">
+                <a href="javascript:void(0);" title="刷新页面" class="layui-icon layui-icon-refresh" loading=600></a>
+            </li>
+            <li class="layui-nav-item layui-hide-xs">
+                <a href="javascript:void(0);" title="搜索菜单" class="menuSearch layui-icon layui-icon-search"></a>
+            </li>
+            <li class="layui-nav-item layui-hide-xs">
+                <a href="javascript:void(0);" title="全屏显示" class="fullScreen layui-icon layui-icon-screen-full"></a>
+            </li>
+            <li class="layui-nav-item layui-hide-xs">
+                <a href="https://www.baidu.com" title="打开百度" target="_blank"
+                   class="layui-icon layui-icon-website"></a>
+            </li>
+            <!--  <li class="layui-nav-item layui-hide-xs message"></li>-->
+            <li class="layui-nav-item user">
+                <a href="javascript:">
+                    <img th:src="(${avatar} eq null or ${avatar} eq '') ? @{/static/assets/fly/images/avatar.jpg} : @{${avatar}}"
+                         class="layui-nav-img">
+                    <span th:text="${userName}"></span>
+                </a>
+                <dl class="layui-nav-child" style="text-align: center;">
+                    <dd>
+                        <a href="javascript:void(0);" class="pear-icon pear-icon-user" onclick="tapUserInfo()">
+                            <span style="margin-left: 5px">基本资料</span>
+                        </a>
+                    </dd>
+                    <dd>
+                        <a href="javascript:void(0);" class="pear-icon pear-icon-edit" style="margin-left: 5px"
+                           onclick="editPaw()">
+                            <span style="margin-left: 5px">修改密码</span>
+                        </a>
+                    </dd>
+                    <hr>
+                    <dd style="text-align: center;">
+                        <a href="javascript:void(0);" class="logout pear-icon pear-icon-sign-out">
+                            <span style="margin-left: 5px">注销登录</span>
+                        </a>
+                    </dd>
+                </dl>
+            </li>
+            <!-- 主 题 配 置 -->
+            <li class="layui-nav-item setting">
+                <a href="javascript:void(0);" class="layui-icon layui-icon-more-vertical"></a>
+            </li>
+        </ul>
+    </div>
+    <!-- 侧 边 区 域 -->
+    <div class="layui-side layui-bg-black">
+        <!-- 菜 单 顶 部 -->
+        <div class="layui-logo">
+            <!-- 图 标 -->
+            <img class="logo">
+            <!-- 标 题 -->
+            <span class="title"></span>
+        </div>
+        <!-- 菜 单 内 容 -->
+        <div class="layui-side-scroll">
+            <div id="sideMenu"></div>
+        </div>
+    </div>
+    <!-- 视 图 页 面 -->
+    <div class="layui-body">
+        <!-- 内 容 页 面 -->
+        <div id="content"></div>
+    </div>
+    <!-- 页脚 -->
+    <div class="layui-footer layui-text">
+				<span class="left">
+					Released under the MIT license.
+				</span>
+        <span class="center"></span>
+        <span class="right">
+					Copyright © 2021-2022 pearadmin.com
+				</span>
+    </div>
+    <!-- 遮 盖 层 -->
+    <div class="pear-cover"></div>
+    <!-- 加 载 动 画 -->
+    <div class="loader-main">
+        <!-- 动 画 对 象 -->
+        <div class="loader"></div>
+    </div>
+</div>
+<!-- 移 动 端 便 捷 操 作 -->
+<div class="pear-collapsed-pe collapse">
+    <a href="javascript:void(0);" class="layui-icon layui-icon-shrink-right"></a>
+</div>
+<!-- 依 赖 脚 本 -->
+<script type="text/javascript" th:src="@{/static/assets/fly.js}"></script>
+<script th:src="@{/static/assets/backstage/pear/component/layui/layui.js}"></script>
+<script th:src="@{/static/assets/backstage/pear/component/pear/pear.js}"></script>
+<!-- 框 架 初 始 化 -->
+<script>
+    layui.use(['admin', 'jquery', 'popup', 'drawer'], function () {
+        var $ = layui.jquery;
+        var admin = layui.admin;
+        var popup = layui.popup;
+
+        admin.setConfigType("yml");
+        admin.setConfigPath(HTTP_BIZ_URI + "/static/assets/backstage/pear/config/pear.config.yml");
+
+        admin.render();
+
+        // 登出逻辑
+        admin.logout(function () {
+            popup.success("注销成功", function () {
+                $.ajax({
+                    type: 'get',
+                    url: '/login',
+                    success: function (res) {
+                        location.href = "/login";
+                    },
+                })
+            })
+            // 注销逻辑 返回 true / false
+            return true;
+        })
+
+        // 消息点击回调
+        admin.message(function (id, title, context, form) {
+        });
+    })
+
+
+    function editPaw() {
+        layer.open({
+            type: 2,
+            title: "修改密码",
+            maxmin: false,
+            shadeClose: false,
+            area: ['600px', '300px'],
+            content: "/paw"
+        });
+    }
+</script>
+</body>
+</html>

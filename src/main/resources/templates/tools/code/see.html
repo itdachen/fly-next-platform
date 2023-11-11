@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('查看代码生成业务表')"/>
+    <script>
+        layui.use(['form'], function () {
+            form = layui.form;
+            form.render();
+        });
+    </script>
+</head>
+<body>
+
+<form class="layui-form" id="seeTableInfoForm" th:object="${tableInfo}">
+    <div class="layui-form-body-see">
+        <div class="layui-form-item">
+            <label class="layui-form-label">编号</label>
+            <div class="layui-input-block">
+                <input type="text" th:field="*{id}"
+                       class="layui-input" readonly="readonly">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">表名称</label>
+            <div class="layui-input-block">
+                <input type="text" th:field="*{tableName}"
+                       class="layui-input" readonly="readonly">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">表描述</label>
+            <div class="layui-input-block">
+                <input type="text" th:field="*{tableComment}"
+                       class="layui-input" readonly="readonly">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">实体类名称</label>
+            <div class="layui-input-block">
+                <input type="text" th:field="*{className}"
+                       class="layui-input" readonly="readonly">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">使用的模板（crud单表操作 tree树表操作）</label>
+            <div class="layui-input-block">
+                <input type="text" th:field="*{tplCategory}"
+                       class="layui-input" readonly="readonly">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">生成包路径</label>
+            <div class="layui-input-block">
+                <input type="text" th:field="*{packageName}"
+                       class="layui-input" readonly="readonly">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">服务上下文</label>
+            <div class="layui-input-block">
+                <input type="text" th:field="*{contextPath}"
+                       class="layui-input" readonly="readonly">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">生成模块名</label>
+            <div class="layui-input-block">
+                <input type="text" th:field="*{moduleName}"
+                       class="layui-input" readonly="readonly">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">生成业务名(controller访问名, 例如: 模块名为 admin, 业务名为 user, controller 访问路径为:
+                /admin/user)</label>
+            <div class="layui-input-block">
+                <input type="text" th:field="*{businessName}"
+                       class="layui-input" readonly="readonly">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">生成功能名</label>
+            <div class="layui-input-block">
+                <input type="text" th:field="*{functionName}"
+                       class="layui-input" readonly="readonly">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">生成功能作者</label>
+            <div class="layui-input-block">
+                <input type="text" th:field="*{functionAuthor}"
+                       class="layui-input" readonly="readonly">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">上级菜单目录id</label>
+            <div class="layui-input-block">
+                <input type="text" th:field="*{menuId}"
+                       class="layui-input" readonly="readonly">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">生成代码方式（0 zip压缩包 1自定义路径）</label>
+            <div class="layui-input-block">
+                <input type="text" th:field="*{genType}"
+                       class="layui-input" readonly="readonly">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">生成路径（不填默认项目路径）</label>
+            <div class="layui-input-block">
+                <input type="text" th:field="*{genPath}"
+                       class="layui-input" readonly="readonly">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">其它生成选项</label>
+            <div class="layui-input-block">
+                <input type="text" th:field="*{options}"
+                       class="layui-input" readonly="readonly">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <input type="text" th:field="*{remark}"
+                       class="layui-input" readonly="readonly">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">创建时间</label>
+            <div class="layui-input-block">
+                <input type="text" th:field="*{createTime}"
+                       class="layui-input" readonly="readonly">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">创建人</label>
+            <div class="layui-input-block">
+                <input type="text" th:field="*{createUser}"
+                       class="layui-input" readonly="readonly">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">创建人id</label>
+            <div class="layui-input-block">
+                <input type="text" th:field="*{createUserId}"
+                       class="layui-input" readonly="readonly">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">更新时间</label>
+            <div class="layui-input-block">
+                <input type="text" th:field="*{updateTime}"
+                       class="layui-input" readonly="readonly">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">更新人</label>
+            <div class="layui-input-block">
+                <input type="text" th:field="*{updateUser}"
+                       class="layui-input" readonly="readonly">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">更新人id</label>
+            <div class="layui-input-block">
+                <input type="text" th:field="*{updateUserId}"
+                       class="layui-input" readonly="readonly">
+            </div>
+        </div>
+    </div>
+</form>
+
+</body>
+</html>

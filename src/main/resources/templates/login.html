@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <link rel="shortcut icon" href="/static/assets/logo.png" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" href="/static/assets/login/css/style.css"/>
+    <link href="/static/assets/layui/css/layui.css" rel="stylesheet" media="all"/>
+    <script type="text/javascript" th:src="@{/assets/fly.js}"></script>
+    <script type="text/javascript" src="/static/assets/fly/jquery-3.6.4.min.js"></script>
+    <script type="text/javascript" src="/static/assets/layui/layui.js"></script>
+    <script type="text/javascript" src="/assets/fly/js/fly-config.js"></script>
+    <script type="text/javascript" src="/assets/fly/js/fly-ui.js"></script>
+</head>
+<body>
+<!--头部-->
+<div class="top">
+    <div class="top_logo">
+        <!--顶部LOGO图-->
+        <a href="javascript:void(0)">
+            <img src="/static/assets/logo.png" class="top_img">
+        </a>
+        <div class="top_title">| 登录</div>
+    </div>
+</div>
+<!--身体内容-->
+<!--------------------count样式里修改你要放的图片(注意是PNG格式)-------------------->
+<div class="count">
+    <div class="body_left">
+        <a class="body_left_Text">
+            <span class="body_left_Title" th:text="${platformName}"></span>
+            <span class="body_left_Texts" th:text="${platformDescribe}"></span>
+        </a>
+    </div>
+    <!-- 登录模块-->
+    <div class="body_right_count" style="display: flex;align-items: center">
+        <div class="aui-register-box body_right" style="height: 555px;width: 100%">
+            <div class="aui-register-logo"></div>
+            <div class="aui-register-form" id="verifyCheck">
+                <div class="register-wrap" id="register-wrap">
+                    <div class="register" id="register">
+                        <div class="register-top" id="reg-top">
+                            <h2 class="normal" id="normal">普通登录</h2>
+                            <h2 class="nopassword" id="nopw">手机登录</h2>
+                            <a id="qrcode" href="#">
+                                <span class="aui-tag-size">扫码登录</span>
+                            </a>
+                        </div>
+                        <!--账户密码登录-->
+                        <form th:action="${authForm}" method="POST" class="register-con" id="rc">
+                            <div class="aui-register-form-item">
+                                <div class="adminCount Count" id="adminCount">
+                                    <img src="/static/assets/login/images/admin.png" class="img">
+                                    <div class="xian">|</div>
+                                    <input type="text" name="username" maxlength="20" placeholder="账户名"
+                                           class="txt03 f-r3 required input" tabindex="3" data-valid="isNonEmpty"
+                                           data-error="<i class='icon-tips'></i>您还没有输入账户名||<i class='icon-tips'></i>用户名长度3-20位"
+                                           id="adminNo">
+                                    <label class="focus valid"></label>
+                                </div>
+                            </div>
+
+                            <div class="aui-register-form-item">
+                                <div class="passwordCount Count" id="passwordCount">
+                                    <img src="/static/assets/login/images/pass.png" class="img">
+                                    <div class="xian">|</div>
+                                    <input type="password" name="password" placeholder="密码" id="password"
+                                           maxlength="20"
+                                           class="txt04 f-r3 required input" tabindex="4" style="ime-mode:disabled;"
+                                           onpaste="return  false" autocomplete="off"
+                                           data-valid="isNonEmpty||between:6-20"
+                                           data-error="<i class='icon-tips'></i>密码太短，最少6位||<i class='icon-tips'></i>密码长度6-20位">
+                                    <label class="focus valid"></label>
+                                </div>
+                            </div>
+                            <div class="aui-register-form-item" style="line-height:40px;margin-bottom: 0 ">
+                                <div class="codeCount Count" id="codeCount">
+                                    <img src="/static/assets/login/images/yanzhengma.png" class="img">
+                                    <div class="xian" style="padding-top: 0">|</div>
+                                    <input type="text" class="input-code inputs" placeholder="验证码" maxlength="4"
+                                           id="code" name="imageCode" autocomplete="off">
+                                    <input th:value="${param.error}" id="codeVals" style="display: none">
+                                    <img class="codeImg" th:src="@{/code/image}" id="codes" onclick="refreshCode()"
+                                         style="cursor: pointer">
+                                    <!-- 错误消息提示 -->
+                                    <div th:if="${param.error}" id="show1"
+                                         style="width: 350px;text-align: left; color: #ff552e; font-size: 12px;position: relative;padding-left: 20px;float: left; height: 0;">
+                                        <i class="icon-tips" style="top: 11px"></i><span
+                                            th:text="${session?.SPRING_SECURITY_LAST_EXCEPTION.message}"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="remember-count">
+                                <input name="remember-me" id="remember" type="checkbox" value="true"/>
+                                <label class="remember-text" for="remember">记住我</label>
+                            </div>
+
+                            <div class="aui-register-form-item">
+                                <input id="aui-btn-reg" class="aui-btn-reg" type="submit" value="登录">
+                            </div>
+                        </form>
+                        <!--手机动态码登录-->
+                        <form action="/authentication/mobile" method="POST" class="login-con" id="lc">
+                            <div class="aui-register-form-item">
+                                <div class="Count">
+                                    <img src="/static/assets/login/images/shouji.png" class="img">
+                                    <div class="xian">|</div>
+                                    <input type="text" id="mobile" name="mobile" placeholder="手机号码"
+                                           class="txt01 f-r3 required input" autocomplete="off"
+                                           keycodes="tel" tabindex="1" data-valid="isNonEmpty||isPhone"
+                                           data-error="<i class='icon-tips'></i>请输入手机号||<i class='icon-tips'></i>手机号码格式不正确"
+                                           maxlength="11">
+                                    <label class="focus valid">
+                                        <div class="msg" style="display:none"><i class='icon-tips'></i>您还未输入手机号
+                                        </div>
+                                    </label>
+                                    <span class="aui-get-code btn btn-gray f-r3 f-ml5 f-size13" id="time_box" disabled
+                                          style="display:none;"></span>
+                                    <span class="aui-get-code btn btn-gray f-r3 f-ml5 f-size13"
+                                          id="verifyYz" onclick="getSmsCode()">获取验证码</span>
+                                </div>
+                            </div>
+                            <div class="aui-register-form-item">
+                                <div class="Count">
+                                    <img src="/static/assets/login/images/dongtaima.png" class="img">
+                                    <div class="xian">|</div>
+                                    <input type="text" placeholder="验证码" maxlength="6" id="verifyNo" name="smsCode"
+                                           class="txt02 f-r3 f-fl required input" tabindex="2"
+                                           data-error="<i class='icon-tips'></i>请填写手机验证码||<i class='icon-tips'></i>请填写6位数字的手机验证码">
+                                    <label class="focus valid"></label>
+                                    <!-- 错误消息提示 -->
+                                    <div th:if="${param.error}" id="show2"
+                                         style="margin-top: 6px;width: 350px;text-align: left; color: #ff552e; font-size: 12px;position: relative;padding-left: 20px;float: left; height: 0;">
+                                        <i class="icon-tips" style="top: 1px"></i><span
+                                            th:text="${session?.SPRING_SECURITY_LAST_EXCEPTION.message}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="aui-register-form-item">
+                                <input id="aui-btn-reg1" class="aui-btn-reg" type="submit" value="登录">
+                            </div>
+                        </form>
+
+                        <!-- 扫码登录 -->
+                        <div class="saoma" id="sm" style="margin-top: 55px">
+                            <div class="screen-tu" id="screen">
+                                <span class="aui-tag-size">密码登录</span>
+                            </div>
+                            <div class="aui-text-item">
+                                <h1>1秒即登录，方便又安全</h1>
+                            </div>
+                            <div class="qr-code">
+                                <span class="tips_img"></span>
+                                <img src="/static/assets/login/images/code.png" alt="">
+                            </div>
+                            <div class="aui-tab-footer">
+                                <p>扫码登录</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--底部-->
+<div class="login-footer">
+    <div class="login-cons">
+        <!--        <div>-->
+        <!--            <a href="javascript:void(0)" class="footer_a">关于我们</a>-->
+        <!--            <a href="javascript:void(0)" class="footer_a">关于我们</a>-->
+        <!--            <a href="javascript:void(0)" class="footer_a">关于我们</a>-->
+        <!--            <a href="javascript:void(0)" class="footer_a">关于我们</a>-->
+        <!--        </div>-->
+        <!--        <div>-->
+        <!--            <a href="javascript:void(0)" class="footer_b">王大宸</a>-->
+        <!--            <a href="javascript:void(0)" class="footer_b">王大宸</a>-->
+        <!--            <a href="javascript:void(0)" class="footer_b">王大宸</a>-->
+        <!--            <a href="javascript:void(0)" class="footer_b">王大宸</a>-->
+        <!--        </div>-->
+        <p class="footer_Beian">
+            ©<span th:text="${copyrightYear}">2023</span>
+            <span th:text="${copyright}">com.github.itdachen</span>
+            <span>版权所有 </span>
+            <span>技术支持: </span>
+            <span th:text="${issuer}">发行商</span>
+        </p>
+    </div>#$Excel(⊙o⊙)…3
+</div>
+
+<script type="text/javascript" src="/static/assets/login/js/jquery.code.js"></script>
+<script type="text/javascript" src="/static/assets/login/js/login.js"></script>
+
+</body>
+</html>

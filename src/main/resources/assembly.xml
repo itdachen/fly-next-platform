@@ -1,0 +1,68 @@
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+
+    <!--
+        必须写，否则打包时会有 assembly ID must be present and non-empty 错误
+        这个名字最终会追加到打包的名字的末尾，如项目的名字为 hubu-flexible-admin,
+        则最终生成的包名为 hubu-flexible-admin.zip
+     -->
+    <id>bin</id>
+    <!-- 打包后的文件格式,可以是 zip,tar, rar,tar.gz,tar.bz2,jar,war,dir -->
+    <formats>
+        <format>zip</format>
+    </formats>
+    <!-- 压缩包下是否生成和项目名相同的根目录/是否包装一层 -->
+    <includeBaseDirectory>true</includeBaseDirectory>
+
+    <!--    <dependencySets>-->
+    <!--        <dependencySet>-->
+    <!--            &lt;!&ndash; 不使用项目的artifact，第三方jar不要解压，打包进zip文件的lib目录 &ndash;&gt;-->
+    <!--            <useProjectArtifact>false</useProjectArtifact>-->
+    <!--            <outputDirectory>lib</outputDirectory>-->
+    <!--            <unpack>false</unpack>-->
+    <!--        </dependencySet>-->
+    <!--    </dependencySets>-->
+
+    <!--文件设置-->
+    <fileSets>
+        <!--        <fileSet>-->
+        <!--            &lt;!&ndash; 需要打包的路径 &ndash;&gt;-->
+        <!--            <directory>${basedir}/src/main/resources</directory>-->
+        <!--            &lt;!&ndash; 打包需要包含的文件 &ndash;&gt;-->
+        <!--            <includes>-->
+        <!--                <include>*.yml</include>-->
+        <!--                <include>*.properties</include>-->
+        <!--            </includes>-->
+        <!--            &lt;!&ndash; 是否进行属性替换 &ndash;&gt;-->
+        <!--            <filtered>true</filtered>-->
+        <!--            &lt;!&ndash; 打包后输出的路径，自定义 &ndash;&gt;-->
+        <!--            <outputDirectory>${file.separator}config</outputDirectory>-->
+        <!--        </fileSet>-->
+
+        <!-- 应用执行脚本 -->
+        <fileSet>
+            <directory>src/main/resources/run</directory>
+            <outputDirectory>${file.separator}run</outputDirectory>
+        </fileSet>
+
+        <!-- 将项目启动 jar 打包到lib目录中 -->
+        <!--        <fileSet>-->
+        <!--            <directory>${project.build.directory}/lib</directory>-->
+        <!--            <outputDirectory>${file.separator}lib</outputDirectory>-->
+        <!--            <includes>-->
+        <!--                <include>*.jar</include>-->
+        <!--            </includes>-->
+        <!--        </fileSet>-->
+
+        <!-- 应用运行 jar -->
+        <fileSet>
+            <directory>${project.build.directory}</directory>
+            <outputDirectory>${file.separator}</outputDirectory>
+            <includes>
+                <include>*.jar</include>
+            </includes>
+        </fileSet>
+
+    </fileSets>
+</assembly>

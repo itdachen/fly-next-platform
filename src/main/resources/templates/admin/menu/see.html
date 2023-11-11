@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('查看菜单管理')"/>
+    <script>
+        layui.use(['form'], function () {
+            form = layui.form;
+            form.render();
+        });
+    </script>
+</head>
+<body>
+
+<form class="layui-form" id="seeMenuInfoForm" th:object="${menuInfo}">
+    <div class="layui-form-body-see">
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            路径编码,权限编码
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="code" name="code" th:field="*{code}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            标题
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="title" name="title" th:field="*{title}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            客户端
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="clientId" name="clientId" th:field="*{clientId}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            父级节点
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="parentId" name="parentId" th:field="*{parentId}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            资源路径,浏览器访问地址
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="path" name="path" th:field="*{path}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            重定向路径
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="redirect" name="redirect" th:field="*{redirect}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            图标
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="icon" name="icon" th:field="*{icon}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            类型:dirt-目录;menu-菜单;uri-外链
+                        </label>
+                        <div class="layui-input-block" th:with="dicts=${@dict.data('menu_type')}">
+                            <input type="radio" name="type" th:each="dict : ${dicts}"
+                                   th:id="${'type_' + dict.value}" disabled="disabled"
+                                   th:field="*{type}"
+                                   th:title="${dict.label}"
+                                   th:value="${dict.value}"
+                                   th:checked="${menuInfo.type}">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            排序
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="orderNum" name="orderNum" th:field="*{orderNum}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            是否显示:1-显示,0-不显示
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="visible" name="visible" th:field="*{visible}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            组件名称(路由中的 name 值)
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="name" name="name" th:field="*{name}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            组件地址(vue中组件的地址)
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="component" name="component" th:field="*{component}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            外链地址
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="link" name="link" th:field="*{link}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            菜单是否固定
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="affix" name="affix" th:field="*{affix}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            是否内嵌, 开启条件，`1、isIframe: true 2、链接地址不为空
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="iframe" name="iframe" th:field="*{iframe}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            菜单是否缓存
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="keepAlive" name="keepAlive" th:field="*{keepAlive}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            描述
+                        </label>
+                        <div class="layui-input-block">
+                        <textarea id="remarks" name="remarks" th:field="*{remarks}" maxlength="200"
+                                  readonly="readonly"
+ autocomplete="off"
+                                  class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+    </div>
+</form>
+
+</body>
+</html>

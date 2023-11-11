@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.admin.mapper.IPermsAuthMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.github.itdachen.admin.sdk.vo.PermsAuthVo" id="permsAuthMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="menuId" column="menu_id"/>
+        <result property="clientId" column="client_id"/>
+    </resultMap>
+
+    <sql id="selectPermsAuthVo">
+        SELECT id,
+               user_id,
+               menu_id,
+               client_id
+        FROM sys_perms_auth
+    </sql>
+
+    <!-- 集合查询 -->
+    <select id="page" parameterType="com.github.itdachen.admin.sdk.query.PermsAuthQuery" resultMap="permsAuthMap">
+        <include refid="selectPermsAuthVo"/>
+        <where>
+            <if test="null != userId  and '' != userId ">
+                AND user_id = #{userId}
+            </if>
+            <if test="null != menuId  and '' != menuId ">
+                AND menu_id = #{menuId}
+            </if>
+            <if test="null != clientId  and '' != clientId ">
+                AND client_id = #{clientId}
+            </if>
+        </where>
+        ORDER BY id DESC
+    </select>
+
+
+    <!-- 批量添加 -->
+    <insert id="batchSave" parameterType="java.util.List">
+        INSERT INTO sys_perms_auth (id , user_id , menu_id , client_id ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id}, #{item.userId}, #{item.menuId}, #{item.clientId})
+        </foreach>
+    </insert>
+
+
+    <select id="findMenuByUser" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT menu_id
+        FROM sys_perms_auth
+        WHERE user_id = #{userId}
+    </select>
+
+
+    <!-- 获取用户可以授权的应用 -->
+    <select id="getPermsAuthApp" parameterType="java.lang.String"
+            resultType="com.github.itdachen.framework.assets.tree.ZTreeNode">
+        SELECT a.app_code AS id, a.app_title AS NAME, '1' AS parentId
+        FROM sys_app_client a
+                 LEFT JOIN sys_perms_auth b ON a.app_code = b.menu_id
+        WHERE b.user_id = #{userId}
+    </select>
+
+    <select id="permsAuthMenu" parameterType="java.lang.String"
+            resultType="com.github.itdachen.framework.assets.tree.ZTreeNode">
+        SELECT a.id, a.parent_id AS parentId, a.title AS name
+        FROM sys_menu_info a
+                 LEFT JOIN sys_perms_auth b ON a.id = b.menu_id
+        WHERE b.user_id = #{userId}
+        ORDER BY a.order_num ASC
+    </select>
+
+    <select id="permsAuthElement" parameterType="java.lang.String"
+            resultType="com.github.itdachen.framework.assets.tree.ZTreeNode">
+        SELECT a.id, a.menu_id AS parentId, a.title AS name
+        FROM sys_element_info a
+                 LEFT JOIN sys_perms_auth b ON a.id = b.menu_id
+        WHERE b.user_id = #{userId}
+          AND a.menu_id = #{menuId}
+        ORDER BY a.order_num ASC
+    </select>
+
+
+</mapper>

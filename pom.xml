@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.github.itdachen</groupId>
+    <artifactId>fly-next-admin</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <java.version>17</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <fly.dependencies.version>1.0.1</fly.dependencies.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.github.itdachen.framework</groupId>
+                <artifactId>fly-dependencies</artifactId>
+                <version>${fly.dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- 启动日志打印模块放在最前面, spring-boot-starter 使用的是 logback-classic 日志, 跟系统配置日志框架会冲突  -->
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-runner</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-body-advice</artifactId>
+        </dependency>
+
+        <!-- 項目启动容器 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+        </dependency>
+
+
+        <!-- mvc 封装模块 -->
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-webmvc</artifactId>
+        </dependency>
+
+        <!-- 工具模块 -->
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-tools</artifactId>
+        </dependency>
+
+        <!-- 自定义前端模块 -->
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-assets</artifactId>
+        </dependency>
+
+        <!-- 代码生成器模块 -->
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-code-tools</artifactId>
+        </dependency>
+
+        <!-- 数据脱敏模块 -->
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-sensitive</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+        </dependency>
+
+        <!-- 配置文件 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- spring-security 加密模块 -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+        </dependency>
+
+        <!-- spring-security 登录认证模块 -->
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-security</artifactId>
+        </dependency>
+
+        <!-- 文件上传 -->
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-oss</artifactId>
+        </dependency>
+
+        <!-- 读取服务器硬件信息 -->
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-hardware</artifactId>
+        </dependency>
+
+        <!-- 自定义接口限流 -->
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-rate-limiter</artifactId>
+        </dependency>
+
+        <!-- 操作日志模块 -->
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-oplog</artifactId>
+        </dependency>
+
+        <!-- 数据库加密模块 -->
+        <dependency>
+            <groupId>com.github.itdachen.framework</groupId>
+            <artifactId>fly-datasource</artifactId>
+        </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>com.alibaba</groupId>-->
+        <!--            <artifactId>druid-spring-boot-3-starter</artifactId>-->
+        <!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity6</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
+
+        <!-- 安全认证模块 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-jdbc</artifactId>
+        </dependency>
+
+        <!-- redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <!-- session 集群管理 -->
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
+        </dependency>
+
+        <!-- mysql -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <!-- 生成数据库表设计 -->
+        <dependency>
+            <groupId>cn.smallbun.screw</groupId>
+            <artifactId>screw-core</artifactId>
+            <version>1.0.5</version>
+            <!-- 排除自带日志打印, 与系统框架冲突 -->
+            <exclusions>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- io 代码生成器输出流 -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.4.2</version>
+                <configuration>
+                    <!-- 打包后的包名是否包含assembly的id名 -->
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <!-- 指定最后tar或者zip包的名字 -->
+                    <finalName>${project.artifactId}</finalName>
+                    <!-- tar或者zip包的输出目录 -->
+                    <!-- 是指当前项目的根目录 ，例如：F:\pvpsddp\pvpsddp-gateway 的上一级-->
+                    <outputDirectory>E:\package\hubu</outputDirectory>
+                    <descriptors>
+                        <!-- assembly配置文件位置 -->
+                        <descriptor>src/main/resources/assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- 解决加载不了字体文件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <nonFilteredFileExtensions>
+                        <nonFilteredFileExtension>woff</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>woff2</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>eot</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>ttf</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>svg</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
+                </configuration>
+            </plugin>
+
+
+            <!-- 打包发布时，跳过单元测试 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <compilerArgs>
+                        <!-- 解决 MyBatis 多参数需要 @Param 注解问题 -->
+                        <arg>-parameters</arg>
+                    </compilerArgs>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+
+</project>

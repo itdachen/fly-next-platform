@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.dashboard.mapper.ILoginErrorRecordMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.github.itdachen.dashboard.sdk.vo.LoginErrorRecordVO" id="loginErrorRecordMap">
+        <result property="id" column="id"/>
+        <result property="errorType" column="error_type"/>
+        <result property="sessionId" column="session_id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="verificationCode" column="verification_code"/>
+        <result property="ip" column="ip"/>
+        <result property="message" column="message"/>
+        <result property="requestId" column="request_id"/>
+        <result property="os" column="os"/>
+        <result property="accessAddress" column="access_address"/>
+        <result property="browser" column="browser"/>
+        <result property="clientId" column="client_id"/>
+    </resultMap>
+
+    <sql id="selectLoginErrorRecordVo">
+        SELECT id,
+               error_type,
+               session_id,
+               username,
+               password,
+               verification_code,
+               ip,
+               message,
+               request_id,
+               os,
+               access_address,
+               browser,
+               client_id
+        FROM sys_login_error_record
+    </sql>
+
+    <!-- 集合查询 -->
+    <select id="page" parameterType="com.github.itdachen.dashboard.sdk.query.LoginErrorRecordQuery"
+            resultMap="loginErrorRecordMap">
+        <include refid="selectLoginErrorRecordVo"/>
+        <where>
+            <if test="null != errorType  and '' != errorType ">
+                AND error_type = #{errorType}
+            </if>
+            <if test="null != sessionId  and '' != sessionId ">
+                AND session_id = #{sessionId}
+            </if>
+            <if test="null != username  and '' != username ">
+                AND username LIKE CONCAT(CONCAT('%',#{username}),'%')
+            </if>
+            <if test="null != password  and '' != password ">
+                AND password = #{password}
+            </if>
+            <if test="null != verificationCode  and '' != verificationCode ">
+                AND verification_code = #{verificationCode}
+            </if>
+            <if test="null != ip  and '' != ip ">
+                AND ip = #{ip}
+            </if>
+            <if test="null != message  and '' != message ">
+                AND message = #{message}
+            </if>
+            <if test="null != requestId  and '' != requestId ">
+                AND request_id = #{requestId}
+            </if>
+            <if test="null != os  and '' != os ">
+                AND os = #{os}
+            </if>
+            <if test="null != accessAddress  and '' != accessAddress ">
+                AND access_address = #{accessAddress}
+            </if>
+            <if test="null != browser  and '' != browser ">
+                AND browser = #{browser}
+            </if>
+            <if test="null != clientId  and '' != clientId ">
+                AND client_id = #{clientId}
+            </if>
+        </where>
+        ORDER BY id DESC
+    </select>
+
+
+    <select id="findErrTotal" resultType="java.lang.Integer" parameterType="java.lang.String">
+        SELECT COUNT(id)
+        FROM sys_login_error_record
+        WHERE username = #{username}
+          AND create_time <![CDATA[>=]]> now() - INTERVAL 5 MINUTE
+    </select>
+
+
+    <!-- 批量添加 -->
+    <insert id="batchSave" parameterType="java.util.List">
+        INSERT INTO sys_login_error_record (id ,
+        error_type ,
+        session_id ,
+        username ,
+        password ,
+        verification_code ,
+        ip ,
+        message ,
+        request_id ,
+        os ,
+        access_address ,
+        browser ,
+        client_id ,
+        create_time
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},
+            #{item.errorType},
+            #{item.sessionId},
+            #{item.username},
+            #{item.password},
+            #{item.verificationCode},
+            #{item.ip},
+            #{item.message},
+            #{item.requestId},
+            #{item.os},
+            #{item.accessAddress},
+            #{item.browser},
+            #{item.clientId},
+            #{item.createTime})
+        </foreach>
+    </insert>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE sys_login_error_record
+            <set>
+                <if test="null != item.id  and '' != item.id ">id =
+                    #{item.id},
+                </if>
+                <if test="null != item.errorType  and '' != item.errorType ">error_type =
+                    #{item.errorType},
+                </if>
+                <if test="null != item.sessionId  and '' != item.sessionId ">session_id =
+                    #{item.sessionId},
+                </if>
+                <if test="null != item.username  and '' != item.username ">username =
+                    #{item.username},
+                </if>
+                <if test="null != item.password  and '' != item.password ">password =
+                    #{item.password},
+                </if>
+                <if test="null != item.verificationCode  and '' != item.verificationCode ">verification_code =
+                    #{item.verificationCode},
+                </if>
+                <if test="null != item.ip  and '' != item.ip ">ip =
+                    #{item.ip},
+                </if>
+                <if test="null != item.message  and '' != item.message ">message =
+                    #{item.message},
+                </if>
+                <if test="null != item.requestId  and '' != item.requestId ">request_id =
+                    #{item.requestId},
+                </if>
+                <if test="null != item.os  and '' != item.os ">os =
+                    #{item.os},
+                </if>
+                <if test="null != item.accessAddress  and '' != item.accessAddress ">access_address =
+                    #{item.accessAddress},
+                </if>
+                <if test="null != item.browser  and '' != item.browser ">browser =
+                    #{item.browser},
+                </if>
+                <if test="null != item.clientId  and '' != item.clientId ">client_id =
+                    #{item.clientId},
+                </if>
+                <if test="null != item.createTime ">create_time =
+                    #{item.createTime},
+                </if>
+            </set>
+            WHERE id = #{item.id}
+        </foreach>
+    </update>
+
+
+</mapper>

@@ -1,0 +1,15 @@
+windows 系统启动项目执行 run.bat 文件按照指引操作
+
+Linux 系统执行
+项目启动: ./run.sh start
+项目停止: ./run.sh restart
+项目重启: ./run.sh stop
+查看状态: ./run.sh status
+
+问题: 
+/bin/bash^M: 解释器错误: 没有那个文件或目录。解决方法：
+  sed -i 's/\r$//' run.sh
+
+sh run.sh 与 ./run.sh  区别
+  sh run.sh 是不需要有执行权限
+  ./run.sh 是需要有执行权限的，可以通过 chmod +x run.sh 赋予权限

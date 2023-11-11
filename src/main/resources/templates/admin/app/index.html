@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <th:block th:include="common/common::common('应用管理')"/>
+    <script th:src="@{/static/admin/app/index.js}" charset="utf-8"></script>
+
+    <style>
+
+        .fly-page-top {
+            background-color: #ffffff;
+            margin: 1.0em;
+            padding: 10px;
+        }
+
+        .fly-query-box {
+            background-color: #ffffff;
+            padding: 10px;
+        }
+
+        .fly-footer-center {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .fly-page-title {
+            margin: 10px;
+            font-size: 30px;
+            height: 40px;
+            text-align: center;
+            font-family: 黑体;
+            font-weight: bold;
+        }
+
+        .fly-search-btn {
+            margin-bottom: 5px;
+            width: 100px;
+            border-radius: 3px;
+        }
+
+    </style>
+
+
+</head>
+<body class="bg-color">
+
+<div class="fly-page-top">
+    <div class="fly-page-title">
+        应用管理应用管理应用管理应用管理应用管理应用管理应用管理应用管理应用管理应用管理应用管理
+    </div>
+
+    <div class="fly-query-box">
+        <fieldset class="layui-elem-field">
+            <legend>查询条件</legend>
+            <div class=" layui-field-box">
+                <form class="layui-form">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">应用类型</label>
+                            <div class="layui-input-inline">
+                                <select id="appType" name="appType" th:with="dicts=${@dict.data('system_type')}">
+                                    <option value="">请选择应用类型</option>
+                                    <option th:each="dict : ${dicts}"
+                                            th:text="${dict.label}"
+                                            th:value="${dict.value}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">应用名称</label>
+                            <div class="layui-input-inline layui-input-wrap">
+                                <input class="layui-input" placeholder="应用名称"
+                                       id="appTitle" name="appTitle" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <button type="button" class="layui-btn layui-btn-primary fly-search-btn"
+                                lay-submit lay-filter="queryAppClient">
+                            <i class="layui-icon layui-icon-search"></i>查询
+                        </button>
+
+                    </div>
+
+                    <div class="fly-footer-center">
+                        <button type="button" class="layui-btn layui-btn-primary fly-search-btn"
+                                lay-submit lay-filter="queryAppClient">
+                            <i class="layui-icon layui-icon-search"></i>查询
+                        </button>
+                        <button type="button" class="layui-btn layui-btn-primary fly-search-btn"
+                                lay-submit lay-filter="exportAppClient">
+                            <i class="layui-icon layui-icon-export"></i>导出
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </fieldset>
+    </div>
+
+
+    <!--    <div class="layui-collapse fly-query-box">-->
+    <!--        <div class="layui-colla-item">-->
+    <!--            <div class="layui-colla-title" style="font-size: 18px">【 查询条件 】</div>-->
+    <!--            <div class="layui-colla-content  layui-show">-->
+    <!--                <form class="layui-form">-->
+    <!--                    <div class="layui-form-item">-->
+    <!--                        <div class="layui-inline">-->
+    <!--                            <label class="layui-form-label">应用类型</label>-->
+    <!--                            <div class="layui-input-inline">-->
+    <!--                                <select id="appType" name="appType" th:with="dicts=${@dict.data('system_type')}">-->
+    <!--                                    <option value="">请选择应用类型</option>-->
+    <!--                                    <option th:each="dict : ${dicts}"-->
+    <!--                                            th:text="${dict.label}"-->
+    <!--                                            th:value="${dict.value}">-->
+    <!--                                    </option>-->
+    <!--                                </select>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                        <div class="layui-inline">-->
+    <!--                            <label class="layui-form-label">应用名称</label>-->
+    <!--                            <div class="layui-input-inline layui-input-wrap">-->
+    <!--                                <input class="layui-input" placeholder="应用名称"-->
+    <!--                                       id="appTitle" name="appTitle" autocomplete="off">-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+
+    <!--                    <div class="fly-footer-center">-->
+    <!--                        <button type="button" class="layui-btn layui-btn-primary"-->
+    <!--                                lay-submit lay-filter="queryAppClient">-->
+    <!--                            <i class="layui-icon layui-icon-search"></i>查询-->
+    <!--                        </button>-->
+    <!--                        <button type="button" class="layui-btn layui-btn-primary">-->
+    <!--                            <i class="layui-icon layui-icon-export"></i>导出-->
+    <!--                        </button>-->
+    <!--                    </div>-->
+
+    <!--                </form>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+
+
+</div>
+
+
+<!-- 表头工具栏 -->
+<script type="text/html" id="toolbar">
+    <div class="tool-head-bar">
+        <button sec:authorize="hasAuthority('admin:app:client:save')"
+                class="layui-btn layui-btn-sm layui-btn-normal add-btn"
+                lay-event="saveAppClient">
+            <i class="layui-icon"></i>新增
+        </button>
+    </div>
+</script>
+
+<div class="body_info">
+    <div class="data_div">
+        <!-- 表格 -->
+        <div class="layui_table">
+            <table class="layui-hide" id="layTable" lay-filter="layFilter"></table>
+        </div>
+    </div>
+</div>
+
+<!-- 操作工具栏 -->
+<script type="text/html" id="toolbarHandle">
+    <button sec:authorize="hasAuthority('admin:app:client:view')"
+            class="tool-bar-btn see-button" lay-event="view">
+        <i class="layui-icon layui-icon-list"></i>查看
+    </button>
+    <button sec:authorize="hasAuthority('admin:app:client:update')"
+            class="tool-bar-btn edit-button" lay-event="update">
+        <i class="layui-icon layui-icon-edit"></i>编辑
+    </button>
+    <button sec:authorize="hasAuthority('admin:app:client:delete')"
+            class="tool-bar-btn remove-button" lay-event="delete">
+        <i class="layui-icon layui-icon-delete"></i>删除
+    </button>
+</script>
+
+
+<script type="text/html" id="stateTpl">
+    <input type="checkbox" name="state" lay-skin="tag" value="{{d.id}}" title="锁定"
+           lay-filter="stateFilter" {{ d.state== 1 ? 'checked' : '' }}>
+</script>
+
+</body>
+</html>

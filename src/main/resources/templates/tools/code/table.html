@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('新增字段')"/>
+    <script th:src="@{/static/tools/way.js}" charset="utf-8"></script>
+    <script th:src="@{/static/tools/table.js}" charset="utf-8"></script>
+</head>
+<body class="bg-color">
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12" style="background-color: #FFF; margin-top: 15px">
+            <div class="layui-card">
+                <div class="layui-card-header">新增表</div>
+                <div class="layui-card-body" pad15>
+
+                    <form class="layui-form" id="addAppClientForm">
+                        <div class="layui-form-body">
+
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">
+                                        <span class="required">*</span>表名称
+                                    </label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" id="tableName" name="tableName"
+                                               placeholder="例如: SYS_USER_INFO"
+                                               autocomplete="off" lay-verify="required" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">
+                                        <span class="required">*</span>表备注
+                                    </label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" id="tableComment" name="tableComment"
+                                               placeholder="例如: 用户信息"
+                                               autocomplete="off" lay-verify="required" class="layui-input">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="layui-form-item">
+
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">
+                                        <span class="required">*</span>JAVA包路径
+                                    </label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" id="packageName" name="packageName"
+                                               placeholder="例如: com.github.itdachen.admin"
+                                               autocomplete="off" lay-verify="required" class="layui-input">
+                                    </div>
+                                </div>
+
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">
+                                        <span class="required">*</span>JAVA实体类
+                                    </label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" id="className" name="className"
+                                               placeholder="例如: UserInfo"
+                                               autocomplete="off" lay-verify="required" class="layui-input">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">
+                                        <span class="required">*</span>生成模块名
+                                    </label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" id="moduleName" name="moduleName"
+                                               placeholder="例如: admin"
+                                               autocomplete="off" lay-verify="required" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">
+                                        <span class="required">*</span>Controller 路径
+                                    </label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" id="businessName" name="businessName"
+                                               placeholder="例如: /user/info" autocomplete="off"
+                                               lay-verify="required" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">
+                                        <span class="required">*</span>生成功能名
+                                    </label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" id="functionName" name="functionName"
+                                               placeholder="例如: 用户管理" autocomplete="off"
+                                               lay-verify="required" class="layui-input">
+                                    </div>
+                                </div>
+
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">
+                                        <span class="required">*</span>所属菜单
+                                    </label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" id="menuName" name="menuName" onclick="parentMenu()"
+                                               readonly="readonly" lay-verify="required" placeholder="点击选择菜单"
+                                               autocomplete="off" class="layui-input">
+                                        <input type="text" id="menuId" name="menuId" style="display: none"
+                                               autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">
+                                        <span class="required">*</span>后端模板
+                                    </label>
+                                    <div class="layui-input-inline">
+                                        <input type="radio" name="tplCategory" value="biz" title="biz" checked="">
+                                        <input type="radio" name="tplCategory" value="default" title="default">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    备注
+                                </label>
+                                <div class="layui-input-block">
+                                    <textarea id="remark" name="remark" maxlength="30" class="layui-textarea"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-footer-center" style="text-align:center;margin-top: 20px;">
+                            <button type="button" class="button-sub"
+                                    lay-submit lay-filter="addTableInfo">提交
+                            </button>
+                            <button type="button" class="button-close" onclick="goBackPreviousPage()">返回</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

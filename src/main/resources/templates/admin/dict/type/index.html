@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <th:block th:include="common/common::common('字典类型表')"/>
+    <script th:src="@{/static/admin/dict/type/index.js}" charset="utf-8"></script>
+</head>
+<body class="bg-color">
+
+<!-- 表头工具栏 -->
+<script type="text/html" id="toolbar">
+    <div class="tool-head-bar">
+        <div class="head-search" sec:authorize="hasAuthority('admin:dict:type:query')">
+            <input class="layui-input float_left" placeholder="字典名称"
+                   id="dictName" name="dictName" autocomplete="off">
+            <select id="dictType" name="dictType" th:with="dicts=${@dict.data('log_business_type')}">
+                <option value="">请选择字典类型</option>
+                <option th:each="dict : ${dicts}"
+                        th:text="${dict.label}"
+                        th:value="${dict.value}">
+                </option>
+            </select>
+            <select id="status" name="status" th:with="dicts=${@dict.data('dict_data_status')}">
+                <option value="">请选择状态,数据字典: dict_data_status</option>
+                <option th:each="dict : ${dicts}"
+                        th:text="${dict.label}"
+                        th:value="${dict.value}">
+                </option>
+            </select>
+            <button class="layui-btn layui-btn-sm layui-btn-normal search-btn float_left"
+                    lay-event="search">
+                <i class="layui-icon layui-icon-search"></i>搜索
+            </button>
+        </div>
+        <button sec:authorize="hasAuthority('admin:dict:type:save')"
+                class="layui-btn layui-btn-sm layui-btn-normal add-btn"
+                lay-event="saveDictType">
+            <i class="layui-icon"></i>新增
+        </button>
+    </div>
+</script>
+
+<div class="body_info">
+    <div class="data_div">
+        <!-- 表格 -->
+        <div class="layui_table">
+            <table class="layui-hide" id="layTable" lay-filter="layFilter"></table>
+            <div id="layPage"></div>
+        </div>
+    </div>
+</div>
+
+<!-- 操作工具栏 -->
+<script type="text/html" id="toolbarHandle">
+    <button sec:authorize="hasAuthority('admin:dict:data:index')"
+            class="tool-bar-btn see-button" lay-event="view">
+        <i class="layui-icon layui-icon-list"></i>数据字典
+    </button>
+    <button sec:authorize="hasAuthority('admin:dict:type:update')"
+            class="tool-bar-btn edit-button" lay-event="update">
+        <i class="layui-icon layui-icon-edit"></i>编辑
+    </button>
+    <button sec:authorize="hasAuthority('admin:dict:type:delete')"
+            class="tool-bar-btn remove-button" lay-event="delete">
+        <i class="layui-icon layui-icon-delete"></i>删除
+    </button>
+</script>
+
+<script type="text/html" id="statusTpl">
+    <input type="checkbox" name="status" lay-skin="tag" class="warning-check-box" value="{{d.id}}" title="可用"
+           lay-filter="statusTpl" {{ d.status== '1' ? 'checked' : '' }}>
+</script>
+
+
+</body>
+</html>

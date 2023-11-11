@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('新增部门管理')"/>
+    <script th:src="@{/static/admin/dept/add.js}" charset="utf-8"></script>
+</head>
+<body>
+
+<form class="layui-form" id="addDeptInfoForm">
+    <input type="text" th:value="*{parentId}" id="parentId" name="parentId" style="display: none">
+    <div class="layui-form-body">
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>部门类型
+            </label>
+            <div class="layui-input-block">
+                <select id="deptType" name="deptType" th:with="dicts=${@dict.data('dept_type')}">
+                    <option value="">请选择部门类型</option>
+                    <option th:each="dict : ${dicts}"
+                            th:text="${dict.label}"
+                            th:value="${dict.value}">
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>部门名称
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="title" name="title"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                备注
+            </label>
+            <div class="layui-input-block">
+                        <textarea id="remarks" name="remarks" maxlength="200"
+                                  autocomplete="off" class="layui-textarea"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="form-footer">
+        <button type="button" class="button-sub" lay-submit lay-filter="saveDeptInfo">保存</button>
+        <button type="button" class="button-close" id="buttonClose">关闭</button>
+    </div>
+</form>
+</body>
+</html>

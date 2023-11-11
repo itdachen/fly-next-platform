@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.dashboard.mapper.IRefreshAuthoritiesMapper">
+
+    <select id="findPermissionAll" resultType="java.lang.String">
+        SELECT code
+        FROM sys_menu_info
+        WHERE type = 'menu'
+        UNION ALL
+        SELECT code
+        FROM sys_element_info
+    </select>
+
+    <select id="findUserPermission" resultType="java.lang.String">
+        SELECT DISTINCT c.code
+        FROM sys_role_user a
+                 LEFT JOIN sys_role_menu b ON a.role_id = b.role_id
+                 LEFT JOIN sys_menu_info c ON b.menu_id = c.id
+        WHERE c.visible = '1'
+          AND c.type = 'menu'
+          AND a.user_id = #{userId}
+        UNION ALL
+        SELECT DISTINCT c.code
+        FROM sys_role_user a
+                 LEFT JOIN sys_role_menu b ON a.role_id = b.role_id
+                 LEFT JOIN sys_element_info c ON b.menu_id = c.id
+        WHERE c.visible = '1'
+          AND a.user_id = #{userId}
+    </select>
+
+</mapper>
