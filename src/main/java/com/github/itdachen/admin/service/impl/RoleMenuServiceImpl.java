@@ -76,7 +76,7 @@ public class RoleMenuServiceImpl extends BizServiceImpl<IRoleMenuMapper, IRoleMe
      * @return com.itdachen.admin.entity.RoleMenu
      */
     @Override
-    public RoleMenuVo save(RoleMenuDto roleMenuDto) throws BizException {
+    public RoleMenuVo saveInfo(RoleMenuDto roleMenuDto) throws BizException {
         if (null == roleMenuDto) {
             throw new BizException("添加的角色菜单不能为空");
         }
@@ -91,7 +91,7 @@ public class RoleMenuServiceImpl extends BizServiceImpl<IRoleMenuMapper, IRoleMe
 
         String menuIds = roleMenuDto.getMenuId();
         List<String> menuList = new ArrayList<>(Arrays.asList(menuIds.split(",")));
-        if (0 == menuList.size()) {
+        if (menuList.isEmpty()) {
             return null;
         }
 

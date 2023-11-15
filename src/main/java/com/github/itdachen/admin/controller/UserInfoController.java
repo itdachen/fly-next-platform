@@ -81,7 +81,7 @@ public class UserInfoController extends BizController<IUserInfoService, UserInfo
     @GetMapping(value = "/edit/{id}")
     @PreAuthorize("hasAuthority('admin:user:info:update')")
     public String edit(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
-        modelMap.put("userInfo", bizService.getById(id));
+        modelMap.put("userInfo", bizService.selectByPrimaryKey(id));
         return PATH_PREFIX + "/edit";
     }
 
@@ -97,7 +97,7 @@ public class UserInfoController extends BizController<IUserInfoService, UserInfo
     @GetMapping(value = "/view/{id}")
     @PreAuthorize("hasAuthority('admin:user:info:view')")
     public String see(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
-        modelMap.put("userInfo", bizService.getById(id));
+        modelMap.put("userInfo", bizService.selectByPrimaryKey(id));
         return PATH_PREFIX + "/see";
     }
 

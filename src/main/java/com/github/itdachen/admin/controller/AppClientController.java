@@ -71,7 +71,7 @@ public class AppClientController extends BizController<IAppClientService, AppCli
     @GetMapping(value = "/edit/{id}")
     @PreAuthorize("hasAuthority('admin:app:client:update')")
     public String edit(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
-        modelMap.put("appClient", bizService.getById(id));
+        modelMap.put("appClient", bizService.selectByPrimaryKey(id));
         return PATH_PREFIX + "/edit";
     }
 
@@ -87,7 +87,7 @@ public class AppClientController extends BizController<IAppClientService, AppCli
     @GetMapping(value = "/view/{id}")
     @PreAuthorize("hasAuthority('admin:app:client:view')")
     public String see(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
-        modelMap.put("appClient", bizService.getById(id));
+        modelMap.put("appClient", bizService.selectByPrimaryKey(id));
         return PATH_PREFIX + "/see";
     }
 

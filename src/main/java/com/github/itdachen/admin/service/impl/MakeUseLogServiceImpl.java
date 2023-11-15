@@ -55,7 +55,7 @@ public class MakeUseLogServiceImpl extends BizServiceImpl<IMakeUseLogMapper, IMa
      * @return int
      */
     @Override
-    public int remove(String id) throws Exception {
+    public int deleteByPrimaryKey(String id) throws Exception {
         bizMapper.updateByPrimaryKeySelective(MakeUseLog.builder()
                 .id(id)
                 .delFlag(YesOrNotConstant.YES)

@@ -64,12 +64,12 @@ public class DictTypeServiceImpl extends BizServiceImpl<IDictTypeMapper, IDictTy
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public DictTypeVo save(DictTypeDto dictTypeDto) throws Exception {
+    public DictTypeVo saveInfo(DictTypeDto dictTypeDto) throws Exception {
         DictTypeVo vo = bizMapper.findByDictType(dictTypeDto.getDictType());
         if (null != vo) {
             throw new BizException("该数据字典类型已经存在");
         }
-        return super.save(dictTypeDto);
+        return super.saveInfo(dictTypeDto);
     }
 
     /***
@@ -82,12 +82,12 @@ public class DictTypeServiceImpl extends BizServiceImpl<IDictTypeMapper, IDictTy
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public DictTypeVo update(DictTypeDto dictTypeDto) throws Exception {
+    public DictTypeVo updateInfo(DictTypeDto dictTypeDto) throws Exception {
         DictTypeVo vo = bizMapper.findByDictType(dictTypeDto.getDictType());
         if (null != vo && !dictTypeDto.getId().equals(vo.getId())) {
             throw new BizException("该数据字典类型已经存在");
         }
-        return super.update(dictTypeDto);
+        return super.updateInfo(dictTypeDto);
     }
 
     /***
@@ -100,7 +100,7 @@ public class DictTypeServiceImpl extends BizServiceImpl<IDictTypeMapper, IDictTy
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int remove(String id) throws BizException {
+    public int deleteByPrimaryKey(String id) throws BizException {
         DictType dictType = bizMapper.selectByPrimaryKey(id);
         if (null == dictType) {
             return 0;

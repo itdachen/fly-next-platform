@@ -69,7 +69,7 @@ public class RoleUserController {
     @ResponseBody
     @PreAuthorize("hasAuthority('admin:user:role:index')")
     public ServerResponse<RoleUserVo> save(@RequestBody RoleUserDto entity) throws Exception {
-        return ServerResponse.okData(roleUserService.save(entity));
+        return ServerResponse.okData(roleUserService.saveInfo(entity));
     }
 
     @GetMapping("/zTree/{userId}")

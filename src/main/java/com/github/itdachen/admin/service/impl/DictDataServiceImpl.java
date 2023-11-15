@@ -56,7 +56,7 @@ public class DictDataServiceImpl extends BizServiceImpl<IDictDataMapper, IDictDa
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public DictDataVo save(DictDataDto dictDataDto) throws Exception {
+    public DictDataVo saveInfo(DictDataDto dictDataDto) throws Exception {
         DictData dictData = bizConvert.toJavaObject(dictDataDto);
         DictDataVo data = bizMapper.findByTypeAndValue(dictData.getDictType(), dictData.getDictValue());
         if (null != data) {
@@ -76,7 +76,7 @@ public class DictDataServiceImpl extends BizServiceImpl<IDictDataMapper, IDictDa
      * @return com.github.itdachen.admin.entity.DictData
      */
     @Override
-    public DictDataVo update(DictDataDto dictDataDto) throws Exception {
+    public DictDataVo updateInfo(DictDataDto dictDataDto) throws Exception {
         DictData dictData = bizConvert.toJavaObject(dictDataDto);
         DictDataVo data = bizMapper.findByTypeAndValue(dictData.getDictType(), dictData.getDictValue());
         if (null != data && !dictData.getId().equals(data.getId())) {

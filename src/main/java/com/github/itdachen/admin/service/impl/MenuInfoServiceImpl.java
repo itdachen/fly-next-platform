@@ -83,12 +83,12 @@ public class MenuInfoServiceImpl extends BizServiceImpl<IMenuInfoMapper, IMenuIn
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public MenuInfoVo save(MenuInfoDto menuInfoDto) throws Exception {
+    public MenuInfoVo saveInfo(MenuInfoDto menuInfoDto) throws Exception {
         if (StringUtils.isEmpty(menuInfoDto.getName())) {
             menuInfoDto.setName("C" + UuidUtils.generateShortUuid() + "Component");
         }
         verifyClient(menuInfoDto);
-        return super.save(menuInfoDto);
+        return super.saveInfo(menuInfoDto);
     }
 
     /***
@@ -101,19 +101,19 @@ public class MenuInfoServiceImpl extends BizServiceImpl<IMenuInfoMapper, IMenuIn
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public MenuInfoVo update(MenuInfoDto menuInfoDto) throws Exception {
+    public MenuInfoVo updateInfo(MenuInfoDto menuInfoDto) throws Exception {
         if (StringUtils.isEmpty(menuInfoDto.getName())) {
             menuInfoDto.setName("C" + UuidUtils.generateShortUuid() + "Component");
         }
         verifyClient(menuInfoDto);
-        return super.update(menuInfoDto);
+        return super.updateInfo(menuInfoDto);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int remove(String id) throws Exception {
+    public int deleteByPrimaryKey(String id) throws Exception {
         elementMapper.remove(id);
-        return super.remove(id);
+        return super.deleteByPrimaryKey(id);
     }
 
     /***

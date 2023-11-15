@@ -52,7 +52,7 @@ public class RoleUserServiceImpl extends BizServiceImpl<IRoleUserMapper, IRoleUs
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public RoleUserVo save(RoleUserDto roleUserDto) throws BizException {
+    public RoleUserVo saveInfo(RoleUserDto roleUserDto) throws BizException {
         if (null == roleUserDto) {
             throw new BizException("用户角色不能为空");
         }
@@ -62,7 +62,7 @@ public class RoleUserServiceImpl extends BizServiceImpl<IRoleUserMapper, IRoleUs
         }
 
         List<String> roleList = new ArrayList<>(Arrays.asList(roleUserDto.getRoleId().split(",")));
-        if (0 == roleList.size()) {
+        if (roleList.isEmpty()) {
             return null;
         }
 
@@ -79,7 +79,7 @@ public class RoleUserServiceImpl extends BizServiceImpl<IRoleUserMapper, IRoleUs
             one.setClientId(roleUserDto.getClientId());
             list.add(one);
         }
-        if (0 < list.size()) {
+        if (!list.isEmpty()) {
             bizMapper.batchSave(list);
         }
         return null;

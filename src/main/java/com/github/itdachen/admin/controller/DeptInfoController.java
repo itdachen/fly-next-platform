@@ -77,7 +77,7 @@ public class DeptInfoController extends BizController<IDeptInfoService, DeptInfo
     @GetMapping(value = "/edit/{id}")
     @PreAuthorize("hasAuthority('admin:dept:update')")
     public String edit(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
-        modelMap.put("deptInfo", bizService.getById(id));
+        modelMap.put("deptInfo", bizService.selectByPrimaryKey(id));
         return PATH_PREFIX + "/edit";
     }
 
@@ -93,7 +93,7 @@ public class DeptInfoController extends BizController<IDeptInfoService, DeptInfo
     @GetMapping(value = "/view/{id}")
     @PreAuthorize("hasAuthority('admin:dept:view')")
     public String see(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
-        modelMap.put("deptInfo", bizService.getById(id));
+        modelMap.put("deptInfo", bizService.selectByPrimaryKey(id));
         return PATH_PREFIX + "/see";
     }
 

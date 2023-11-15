@@ -64,7 +64,7 @@ public class DeptInfoServiceImpl extends BizServiceImpl<IDeptInfoMapper, IDeptIn
      * @return com.github.itdachen.admin.entity.DeptInfo
      */
     @Override
-    public DeptInfoVo save(DeptInfoDto deptInfoDto) throws Exception {
+    public DeptInfoVo saveInfo(DeptInfoDto deptInfoDto) throws Exception {
         DeptInfo deptInfo = bizConvert.toJavaObject(deptInfoDto);
         deptInfo.setIsCanDel(YesOrNotConstant.YES);
         EntityUtils.setCreatAndUpdateInfo(deptInfo);
@@ -81,7 +81,7 @@ public class DeptInfoServiceImpl extends BizServiceImpl<IDeptInfoMapper, IDeptIn
      * @return com.github.itdachen.admin.entity.DeptInfo
      */
     @Override
-    public DeptInfoVo update(DeptInfoDto deptInfoDto) throws Exception {
+    public DeptInfoVo updateInfo(DeptInfoDto deptInfoDto) throws Exception {
         DeptInfo deptInfo = bizConvert.toJavaObject(deptInfoDto);
         DeptInfo dbDept = bizMapper.selectByPrimaryKey(deptInfo.getId());
         if (YesOrNotConstant.NOT.equals(dbDept.getIsCanDel())) {
@@ -103,7 +103,7 @@ public class DeptInfoServiceImpl extends BizServiceImpl<IDeptInfoMapper, IDeptIn
      * @return int
      */
     @Override
-    public int remove(String id) throws Exception {
+    public int deleteByPrimaryKey(String id) throws Exception {
         DeptInfo dept = bizMapper.selectByPrimaryKey(id);
         if (null == dept) {
             return 0;

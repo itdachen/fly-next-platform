@@ -52,9 +52,9 @@ public class RoleInfoServiceImpl extends BizServiceImpl<IRoleInfoMapper, IRoleIn
      * @return com.github.itdachen.admin.entity.RoleInfo
      */
     @Override
-    public RoleInfoVo save(RoleInfoDto roleInfoDto) throws Exception {
+    public RoleInfoVo saveInfo(RoleInfoDto roleInfoDto) throws Exception {
         roleInfoDto.setDeptId(BizContextHandler.getDeptId());
-        return super.save(roleInfoDto);
+        return super.saveInfo(roleInfoDto);
     }
 
 }

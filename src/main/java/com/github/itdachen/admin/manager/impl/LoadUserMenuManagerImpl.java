@@ -1,6 +1,6 @@
 package com.github.itdachen.admin.manager.impl;
 
-import com.github.itdachen.admin.constants.MenuValidConstant;
+import com.github.itdachen.admin.sdk.constants.MenuValidConstant;
 import com.github.itdachen.admin.manager.IAppClientManager;
 import com.github.itdachen.admin.manager.ILoadUserMenuManager;
 import com.github.itdachen.admin.mapper.IAppClientMapper;

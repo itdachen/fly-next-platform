@@ -1,6 +1,6 @@
 package com.github.itdachen.admin.service.impl;
 
-import com.github.itdachen.admin.constants.AppClientConstant;
+import com.github.itdachen.admin.sdk.constants.AppClientConstant;
 import com.github.itdachen.admin.convert.IUserInfoConvert;
 import com.github.itdachen.admin.entity.SetUserPassword;
 import com.github.itdachen.admin.entity.UserInfo;
@@ -80,7 +80,7 @@ public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, IUserIn
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public UserInfoVo save(UserInfoDto userInfoDto) throws Exception {
+    public UserInfoVo saveInfo(UserInfoDto userInfoDto) throws Exception {
         if (StringUtils.isEmpty(userInfoDto.getUsername())) {
             throw new BizException("登录账号不能为空!");
         }
@@ -131,7 +131,7 @@ public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, IUserIn
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public UserInfoVo update(UserInfoDto userInfoDto) throws Exception {
+    public UserInfoVo updateInfo(UserInfoDto userInfoDto) throws Exception {
         UserInfo user = bizMapper.selectByPrimaryKey(userInfoDto.getId());
         if (UserStatusConstant.IS_LOCKED.equals(userInfoDto.getStatus())) {
             if (UserTypeConstant.SUPER_ADMINISTRATOR_USERNAME.equals(user.getUsername())
@@ -147,7 +147,7 @@ public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, IUserIn
                     .build());
         }
 
-        return super.update(userInfoDto);
+        return super.updateInfo(userInfoDto);
     }
 
     /***
@@ -160,7 +160,7 @@ public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, IUserIn
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int remove(String id) throws Exception {
+    public int deleteByPrimaryKey(String id) throws Exception {
         UserInfo user = bizMapper.selectByPrimaryKey(id);
         if (null == user) {
             return 1;

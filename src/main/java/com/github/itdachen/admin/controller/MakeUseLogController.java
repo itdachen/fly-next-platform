@@ -54,7 +54,7 @@ public class MakeUseLogController extends BizController<IMakeUseLogService, Make
     @GetMapping(value = "/view/{id}")
     @PreAuthorize("hasAuthority('admin:make:use:log:view')")
     public String view(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
-        modelMap.put("makeUseLog", bizService.getById(id));
+        modelMap.put("makeUseLog", bizService.selectByPrimaryKey(id));
         return PATH_PREFIX + "/view";
     }
 

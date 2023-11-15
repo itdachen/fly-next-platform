@@ -62,7 +62,7 @@ public class AppClientServiceImpl extends BizServiceImpl<IAppClientMapper, IAppC
      * @return com.github.itdachen.admin.entity.AppClient
      */
     @Override
-    public AppClientVo save(AppClientDto appClientDto) throws BizException {
+    public AppClientVo saveInfo(AppClientDto appClientDto) throws BizException {
         AppClient appClient = bizConvert.toJavaObject(appClientDto);
         appClient.setCanDel(YesOrNotConstant.YES);
         EntityUtils.setCreatAndUpdateInfo(appClient);
@@ -79,7 +79,7 @@ public class AppClientServiceImpl extends BizServiceImpl<IAppClientMapper, IAppC
      * @return com.github.itdachen.admin.entity.AppClient
      */
     @Override
-    public AppClientVo update(AppClientDto appClientDto) throws BizException {
+    public AppClientVo updateInfo(AppClientDto appClientDto) throws BizException {
         AppClient appClient = bizConvert.toJavaObject(appClientDto);
         AppClient dnAppClient = bizMapper.selectByPrimaryKey(appClient.getId());
         if (YesOrNotConstant.NOT.equals(dnAppClient.getCanDel())) {
@@ -103,7 +103,7 @@ public class AppClientServiceImpl extends BizServiceImpl<IAppClientMapper, IAppC
      * @return int
      */
     @Override
-    public int remove(String id) throws BizException {
+    public int deleteByPrimaryKey(String id) throws BizException {
         AppClient appClient = bizMapper.selectByPrimaryKey(id);
         if (null == appClient) {
             return 0;

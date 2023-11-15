@@ -66,7 +66,7 @@ public class PermsAuthController {
     @ResponseBody
     @PreAuthorize("hasAuthority('admin:perms:auth:index')")
     public ServerResponse<PermsAuthVo> save(@RequestBody PermsAuthDto entity) throws Exception {
-        return ServerResponse.okData(permsAuthService.save(entity));
+        return ServerResponse.okData(permsAuthService.saveInfo(entity));
     }
 
     @GetMapping(value = "/zTree/{userId}")

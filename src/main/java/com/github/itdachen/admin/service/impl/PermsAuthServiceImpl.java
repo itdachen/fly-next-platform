@@ -57,7 +57,7 @@ public class PermsAuthServiceImpl extends BizServiceImpl<IPermsAuthMapper, IPerm
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public PermsAuthVo save(PermsAuthDto permsAuthDto) throws BizException {
+    public PermsAuthVo saveInfo(PermsAuthDto permsAuthDto) throws BizException {
 
         bizMapper.delete(PermsAuth.builder()
                 .userId(permsAuthDto.getUserId())
@@ -66,7 +66,7 @@ public class PermsAuthServiceImpl extends BizServiceImpl<IPermsAuthMapper, IPerm
 
         String menuIds = permsAuthDto.getMenuId();
         List<String> menuList = new ArrayList<>(Arrays.asList(menuIds.split(",")));
-        if (0 == menuList.size()) {
+        if (menuList.isEmpty()) {
             return null;
         }
 

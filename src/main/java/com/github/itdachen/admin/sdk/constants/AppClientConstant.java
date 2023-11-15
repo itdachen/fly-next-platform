@@ -1,4 +1,4 @@
-package com.github.itdachen.admin.constants;
+package com.github.itdachen.admin.sdk.constants;
 
 /**
  * Description: 应用类型

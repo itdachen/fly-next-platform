@@ -57,7 +57,7 @@ public class WorkerIdentityPositionServiceImpl extends BizServiceImpl<IWorkerIde
      * @return com.github.itdachen.admin.sdk.vo.WorkerIdentityPositionVo
      */
     @Override
-    public WorkerIdentityPositionVo save(WorkerIdentityPositionDto workerIdentityPositionDto) throws Exception {
+    public WorkerIdentityPositionVo saveInfo(WorkerIdentityPositionDto workerIdentityPositionDto) throws Exception {
         if (null == workerIdentityPositionDto) {
             throw new BizException("岗位信息不能为空");
         }
@@ -69,7 +69,7 @@ public class WorkerIdentityPositionServiceImpl extends BizServiceImpl<IWorkerIde
         }
         String positions = workerIdentityPositionDto.getPositionId();
         List<String> positionsList = new ArrayList<>(Arrays.asList(positions.split(",")));
-        if (0 == positionsList.size()) {
+        if (positionsList.isEmpty()) {
             return null;
         }
 

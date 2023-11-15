@@ -1,7 +1,7 @@
 package com.github.itdachen.dashboard.service.impl;
 
 
-import com.github.itdachen.admin.constants.MenuValidConstant;
+import com.github.itdachen.admin.sdk.constants.MenuValidConstant;
 import com.github.itdachen.dashboard.entity.LYearAdminMenu;
 import com.github.itdachen.dashboard.entity.LayuiAdminMenu;
 import com.github.itdachen.dashboard.entity.OkAdminMenu;

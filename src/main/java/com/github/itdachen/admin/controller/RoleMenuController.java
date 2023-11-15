@@ -47,7 +47,7 @@ public class RoleMenuController {
     @PostMapping("")
     @ResponseBody
     public ServerResponse<RoleMenuVo> save(@RequestBody RoleMenuDto roleMenu) throws Exception {
-        return ServerResponse.okData(roleMenuService.save(roleMenu));
+        return ServerResponse.okData(roleMenuService.saveInfo(roleMenu));
     }
 
     /***

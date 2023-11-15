@@ -69,7 +69,7 @@ public class DictDataController extends BizController<IDictDataService, DictData
     @GetMapping(value = "/edit/{id}")
     @PreAuthorize("hasAuthority('admin:dict:data:update')")
     public String edit(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
-        modelMap.put("dictData", bizService.getById(id));
+        modelMap.put("dictData", bizService.selectByPrimaryKey(id));
         return PATH_PREFIX + "/edit" ;
     }
 
@@ -85,7 +85,7 @@ public class DictDataController extends BizController<IDictDataService, DictData
     @GetMapping(value = "/view/{id}")
     @PreAuthorize("hasAuthority('admin:dict:data:view')")
     public String see(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
-        modelMap.put("dictData", bizService.getById(id));
+        modelMap.put("dictData", bizService.selectByPrimaryKey(id));
         return PATH_PREFIX + "/see" ;
     }
 

@@ -68,7 +68,7 @@ public class RoleInfoController extends BizController<IRoleInfoService, RoleInfo
     @GetMapping(value = "/edit/{id}")
     @PreAuthorize("hasAuthority('admin:role:update')")
     public String edit(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
-        modelMap.put("roleInfo", bizService.getById(id));
+        modelMap.put("roleInfo", bizService.selectByPrimaryKey(id));
         return PATH_PREFIX + "/edit" ;
     }
 
@@ -84,7 +84,7 @@ public class RoleInfoController extends BizController<IRoleInfoService, RoleInfo
     @GetMapping(value = "/view/{id}")
     @PreAuthorize("hasAuthority('admin:role:view')")
     public String see(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
-        modelMap.put("roleInfo", bizService.getById(id));
+        modelMap.put("roleInfo", bizService.selectByPrimaryKey(id));
         return PATH_PREFIX + "/see" ;
     }
 

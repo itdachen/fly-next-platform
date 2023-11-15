@@ -68,7 +68,7 @@ public class DictTypeController extends BizController<IDictTypeService, DictType
     @GetMapping(value = "/edit/{id}")
     @PreAuthorize("hasAuthority('admin:dict:type:update')")
     public String edit(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
-        modelMap.put("dictType", bizService.getById(id));
+        modelMap.put("dictType", bizService.selectByPrimaryKey(id));
         return PATH_PREFIX + "/edit" ;
     }
 
@@ -84,7 +84,7 @@ public class DictTypeController extends BizController<IDictTypeService, DictType
     @GetMapping(value = "/view/{id}")
     @PreAuthorize("hasAuthority('admin:dict:type:view')")
     public String see(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
-        modelMap.put("dictType", bizService.getById(id));
+        modelMap.put("dictType", bizService.selectByPrimaryKey(id));
         return PATH_PREFIX + "/see" ;
     }
 

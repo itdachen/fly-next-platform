@@ -67,7 +67,7 @@ public class ElementInfoController extends BizController<IElementInfoService, El
     @GetMapping(value = "/edit/{id}")
     @PreAuthorize("hasAuthority('admin:element:info:update')")
     public String edit(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
-        modelMap.put("elementInfo", bizService.getById(id));
+        modelMap.put("elementInfo", bizService.selectByPrimaryKey(id));
         return PATH_PREFIX + "/edit" ;
     }
 
@@ -83,7 +83,7 @@ public class ElementInfoController extends BizController<IElementInfoService, El
     @GetMapping(value = "/view/{id}")
     @PreAuthorize("hasAuthority('admin:element:info:view')")
     public String see(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
-        modelMap.put("elementInfo", bizService.getById(id));
+        modelMap.put("elementInfo", bizService.selectByPrimaryKey(id));
         return PATH_PREFIX + "/see" ;
     }
 
