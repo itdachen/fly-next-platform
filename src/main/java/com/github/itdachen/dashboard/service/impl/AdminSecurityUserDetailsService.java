@@ -15,6 +15,8 @@ import com.github.itdachen.framework.security.user.CurrentUserInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsPasswordService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +28,7 @@ import java.util.Set;
  * Created with IntelliJ IDEA.
  */
 @Service
-public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetailsService {
+public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetailsService implements UserDetailsPasswordService {
     private static final Logger logger = LoggerFactory.getLogger(AdminSecurityUserDetailsService.class);
     private final IAuthenticationAuthorityMapper permsAuthMapper;
     private final IUserDetailsMapper userDetailsMapper;
@@ -154,6 +156,20 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
             userPermission = permsAuthMapper.findUserPermission(user.getId());
         }
         return userPermission;
+    }
+
+    /***
+     * 多密码模式下, 更新密码
+     *
+     * @author 王大宸
+     * @date 2023/11/24 17:14
+     * @param user user
+     * @param newPassword newPassword
+     * @return org.springframework.security.core.userdetails.UserDetails
+     */
+    @Override
+    public UserDetails updatePassword(UserDetails user, String newPassword) {
+        return null;
     }
 
 }
