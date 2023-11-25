@@ -159,6 +159,17 @@
                a.path                      AS uri,
                a.title                     AS name,
                a.code                      AS permission,
+               'GET'                       AS method,
+               'jump'                      AS type,
+               IFNULL(b.title, '一级菜单') AS menu
+        FROM sys_element_info a
+                 LEFT JOIN sys_menu_info b ON a.menu_id = b.id
+        WHERE a.path != '/'
+        UNION ALL
+        SELECT a.id,
+               a.href                      AS uri,
+               a.title                     AS name,
+               a.code                      AS permission,
                a.method,
                a.type,
                IFNULL(b.title, '一级菜单') AS menu

@@ -11,8 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.authorization.AuthorizationManager;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.access.intercept.RequestAuthorizationContext;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 
 import java.util.*;
 import java.util.function.Supplier;
@@ -68,49 +70,53 @@ public class RequestAuthorizationManager implements AuthorizationManager<Request
     }
 
     private boolean isAuthorized(Authentication authentication, HttpServletRequest request) {
-        // 自定义的权限控制，request 可以获取到当前的请求信息。
-        // authentication 就是我们的认证对象，我们可以直接拿到认证用户的权限
+        try {
+            // 自定义的权限控制，request 可以获取到当前的请求信息。
+            // authentication 就是我们的认证对象，我们可以直接拿到认证用户的权限
+            Object principal = authentication.getPrincipal();
+            if (null == principal || "anonymousUser".equals(principal)) {
+                return false;
+            }
 
-        //TODO 查询缓存中用户的权限
-        // anonymousUser 匿名用户 ROLE_ANONYMOUS 默认权限
-        Object principal = authentication.getPrincipal();
-        if (principal.equals("anonymousUser")) {
+            if (null == permissionsSet || permissionsSet.isEmpty()) {
+                return true;
+            }
+
+            /* 检查是否需要鉴权 */
+            AntPathMatcher antPathMatcher = new AntPathMatcher();
+            String uri;
+            PermissionInfo hasPermissionInfo = null;
+            for (PermissionInfo info : permissionsSet) {
+                uri = info.getUri().replaceAll("\\{\\*\\}", "*");
+                if (info.getMethod().equals(request.getMethod())
+                        && antPathMatcher.match(uri, request.getRequestURI())) {
+                    hasPermissionInfo = info;
+                    break;
+                }
+            }
+
+            // 说明当前访问资源不做权限控制
+            if (null == hasPermissionInfo) {
+                return true;
+            }
+
+            /* 用户鉴权 */
+            if (principal instanceof CurrentUserInfo userInfo) {
+                List<PermissionInfo> userInfoPermissions = userInfo.getPermissions();
+                if (null == userInfoPermissions || userInfoPermissions.isEmpty()) {
+                    return false;
+                }
+                for (PermissionInfo info : userInfoPermissions) {
+                    if (hasPermissionInfo.getPermission().equals(info.getPermission())) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        } catch (Exception ex) {
+            logger.error("权限校验失败: ", ex);
             return false;
         }
-
-        final String method = request.getMethod();
-        final String requestURI = request.getRequestURI();
-
-        /* 检查是否需要鉴权 */
-        List<PermissionInfo> matchPermission = permissionsSet.parallelStream().filter(info -> {
-            if (info.getUri().indexOf("{") > 0) {
-                info.setUri(info.getUri().replaceAll("\\{\\*\\}", "[a-zA-Z\\\\d]+"));
-            }
-            return Pattern.compile("^" + info.getUri() + "$").matcher(requestURI).find() && method.equals(info.getMethod());
-        }).toList();
-
-
-        // 说明当前访问资源不做权限控制
-        if (0 == matchPermission.size()) {
-            return true;
-        }
-
-        /* 用户鉴权 */
-        CurrentUserInfo userInfo = (CurrentUserInfo) principal;
-        List<PermissionInfo> userInfoPermissions = userInfo.getPermissions();
-        if (null == userInfoPermissions || userInfoPermissions.isEmpty()) {
-            return false;
-        }
-        boolean anyMatch = false;
-        for (PermissionInfo info : userInfoPermissions) {
-            anyMatch = matchPermission.parallelStream()
-                    .anyMatch(permissionInfo -> permissionInfo.getPermission().equals(info.getPermission()));
-            if (anyMatch) {
-                break;
-            }
-        }
-
-        return anyMatch;
     }
 
 }
