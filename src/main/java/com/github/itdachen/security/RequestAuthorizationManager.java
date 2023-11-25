@@ -1,7 +1,6 @@
 package com.github.itdachen.security;
 
 import com.github.itdachen.dashboard.mapper.IAuthenticationAuthorityMapper;
-import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.permission.PermissionInfo;
 import com.github.itdachen.framework.security.user.CurrentUserInfo;
 import jakarta.annotation.PostConstruct;
@@ -11,14 +10,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.authorization.AuthorizationManager;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.access.intercept.RequestAuthorizationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 
 import java.util.*;
 import java.util.function.Supplier;
-import java.util.regex.Pattern;
 
 /**
  * Description: 自定义权限校验
