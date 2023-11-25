@@ -64,6 +64,15 @@ public interface IAuthenticationAuthorityMapper extends Mapper<PermsAuth> {
      * @param userId userId
      * @return java.util.Set<java.lang.String>
      */
-    Set<String> findUserPermission(String userId);
+    List<PermissionInfo> findUserPermission(String userId);
+    
+    /***
+     * 查询所有的权限
+     *
+     * @author 王大宸
+     * @date 2023/11/25 20:55
+     * @return java.util.Set<com.github.itdachen.framework.context.permission.PermissionInfo>
+     */
+    List<PermissionInfo> findPermissionInfoAll();
 
 }

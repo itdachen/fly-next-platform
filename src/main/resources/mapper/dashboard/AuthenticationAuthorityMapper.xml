@@ -109,21 +109,62 @@
         FROM sys_element_info
     </select>
 
-    <select id="findUserPermission" resultType="java.lang.String">
-        SELECT DISTINCT c.code
+    <select id="findUserPermission" resultType="com.github.itdachen.framework.context.permission.PermissionInfo">
+        SELECT DISTINCT c.id,
+                        c.path                  AS uri,
+                        c.title                 AS name,
+                        c.code                  AS permission,
+                        'GET'                   AS method,
+                        'jump'                  AS type,
+                        IFNULL(d.title, '一级菜单') AS menu
         FROM sys_role_user a
                  LEFT JOIN sys_role_menu b ON a.role_id = b.role_id
                  LEFT JOIN sys_menu_info c ON b.menu_id = c.id
+                 LEFT JOIN sys_menu_info d ON c.parent_id = d.id
         WHERE c.visible = '1'
           AND c.type = 'menu'
           AND a.user_id = #{userId}
         UNION ALL
-        SELECT DISTINCT c.code
+        SELECT DISTINCT c.id,
+                        c.path                  AS uri,
+                        c.title                 AS name,
+                        c.code                  AS permission,
+                        c.method,
+                        c.type,
+                        IFNULL(d.title, '一级菜单') AS menu
         FROM sys_role_user a
                  LEFT JOIN sys_role_menu b ON a.role_id = b.role_id
                  LEFT JOIN sys_element_info c ON b.menu_id = c.id
+                 LEFT JOIN sys_menu_info d ON c.menu_id = d.id
         WHERE c.visible = '1'
           AND a.user_id = #{userId}
+    </select>
+
+    <!-- 查询所有的权限 -->
+    <select id="findPermissionInfoAll" resultType="com.github.itdachen.framework.context.permission.PermissionInfo">
+        SELECT a.id,
+               a.path                      AS uri,
+               a.title                     AS name,
+               a.code                      AS permission,
+               'GET'                       AS method,
+               'jump'                      AS type,
+               IFNULL(b.title, '一级菜单') AS menu
+        FROM sys_menu_info a
+                 LEFT JOIN sys_menu_info b ON a.parent_id = b.id
+        WHERE a.type = 'menu'
+          AND a.path IS NOT NULL
+          AND a.path NOT LIKE '/error/%'
+        UNION ALL
+        SELECT a.id,
+               a.path                      AS uri,
+               a.title                     AS name,
+               a.code                      AS permission,
+               a.method,
+               a.type,
+               IFNULL(b.title, '一级菜单') AS menu
+        FROM sys_element_info a
+                 LEFT JOIN sys_menu_info b ON a.menu_id = b.id
+        WHERE a.path != '/'
     </select>
 
 </mapper>

@@ -7,6 +7,7 @@ import com.github.itdachen.dashboard.mapper.ILoginErrorRecordMapper;
 import com.github.itdachen.dashboard.mapper.IUserDetailsMapper;
 import com.github.itdachen.framework.autoconfigure.client.FlyClientProperties;
 import com.github.itdachen.framework.context.constants.UserTypeConstant;
+import com.github.itdachen.framework.context.permission.PermissionInfo;
 import com.github.itdachen.framework.context.userdetails.CurrentUserDetails;
 import com.github.itdachen.framework.security.constants.LoginModeConstant;
 import com.github.itdachen.framework.security.details.AbstractSecurityUserDetailsService;
@@ -15,11 +16,11 @@ import com.github.itdachen.framework.security.user.CurrentUserInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsPasswordService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -28,7 +29,7 @@ import java.util.Set;
  * Created with IntelliJ IDEA.
  */
 @Service
-public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetailsService implements UserDetailsPasswordService {
+public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetailsService {
     private static final Logger logger = LoggerFactory.getLogger(AdminSecurityUserDetailsService.class);
     private final IAuthenticationAuthorityMapper permsAuthMapper;
     private final IUserDetailsMapper userDetailsMapper;
@@ -118,8 +119,15 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
         //  return setUserPermission(user);
 
         // 新版本动态添加权限不生效,这里登录的时候添加权限
-        Set<String> permissions = findUserPermission(user);
-        return setUserPermission(user, permissions);
+        List<PermissionInfo> permissions = findUserPermission(user);
+        user.setPermissions(permissions);
+        Set<String> stringSet = new HashSet<>();
+        if (null != permissions && !permissions.isEmpty()) {
+            for (PermissionInfo permission : permissions) {
+                stringSet.add(permission.getPermission());
+            }
+        }
+        return setUserPermission(user, stringSet);
     }
 
     /***
@@ -148,28 +156,15 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
      * @param user user
      * @return java.util.Set<java.lang.String>
      */
-    private Set<String> findUserPermission(CurrentUserDetails user) {
-        Set<String> userPermission = null;
+    private List<PermissionInfo> findUserPermission(CurrentUserDetails user) {
+        List<PermissionInfo> userPermission = null;
         if (UserTypeConstant.SUPER_ADMINISTRATOR.equals(user.getUserType())) {
-            userPermission = permsAuthMapper.findPermissionAll();
+            userPermission = permsAuthMapper.findPermissionInfoAll();
         } else {
-            userPermission = permsAuthMapper.findUserPermission(user.getId());
+          userPermission = permsAuthMapper.findUserPermission(user.getId());
         }
         return userPermission;
     }
 
-    /***
-     * 多密码模式下, 更新密码
-     *
-     * @author 王大宸
-     * @date 2023/11/24 17:14
-     * @param user user
-     * @param newPassword newPassword
-     * @return org.springframework.security.core.userdetails.UserDetails
-     */
-    @Override
-    public UserDetails updatePassword(UserDetails user, String newPassword) {
-        return null;
-    }
 
 }
