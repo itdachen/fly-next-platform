@@ -168,10 +168,11 @@
         admin.logout(function () {
             popup.success("注销成功", function () {
                 $.ajax({
-                    type: 'get',
-                    url: '/login',
+                    type: 'GET',
+                    async: false,
+                    url: HTTP_BIZ_URI + '/logout',
                     success: function (res) {
-                        location.href = "/login";
+                        location.href = HTTP_BIZ_URI + "/login";
                     },
                 })
             })
