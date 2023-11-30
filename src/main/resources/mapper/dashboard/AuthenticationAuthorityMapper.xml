@@ -148,7 +148,7 @@
                a.code                      AS permission,
                'GET'                       AS method,
                'jump'                      AS type,
-               IFNULL(b.title, '一级菜单') AS menu
+               IFNULL(b.title, 'FlyNext') AS menu
         FROM sys_menu_info a
                  LEFT JOIN sys_menu_info b ON a.parent_id = b.id
         WHERE a.type = 'menu'
@@ -156,26 +156,26 @@
           AND a.path NOT LIKE '/error/%'
         UNION ALL
         SELECT a.id,
-               a.path                      AS uri,
-               a.title                     AS name,
-               a.code                      AS permission,
-               'GET'                       AS method,
-               'jump'                      AS type,
-               IFNULL(b.title, '一级菜单') AS menu
+               a.path  AS uri,
+               a.title AS name,
+               a.code  AS permission,
+               'GET'   AS method,
+               'jump'  AS type,
+               b.title AS menu
         FROM sys_element_info a
                  LEFT JOIN sys_menu_info b ON a.menu_id = b.id
         WHERE a.path != '/'
         UNION ALL
         SELECT a.id,
-               a.href                      AS uri,
-               a.title                     AS name,
-               a.code                      AS permission,
+               a.href  AS uri,
+               a.title AS name,
+               a.code  AS permission,
                a.method,
                a.type,
-               IFNULL(b.title, '一级菜单') AS menu
+               b.title AS menu
         FROM sys_element_info a
                  LEFT JOIN sys_menu_info b ON a.menu_id = b.id
-        WHERE a.path != '/'
+        WHERE a.href != '/'
     </select>
 
 </mapper>

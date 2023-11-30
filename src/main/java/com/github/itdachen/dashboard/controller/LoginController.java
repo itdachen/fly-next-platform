@@ -30,11 +30,11 @@ public class LoginController {
     @GetMapping("/login")
     public String login(ModelMap modelMap,
                         @RequestParam(required = false) String redirect_uri) {
-        modelMap.put("platformName", clientProperties.getName());
+        modelMap.put("platformName", clientProperties.getTitle());
         modelMap.put("platformDescribe", clientProperties.getRemarks());
 
         modelMap.put("copyrightYear", clientProperties.getCopyrightYear());
-        modelMap.put("clientName", clientProperties.getName());
+        modelMap.put("clientName", clientProperties.getTitle());
         modelMap.put("copyright", clientProperties.getCopyright());
         modelMap.put("version", clientProperties.getVersion());
         modelMap.put("issuer", clientProperties.getIssuer());

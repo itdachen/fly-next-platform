@@ -101,7 +101,8 @@ public class AdminDashboardController {
 
         /* 系统信息 */
         modelMap.put("copyrightYear", clientProperties.getCopyrightYear());
-        modelMap.put("clientName", clientProperties.getName());
+        modelMap.put("clientName", clientProperties.getTitle());
+        modelMap.put("referredToAs", clientProperties.getReferredToAs());
         modelMap.put("version", clientProperties.getVersion());
         modelMap.put("issuer", clientProperties.getIssuer());
 
