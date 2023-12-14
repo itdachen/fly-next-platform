@@ -6,7 +6,7 @@ import com.github.itdachen.dashboard.mapper.IUserDetailsMapper;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.userdetails.CurrentUserDetails;
 import com.github.itdachen.framework.core.utils.StringUtils;
-import com.github.itdachen.framework.security.authentication.mobile.SmsCodeAuthenticationToken;
+import com.github.itdachen.framework.security.authentication.mobile.MobileAuthenticationToken;
 import com.github.itdachen.framework.security.constants.LoginModeConstant;
 import com.github.itdachen.framework.security.log.IAuthSuccessCredentialsLogHandler;
 import com.github.itdachen.framework.tools.ip.AddressUtils;
@@ -94,8 +94,8 @@ public class AuthSuccessCredentialsLogHandler implements IAuthSuccessCredentials
             return (CurrentUserDetails) principal;
         }
         /* 短信验证码登录 */
-        if (authentication.getClass().equals(SmsCodeAuthenticationToken.class)) {
-            SmsCodeAuthenticationToken authenticationToken = (SmsCodeAuthenticationToken) authentication;
+        if (authentication.getClass().equals(MobileAuthenticationToken.class)) {
+            MobileAuthenticationToken authenticationToken = (MobileAuthenticationToken) authentication;
             Object principal = authenticationToken.getPrincipal();
             return (CurrentUserDetails) principal;
         }

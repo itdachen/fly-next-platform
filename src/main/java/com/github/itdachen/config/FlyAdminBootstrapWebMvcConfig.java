@@ -1,5 +1,6 @@
 package com.github.itdachen.config;
 
+import com.github.itdachen.framework.body.advice.handler.GlobalExceptionHandler;
 import com.github.itdachen.framework.security.interceptor.BrowserInterceptor;
 import com.github.itdachen.framework.security.matchers.IFilterMatchers;
 import com.github.itdachen.framework.security.resolvers.CurrentUserMethodArgumentResolver;

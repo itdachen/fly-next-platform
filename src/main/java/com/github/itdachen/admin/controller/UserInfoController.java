@@ -16,12 +16,18 @@ import com.github.itdachen.framework.security.context.SecurityContextHandler;
 import com.github.itdachen.framework.security.exception.ClientTokenException;
 import com.github.itdachen.framework.security.user.CurrentUserInfo;
 import com.github.itdachen.framework.webmvc.controller.BizController;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextHolderStrategy;
+import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -118,6 +124,9 @@ public class UserInfoController extends BizController<IUserInfoService, UserInfo
     }
 
 
+    @Autowired
+    private SecurityContextRepository securityContextRepository;
+
     /***
      * 测试, 更改登录用户信息
      * http://127.0.0.1:8080/admin/user/info/reload/user/authority
@@ -127,26 +136,21 @@ public class UserInfoController extends BizController<IUserInfoService, UserInfo
      */
     @GetMapping("/reload/user/authority")
     @ResponseBody
-    public ServerResponse<Object> reloadUserAuthority() throws ClientTokenException {
-        System.err.println(BizContextHandler.getDeptId());
-        List<String> userAuthority = SecurityContextHandler.getUserAuthority();
-        CurrentUserInfo userInfo = (CurrentUserInfo) SecurityContextHandler.getUserInfo();
-        userInfo.setDeptId("123321");
+    public ServerResponse<Object> reloadUserAuthority(HttpServletRequest request, HttpServletResponse response) throws ClientTokenException {
+
+        /* 当前权限 */
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CurrentUserInfo userInfo = (CurrentUserInfo) authentication.getPrincipal();
+        userInfo.setDeptId("12345678");
         userInfo.setGrade("21");
-        reloadUserAuthority(userInfo);
+
+        // 更新SecurityContextRepository
+        securityContextRepository.saveContext(SecurityContextHolder.getContext(), request, response);
+
         return ServerResponse.okData(SecurityContextHandler.getAuthentication());
     }
 
-    public void reloadUserAuthority(CurrentUserInfo userInfo) {
-        /* 当前权限 */
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        // 得到当前的认证信息
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        // 生成新的认证信息
-        Authentication newAuth = new UsernamePasswordAuthenticationToken(userInfo, auth.getCredentials(), authentication.getAuthorities());
-        // 重置认证信息
-        SecurityContextHolder.getContext().setAuthentication(newAuth);
-    }
+
 
 
     /***

@@ -5,6 +5,7 @@ import com.github.itdachen.framework.context.permission.PermissionInfo;
 import com.github.itdachen.framework.security.rbac.IRequestAuthorizationHandler;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /***
@@ -24,7 +25,8 @@ public class FlyNextRequestAuthorizationHandler implements IRequestAuthorization
 
     @Override
     public List<PermissionInfo> init() {
-        return authenticationAuthorityMapper.findPermissionInfoAll();
+        //  return new ArrayList<>();
+      return authenticationAuthorityMapper.findPermissionInfoAll();
     }
 
 }

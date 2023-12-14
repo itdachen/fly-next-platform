@@ -9,6 +9,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.context.DelegatingSecurityContextRepository;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
+import org.springframework.security.web.context.SecurityContextRepository;
 
 /***
  * 安全认证模块, 安全配置, 勿动
@@ -20,7 +24,7 @@ import org.springframework.security.web.SecurityFilterChain;
 // 添加 security 过滤器
 @EnableWebSecurity
 // 开启方法权限注解
-@EnableMethodSecurity
+@EnableMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
@@ -53,7 +57,29 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
          */
         configure(http);
 
+        http.securityContext((context) -> context
+                .securityContextRepository(securityContextRepository())
+        );
+
+        /* 自定义手机号码登录 */
+        //  http.apply(smsAuthenticationSecurityConfigurer);
+
         return http.build();
     }
+
+//    @Bean
+//    public SmsAuthenticationSecurityConfigurer phoneAuthenticationSecurityConfigurer() {
+//        return new SmsAuthenticationSecurityConfigurer(authenticationSuccessHandler,
+//                authenticationFailureHandler,
+//                userDetailsService);
+//    }
+
+
+    @Bean
+    public SecurityContextRepository securityContextRepository() {
+        return new DelegatingSecurityContextRepository(
+                new RequestAttributeSecurityContextRepository(), new HttpSessionSecurityContextRepository());
+    }
+
 
 }
