@@ -120,7 +120,8 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
 
         // 新版本动态添加权限不生效,这里登录的时候添加权限
         List<PermissionInfo> permissions = findUserPermission(user);
-        user.setPermissions(permissions);
+      //  user.setPermissions(permissions);
+
         Set<String> stringSet = new HashSet<>();
         if (null != permissions && !permissions.isEmpty()) {
             for (PermissionInfo permission : permissions) {
@@ -144,7 +145,7 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
         user.setTelephone(userInfo.getTelephone());
         user.setEmail(userInfo.getEmail());
         user.setSex(user.getSex());
-        user.setGrade(user.getGrade());
+        user.setDeptLevel(user.getDeptLevel());
     }
 
 

@@ -13,6 +13,7 @@ import com.github.itdachen.framework.context.userdetails.CurrentUserDetails;
 import com.github.itdachen.framework.core.constants.ClientConstant;
 import com.github.itdachen.framework.core.response.ServerResponse;
 import com.github.itdachen.framework.security.context.SecurityContextHandler;
+import com.github.itdachen.framework.security.details.IRefreshUserDetails;
 import com.github.itdachen.framework.security.exception.ClientTokenException;
 import com.github.itdachen.framework.security.user.CurrentUserInfo;
 import com.github.itdachen.framework.webmvc.controller.BizController;
@@ -22,16 +23,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextHolderStrategy;
-import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -125,7 +121,7 @@ public class UserInfoController extends BizController<IUserInfoService, UserInfo
 
 
     @Autowired
-    private SecurityContextRepository securityContextRepository;
+    private IRefreshUserDetails refreshUserDetails;
 
     /***
      * 测试, 更改登录用户信息
@@ -136,21 +132,21 @@ public class UserInfoController extends BizController<IUserInfoService, UserInfo
      */
     @GetMapping("/reload/user/authority")
     @ResponseBody
-    public ServerResponse<Object> reloadUserAuthority(HttpServletRequest request, HttpServletResponse response) throws ClientTokenException {
+    public ServerResponse<Object> reloadUserAuthority(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        /* 当前权限 */
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CurrentUserInfo userInfo = (CurrentUserInfo) authentication.getPrincipal();
-        userInfo.setDeptId("12345678");
-        userInfo.setGrade("21");
+        CurrentUserDetails userDetails = new CurrentUserDetails();
+        userDetails.setNickName("张三111");
+        userDetails.setDeptLevel("11111");
+        userDetails.setDeptId("5201111");
+        userDetails.setDeptTitle("贵阳111");
 
-        // 更新SecurityContextRepository
-        securityContextRepository.saveContext(SecurityContextHolder.getContext(), request, response);
+        List<String> list = new ArrayList<>();
+        list.add("userDetails");
+
+        refreshUserDetails.refreshUserDetails(request, response, userDetails, list);
 
         return ServerResponse.okData(SecurityContextHandler.getAuthentication());
     }
-
-
 
 
     /***
@@ -163,7 +159,6 @@ public class UserInfoController extends BizController<IUserInfoService, UserInfo
     @GetMapping("/reload/user/info")
     @ResponseBody
     public ServerResponse<CurrentUserInfo> getCurrentUser() throws ClientTokenException {
-        System.err.println(BizContextHandler.getDeptId());
         return ServerResponse.okData((CurrentUserInfo) SecurityContextHandler.getUserInfo());
     }
 
@@ -178,7 +173,6 @@ public class UserInfoController extends BizController<IUserInfoService, UserInfo
     @GetMapping("/test/user/info")
     @ResponseBody
     public ServerResponse<CurrentUserDetails> getCurrentUser(@CurrentUser CurrentUserDetails info) throws ClientTokenException {
-        System.err.println(info.getDeptId());
         return ServerResponse.okData(info);
     }
 
