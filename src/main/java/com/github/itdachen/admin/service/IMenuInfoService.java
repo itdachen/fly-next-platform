@@ -3,8 +3,8 @@ package com.github.itdachen.admin.service;
 import com.github.itdachen.admin.sdk.dto.MenuInfoDto;
 import com.github.itdachen.admin.sdk.query.MenuInfoQuery;
 import com.github.itdachen.admin.sdk.vo.MenuInfoVo;
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import com.github.itdachen.framework.context.exception.BizException;
+import com.github.itdachen.framework.context.tree.ZTreeNode;
 import com.github.itdachen.framework.webmvc.service.IBizService;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public interface IMenuInfoService extends IBizService<MenuInfoDto, MenuInfoVo, M
      *
      * @author 王大宸
      * @date 2023/4/5 14:26
-     * @return java.util.List<com.github.itdachen.framework.assets.tree.ZTreeNode>
+     * @return java.util.List<com.github.itdachen.framework.context.tree.ZTreeNode>
      */
     List<ZTreeNode> zTree();
 

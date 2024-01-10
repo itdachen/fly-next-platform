@@ -1,9 +1,8 @@
 package com.github.itdachen.config;
 
-import com.github.itdachen.framework.body.advice.handler.GlobalExceptionHandler;
-import com.github.itdachen.framework.security.interceptor.BrowserInterceptor;
-import com.github.itdachen.framework.security.matchers.IFilterMatchers;
-import com.github.itdachen.framework.security.resolvers.CurrentUserMethodArgumentResolver;
+import com.github.itdachen.boot.security.interceptor.BrowserInterceptor;
+import com.github.itdachen.boot.security.matchers.IFilterMatchers;
+import com.github.itdachen.boot.security.resolvers.CurrentUserMethodArgumentResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -54,7 +53,7 @@ public class FlyAdminBootstrapWebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns(filterMatchers.matchers());
+                .excludePathPatterns(filterMatchers.requestMatchers());
     }
 
     @Override

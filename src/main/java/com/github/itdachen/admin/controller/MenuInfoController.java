@@ -4,9 +4,9 @@ import com.github.itdachen.admin.sdk.dto.MenuInfoDto;
 import com.github.itdachen.admin.sdk.query.MenuInfoQuery;
 import com.github.itdachen.admin.sdk.vo.MenuInfoVo;
 import com.github.itdachen.admin.service.IMenuInfoService;
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import com.github.itdachen.framework.context.annotation.CheckApiClient;
 import com.github.itdachen.framework.context.exception.BizException;
+import com.github.itdachen.framework.context.tree.ZTreeNode;
 import com.github.itdachen.framework.core.constants.ClientConstant;
 import com.github.itdachen.framework.core.response.ServerResponse;
 import com.github.itdachen.framework.webmvc.controller.BizController;
@@ -112,7 +112,7 @@ public class MenuInfoController extends BizController<IMenuInfoService, MenuInfo
      *
      * @author 王大宸
      * @date 2023/4/5 14:26
-     * @return com.github.itdachen.framework.core.response.ServerResponse<java.util.List<com.github.itdachen.framework.assets.tree.ZTreeNode>>
+     * @return com.github.itdachen.framework.core.response.ServerResponse<java.util.List<com.github.itdachen.framework.context.tree.ZTreeNode>>
      */
     @GetMapping(value = "/zTree")
     @ResponseBody
@@ -143,7 +143,7 @@ public class MenuInfoController extends BizController<IMenuInfoService, MenuInfo
      *
      * @author 王大宸
      * @date 2023/4/11 21:03
-     * @return com.github.itdachen.framework.core.response.ServerResponse<java.util.List<com.github.itdachen.framework.assets.tree.ZTreeNode>>
+     * @return com.github.itdachen.framework.core.response.ServerResponse<java.util.List<com.github.itdachen.framework.context.tree.ZTreeNode>>
      */
     @GetMapping("/catalog/zTree")
     @ResponseBody

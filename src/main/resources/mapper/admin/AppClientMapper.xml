@@ -63,7 +63,7 @@
     </select>
 
 
-    <select id="findAppAll" resultType="com.github.itdachen.framework.assets.tree.ZTreeNode">
+    <select id="findAppAll" resultType="com.github.itdachen.framework.context.tree.ZTreeNode">
         SELECT app_code AS id, app_title AS name, app_type AS type, '1' AS parentId, '0' AS grade
         FROM sys_app_client
     </select>

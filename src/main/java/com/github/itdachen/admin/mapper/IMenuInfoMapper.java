@@ -3,7 +3,7 @@ package com.github.itdachen.admin.mapper;
 import com.github.itdachen.admin.entity.MenuInfo;
 import com.github.itdachen.admin.sdk.query.MenuInfoQuery;
 import com.github.itdachen.admin.sdk.vo.MenuInfoVo;
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.context.tree.ZTreeNode;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;

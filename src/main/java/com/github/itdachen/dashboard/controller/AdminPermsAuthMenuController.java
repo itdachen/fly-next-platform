@@ -1,5 +1,6 @@
 package com.github.itdachen.dashboard.controller;
 
+import com.github.itdachen.boot.autoconfigure.client.ClientProperties;
 import com.github.itdachen.dashboard.entity.LYearAdminMenu;
 import com.github.itdachen.dashboard.entity.LayuiAdminMenu;
 import com.github.itdachen.dashboard.entity.OkAdminMenu;
@@ -7,7 +8,6 @@ import com.github.itdachen.dashboard.entity.PearAdminMenu;
 import com.github.itdachen.dashboard.service.IPearAdminMenuWebService;
 import com.github.itdachen.dashboard.service.IPermsAuthWebService;
 import com.github.itdachen.dashboard.service.IRefreshAuthoritiesService;
-import com.github.itdachen.framework.autoconfigure.client.FlyClientProperties;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.annotation.IgnoreResponseAdvice;
 import com.github.itdachen.framework.context.exception.BizException;
@@ -28,12 +28,12 @@ import java.util.List;
 public class AdminPermsAuthMenuController {
 
     private final IPermsAuthWebService permsAuthService;
-    private final FlyClientProperties clientProperties;
+    private final ClientProperties clientProperties;
     private final IPearAdminMenuWebService pearAdminMenuWebService;
     private final IRefreshAuthoritiesService refreshAuthoritiesService;
 
     public AdminPermsAuthMenuController(IPermsAuthWebService permsAuthService,
-                                        FlyClientProperties clientProperties,
+                                        ClientProperties clientProperties,
                                         IPearAdminMenuWebService pearAdminMenuWebService,
                                         IRefreshAuthoritiesService refreshAuthoritiesService) {
         this.permsAuthService = permsAuthService;

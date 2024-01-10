@@ -12,9 +12,9 @@ import com.github.itdachen.admin.sdk.query.RoleMenuQuery;
 import com.github.itdachen.admin.sdk.vo.MenuInfoVo;
 import com.github.itdachen.admin.sdk.vo.RoleMenuVo;
 import com.github.itdachen.admin.service.IRoleMenuService;
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.context.tree.ZTreeNode;
 import com.github.itdachen.framework.context.exception.BizException;
-import com.github.itdachen.framework.context.node.TreeNode;
+import com.github.itdachen.framework.context.tree.TreeNode;
 import com.github.itdachen.framework.core.response.TableData;
 import com.github.itdachen.framework.core.utils.StringUtils;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
@@ -120,7 +120,7 @@ public class RoleMenuServiceImpl extends BizServiceImpl<IRoleMenuMapper, IRoleMe
      * @param roleId roleId
      * @param userType userType
      * @param userId userId
-     * @return java.util.List<com.github.itdachen.framework.assets.tree.ZTreeNode>
+     * @return java.util.List<com.github.itdachen.framework.context.tree.ZTreeNode>
      */
     @Override
     public List<ZTreeNode> roleMenuTreeData(String roleId, String userType, String userId) throws BizException {
@@ -134,7 +134,7 @@ public class RoleMenuServiceImpl extends BizServiceImpl<IRoleMenuMapper, IRoleMe
      * @author 王大宸
      * @date 2023/5/15 21:51
      * @param roleId roleId
-     * @return java.util.List<com.github.itdachen.framework.context.node.TreeNode>
+     * @return java.util.List<com.github.itdachen.framework.context.tree.TreeNode>
      */
     @Override
     public TreeNode<MenuInfoVo, String> roleMenuElTreeData(String roleId) {

@@ -109,7 +109,7 @@
     </select>
 
 
-    <select id="findZTree" resultType="com.github.itdachen.framework.assets.tree.ZTreeNode">
+    <select id="findZTree" resultType="com.github.itdachen.framework.context.tree.ZTreeNode">
         SELECT id, parent_id AS parentId, title AS name, type
         FROM sys_menu_info
         ORDER BY order_num ASC
@@ -121,7 +121,7 @@
         WHERE parent_id = #{parentId}
     </select>
 
-    <select id="zTreeCatalog" resultType="com.github.itdachen.framework.assets.tree.ZTreeNode">
+    <select id="zTreeCatalog" resultType="com.github.itdachen.framework.context.tree.ZTreeNode">
         SELECT id, parent_id AS parentId, title AS name, type
         FROM sys_menu_info
         WHERE type = 'dirt'

@@ -3,12 +3,12 @@ package com.github.itdachen.dashboard.controller;
 import com.github.itdachen.admin.sdk.dto.NetDiskMd5Dto;
 import com.github.itdachen.admin.sdk.vo.NetDiskMd5Vo;
 import com.github.itdachen.admin.service.INetDiskMd5Service;
+import com.github.itdachen.boot.oss.FileHelper;
+import com.github.itdachen.boot.oss.entity.FileInfo;
 import com.github.itdachen.framework.context.annotation.IgnoreResponseAdvice;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.core.response.ServerResponse;
 import com.github.itdachen.framework.core.utils.StringUtils;
-import com.github.itdachen.framework.oss.FileHelper;
-import com.github.itdachen.framework.oss.entity.FileInfo;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,12 +20,12 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @RestController
 @RequestMapping("/oss/file")
-public class OssFileController {
+public class OssUploadFileController {
     private final FileHelper fileHelper;
     private final INetDiskMd5Service netDiskMd5Service;
 
-    public OssFileController(FileHelper fileHelper,
-                             INetDiskMd5Service netDiskMd5Service) {
+    public OssUploadFileController(FileHelper fileHelper,
+                                   INetDiskMd5Service netDiskMd5Service) {
         this.fileHelper = fileHelper;
         this.netDiskMd5Service = netDiskMd5Service;
     }

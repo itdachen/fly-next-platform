@@ -1,7 +1,7 @@
 package com.github.itdachen.tools.controller;
 
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
-import com.github.itdachen.framework.autoconfigure.client.FlyClientProperties;
+import com.github.itdachen.boot.autoconfigure.client.ClientProperties;
+import com.github.itdachen.framework.context.tree.ZTreeNode;
 import com.github.itdachen.framework.code.constants.UiStyleConstant;
 import com.github.itdachen.framework.code.entity.ProtoTable;
 import com.github.itdachen.framework.code.entity.TableColumn;
@@ -42,10 +42,10 @@ public class TableInfoController {
     private static final String MENU_ID = "1539506077102641152";
 
     private final ITableInfoService tableInfoService;
-    private final FlyClientProperties clientProperties;
+    private final ClientProperties clientProperties;
 
     public TableInfoController(ITableInfoService tableInfoService,
-                               FlyClientProperties clientProperties) {
+                               ClientProperties clientProperties) {
         this.tableInfoService = tableInfoService;
         this.clientProperties = clientProperties;
     }
@@ -285,7 +285,7 @@ public class TableInfoController {
      *
      * @author 王大宸
      * @date 2023/4/11 21:04
-     * @return com.github.itdachen.framework.core.response.ServerResponse<java.util.List < com.github.itdachen.framework.assets.tree.ZTreeNode>>
+     * @return com.github.itdachen.framework.core.response.ServerResponse<java.util.List < com.github.itdachen.framework.context.tree.ZTreeNode>>
      */
     @GetMapping("/app/list")
     @ResponseBody

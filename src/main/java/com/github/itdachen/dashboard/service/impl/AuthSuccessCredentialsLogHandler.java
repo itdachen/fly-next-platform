@@ -1,14 +1,14 @@
 package com.github.itdachen.dashboard.service.impl;
 
+import com.github.itdachen.boot.security.authentication.mobile.MobileAuthenticationToken;
+import com.github.itdachen.boot.security.constants.LoginModeConstant;
+import com.github.itdachen.boot.security.log.IAuthSuccessCredentialsLogHandler;
 import com.github.itdachen.dashboard.entity.LoginRecord;
 import com.github.itdachen.dashboard.mapper.ILoginRecordMapper;
 import com.github.itdachen.dashboard.mapper.IUserDetailsMapper;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.userdetails.CurrentUserDetails;
 import com.github.itdachen.framework.core.utils.StringUtils;
-import com.github.itdachen.framework.security.authentication.mobile.MobileAuthenticationToken;
-import com.github.itdachen.framework.security.constants.LoginModeConstant;
-import com.github.itdachen.framework.security.log.IAuthSuccessCredentialsLogHandler;
 import com.github.itdachen.framework.tools.ip.AddressUtils;
 import com.github.itdachen.framework.tools.request.BodyUtils;
 import com.github.itdachen.framework.tools.request.BrowserUtils;

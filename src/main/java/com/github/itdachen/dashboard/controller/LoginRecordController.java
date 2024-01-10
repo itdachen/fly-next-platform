@@ -1,9 +1,9 @@
 package com.github.itdachen.dashboard.controller;
 
+import com.github.itdachen.boot.autoconfigure.client.ClientProperties;
 import com.github.itdachen.dashboard.sdk.query.LoginRecordQuery;
 import com.github.itdachen.dashboard.sdk.vo.LoginRecordVO;
 import com.github.itdachen.dashboard.service.ILoginRecordService;
-import com.github.itdachen.framework.autoconfigure.client.FlyClientProperties;
 import com.github.itdachen.framework.core.response.ServerResponse;
 import com.github.itdachen.framework.core.response.TableData;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,10 +23,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class LoginRecordController {
 
     private final ILoginRecordService loginRecordService;
-    private final FlyClientProperties clientProperties;
+    private final ClientProperties clientProperties;
 
     public LoginRecordController(ILoginRecordService loginRecordService,
-                                 FlyClientProperties clientProperties) {
+                                 ClientProperties clientProperties) {
         this.loginRecordService = loginRecordService;
         this.clientProperties = clientProperties;
     }

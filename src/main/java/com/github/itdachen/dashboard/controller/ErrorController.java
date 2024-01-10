@@ -1,6 +1,6 @@
 package com.github.itdachen.dashboard.controller;
 
-import com.github.itdachen.framework.autoconfigure.security.properties.FlySecurityProperties;
+import com.github.itdachen.boot.autoconfigure.security.properties.SecurityProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ErrorController {
     private static final String PATH_PREFIX = "error";
 
-    private final FlySecurityProperties securityBrowserProperties;
+    private final SecurityProperties securityBrowserProperties;
 
-    public ErrorController(FlySecurityProperties securityBrowserProperties) {
+    public ErrorController(SecurityProperties securityBrowserProperties) {
         this.securityBrowserProperties = securityBrowserProperties;
     }
 

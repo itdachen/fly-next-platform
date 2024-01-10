@@ -3,7 +3,7 @@ package com.github.itdachen.admin.mapper;
 import com.github.itdachen.admin.entity.RoleMenu;
 import com.github.itdachen.admin.sdk.query.RoleMenuQuery;
 import com.github.itdachen.admin.sdk.vo.RoleMenuVo;
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.context.tree.ZTreeNode;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -55,7 +55,7 @@ public interface IRoleMenuMapper extends Mapper<RoleMenu> {
      * @date 2023/4/5 21:27
      * @param parentId parentId
      * @param visible visible
-     * @return java.util.List<com.github.itdachen.framework.assets.tree.ZTreeNode>
+     * @return java.util.List<com.github.itdachen.framework.context.tree.ZTreeNode>
      */
     List<ZTreeNode> findValidMenu(String parentId, String visible);
 

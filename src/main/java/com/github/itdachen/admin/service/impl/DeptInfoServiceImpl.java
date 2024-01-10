@@ -7,9 +7,9 @@ import com.github.itdachen.admin.sdk.dto.DeptInfoDto;
 import com.github.itdachen.admin.sdk.query.DeptInfoQuery;
 import com.github.itdachen.admin.sdk.vo.DeptInfoVo;
 import com.github.itdachen.admin.service.IDeptInfoService;
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.exception.BizException;
+import com.github.itdachen.framework.context.tree.ZTreeNode;
 import com.github.itdachen.framework.core.response.TableData;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
 import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
@@ -124,7 +124,7 @@ public class DeptInfoServiceImpl extends BizServiceImpl<IDeptInfoMapper, IDeptIn
      *
      * @author 王大宸
      * @date 2023/4/4 23:46
-     * @return java.util.List<com.github.itdachen.framework.assets.tree.ZTreeNode>
+     * @return java.util.List<com.github.itdachen.framework.context.tree.ZTreeNode>
      */
     @Override
     public List<ZTreeNode> zTree() throws BizException {

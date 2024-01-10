@@ -3,7 +3,7 @@ package com.github.itdachen.admin.mapper;
 import com.github.itdachen.admin.entity.RoleUser;
 import com.github.itdachen.admin.sdk.query.RoleUserQuery;
 import com.github.itdachen.admin.sdk.vo.RoleUserVo;
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.context.tree.ZTreeNode;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -63,7 +63,7 @@ public interface IRoleUserMapper extends Mapper<RoleUser> {
      * @author 王大宸
      * @date 2023/4/5 21:33
      * @param deptId deptId
-     * @return java.util.List<com.github.itdachen.framework.assets.tree.ZTreeNode>
+     * @return java.util.List<com.github.itdachen.framework.context.tree.ZTreeNode>
      */
     List<ZTreeNode> findRoleByDept(String deptId);
 

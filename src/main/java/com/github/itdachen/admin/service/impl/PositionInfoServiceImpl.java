@@ -9,7 +9,7 @@ import com.github.itdachen.admin.sdk.query.PositionInfoQuery;
 import com.github.itdachen.admin.sdk.vo.PositionInfoVo;
 import com.github.itdachen.admin.service.IPositionInfoService;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
-import com.github.itdachen.framework.context.node.TreeNode;
+import com.github.itdachen.framework.context.tree.TreeNode;
 import com.github.itdachen.framework.core.response.TableData;
 import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
 import com.github.pagehelper.Page;
@@ -58,7 +58,7 @@ public class PositionInfoServiceImpl extends BizServiceImpl<IPositionInfoMapper,
      * @author 王大宸
      * @date 2023/5/16 22:46
      * @param deptId deptId
-     * @return com.github.itdachen.framework.context.node.TreeNode<com.github.itdachen.admin.sdk.vo.MenuInfoVo, java.lang.String>
+     * @return com.github.itdachen.framework.context.tree.TreeNode<com.github.itdachen.admin.sdk.vo.MenuInfoVo, java.lang.String>
      */
     @Override
     public TreeNode<PositionInfoVo, String> findPositionByDept(String deptId, String identityId) throws Exception {

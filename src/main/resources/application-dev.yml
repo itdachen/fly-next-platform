@@ -57,10 +57,8 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
 
-    #  session:
-    #    timeout: 18000
-    # 单机版, 不依赖 Redis
-    # store-type: NONE
+  session:
+    timeout: 18000
 
   datasource:
     name: mysql
@@ -128,10 +126,6 @@ spring:
     mode: HTML5
     cache: false
     encoding: utf-8
-
-  session:
-    #会话过期时间默认是30m过期,最少为1分钟, 单位: 秒
-    timeout: 18000
 
   data:
     redis:

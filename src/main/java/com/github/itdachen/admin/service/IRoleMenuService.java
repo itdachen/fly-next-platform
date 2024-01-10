@@ -4,9 +4,9 @@ import com.github.itdachen.admin.sdk.dto.RoleMenuDto;
 import com.github.itdachen.admin.sdk.query.RoleMenuQuery;
 import com.github.itdachen.admin.sdk.vo.MenuInfoVo;
 import com.github.itdachen.admin.sdk.vo.RoleMenuVo;
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.context.tree.TreeNode;
+import com.github.itdachen.framework.context.tree.ZTreeNode;
 import com.github.itdachen.framework.context.exception.BizException;
-import com.github.itdachen.framework.context.node.TreeNode;
 import com.github.itdachen.framework.webmvc.service.IBizService;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public interface IRoleMenuService extends IBizService<RoleMenuDto, RoleMenuVo, R
      * @param roleId roleId
      * @param userType userType
      * @param userId userId
-     * @return java.util.List<com.github.itdachen.framework.assets.tree.ZTreeNode>
+     * @return java.util.List<com.github.itdachen.framework.context.tree.ZTreeNode>
      */
     List<ZTreeNode> roleMenuTreeData(String roleId, String userType, String userId) throws BizException;
 
@@ -37,7 +37,7 @@ public interface IRoleMenuService extends IBizService<RoleMenuDto, RoleMenuVo, R
      * @author 王大宸
      * @date 2023/5/15 21:51
      * @param roleId roleId
-     * @return java.util.List<com.github.itdachen.framework.context.node.TreeNode>
+     * @return java.util.List<com.github.itdachen.framework.context.tree.TreeNode>
      */
     TreeNode<MenuInfoVo, String> roleMenuElTreeData(String roleId);
 

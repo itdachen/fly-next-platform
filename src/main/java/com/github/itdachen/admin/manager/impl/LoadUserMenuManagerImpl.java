@@ -6,7 +6,7 @@ import com.github.itdachen.admin.manager.ILoadUserMenuManager;
 import com.github.itdachen.admin.mapper.IAppClientMapper;
 import com.github.itdachen.admin.mapper.IPermsAuthMapper;
 import com.github.itdachen.admin.mapper.IRoleMenuMapper;
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.context.tree.ZTreeNode;
 import com.github.itdachen.framework.context.constants.UserTypeConstant;
 import org.springframework.stereotype.Component;
 
@@ -41,7 +41,7 @@ public class LoadUserMenuManagerImpl implements ILoadUserMenuManager {
         List<ZTreeNode> apps, list = new ArrayList<>();
         if (UserTypeConstant.SUPER_ADMINISTRATOR.equals(userType)) {
             apps = appClientMapper.findAppAll();
-            if (null == apps || 0 == apps.size()) {
+            if (null == apps || apps.isEmpty()) {
                 return null;
             }
             apps = appClientManager.arrangeAppMenu(apps);

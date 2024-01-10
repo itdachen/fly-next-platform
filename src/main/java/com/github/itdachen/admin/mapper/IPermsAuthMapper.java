@@ -3,7 +3,7 @@ package com.github.itdachen.admin.mapper;
 import com.github.itdachen.admin.entity.PermsAuth;
 import com.github.itdachen.admin.sdk.query.PermsAuthQuery;
 import com.github.itdachen.admin.sdk.vo.PermsAuthVo;
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.context.tree.ZTreeNode;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;

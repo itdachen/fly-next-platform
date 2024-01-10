@@ -7,6 +7,7 @@ import com.github.itdachen.admin.sdk.dto.NetDiskMd5Dto;
 import com.github.itdachen.admin.sdk.query.NetDiskMd5Query;
 import com.github.itdachen.admin.sdk.vo.NetDiskMd5Vo;
 import com.github.itdachen.admin.service.INetDiskMd5Service;
+import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.core.response.TableData;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
 import com.github.pagehelper.Page;
@@ -17,6 +18,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -93,7 +95,15 @@ public class NetDiskMd5ServiceImpl implements INetDiskMd5Service {
     @Override
     public void netDiskMd5(NetDiskMd5Dto netDiskMd5Dto) throws Exception {
         NetDiskMd5 netDiskMd5 = NetDiskMd5Convert.toJavaObject(netDiskMd5Dto);
-        EntityUtils.setCreatAndUpdateInfo(netDiskMd5);
+
+        netDiskMd5.setId(EntityUtils.getId());
+        netDiskMd5.setCreateTime(LocalDateTime.now());
+        netDiskMd5.setCreateUser(BizContextHandler.getNickName());
+        netDiskMd5.setCreateUserId(BizContextHandler.getUserId());
+        netDiskMd5.setUpdateTime(LocalDateTime.now());
+        netDiskMd5.setUpdateUser(BizContextHandler.getNickName());
+        netDiskMd5.setUpdateUserId(BizContextHandler.getUserId());
+
         netDiskMd5Mapper.saveNetDiskMd5(netDiskMd5);
         netDiskMd5Dto.setId(netDiskMd5.getId());
     }

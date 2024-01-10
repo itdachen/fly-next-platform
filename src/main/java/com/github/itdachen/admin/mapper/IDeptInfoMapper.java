@@ -3,7 +3,7 @@ package com.github.itdachen.admin.mapper;
 import com.github.itdachen.admin.entity.DeptInfo;
 import com.github.itdachen.admin.sdk.query.DeptInfoQuery;
 import com.github.itdachen.admin.sdk.vo.DeptInfoVo;
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.context.tree.ZTreeNode;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -52,7 +52,7 @@ public interface IDeptInfoMapper extends Mapper<DeptInfo> {
      *
      * @author 王大宸
      * @date 2023/4/4 23:48
-     * @return com.github.itdachen.framework.assets.tree.ZTreeNode
+     * @return com.github.itdachen.framework.context.tree.ZTreeNode
      */
     ZTreeNode findRootDept();
 
@@ -61,7 +61,7 @@ public interface IDeptInfoMapper extends Mapper<DeptInfo> {
      *
      * @author 王大宸
      * @date 2023/4/4 23:48
-     * @return java.util.List<com.github.itdachen.framework.assets.tree.ZTreeNode>
+     * @return java.util.List<com.github.itdachen.framework.context.tree.ZTreeNode>
      */
     List<ZTreeNode> zTree();
 

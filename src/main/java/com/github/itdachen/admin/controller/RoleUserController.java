@@ -3,7 +3,7 @@ package com.github.itdachen.admin.controller;
 import com.github.itdachen.admin.sdk.dto.RoleUserDto;
 import com.github.itdachen.admin.sdk.vo.RoleUserVo;
 import com.github.itdachen.admin.service.IRoleUserService;
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.context.tree.ZTreeNode;
 import com.github.itdachen.framework.context.annotation.CheckApiClient;
 import com.github.itdachen.framework.core.constants.ClientConstant;
 import com.github.itdachen.framework.core.response.ServerResponse;

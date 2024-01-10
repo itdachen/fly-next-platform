@@ -7,7 +7,7 @@ import com.github.itdachen.admin.sdk.dto.RoleUserDto;
 import com.github.itdachen.admin.sdk.query.RoleUserQuery;
 import com.github.itdachen.admin.sdk.vo.RoleUserVo;
 import com.github.itdachen.admin.service.IRoleUserService;
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.context.tree.ZTreeNode;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.core.response.TableData;

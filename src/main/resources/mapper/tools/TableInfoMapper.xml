@@ -452,19 +452,19 @@
         order by c.sort
     </select>
 
-    <select id="findAppAll" resultType="com.github.itdachen.framework.assets.tree.ZTreeNode">
+    <select id="findAppAll" resultType="com.github.itdachen.framework.context.tree.ZTreeNode">
         SELECT app_code AS id, app_title AS name, app_type AS type, '1' AS parentId, '0' AS grade
         FROM sys_app_client
     </select>
 
-    <select id="findDirtZTree" resultType="com.github.itdachen.framework.assets.tree.ZTreeNode">
+    <select id="findDirtZTree" resultType="com.github.itdachen.framework.context.tree.ZTreeNode">
         SELECT id, parent_id AS parentId, title AS name, type
         FROM sys_menu_info
         WHERE type = 'dirt'
         ORDER BY order_num ASC
     </select>
 
-    <select id="dictList" resultType="com.github.itdachen.framework.assets.tree.ZTreeNode">
+    <select id="dictList" resultType="com.github.itdachen.framework.context.tree.ZTreeNode">
         SELECT dict_type AS id, dict_name AS name
         FROM sys_dict_type
         WHERE status = '1'

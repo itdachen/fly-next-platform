@@ -1,6 +1,6 @@
 package com.github.itdachen.tools.service;
 
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.context.tree.ZTreeNode;
 import com.github.itdachen.framework.code.entity.ProtoTable;
 import com.github.itdachen.framework.code.entity.TableColumn;
 import com.github.itdachen.framework.code.entity.TableInfo;

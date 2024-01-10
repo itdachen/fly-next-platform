@@ -3,7 +3,7 @@ package com.github.itdachen.admin.controller;
 import com.github.itdachen.admin.sdk.dto.RoleMenuDto;
 import com.github.itdachen.admin.sdk.vo.RoleMenuVo;
 import com.github.itdachen.admin.service.IRoleMenuService;
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.context.tree.ZTreeNode;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.annotation.CheckApiClient;
 import com.github.itdachen.framework.context.exception.BizException;

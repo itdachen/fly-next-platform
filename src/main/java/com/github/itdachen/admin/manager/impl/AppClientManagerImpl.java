@@ -1,7 +1,7 @@
 package com.github.itdachen.admin.manager.impl;
 
 import com.github.itdachen.admin.manager.IAppClientManager;
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.context.tree.ZTreeNode;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 

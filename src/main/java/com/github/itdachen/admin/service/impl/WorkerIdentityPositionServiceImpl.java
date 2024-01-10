@@ -7,7 +7,7 @@ import com.github.itdachen.admin.sdk.dto.WorkerIdentityPositionDto;
 import com.github.itdachen.admin.sdk.query.WorkerIdentityPositionQuery;
 import com.github.itdachen.admin.sdk.vo.WorkerIdentityPositionVo;
 import com.github.itdachen.admin.service.IWorkerIdentityPositionService;
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.context.tree.ZTreeNode;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.core.response.TableData;
 import com.github.itdachen.framework.core.utils.StringUtils;

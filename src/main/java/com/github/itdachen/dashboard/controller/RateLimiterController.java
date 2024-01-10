@@ -1,7 +1,7 @@
 package com.github.itdachen.dashboard.controller;
 
-import com.github.itdachen.framework.limiter.annotation.RedisRateLimiter;
-import com.github.itdachen.framework.limiter.annotation.RequestRateLimiter;
+import com.github.itdachen.boot.rate.limiter.annotation.RedisRateLimiter;
+import com.github.itdachen.boot.rate.limiter.annotation.RequestRateLimiter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;

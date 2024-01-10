@@ -1,15 +1,15 @@
 package com.github.itdachen.dashboard.service.impl;
 
+import com.github.itdachen.boot.autoconfigure.client.ClientProperties;
+import com.github.itdachen.boot.security.constants.LoginModeConstant;
+import com.github.itdachen.boot.security.log.IAuthFailureCredentialsLogHandler;
 import com.github.itdachen.dashboard.entity.LoginErrorRecord;
 import com.github.itdachen.dashboard.entity.LoginRecord;
 import com.github.itdachen.dashboard.mapper.ILoginErrorRecordMapper;
 import com.github.itdachen.dashboard.mapper.ILoginRecordMapper;
 import com.github.itdachen.dashboard.mapper.IUserDetailsMapper;
-import com.github.itdachen.framework.autoconfigure.client.FlyClientProperties;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.userdetails.CurrentUserDetails;
-import com.github.itdachen.framework.security.constants.LoginModeConstant;
-import com.github.itdachen.framework.security.log.IAuthFailureCredentialsLogHandler;
 import com.github.itdachen.framework.tools.ip.AddressUtils;
 import com.github.itdachen.framework.tools.request.BodyUtils;
 import com.github.itdachen.framework.tools.request.BrowserUtils;
@@ -35,12 +35,12 @@ public class AuthFailureBadCredentialsHandler implements IAuthFailureCredentials
     private final ILoginErrorRecordMapper loginErrorRecordMapper;
     private final IUserDetailsMapper userDetailsMapper;
     private final ILoginRecordMapper loginRecordMapper;
-    private final FlyClientProperties clientProperties;
+    private final ClientProperties clientProperties;
 
     public AuthFailureBadCredentialsHandler(ILoginErrorRecordMapper loginErrorRecordMapper,
                                             IUserDetailsMapper userDetailsMapper,
                                             ILoginRecordMapper loginRecordMapper,
-                                            FlyClientProperties clientProperties) {
+                                            ClientProperties clientProperties) {
         this.loginErrorRecordMapper = loginErrorRecordMapper;
         this.userDetailsMapper = userDetailsMapper;
         this.loginRecordMapper = loginRecordMapper;

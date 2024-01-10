@@ -3,7 +3,7 @@ package com.github.itdachen.admin.service;
 import com.github.itdachen.admin.sdk.dto.RoleUserDto;
 import com.github.itdachen.admin.sdk.query.RoleUserQuery;
 import com.github.itdachen.admin.sdk.vo.RoleUserVo;
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.context.tree.ZTreeNode;
 import com.github.itdachen.framework.webmvc.service.IBizService;
 
 import java.util.List;

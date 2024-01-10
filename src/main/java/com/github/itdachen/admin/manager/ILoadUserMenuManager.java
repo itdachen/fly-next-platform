@@ -1,6 +1,6 @@
 package com.github.itdachen.admin.manager;
 
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.context.tree.ZTreeNode;
 
 import java.util.List;
 

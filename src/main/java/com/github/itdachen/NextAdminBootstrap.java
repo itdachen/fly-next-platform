@@ -1,6 +1,7 @@
 package com.github.itdachen;
 
-import com.github.itdachen.framework.boot.runner.SpringBootBootstrap;
+import com.alibaba.druid.spring.boot3.autoconfigure.DruidDataSourceAutoConfigure;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import tk.mybatis.spring.annotation.MapperScan;
 
@@ -9,12 +10,14 @@ import tk.mybatis.spring.annotation.MapperScan;
  * Created by 王大宸 on 2023-11-11 12:32
  * Created with IntelliJ IDEA.
  */
-@SpringBootApplication
+@SpringBootApplication(exclude = {DruidDataSourceAutoConfigure.class})
+// @SpringBootApplication
 @MapperScan(basePackages = "com.github.itdachen.**.mapper")
 public class NextAdminBootstrap {
 
     public static void main(String[] args) {
-        SpringBootBootstrap.run(NextAdminBootstrap.class);
+        // SpringBootBootstrap.run(NextAdminBootstrap.class);
+        SpringApplication.run(NextAdminBootstrap.class, args);
     }
 
 }

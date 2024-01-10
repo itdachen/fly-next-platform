@@ -3,7 +3,7 @@ package com.github.itdachen.admin.controller;
 import com.github.itdachen.admin.sdk.dto.PermsAuthDto;
 import com.github.itdachen.admin.sdk.vo.PermsAuthVo;
 import com.github.itdachen.admin.service.IPermsAuthService;
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.context.tree.ZTreeNode;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.annotation.CheckApiClient;
 import com.github.itdachen.framework.core.constants.ClientConstant;

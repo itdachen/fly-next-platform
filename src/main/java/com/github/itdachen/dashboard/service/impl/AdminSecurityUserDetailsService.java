@@ -2,17 +2,17 @@ package com.github.itdachen.dashboard.service.impl;
 
 import com.github.itdachen.admin.entity.UserInfo;
 import com.github.itdachen.admin.mapper.IUserInfoMapper;
+import com.github.itdachen.boot.autoconfigure.client.ClientProperties;
+import com.github.itdachen.boot.security.constants.LoginModeConstant;
+import com.github.itdachen.boot.security.details.AbstractSecurityUserDetailsService;
+import com.github.itdachen.boot.security.exception.BizSecurityException;
+import com.github.itdachen.boot.security.user.CurrentUserInfo;
 import com.github.itdachen.dashboard.mapper.IAuthenticationAuthorityMapper;
 import com.github.itdachen.dashboard.mapper.ILoginErrorRecordMapper;
 import com.github.itdachen.dashboard.mapper.IUserDetailsMapper;
-import com.github.itdachen.framework.autoconfigure.client.FlyClientProperties;
 import com.github.itdachen.framework.context.constants.UserTypeConstant;
 import com.github.itdachen.framework.context.permission.PermissionInfo;
 import com.github.itdachen.framework.context.userdetails.CurrentUserDetails;
-import com.github.itdachen.framework.security.constants.LoginModeConstant;
-import com.github.itdachen.framework.security.details.AbstractSecurityUserDetailsService;
-import com.github.itdachen.framework.security.exception.BizSecurityException;
-import com.github.itdachen.framework.security.user.CurrentUserInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,13 +35,13 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
     private final IUserDetailsMapper userDetailsMapper;
     private final IUserInfoMapper userInfoMapper;
     private final ILoginErrorRecordMapper loginErrorRecordMapper;
-    private final FlyClientProperties clientProperties;
+    private final ClientProperties clientProperties;
 
     public AdminSecurityUserDetailsService(IAuthenticationAuthorityMapper permsAuthMapper,
                                            IUserDetailsMapper userDetailsMapper,
                                            IUserInfoMapper userInfoMapper,
                                            ILoginErrorRecordMapper loginErrorRecordMapper,
-                                           FlyClientProperties clientProperties) {
+                                           ClientProperties clientProperties) {
         this.permsAuthMapper = permsAuthMapper;
         this.userDetailsMapper = userDetailsMapper;
         this.userInfoMapper = userInfoMapper;

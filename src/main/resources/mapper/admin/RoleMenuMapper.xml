@@ -70,7 +70,7 @@
         WHERE role_id = #{roleId}
     </delete>
 
-    <select id="findValidMenu" resultType="com.github.itdachen.framework.assets.tree.ZTreeNode"
+    <select id="findValidMenu" resultType="com.github.itdachen.framework.context.tree.ZTreeNode"
             parameterType="java.lang.String">
         SELECT id, parent_id AS parentId, title AS `name`, type
         FROM sys_menu_info
@@ -81,7 +81,7 @@
         ORDER BY order_num
     </select>
 
-    <select id="findValidElement" resultType="com.github.itdachen.framework.assets.tree.ZTreeNode"
+    <select id="findValidElement" resultType="com.github.itdachen.framework.context.tree.ZTreeNode"
             parameterType="java.lang.String">
         SELECT id, title AS name, menu_id AS parentId, type
         FROM sys_element_info

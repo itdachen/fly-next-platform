@@ -8,7 +8,7 @@ import com.github.itdachen.admin.sdk.dto.PermsAuthDto;
 import com.github.itdachen.admin.sdk.query.PermsAuthQuery;
 import com.github.itdachen.admin.sdk.vo.PermsAuthVo;
 import com.github.itdachen.admin.service.IPermsAuthService;
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.context.tree.ZTreeNode;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.core.response.TableData;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
@@ -95,7 +95,7 @@ public class PermsAuthServiceImpl extends BizServiceImpl<IPermsAuthMapper, IPerm
      * @param userId   被下发用户id
      * @param userType 当前登录账号用户类型
      * @param currentUserId 当前登录用户账号id
-     * @return java.util.List<com.github.itdachen.framework.assets.tree.ZTreeNode>
+     * @return java.util.List<com.github.itdachen.framework.context.tree.ZTreeNode>
      */
     @Override
     public List<ZTreeNode> findMenuWithUser(String userId, String userType, String currentUserId) throws Exception {

@@ -130,13 +130,13 @@
     </update>
 
 
-    <select id="findRootDept" resultType="com.github.itdachen.framework.assets.tree.ZTreeNode">
+    <select id="findRootDept" resultType="com.github.itdachen.framework.context.tree.ZTreeNode">
         SELECT id, title AS name, parent_id AS parent_id
         FROM sys_dept_info
         WHERE parent_id = '0'
     </select>
 
-    <select id="zTree" resultType="com.github.itdachen.framework.assets.tree.ZTreeNode">
+    <select id="zTree" resultType="com.github.itdachen.framework.context.tree.ZTreeNode">
         SELECT id, title AS name, parent_id AS parent_id
         FROM sys_dept_info
         WHERE parent_id != '0'

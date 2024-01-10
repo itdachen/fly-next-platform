@@ -1,7 +1,7 @@
 package com.github.itdachen.dashboard.controller;
 
-import com.github.itdachen.framework.autoconfigure.client.FlyClientProperties;
-import com.github.itdachen.framework.autoconfigure.security.constants.SecurityConstants;
+import com.github.itdachen.boot.autoconfigure.client.ClientProperties;
+import com.github.itdachen.boot.autoconfigure.security.constants.SecurityConstants;
 import com.github.itdachen.framework.context.annotation.IgnoreResponseAdvice;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.env.Environment;
@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class LoginController {
 
     private final Environment environment;
-    private final FlyClientProperties clientProperties;
+    private final ClientProperties clientProperties;
 
-    public LoginController(FlyClientProperties clientProperties, Environment environment) {
+    public LoginController(ClientProperties clientProperties, Environment environment) {
         this.clientProperties = clientProperties;
         this.environment = environment;
     }

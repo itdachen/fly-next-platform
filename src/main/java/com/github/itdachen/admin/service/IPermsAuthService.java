@@ -3,7 +3,7 @@ package com.github.itdachen.admin.service;
 import com.github.itdachen.admin.sdk.dto.PermsAuthDto;
 import com.github.itdachen.admin.sdk.query.PermsAuthQuery;
 import com.github.itdachen.admin.sdk.vo.PermsAuthVo;
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.context.tree.ZTreeNode;
 import com.github.itdachen.framework.webmvc.service.IBizService;
 
 import java.util.List;

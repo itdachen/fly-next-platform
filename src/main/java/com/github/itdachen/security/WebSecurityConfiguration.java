@@ -1,6 +1,6 @@
 package com.github.itdachen.security;
 
-import com.github.itdachen.framework.security.WebSecurityConfigurerAdapter;
+import com.github.itdachen.boot.security.config.WebSecurityConfigurerAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -21,10 +21,9 @@ import org.springframework.security.web.context.SecurityContextRepository;
  * @date 2023/02/07 10:57
  */
 @Configuration
-// 添加 security 过滤器
 @EnableWebSecurity
-// 开启方法权限注解
-@EnableMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
+// 开启方法权限注解, 这里必须设置 proxyTargetClass = true, 不然不生效
+@EnableMethodSecurity(proxyTargetClass = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
@@ -80,6 +79,5 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new DelegatingSecurityContextRepository(
                 new RequestAttributeSecurityContextRepository(), new HttpSessionSecurityContextRepository());
     }
-
 
 }

@@ -76,7 +76,7 @@
     </select>
 
     <select id="findRoleByDept" parameterType="java.lang.String"
-            resultType="com.github.itdachen.framework.assets.tree.ZTreeNode">
+            resultType="com.github.itdachen.framework.context.tree.ZTreeNode">
         SELECT id, title AS name, '1' AS parentId
         FROM sys_role_info
         WHERE dept_id = #{deptId}

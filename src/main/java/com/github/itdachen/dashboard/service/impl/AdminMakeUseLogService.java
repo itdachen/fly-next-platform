@@ -2,8 +2,8 @@ package com.github.itdachen.dashboard.service.impl;
 
 import com.github.itdachen.admin.entity.MakeUseLog;
 import com.github.itdachen.admin.mapper.IMakeUseLogMapper;
-import com.github.itdachen.framework.oplog.entity.OplogClient;
-import com.github.itdachen.framework.oplog.manager.service.IOplogClientService;
+import com.github.itdachen.boot.oplog.entity.OplogClient;
+import com.github.itdachen.boot.oplog.manager.service.IOplogClientService;
 import org.springframework.stereotype.Service;
 
 /**

@@ -1,8 +1,8 @@
 package com.github.itdachen.dashboard.controller;
 
+import com.github.itdachen.boot.autoconfigure.client.ClientProperties;
+import com.github.itdachen.boot.autoconfigure.client.enums.BackstageTemplateEnum;
 import com.github.itdachen.dashboard.service.IPermsAuthWebService;
-import com.github.itdachen.framework.autoconfigure.client.FlyClientProperties;
-import com.github.itdachen.framework.autoconfigure.client.enums.BackstageTemplateEnum;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.permission.PermissionInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -24,11 +24,11 @@ public class AdminDashboardController {
     private static final String PEAR_PREFIX = "backstage/pear";
 
     private final Environment environment;
-    private final FlyClientProperties clientProperties;
+    private final ClientProperties clientProperties;
     private final IPermsAuthWebService permsAuthService;
 
     public AdminDashboardController(Environment environment,
-                                    FlyClientProperties clientProperties,
+                                    ClientProperties clientProperties,
                                     IPermsAuthWebService permsAuthService) {
         this.environment = environment;
         this.clientProperties = clientProperties;

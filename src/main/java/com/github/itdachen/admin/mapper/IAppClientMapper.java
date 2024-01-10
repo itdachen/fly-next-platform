@@ -3,7 +3,7 @@ package com.github.itdachen.admin.mapper;
 import com.github.itdachen.admin.entity.AppClient;
 import com.github.itdachen.admin.sdk.query.AppClientQuery;
 import com.github.itdachen.admin.sdk.vo.AppClientVo;
-import com.github.itdachen.framework.assets.tree.ZTreeNode;
+import com.github.itdachen.framework.context.tree.ZTreeNode;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -33,7 +33,7 @@ public interface IAppClientMapper extends Mapper<AppClient> {
      *
      * @author 王大宸
      * @date 2023/4/5 14:29
-     * @return java.util.List<com.github.itdachen.framework.assets.tree.ZTreeNode>
+     * @return java.util.List<com.github.itdachen.framework.context.tree.ZTreeNode>
      */
     List<ZTreeNode> findAppAll();
 
