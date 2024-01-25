@@ -44,7 +44,7 @@
        <log mode="append"> </log>
     -->
 
-    <log mode="roll-by-size-time">
+    <log mode="roll-by-time">
         <sizeThreshold>1024</sizeThreshold>
         <pattern>yyyyMMdd</pattern>
         <autoRollAtTime>00:00:00</autoRollAtTime>
