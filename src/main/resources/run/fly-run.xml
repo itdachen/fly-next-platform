@@ -44,8 +44,12 @@
        <log mode="append"> </log>
     -->
 
-    <log mode="roll-by-time">
+    <log mode="roll-by-size-time">
+        <sizeThreshold>1024</sizeThreshold>
         <pattern>yyyyMMdd</pattern>
+        <autoRollAtTime>00:00:00</autoRollAtTime>
+        <zipOlderThanNumDays>5</zipOlderThanNumDays>
+        <zipDateFormat>yyyyMMdd</zipDateFormat>
     </log>
 
 
