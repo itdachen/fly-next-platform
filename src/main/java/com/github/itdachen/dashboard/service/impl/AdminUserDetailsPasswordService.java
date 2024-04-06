@@ -1,7 +1,7 @@
 package com.github.itdachen.dashboard.service.impl;
 
-import com.github.itdachen.admin.entity.UserLogin;
-import com.github.itdachen.admin.mapper.IUserLoginMapper;
+import com.github.itdachen.admin_v1.entity.UserLogin;
+import com.github.itdachen.admin_v1.mapper.IUserLoginMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsPasswordService;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.github.itdachen.dashboard.mapper;
 
-import com.github.itdachen.admin.entity.PermsAuth;
+import com.github.itdachen.admin_v1.entity.PermsAuth;
 import com.github.itdachen.dashboard.entity.LayuiAdminMenu;
 import com.github.itdachen.dashboard.entity.OkAdminMenu;
 import com.github.itdachen.framework.context.permission.PermissionInfo;

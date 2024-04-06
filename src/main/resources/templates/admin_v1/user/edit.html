@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('修改用户信息')"/>
+    <script th:src="@{/static/admin_v1/user/edit.js}" charset="utf-8"></script>
+</head>
+<body class="bg-color">
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12" style="background-color: #FFF; margin-top: 15px">
+            <div class="layui-card">
+                <div class="layui-card-header">编辑用户信息</div>
+                <div class="layui-card-body" pad15>
+
+                    <form class="layui-form" id="editUserInfoForm" th:object="${userInfo}">
+                        <div class="layui-form-body">
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    <span class="required">*</span>登录账户
+                                </label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="username" name="username" th:field="*{username}"
+                                           autocomplete="off" lay-verify="required" class="layui-input">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    <span class="required">*</span>姓名
+                                </label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="name" name="name" th:field="*{name}"
+                                           autocomplete="off" lay-verify="required" class="layui-input">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    <span class="required">*</span>头像
+                                </label>
+                                <div class="layui-input-block">
+                                    <div id="avatarUploadImage" class="upload-block">
+                                        <div class="layui-upload-drag" id="avatarUploadTips">
+                                            <i class="layui-icon layui-icon-picture" style="color: #999"></i>
+                                            <p>点击上传头像</p>
+                                        </div>
+                                        <img src="" id="avatarImgSrc" class="upload-block" style="display: none">
+                                    </div>
+                                    <input type="text" id="avatar" name="avatar"
+                                           th:field="*{avatar}" style="display: none" class="layui-input">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    <span class="required">*</span>电话号码
+                                </label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="telephone" name="telephone" th:field="*{telephone}"
+                                           autocomplete="off" lay-verify="required" class="layui-input">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    电子邮箱
+                                </label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="email" name="email" th:field="*{email}"
+                                           autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    地址
+                                </label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="address" name="address" th:field="*{address}"
+                                           autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    性别
+                                </label>
+                                <div class="layui-input-block" th:with="dicts=${@dict.data('sys_sex')}">
+                                    <input type="radio" name="sex" th:each="dict : ${dicts}"
+                                           th:id="${'sex_' + dict.value}"
+                                           th:field="*{sex}"
+                                           th:title="${dict.label}"
+                                           th:value="${dict.value}"
+                                           th:checked="${userInfo.sex}">
+                                </div>
+                            </div>
+
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    状态
+                                </label>
+                                <div class="layui-input-block" th:with="dicts=${@dict.data('user_status')}">
+                                    <input type="radio" name="status" th:each="dict : ${dicts}"
+                                           th:id="${'status_' + dict.value}"
+                                           th:field="*{status}"
+                                           th:title="${dict.label}"
+                                           th:value="${dict.value}"
+                                           th:checked="${userInfo.status}">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">
+                                    描述
+                                </label>
+                                <div class="layui-input-block">
+                                            <textarea id="remarks" name="remarks" th:field="*{remarks}" maxlength="200"
+                                  autocomplete="off" class="layui-textarea"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <input type="text" th:value="*{id}" id="id" name="id" style="display: none">
+                        <div class="form-footer-center">
+                            <button type="button" class="button-sub"
+                                    lay-submit lay-filter="editUserInfo">提交
+                            </button>
+                            <button type="button" class="button-close" onclick="goBackPreviousPage()">返回</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

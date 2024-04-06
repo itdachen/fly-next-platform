@@ -1,8 +1,8 @@
 package com.github.itdachen.dashboard.controller;
 
-import com.github.itdachen.admin.sdk.dto.NetDiskMd5Dto;
-import com.github.itdachen.admin.sdk.vo.NetDiskMd5Vo;
-import com.github.itdachen.admin.service.INetDiskMd5Service;
+import com.github.itdachen.admin_v1.sdk.dto.NetDiskMd5Dto;
+import com.github.itdachen.admin_v1.sdk.vo.NetDiskMd5Vo;
+import com.github.itdachen.admin_v1.service.INetDiskMd5Service;
 import com.github.itdachen.boot.oss.FileHelper;
 import com.github.itdachen.boot.oss.entity.FileInfo;
 import com.github.itdachen.framework.context.annotation.IgnoreResponseAdvice;

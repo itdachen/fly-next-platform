@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.admin.mapper.IMenuInfoMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.github.itdachen.admin_v1.sdk.vo.MenuInfoVo" id="menuInfoMap">
+        <result property="id" column="id"/>
+        <result property="code" column="code"/>
+        <result property="title" column="title"/>
+        <result property="clientId" column="client_id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="path" column="path"/>
+        <result property="redirect" column="redirect"/>
+        <result property="icon" column="icon"/>
+        <result property="elementIcon" column="element_icon"/>
+        <result property="layuiIcon" column="layui_icon"/>
+        <result property="type" column="type"/>
+        <result property="orderNum" column="order_num"/>
+        <result property="visible" column="visible"/>
+        <result property="name" column="name"/>
+        <result property="component" column="component"/>
+        <result property="link" column="link"/>
+        <result property="affix" column="affix"/>
+        <result property="iframe" column="iframe"/>
+        <result property="keepAlive" column="keep_alive"/>
+        <result property="remarks" column="remarks"/>
+    </resultMap>
+
+    <sql id="selectMenuInfoVo">
+        SELECT id,
+               code,
+               title,
+               client_id,
+               parent_id,
+               path,
+               redirect,
+               icon,
+               element_icon,
+               layui_icon,
+               type,
+               order_num,
+               visible,
+               name,
+               component,
+               link,
+               affix,
+               iframe,
+               keep_alive,
+               remarks
+        FROM sys_menu_info
+    </sql>
+
+    <!-- 集合查询 -->
+    <select id="page" parameterType="com.github.itdachen.admin_v1.sdk.query.MenuInfoQuery" resultMap="menuInfoMap">
+        <include refid="selectMenuInfoVo"/>
+        <where>
+            <if test="null != code  and '' != code ">
+                AND code = #{code}
+            </if>
+            <if test="null != title  and '' != title ">
+                AND title LIKE CONCAT(CONCAT('%',#{title}),'%')
+            </if>
+            <if test="null != clientId  and '' != clientId ">
+                AND client_id = #{clientId}
+            </if>
+            <if test="null != parentId  and '' != parentId ">
+                AND parent_id = #{parentId}
+            </if>
+            <if test="null != path  and '' != path ">
+                AND path = #{path}
+            </if>
+            <if test="null != redirect  and '' != redirect ">
+                AND redirect = #{redirect}
+            </if>
+            <if test="null != icon  and '' != icon ">
+                AND icon = #{icon}
+            </if>
+            <if test="null != type  and '' != type ">
+                AND type = #{type}
+            </if>
+            <if test="null != orderNum ">
+                AND order_num = #{orderNum}
+            </if>
+            <if test="null != visible  and '' != visible ">
+                AND visible = #{visible}
+            </if>
+            <if test="null != name  and '' != name ">
+                AND name LIKE CONCAT(CONCAT('%',#{name}),'%')
+            </if>
+            <if test="null != component  and '' != component ">
+                AND component = #{component}
+            </if>
+            <if test="null != link  and '' != link ">
+                AND link = #{link}
+            </if>
+            <if test="null != affix  and '' != affix ">
+                AND affix = #{affix}
+            </if>
+            <if test="null != iframe  and '' != iframe ">
+                AND iframe = #{iframe}
+            </if>
+            <if test="null != keepAlive  and '' != keepAlive ">
+                AND keep_alive = #{keepAlive}
+            </if>
+        </where>
+        ORDER BY order_num ASC
+    </select>
+
+
+    <select id="findZTree" resultType="com.github.itdachen.framework.context.tree.ZTreeNode">
+        SELECT id, parent_id AS parentId, title AS name, type
+        FROM sys_menu_info
+        ORDER BY order_num ASC
+    </select>
+
+    <select id="haveMenu" resultType="java.lang.Integer" parameterType="java.lang.String">
+        SELECT 1
+        FROM sys_menu_info
+        WHERE parent_id = #{parentId}
+    </select>
+
+    <select id="zTreeCatalog" resultType="com.github.itdachen.framework.context.tree.ZTreeNode">
+        SELECT id, parent_id AS parentId, title AS name, type
+        FROM sys_menu_info
+        WHERE type = 'dirt'
+        ORDER BY order_num ASC
+    </select>
+
+    <!-- 批量添加 -->
+    <insert id="batchSave" parameterType="java.util.List">
+        INSERT INTO sys_menu_info (id , code , title , client_id , parent_id , path , redirect , icon , type , order_num
+        , visible , name , component , link , affix , iframe , keep_alive , remarks , create_time , create_user ,
+        create_user_id , update_time , update_user , update_user_id)
+        (
+        <foreach collection="list" item="item" separator="UNION ALL">
+            SELECT
+            #{item.id},
+            #{item.code},
+            #{item.title},
+            #{item.clientId},
+            #{item.parentId},
+            #{item.path},
+            #{item.redirect},
+            #{item.icon},
+            #{item.type},
+            #{item.orderNum},
+            #{item.visible},
+            #{item.name},
+            #{item.component},
+            #{item.link},
+            #{item.affix},
+            #{item.iframe},
+            #{item.keepAlive},
+            #{item.remarks},
+            #{item.createTime},
+            #{item.createUser},
+            #{item.createUserId},
+            #{item.updateTime},
+            #{item.updateUser},
+            #{item.updateUserId}
+            FROM DUAL
+        </foreach>
+        )
+    </insert>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            UPDATE sys_menu_info
+            <set>
+                <if test="null != item.id  and '' != item.id ">id =
+                    #{item.id},
+                </if>
+                <if test="null != item.code  and '' != item.code ">code =
+                    #{item.code},
+                </if>
+                <if test="null != item.title  and '' != item.title ">title =
+                    #{item.title},
+                </if>
+                <if test="null != item.clientId  and '' != item.clientId ">client_id =
+                    #{item.clientId},
+                </if>
+                <if test="null != item.parentId  and '' != item.parentId ">parent_id =
+                    #{item.parentId},
+                </if>
+                <if test="null != item.path  and '' != item.path ">path =
+                    #{item.path},
+                </if>
+                <if test="null != item.redirect  and '' != item.redirect ">redirect =
+                    #{item.redirect},
+                </if>
+                <if test="null != item.icon  and '' != item.icon ">icon =
+                    #{item.icon},
+                </if>
+                <if test="null != item.type  and '' != item.type ">type =
+                    #{item.type},
+                </if>
+                <if test="null != item.orderNum ">order_num =
+                    #{item.orderNum},
+                </if>
+                <if test="null != item.visible  and '' != item.visible ">visible =
+                    #{item.visible},
+                </if>
+                <if test="null != item.name  and '' != item.name ">name =
+                    #{item.name},
+                </if>
+                <if test="null != item.component  and '' != item.component ">component =
+                    #{item.component},
+                </if>
+                <if test="null != item.link  and '' != item.link ">link =
+                    #{item.link},
+                </if>
+                <if test="null != item.affix  and '' != item.affix ">affix =
+                    #{item.affix},
+                </if>
+                <if test="null != item.iframe  and '' != item.iframe ">iframe =
+                    #{item.iframe},
+                </if>
+                <if test="null != item.keepAlive  and '' != item.keepAlive ">keep_alive =
+                    #{item.keepAlive},
+                </if>
+                <if test="null != item.remarks  and '' != item.remarks ">remarks =
+                    #{item.remarks},
+                </if>
+                <if test="null != item.createTime ">create_time =
+                    #{item.createTime},
+                </if>
+                <if test="null != item.createUser  and '' != item.createUser ">create_user =
+                    #{item.createUser},
+                </if>
+                <if test="null != item.createUserId  and '' != item.createUserId ">create_user_id =
+                    #{item.createUserId},
+                </if>
+                <if test="null != item.updateTime ">update_time =
+                    #{item.updateTime},
+                </if>
+                <if test="null != item.updateUser  and '' != item.updateUser ">update_user =
+                    #{item.updateUser},
+                </if>
+                <if test="null != item.updateUserId  and '' != item.updateUserId ">update_user_id =
+                    #{item.updateUserId},
+                </if>
+            </set>
+            WHERE id = #{item.id}
+        </foreach>
+    </update>
+
+    <select id="findMenuInfoVo" resultType="java.lang.String" resultMap="menuInfoMap">
+        <include refid="selectMenuInfoVo"></include>
+        WHERE id = #{id}
+    </select>
+
+    <select id="findMenuInfoByParentId" resultType="java.lang.String" resultMap="menuInfoMap">
+        <include refid="selectMenuInfoVo"></include>
+        WHERE parent_id = #{parentId}
+    </select>
+
+
+</mapper>

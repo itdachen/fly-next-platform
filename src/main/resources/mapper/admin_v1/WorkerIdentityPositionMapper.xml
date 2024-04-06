@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.admin.mapper.IWorkerIdentityPositionMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.github.itdachen.admin_v1.sdk.vo.WorkerIdentityPositionVo" id="workerIdentityPosttionMap">
+        <result property="id" column="id"/>
+        <result property="identityId" column="identity_id"/>
+        <result property="positionId" column="position_id"/>
+        <result property="clientId" column="client_id"/>
+    </resultMap>
+
+    <sql id="selectWorkerIdentityPositionVo">
+        SELECT id,
+               identity_id,
+               position_id,
+               client_id
+        FROM sys_worker_identity_position
+    </sql>
+
+    <!-- 集合查询 -->
+    <select id="page" parameterType="com.github.itdachen.admin_v1.sdk.query.WorkerIdentityPositionQuery"
+            resultMap="workerIdentityPosttionMap">
+        <include refid="selectWorkerIdentityPositionVo"/>
+        <where>
+            <if test="null != identityId  and '' != identityId ">
+                AND identity_id = #{identityId}
+            </if>
+            <if test="null != positionId  and '' != positionId ">
+                AND position_id = #{positionId}
+            </if>
+            <if test="null != clientId  and '' != clientId ">
+                AND client_id = #{clientId}
+            </if>
+        </where>
+        ORDER BY id DESC
+    </select>
+
+    <select id="removeIdentityPosition" parameterType="java.lang.String">
+        DELETE
+        FROM sys_worker_identity_position
+        WHERE identity_id = #{identityId}
+          AND client_id = #{clientId}
+    </select>
+
+    <!-- 批量添加 -->
+    <insert id="batchSave" parameterType="java.util.List">
+        INSERT INTO sys_worker_identity_position (id ,
+        identity_id ,
+        position_id ,
+        client_id
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},
+            #{item.identityId},
+            #{item.positionId},
+            #{item.clientId})
+        </foreach>
+    </insert>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE sys_worker_identity_position
+            <set>
+                <if test="null != item.id  and '' != item.id ">id =
+                    #{item.id},
+                </if>
+                <if test="null != item.identityId  and '' != item.identityId ">identity_id =
+                    #{item.identityId},
+                </if>
+                <if test="null != item.positionId  and '' != item.positionId ">position_id =
+                    #{item.positionId},
+                </if>
+                <if test="null != item.clientId  and '' != item.clientId ">client_id =
+                    #{item.clientId},
+                </if>
+            </set>
+            WHERE id = #{item.id}
+        </foreach>
+    </update>
+
+    <select id="findPosition" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT position_id
+    FROM sys_worker_identity_position
+    WHERE identity_id = #{identityId}
+    </select>
+
+
+</mapper>

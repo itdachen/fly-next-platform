@@ -1,8 +1,8 @@
 package com.github.itdachen.dashboard.service.impl;
 
-import com.github.itdachen.admin.mapper.IDictDataMapper;
-import com.github.itdachen.admin.sdk.constants.DictDataStatusConstant;
-import com.github.itdachen.admin.sdk.vo.DataDictVo;
+import com.github.itdachen.admin_v1.mapper.IDictDataMapper;
+import com.github.itdachen.admin_v1.sdk.constants.DictDataStatusConstant;
+import com.github.itdachen.admin_v1.sdk.vo.DataDictVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

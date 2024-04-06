@@ -1,7 +1,7 @@
 package com.github.itdachen.dashboard.service.impl;
 
-import com.github.itdachen.admin.entity.UserInfo;
-import com.github.itdachen.admin.mapper.IUserInfoMapper;
+import com.github.itdachen.admin_v1.entity.UserInfo;
+import com.github.itdachen.admin_v1.mapper.IUserInfoMapper;
 import com.github.itdachen.boot.autoconfigure.client.ClientProperties;
 import com.github.itdachen.boot.security.constants.LoginModeConstant;
 import com.github.itdachen.boot.security.details.AbstractSecurityUserDetailsService;

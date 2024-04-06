@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('菜单权限')"/>
+    <th:block th:include="common/common::zTree"/>
+    <script src="/static/admin_v1/role/user/index.js" charset="utf-8"></script>
+</head>
+<input type="text" style="display: none;" th:value="${userId}" id="userId">
+<body class="scroll-bar" style="height: 400px;overflow-y:auto;overflow-x:hidden ">
+<div style="margin: 10px 20px;">
+    <form class="layui-form layui-form-pane">
+        <div class="layui-form layui-form-pane" style="height: 100%;">
+            <div class="layui-form-item layui-form-text">
+                <ul id="tree" class="ztree"></ul>
+            </div>
+        </div>
+        <div class="form-footer">
+            <button class="button-sub" lay-submit lay-filter="sub">提交</button>
+            <button class="button-close" id="buttonClose">关闭</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

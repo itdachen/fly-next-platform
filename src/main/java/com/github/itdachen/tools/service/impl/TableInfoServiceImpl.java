@@ -1,6 +1,6 @@
 package com.github.itdachen.tools.service.impl;
 
-import com.github.itdachen.admin.manager.IAppClientManager;
+import com.github.itdachen.admin_v1.manager.IAppClientManager;
 import com.github.itdachen.framework.context.tree.ZTreeNode;
 import com.github.itdachen.framework.code.CodeHelper;
 import com.github.itdachen.framework.code.entity.ProtoTable;
