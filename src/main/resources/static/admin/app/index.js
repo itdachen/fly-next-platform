@@ -26,6 +26,7 @@ layui.use(['table'], function () {
 
     /* 查询按钮 */
     form.on('submit(queryAppClient)', function (data) {
+        console.log(data.field)
         reloadTableData(table);
         return false; // 阻止默认 form 跳转
     });

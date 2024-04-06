@@ -4,8 +4,14 @@
 $(function () {
     /* 关闭弹窗 */
     $("#buttonClose").click(function () {
-        $.model.close();
+        $.flyer.close();
     });
+
+    /* 关闭弹窗 */
+    $(".close-flyer").click(function () {
+        $.flyer.close();
+    });
+
 });
 
 /**
@@ -196,15 +202,29 @@ $(function () {
                     icon = 6;
                 }
                 return icon;
-            }, // ajax 请求连接错误
+            },
+            /**
+             * ajax 请求连接错误
+             */
             ajaxError: function () {
-                $.model.alert("服务器连接失败，请联系技术人员！", LAYER_STATUS.ERROR);
-            }, // 操作成功,关闭弹窗
+                $.flyer.alert("服务器连接失败，请联系技术人员！", LAYER_STATUS.ERROR);
+            },
+            /**
+             * 操作成功,关闭弹窗
+             * @param msg
+             */
             okMsg: function (msg) {
                 layer.alert(msg, {title: "系统提示", icon: $.msg.icon(LAYER_STATUS.SUCCESS)}, function () {
-                    $.model.close();
+                    $.flyer.close();
                 });
-            }, customMsg: function (msg = '操作成功', options, callback) {
+            },
+            /**
+             * 自定义消息信息
+             * @param msg
+             * @param options
+             * @param callback
+             */
+            customMsg: function (msg = '操作成功', options, callback) {
                 if ($.string.isEmpty(options.title)) {
                     options.title = '系统提示'
                 }
@@ -217,28 +237,357 @@ $(function () {
                     }
                 }
                 layer.msg(msg, options, callback())
-            }, // 错误消息
+            },
+
+            /**
+             * 错误消息
+             * @param content
+             */
             errMsg: function (content) {
-                $.model.alert(content, LAYER_STATUS.ERROR);
-            }, msgDataWarning: function (msg, data) {
-                $.model.alert('<span style="color: #ff000c"> ' + $.string.replace(msg, "!", "：") + ' </span>' + '<br>' + data, LAYER_STATUS.WARNING);
-            }, msgDataError: function (msg, data) {
-                $.model.alert('<span style="color: #ff000c"> ' + $.string.replace(msg, "!", "：") + ' </span>' + '<br>' + data, LAYER_STATUS.ERROR);
-            }, // 成功消息
+                $.flyer.alert(content, LAYER_STATUS.ERROR);
+            },
+            /**
+             * 成功消息
+             * @param content
+             */
             msgSuccess: function (content) {
                 layer.msg(content, {
                     icon: 1, time: 1500
                 });
-            }, // 警告消息
+            },
+            /**
+             * 警告消息
+             * @param content
+             */
             msgWarning: function (content) {
-                $.model.alert(content, LAYER_STATUS.WARNING);
-            }, // 请求参数错误,例如:  msg: 请求参数错误;data: 用户名不能为空
+                $.flyer.alert(content, LAYER_STATUS.WARNING);
+            },
+
+
+            msgDataWarning: function (msg, data) {
+                $.flyer.alert('<span style="color: #ff000c"> ' + $.string.replace(msg, "!", "：") + ' </span>' + '<br>' + data, LAYER_STATUS.WARNING);
+            }, msgDataError: function (msg, data) {
+                $.flyer.alert('<span style="color: #ff000c"> ' + $.string.replace(msg, "!", "：") + ' </span>' + '<br>' + data, LAYER_STATUS.ERROR);
+            },
+
+            // 请求参数错误,例如:  msg: 请求参数错误;data: 用户名不能为空
             msgValid: function (msg, data) {
-                $.model.alert('<span style="color: #ff000c">' + $.string.replace(msg, "！", "：") + '</span>' + '<br>' + data, LAYER_STATUS.WARNING);
+                $.flyer.alert('<span style="color: #ff000c">' + $.string.replace(msg, "！", "：") + '</span>' + '<br>' + data, LAYER_STATUS.WARNING);
             }, // 请求参数错误,自定义消息提示,例如: msg: 用户名不能为空
             msgValidCustom: function (msg) {
-                $.model.alert('<span style="color: #ff000c">参数校验错误：</span>' + '<br>' + msg, LAYER_STATUS.WARNING);
+                $.flyer.alert('<span style="color: #ff000c">参数校验错误：</span>' + '<br>' + msg, LAYER_STATUS.WARNING);
             },
+        },
+
+
+        flyer: {
+            /**
+             * 弹出提示
+             */
+            alert: function (content, type) {
+                layer.alert(content, {
+                    icon: $.msg.icon(type), title: "系统提示", btn: ['确认'], btnclass: ['btn btn-primary'],
+                });
+            },
+            /**
+             * 关闭自身窗体
+             */
+            close: function () {
+                parent.layer.close(parent.layer.getFrameIndex(window.name));
+            },
+            /**
+             * 关闭全部窗体
+             */
+            closeAll: function () {
+                layer.closeAll();
+            },
+
+            /**
+             * 常用新增/编辑弹窗
+             */
+            openIframe: function (options) {
+                if ($.string.isEmpty(options.title)) {
+                    options.title = '内容';
+                }
+                if ($.string.isEmpty(options.content)) {
+                    options.title = '请输入内容地址或者内容信息 【content】';
+                }
+                if ($.string.isEmpty(options.area)) {
+                    options.area = ['60%', '80%'];
+                }
+                layer.open({
+                    type: 2,
+                    title: options.title,
+                    content: $.http.verifyURL(options.content),
+                    area: options.area,
+                    fix: false,
+                    maxmin: false,
+                    shade: 0.3,
+                    shadeClose: false,
+                    success: function (layero, index) {
+                        layer.iframeAuto(index);
+                    },
+                });
+            },
+
+            /**
+             * 查看按钮
+             * @param options
+             */
+            openIframeSee: function (options) {
+                if ($.string.isEmpty(options.title)) {
+                    options.title = '查看';
+                }
+                if ($.string.isEmpty(options.content)) {
+                    options.title = '请输入内容地址或者内容信息 【content】';
+                }
+                if ($.string.isEmpty(options.area)) {
+                    options.area = ['60%', '80%'];
+                }
+                layer.open({
+                    type: 2,
+                    title: options.title,
+                    content: $.http.verifyURL(options.content),
+                    area: options.area,
+                    fix: false,
+                    maxmin: false,
+                    shade: 0.3,
+                    shadeClose: false,
+                    btn: ['关闭'],
+                    success: function (layero, index) {
+                        layer.iframeAuto(index);
+                    },
+                });
+            },
+
+            /* 弹窗最大化 */
+            full: function (title, uri) {
+                let width = ($(window).width() - 20);
+                let height = ($(window).height() - 20);
+                layer.open({
+                    type: 2,
+                    area: [width + 'px', height + 'px'],
+                    fix: false,
+                    maxmin: true,
+                    shade: 0.3,
+                    title: title,
+                    content: $.http.verifyURL(uri),
+                    shadeClose: true
+                });
+            },
+
+            /**
+             * 单张图片弹出
+             * @param title
+             * @param url
+             * @param width
+             * @param height
+             */
+            openImg(title, url, width, height) {
+                parent.layer.open({
+                    type: 1,
+                    title: title,
+                    shadeClose: false,
+                    area: [width + 'px', height + 'px'],
+                    content: '<img style="width:100%;height:100%"  src="' + $.http.verifyURL(url) + '" />',
+                    btn: ['关闭'],
+                    anim: 5,
+                    btn2: function () {
+                        layer.closeAll();
+                    }
+                });
+            },
+
+        },
+
+        /* 太乱了, 不想用 model , 使用 flyer */
+        model: {
+            // 弹出提示
+            alert: function (content, type) {
+                layer.alert(content, {
+                    icon: $.msg.icon(type), title: "系统提示", btn: ['确认'], btnclass: ['btn btn-primary'],
+                });
+            }, // 关闭窗体
+            close: function () {
+                parent.layer.close(parent.layer.getFrameIndex(window.name));
+            }, // 关闭全部窗体
+            closeAll: function () {
+                layer.closeAll();
+            }, // 单张图片弹出
+            openImg(title, url, width, height) {
+                parent.layer.open({
+                    type: 1,
+                    title: title,
+                    shadeClose: false,
+                    area: [width + 'px', height + 'px'],
+                    content: '<img style="width:100%;height:100%"  src="' + $.http.verifyURL(url) + '" />',
+                    btn: ['关闭'],
+                    anim: 5,
+                    btn2: function () {
+                        layer.closeAll();
+                    }
+                });
+            }, // 查看，弹出全屏
+            openFullSee(title, url) {
+                let width = ($(window).width() - 50);
+                let height = ($(window).height() - 50);
+                layer.open({
+                    type: 2,
+                    area: [width + 'px', height + 'px'],
+                    fix: false,
+                    maxmin: true,
+                    shade: 0.3,
+                    title: title,
+                    content: $.http.verifyURL(url),
+                    shadeClose: true,
+                    btn: ['关闭'],
+                    yes: function (index) {
+                        return true;
+                    }
+                });
+            }, // 弹出全屏
+            openFull(title, url) {
+                let width = ($(window).width() - 50);
+                let height = ($(window).height() - 50);
+                layer.open({
+                    type: 2,
+                    area: [width + 'px', height + 'px'],
+                    fix: false,
+                    maxmin: true,
+                    shade: 0.3,
+                    title: title,
+                    content: $.http.verifyURL(url),
+                    shadeClose: true
+                });
+            }, openIframe: function (options) {
+                if ($.string.isEmpty(options.title)) {
+                    options.title = '内容';
+                }
+                if ($.string.isEmpty(options.content)) {
+                    options.title = '请输入内容地址或者内容信息 【content】';
+                }
+                if ($.string.isEmpty(options.area)) {
+                    options.area = ['60%', '80%'];
+                }
+                layer.open({
+                    type: 2,
+                    title: options.title,
+                    content: $.http.verifyURL(options.content),
+                    area: options.area,
+                    fix: false,
+                    maxmin: false,
+                    shade: 0.3,
+                    shadeClose: false,
+                    success: function (layero, index) {
+                        layer.iframeAuto(index);
+                    },
+                });
+            }, openIframeSee: function (options) {
+                if ($.string.isEmpty(options.title)) {
+                    options.title = '查看';
+                }
+                if ($.string.isEmpty(options.content)) {
+                    options.title = '请输入内容地址或者内容信息 【content】';
+                }
+                if ($.string.isEmpty(options.area)) {
+                    options.area = ['60%', '80%'];
+                }
+                layer.open({
+                    type: 2,
+                    title: options.title,
+                    content: $.http.verifyURL(options.content),
+                    area: options.area,
+                    fix: false,
+                    maxmin: false,
+                    shade: 0.3,
+                    shadeClose: false,
+                    btn: ['关闭'],
+                    success: function (layero, index) {
+                        layer.iframeAuto(index);
+                    },
+                });
+            }, // 弹出层指定宽度
+            open: function (title, url, width, height) {
+                //如果是移动端，就使用自适应大小弹窗
+                if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
+                    width = 'auto';
+                    height = 'auto';
+                }
+                if ($.string.isEmpty(title)) {
+                    title = false;
+                }
+                if ($.string.isEmpty(url)) {
+                    url = "/404.html";
+                }
+                if ($.string.isEmpty(width)) {
+                    width = 800;
+                }
+                if ($.string.isEmpty(height)) {
+                    height = ($(window).height() - 50);
+                }
+                layer.open({
+                    type: 2,
+                    area: [width + 'px', height + 'px'],
+                    fix: false,
+                    maxmin: false,
+                    shade: 0.3,
+                    title: title,
+                    content: $.http.verifyURL(url), // 弹层外区域关闭
+                    shadeClose: false
+                });
+            }, see: function (title, url, width, height) {
+                //如果是移动端，就使用自适应大小弹窗
+                if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
+                    width = 'auto';
+                    height = 'auto';
+                }
+                if ($.string.isEmpty(title)) {
+                    title = false;
+                }
+                if ($.string.isEmpty(url)) {
+                    url = "/404.html";
+                }
+                if ($.string.isEmpty(width)) {
+                    width = 800;
+                }
+                if ($.string.isEmpty(height)) {
+                    height = ($(window).height() - 50);
+                }
+                layer.open({
+                    type: 2,
+                    content: $.http.verifyURL(url),
+                    area: [width + 'px', height + 'px'],
+                    fix: false,
+                    maxmin: false,
+                    shade: 0.3,
+                    title: title,
+                    btn: ['关闭'],
+                    shadeClose: false,
+                    cancel: function (index) {
+                        return true;
+                    }
+                });
+            }, // 禁用按钮
+            disable: function () {
+                var doc = window.top == window.parent ? window.document : window.parent.document;
+                $("a[class*=layui-layer-btn]", doc).addClass("layer-disabled");
+            }, // 启用按钮
+            enable: function () {
+                var doc = window.top == window.parent ? window.document : window.parent.document;
+                $("a[class*=layui-layer-btn]", doc).removeClass("layer-disabled");
+            }, // 弹出层
+            iframe: function (title, url, width, height) {
+                layer.open({
+                    type: 2,
+                    title: title,
+                    maxmin: false,
+                    shadeClose: false,
+                    area: [width + 'px', height + 'px'],
+                    content: $.http.verifyURL(url)
+                });
+            }, load: function () {
+                layer.load(0, {shade: 0.3});
+            }
         },
 
         form: {
@@ -884,194 +1233,6 @@ $(function () {
             }
         },
 
-        model: {
-            // 弹出提示
-            alert: function (content, type) {
-                layer.alert(content, {
-                    icon: $.msg.icon(type), title: "系统提示", btn: ['确认'], btnclass: ['btn btn-primary'],
-                });
-            }, // 关闭窗体
-            close: function () {
-                parent.layer.close(parent.layer.getFrameIndex(window.name));
-            }, // 关闭全部窗体
-            closeAll: function () {
-                layer.closeAll();
-            }, // 单张图片弹出
-            openImg(title, url, width, height) {
-                parent.layer.open({
-                    type: 1,
-                    title: title,
-                    shadeClose: false,
-                    area: [width + 'px', height + 'px'],
-                    content: '<img style="width:100%;height:100%"  src="' + $.http.verifyURL(url) + '" />',
-                    btn: ['关闭'],
-                    anim: 5,
-                    btn2: function () {
-                        layer.closeAll();
-                    }
-                });
-            }, // 查看，弹出全屏
-            openFullSee(title, url) {
-                let width = ($(window).width() - 50);
-                let height = ($(window).height() - 50);
-                layer.open({
-                    type: 2,
-                    area: [width + 'px', height + 'px'],
-                    fix: false,
-                    maxmin: true,
-                    shade: 0.3,
-                    title: title,
-                    content: $.http.verifyURL(url),
-                    shadeClose: true,
-                    btn: ['关闭'],
-                    yes: function (index) {
-                        return true;
-                    }
-                });
-            }, // 弹出全屏
-            openFull(title, url) {
-                let width = ($(window).width() - 50);
-                let height = ($(window).height() - 50);
-                layer.open({
-                    type: 2,
-                    area: [width + 'px', height + 'px'],
-                    fix: false,
-                    maxmin: true,
-                    shade: 0.3,
-                    title: title,
-                    content: $.http.verifyURL(url),
-                    shadeClose: true
-                });
-            }, openIframe: function (options) {
-                if ($.string.isEmpty(options.title)) {
-                    options.title = '内容';
-                }
-                if ($.string.isEmpty(options.content)) {
-                    options.title = '请输入内容地址或者内容信息 【content】';
-                }
-                if ($.string.isEmpty(options.area)) {
-                    options.area = ['60%', '80%'];
-                }
-                layer.open({
-                    type: 2,
-                    title: options.title,
-                    content: $.http.verifyURL(options.content),
-                    area: options.area,
-                    fix: false,
-                    maxmin: false,
-                    shade: 0.3,
-                    shadeClose: false,
-                    success: function (layero, index) {
-                        layer.iframeAuto(index);
-                    },
-                });
-            }, openIframeSee: function (options) {
-                if ($.string.isEmpty(options.title)) {
-                    options.title = '查看';
-                }
-                if ($.string.isEmpty(options.content)) {
-                    options.title = '请输入内容地址或者内容信息 【content】';
-                }
-                if ($.string.isEmpty(options.area)) {
-                    options.area = ['60%', '80%'];
-                }
-                layer.open({
-                    type: 2,
-                    title: options.title,
-                    content: $.http.verifyURL(options.content),
-                    area: options.area,
-                    fix: false,
-                    maxmin: false,
-                    shade: 0.3,
-                    shadeClose: false,
-                    btn: ['关闭'],
-                    success: function (layero, index) {
-                        layer.iframeAuto(index);
-                    },
-                });
-            }, // 弹出层指定宽度
-            open: function (title, url, width, height) {
-                //如果是移动端，就使用自适应大小弹窗
-                if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
-                    width = 'auto';
-                    height = 'auto';
-                }
-                if ($.string.isEmpty(title)) {
-                    title = false;
-                }
-                if ($.string.isEmpty(url)) {
-                    url = "/404.html";
-                }
-                if ($.string.isEmpty(width)) {
-                    width = 800;
-                }
-                if ($.string.isEmpty(height)) {
-                    height = ($(window).height() - 50);
-                }
-                layer.open({
-                    type: 2,
-                    area: [width + 'px', height + 'px'],
-                    fix: false,
-                    maxmin: false,
-                    shade: 0.3,
-                    title: title,
-                    content: $.http.verifyURL(url), // 弹层外区域关闭
-                    shadeClose: false
-                });
-            }, see: function (title, url, width, height) {
-                //如果是移动端，就使用自适应大小弹窗
-                if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
-                    width = 'auto';
-                    height = 'auto';
-                }
-                if ($.string.isEmpty(title)) {
-                    title = false;
-                }
-                if ($.string.isEmpty(url)) {
-                    url = "/404.html";
-                }
-                if ($.string.isEmpty(width)) {
-                    width = 800;
-                }
-                if ($.string.isEmpty(height)) {
-                    height = ($(window).height() - 50);
-                }
-                layer.open({
-                    type: 2,
-                    content: $.http.verifyURL(url),
-                    area: [width + 'px', height + 'px'],
-                    fix: false,
-                    maxmin: false,
-                    shade: 0.3,
-                    title: title,
-                    btn: ['关闭'],
-                    shadeClose: false,
-                    cancel: function (index) {
-                        return true;
-                    }
-                });
-            }, // 禁用按钮
-            disable: function () {
-                var doc = window.top == window.parent ? window.document : window.parent.document;
-                $("a[class*=layui-layer-btn]", doc).addClass("layer-disabled");
-            }, // 启用按钮
-            enable: function () {
-                var doc = window.top == window.parent ? window.document : window.parent.document;
-                $("a[class*=layui-layer-btn]", doc).removeClass("layer-disabled");
-            }, // 弹出层
-            iframe: function (title, url, width, height) {
-                layer.open({
-                    type: 2,
-                    title: title,
-                    maxmin: false,
-                    shadeClose: false,
-                    area: [width + 'px', height + 'px'],
-                    content: $.http.verifyURL(url)
-                });
-            }, load: function () {
-                layer.load(0, {shade: 0.3});
-            }
-        },
 
         // uri: {
         //     verifyURL(url) {
@@ -1169,7 +1330,6 @@ $(function () {
                 }
                 let d = $.table.defineProps;
                 let p = $.extend({}, d, o);
-                p.where = queryWhere();
                 p.page.curr = 1;
                 t.reloadData(p.id, p);
             },
