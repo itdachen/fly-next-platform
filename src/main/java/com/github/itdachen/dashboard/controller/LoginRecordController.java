@@ -34,7 +34,7 @@ public class LoginRecordController {
     @GetMapping("/index")
     @PreAuthorize("hasAuthority('record:login:index')")
     public String index() {
-        return "admin/login/index";
+        return "admin_v1/login/index";
     }
 
 
