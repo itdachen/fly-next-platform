@@ -27,7 +27,7 @@ import java.util.List;
 @CheckApiClient(title = "用户角色", clientId = ClientConstant.CLIENT_WEB)
 public class RoleUserController {
     private static final Logger logger = LoggerFactory.getLogger(RoleUserController.class);
-    private static final String PATH_PREFIX = "admin/role/user" ;
+    private static final String PATH_PREFIX = "admin_v1/role/user" ;
 
     private final IRoleUserService roleUserService;
 

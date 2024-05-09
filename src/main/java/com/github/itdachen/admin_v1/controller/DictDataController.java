@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 @CheckApiClient(title = "字典数据表", clientId = ClientConstant.CLIENT_WEB)
 public class DictDataController extends BizController<IDictDataService, DictDataDto, DictDataVo, DictDataQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(DictDataController.class);
-    private static final String PATH_PREFIX = "admin/dict/data" ;
+    private static final String PATH_PREFIX = "admin_v1/dict/data" ;
 
     /***
      * 跳转到信息管理界面

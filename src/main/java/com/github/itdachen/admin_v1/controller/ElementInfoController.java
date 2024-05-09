@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 @CheckApiClient(title = "按钮资源", clientId = ClientConstant.CLIENT_WEB)
 public class ElementInfoController extends BizController<IElementInfoService, ElementInfoDto, ElementInfoVo, ElementInfoQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(ElementInfoController.class);
-    private static final String PATH_PREFIX = "admin/menu/element" ;
+    private static final String PATH_PREFIX = "admin_v1/menu/element" ;
 
     /***
      * 跳转到信息管理界面

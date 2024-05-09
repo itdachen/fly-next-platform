@@ -55,22 +55,22 @@
                         <div class="layui-form-item">
 
 
-                            <div class="layui-inline">
-                                <label class="layui-form-label">应用标识码</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" class="layui-input search-keypress-listen" placeholder="应用标识码(配置中客户端ID)"
-                                           id="appCode" name="appCode" autocomplete="off">
-                                </div>
-                            </div>
+<!--                            <div class="layui-inline">-->
+<!--                                <label class="layui-form-label">应用标识码</label>-->
+<!--                                <div class="layui-input-inline">-->
+<!--                                    <input type="text" class="layui-input search-keypress-listen" placeholder="应用标识码(配置中客户端ID)"-->
+<!--                                           id="appCode" name="appCode" autocomplete="off">-->
+<!--                                </div>-->
+<!--                            </div>-->
 
 
-                            <div class="layui-inline">
-                                <label class="layui-form-label">秘钥(备用)</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" class="layui-input search-keypress-listen" placeholder="秘钥(备用)"
-                                           id="appSecret" name="appSecret" autocomplete="off">
-                                </div>
-                            </div>
+<!--                            <div class="layui-inline">-->
+<!--                                <label class="layui-form-label">秘钥(备用)</label>-->
+<!--                                <div class="layui-input-inline">-->
+<!--                                    <input type="text" class="layui-input search-keypress-listen" placeholder="秘钥(备用)"-->
+<!--                                           id="appSecret" name="appSecret" autocomplete="off">-->
+<!--                                </div>-->
+<!--                            </div>-->
 
 
                             <div class="layui-inline">
@@ -82,113 +82,113 @@
                             </div>
 
 
-                            <div class="layui-inline">
-                                <label class="layui-form-label">应用类型</label>
-                                <div class="layui-input-inline">
-                                    <select id="appType" name="appType" th:with="dicts=${@dict.data('yes_or_no')}">
-                                        <option value="">请选择应用类型</option>
-                                        <option th:each="dict : ${dicts}"
-                                                th:text="${dict.label}"
-                                                th:value="${dict.value}">
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
+<!--                            <div class="layui-inline">-->
+<!--                                <label class="layui-form-label">应用类型</label>-->
+<!--                                <div class="layui-input-inline">-->
+<!--                                    <select id="appType" name="appType" th:with="dicts=${@dict.data('yes_or_no')}">-->
+<!--                                        <option value="">请选择应用类型</option>-->
+<!--                                        <option th:each="dict : ${dicts}"-->
+<!--                                                th:text="${dict.label}"-->
+<!--                                                th:value="${dict.value}">-->
+<!--                                        </option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
 
-                            <div class="layui-inline">
-                                <label class="layui-form-label">应用类型名称</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" class="layui-input search-keypress-listen" placeholder="应用类型名称"
-                                           id="appTypeTitle" name="appTypeTitle" autocomplete="off">
-                                </div>
-                            </div>
+<!--                            <div class="layui-inline">-->
+<!--                                <label class="layui-form-label">应用类型名称</label>-->
+<!--                                <div class="layui-input-inline">-->
+<!--                                    <input type="text" class="layui-input search-keypress-listen" placeholder="应用类型名称"-->
+<!--                                           id="appTypeTitle" name="appTypeTitle" autocomplete="off">-->
+<!--                                </div>-->
+<!--                            </div>-->
 
 
-                            <div class="layui-inline">
-                                <label class="layui-form-label">平台ID</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" class="layui-input search-keypress-listen" placeholder="平台ID"
-                                           id="platformId" name="platformId" autocomplete="off">
-                                </div>
-                            </div>
+<!--                            <div class="layui-inline">-->
+<!--                                <label class="layui-form-label">平台ID</label>-->
+<!--                                <div class="layui-input-inline">-->
+<!--                                    <input type="text" class="layui-input search-keypress-listen" placeholder="平台ID"-->
+<!--                                           id="platformId" name="platformId" autocomplete="off">-->
+<!--                                </div>-->
+<!--                            </div>-->
 
 
-                            <div class="layui-inline">
-                                <label class="layui-form-label">平台名称</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" class="layui-input search-keypress-listen" placeholder="平台名称"
-                                           id="platformTitle" name="platformTitle" autocomplete="off">
-                                </div>
-                            </div>
+<!--                            <div class="layui-inline">-->
+<!--                                <label class="layui-form-label">平台名称</label>-->
+<!--                                <div class="layui-input-inline">-->
+<!--                                    <input type="text" class="layui-input search-keypress-listen" placeholder="平台名称"-->
+<!--                                           id="platformTitle" name="platformTitle" autocomplete="off">-->
+<!--                                </div>-->
+<!--                            </div>-->
 
 
-                            <div class="layui-inline">
-                                <label class="layui-form-label">访问地址</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" class="layui-input search-keypress-listen" placeholder="访问地址"
-                                           id="askUrl" name="askUrl" autocomplete="off">
-                                </div>
-                            </div>
+<!--                            <div class="layui-inline">-->
+<!--                                <label class="layui-form-label">访问地址</label>-->
+<!--                                <div class="layui-input-inline">-->
+<!--                                    <input type="text" class="layui-input search-keypress-listen" placeholder="访问地址"-->
+<!--                                           id="askUrl" name="askUrl" autocomplete="off">-->
+<!--                                </div>-->
+<!--                            </div>-->
 
 
-                            <div class="layui-inline">
-                                <label class="layui-form-label">首页地址</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" class="layui-input search-keypress-listen" placeholder="首页地址"
-                                           id="homeUrl" name="homeUrl" autocomplete="off">
-                                </div>
-                            </div>
+<!--                            <div class="layui-inline">-->
+<!--                                <label class="layui-form-label">首页地址</label>-->
+<!--                                <div class="layui-input-inline">-->
+<!--                                    <input type="text" class="layui-input search-keypress-listen" placeholder="首页地址"-->
+<!--                                           id="homeUrl" name="homeUrl" autocomplete="off">-->
+<!--                                </div>-->
+<!--                            </div>-->
 
 
-                            <div class="layui-inline">
-                                <label class="layui-form-label">SVN地址</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" class="layui-input search-keypress-listen" placeholder="SVN地址"
-                                           id="svnUrl" name="svnUrl" autocomplete="off">
-                                </div>
-                            </div>
+<!--                            <div class="layui-inline">-->
+<!--                                <label class="layui-form-label">SVN地址</label>-->
+<!--                                <div class="layui-input-inline">-->
+<!--                                    <input type="text" class="layui-input search-keypress-listen" placeholder="SVN地址"-->
+<!--                                           id="svnUrl" name="svnUrl" autocomplete="off">-->
+<!--                                </div>-->
+<!--                            </div>-->
 
 
-                            <div class="layui-inline">
-                                <label class="layui-form-label">图标</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" class="layui-input search-keypress-listen" placeholder="图标"
-                                           id="icon" name="icon" autocomplete="off">
-                                </div>
-                            </div>
+<!--                            <div class="layui-inline">-->
+<!--                                <label class="layui-form-label">图标</label>-->
+<!--                                <div class="layui-input-inline">-->
+<!--                                    <input type="text" class="layui-input search-keypress-listen" placeholder="图标"-->
+<!--                                           id="icon" name="icon" autocomplete="off">-->
+<!--                                </div>-->
+<!--                            </div>-->
 
 
-                            <div class="layui-inline">
-                                <label class="layui-form-label">是否启用1-是;0-否</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" class="layui-input search-keypress-listen" placeholder="是否启用1-是;0-否"
-                                           id="state" name="state" autocomplete="off">
-                                </div>
-                            </div>
+<!--                            <div class="layui-inline">-->
+<!--                                <label class="layui-form-label">是否启用1-是;0-否</label>-->
+<!--                                <div class="layui-input-inline">-->
+<!--                                    <input type="text" class="layui-input search-keypress-listen" placeholder="是否启用1-是;0-否"-->
+<!--                                           id="state" name="state" autocomplete="off">-->
+<!--                                </div>-->
+<!--                            </div>-->
 
 
-                            <div class="layui-inline">
-                                <label class="layui-form-label">主题类型</label>
-                                <div class="layui-input-inline">
-                                    <select id="themeType" name="themeType" th:with="dicts=${@dict.data('yes_or_no')}">
-                                        <option value="">请选择主题类型: LayuiAdmin,OkAdmin</option>
-                                        <option th:each="dict : ${dicts}"
-                                                th:text="${dict.label}"
-                                                th:value="${dict.value}">
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
+<!--                            <div class="layui-inline">-->
+<!--                                <label class="layui-form-label">主题类型</label>-->
+<!--                                <div class="layui-input-inline">-->
+<!--                                    <select id="themeType" name="themeType" th:with="dicts=${@dict.data('yes_or_no')}">-->
+<!--                                        <option value="">请选择主题类型: LayuiAdmin,OkAdmin</option>-->
+<!--                                        <option th:each="dict : ${dicts}"-->
+<!--                                                th:text="${dict.label}"-->
+<!--                                                th:value="${dict.value}">-->
+<!--                                        </option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
 
-                            <div class="layui-inline">
-                                <label class="layui-form-label">是否黑白色</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" class="layui-input search-keypress-listen" placeholder="是否黑白色"
-                                           id="blackWhite" name="blackWhite" autocomplete="off">
-                                </div>
-                            </div>
+<!--                            <div class="layui-inline">-->
+<!--                                <label class="layui-form-label">是否黑白色</label>-->
+<!--                                <div class="layui-input-inline">-->
+<!--                                    <input type="text" class="layui-input search-keypress-listen" placeholder="是否黑白色"-->
+<!--                                           id="blackWhite" name="blackWhite" autocomplete="off">-->
+<!--                                </div>-->
+<!--                            </div>-->
 
                             <div class="layui-inline">
                                 <button type="submit" class="layui-btn layui-btn-sm query-handle-button"
@@ -206,19 +206,19 @@
 
                         </div>
 
-                        <div class="query-footer-center">
-                            <button type="submit" class="layui-btn layui-btn-sm query-handle-button"
-                                    style="width: 120px;letter-spacing: 5px" lay-submit lay-filter="queryAppClient">
-                                <i class="layui-icon layui-icon-search icon-right-5"></i>查询
-                            </button>
-                            <button type="reset" class="layui-btn layui-btn-sm query-handle-button" style="width: 120px" >
-                                <i class="layui-icon layui-icon-refresh icon-right-5"></i>重 置
-                            </button>
-                            <button type="submit" class="layui-btn layui-btn-sm query-handle-button"
-                                     lay-submit lay-filter="expAppClient"  style="width: 120px" >
-                                <i class="layui-icon  layui-icon-export icon-right-5"></i>导 出
-                            </button>
-                        </div>
+<!--                        <div class="query-footer-center">-->
+<!--                            <button type="submit" class="layui-btn layui-btn-sm query-handle-button"-->
+<!--                                    style="width: 120px;letter-spacing: 5px" lay-submit lay-filter="queryAppClient">-->
+<!--                                <i class="layui-icon layui-icon-search icon-right-5"></i>查询-->
+<!--                            </button>-->
+<!--                            <button type="reset" class="layui-btn layui-btn-sm query-handle-button" style="width: 120px" >-->
+<!--                                <i class="layui-icon layui-icon-refresh icon-right-5"></i>重 置-->
+<!--                            </button>-->
+<!--                            <button type="submit" class="layui-btn layui-btn-sm query-handle-button"-->
+<!--                                     lay-submit lay-filter="expAppClient"  style="width: 120px" >-->
+<!--                                <i class="layui-icon  layui-icon-export icon-right-5"></i>导 出-->
+<!--                            </button>-->
+<!--                        </div>-->
 
                     </form>
 

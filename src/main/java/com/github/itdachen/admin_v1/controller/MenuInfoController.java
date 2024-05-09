@@ -30,7 +30,7 @@ import java.util.List;
 @CheckApiClient(title = "菜单管理", clientId = ClientConstant.CLIENT_WEB)
 public class MenuInfoController extends BizController<IMenuInfoService, MenuInfoDto, MenuInfoVo, MenuInfoQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(MenuInfoController.class);
-    private static final String PATH_PREFIX = "admin/menu" ;
+    private static final String PATH_PREFIX = "admin_v1/menu" ;
 
     /***
      * 跳转到信息管理界面

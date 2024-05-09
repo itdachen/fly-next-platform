@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.*;
 public class AppClientController extends BizController<IAppClientService, AppClientDto, AppClientVo, AppClientQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(AppClientController.class);
 
-    private static final String PATH_PREFIX = "admin/app";
+    private static final String PATH_PREFIX = "admin_v1/app";
 
 
     /***

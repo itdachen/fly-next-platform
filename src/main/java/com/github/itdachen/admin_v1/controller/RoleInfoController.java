@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @CheckApiClient(title = "角色", clientId = ClientConstant.CLIENT_WEB)
 public class RoleInfoController extends BizController<IRoleInfoService, RoleInfoDto, RoleInfoVo, RoleInfoQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(RoleInfoController.class);
-    private static final String PATH_PREFIX = "admin/role" ;
+    private static final String PATH_PREFIX = "admin_v1/role" ;
 
     /***
      * 跳转到信息管理界面

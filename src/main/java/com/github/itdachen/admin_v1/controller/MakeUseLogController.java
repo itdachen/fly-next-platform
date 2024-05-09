@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @CheckApiClient(title = "操作日志", clientId = ClientConstant.CLIENT_WEB)
 public class MakeUseLogController extends BizController<IMakeUseLogService, MakeUseLogDto, MakeUseLogVo, MakeUseLogQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(MakeUseLogController.class);
-    private static final String PATH_PREFIX = "admin/log";
+    private static final String PATH_PREFIX = "admin_v1/log";
 
     /***
      * 跳转到信息管理界面

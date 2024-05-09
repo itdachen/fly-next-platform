@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/admin/server/use")
 public class ServerMakeUseController {
-    private static final String PATH_PREFIX = "admin/server" ;
+    private static final String PATH_PREFIX = "admin_v1/server" ;
 
     @GetMapping("/index")
     public String index(ModelMap modelMap) {

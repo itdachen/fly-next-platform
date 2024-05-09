@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 @CheckApiClient(title = "字典类型表", clientId = ClientConstant.CLIENT_WEB)
 public class DictTypeController extends BizController<IDictTypeService, DictTypeDto, DictTypeVo, DictTypeQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(DictTypeController.class);
-    private static final String PATH_PREFIX = "admin/dict/type" ;
+    private static final String PATH_PREFIX = "admin_v1/dict/type" ;
 
     /***
      * 跳转到信息管理界面

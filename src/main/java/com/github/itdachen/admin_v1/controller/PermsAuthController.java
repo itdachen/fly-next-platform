@@ -29,7 +29,7 @@ import java.util.List;
 public class PermsAuthController {
     private static final Logger logger = LoggerFactory.getLogger(PermsAuthController.class);
 
-    private static final String PATH_PREFIX = "admin/user/perms";
+    private static final String PATH_PREFIX = "admin_v1/user/perms";
 
     private final IPermsAuthService permsAuthService;
 

@@ -35,7 +35,7 @@ import java.util.List;
 @CheckApiClient(title = "部门管理", clientId = ClientConstant.CLIENT_WEB)
 public class DeptInfoController extends BizController<IDeptInfoService, DeptInfoDto, DeptInfoVo, DeptInfoQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(DeptInfoController.class);
-    private static final String PATH_PREFIX = "admin/dept";
+    private static final String PATH_PREFIX = "admin_v1/dept";
 
 
     /***

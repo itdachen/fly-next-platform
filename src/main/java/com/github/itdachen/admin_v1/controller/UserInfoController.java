@@ -40,7 +40,7 @@ import java.util.List;
 @CheckApiClient(title = "用户信息", clientId = ClientConstant.CLIENT_WEB)
 public class UserInfoController extends BizController<IUserInfoService, UserInfoDto, UserInfoVo, UserInfoQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(UserInfoController.class);
-    private static final String PATH_PREFIX = "admin/user";
+    private static final String PATH_PREFIX = "admin_v1/user";
 
     /***
      * 跳转到信息管理界面

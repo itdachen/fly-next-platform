@@ -132,7 +132,7 @@ function options() {
         cols: [[
             {field: 'appTitle', title: '应用名称', align: "center"},
             {field: 'appCode', title: '应用标识码', align: "center"},
-            {field: 'appType', title: '应用类型', align: "center"},
+          //  {field: 'appType', title: '应用类型', align: "center"},
             // {field: 'askUri', title: '互联网访问地址', align: "center"},
             // {field: 'lanUri', title: '内网访问地址', align: "center"},
             {
