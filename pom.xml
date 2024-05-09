@@ -131,10 +131,10 @@
         </dependency>
 
         <!-- 自定义接口限流 -->
-        <dependency>
-            <groupId>com.github.itdachen</groupId>
-            <artifactId>rate-limiter-boot-starter</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.github.itdachen</groupId>-->
+<!--            <artifactId>rate-limiter-boot-starter</artifactId>-->
+<!--        </dependency>-->
 
         <!-- 操作日志模块 -->
         <dependency>
@@ -177,25 +177,29 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session-jdbc</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.session</groupId>-->
+<!--            <artifactId>spring-session-data-redis</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.session</groupId>-->
+<!--            <artifactId>spring-session-jdbc</artifactId>-->
+<!--        </dependency>-->
 
         <!-- redis -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-data-redis</artifactId>-->
+<!--        </dependency>-->
         <!-- session 集群管理 -->
-        <dependency>
-            <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session-data-redis</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.session</groupId>-->
+<!--            <artifactId>spring-session-data-redis</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.redisson</groupId>-->
+<!--            <artifactId>redisson-spring-boot-starter</artifactId>-->
+<!--        </dependency>-->
 
         <!-- mysql -->
         <dependency>
@@ -222,10 +226,6 @@
             <artifactId>commons-io</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson-spring-boot-starter</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -262,7 +262,7 @@
                     <finalName>${project.artifactId}</finalName>
                     <!-- tar或者zip包的输出目录 -->
                     <!-- 是指当前项目的根目录 ，例如：F:\pvpsddp\pvpsddp-gateway 的上一级-->
-                    <outputDirectory>E:\package\hubu</outputDirectory>
+                    <outputDirectory>E:\package\fly</outputDirectory>
                     <descriptors>
                         <!-- assembly配置文件位置 -->
                         <descriptor>src/main/resources/assembly.xml</descriptor>

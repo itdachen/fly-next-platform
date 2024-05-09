@@ -1,6 +1,6 @@
 # 端口配置
 server:
-  port: 8080
+  port: 8086
   servlet:
     # context-path: /${spring.application.name}
     session:
@@ -16,7 +16,7 @@ logging:
 fly:
   # 数据库加密配置
   datasource:
-    encoder: AES
+    encoder: noop
   # 客户端配置
   client:
     id: web_app
@@ -63,9 +63,12 @@ spring:
     name: mysql
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-    url: 0vCwEpK35V/Ecq40QoCgf1IJWnXfMGSWOE+YWOa4E0w/huQlV0pYt8MLzeJw/8loKQY5JqeZXtAZCNawXc1A4FXrAMWUtLf/svyBdr3kLrDCnTYqsP6JiB8HaGi9XjeWHaMwNYufZdxJTso7njs6yGXpgqN7JmqDW0VJ5Q39K+t24bphaIjiuXvUu23sPAK4oP1fDmCgAq27ntc0DpF6JuMmMyZxgmsI7Q/CFEDuTGc8ong29pNTEJEC/U3wFSHWpmeo7Jk6wS31hdMEsIXFPovoI/Bay4M6GbQAHUuGDg7IWBGrTsTmpIX2/Sx/Yl1TC+f3yv8z5AJDWtgQsRzJcA==
-    username: NlhUCBn05JB+mdAZlpniCA==
-    password: NlhUCBn05JB+mdAZlpniCA==
+    url: jdbc:mysql://127.0.0.1:3306/fly_next?useUnicode=true&characterEncoding=UTF8&createDatabaseIfNotExist=true&useUnicode=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&allowMultiQueries=true
+    username: fly
+    password: ITdachen@163.com
+#    url: 0vCwEpK35V/Ecq40QoCgf1IJWnXfMGSWOE+YWOa4E0w/huQlV0pYt8MLzeJw/8loKQY5JqeZXtAZCNawXc1A4FXrAMWUtLf/svyBdr3kLrDCnTYqsP6JiB8HaGi9XjeWHaMwNYufZdxJTso7njs6yGXpgqN7JmqDW0VJ5Q39K+t24bphaIjiuXvUu23sPAK4oP1fDmCgAq27ntc0DpF6JuMmMyZxgmsI7Q/CFEDuTGc8ong29pNTEJEC/U3wFSHWpmeo7Jk6wS31hdMEsIXFPovoI/Bay4M6GbQAHUuGDg7IWBGrTsTmpIX2/Sx/Yl1TC+f3yv8z5AJDWtgQsRzJcA==
+#    username: NlhUCBn05JB+mdAZlpniCA==
+#    password: NlhUCBn05JB+mdAZlpniCA==
     druid:
       # 初始化时建立物理连接的个数
       initial-size: 5

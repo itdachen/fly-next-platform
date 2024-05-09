@@ -1,7 +1,7 @@
 package com.github.itdachen.dashboard.controller;
 
-import com.github.itdachen.boot.rate.limiter.annotation.RedisRateLimiter;
-import com.github.itdachen.boot.rate.limiter.annotation.RequestRateLimiter;
+//import com.github.itdachen.boot.rate.limiter.annotation.RedisRateLimiter;
+//import com.github.itdachen.boot.rate.limiter.annotation.RequestRateLimiter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +28,7 @@ public class RateLimiterController {
      * @date 2023/7/3 14:23
      * @return java.util.List<java.lang.String>
      */
-    @RequestRateLimiter(key = "cachingTest", total = 1, timeout = 500, msg = "当前排队人数较多，请稍后再试！")
+   // @RequestRateLimiter(key = "cachingTest", total = 1, timeout = 500, msg = "当前排队人数较多，请稍后再试！")
     @GetMapping("/caching/test")
     public List<String> cachingTest() {
         logger.info("------ 读取数据 ------");
@@ -47,7 +47,7 @@ public class RateLimiterController {
      * @date 2023/7/3 14:23
      * @return java.util.List<java.lang.String>
      */
-    @RedisRateLimiter(key = "cachingTest", total = 2, msg = "当前排队人数较多，请稍后再试！")
+  //  @RedisRateLimiter(key = "cachingTest", total = 2, msg = "当前排队人数较多，请稍后再试！")
     @GetMapping("/redis/caching/test")
     public List<String> redisCachingTest() {
         logger.info("------ 读取数据 ------");
