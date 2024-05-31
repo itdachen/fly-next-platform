@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('查看岗位信息')"/>
+    <script>
+        layui.use(['form'], function () {
+            let form = layui.form;
+            form.render();
+        });
+    </script>
+</head>
+<body>
+
+<form class="layui-form" id="seeClazzInfoForm" th:object="${clazzInfo}">
+    <div class="layui-form-body-see">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                岗位等级
+            </label>
+            <div class="layui-input-block" th:with="dicts=${@dict.data('yes_or_no')}">
+                <input type="radio" name="thatLevel" th:each="dict : ${dicts}"
+                       th:id="${'thatLevel_' + dict.value}" disabled="disabled"
+                       th:field="*{thatLevel}"
+                       th:title="${dict.label}"
+                       th:value="${dict.value}"
+                       th:checked="${clazzInfo.thatLevel}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                岗位名称
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="title" name="title" th:field="*{title}" readonly="readonly"
+                       autocomplete="off"
+                       lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                有效标志
+            </label>
+            <div class="layui-input-block" th:with="dicts=${@dict.data('VALID_FLAG')}">
+                <input type="radio" name="validFlag" th:each="dict : ${dicts}"
+                       th:id="${'validFlag_' + dict.value}" disabled="disabled"
+                       th:field="*{validFlag}"
+                       th:title="${dict.label}"
+                       th:value="${dict.value}"
+                       th:checked="${clazzInfo.validFlag}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                备注
+            </label>
+            <div class="layui-input-block">
+               <textarea id="remarks" name="remarks" th:field="*{remarks}" maxlength="200"
+                         readonly="readonly" autocomplete="off" class="layui-textarea"></textarea>
+            </div>
+        </div>
+    </div>
+</form>
+
+</body>
+</html>

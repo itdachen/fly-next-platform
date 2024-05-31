@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <th:block th:include="common/common::common('修改菜单上级目录')"/>
+    <th:block th:include="common/common::zTree"/>
+    <script th:src="@{/static/admin/menu/edit_parent.js}" charset="utf-8"></script>
+</head>
+<body class="scroll-bar" style="height: 300px;overflow-y:auto;overflow-x:hidden ">
+<div style="margin: 10px 30px;">
+    <input type="text" th:value="*{appId}" id="appId" name="appId" style="display: none">
+    <form class="layui-form layui-form-pane">
+        <div class="layui-form layui-form-pane" style="height: 100%;">
+            <div class="layui-form-item layui-form-text">
+                <ul id="tree" class="ztree"></ul>
+            </div>
+        </div>
+        <div class="form-footer">
+            <button type="button" class="fly-button-ok" style="letter-spacing:0;" id="subEditParent">
+                <i class="layui-icon layui-icon-ok fly-button-icon"></i>保存
+            </button>
+            <button type="button" class="fly-button-close close-flyer" style="letter-spacing:0;">
+                <i class="layui-icon layui-icon-close fly-button-icon"></i>关闭
+            </button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

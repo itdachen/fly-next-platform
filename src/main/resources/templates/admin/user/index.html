@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <th:block th:include="common/common::common('用户信息')"/>
+    <script th:src="@{/static/admin/user/index.js}" charset="utf-8"></script>
+</head>
+<body class="fly-container">
+<div class="fly-main-container">
+
+
+
+    <!-- 查询 -->
+    <div class="fly-query-container" sec:authorize="hasAuthority('admin:user:info:query')">
+        <form class="layui-form" id="queryUserInfo" name="queryUserInfo">
+
+
+            <div class="layui-form-item">
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">昵称</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="昵称"
+                                           id="nickName" name="nickName" autocomplete="off">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">身份证号码</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="身份证号码"
+                                           id="idCard" name="idCard" autocomplete="off">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">性别</label>
+                            <div class="layui-input-inline">
+                                    <select id="sex" name="sex" th:with="dicts=${@dict.data('sex')}">
+                                        <option value="">请选择性别</option>
+                                        <option th:each="dict : ${dicts}"
+                                                th:text="${dict.label}"
+                                                th:value="${dict.value}">
+                                        </option>
+                                    </select>
+                            </div>
+                        </div>
+
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">有效标志</label>
+                            <div class="layui-input-inline">
+                                    <select id="validFlag" name="validFlag" th:with="dicts=${@dict.data('VALID_FLAG')}">
+                                        <option value="">请选择有效标志</option>
+                                        <option th:each="dict : ${dicts}"
+                                                th:text="${dict.label}"
+                                                th:value="${dict.value}">
+                                        </option>
+                                    </select>
+                            </div>
+                        </div>
+
+
+
+                <div class="layui-inline">
+                    <button type="submit" class="layui-btn layui-btn-sm fly-button-search"
+                            lay-submit lay-filter="queryUserInfo">
+                        <i class="layui-icon layui-icon-search fly-icon-right-5"></i>查询
+                    </button>
+                    <button type="reset" class="layui-btn layui-btn-sm fly-button-reset">
+                        <i class="layui-icon layui-icon-refresh fly-icon-right-5"></i>重置
+                    </button>
+                    <button sec:authorize="hasAuthority('admin:user:info:exp')"
+                            type="submit" class="layui-btn layui-btn-sm fly-button-exp"
+                            lay-submit lay-filter="expUserInfo">
+                        <i class="layui-icon layui-icon-export fly-icon-right-5"></i>导出
+                    </button>
+                </div>
+            </div>
+
+            <!--            <div class="fly-query-footer">-->
+            <!--                <button type="submit" class="layui-btn layui-btn-sm fly-button-search"-->
+            <!--                        lay-submit lay-filter="queryUserInfo">-->
+            <!--                    <i class="layui-icon layui-icon-search fly-icon-right-5"></i>查询-->
+            <!--                </button>-->
+            <!--                <button type="reset" class="layui-btn layui-btn-sm fly-button-reset">-->
+            <!--                    <i class="layui-icon layui-icon-refresh fly-icon-right-5"></i>重置-->
+            <!--                </button>-->
+            <!--                <button sec:authorize="hasAuthority('admin:user:info:exp')"-->
+            <!--                        type="submit" class="layui-btn layui-btn-sm fly-button-exp"-->
+            <!--                        lay-submit lay-filter="expUserInfo">-->
+            <!--                    <i class="layui-icon  layui-icon-export fly-icon-right-5"></i>导出-->
+            <!--                </button>-->
+            <!--            </div>-->
+
+        </form>
+    </div>
+
+    <!-- 页面数据展示 -->
+    <div class="fly-table-container">
+        <table class="layui-hide" id="layTable" lay-filter="layFilter"></table>
+    </div>
+
+</div>
+
+
+<!-- 表头工具栏 -->
+<script type="text/html" id="toolbar">
+    <div class="fly-tool-bar">
+        <button sec:authorize="hasAuthority('admin:user:info:save')"
+                class="layui-btn layui-btn-sm layui-btn-normal fly-button-add"
+                lay-event="saveUserInfo">
+            <i class="layui-icon layui-icon-addition"></i>新增
+        </button>
+    </div>
+</script>
+
+<!-- 操作工具栏 -->
+<script type="text/html" id="toolActionBar">
+    <button sec:authorize="hasAuthority('admin:user:info:view')"
+            class="fly-action-bar fly-button-view" lay-event="view">
+        <i class="layui-icon layui-icon-list"></i>查看
+    </button>
+    <button sec:authorize="hasAuthority('admin:user:info:update')"
+            class="fly-action-bar fly-button-edit" lay-event="update">
+        <i class="layui-icon layui-icon-edit"></i>编辑
+    </button>
+    <button sec:authorize="hasAuthority('admin:user:info:delete')"
+            class="fly-action-bar fly-button-remove" lay-event="delete">
+        <i class="layui-icon layui-icon-delete"></i>删除
+    </button>
+</script>
+
+
+<script type="text/html" id="validFlagTpl">
+    <input type="checkbox" name="validFlag" value="{{= d.id }}" title="有效|无效" lay-skin="switch"
+           lay-filter="validFlagFilter" {{ d.validFlag == 'Y' ? 'checked' : '' }}>
+</script>
+
+
+</body>
+</html>

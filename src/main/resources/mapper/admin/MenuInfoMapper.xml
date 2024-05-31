@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.admin.mapper.IMenuInfoMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.github.itdachen.admin.sdk.vo.MenuInfoVO" id="menuInfoMap">
+        <result property="id" column="id"/>
+        <result property="appId" column="app_id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="parentTitle" column="parent_title"/>
+        <result property="authCode" column="auth_code"/>
+        <result property="type" column="type"/>
+        <result property="title" column="title"/>
+        <result property="path" column="path"/>
+        <result property="layIcon" column="lay_icon"/>
+        <result property="orderNum" column="order_num"/>
+        <result property="validFlag" column="valid_flag"/>
+        <result property="openType" column="open_type"/>
+        <result property="hasAuth" column="has_auth"/>
+        <result property="hasIp" column="has_ip"/>
+        <result property="thirdParty" column="third_party"/>
+        <result property="thirdTitle" column="third_title"/>
+        <result property="thirdUri" column="third_uri"/>
+        <result property="askUri" column="ask_uri"/>
+        <result property="componentName" column="component_name"/>
+        <result property="remarks" column="remarks"/>
+    </resultMap>
+
+    <!-- VO 类查询 -->
+    <sql id="selectMenuInfoVO">
+        SELECT id,
+               app_id,
+               parent_id,
+               parent_title,
+               auth_code,
+               type,
+               title,
+               path,
+               lay_icon,
+               order_num,
+               valid_flag,
+               open_type,
+               has_auth,
+               has_ip,
+               third_party,
+               third_title,
+               third_uri,
+               ask_uri,
+               component_name,
+               remarks
+        FROM ta_fly_route_menu_info
+    </sql>
+
+    <!-- 导出数据字段查询 -->
+    <sql id="selectMenuInfoExpVO">
+        SELECT app_id,
+               parent_id,
+               parent_title,
+               auth_code,
+               type,
+               title,
+               path,
+               lay_icon,
+               order_num,
+               valid_flag,
+               open_type,
+               has_auth,
+               has_ip,
+               third_party,
+               third_title,
+               third_uri,
+               ask_uri,
+               component_name
+        FROM ta_fly_route_menu_info
+    </sql>
+
+    <!-- 分页和导出查询参数 -->
+    <sql id="selectParamsWhere">
+        <where>
+            <if test="null != appId  and '' != appId ">
+                AND app_id = #{appId}
+            </if>
+            <if test="null != parentId  and '' != parentId ">
+                AND parent_id = #{parentId}
+            </if>
+            <if test="null != parentTitle  and '' != parentTitle ">
+                AND parent_title LIKE CONCAT(CONCAT('%',#{parentTitle}),'%')
+            </if>
+            <if test="null != authCode  and '' != authCode ">
+                AND auth_code = #{authCode}
+            </if>
+            <if test="null != type  and '' != type ">
+                AND type = #{type}
+            </if>
+            <if test="null != title  and '' != title ">
+                AND title LIKE CONCAT(CONCAT('%',#{title}),'%')
+            </if>
+            <if test="null != path  and '' != path ">
+                AND path = #{path}
+            </if>
+            <if test="null != layIcon  and '' != layIcon ">
+                AND lay_icon = #{layIcon}
+            </if>
+            <if test="null != orderNum ">
+                AND order_num = #{orderNum}
+            </if>
+            <if test="null != validFlag  and '' != validFlag ">
+                AND valid_flag = #{validFlag}
+            </if>
+            <if test="null != openType  and '' != openType ">
+                AND open_type = #{openType}
+            </if>
+            <if test="null != hasAuth  and '' != hasAuth ">
+                AND has_auth = #{hasAuth}
+            </if>
+            <if test="null != hasIp  and '' != hasIp ">
+                AND has_ip = #{hasIp}
+            </if>
+            <if test="null != thirdParty  and '' != thirdParty ">
+                AND third_party = #{thirdParty}
+            </if>
+            <if test="null != thirdTitle  and '' != thirdTitle ">
+                AND third_title LIKE CONCAT(CONCAT('%',#{thirdTitle}),'%')
+            </if>
+            <if test="null != thirdUri  and '' != thirdUri ">
+                AND third_uri = #{thirdUri}
+            </if>
+            <if test="null != askUri  and '' != askUri ">
+                AND ask_uri = #{askUri}
+            </if>
+            <if test="null != componentName  and '' != componentName ">
+                AND component_name LIKE CONCAT(CONCAT('%',#{componentName}),'%')
+            </if>
+        </where>
+        ORDER BY order_num ASC
+    </sql>
+
+    <!-- 集合查询 -->
+    <select id="list" parameterType="com.github.itdachen.admin.sdk.query.MenuInfoQuery" resultMap="menuInfoMap">
+        <include refid="selectMenuInfoVO"/>
+        <include refid="selectParamsWhere"></include>
+    </select>
+
+    <!-- 查询导出数据 -->
+    <select id="selectMenuInfoExpData" parameterType="java.lang.String" resultMap="menuInfoMap">
+        <include refid="selectMenuInfoExpVO"/>
+        <include refid="selectParamsWhere"></include>
+    </select>
+
+    <select id="findMenuZTree" parameterType="java.lang.String"
+            resultType="com.github.itdachen.framework.context.tree.ZTreeNode">
+        SELECT id, parent_id AS parentId, title AS name, type
+        FROM ta_fly_route_menu_info
+        WHERE app_id = #{appId}
+        ORDER BY order_num ASC
+    </select>
+
+    <select id="findAppCatalogTree" parameterType="java.lang.String"
+            resultType="com.github.itdachen.framework.context.tree.ZTreeNode">
+        SELECT id, parent_id AS parentId, title AS name, type
+        FROM ta_fly_route_menu_info
+        WHERE app_id = #{appId}
+          AND type = 'dirt'
+        ORDER BY order_num ASC
+    </select>
+
+
+    <!-- 根据主键查询 -->
+    <select id="selectMenuInfoVO" parameterType="java.lang.String" resultMap="menuInfoMap">
+        <include refid="selectMenuInfoVO"/>
+        WHERE id = #{id}
+    </select>
+
+    <update id="updateParentTitle" parameterType="com.github.itdachen.admin.sdk.dto.MenuInfoDTO">
+        UPDATE ta_fly_route_menu_info
+        SET parent_title = #{parentTitle}
+        WHERE parent_id = #{parentId}
+    </update>
+
+    <!-- 批量添加 -->
+    <insert id="batchSave" parameterType="java.util.List">
+        INSERT INTO ta_fly_route_menu_info (id ,
+        app_id ,
+        parent_id ,
+        parent_title ,
+        auth_code ,
+        type ,
+        title ,
+        path ,
+        lay_icon ,
+        order_num ,
+        valid_flag ,
+        open_type ,
+        has_auth ,
+        has_ip ,
+        third_party ,
+        third_title ,
+        third_uri ,
+        ask_uri ,
+        component_name ,
+        remarks ,
+        create_time ,
+        create_user ,
+        create_user_id ,
+        update_time ,
+        update_user ,
+        update_user_id
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},
+            #{item.appId},
+            #{item.parentId},
+            #{item.parentTitle},
+            #{item.authCode},
+            #{item.type},
+            #{item.title},
+            #{item.path},
+            #{item.layIcon},
+            #{item.orderNum},
+            #{item.validFlag},
+            #{item.openType},
+            #{item.hasAuth},
+            #{item.hasIp},
+            #{item.thirdParty},
+            #{item.thirdTitle},
+            #{item.thirdUri},
+            #{item.askUri},
+            #{item.componentName},
+            #{item.remarks},
+            #{item.createTime},
+            #{item.createUser},
+            #{item.createUserId},
+            #{item.updateTime},
+            #{item.updateUser},
+            #{item.updateUserId})
+        </foreach>
+    </insert>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE ta_fly_route_menu_info
+            <set>
+                <if test="null != item.id  and '' != item.id ">id =
+                    #{item.id},
+                </if>
+                <if test="null != item.appId  and '' != item.appId ">app_id =
+                    #{item.appId},
+                </if>
+                <if test="null != item.parentId  and '' != item.parentId ">parent_id =
+                    #{item.parentId},
+                </if>
+                <if test="null != item.parentTitle  and '' != item.parentTitle ">parent_title =
+                    #{item.parentTitle},
+                </if>
+                <if test="null != item.authCode  and '' != item.authCode ">auth_code =
+                    #{item.authCode},
+                </if>
+                <if test="null != item.type  and '' != item.type ">type =
+                    #{item.type},
+                </if>
+                <if test="null != item.title  and '' != item.title ">title =
+                    #{item.title},
+                </if>
+                <if test="null != item.path  and '' != item.path ">path =
+                    #{item.path},
+                </if>
+                <if test="null != item.layIcon  and '' != item.layIcon ">lay_icon =
+                    #{item.layIcon},
+                </if>
+                <if test="null != item.orderNum ">order_num =
+                    #{item.orderNum},
+                </if>
+                <if test="null != item.validFlag  and '' != item.validFlag ">valid_flag =
+                    #{item.validFlag},
+                </if>
+                <if test="null != item.openType  and '' != item.openType ">open_type =
+                    #{item.openType},
+                </if>
+                <if test="null != item.hasAuth  and '' != item.hasAuth ">has_auth =
+                    #{item.hasAuth},
+                </if>
+                <if test="null != item.hasIp  and '' != item.hasIp ">has_ip =
+                    #{item.hasIp},
+                </if>
+                <if test="null != item.thirdParty  and '' != item.thirdParty ">third_party =
+                    #{item.thirdParty},
+                </if>
+                <if test="null != item.thirdTitle  and '' != item.thirdTitle ">third_title =
+                    #{item.thirdTitle},
+                </if>
+                <if test="null != item.thirdUri  and '' != item.thirdUri ">third_uri =
+                    #{item.thirdUri},
+                </if>
+                <if test="null != item.askUri  and '' != item.askUri ">ask_uri =
+                    #{item.askUri},
+                </if>
+                <if test="null != item.componentName  and '' != item.componentName ">component_name =
+                    #{item.componentName},
+                </if>
+                <if test="null != item.remarks  and '' != item.remarks ">remarks =
+                    #{item.remarks},
+                </if>
+                <if test="null != item.createTime ">create_time =
+                    #{item.createTime},
+                </if>
+                <if test="null != item.createUser  and '' != item.createUser ">create_user =
+                    #{item.createUser},
+                </if>
+                <if test="null != item.createUserId  and '' != item.createUserId ">create_user_id =
+                    #{item.createUserId},
+                </if>
+                <if test="null != item.updateTime ">update_time =
+                    #{item.updateTime},
+                </if>
+                <if test="null != item.updateUser  and '' != item.updateUser ">update_user =
+                    #{item.updateUser},
+                </if>
+                <if test="null != item.updateUserId  and '' != item.updateUserId ">update_user_id =
+                    #{item.updateUserId},
+                </if>
+            </set>
+            WHERE id = #{item.id}
+        </foreach>
+    </update>
+
+    <select id="findMenuTree" parameterType="java.lang.String"
+            resultType="com.github.itdachen.framework.context.tree.ZTreeNode">
+        SELECT id, parent_id AS parentId, title AS name, type
+        FROM ta_fly_route_menu_info
+        WHERE parent_id = #{parentId}
+        AND valid_flag = 'Y'
+        AND id IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        ORDER BY order_num ASC
+    </select>
+
+</mapper>

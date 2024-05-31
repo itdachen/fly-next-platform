@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('新增菜单信息')"/>
+    <!--    <script th:src="@{/static/assets/backstage/pear/component/pear/pear.js}"></script>-->
+    <script th:src="@{/static/admin/menu/add.js}" charset="utf-8"></script>
+</head>
+<body>
+
+<form class="layui-form" id="addMenuInfoForm">
+    <div class="layui-form-body">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>类型
+            </label>
+            <div class="layui-input-block" th:with="dicts=${@dict.data('menu_type')}">
+                <input type="radio" name="type" th:each="dict : ${dicts}"
+                       th:id="${'type_' + dict.value}"
+                       th:title="${dict.label}"
+                       th:value="${dict.value}"
+                       th:checked="${dict.isDefault}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>菜单标题
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="title" name="title" maxlength="30"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>认证编码
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="authCode" name="authCode" maxlength="100"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <!--        <div class="layui-form-item">-->
+        <!--            <label class="layui-form-label">-->
+        <!--                <span class="required">*</span>第三方平台标识-->
+        <!--            </label>-->
+        <!--            <div class="layui-input-block">-->
+        <!--                <input type="text" id="thirdParty" name="thirdParty"-->
+        <!--                       autocomplete="off" lay-verify="required" class="layui-input">-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>访问地址
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="path" name="path" maxlength="100"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>图标
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="layIcon" name="layIcon" class="layui-input" value="layui-icon-release"
+                       lay-filter="iconPicker3">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>排序
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="orderNum" name="orderNum" value="999"
+                       onkeyup="value=value.replace(/[^\d]/g,'')" maxlength="3"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>有效标志
+            </label>
+            <div class="layui-input-block" th:with="dicts=${@dict.data('VALID_FLAG')}">
+                <input type="radio" name="validFlag" th:each="dict : ${dicts}"
+                       th:id="${'validFlag_' + dict.value}"
+                       th:title="${dict.label}"
+                       th:value="${dict.value}"
+                       th:checked="${dict.isDefault}">
+            </div>
+        </div>
+
+        <input type="text" name="hasIp" value="N" style="display: none;">
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>菜单打开方式
+            </label>
+            <div class="layui-input-block" th:with="dicts=${@dict.data('menu_open_type')}">
+                <input type="radio" name="openType" th:each="dict : ${dicts}"
+                       th:id="${'openType_' + dict.value}"
+                       th:title="${dict.label}"
+                       th:value="${dict.value}"
+                       th:checked="${dict.isDefault}">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>是否需要授权
+            </label>
+            <div class="layui-input-block" th:with="dicts=${@dict.data('Y_OR_N')}">
+                <input type="radio" name="hasAuth" th:each="dict : ${dicts}"
+                       th:id="${'hasAuth_' + dict.value}"
+                       th:title="${dict.label}"
+                       th:value="${dict.value}"
+                       th:checked="${dict.isDefault}">
+            </div>
+        </div>
+
+        <!--        <div class="layui-form-item">-->
+        <!--            <label class="layui-form-label">-->
+        <!--                <span class="required">*</span>是否需要白名单IP-->
+        <!--            </label>-->
+        <!--            <div class="layui-input-block">-->
+        <!--                <input type="text" id="hasIp" name="hasIp"-->
+        <!--                       autocomplete="off" lay-verify="required" class="layui-input">-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+
+        <!--        <div class="layui-form-item">-->
+        <!--            <label class="layui-form-label">-->
+        <!--                <span class="required">*</span>第三方平台名称-->
+        <!--            </label>-->
+        <!--            <div class="layui-input-block">-->
+        <!--                <input type="text" id="thirdTitle" name="thirdTitle"-->
+        <!--                       autocomplete="off" lay-verify="required" class="layui-input">-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <!--        <div class="layui-form-item">-->
+        <!--            <label class="layui-form-label">-->
+        <!--                <span class="required">*</span>第三方基础访问地址, 例如: http://www.baidu.com-->
+        <!--            </label>-->
+        <!--            <div class="layui-input-block">-->
+        <!--                <input type="text" id="thirdUri" name="thirdUri"-->
+        <!--                       autocomplete="off" lay-verify="required" class="layui-input">-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <!--        <div class="layui-form-item">-->
+        <!--            <label class="layui-form-label">-->
+        <!--                <span class="required">*</span>最终访问地址, 根据第三方平台信息拼接-->
+        <!--            </label>-->
+        <!--            <div class="layui-input-block">-->
+        <!--                <input type="text" id="askUri" name="askUri"-->
+        <!--                       autocomplete="off" lay-verify="required" class="layui-input">-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <!--        <div class="layui-form-item">-->
+        <!--            <label class="layui-form-label">-->
+        <!--                <span class="required">*</span>组件名称-->
+        <!--            </label>-->
+        <!--            <div class="layui-input-block">-->
+        <!--                <input type="text" id="componentName" name="componentName"-->
+        <!--                       autocomplete="off" lay-verify="required" class="layui-input">-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                备注
+            </label>
+            <div class="layui-input-block">
+                        <textarea id="remarks" name="remarks" maxlength="30"
+                                  autocomplete="off" class="layui-textarea"></textarea>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!--    <div class="form-footer">-->
+    <!--        <button type="button" class="fly-button-ok" lay-submit lay-filter="saveMenuInfo">-->
+    <!--            <i class="layui-icon layui-icon-ok"></i>保存-->
+    <!--        </button>-->
+    <!--        <button type="button" class="fly-button-close close-flyer">-->
+    <!--            <i class="layui-icon layui-icon-close"></i>关闭-->
+    <!--        </button>-->
+    <!--    </div>-->
+
+    <div class="form-footer-center">
+        <button type="button" class="fly-button-ok" lay-submit lay-filter="saveMenuInfo">
+            <i class="layui-icon layui-icon-ok fly-button-icon"></i>保存
+        </button>
+        <button type="button" class="fly-button-close close-flyer">
+            <i class="layui-icon layui-icon-close fly-button-icon"></i>关闭
+        </button>
+    </div>
+    <input type="text" th:value="*{appId}" id="appId" name="appId" style="display: none">
+    <input type="text" th:value="*{parentId}" id="parentId" name="parentId" style="display: none">
+</form>
+</body>
+</html>

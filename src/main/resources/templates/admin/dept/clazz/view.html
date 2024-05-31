@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('查看部门岗位关联表')"/>
+    <script>
+        layui.use(['form'], function () {
+            let form = layui.form;
+            form.render();
+        });
+    </script>
+</head>
+<body>
+
+<form class="layui-form" id="seeClazzDeptForm" th:object="${clazzDept}">
+    <div class="layui-form-body-see">
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            应用ID
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="appId" name="appId" th:field="*{appId}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            部门ID
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="deptId" name="deptId" th:field="*{deptId}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            岗位ID
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="clazzId" name="clazzId" th:field="*{clazzId}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            岗位名称
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="clazzTitle" name="clazzTitle" th:field="*{clazzTitle}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            有效标志: Y-是;N-否
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="validFlag" name="validFlag" th:field="*{validFlag}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+    </div>
+</form>
+
+</body>
+</html>

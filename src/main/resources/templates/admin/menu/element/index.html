@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <th:block th:include="common/common::common('认证资源信息(按钮信息)')"/>
+    <script th:src="@{/static/admin/menu/element/index.js}" charset="utf-8"></script>
+</head>
+<body class="fly-container">
+<div class="fly-main-container">
+
+
+
+    <!-- 查询 -->
+    <div class="fly-query-container" sec:authorize="hasAuthority('admin:element:info:query')">
+        <form class="layui-form" id="queryElementInfo" name="queryElementInfo">
+
+
+            <div class="layui-form-item">
+
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">应用ID/appID</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="应用ID/appID"
+                                           id="appId" name="appId" autocomplete="off">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">菜单ID</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="菜单ID"
+                                           id="menuId" name="menuId" autocomplete="off">
+                            </div>
+                        </div>
+
+
+
+                <div class="layui-inline">
+                    <button type="submit" class="layui-btn layui-btn-sm fly-button-search"
+                            lay-submit lay-filter="queryElementInfo">
+                        <i class="layui-icon layui-icon-search fly-icon-right-5"></i>查询
+                    </button>
+                    <button type="reset" class="layui-btn layui-btn-sm fly-button-reset">
+                        <i class="layui-icon layui-icon-refresh fly-icon-right-5"></i>重置
+                    </button>
+                    <button sec:authorize="hasAuthority('admin:element:info:exp')"
+                            type="submit" class="layui-btn layui-btn-sm fly-button-exp"
+                            lay-submit lay-filter="expElementInfo">
+                        <i class="layui-icon layui-icon-export fly-icon-right-5"></i>导出
+                    </button>
+                </div>
+            </div>
+
+            <!--            <div class="fly-query-footer">-->
+            <!--                <button type="submit" class="layui-btn layui-btn-sm fly-button-search"-->
+            <!--                        lay-submit lay-filter="queryElementInfo">-->
+            <!--                    <i class="layui-icon layui-icon-search fly-icon-right-5"></i>查询-->
+            <!--                </button>-->
+            <!--                <button type="reset" class="layui-btn layui-btn-sm fly-button-reset">-->
+            <!--                    <i class="layui-icon layui-icon-refresh fly-icon-right-5"></i>重置-->
+            <!--                </button>-->
+            <!--                <button sec:authorize="hasAuthority('admin:element:info:exp')"-->
+            <!--                        type="submit" class="layui-btn layui-btn-sm fly-button-exp"-->
+            <!--                        lay-submit lay-filter="expElementInfo">-->
+            <!--                    <i class="layui-icon  layui-icon-export fly-icon-right-5"></i>导出-->
+            <!--                </button>-->
+            <!--            </div>-->
+
+        </form>
+    </div>
+
+    <!-- 页面数据展示 -->
+    <div class="fly-table-container">
+        <table class="layui-hide" id="layTable" lay-filter="layFilter"></table>
+    </div>
+
+</div>
+
+
+</body>
+</html>

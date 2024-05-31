@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('查看用户信息')"/>
+    <script>
+        layui.use(['form'], function () {
+            let form = layui.form;
+            form.render();
+        });
+    </script>
+</head>
+<body>
+
+<form class="layui-form" id="seeUserInfoForm" th:object="${userInfo}">
+    <div class="layui-form-body-see">
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                昵称
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="nickName" name="nickName" th:field="*{nickName}" readonly="readonly"
+                       autocomplete="off"
+                       lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                身份证号码
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="idCard" name="idCard" th:field="*{idCard}" readonly="readonly"
+                       autocomplete="off"
+                       lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                性别
+            </label>
+            <div class="layui-input-block">
+                <select id="sex" name="sex" disabled="disabled"
+                        th:with="dicts=${@dict.data('sex')}">
+                    <option value="">请选择性别</option>
+                    <option th:each="dict : ${dicts}"
+                            th:id="${'sex_' + dict.value}"
+                            th:field="*{sex}"
+                            th:text="${dict.label}"
+                            th:value="${dict.value}"
+                            th:checked="sex">
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                电话号码
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="telephone" name="telephone" th:field="*{telephone}" readonly="readonly"
+                       autocomplete="off"
+                       lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                头像
+            </label>
+            <div class="layui-input-block">
+                <div id="avatarUploadImage">
+                    <img th:src="*{avatar}" id="avatarImgSrc" class="upload-block">
+                </div>
+                <input type="text" id="avatar" name="avatar" readonly="readonly"
+                       th:field="*{avatar}" style="display: none" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                电子邮箱
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="eMailBox" name="eMailBox" th:field="*{eMailBox}" readonly="readonly"
+                       autocomplete="off"
+                       lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                用户类型
+            </label>
+            <div class="layui-input-block">
+                <select id="userType" name="userType" disabled="disabled"
+                        th:with="dicts=${@dict.data('yes_or_no')}">
+                    <option value="">请选择用户类型</option>
+                    <option th:each="dict : ${dicts}"
+                            th:id="${'userType_' + dict.value}"
+                            th:field="*{userType}"
+                            th:text="${dict.label}"
+                            th:value="${dict.value}"
+                            th:checked="userType">
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                有效标志
+            </label>
+            <div class="layui-input-block" th:with="dicts=${@dict.data('VALID_FLAG')}">
+                <input type="radio" name="validFlag" th:each="dict : ${dicts}"
+                       th:id="${'validFlag_' + dict.value}" disabled="disabled"
+                       th:field="*{validFlag}"
+                       th:title="${dict.label}"
+                       th:value="${dict.value}"
+                       th:checked="${userInfo.validFlag}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                备注
+            </label>
+            <div class="layui-input-block">
+                        <textarea id="remarks" name="remarks" th:field="*{remarks}" maxlength="200"
+                                  readonly="readonly"
+                                  autocomplete="off"
+                                  class="layui-textarea"></textarea>
+            </div>
+        </div>
+    </div>
+</form>
+
+</body>
+</html>

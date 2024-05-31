@@ -6,6 +6,304 @@
   ++++++++++++++++++++++++++++++++++++++++++++
   */
 
+/* 自定义样式 start */
+
+.fly-button-icon {
+    margin-right: 5px;
+    font-size: 12px;
+}
+
+
+.fly-container {
+    background-color: #f5f6f6;
+}
+
+.fly-tool-bar {
+    display: flex;
+    flex-wrap: wrap;
+    letter-spacing: 5px;
+}
+
+.fly-tool-bar input:focus {
+    border-style: solid;
+    border-color: #17B3A3 !important;
+}
+
+.fly-head-search {
+    margin-right: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: auto;
+    min-height: 35px;
+    white-space: normal;
+}
+
+.fly-float-left {
+    float: left !important;
+}
+
+
+.fly-button-ok {
+    display: inline-block;
+    white-space: nowrap;
+    text-align: center;
+    border-radius: 3px;
+    cursor: pointer;
+    background: #438de3;
+    border: #8dc5f5 1px solid;
+    color: #FFFFFF;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    margin-right: 6px;
+    padding: 0 15px;
+    letter-spacing: 5px;
+}
+
+.fly-button-ok:hover {
+    background-color: #8dc5f5;
+}
+
+.fly-button-close {
+    display: inline-block;
+    white-space: nowrap;
+    text-align: center;
+    border-radius: 3px;
+    cursor: pointer;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    padding: 0 15px;
+    border: 1px solid #C9C9C9;
+    background-color: #fff;
+    color: #555;
+    margin-right: 30px;
+    letter-spacing: 5px;
+}
+
+.fly-button-close:hover {
+    background-color: #e8f7f6;
+    border-color: #b9e8e3;
+    color: #79ada7;
+}
+
+
+.fly-button-search {
+    margin-top: 5px;
+    border-radius: 3px;
+    background-color: #e8f7f6;
+    border-color: #b9e8e3;
+    color: #17B3A3;
+    height: 30px !important;
+    line-height: 30px !important;
+    letter-spacing: 5px;
+}
+
+.fly-button-search:hover {
+    background-color: #e8f7f6;
+    border-color: #b9e8e3;
+    color: #17B3A3;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 5px;
+    letter-spacing: 5px;
+}
+
+
+.fly-button-reset {
+    margin-top: 5px;
+    border-radius: 3px;
+    /*background-color: #e8f7f6;*/
+    /*border-color: #b9e8e3;*/
+    /*color: #17B3A3;*/
+    height: 30px !important;
+    line-height: 30px !important;
+    background-color: #1e9fff;
+    border-color: #1e9fff;
+    color: #FFFFFF;
+    letter-spacing: 5px;
+}
+
+.fly-button-reset:hover {
+    /*background-color: #e8f7f6;*/
+    /*border-color: #b9e8e3;*/
+    /*color: #17B3A3;*/
+    height: 30px;
+    line-height: 30px;
+    border-radius: 5px;
+    letter-spacing: 5px;
+}
+
+.fly-button-exp {
+    margin-top: 5px;
+    border-radius: 3px;
+    /*background-color: #e8f7f6;*/
+    /*border-color: #b9e8e3;*/
+    /*color: #17B3A3;*/
+    background-color: #16baaa;
+    border-color: #16baaa;
+    color: #FFFFFF;
+    height: 30px !important;
+    line-height: 30px !important;
+    letter-spacing: 5px;
+}
+
+.fly-button-exp:hover {
+    /*background-color: #e8f7f6;*/
+    /*border-color: #b9e8e3;*/
+    /*color: #17B3A3;*/
+    height: 30px;
+    line-height: 30px;
+    border-radius: 5px;
+    letter-spacing: 5px;
+}
+
+
+.fly-main-container {
+    background-color: #ffffff;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 5px 10px;
+}
+
+.fly-table-container {
+    /*border: 1px solid #eee;*/
+    border-radius: 5px;
+}
+
+.fly-button-add {
+    border-radius: 3px;
+    background-color: #1E9FFF;
+    border-color: #4aacf8;
+    margin-top: 5px;
+    height: 30px !important;
+    line-height: 30px !important;
+    letter-spacing: 5px;
+}
+
+.fly-button-add:hover {
+    background-color: #4aacf8;
+    letter-spacing: 5px;
+}
+
+.fly-button-edit {
+    background-repeat: no-repeat;
+    color: #ffffff !important;
+    background-color: #6572ff;
+    border-color: #6c87ff;
+}
+
+.fly-button-edit:hover {
+    color: #ffffff !important;
+    background-color: #6c87ff;
+    border-color: #748dfc;
+}
+
+.fly-button-auz {
+    border: 1px solid #16baaa !important;
+    background-color: #16baaa;
+    background-repeat: no-repeat;
+    color: #ffffff !important;
+}
+
+
+.fly-action-bar {
+    margin: 5px 0;
+    height: 30px;
+    width: auto;
+    padding: 2px 12px 2px 10px;
+    /*display: inline-block;*/
+    /*font-size: 14px;*/
+    /*font-weight: 400;*/
+    /*line-height: 1.42857143;*/
+    /*text-align: center;*/
+    /*white-space: nowrap;*/
+    /*vertical-align: middle;*/
+    /*-ms-touch-action: manipulation;*/
+    /*touch-action: manipulation;*/
+    /*-webkit-user-select: none;*/
+    /*-moz-user-select: none;*/
+    /*-ms-user-select: none;*/
+    /*user-select: none;*/
+    /*background-image: none;*/
+    cursor: pointer;
+    border-radius: 3px;
+    color: #ffffff !important;
+    letter-spacing: 5px;
+    border: 1px solid #1E9FFF;
+}
+
+.fly-action-bar:first-child {
+    margin-left: 0 !important;
+
+}
+
+.fly-action-bar:focus {
+    outline: none !important;
+}
+
+.fly-action-bar:hover {
+    opacity: 0.7;
+}
+
+.fly-action-bar i {
+    margin-right: 3px;
+}
+
+.fly-button-view {
+    background-color: #1E9FFF;
+    border: 1px solid #1E9FFF;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    background-size: 20px;
+}
+
+
+.fly-button-remove {
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    color: #ffffff !important;
+    background-color: #ff4d36;
+    border-color: #ff7652;
+}
+
+.fly-query-container {
+    /*border: 1px solid #eee;*/
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+}
+
+.fly-query-footer {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.fly-icon-right-5 {
+    margin-right: 5px;
+}
+
+/* input 输入框后面的按钮 */
+.fly-input-button {
+    float: right;
+    margin-top: -38px;
+    background-color: #0ba8c7;
+}
+
+.fly-input-button:hover {
+    /*float: right;*/
+    /*margin-top: -38px;*/
+    background-color: #2ac0de;
+}
+
+/* input 输入框后面的按钮 end */
+
+
+/* 自定义样式 end */
+/*==================================================================================================================================================*/
+
 .body_head {
     height: 50px;
     width: 100%;
@@ -83,48 +381,6 @@
     text-align: center;
     margin-top: 20px;
     margin-bottom: 30px;
-}
-
-.button-sub {
-    display: inline-block;
-    white-space: nowrap;
-    text-align: center;
-    border-radius: 2px;
-    cursor: pointer;
-    background: #3371b7;
-    border: #2e6da4 1px solid;
-    color: #FFFFFF;
-    height: 30px;
-    line-height: 30px;
-    font-size: 12px;
-    margin-right: 6px;
-    padding: 0 15px;
-}
-
-.button-sub:hover {
-    background-color: #337ab7;
-}
-
-.button-close {
-    display: inline-block;
-    white-space: nowrap;
-    text-align: center;
-    border-radius: 2px;
-    cursor: pointer;
-    height: 30px;
-    line-height: 30px;
-    font-size: 12px;
-    padding: 0 15px;
-    border: 1px solid #C9C9C9;
-    background-color: #fff;
-    color: #555;
-    margin-right: 30px;
-}
-
-.button-close:hover {
-    background-color: #e8f7f6;
-    border-color: #b9e8e3;
-    color: #17B3A3;
 }
 
 .layui-form-item {
@@ -209,76 +465,6 @@
     padding-top: 10px;
 }
 
-.tool-bar-btn {
-    margin: 5px 0;
-    height: 30px;
-    width: auto;
-    display: inline-block;
-    padding: 2px 12px 2px 10px;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border-radius: 3px;
-    color: #ffffff !important;
-    background-color: #1E9FFF;
-    border: 1px solid #1E9FFF;
-    letter-spacing: 5px;
-}
-
-.tool-bar-btn:first-child {
-    margin-left: 0 !important;
-
-}
-
-.tool-bar-btn:focus {
-    outline: none !important;
-}
-
-.tool-bar-btn:hover {
-    opacity: 0.7;
-}
-
-.tool-bar-btn i {
-    margin-right: 3px;
-}
-
-.see-button {
-    background-repeat: no-repeat;
-    background-position: 10px center;
-    background-size: 20px;
-}
-
-.edit-button {
-    background-repeat: no-repeat;
-    color: #ffffff !important;
-    background-color: #6572ff;
-    border-color: #6c87ff;
-}
-
-.edit-button:hover {
-    color: #ffffff !important;
-    background-color: rgba(101, 114, 255, 0.64);
-    border-color: rgba(101, 114, 255, 0.13);
-}
-
-.remove-button {
-    background-repeat: no-repeat;
-    background-position: 10px center;
-    color: #ffffff !important;
-    background-color: #ff7652;
-    border-color: #ff4d36;
-}
 
 .download-button {
     background-image: url(../button/download.png);
@@ -464,7 +650,7 @@ body .demo-class .layui-layer-btn1 {
 }
 
 .layui-table-view .layui-form-switch {
-    width: 50px;
+    width: 70px;
 }
 
 @keyframes td-tip {
@@ -530,18 +716,6 @@ body .demo-class .layui-layer-btn1 {
     white-space: normal;
 }
 
-.add-btn {
-    border-radius: 3px;
-    background-color: #3371b7;
-    border-color: #2e6da4;
-    margin-top: 5px;
-    height: 32px !important;
-    line-height: 32px !important;
-}
-
-.add-btn:hover {
-    background-color: #2e6da4;
-}
 
 .go-back-btn {
     margin-top: 7px;
@@ -553,21 +727,6 @@ body .demo-class .layui-layer-btn1 {
     background-color: #FFF;
 }
 
-.search-btn {
-    margin-top: 5px;
-    border-radius: 3px;
-    background-color: #FFF;
-    border: 1px solid #DCDFE6;
-    color: #3a3b3b;
-    height: 32px !important;
-    line-height: 32px !important;
-}
-
-.search-btn:hover {
-    background-color: #e8f7f6;
-    border-color: #b9e8e3;
-    color: #17B3A3;
-}
 
 .tool-head-bar input {
     margin-top: 5px;
@@ -631,6 +790,7 @@ body .demo-class .layui-layer-btn1 {
     cursor: pointer;
     width: 150px;
     height: 125px;
+    margin-bottom: 5px;
 }
 
 /* 黑白样式 */
@@ -645,23 +805,6 @@ body .demo-class .layui-layer-btn1 {
 }
 
 
-
-/* input 输入框后面的按钮 */
-.fly-input-button {
-    float: right;
-    margin-top: -38px;
-    background-color: #0ba8c7;
-}
-
-.fly-input-button:hover {
-    /*float: right;*/
-    /*margin-top: -38px;*/
-    background-color: #2ac0de;
-}
-
-/* input 输入框后面的按钮 end */
-
-
 .main-container {
     background-color: #ffffff;
     border-radius: 5px;
@@ -669,22 +812,6 @@ body .demo-class .layui-layer-btn1 {
     padding: 5px 10px 5px 10px;
 }
 
-.query-container {
-    border: 1px solid #eee;
-    margin-bottom: 10px;
-    border-radius: 5px;
-}
-
-.query-footer-center {
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-
-.table-container {
-    border: 1px solid #eee;
-    border-radius: 5px;
-}
 
 .query-handle-button {
     color: #ffffff;
@@ -700,9 +827,6 @@ body .demo-class .layui-layer-btn1 {
     margin-right: 5px;
 }
 
-.icon-right-5{
-    margin-right: 5px;
-}
 
 .table-title {
     background-color: #337ab7;

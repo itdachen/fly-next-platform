@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:include="common/common::common('应用信息')"/>
+  <script th:src="@{/static/admin/clazz/app.js}" charset="utf-8"></script>
+</head>
+<body class="fly-container">
+<input type="text" style="display: none;" th:value="${clazzId}" id="clazzId">
+<div class="fly-main-container overflow" style="min-height: 600px;">
+
+  <div class="layui-row  layui-col-space15" id="appBox" style="padding: 10px;">
+  </div>
+
+</div>
+
+
+</body>
+</html>

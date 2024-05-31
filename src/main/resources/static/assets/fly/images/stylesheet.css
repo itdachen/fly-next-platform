@@ -1,0 +1,122 @@
+.sprite {
+    width: 500px;
+    height: 500px;
+    background-image: url(spritesheet.png);
+    background-repeat: no-repeat;
+    display: inline-block;
+
+}
+
+.sprite-accept {
+    width: 18px;
+    height: 16px;
+    background-position: -8px -8px;
+}
+
+.sprite-add {
+    width: 16px;
+    height: 16px;
+    background-position: -31px -5px;
+}
+
+.sprite-anchor {
+    width: 16px;
+    height: 16px;
+    background-position: -57px -5px;
+}
+
+.sprite-application {
+    width: 16px;
+    height: 16px;
+    background-position: -83px -5px;
+}
+
+.sprite-application_add {
+    width: 16px;
+    height: 16px;
+    background-position: -5px -31px;
+}
+
+.sprite-application_cascade {
+    width: 16px;
+    height: 16px;
+    background-position: -31px -31px;
+}
+
+.sprite-application_delete {
+    width: 16px;
+    height: 16px;
+    background-position: -57px -31px;
+}
+
+.sprite-application_double {
+    width: 16px;
+    height: 16px;
+    background-position: -83px -31px;
+}
+
+.sprite-application_edit {
+    width: 16px;
+    height: 16px;
+    background-position: -5px -57px;
+}
+
+.sprite-application_error {
+    width: 16px;
+    height: 16px;
+    background-position: -31px -57px;
+}
+
+.sprite-application_form {
+    width: 16px;
+    height: 16px;
+    background-position: -57px -57px;
+}
+
+.sprite-application_form_add {
+    width: 16px;
+    height: 16px;
+    background-position: -83px -57px;
+}
+
+.sprite-application_form_delete {
+    width: 16px;
+    height: 16px;
+    background-position: -5px -83px;
+}
+
+.sprite-application_form_edit {
+    width: 16px;
+    height: 16px;
+    background-position: -31px -83px;
+}
+
+.sprite-folder {
+    width: 17px;
+    height: 16px;
+    background-position: -56px -81px;
+}
+
+.sprite-folder_table {
+    width: 17px;
+    height: 16px;
+    background-position: -84.5px -83px;
+}
+
+.sprite-page {
+    width: 16px;
+    height: 16px;
+    background-position: -109px -3px;
+}
+
+.sprite-page_white {
+    width: 16px;
+    height: 16px;
+    background-position: -111px -30px;
+}
+
+.sprite-script {
+    width: 16px;
+    height: 16px;
+    background-position: -109px -57px;
+}

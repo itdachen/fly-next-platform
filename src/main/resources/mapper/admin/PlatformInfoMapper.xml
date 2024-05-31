@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.admin.mapper.IPlatformInfoMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.github.itdachen.admin.sdk.vo.PlatformInfoVO" id="platformInfoMap">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="iconIco" column="icon_ico"/>
+        <result property="funcCode" column="func_code"/>
+        <result property="funcTitle" column="func_title"/>
+        <result property="validDel" column="valid_del"/>
+        <result property="validFlag" column="valid_flag"/>
+        <result property="remarks" column="remarks"/>
+    </resultMap>
+
+    <!-- VO 类查询 -->
+    <sql id="selectPlatformInfoVO">
+        SELECT id,
+               title,
+               icon_ico,
+               func_code,
+               func_title,
+               valid_del,
+               valid_flag,
+               remarks
+        FROM ta_fly_platform_info
+    </sql>
+
+    <!-- 导出数据字段查询 -->
+    <sql id="selectPlatformInfoExpVO">
+        SELECT title, icon_ico, func_code, func_title, valid_del, valid_flag
+        FROM ta_fly_platform_info
+    </sql>
+
+    <!-- 分页和导出查询参数 -->
+    <sql id="selectParamsWhere">
+        <where>
+            <if test="null != title  and '' != title ">
+                AND title LIKE CONCAT(CONCAT('%',#{title}),'%')
+            </if>
+            <if test="null != iconIco  and '' != iconIco ">
+                AND icon_ico = #{iconIco}
+            </if>
+            <if test="null != funcCode  and '' != funcCode ">
+                AND func_code = #{funcCode}
+            </if>
+            <if test="null != funcTitle  and '' != funcTitle ">
+                AND func_title LIKE CONCAT(CONCAT('%',#{funcTitle}),'%')
+            </if>
+            <if test="null != validDel  and '' != validDel ">
+                AND valid_del = #{validDel}
+            </if>
+            <if test="null != validFlag  and '' != validFlag ">
+                AND valid_flag = #{validFlag}
+            </if>
+        </where>
+        ORDER BY id DESC
+    </sql>
+
+    <!-- 集合查询 -->
+    <select id="list" parameterType="com.github.itdachen.admin.sdk.query.PlatformInfoQuery" resultMap="platformInfoMap">
+        <include refid="selectPlatformInfoVO"/>
+        <include refid="selectParamsWhere"></include>
+    </select>
+
+    <!-- 查询导出数据 -->
+    <select id="selectPlatformInfoExpData" parameterType="java.lang.String" resultMap="platformInfoMap">
+        <include refid="selectPlatformInfoExpVO"/>
+        <include refid="selectParamsWhere"></include>
+    </select>
+
+    <!-- 根据主键查询 -->
+    <select id="selectPlatformInfoVO" parameterType="java.lang.String" resultMap="platformInfoMap">
+        <include refid="selectPlatformInfoVO"/>
+        WHERE id = #{id}
+    </select>
+
+    <!-- 批量添加 -->
+    <insert id="batchSave" parameterType="java.util.List">
+        INSERT INTO ta_fly_platform_info (id ,
+        title ,
+        icon_ico ,
+        func_code ,
+        func_title ,
+        valid_del ,
+        valid_flag ,
+        remarks ,
+        create_time ,
+        create_user ,
+        create_user_id ,
+        update_time ,
+        update_user ,
+        update_user_id
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},
+            #{item.title},
+            #{item.iconIco},
+            #{item.funcCode},
+            #{item.funcTitle},
+            #{item.validDel},
+            #{item.validFlag},
+            #{item.remarks},
+            #{item.createTime},
+            #{item.createUser},
+            #{item.createUserId},
+            #{item.updateTime},
+            #{item.updateUser},
+            #{item.updateUserId})
+        </foreach>
+    </insert>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE ta_fly_platform_info
+            <set>
+                <if test="null != item.id  and '' != item.id ">id =
+                    #{item.id},
+                </if>
+                <if test="null != item.title  and '' != item.title ">title =
+                    #{item.title},
+                </if>
+                <if test="null != item.iconIco  and '' != item.iconIco ">icon_ico =
+                    #{item.iconIco},
+                </if>
+                <if test="null != item.funcCode  and '' != item.funcCode ">func_code =
+                    #{item.funcCode},
+                </if>
+                <if test="null != item.funcTitle  and '' != item.funcTitle ">func_title =
+                    #{item.funcTitle},
+                </if>
+                <if test="null != item.validDel  and '' != item.validDel ">valid_del =
+                    #{item.validDel},
+                </if>
+                <if test="null != item.validFlag  and '' != item.validFlag ">valid_flag =
+                    #{item.validFlag},
+                </if>
+                <if test="null != item.remarks  and '' != item.remarks ">remarks =
+                    #{item.remarks},
+                </if>
+                <if test="null != item.createTime ">create_time =
+                    #{item.createTime},
+                </if>
+                <if test="null != item.createUser  and '' != item.createUser ">create_user =
+                    #{item.createUser},
+                </if>
+                <if test="null != item.createUserId  and '' != item.createUserId ">create_user_id =
+                    #{item.createUserId},
+                </if>
+                <if test="null != item.updateTime ">update_time =
+                    #{item.updateTime},
+                </if>
+                <if test="null != item.updateUser  and '' != item.updateUser ">update_user =
+                    #{item.updateUser},
+                </if>
+                <if test="null != item.updateUserId  and '' != item.updateUserId ">update_user_id =
+                    #{item.updateUserId},
+                </if>
+            </set>
+            WHERE id = #{item.id}
+        </foreach>
+    </update>
+
+
+</mapper>

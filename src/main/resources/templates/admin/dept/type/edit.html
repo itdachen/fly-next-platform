@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('修改部门类型管理')"/>
+    <script th:src="@{/static/admin/dept/type/edit.js}" charset="utf-8"></script>
+</head>
+<body>
+
+<form class="layui-form" id="editDeptTypeForm" th:object="${deptType}">
+    <div class="layui-form-body">
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                类型代码
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="id" name="id" readonly="readonly" th:value="*{id}"
+                       onkeyup="value=value.replace(/[^\d]/g,'')" maxlength="3"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>标题
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="title" name="title" th:field="*{title}"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>有效标志
+            </label>
+            <div class="layui-input-block" th:with="dicts=${@dict.data('VALID_FLAG')}">
+                <input type="radio" name="validFlag" th:each="dict : ${dicts}"
+                       th:id="${'validFlag_' + dict.value}"
+                       th:field="*{validFlag}"
+                       th:title="${dict.label}"
+                       th:value="${dict.value}"
+                       th:checked="${deptType.validFlag}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                备注
+            </label>
+            <div class="layui-input-block">
+                        <textarea id="remarks" name="remarks" th:field="*{remarks}" maxlength="30"
+                                  autocomplete="off" class="layui-textarea"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-footer">
+        <button type="button" class="fly-button-ok" lay-submit lay-filter="editDeptType">
+            <i class="layui-icon layui-icon-ok"></i>保存
+        </button>
+        <button type="button" class="fly-button-close close-flyer">
+            <i class="layui-icon layui-icon-close"></i>关闭
+        </button>
+    </div>
+</form>
+
+</body>
+</html>

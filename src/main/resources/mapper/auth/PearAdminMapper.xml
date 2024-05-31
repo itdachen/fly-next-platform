@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.auth.mapper.IPearAdminMapper">
+
+
+    <select id="findPearAdminMenuAll" parameterType="java.lang.String"
+            resultType="com.github.itdachen.auth.entity.PearAdminRoute">
+        SELECT id,
+               title,
+               CONCAT('layui-icon ', lay_icon)                AS icon,
+               path                                           AS href,
+               IF(type = 'dirt', 0, 1)                        AS type,
+               IF(open_type = 'iframe', '_iframe', open_type) AS openType
+        FROM ta_fly_route_menu_info
+        WHERE parent_id = #{parentId}
+          AND valid_flag = 'Y'
+        ORDER BY order_num ASC
+    </select>
+
+    <select id="findPearAdminMenu" parameterType="java.lang.String"
+            resultType="com.github.itdachen.auth.entity.PearAdminRoute">
+        SELECT id,
+        title,
+        CONCAT('layui-icon ', lay_icon) AS icon,
+        path AS href,
+        IF(type = 'dirt', 0, 1) AS type,
+        IF(open_type = 'iframe', '_iframe', open_type) AS openType
+        FROM ta_fly_route_menu_info
+        WHERE parent_id = #{parentId}
+        AND valid_flag = 'Y'
+        AND id IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        ORDER BY order_num ASC
+    </select>
+
+
+</mapper>

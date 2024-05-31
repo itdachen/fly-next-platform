@@ -1,10 +1,10 @@
 {
 	"logo": {
-		"title": "Pear Admin111",
-		"image": "/static/assets/backstage/pear/admin/images/logo.png"
+		"title": "Pear Admin",
+		"image": "/fly/static/assets/backstage/pear/admin/images/logo.png"
 	},
 	"menu": {
-		"data": "/static/assets/backstage/pear/admin/data/menu.json",
+		"data": "/fly/pear/admin/menu",
 		"method": "GET",
 		"accordion": true,
 		"collapse": false,
@@ -21,12 +21,12 @@
 		"max": "30",
 		"index": {
 			"id": "10",
-			"href": "/dashboard/console",
+			"href": "/fly/view/console/console1",
 			"title": "首页"
 		}
 	},
 	"theme": {
-		"defaultColor": "1",
+		"defaultColor": "2",
 		"defaultMenu": "dark-theme",
 		"defaultHeader": "light-theme",
 		"allowCustom": true,
@@ -65,6 +65,6 @@
 		"footer": false
 	},
 	"header": {
-		"message": "admin/data/message.json"
+		"message": "/fly/static/assets/backstage/pear/admin/data/message.json"
 	}
 }

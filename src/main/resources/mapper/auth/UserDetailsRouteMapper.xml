@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.auth.mapper.IUserDetailsRouteMapper">
+
+    <select id="findNoopAuthMenu" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT id
+        FROM ta_fly_route_menu_info
+        WHERE has_auth = 'N'
+    </select>
+
+    <select id="findNoopAuthElement" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT id
+        FROM ta_fly_route_element_info
+        WHERE has_auth = 'N'
+    </select>
+
+    <!--  根据用户角色ID,查询用户岗位权限菜单ID -->
+    <select id="findClazzAuthMenuAndElement" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT c.meni_id
+        FROM ta_fly_auth_clazz_role a
+                 LEFT JOIN ta_fly_auth_clazz_dept b ON a.clazz_id = b.id
+                 LEFT JOIN ta_fly_auth_clazz_menu c ON b.clazz_id = c.clazz_id
+        WHERE a.role_id = #{roleId}
+          AND c.id IS NOT NULL
+    </select>
+
+
+</mapper>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('新增数据字典类型')"/>
+    <script th:src="@{/static/admin/dict/type/add.js}" charset="utf-8"></script>
+</head>
+<body>
+
+<form class="layui-form" id="addDictTypeForm">
+    <div class="layui-form-body">
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>字典标签
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="dictLabel" name="dictLabel"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>字典类型
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="dictType" name="dictType" maxlength="30"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <span class="required">*</span>有效标志
+                    </label>
+                    <div class="layui-input-block" th:with="dicts=${@dict.data('VALID_FLAG')}">
+                        <input type="radio" name="validFlag" th:each="dict : ${dicts}"
+                               th:id="${'validFlag_' + dict.value}"
+                               th:title="${dict.label}"
+                               th:value="${dict.value}"
+                               th:checked="${dict.isDefault}">
+                    </div>
+                </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                备注
+            </label>
+            <div class="layui-input-block">
+             <textarea id="remarks" name="remarks" maxlength="30"
+                       autocomplete="off" class="layui-textarea"></textarea>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!--    <div class="form-footer">-->
+    <!--        <button type="button" class="fly-button-ok" lay-submit lay-filter="saveDictType">-->
+    <!--            <i class="layui-icon layui-icon-ok"></i>保存-->
+    <!--        </button>-->
+    <!--        <button type="button" class="fly-button-close close-flyer">-->
+    <!--            <i class="layui-icon layui-icon-close"></i>关闭-->
+    <!--        </button>-->
+    <!--    </div>-->
+
+    <div class="form-footer-center">
+        <button type="button" class="fly-button-ok" lay-submit lay-filter="saveDictType">
+            <i class="layui-icon layui-icon-ok fly-button-icon"></i>保存
+        </button>
+        <button type="button" class="fly-button-close close-flyer">
+            <i class="layui-icon layui-icon-close fly-button-icon"></i>关闭
+        </button>
+    </div>
+
+</form>
+</body>
+</html>

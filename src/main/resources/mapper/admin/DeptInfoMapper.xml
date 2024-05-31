@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.admin.mapper.IDeptInfoMapper">
+
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.github.itdachen.admin.sdk.vo.DeptInfoVO" id="deptInfoMap">
+        <result property="id" column="id"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="title" column="title"/>
+        <result property="titleAs" column="title_as"/>
+        <result property="typeId" column="type_id"/>
+        <result property="typeTitle" column="type_title"/>
+        <result property="deptFlag" column="dept_flag"/>
+        <result property="thatLevel" column="that_level"/>
+        <result property="deptLevel" column="dept_level"/>
+        <result property="telephone" column="telephone"/>
+        <result property="mailBox" column="mail_box"/>
+        <result property="facsimile" column="facsimile"/>
+        <result property="funcCode" column="func_code"/>
+        <result property="provId" column="prov_id"/>
+        <result property="provTitle" column="prov_title"/>
+        <result property="cityId" column="city_id"/>
+        <result property="cityTitle" column="city_title"/>
+        <result property="countyId" column="county_id"/>
+        <result property="countyTitle" column="county_title"/>
+        <result property="validFlag" column="valid_flag"/>
+        <result property="remarks" column="remarks"/>
+    </resultMap>
+
+    <!-- VO 类查询 -->
+    <sql id="selectDeptInfoVO">
+        SELECT id, tenant_id, parent_id, title, title_as, type_id, type_title, dept_flag, that_level, dept_level, telephone, mail_box, facsimile, func_code, prov_id, prov_title, city_id, city_title, county_id, county_title, valid_flag, remarks
+        FROM ta_fly_dept_info
+    </sql>
+
+    <!-- 导出数据字段查询 -->
+    <sql id="selectDeptInfoExpVO">
+        SELECT parent_id, title, title_as, type_id, type_title, dept_flag, that_level, dept_level, telephone, mail_box, facsimile, func_code, prov_id, prov_title, city_id, city_title, county_id, county_title, valid_flag
+        FROM ta_fly_dept_info
+    </sql>
+
+    <!-- 分页和导出查询参数 -->
+    <sql id="selectParamsWhere">
+        <where>
+            <if test="null != tenantId  and '' != tenantId ">
+                AND tenant_id = #{tenantId}
+            </if>
+            <if test="null != parentId  and '' != parentId ">
+                AND parent_id = #{parentId}
+            </if>
+            <if test="null != title  and '' != title ">
+                AND title LIKE CONCAT(CONCAT('%',#{title}),'%')
+            </if>
+            <if test="null != titleAs  and '' != titleAs ">
+                AND title_as LIKE CONCAT(CONCAT('%',#{titleAs}),'%')
+            </if>
+            <if test="null != typeId  and '' != typeId ">
+                AND type_id = #{typeId}
+            </if>
+            <if test="null != typeTitle  and '' != typeTitle ">
+                AND type_title LIKE CONCAT(CONCAT('%',#{typeTitle}),'%')
+            </if>
+            <if test="null != deptFlag  and '' != deptFlag ">
+                AND dept_flag = #{deptFlag}
+            </if>
+            <if test="null != thatLevel  and '' != thatLevel ">
+                AND that_level = #{thatLevel}
+            </if>
+            <if test="null != deptLevel  and '' != deptLevel ">
+                AND dept_level = #{deptLevel}
+            </if>
+            <if test="null != funcCode  and '' != funcCode ">
+                AND func_code = #{funcCode}
+            </if>
+            <if test="null != provId  and '' != provId ">
+                AND prov_id = #{provId}
+            </if>
+            <if test="null != provTitle  and '' != provTitle ">
+                AND prov_title LIKE CONCAT(CONCAT('%',#{provTitle}),'%')
+            </if>
+            <if test="null != cityId  and '' != cityId ">
+                AND city_id = #{cityId}
+            </if>
+            <if test="null != cityTitle  and '' != cityTitle ">
+                AND city_title LIKE CONCAT(CONCAT('%',#{cityTitle}),'%')
+            </if>
+            <if test="null != countyId  and '' != countyId ">
+                AND county_id = #{countyId}
+            </if>
+            <if test="null != countyTitle  and '' != countyTitle ">
+                AND county_title LIKE CONCAT(CONCAT('%',#{countyTitle}),'%')
+            </if>
+            <if test="null != validFlag  and '' != validFlag ">
+                AND valid_flag = #{validFlag}
+            </if>
+        </where>
+        ORDER BY id DESC
+    </sql>
+
+    <!-- 集合查询 -->
+    <select id="list" parameterType="com.github.itdachen.admin.sdk.query.DeptInfoQuery" resultMap="deptInfoMap">
+        <include refid="selectDeptInfoVO"/>
+        <include refid="selectParamsWhere"></include>
+    </select>
+
+    <select id="findValidFlagDeptInfoTree" parameterType="java.lang.String"
+            resultType="com.github.itdachen.framework.context.tree.ZTreeNode">
+        SELECT id, parent_id AS parentId, title_as AS name
+        FROM ta_fly_dept_info
+        WHERE tenant_id = #{tenantId}
+          AND parent_id = #{parentId}
+          AND valid_flag = 'Y'
+    </select>
+
+    <!-- 查询导出数据 -->
+    <select id="selectDeptInfoExpData" parameterType="java.lang.String" resultMap="deptInfoMap">
+        <include refid="selectDeptInfoExpVO"/>
+        <include refid="selectParamsWhere"></include>
+    </select>
+
+    <!-- 根据主键查询 -->
+    <select id="selectDeptInfoVO" parameterType="java.lang.String" resultMap="deptInfoMap">
+        <include refid="selectDeptInfoVO"/>
+        WHERE id = #{id}
+    </select>
+
+    <!-- 批量添加 -->
+    <insert id="batchSave" parameterType="java.util.List">
+        INSERT INTO ta_fly_dept_info (id ,
+        tenant_id ,
+        parent_id ,
+        title ,
+        title_as ,
+        type_id ,
+        type_title ,
+        dept_flag ,
+        dept_level ,
+        telephone ,
+        mail_box ,
+        facsimile ,
+        func_code ,
+        valid_flag ,
+        remarks ,
+        create_time ,
+        create_user ,
+        create_user_id ,
+        update_time ,
+        update_user ,
+        update_user_id
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},
+            #{item.tenantId},
+            #{item.parentId},
+            #{item.title},
+            #{item.titleAs},
+            #{item.typeId},
+            #{item.typeTitle},
+            #{item.deptFlag},
+            #{item.deptLevel},
+            #{item.telephone},
+            #{item.mailBox},
+            #{item.facsimile},
+            #{item.funcCode},
+            #{item.validFlag},
+            #{item.remarks},
+            #{item.createTime},
+            #{item.createUser},
+            #{item.createUserId},
+            #{item.updateTime},
+            #{item.updateUser},
+            #{item.updateUserId})
+        </foreach>
+    </insert>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE ta_fly_dept_info
+            <set>
+                <if test="null != item.id  and '' != item.id ">id =
+                    #{item.id},
+                </if>
+                <if test="null != item.tenantId  and '' != item.tenantId ">tenant_id =
+                    #{item.tenantId},
+                </if>
+                <if test="null != item.parentId  and '' != item.parentId ">parent_id =
+                    #{item.parentId},
+                </if>
+                <if test="null != item.title  and '' != item.title ">title =
+                    #{item.title},
+                </if>
+                <if test="null != item.titleAs  and '' != item.titleAs ">title_as =
+                    #{item.titleAs},
+                </if>
+                <if test="null != item.typeId  and '' != item.typeId ">type_id =
+                    #{item.typeId},
+                </if>
+                <if test="null != item.typeTitle  and '' != item.typeTitle ">type_title =
+                    #{item.typeTitle},
+                </if>
+                <if test="null != item.deptFlag  and '' != item.deptFlag ">dept_flag =
+                    #{item.deptFlag},
+                </if>
+                <if test="null != item.deptLevel  and '' != item.deptLevel ">dept_level =
+                    #{item.deptLevel},
+                </if>
+                <if test="null != item.telephone  and '' != item.telephone ">telephone =
+                    #{item.telephone},
+                </if>
+                <if test="null != item.mailBox  and '' != item.mailBox ">mail_box =
+                    #{item.mailBox},
+                </if>
+                <if test="null != item.facsimile  and '' != item.facsimile ">facsimile =
+                    #{item.facsimile},
+                </if>
+                <if test="null != item.funcCode  and '' != item.funcCode ">func_code =
+                    #{item.funcCode},
+                </if>
+                <if test="null != item.validFlag  and '' != item.validFlag ">valid_flag =
+                    #{item.validFlag},
+                </if>
+                <if test="null != item.remarks  and '' != item.remarks ">remarks =
+                    #{item.remarks},
+                </if>
+                <if test="null != item.createTime ">create_time =
+                    #{item.createTime},
+                </if>
+                <if test="null != item.createUser  and '' != item.createUser ">create_user =
+                    #{item.createUser},
+                </if>
+                <if test="null != item.createUserId  and '' != item.createUserId ">create_user_id =
+                    #{item.createUserId},
+                </if>
+                <if test="null != item.updateTime ">update_time =
+                    #{item.updateTime},
+                </if>
+                <if test="null != item.updateUser  and '' != item.updateUser ">update_user =
+                    #{item.updateUser},
+                </if>
+                <if test="null != item.updateUserId  and '' != item.updateUserId ">update_user_id =
+                    #{item.updateUserId},
+                </if>
+            </set>
+            WHERE id = #{item.id}
+        </foreach>
+    </update>
+
+</mapper>

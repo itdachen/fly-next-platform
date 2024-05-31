@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.admin.mapper.IAppInfoMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.github.itdachen.admin.sdk.vo.AppInfoVO" id="appInfoMap">
+        <result property="id" column="id"/>
+        <result property="platId" column="plat_id"/>
+        <result property="platTitle" column="plat_title"/>
+        <result property="appSecret" column="app_secret"/>
+        <result property="appCode" column="app_code"/>
+        <result property="appTitle" column="app_title"/>
+        <result property="typeCode" column="type_code"/>
+        <result property="typeTitle" column="type_title"/>
+        <result property="askUri" column="ask_uri"/>
+        <result property="iconIco" column="icon_ico"/>
+        <result property="funcCode" column="func_code"/>
+        <result property="funcTitle" column="func_title"/>
+        <result property="validDel" column="valid_del"/>
+        <result property="validFlag" column="valid_flag"/>
+        <result property="remarks" column="remarks"/>
+    </resultMap>
+
+    <!-- VO 类查询 -->
+    <sql id="selectAppInfoVO">
+        SELECT id,
+               plat_id,
+               plat_title,
+               app_secret,
+               app_code,
+               app_title,
+               type_code,
+               type_title,
+               ask_uri,
+               icon_ico,
+               func_code,
+               func_title,
+               valid_del,
+               valid_flag,
+               remarks
+        FROM ta_fly_app_info
+    </sql>
+
+    <!-- 导出数据字段查询 -->
+    <sql id="selectAppInfoExpVO">
+        SELECT plat_id,
+               plat_title,
+               app_secret,
+               app_code,
+               app_title,
+               type_code,
+               type_title,
+               ask_uri,
+               icon_ico,
+               func_code,
+               func_title,
+               valid_del,
+               valid_flag
+        FROM ta_fly_app_info
+    </sql>
+
+    <!-- 分页和导出查询参数 -->
+    <sql id="selectParamsWhere">
+        <where>
+            <if test="null != platId  and '' != platId ">
+                AND plat_id = #{platId}
+            </if>
+            <if test="null != platTitle  and '' != platTitle ">
+                AND plat_title LIKE CONCAT(CONCAT('%',#{platTitle}),'%')
+            </if>
+            <if test="null != appSecret  and '' != appSecret ">
+                AND app_secret = #{appSecret}
+            </if>
+            <if test="null != appCode  and '' != appCode ">
+                AND app_code = #{appCode}
+            </if>
+            <if test="null != appTitle  and '' != appTitle ">
+                AND app_title LIKE CONCAT(CONCAT('%',#{appTitle}),'%')
+            </if>
+            <if test="null != typeCode  and '' != typeCode ">
+                AND type_code = #{typeCode}
+            </if>
+            <if test="null != typeTitle  and '' != typeTitle ">
+                AND type_title LIKE CONCAT(CONCAT('%',#{typeTitle}),'%')
+            </if>
+            <if test="null != askUri  and '' != askUri ">
+                AND ask_uri = #{askUri}
+            </if>
+            <if test="null != iconIco  and '' != iconIco ">
+                AND icon_ico = #{iconIco}
+            </if>
+            <if test="null != funcCode  and '' != funcCode ">
+                AND func_code = #{funcCode}
+            </if>
+            <if test="null != funcTitle  and '' != funcTitle ">
+                AND func_title LIKE CONCAT(CONCAT('%',#{funcTitle}),'%')
+            </if>
+            <if test="null != validDel  and '' != validDel ">
+                AND valid_del = #{validDel}
+            </if>
+            <if test="null != validFlag  and '' != validFlag ">
+                AND valid_flag = #{validFlag}
+            </if>
+        </where>
+        ORDER BY id DESC
+    </sql>
+
+    <!-- 集合查询 -->
+    <select id="list" parameterType="com.github.itdachen.admin.sdk.query.AppInfoQuery" resultMap="appInfoMap">
+        <include refid="selectAppInfoVO"/>
+        <include refid="selectParamsWhere"></include>
+    </select>
+
+    <!-- 查询导出数据 -->
+    <select id="selectAppInfoExpData" parameterType="java.lang.String" resultType="java.util.LinkedHashMap">
+        <include refid="selectAppInfoExpVO"/>
+        <include refid="selectParamsWhere"></include>
+    </select>
+
+
+    <!-- 根据主键查询 -->
+    <select id="selectAppInfoVO" parameterType="java.lang.String" resultMap="appInfoMap">
+        <include refid="selectAppInfoVO"/>
+        WHERE id = #{id}
+    </select>
+
+    <select id="findAppInfoByAppCode" parameterType="java.lang.String" resultMap="appInfoMap">
+        <include refid="selectAppInfoVO"/>
+        WHERE app_code = #{appCode}
+        limit 1
+    </select>
+
+    <!-- 批量添加 -->
+    <insert id="batchSave" parameterType="java.util.List">
+        INSERT INTO ta_fly_app_info (id ,
+        plat_id ,
+        plat_title ,
+        app_secret ,
+        app_code ,
+        app_title ,
+        type_code ,
+        type_title ,
+        ask_uri ,
+        icon_ico ,
+        func_code ,
+        func_title ,
+        valid_del ,
+        valid_flag ,
+        remarks ,
+        create_time ,
+        create_user ,
+        create_user_id ,
+        update_time ,
+        update_user ,
+        update_user_id
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},
+            #{item.platId},
+            #{item.platTitle},
+            #{item.appSecret},
+            #{item.appCode},
+            #{item.appTitle},
+            #{item.typeCode},
+            #{item.typeTitle},
+            #{item.askUri},
+            #{item.iconIco},
+            #{item.funcCode},
+            #{item.funcTitle},
+            #{item.validDel},
+            #{item.validFlag},
+            #{item.remarks},
+            #{item.createTime},
+            #{item.createUser},
+            #{item.createUserId},
+            #{item.updateTime},
+            #{item.updateUser},
+            #{item.updateUserId})
+        </foreach>
+    </insert>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE ta_fly_app_info
+            <set>
+                <if test="null != item.id  and '' != item.id ">id =
+                    #{item.id},
+                </if>
+                <if test="null != item.platId  and '' != item.platId ">plat_id =
+                    #{item.platId},
+                </if>
+                <if test="null != item.platTitle  and '' != item.platTitle ">plat_title =
+                    #{item.platTitle},
+                </if>
+                <if test="null != item.appSecret  and '' != item.appSecret ">app_secret =
+                    #{item.appSecret},
+                </if>
+                <if test="null != item.appCode  and '' != item.appCode ">app_code =
+                    #{item.appCode},
+                </if>
+                <if test="null != item.appTitle  and '' != item.appTitle ">app_title =
+                    #{item.appTitle},
+                </if>
+                <if test="null != item.typeCode  and '' != item.typeCode ">type_code =
+                    #{item.typeCode},
+                </if>
+                <if test="null != item.typeTitle  and '' != item.typeTitle ">type_title =
+                    #{item.typeTitle},
+                </if>
+                <if test="null != item.askUri  and '' != item.askUri ">ask_uri =
+                    #{item.askUri},
+                </if>
+                <if test="null != item.iconIco  and '' != item.iconIco ">icon_ico =
+                    #{item.iconIco},
+                </if>
+                <if test="null != item.funcCode  and '' != item.funcCode ">func_code =
+                    #{item.funcCode},
+                </if>
+                <if test="null != item.funcTitle  and '' != item.funcTitle ">func_title =
+                    #{item.funcTitle},
+                </if>
+                <if test="null != item.validDel  and '' != item.validDel ">valid_del =
+                    #{item.validDel},
+                </if>
+                <if test="null != item.validFlag  and '' != item.validFlag ">valid_flag =
+                    #{item.validFlag},
+                </if>
+                <if test="null != item.remarks  and '' != item.remarks ">remarks =
+                    #{item.remarks},
+                </if>
+                <if test="null != item.createTime ">create_time =
+                    #{item.createTime},
+                </if>
+                <if test="null != item.createUser  and '' != item.createUser ">create_user =
+                    #{item.createUser},
+                </if>
+                <if test="null != item.createUserId  and '' != item.createUserId ">create_user_id =
+                    #{item.createUserId},
+                </if>
+                <if test="null != item.updateTime ">update_time =
+                    #{item.updateTime},
+                </if>
+                <if test="null != item.updateUser  and '' != item.updateUser ">update_user =
+                    #{item.updateUser},
+                </if>
+                <if test="null != item.updateUserId  and '' != item.updateUserId ">update_user_id =
+                    #{item.updateUserId},
+                </if>
+            </set>
+            WHERE id = #{item.id}
+        </foreach>
+    </update>
+
+
+</mapper>

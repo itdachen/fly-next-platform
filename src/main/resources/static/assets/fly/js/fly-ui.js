@@ -32,6 +32,10 @@ $(function () {
              * @returns {*|string|string}
              */
             verifyURL: function (uri) {
+                if (undefined === HTTP_BIZ_URI || null === HTTP_BIZ_URI ||
+                    '' === HTTP_BIZ_URI || 'null' === HTTP_BIZ_URI || 'undefined' === HTTP_BIZ_URI) {
+                    return uri;
+                }
                 if ($.string.contain(uri, 'http://') || $.string.contain(uri, 'https://')) {
                     return uri;
                 }
@@ -176,7 +180,7 @@ $(function () {
                     top.document.location.href = err.data;
                 } else {
                     console.warn(err);
-                    return $.msg.error("程序发生了一个错误！");
+                    return $.msg.errMsg("程序发生了一个错误！");
                 }
             }
 
@@ -310,7 +314,7 @@ $(function () {
                     options.title = '内容';
                 }
                 if ($.string.isEmpty(options.content)) {
-                    options.title = '请输入内容地址或者内容信息 【content】';
+                    options.content = '请输入内容地址或者内容信息 【content】';
                 }
                 if ($.string.isEmpty(options.area)) {
                     options.area = ['60%', '80%'];
@@ -376,6 +380,42 @@ $(function () {
                 });
             },
 
+            /**
+             * 弹出层指定宽度
+             * @param title
+             * @param url
+             * @param width
+             * @param height
+             */
+            open: function (title, url, width, height) {
+                //如果是移动端，就使用自适应大小弹窗
+                if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
+                    width = 'auto';
+                    height = 'auto';
+                }
+                if ($.string.isEmpty(title)) {
+                    title = false;
+                }
+                if ($.string.isEmpty(url)) {
+                    url = "/404.html";
+                }
+                if ($.string.isEmpty(width)) {
+                    width = 800;
+                }
+                if ($.string.isEmpty(height)) {
+                    height = ($(window).height() - 50);
+                }
+                layer.open({
+                    type: 2,
+                    area: [width + 'px', height + 'px'],
+                    fix: false,
+                    maxmin: false,
+                    shade: 0.3,
+                    title: title,
+                    content: $.http.verifyURL(url), // 弹层外区域关闭
+                    shadeClose: false
+                });
+            },
             /**
              * 单张图片弹出
              * @param title
@@ -735,7 +775,8 @@ $(function () {
                     return;
                 }
                 $.http.get({
-                    url: options.url, callback: function (res) {
+                    url: options.url,
+                    callback: function (res) {
                         options.data = res.data;
                         $.form.selectOption(form, options);
                     }
@@ -757,17 +798,17 @@ $(function () {
                         $("#" + o.id + "").append("<option value=''>" + o.placeholder + "</option>");
                     }
                     let html = '';
-                    let arr = o.value.split(',');
-                    let disabledValue = o.disabledValue.split(',');
+                    let vArr = o.value.split(',');
+                    let dArr = o.disabledValue.split(',');
                     let data = o.data;
                     for (let i = 0; i < data.length; i++) {
                         html += '<option value="' + data[i][o.keyId] + '"';
                         /* 禁用, 多个 value 之间用逗号拼接 */
-                        if (disabledValue.indexOf(data[i][o.keyId]) !== -1) {
+                        if (dArr.indexOf(data[i][o.keyId]) !== -1) {
                             html += ' disabled=""'
                         }
                         /* 数据回显 */
-                        if (arr.indexOf(data[i][o.keyId]) !== -1) {
+                        if (vArr.indexOf(data[i][o.keyId]) !== -1) {
                             html += ' selected=""'
                         }
                         html += '>' + data[i][o.keyName] + '</option>'
@@ -776,7 +817,7 @@ $(function () {
                     form.render();
                 }
                 let p = $.extend({}, d, options);
-                p.done(p)
+                p.done(p);
             },
 
             /**
@@ -880,6 +921,32 @@ $(function () {
                 $("#" + id + " option").remove();
                 $("#" + id + "").append("<option value=''>" + placeholder + "</option>");
                 form.render();
+            },
+
+
+            /**
+             * 获取表单的值
+             * @param formId  表单ID
+             * @returns {string}
+             */
+            getFormValue(formId = '') {
+                if ('' === formId) {
+                    return {};
+                }
+                let formData = $('#' + formId).serialize();
+                formData = decodeURIComponent(formData, true);
+                let arr = formData.split("&");
+                let obj = {};
+                for (let i = 0; i < arr.length; i++) {
+                    let keyValue = arr[i].split('=');
+                    if (1 === keyValue.length || undefined === keyValue[1] || null === keyValue[1] ||
+                        '' === keyValue[1] || 'undefined' === keyValue[1] || 'null' === keyValue[1]
+                        || ' ' === keyValue[1]) {
+                        continue;
+                    }
+                    obj[keyValue[0]] = keyValue[1];
+                }
+                return obj;
             },
 
 
@@ -1773,4 +1840,41 @@ function alarmTableRowSpan(fieldName, index) {
             }
         }
     }
+}
+
+function uriParamsToObj(params) {
+    let arr = params.split("&");
+    let obj = {};
+    for (let i = 0; i < arr.length; i++) {
+        let keyValue = arr[i].split('=');
+        if (1 === keyValue.length || undefined === keyValue[1] || null === keyValue[1] ||
+            '' === keyValue[1] || 'undefined' === keyValue[1] || 'null' === keyValue[1] || ' ' === keyValue[1]) {
+            continue;
+        }
+        obj[keyValue[0]] = keyValue[1];
+    }
+    return obj;
+}
+
+function queryUriObjParams(uri, obj) {
+    let params = queryObjParams(obj);
+    if (undefined === params || null === params || '' === params || 'null' === params) {
+        return uri;
+    }
+    if (uri.indexOf('?') > -1) {
+        return uri + '&' + params;
+    }
+    return uri + '?' + params;
+}
+
+function queryObjParams(obj) {
+    let uri = '';
+    for (let key in obj) {
+        if (undefined === obj[key] || null === obj[key] || '' === obj[key] || 'null' === obj[key]) {
+            continue;
+        }
+        uri = key + '=' + obj[key] + '&';
+    }
+    uri = uri.substring(0, uri.length - 1);
+    return uri;
 }

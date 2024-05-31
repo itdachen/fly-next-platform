@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.admin.mapper.IClazzInfoMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.github.itdachen.admin.sdk.vo.ClazzInfoVO" id="clazzInfoMap">
+        <result property="id" column="id"/>
+        <result property="platId" column="plat_id"/>
+        <result property="appId" column="app_id"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="deptTitle" column="dept_title"/>
+        <result property="thatLevel" column="that_level"/>
+        <result property="thatLevelTitle" column="that_level_title"/>
+        <result property="typeId" column="type_id"/>
+        <result property="typeTitle" column="type_title"/>
+        <result property="title" column="title"/>
+        <result property="validFlag" column="valid_flag"/>
+        <result property="remarks" column="remarks"/>
+    </resultMap>
+
+    <!-- VO 类查询 -->
+    <sql id="selectClazzInfoVO">
+        SELECT id,
+               plat_id,
+               app_id,
+               tenant_id,
+               dept_id,
+               dept_title,
+               that_level,
+               that_level_title,
+               type_id,
+               type_title,
+               title,
+               valid_flag,
+               remarks
+        FROM ta_fly_clazz_info
+    </sql>
+
+    <!-- 导出数据字段查询 -->
+    <sql id="selectClazzInfoExpVO">
+        SELECT plat_id,
+               app_id,
+               dept_id,
+               dept_title,
+               that_level,
+               that_level_title,
+               type_id,
+               type_title,
+               title,
+               valid_flag
+        FROM ta_fly_clazz_info
+    </sql>
+
+    <!-- 分页和导出查询参数 -->
+    <sql id="selectParamsWhere">
+        <where>
+            <if test="null != thatLevel  and '' != thatLevel ">
+                AND that_level = #{thatLevel}
+            </if>
+            <if test="null != typeId  and '' != typeId ">
+                AND type_id = #{typeId}
+            </if>
+            <if test="null != title  and '' != title ">
+                AND title LIKE CONCAT(CONCAT('%',#{title}),'%')
+            </if>
+            <if test="null != validFlag  and '' != validFlag ">
+                AND valid_flag = #{validFlag}
+            </if>
+        </where>
+        ORDER BY id DESC
+    </sql>
+
+    <!-- 集合查询 -->
+    <select id="list" parameterType="com.github.itdachen.admin.sdk.query.ClazzInfoQuery" resultMap="clazzInfoMap">
+        <include refid="selectClazzInfoVO"/>
+        <include refid="selectParamsWhere"></include>
+    </select>
+
+    <!-- 查询导出数据 -->
+    <select id="selectClazzInfoExpData" parameterType="java.lang.String" resultMap="clazzInfoMap">
+        <include refid="selectClazzInfoExpVO"/>
+        <include refid="selectParamsWhere"></include>
+    </select>
+
+    <!-- 根据主键查询 -->
+    <select id="selectClazzInfoVO" parameterType="java.lang.String" resultMap="clazzInfoMap">
+        <include refid="selectClazzInfoVO"/>
+        WHERE id = #{id}
+    </select>
+
+    <!-- 批量添加 -->
+    <insert id="batchSave" parameterType="java.util.List">
+        INSERT INTO ta_fly_clazz_info (id ,
+        plat_id ,
+        app_id ,
+        tenant_id ,
+        dept_id ,
+        dept_title ,
+        type_id ,
+        type_title ,
+        title ,
+        valid_flag ,
+        remarks ,
+        create_time ,
+        create_user ,
+        create_user_id ,
+        update_time ,
+        update_user ,
+        update_user_id
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},
+            #{item.platId},
+            #{item.appId},
+            #{item.tenantId},
+            #{item.deptId},
+            #{item.deptTitle},
+            #{item.typeId},
+            #{item.typeTitle},
+            #{item.title},
+            #{item.validFlag},
+            #{item.remarks},
+            #{item.createTime},
+            #{item.createUser},
+            #{item.createUserId},
+            #{item.updateTime},
+            #{item.updateUser},
+            #{item.updateUserId})
+        </foreach>
+    </insert>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE ta_fly_clazz_info
+            <set>
+                <if test="null != item.id  and '' != item.id ">id =
+                    #{item.id},
+                </if>
+                <if test="null != item.platId  and '' != item.platId ">plat_id =
+                    #{item.platId},
+                </if>
+                <if test="null != item.appId  and '' != item.appId ">app_id =
+                    #{item.appId},
+                </if>
+                <if test="null != item.tenantId  and '' != item.tenantId ">tenant_id =
+                    #{item.tenantId},
+                </if>
+                <if test="null != item.deptId  and '' != item.deptId ">dept_id =
+                    #{item.deptId},
+                </if>
+                <if test="null != item.deptTitle  and '' != item.deptTitle ">dept_title =
+                    #{item.deptTitle},
+                </if>
+                <if test="null != item.typeId  and '' != item.typeId ">type_id =
+                    #{item.typeId},
+                </if>
+                <if test="null != item.typeTitle  and '' != item.typeTitle ">type_title =
+                    #{item.typeTitle},
+                </if>
+                <if test="null != item.title  and '' != item.title ">title =
+                    #{item.title},
+                </if>
+                <if test="null != item.validFlag  and '' != item.validFlag ">valid_flag =
+                    #{item.validFlag},
+                </if>
+                <if test="null != item.remarks  and '' != item.remarks ">remarks =
+                    #{item.remarks},
+                </if>
+                <if test="null != item.createTime ">create_time =
+                    #{item.createTime},
+                </if>
+                <if test="null != item.createUser  and '' != item.createUser ">create_user =
+                    #{item.createUser},
+                </if>
+                <if test="null != item.createUserId  and '' != item.createUserId ">create_user_id =
+                    #{item.createUserId},
+                </if>
+                <if test="null != item.updateTime ">update_time =
+                    #{item.updateTime},
+                </if>
+                <if test="null != item.updateUser  and '' != item.updateUser ">update_user =
+                    #{item.updateUser},
+                </if>
+                <if test="null != item.updateUserId  and '' != item.updateUserId ">update_user_id =
+                    #{item.updateUserId},
+                </if>
+            </set>
+            WHERE id = #{item.id}
+        </foreach>
+    </update>
+
+
+</mapper>

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.admin.mapper.IUserRoleInfoMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.github.itdachen.admin.sdk.vo.UserRoleInfoVO" id="userRoleInfoMap">
+        <result property="id" column="id"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="roleName" column="role_name"/>
+        <result property="roleFlag" column="role_flag"/>
+        <result property="validFlag" column="valid_flag"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="deptTitle" column="dept_title"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="orderNum" column="order_num"/>
+        <result property="remarks" column="remarks"/>
+    </resultMap>
+
+    <!-- VO 类查询 -->
+    <sql id="selectUserRoleInfoVO">
+        SELECT id,
+               tenant_id,
+               user_id,
+               nick_name,
+               role_name,
+               role_flag,
+               valid_flag,
+               dept_id,
+               dept_title,
+               start_time,
+               end_time,
+               order_num,
+               remarks
+        FROM ta_fly_user_role_info
+    </sql>
+
+    <!-- 导出数据字段查询 -->
+    <sql id="selectUserRoleInfoExpVO">
+        SELECT user_id,
+               nick_name,
+               role_name,
+               role_flag,
+               valid_flag,
+               dept_id,
+               dept_title,
+               start_time,
+               end_time,
+               order_num
+        FROM ta_fly_user_role_info
+    </sql>
+
+    <!-- 分页和导出查询参数 -->
+    <sql id="selectParamsWhere">
+        <where>
+            <if test="null != tenantId  and '' != tenantId ">
+                AND tenant_id = #{tenantId}
+            </if>
+            <if test="null != userId  and '' != userId ">
+                AND user_id = #{userId}
+            </if>
+            <if test="null != roleName  and '' != roleName ">
+                AND role_name LIKE CONCAT(CONCAT('%',#{roleName}),'%')
+                AND nick_name LIKE CONCAT(CONCAT('%',#{roleName}),'%')
+            </if>
+            <if test="null != roleFlag  and '' != roleFlag ">
+                AND role_flag = #{roleFlag}
+            </if>
+            <if test="null != validFlag  and '' != validFlag ">
+                AND valid_flag = #{validFlag}
+            </if>
+            <if test="null != deptId  and '' != deptId ">
+                AND dept_id = #{deptId}
+            </if>
+        </where>
+        ORDER BY id DESC
+    </sql>
+
+    <!-- 集合查询 -->
+    <select id="list" parameterType="com.github.itdachen.admin.sdk.query.UserRoleInfoQuery" resultMap="userRoleInfoMap">
+        <include refid="selectUserRoleInfoVO"/>
+        <include refid="selectParamsWhere"></include>
+    </select>
+
+    <!-- 查询导出数据 -->
+    <select id="selectUserRoleInfoExpData" parameterType="java.lang.String" resultMap="userRoleInfoMap">
+        <include refid="selectUserRoleInfoExpVO"/>
+        <include refid="selectParamsWhere"></include>
+    </select>
+
+    <!-- 获取根据用户ID主身份信息 -->
+    <select id="findRoleFlag" parameterType="java.lang.String" resultMap="userRoleInfoMap">
+        <include refid="selectUserRoleInfoVO"/>
+        WHERE user_id = #{userId} AND role_flag = 'Y' AND valid_flag = 'Y'
+        LIMIT 1
+    </select>
+
+    <!-- 根据主键查询 -->
+    <select id="selectUserRoleInfoVO" parameterType="java.lang.String" resultMap="userRoleInfoMap">
+        <include refid="selectUserRoleInfoVO"/>
+        WHERE id = #{id}
+    </select>
+
+    <!-- 批量添加 -->
+    <insert id="batchSave" parameterType="java.util.List">
+        INSERT INTO ta_fly_user_role_info (id ,
+        tenant_id ,
+        user_id ,
+        role_name ,
+        role_flag ,
+        valid_flag ,
+        dept_id ,
+        dept_title ,
+        start_time ,
+        end_time ,
+        order_num ,
+        remarks ,
+        create_time ,
+        create_user ,
+        create_user_id ,
+        update_time ,
+        update_user ,
+        update_user_id
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},
+            #{item.tenantId},
+            #{item.userId},
+            #{item.roleName},
+            #{item.roleFlag},
+            #{item.validFlag},
+            #{item.deptId},
+            #{item.deptTitle},
+            #{item.startTime},
+            #{item.endTime},
+            #{item.orderNum},
+            #{item.remarks},
+            #{item.createTime},
+            #{item.createUser},
+            #{item.createUserId},
+            #{item.updateTime},
+            #{item.updateUser},
+            #{item.updateUserId})
+        </foreach>
+    </insert>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE ta_fly_user_role_info
+            <set>
+                <if test="null != item.id  and '' != item.id ">id =
+                    #{item.id},
+                </if>
+                <if test="null != item.tenantId  and '' != item.tenantId ">tenant_id =
+                    #{item.tenantId},
+                </if>
+                <if test="null != item.userId  and '' != item.userId ">user_id =
+                    #{item.userId},
+                </if>
+                <if test="null != item.roleName  and '' != item.roleName ">role_name =
+                    #{item.roleName},
+                </if>
+                <if test="null != item.roleFlag  and '' != item.roleFlag ">role_flag =
+                    #{item.roleFlag},
+                </if>
+                <if test="null != item.validFlag  and '' != item.validFlag ">valid_flag =
+                    #{item.validFlag},
+                </if>
+                <if test="null != item.deptId  and '' != item.deptId ">dept_id =
+                    #{item.deptId},
+                </if>
+                <if test="null != item.deptTitle  and '' != item.deptTitle ">dept_title =
+                    #{item.deptTitle},
+                </if>
+                <if test="null != item.startTime ">start_time =
+                    #{item.startTime},
+                </if>
+                <if test="null != item.endTime ">end_time =
+                    #{item.endTime},
+                </if>
+                <if test="null != item.orderNum ">order_num =
+                    #{item.orderNum},
+                </if>
+                <if test="null != item.remarks  and '' != item.remarks ">remarks =
+                    #{item.remarks},
+                </if>
+                <if test="null != item.createTime ">create_time =
+                    #{item.createTime},
+                </if>
+                <if test="null != item.createUser  and '' != item.createUser ">create_user =
+                    #{item.createUser},
+                </if>
+                <if test="null != item.createUserId  and '' != item.createUserId ">create_user_id =
+                    #{item.createUserId},
+                </if>
+                <if test="null != item.updateTime ">update_time =
+                    #{item.updateTime},
+                </if>
+                <if test="null != item.updateUser  and '' != item.updateUser ">update_user =
+                    #{item.updateUser},
+                </if>
+                <if test="null != item.updateUserId  and '' != item.updateUserId ">update_user_id =
+                    #{item.updateUserId},
+                </if>
+            </set>
+            WHERE id = #{item.id}
+        </foreach>
+    </update>
+
+
+</mapper>

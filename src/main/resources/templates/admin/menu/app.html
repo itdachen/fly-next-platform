@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <th:block th:include="common/common::component('应用信息')"/>
+    <script th:src="@{/static/admin/menu/app.js}" charset="utf-8"></script>
+
+    <style>
+        .card-item-container {
+            background-color: #FFFFFF;
+            background-size: 100% 100%;
+            width: 300px;
+            height: 80px;
+            margin: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease; /* 平滑变化 */
+        }
+
+        .card-item-container:hover {
+            transform: scale(1.1); /* 放大10% */
+        }
+    </style>
+
+</head>
+<body class="fly-container" style="background-image: url('../../../static/assets/fly/images/bg.png')">
+<div class="fly-main-container overflow" style="min-height: 600px;">
+
+    <!-- 系统分发管理系统-->
+    <!-- style="display: flex;flex-direction: row; overflow-wrap: break-word;  word-wrap: break-word;" -->
+    <div class="layui-row  layui-col-space15" id="appBox" style="padding: 10px;">
+    </div>
+
+</div>
+
+
+</body>
+</html>

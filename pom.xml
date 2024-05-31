@@ -3,10 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>com.github.itdachen</groupId>
     <artifactId>fly-next-admin</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <properties>
         <java.version>17</java.version>
@@ -15,7 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <fly.dependencies.version>1.0.4</fly.dependencies.version>
+        <fly.dependencies.version>1.0.5</fly.dependencies.version>
     </properties>
 
     <dependencyManagement>
@@ -37,17 +36,6 @@
             <artifactId>runner-spring-boot-starter</artifactId>
         </dependency>
 
-
-        <!-- 全局统一响应 -->
-        <!--        <dependency>-->
-        <!--            <groupId>com.github.itdachen</groupId>-->
-        <!--            <artifactId>fly-body-advice</artifactId>-->
-        <!--        </dependency>-->
-        <dependency>
-            <groupId>com.github.itdachen</groupId>
-            <artifactId>body-advice-boot-starter</artifactId>
-        </dependency>
-
         <!-- 項目启动容器 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -64,6 +52,22 @@
             <artifactId>spring-boot-starter-undertow</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.github.itdachen</groupId>
+            <artifactId>fly-boot-autoconfigure</artifactId>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>com.github.itdachen</groupId>
+            <artifactId>fly-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.itdachen</groupId>
+            <artifactId>fly-core</artifactId>
+        </dependency>
+
         <!-- spring-security 登录认证模块 -->
         <dependency>
             <groupId>com.github.itdachen</groupId>
@@ -76,16 +80,32 @@
             <artifactId>fly-webmvc</artifactId>
         </dependency>
 
+
+        <!-- 全局统一响应 -->
+        <dependency>
+            <groupId>com.github.itdachen</groupId>
+            <artifactId>body-advice-boot-starter</artifactId>
+        </dependency>
+
+
+
+
+        <!-- session 集群管理 -->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.session</groupId>-->
+        <!--            <artifactId>spring-session-data-redis</artifactId>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.session</groupId>-->
+        <!--            <artifactId>spring-session-jdbc</artifactId>-->
+        <!--        </dependency>-->
+
+
+
         <!-- 工具模块 -->
         <dependency>
             <groupId>com.github.itdachen</groupId>
             <artifactId>fly-tools</artifactId>
-        </dependency>
-
-        <!-- 代码生成器模块 -->
-        <dependency>
-            <groupId>com.github.itdachen</groupId>
-            <artifactId>fly-code-tools</artifactId>
         </dependency>
 
         <!-- 数据脱敏模块 -->
@@ -93,6 +113,36 @@
             <groupId>com.github.itdachen</groupId>
             <artifactId>fly-sensitive</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.github.itdachen</groupId>
+            <artifactId>oss-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- 读取服务器硬件信息 -->
+        <dependency>
+            <groupId>com.github.itdachen</groupId>
+            <artifactId>fly-hardware</artifactId>
+        </dependency>
+
+        <!-- 自定义接口限流 -->
+        <!--        <dependency>-->
+        <!--            <groupId>com.github.itdachen</groupId>-->
+        <!--            <artifactId>rate-limiter-boot-starter</artifactId>-->
+        <!--        </dependency>-->
+
+        <!-- 操作日志模块 -->
+        <dependency>
+            <groupId>com.github.itdachen</groupId>
+            <artifactId>oplog-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- 自定义数据库加密模块, 如果不需要加密, 使用下面 druid-spring-boot-3-starter 依赖 -->
+        <!--        <dependency>-->
+        <!--            <groupId>com.github.itdachen</groupId>-->
+        <!--            <artifactId>datasource-spring-boot-starter</artifactId>-->
+        <!--        </dependency>-->
+
 
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
@@ -119,39 +169,11 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
         </dependency>
 
+
         <dependency>
-            <groupId>com.github.itdachen</groupId>
-            <artifactId>oss-spring-boot-starter</artifactId>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-3-starter</artifactId>
         </dependency>
-
-        <!-- 读取服务器硬件信息 -->
-        <dependency>
-            <groupId>com.github.itdachen</groupId>
-            <artifactId>fly-hardware</artifactId>
-        </dependency>
-
-        <!-- 自定义接口限流 -->
-<!--        <dependency>-->
-<!--            <groupId>com.github.itdachen</groupId>-->
-<!--            <artifactId>rate-limiter-boot-starter</artifactId>-->
-<!--        </dependency>-->
-
-        <!-- 操作日志模块 -->
-        <dependency>
-            <groupId>com.github.itdachen</groupId>
-            <artifactId>oplog-spring-boot-starter</artifactId>
-        </dependency>
-
-        <!-- 自定义数据库加密模块, 如果不需要加密, 使用下面 druid-spring-boot-3-starter 依赖 -->
-        <dependency>
-            <groupId>com.github.itdachen</groupId>
-            <artifactId>datasource-spring-boot-starter</artifactId>
-        </dependency>
-
-        <!--        <dependency>-->
-        <!--            <groupId>com.alibaba</groupId>-->
-        <!--            <artifactId>druid-spring-boot-3-starter</artifactId>-->
-        <!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -167,39 +189,20 @@
             <artifactId>commons-codec</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-        </dependency>
-
-        <!-- 安全认证模块 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.session</groupId>-->
-<!--            <artifactId>spring-session-data-redis</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.session</groupId>-->
-<!--            <artifactId>spring-session-jdbc</artifactId>-->
-<!--        </dependency>-->
-
         <!-- redis -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-data-redis</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-data-redis</artifactId>-->
+        <!--        </dependency>-->
         <!-- session 集群管理 -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.session</groupId>-->
-<!--            <artifactId>spring-session-data-redis</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.redisson</groupId>-->
-<!--            <artifactId>redisson-spring-boot-starter</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.session</groupId>-->
+        <!--            <artifactId>spring-session-data-redis</artifactId>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.redisson</groupId>-->
+        <!--            <artifactId>redisson-spring-boot-starter</artifactId>-->
+        <!--        </dependency>-->
 
         <!-- mysql -->
         <dependency>
@@ -225,6 +228,7 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
         </dependency>
+
 
 
         <dependency>
@@ -262,7 +266,7 @@
                     <finalName>${project.artifactId}</finalName>
                     <!-- tar或者zip包的输出目录 -->
                     <!-- 是指当前项目的根目录 ，例如：F:\pvpsddp\pvpsddp-gateway 的上一级-->
-                    <outputDirectory>E:\package\fly</outputDirectory>
+                    <outputDirectory>E:\package\hubu</outputDirectory>
                     <descriptors>
                         <!-- assembly配置文件位置 -->
                         <descriptor>src/main/resources/assembly.xml</descriptor>
@@ -322,6 +326,7 @@
 
         </plugins>
     </build>
+
 
 
 </project>

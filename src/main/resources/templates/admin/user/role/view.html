@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('查看身份角色信息')"/>
+    <script>
+        layui.use(['form'], function () {
+            let form = layui.form;
+            form.render();
+        });
+    </script>
+</head>
+<body>
+
+<form class="layui-form" id="seeUserRoleInfoForm" th:object="${userRoleInfo}">
+    <div class="layui-form-body-see">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                姓名
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="nickName" name="nickName" th:field="*{nickName}" readonly="readonly"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                身份名称
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="roleName" name="roleName" th:field="*{roleName}" readonly="readonly"
+                       autocomplete="off"
+                       lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                是否主身份
+            </label>
+            <div class="layui-input-block" th:with="dicts=${@dict.data('Y_OR_N')}">
+                <input type="radio" name="roleFlag" th:each="dict : ${dicts}"
+                       th:id="${'roleFlag_' + dict.value}" disabled="disabled"
+                       th:field="*{roleFlag}"
+                       th:title="${dict.label}"
+                       th:value="${dict.value}"
+                       th:checked="${userRoleInfo.roleFlag}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                有效标志
+            </label>
+            <div class="layui-input-block" th:with="dicts=${@dict.data('VALID_FLAG')}">
+                <input type="radio" name="validFlag" th:each="dict : ${dicts}"
+                       th:id="${'validFlag_' + dict.value}" disabled="disabled"
+                       th:field="*{validFlag}"
+                       th:title="${dict.label}"
+                       th:value="${dict.value}"
+                       th:checked="${userRoleInfo.validFlag}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                备注
+            </label>
+            <div class="layui-input-block">
+                        <textarea id="remarks" name="remarks" th:field="*{remarks}" maxlength="30"
+                                  readonly="readonly"
+                                  autocomplete="off"
+                                  class="layui-textarea"></textarea>
+            </div>
+        </div>
+    </div>
+</form>
+
+</body>
+</html>

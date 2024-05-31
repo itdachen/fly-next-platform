@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <th:block th:include="common/common::common('菜单白名单')"/>
+    <script th:src="@{/static/admin/menu/ip/index.js}" charset="utf-8"></script>
+</head>
+<body class="fly-container">
+<div class="fly-main-container">
+
+
+
+    <!-- 查询 -->
+    <div class="fly-query-container" sec:authorize="hasAuthority('admin:white:ip:list:query')">
+        <form class="layui-form" id="queryWhiteIpList" name="queryWhiteIpList">
+
+
+            <div class="layui-form-item">
+
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">应用ID/appID</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="应用ID/appID"
+                                           id="appId" name="appId" autocomplete="off">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">类型: menu-菜单;element-按钮</label>
+                            <div class="layui-input-inline">
+                                    <select id="ipType" name="ipType" th:with="dicts=${@dict.data('yes_or_no')}">
+                                        <option value="">请选择类型: menu-菜单;element-按钮</option>
+                                        <option th:each="dict : ${dicts}"
+                                                th:text="${dict.label}"
+                                                th:value="${dict.value}">
+                                        </option>
+                                    </select>
+                            </div>
+                        </div>
+
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">菜单ID</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="菜单ID"
+                                           id="menuId" name="menuId" autocomplete="off">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">菜单名称</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="菜单名称"
+                                           id="menuTitle" name="menuTitle" autocomplete="off">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">按钮ID</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="按钮ID"
+                                           id="elementId" name="elementId" autocomplete="off">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">按钮名称</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="按钮名称"
+                                           id="elementTitle" name="elementTitle" autocomplete="off">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">白名单类型</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="白名单类型"
+                                           id="typeId" name="typeId" autocomplete="off">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">类型名: 固定IP/范围IP</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="类型名: 固定IP/范围IP"
+                                           id="typeTitle" name="typeTitle" autocomplete="off">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">固定IP</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="固定IP"
+                                           id="hostIp" name="hostIp" autocomplete="off">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">固定IP的值</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="固定IP的值"
+                                           id="hostIpValue" name="hostIpValue" autocomplete="off">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">起始IP</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="起始IP"
+                                           id="startIp" name="startIp" autocomplete="off">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">起始IP的值</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="起始IP的值"
+                                           id="startIpValue" name="startIpValue" autocomplete="off">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">结束IP</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="结束IP"
+                                           id="endIp" name="endIp" autocomplete="off">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">结束IP的值</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="结束IP的值"
+                                           id="endIpValue" name="endIpValue" autocomplete="off">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">是否展示/有效标志: Y-有效;N-无效</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="是否展示/有效标志: Y-有效;N-无效"
+                                           id="validFlag" name="validFlag" autocomplete="off">
+                            </div>
+                        </div>
+
+
+
+                <div class="layui-inline">
+                    <button type="submit" class="layui-btn layui-btn-sm fly-button-search"
+                            lay-submit lay-filter="queryWhiteIpList">
+                        <i class="layui-icon layui-icon-search fly-icon-right-5"></i>查询
+                    </button>
+                    <button type="reset" class="layui-btn layui-btn-sm fly-button-reset">
+                        <i class="layui-icon layui-icon-refresh fly-icon-right-5"></i>重置
+                    </button>
+                    <button sec:authorize="hasAuthority('admin:white:ip:list:exp')"
+                            type="submit" class="layui-btn layui-btn-sm fly-button-exp"
+                            lay-submit lay-filter="expWhiteIpList">
+                        <i class="layui-icon layui-icon-export fly-icon-right-5"></i>导出
+                    </button>
+                </div>
+            </div>
+
+            <!--            <div class="fly-query-footer">-->
+            <!--                <button type="submit" class="layui-btn layui-btn-sm fly-button-search"-->
+            <!--                        lay-submit lay-filter="queryWhiteIpList">-->
+            <!--                    <i class="layui-icon layui-icon-search fly-icon-right-5"></i>查询-->
+            <!--                </button>-->
+            <!--                <button type="reset" class="layui-btn layui-btn-sm fly-button-reset">-->
+            <!--                    <i class="layui-icon layui-icon-refresh fly-icon-right-5"></i>重置-->
+            <!--                </button>-->
+            <!--                <button sec:authorize="hasAuthority('admin:white:ip:list:exp')"-->
+            <!--                        type="submit" class="layui-btn layui-btn-sm fly-button-exp"-->
+            <!--                        lay-submit lay-filter="expWhiteIpList">-->
+            <!--                    <i class="layui-icon  layui-icon-export fly-icon-right-5"></i>导出-->
+            <!--                </button>-->
+            <!--            </div>-->
+
+        </form>
+    </div>
+
+    <!-- 页面数据展示 -->
+    <div class="fly-table-container">
+        <table class="layui-hide" id="layTable" lay-filter="layFilter"></table>
+    </div>
+
+</div>
+
+
+<!-- 表头工具栏 -->
+<script type="text/html" id="toolbar">
+    <div class="fly-tool-bar">
+        <button sec:authorize="hasAuthority('admin:app:info:save')"
+                class="layui-btn layui-btn-sm layui-btn-normal fly-button-add"
+                lay-event="saveWhiteIpList">
+            <i class="layui-icon layui-icon-addition"></i>新增
+        </button>
+    </div>
+</script>
+
+<!-- 操作工具栏 -->
+<script type="text/html" id="toolActionBar">
+    <button sec:authorize="hasAuthority('admin:white:ip:list:view')"
+            class="fly-action-bar fly-button-view" lay-event="view">
+        <i class="layui-icon layui-icon-list"></i>查看
+    </button>
+    <button sec:authorize="hasAuthority('admin:white:ip:list:update')"
+            class="fly-action-bar fly-button-edit" lay-event="update">
+        <i class="layui-icon layui-icon-edit"></i>编辑
+    </button>
+    <button sec:authorize="hasAuthority('admin:white:ip:list:delete')"
+            class="fly-action-bar fly-button-remove" lay-event="delete">
+        <i class="layui-icon layui-icon-delete"></i>删除
+    </button>
+</script>
+
+</body>
+</html>

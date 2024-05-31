@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('新增认证资源信息')"/>
+    <script th:src="@{/static/admin/menu/element/add.js}" charset="utf-8"></script>
+</head>
+<body>
+
+<form class="layui-form" id="addElementInfoForm">
+    <div class="layui-form-body">
+        <input type="text" th:value="*{appId}" id="appId" name="appId" style="display: none">
+        <input type="text" th:value="*{menuId}" id="menuId" name="menuId" style="display: none">
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>API请求类型
+            </label>
+            <div class="layui-input-block" th:with="dicts=${@dict.data('HTTP_METHOD')}">
+                <input type="radio" name="httpMethod" th:each="dict : ${dicts}"
+                       th:id="${'httpMethod_' + dict.value}"
+                       th:title="${dict.label}"
+                       th:value="${dict.value}"
+                       th:checked="${dict.isDefault}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>资源类型
+            </label>
+            <div class="layui-input-block" th:with="dicts=${@dict.data('element_type')}">
+                <input type="radio" name="type" th:each="dict : ${dicts}"
+                       th:id="${'type_' + dict.value}"
+                       th:title="${dict.label}"
+                       th:value="${dict.value}"
+                       th:checked="${dict.isDefault}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>标题
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="title" name="title"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>认证编码
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="authCode" name="authCode"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>页面访问地址
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="pageUri" name="pageUri"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>接口请求地址
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="apiUri" name="apiUri"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>排序
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="orderNum" name="orderNum"  value="999"
+                       onkeyup="value=value.replace(/[^\d]/g,'')" maxlength="3"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>有效标志
+            </label>
+            <div class="layui-input-block" th:with="dicts=${@dict.data('VALID_FLAG')}">
+                <input type="radio" name="validFlag" th:each="dict : ${dicts}"
+                       th:id="${'validFlag_' + dict.value}"
+                       th:title="${dict.label}"
+                       th:value="${dict.value}"
+                       th:checked="${dict.isDefault}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>是否需要授权
+            </label>
+            <div class="layui-input-block" th:with="dicts=${@dict.data('Y_OR_N')}">
+                <input type="radio" name="hasAuth" th:each="dict : ${dicts}"
+                       th:id="${'hasAuth_' + dict.value}"
+                       th:title="${dict.label}"
+                       th:value="${dict.value}"
+                       th:checked="${dict.isDefault}">
+            </div>
+        </div>
+
+<!--        <div class="layui-form-item">-->
+<!--            <label class="layui-form-label">-->
+<!--                <span class="required">*</span>是否需要IP授权: Y-需要;N-不需要-->
+<!--            </label>-->
+<!--            <div class="layui-input-block" th:with="dicts=${@dict.data('yes_or_no')}">-->
+<!--                <input type="radio" name="hasIp" th:each="dict : ${dicts}"-->
+<!--                       th:id="${'hasIp_' + dict.value}"-->
+<!--                       th:title="${dict.label}"-->
+<!--                       th:value="${dict.value}"-->
+<!--                       th:checked="${dict.isDefault}">-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                备注
+            </label>
+            <div class="layui-input-block">
+                        <textarea id="remarks" name="remarks" maxlength="200"
+                                  autocomplete="off" class="layui-textarea"></textarea>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="form-footer-center">
+        <button type="button" class="fly-button-ok" lay-submit lay-filter="saveElementInfo">
+            <i class="layui-icon layui-icon-ok fly-button-icon"></i>保存
+        </button>
+        <button type="button" class="fly-button-close close-flyer">
+            <i class="layui-icon layui-icon-close fly-button-icon"></i>关闭
+        </button>
+    </div>
+
+</form>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('新增租户/公司信息')"/>
+    <script th:src="@{/static/admin/tenant/add.js}" charset="utf-8"></script>
+</head>
+<body>
+
+<form class="layui-form" id="addTenantInfoForm">
+    <div class="layui-form-body">
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>名称
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="title" name="title"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                简称
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="titleAs" name="titleAs"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">所属区域</label>
+            <div class="layui-input-inline">
+                <select id="provId" name="provId" lay-search lay-filter="provIdFilter">
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select id="cityId" name="cityId" lay-search lay-filter="cityIdFilter">
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select id="countyId" name="countyId" lay-search>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                图标
+            </label>
+            <div class="layui-input-block">
+                <div id="homeIconUploadImage" class="upload-block">
+                    <div class="layui-upload-drag" id="homeIconUploadTips">
+                        <i class="layui-icon layui-icon-picture" style="color: #999"></i>
+                        <p>点击上传图标</p>
+                    </div>
+                    <img src="" id="homeIconImgSrc" class="upload-block" style="display: none">
+                </div>
+                <input type="text" id="homeIcon" name="homeIcon" style="display: none" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                官网
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="homeUri" name="homeUri"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                联系电话
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="telephone" name="telephone"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                电子邮箱
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="eMailBox" name="eMailBox"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                传真
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="facsimile" name="facsimile"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                有效标志
+            </label>
+            <div class="layui-input-block" th:with="dicts=${@dict.data('VALID_FLAG')}">
+                <input type="radio" name="validFlag" th:each="dict : ${dicts}"
+                       th:id="${'validFlag_' + dict.value}"
+                       th:title="${dict.label}"
+                       th:value="${dict.value}"
+                       th:checked="${dict.isDefault}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                备注
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="remarks" name="remarks"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-footer-center">
+        <button type="button" class="fly-button-ok" lay-submit lay-filter="saveTenantInfo">
+            <i class="layui-icon layui-icon-ok fly-button-icon"></i>保存
+        </button>
+        <button type="button" class="fly-button-close close-flyer">
+            <i class="layui-icon layui-icon-close fly-button-icon"></i>关闭
+        </button>
+    </div>
+
+</form>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <th:block th:include="common/common::common('数据字典信息表')"/>
+    <script th:src="@{/static/admin/dict/data/index.js}" charset="utf-8"></script>
+</head>
+<body class="fly-container">
+<div class="fly-main-container">
+
+    <!-- 查询 -->
+    <div class="fly-query-container" sec:authorize="hasAuthority('admin:dict:data:query')">
+        <form class="layui-form" id="queryDictData" name="queryDictData">
+
+
+            <div class="layui-form-item">
+                <input type="text" th:value="*{typeId}" id="typeId" name="typeId" style="display: none">
+                <div class="layui-inline">
+                    <label class="layui-form-label">字典标签</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input keypress-listen" placeholder="字典标签"
+                               id="dictLabel" name="dictLabel" autocomplete="off">
+                    </div>
+                </div>
+
+
+<!--                <div class="layui-inline">-->
+<!--                    <label class="layui-form-label">是否展示/有效标志: Y-有效;N-无效</label>-->
+<!--                    <div class="layui-input-inline">-->
+<!--                        <select id="validFlag" name="validFlag" th:with="dicts=${@dict.data('yes_or_no')}">-->
+<!--                            <option value="">请选择是否展示/有效标志: Y-有效;N-无效</option>-->
+<!--                            <option th:each="dict : ${dicts}"-->
+<!--                                    th:text="${dict.label}"-->
+<!--                                    th:value="${dict.value}">-->
+<!--                            </option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+
+                <div class="layui-inline">
+                    <button type="submit" class="layui-btn layui-btn-sm fly-button-search"
+                            lay-submit lay-filter="queryDictData">
+                        <i class="layui-icon layui-icon-search fly-icon-right-5"></i>查询
+                    </button>
+                    <button type="reset" class="layui-btn layui-btn-sm fly-button-reset">
+                        <i class="layui-icon layui-icon-refresh fly-icon-right-5"></i>重置
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- 页面数据展示 -->
+    <div class="fly-table-container">
+        <table class="layui-hide" id="layTable" lay-filter="layFilter"></table>
+    </div>
+
+</div>
+
+
+<!-- 表头工具栏 -->
+<script type="text/html" id="toolbar">
+    <div class="fly-tool-bar">
+        <button sec:authorize="hasAuthority('admin:dict:data:save')"
+                class="layui-btn layui-btn-sm layui-btn-normal fly-button-add"
+                lay-event="saveDictData">
+            <i class="layui-icon layui-icon-addition"></i>新增
+        </button>
+    </div>
+</script>
+
+<!-- 操作工具栏 -->
+<script type="text/html" id="toolActionBar">
+    <button sec:authorize="hasAuthority('admin:dict:data:view')"
+            class="fly-action-bar fly-button-view" lay-event="view">
+        <i class="layui-icon layui-icon-list"></i>查看
+    </button>
+    <button sec:authorize="hasAuthority('admin:dict:data:update')"
+            class="fly-action-bar fly-button-edit" lay-event="update">
+        <i class="layui-icon layui-icon-edit"></i>编辑
+    </button>
+    <button sec:authorize="hasAuthority('admin:dict:data:delete')"
+            class="fly-action-bar fly-button-remove" lay-event="delete">
+        <i class="layui-icon layui-icon-delete"></i>删除
+    </button>
+</script>
+
+</body>
+</html>

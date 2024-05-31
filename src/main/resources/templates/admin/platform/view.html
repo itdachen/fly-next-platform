@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('查看平台信息')"/>
+    <script>
+        layui.use(['form'], function () {
+            let form = layui.form;
+            form.render();
+        });
+    </script>
+</head>
+<body>
+
+<form class="layui-form" id="seePlatformInfoForm" th:object="${platformInfo}">
+    <div class="layui-form-body-see">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                平台名称
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="title" name="title" th:field="*{title}" readonly="readonly"
+                       autocomplete="off"
+                       lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                有效标志
+            </label>
+            <div class="layui-input-block">
+                <input type="radio" name="validFlag" value="Y" title="有效" disabled="disabled"
+                       th:attr ="checked=${'Y' == platformInfo.validFlag}">
+                <input type="radio" name="validFlag" value="N" title="无效" disabled="disabled"
+                       th:attr ="checked=${'N' == platformInfo.validFlag}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                备注
+            </label>
+            <div class="layui-input-block">
+     <textarea id="remarks" name="remarks" th:field="*{remarks}" maxlength="200" readonly="readonly"
+               autocomplete="off" class="layui-textarea"></textarea>
+            </div>
+        </div>
+    </div>
+</form>
+
+</body>
+</html>

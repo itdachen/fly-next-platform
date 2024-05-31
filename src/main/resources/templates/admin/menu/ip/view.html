@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('查看菜单白名单')"/>
+    <script>
+        layui.use(['form'], function () {
+            let form = layui.form;
+            form.render();
+        });
+    </script>
+</head>
+<body>
+
+<form class="layui-form" id="seeWhiteIpListForm" th:object="${whiteIpList}">
+    <div class="layui-form-body-see">
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            应用ID/appID
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="appId" name="appId" th:field="*{appId}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            类型: menu-菜单;element-按钮
+                        </label>
+                        <div class="layui-input-block">
+                            <select id="ipType" name="ipType" disabled="disabled"
+                                    th:with="dicts=${@dict.data('yes_or_no')}">
+                                <option value="">请选择类型: menu-菜单;element-按钮</option>
+                                <option th:each="dict : ${dicts}"
+                                        th:id="${'ipType_' + dict.value}"
+                                        th:field="*{ipType}"
+                                        th:text="${dict.label}"
+                                        th:value="${dict.value}"
+                                        th:checked="ipType">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            菜单ID
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="menuId" name="menuId" th:field="*{menuId}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            菜单名称
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="menuTitle" name="menuTitle" th:field="*{menuTitle}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            按钮ID
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="elementId" name="elementId" th:field="*{elementId}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            按钮名称
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="elementTitle" name="elementTitle" th:field="*{elementTitle}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            白名单类型
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="typeId" name="typeId" th:field="*{typeId}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            类型名: 固定IP/范围IP
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="typeTitle" name="typeTitle" th:field="*{typeTitle}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            固定IP
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="hostIp" name="hostIp" th:field="*{hostIp}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            固定IP的值
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="hostIpValue" name="hostIpValue" th:field="*{hostIpValue}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            起始IP
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="startIp" name="startIp" th:field="*{startIp}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            起始IP的值
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="startIpValue" name="startIpValue" th:field="*{startIpValue}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            结束IP
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="endIp" name="endIp" th:field="*{endIp}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            结束IP的值
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="endIpValue" name="endIpValue" th:field="*{endIpValue}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            是否展示/有效标志: Y-有效;N-无效
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="validFlag" name="validFlag" th:field="*{validFlag}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            备注
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="remarks" name="remarks" th:field="*{remarks}" readonly="readonly"
+                                   autocomplete="off"
+ class="layui-input">
+                        </div>
+                    </div>
+    </div>
+</form>
+
+</body>
+</html>

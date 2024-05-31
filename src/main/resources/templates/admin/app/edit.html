@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('修改应用信息')"/>
+    <script th:src="@{/static/admin/app/edit.js}" charset="utf-8"></script>
+</head>
+<body>
+
+<form class="layui-form" id="editAppInfoForm" th:object="${appInfo}">
+    <div class="layui-form-body">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>所属平台
+            </label>
+            <div class="layui-input-block">
+                <select id="platId" name="platId" lay-verify="required">
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>应用标识
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="appCode" name="appCode" th:field="*{appCode}"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>应用名称
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="appTitle" name="appTitle" th:field="*{appTitle}"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>访问地址
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="askUri" name="askUri" th:field="*{askUri}"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>有效标志
+            </label>
+            <div class="layui-input-block">
+                <input type="radio" name="validFlag" value="Y" title="有效"
+                       th:attr="checked=${'Y' == appInfo.validFlag}">
+                <input type="radio" name="validFlag" value="N" title="无效"
+                       th:attr="checked=${'N' == appInfo.validFlag}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                备注
+            </label>
+            <div class="layui-input-block">
+                        <textarea id="remarks" name="remarks" th:field="*{remarks}" maxlength="200"
+                                  autocomplete="off" class="layui-textarea"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!--    <div class="form-footer">-->
+    <!--        <button type="button" class="fly-button-ok" lay-submit lay-filter="editAppInfo">-->
+    <!--            <i class="layui-icon layui-icon-ok"></i>保存-->
+    <!--        </button>-->
+    <!--        <button type="button" class="fly-button-close close-flyer">-->
+    <!--            <i class="layui-icon layui-icon-close"></i>关闭-->
+    <!--        </button>-->
+    <!--    </div>-->
+
+    <div class="form-footer-center">
+        <button type="button" class="fly-button-ok" lay-submit lay-filter="editAppInfo">
+            <i class="layui-icon layui-icon-ok fly-button-icon"></i>保存
+        </button>
+        <button type="button" class="fly-button-close close-flyer">
+            <i class="layui-icon layui-icon-close fly-button-icon"></i>关闭
+        </button>
+    </div>
+
+    <input type="text" th:value="*{platId}" id="oldPlatId" name="oldPlatId" style="display: none">
+    <input type="text" th:value="*{id}" id="id" name="id" style="display: none">
+</form>
+
+</body>
+</html>

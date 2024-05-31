@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.admin.mapper.IDictTypeMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.github.itdachen.admin.sdk.vo.DictTypeVO" id="dictTypeMap">
+            <result property="id" column="id"/>
+            <result property="dictLabel" column="dict_label"/>
+            <result property="dictType" column="dict_type"/>
+            <result property="dictSort" column="dict_sort"/>
+            <result property="isDefault" column="is_default"/>
+            <result property="validFlag" column="valid_flag"/>
+            <result property="remarks" column="remarks"/>
+    </resultMap>
+
+    <!-- VO 类查询 -->
+    <sql id="selectDictTypeVO">
+        SELECT id, dict_label, dict_type, dict_sort, is_default, valid_flag, remarks
+        FROM ta_fly_dict_type
+    </sql>
+
+    <!-- 导出数据字段查询 -->
+    <sql id="selectDictTypeExpVO">
+        SELECT dict_label, dict_type, dict_sort, is_default, valid_flag
+        FROM ta_fly_dict_type
+    </sql>
+
+    <!-- 分页和导出查询参数 -->
+    <sql id="selectParamsWhere">
+        <where>
+                    <if test="null != dictLabel  and '' != dictLabel ">
+                        AND dict_label = #{dictLabel}
+                    </if>
+                    <if test="null != validFlag  and '' != validFlag ">
+                        AND valid_flag = #{validFlag}
+                    </if>
+        </where>
+        ORDER BY id DESC
+    </sql>
+
+    <!-- 集合查询 -->
+    <select id="list" parameterType="com.github.itdachen.admin.sdk.query.DictTypeQuery" resultMap="dictTypeMap">
+        <include refid="selectDictTypeVO"/>
+        <include refid="selectParamsWhere"></include>
+    </select>
+
+    <!-- 查询导出数据 -->
+    <select id="selectDictTypeExpData" parameterType="java.lang.String" resultMap="dictTypeMap">
+        <include refid="selectDictTypeExpVO"/>
+        <include refid="selectParamsWhere"></include>
+    </select>
+
+    <!-- 根据主键查询 -->
+    <select id="selectDictTypeVO" parameterType="java.lang.String" resultMap="dictTypeMap">
+        <include refid="selectDictTypeVO"/>
+        WHERE id = #{id}
+    </select>
+
+    <!-- 批量添加 -->
+    <insert id="batchSave" parameterType="java.util.List">
+        INSERT INTO ta_fly_dict_type (id , 
+dict_label , 
+dict_type , 
+dict_sort , 
+is_default , 
+valid_flag , 
+remarks , 
+create_user , 
+create_user_id , 
+create_time , 
+update_user , 
+update_time , 
+update_user_id 
+) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},
+#{item.dictLabel},
+#{item.dictType},
+#{item.dictSort},
+#{item.isDefault},
+#{item.validFlag},
+#{item.remarks},
+#{item.createUser},
+#{item.createUserId},
+#{item.createTime},
+#{item.updateUser},
+#{item.updateTime},
+#{item.updateUserId})
+        </foreach>
+    </insert>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE  ta_fly_dict_type
+            <set>
+                        <if test="null != item.id  and '' != item.id ">id =
+                            #{item.id},
+                        </if>
+                        <if test="null != item.dictLabel  and '' != item.dictLabel ">dict_label =
+                            #{item.dictLabel},
+                        </if>
+                        <if test="null != item.dictType  and '' != item.dictType ">dict_type =
+                            #{item.dictType},
+                        </if>
+                        <if test="null != item.dictSort ">dict_sort =
+                            #{item.dictSort},
+                        </if>
+                        <if test="null != item.isDefault ">is_default =
+                            #{item.isDefault},
+                        </if>
+                        <if test="null != item.validFlag  and '' != item.validFlag ">valid_flag =
+                            #{item.validFlag},
+                        </if>
+                        <if test="null != item.remarks  and '' != item.remarks ">remarks =
+                            #{item.remarks},
+                        </if>
+                        <if test="null != item.createUser  and '' != item.createUser ">create_user =
+                            #{item.createUser},
+                        </if>
+                        <if test="null != item.createUserId  and '' != item.createUserId ">create_user_id =
+                            #{item.createUserId},
+                        </if>
+                        <if test="null != item.createTime ">create_time =
+                            #{item.createTime},
+                        </if>
+                        <if test="null != item.updateUser  and '' != item.updateUser ">update_user =
+                            #{item.updateUser},
+                        </if>
+                        <if test="null != item.updateTime ">update_time =
+                            #{item.updateTime},
+                        </if>
+                        <if test="null != item.updateUserId  and '' != item.updateUserId ">update_user_id =
+                            #{item.updateUserId},
+                        </if>
+            </set>
+            WHERE id = #{item.id}
+        </foreach>
+    </update>
+
+
+</mapper>

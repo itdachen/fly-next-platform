@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('新增用户信息')"/>
+    <script th:src="@{/static/admin/user/add.js}" charset="utf-8"></script>
+</head>
+<body>
+
+<form class="layui-form" id="addUserInfoForm">
+    <div class="layui-form-body">
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>姓名
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="nickName" name="nickName"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>电话号码
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="telephone" name="telephone"
+                       onkeyup="value=value.replace(/[^\d]/g,'')" maxlength="13"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                身份证号码
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="idCard" name="idCard" maxlength="18"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                性别
+            </label>
+            <div class="layui-input-block" th:with="dicts=${@dict.data('sex')}">
+                <input type="radio" name="sex" th:each="dict : ${dicts}"
+                       th:id="${'sex_' + dict.value}"
+                       th:title="${dict.label}"
+                       th:value="${dict.value}"
+                       th:checked="${dict.isDefault}">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                头像
+            </label>
+            <div class="layui-input-block">
+                <div id="avatarUploadImage" class="upload-block">
+                    <div class="layui-upload-drag" id="avatarUploadTips">
+                        <i class="layui-icon layui-icon-picture" style="color: #999"></i>
+                        <p>点击上传头像</p>
+                    </div>
+                    <img src="" id="avatarImgSrc" class="upload-block" style="display: none">
+                </div>
+                <input type="text" id="avatar" name="avatar" style="display: none" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                电子邮箱
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="eMailBox" name="eMailBox"
+                       maxlength="30" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                有效标志
+            </label>
+            <div class="layui-input-block" th:with="dicts=${@dict.data('VALID_FLAG')}">
+                <input type="radio" name="validFlag" th:each="dict : ${dicts}"
+                       th:id="${'validFlag_' + dict.value}"
+                       th:title="${dict.label}"
+                       th:value="${dict.value}"
+                       th:checked="${dict.isDefault}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                备注
+            </label>
+            <div class="layui-input-block">
+                        <textarea id="remarks" name="remarks" maxlength="30"
+                                  autocomplete="off" class="layui-textarea"></textarea>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-footer-center">
+        <button type="button" class="fly-button-ok" lay-submit lay-filter="saveUserInfo">
+            <i class="layui-icon layui-icon-ok fly-button-icon"></i>保存
+        </button>
+        <button type="button" class="fly-button-close close-flyer">
+            <i class="layui-icon layui-icon-close fly-button-icon"></i>关闭
+        </button>
+    </div>
+
+</form>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.auth.mapper.IAuthenticationAuthorityMapper">
+
+    <select id="findAppAuthority" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT auth_code
+        FROM ta_fly_route_menu_info
+        WHERE app_id = #{appId}
+        UNION ALL
+        SELECT auth_code
+        FROM ta_fly_route_element_info
+        WHERE app_id = #{appId}
+    </select>
+
+    <select id="findUserAuthority" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT auth_code
+        FROM ta_fly_route_menu_info
+        WHERE app_id = #{appId} AND id IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        UNION ALL
+        SELECT auth_code
+        FROM ta_fly_route_element_info
+        WHERE app_id = #{appId} AND id IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

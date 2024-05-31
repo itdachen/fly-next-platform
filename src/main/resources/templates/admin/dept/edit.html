@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('修改部门信息')"/>
+    <script th:src="@{/static/admin/dept/edit.js}" charset="utf-8"></script>
+</head>
+<body>
+
+<form class="layui-form" id="editDeptInfoForm" th:object="${deptInfo}">
+    <div class="layui-form-body">
+
+
+        <!--        <div class="layui-form-item">-->
+        <!--            <label class="layui-form-label">-->
+        <!--                <span class="required">*</span>职能代码-->
+        <!--            </label>-->
+        <!--            <div class="layui-input-block">-->
+        <!--&lt;!&ndash;                <input type="text" id="funcCode" name="funcCode" th:field="*{funcCode}"&ndash;&gt;-->
+        <!--&lt;!&ndash;                       autocomplete="off" lay-verify="required" class="layui-input">&ndash;&gt;-->
+        <!--                <select id="funcCode" name="funcCode" th:with="dicts=${@dict.data('dept_func')}">-->
+        <!--                    <option th:each="dict : ${dicts}"-->
+        <!--                            th:id="${'funcCode_' + dict.value}"-->
+        <!--                            th:field="*{funcCode}"-->
+        <!--                            th:text="${dict.label}"-->
+        <!--                            th:value="${dict.value}"-->
+        <!--                            th:checked="funcCode">-->
+        <!--                    </option>-->
+        <!--                </select>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span class="required">*</span>所属区域</label>
+            <div class="layui-input-inline">
+                <select id="provId" name="provId" lay-verify="required" lay-search lay-filter="provIdFilter">
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select id="cityId" name="cityId" lay-verify="required" lay-search lay-filter="cityIdFilter">
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select id="countyId" name="countyId" lay-verify="required" lay-search>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>部门名称
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="title" name="title" th:field="*{title}"
+                       autocomplete="off" lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                部门简称
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="titleAs" name="titleAs" th:field="*{titleAs}"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                部门级次
+            </label>
+            <div class="layui-input-block" th:with="dicts=${@dict.data('dept_level')}">
+                <input type="radio" name="deptLevel" th:each="dict : ${dicts}"
+                       th:id="${'deptLevel_' + dict.value}"
+                       th:field="*{deptLevel}"
+                       th:title="${dict.label}"
+                       th:value="${dict.value}"
+                       th:checked="${deptInfo.deptLevel}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                联系电话
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="telephone" name="telephone" th:field="*{telephone}"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                电子邮箱
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="mailBox" name="mailBox" th:field="*{mailBox}"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                传真
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="facsimile" name="facsimile" th:field="*{facsimile}"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                部门标志
+            </label>
+            <div class="layui-input-block" th:with="dicts=${@dict.data('Y_OR_N')}">
+                <input type="radio" name="deptFlag" th:each="dict : ${dicts}"
+                       th:id="${'deptFlag_' + dict.value}"
+                       th:field="*{deptFlag}"
+                       th:title="${dict.label}"
+                       th:value="${dict.value}"
+                       th:checked="${deptInfo.deptFlag}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                有效标志
+            </label>
+            <div class="layui-input-block" th:with="dicts=${@dict.data('VALID_FLAG')}">
+                <input type="radio" name="validFlag" th:each="dict : ${dicts}"
+                       th:id="${'validFlag_' + dict.value}"
+                       th:field="*{validFlag}"
+                       th:title="${dict.label}"
+                       th:value="${dict.value}"
+                       th:checked="${deptInfo.validFlag}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                备注
+            </label>
+            <div class="layui-input-block">
+                        <textarea id="remarks" name="remarks" th:field="*{remarks}" maxlength="30"
+                                  autocomplete="off" class="layui-textarea"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-footer">
+        <button type="button" class="fly-button-ok" lay-submit lay-filter="editDeptInfo">
+            <i class="layui-icon layui-icon-ok"></i>保存
+        </button>
+        <button type="button" class="fly-button-close close-flyer">
+            <i class="layui-icon layui-icon-close"></i>关闭
+        </button>
+    </div>
+
+    <input type="text" th:value="*{parentId}" id="parentId" name="parentId" style="display: none">
+    <input type="text" th:value="*{id}" id="id" name="id" style="display: none">
+    <input type="text" th:value="*{provId}" id="oldProvId" name="oldProvId" style="display: none">
+    <input type="text" th:value="*{cityId}" id="oldCityId" name="oldCityId" style="display: none">
+    <input type="text" th:value="*{countyId}" id="oldCountyId" name="oldCountyId" style="display: none">
+</form>
+
+</body>
+</html>
