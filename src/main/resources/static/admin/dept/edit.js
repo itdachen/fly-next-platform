@@ -19,7 +19,7 @@ layui.use(['form'], function () {
             data: data.field,
             callback: function (res) {
                 parent.initDeptTree(null);
-                parent.reloadTableData(null, {});
+                parent.reloadDeptTableData(null, {});
                 layer.alert(res.msg,
                     {title: "系统提示", icon: $.msg.icon(LAYER_STATUS.SUCCESS)},
                     function () {

@@ -14,7 +14,8 @@ layui.use(['form'], function () {
         fieldData.thatLevelTitle = thatLevelTitle;
         $.form.submit({
             url: HTTP_BIZ_URI + '/admin/clazz/info',
-            data: fieldData
+            data: fieldData,
+            reload: parent.reloadClazzTableData
         })
     });
 

@@ -5,12 +5,14 @@
   +  Created with IntelliJ IDEA.
   ++++++++++++++++++++++++++++++++++++++++++++
  */
-const path = HTTP_BIZ_URI + "/admin/dept/info";
+const deptPath = HTTP_BIZ_URI + "/admin/dept/info";
 var deptParentId = 'root';
+var deptRootId = 'root';
 layui.use(function () {
     let table = layui.table;
     let form = layui.form;
 
+    deptRootId = $('#parentId').val();
     deptParentId = $('#parentId').val();
 
     initDeptTree(table, form);
@@ -22,14 +24,10 @@ layui.use(function () {
 
 function initDeptTree(table) {
     $.zTree.initTree({
-        url: path + '/tree',
+        url: deptPath + '/tree',
         callback: function (event, treeId, treeNode) {
             deptParentId = treeNode.id;
-            reloadTableData(table, {})
-            if ('1' === deptParentId) {
-                $('#headBarTool').attr('style', 'display:none')
-            }
-
+            reloadDeptTableData(table);
         }
     })
 }
@@ -37,7 +35,7 @@ function initDeptTree(table) {
 
 function initLayTable(table, form) {
     /* 初始化表格 */
-    $.table.init(table, tableInitOptions({parentId: deptParentId}))
+    $.table.init(table, tableInitDeptOptions())
 
     /* 表头事件监听 */
     toolBar(table);
@@ -47,23 +45,21 @@ function initLayTable(table, form) {
 
     /* 导出 */
     form.on('submit(expDeptInfo)', function (data) {
-        let uri = queryUriObjParams(path + '/exp', data.field)
+        let uri = queryUriObjParams(deptPath + '/exp', data.field)
         window.open(uri);
         return false;
     })
 
     /* 查询 */
     form.on('submit(queryDeptInfo)', function (data) {
-        reloadTableData(table, data.field)
+        reloadDeptTableData(table)
         return false;
     })
 
     /* 搜索输入框回车监听 */
     $('.keypress-listen').bind('keypress', function (event) {
         if (13 === event.keyCode || '13' === event.keyCode) {
-            event.preventDefault();
-            let obj = $.form.getFormValue('queryDeptInfo')
-            reloadTableData(table, obj)
+            reloadDeptTableData(table)
             return false;
         }
     })
@@ -77,14 +73,24 @@ function initLayTable(table, form) {
 
 }
 
+
+function queryDeptWhere() {
+    let title = $("#title").val();
+    let validFlag = $("#validFlag").val();
+    return {
+        appCode: title,
+        validFlag: validFlag,
+        parentId: deptParentId
+    }
+}
+
 /**
  * 刷新表格数据
  * @param table
  * @param params
  */
-function reloadTableData(table, params) {
-    params.parentId = deptParentId;
-    $.table.reloadData(table, tableInitOptions(params));
+function reloadDeptTableData(table) {
+    $.table.reloadData(table, tableInitDeptOptions());
 }
 
 
@@ -97,7 +103,7 @@ function toolBar(table) {
         if ('saveDeptInfo' === obj.event) {
             $.flyer.openIframe({
                 title: '新增',
-                content: path + '/' + deptParentId + '/add'
+                content: deptPath + '/' + deptParentId + '/add'
             })
         }
     })
@@ -112,29 +118,35 @@ function tool(table) {
         let data = obj.data;
         if ('delete' === obj.event) {
             $.table.delete({
-                url: path + '/' + data.id,
-                title: data.name
+                url: deptPath + '/' + data.id,
+                title: data.name,
+                reloadTable: reloadDeptTableData,
+                callback: function (res) {
+                    initDeptTree();
+                    reloadDeptTableData(table);
+                    layer.msg(res.msg, {icon: 1, time: 1500});
+                }
             })
         }
         if ('update' === obj.event) {
             $.flyer.openIframe({
                 title: '编辑',
-                content: path + '/edit/' + data.id
+                content: deptPath + '/edit/' + data.id
             })
         }
         if ('view' === obj.event) {
             $.flyer.openIframeSee({
                 title: '查看',
-                content: path + '/view/' + data.id
+                content: deptPath + '/view/' + data.id
             })
         }
     })
 }
 
-function tableInitOptions(params = {}) {
+function tableInitDeptOptions() {
     return {
-        url: path + "/page",
-        where: params,
+        url: deptPath + "/page",
+        where: queryDeptWhere(),
         cols: [[
             {field: 'title', title: '部门名称', align: "center"},
             // {field: 'deptLevel', title: '部门级次', width: 180, align: "center"},
@@ -153,17 +165,17 @@ function tableInitOptions(params = {}) {
  */
 function validFlagFilter(table, id, checked) {
     $.http.post({
-        url: path + '/' + id + '/valid/' + checked,
+        url: deptPath + '/' + id + '/valid/' + checked,
         callback: function (res) {
             initDeptTree(table, null);
             let obj = $.form.getFormValue('queryDeptInfo')
-            reloadTableData(table, obj);
+            reloadDeptTableData(table, obj);
             $.msg.msgSuccess('有效标志更改成功！');
         },
         errCallback: function (err) {
             let obj = $.form.getFormValue('queryDeptInfo')
             initDeptTree(table, null);
-            reloadTableData(table, obj);
+            reloadDeptTableData(table, obj);
             $.msg.msgWarning(err.msg);
         }
     })

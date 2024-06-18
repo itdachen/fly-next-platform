@@ -5,7 +5,7 @@
   +  Created with IntelliJ IDEA.
   ++++++++++++++++++++++++++++++++++++++++++++
  */
-const path = HTTP_BIZ_URI + "/admin/dict/type";
+const dictTypePath = HTTP_BIZ_URI + "/admin/dict/type";
 layui.use(function () {
     let table = layui.table;
     let form = layui.form;
@@ -27,7 +27,7 @@ function initLayTable(table, form) {
 
     /* 导出 */
     form.on('submit(expDictType)', function (data) {
-        let uri = queryUriObjParams(path + '/exp', data.field)
+        let uri = queryUriObjParams(dictTypePath + '/exp', data.field)
         window.open(uri);
         return false;
     })
@@ -65,11 +65,11 @@ function reloadTableData(table, params) {
  * @param table
  */
 function toolBar(table) {
-    table.on('toolbar(layFilter)', function (obj) {
+    table.on('toolbar(dictTypeLayFilter)', function (obj) {
         if ('saveDictType' === obj.event) {
             $.flyer.openIframe({
                 title: '新增',
-                content: path + '/add'
+                content: dictTypePath + '/add'
             })
         }
     })
@@ -80,21 +80,21 @@ function toolBar(table) {
  * @param table
  */
 function tool(table) {
-    table.on('tool(layFilter)', function (obj) {
+    table.on('tool(dictTypeLayFilter)', function (obj) {
         let data = obj.data;
-        if ('delete' === obj.event) {
+        if ('deleteDictType' === obj.event) {
             $.table.delete({
-                url: path + '/' + data.id,
+                url: dictTypePath + '/' + data.id,
                 title: data.name
             })
         }
-        if ('update' === obj.event) {
+        if ('updateDictType' === obj.event) {
             $.flyer.openIframe({
                 title: '编辑',
-                content: path + '/edit/' + data.id
+                content: dictTypePath + '/edit/' + data.id
             })
         }
-        if ('view' === obj.event) {
+        if ('viewDictType' === obj.event) {
             let uri = HTTP_BIZ_URI + '/admin/dict/data/' + data.id + '/index';
             $.flyer.full(data.dictLabel + '【 ' + data.dictType + ' 】', uri);
         }
@@ -103,7 +103,11 @@ function tool(table) {
 
 function tableInitOptions(params = {}) {
     return {
-        url: path + "/page",
+        id: 'dictTypeLayTable',
+        elem: '#dictTypeLayTable',
+        layFilter: 'dictTypeLayFilter',
+        toolbar: '#dictTypeToolbar',
+        url: dictTypePath + "/page",
         where: params,
         cols: [[
             {field: 'dictLabel', title: '字典标签', width: 320, align: "center"},
@@ -117,7 +121,7 @@ function tableInitOptions(params = {}) {
                 }
             },
             {field: 'remarks', title: '备注', align: "center"},
-            {fixed: 'right', title: '操作', toolbar: '#toolActionBar', width: 380, align: "center"}
+            {fixed: 'right', title: '操作', toolbar: '#dictTypeToolActionBar', width: 380, align: "center"}
         ]]
     }
 

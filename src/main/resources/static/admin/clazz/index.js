@@ -5,19 +5,19 @@
   +  Created with IntelliJ IDEA.
   ++++++++++++++++++++++++++++++++++++++++++++
  */
-const path = HTTP_BIZ_URI + "/admin/clazz/info";
+const clazzPath = HTTP_BIZ_URI + "/admin/clazz/info";
 layui.use(function () {
     let table = layui.table;
     let form = layui.form;
 
-    initLayTable(table, form);
+    initclazzLayTable(table, form);
 
 });
 
 
-function initLayTable(table, form) {
+function initclazzLayTable(table, form) {
     /* 初始化表格 */
-    $.table.init(table, tableInitOptions({}))
+    $.table.init(table, tableInitClazzOptions({}))
 
     /* 表头事件监听 */
     toolBar(table);
@@ -27,14 +27,14 @@ function initLayTable(table, form) {
 
     /* 导出 */
     form.on('submit(expClazzInfo)', function (data) {
-        let uri = queryUriObjParams(path + '/exp', data.field)
+        let uri = queryUriObjParams(clazzPath + '/exp', data.field)
         window.open(uri);
         return false;
     })
 
     /* 查询 */
     form.on('submit(queryClazzInfo)', function (data) {
-        reloadTableData(table, data.field)
+        reloadClazzTableData(table, data.field)
         return false;
     })
 
@@ -43,7 +43,7 @@ function initLayTable(table, form) {
         if (13 === event.keyCode || '13' === event.keyCode) {
             event.preventDefault();
             let obj = $.form.getFormValue('queryClazzInfo')
-            reloadTableData(table, obj)
+            reloadClazzTableData(table, obj)
             return false;
         }
     })
@@ -51,7 +51,7 @@ function initLayTable(table, form) {
     /**
      * 有效标志监听
      */
-    form.on('switch(validFlagFilter)', function (obj) {
+    form.on('switch(validClazzFlagFilter)', function (obj) {
         validFlagFilter(table, this.value, obj.elem.checked)
     });
 
@@ -62,8 +62,8 @@ function initLayTable(table, form) {
  * @param table
  * @param params
  */
-function reloadTableData(table, params) {
-    $.table.reloadData(table, tableInitOptions(params));
+function reloadClazzTableData(table, params) {
+    $.table.reloadData(table, tableInitClazzOptions(params));
 }
 
 
@@ -76,7 +76,7 @@ function toolBar(table) {
         if ('saveClazzInfo' === obj.event) {
             $.flyer.openIframe({
                 title: '新增',
-                content: path + '/add'
+                content: clazzPath + '/add'
             })
         }
     })
@@ -89,38 +89,36 @@ function toolBar(table) {
 function tool(table) {
     table.on('tool(layFilter)', function (obj) {
         let data = obj.data;
-        if ('delete' === obj.event) {
+        if ('deleteClazz' === obj.event) {
             $.table.delete({
-                url: path + '/' + data.id,
+                url: clazzPath + '/' + data.id,
                 title: data.name
             })
         }
-        if ('update' === obj.event) {
+        if ('updateClazz' === obj.event) {
             $.flyer.openIframe({
                 title: '编辑',
-                content: path + '/edit/' + data.id
+                content: clazzPath + '/edit/' + data.id
             })
         }
 
-        if ('auz' === obj.event) {
+        if ('auzClazz' === obj.event) {
             let uri = HTTP_BIZ_URI + '/admin/auth/clazz/menu/' + data.id + '/index';
             $.flyer.full('岗位权限', uri)
         }
-
-        //
-
-        if ('view' === obj.event) {
+        
+        if ('viewClazz' === obj.event) {
             $.flyer.openIframeSee({
                 title: '查看',
-                content: path + '/view/' + data.id
+                content: clazzPath + '/view/' + data.id
             })
         }
     })
 }
 
-function tableInitOptions(params = {}) {
+function tableInitClazzOptions(params = {}) {
     return {
-        url: path + "/page",
+        url: clazzPath + "/page",
         where: params,
         cols: [[
             {field: 'thatLevelTitle', title: '岗位等级', width: 320, align: "center"},
@@ -140,13 +138,13 @@ function tableInitOptions(params = {}) {
  */
 function validFlagFilter(table, id, checked) {
     $.http.post({
-        url: path + '/' + id + '/valid/' + checked,
+        url: clazzPath + '/' + id + '/valid/' + checked,
         callback: function (res) {
             $.msg.msgSuccess('有效标志更改成功！');
         },
         errCallback: function (err) {
             let obj = $.form.getFormValue('queryClazzInfo')
-            reloadTableData(table, obj);
+            reloadClazzTableData(table, obj);
             $.msg.msgWarning(err.msg);
         }
     })

@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 import java.io.Serializable;
+import java.util.List;
 
 
 /**
@@ -81,6 +82,8 @@ public class DeptInfoVO implements Serializable {
 
     /** 备注 */
     private String remarks;
+
+    private List<DeptInfoVO> children;
 
 
 
@@ -260,6 +263,13 @@ public class DeptInfoVO implements Serializable {
         return remarks;
     }
 
+    public List<DeptInfoVO> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<DeptInfoVO> children) {
+        this.children = children;
+    }
 
     @Override
     public String toString() {

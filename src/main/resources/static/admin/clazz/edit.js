@@ -13,7 +13,8 @@ layui.use(['form'], function () {
         let fieldData = data.field;
         $.form.submit({
             url: HTTP_BIZ_URI + '/admin/clazz/info/' + data.field.id,
-            data: fieldData
+            data: fieldData,
+            reload: parent.reloadClazzTableData
         })
     });
 

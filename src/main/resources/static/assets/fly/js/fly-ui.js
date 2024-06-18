@@ -1450,11 +1450,11 @@ $(function () {
                 if (options.custom) {
                     msg = options.title
                 }
-                if ($.string.isEmpty(options.reloadTable)) {
-                    options.reloadTable = reloadTableData;
-                }
                 /* 删除数据之后的回调 */
                 if ($.string.isEmpty(options.callback)) {
+                    if ($.string.isEmpty(options.reloadTable)) {
+                        options.reloadTable = reloadTableData;
+                    }
                     options.callback = function (res) {
                         options.reloadTable();
                         layer.msg(res.msg, {icon: 1, time: 1500});

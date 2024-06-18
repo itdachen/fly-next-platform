@@ -128,6 +128,12 @@
         WHERE id = #{id}
     </select>
 
+    <select id="hasDeptChildren" resultType="java.lang.Integer" parameterType="java.lang.String">
+        SELECT 1
+        FROM ta_fly_dept_info
+        WHERE parent_id = #{deptId} LIMIT 1
+    </select>
+
     <!-- 批量添加 -->
     <insert id="batchSave" parameterType="java.util.List">
         INSERT INTO ta_fly_dept_info (id ,

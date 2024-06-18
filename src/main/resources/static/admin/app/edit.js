@@ -22,7 +22,8 @@ layui.use(['form'], function () {
         obj.platTitle = platTitle;
         $.form.submit({
             url: HTTP_BIZ_URI + '/admin/app/info/' + data.field.id,
-            data: obj
+            data: obj,
+            reload: parent.reloadAppTableData
         });
     });
 

@@ -27,6 +27,7 @@ layui.use(['form'], function () {
         $.form.submit({
             url: HTTP_BIZ_URI + '/admin/app/info',
             data: obj,
+            reload: parent.reloadAppTableData
         })
     });
 

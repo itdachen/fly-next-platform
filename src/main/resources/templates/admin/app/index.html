@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <th:block th:include="common/common::common('应用信息')"/>
+    <th:block th:include="common/common::component('应用信息')"/>
     <script th:src="@{/static/admin/app/index.js}" charset="utf-8"></script>
 </head>
 <body class="fly-container">
@@ -69,14 +69,14 @@
 
     <!-- 页面数据展示 -->
     <div class="fly-table-container">
-        <table class="layui-hide" id="layTable" lay-filter="layFilter"></table>
+        <table class="layui-hide" id="appLayTable" lay-filter="appLayFilter"></table>
     </div>
 
 </div>
 
 
 <!-- 表头工具栏 -->
-<script type="text/html" id="toolbar">
+<script type="text/html" id="appToolbar">
     <div class="fly-tool-bar">
         <button sec:authorize="hasAuthority('admin:app:info:save')"
                 class="layui-btn layui-btn-sm layui-btn-normal fly-button-add"
@@ -88,25 +88,25 @@
 
 
 <!-- 操作工具栏 -->
-<script type="text/html" id="toolActionBar">
+<script type="text/html" id="appToolActionBar">
     <button sec:authorize="hasAuthority('admin:app:info:view')"
-            class="fly-action-bar fly-button-view" lay-event="view">
+            class="fly-action-bar fly-button-view" lay-event="viewApp">
         <i class="layui-icon layui-icon-list"></i>查看
     </button>
     <button sec:authorize="hasAuthority('admin:app:info:update')"
-            class="fly-action-bar fly-button-edit" lay-event="update">
+            class="fly-action-bar fly-button-edit" lay-event="updateApp">
         <i class="layui-icon layui-icon-edit"></i>编辑
     </button>
     <button sec:authorize="hasAuthority('admin:app:info:delete')"
-            class="fly-action-bar fly-button-remove" lay-event="delete">
+            class="fly-action-bar fly-button-remove" lay-event="deleteApp">
         <i class="layui-icon layui-icon-delete"></i>删除
     </button>
 </script>
 
 
-<script type="text/html" id="validFlagTpl">
+<script type="text/html" id="validAppFlagTpl">
     <input type="checkbox" name="validFlag" value="{{= d.id }}" title="有效|无效" lay-skin="switch"
-           lay-filter="validFlagFilter" {{ d.validFlag == 'Y' ? 'checked' : '' }}>
+           lay-filter="validAppFlagFilter" {{ d.validFlag == 'Y' ? 'checked' : '' }}>
 </script>
 
 </body>

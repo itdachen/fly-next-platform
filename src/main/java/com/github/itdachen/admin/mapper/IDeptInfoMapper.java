@@ -46,6 +46,8 @@ public interface IDeptInfoMapper extends Mapper<DeptInfo> {
      */
     DeptInfoVO selectDeptInfoVO(String id);
 
+    Integer hasDeptChildren(String deptId);
+
     /***
      * 查询导出数据
      *
