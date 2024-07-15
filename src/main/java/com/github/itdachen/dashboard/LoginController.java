@@ -46,7 +46,7 @@ public class LoginController {
         }
 
         modelMap.put("authForm", targetUrl);
-        return "login";
+        return "login2";
     }
 
 }
