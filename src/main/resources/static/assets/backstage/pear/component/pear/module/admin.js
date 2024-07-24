@@ -105,10 +105,10 @@ layui.define(['jquery', 'tools', 'element', 'yaml', 'form', 'tabPage', 'menu', '
                         result.menu.data = $('#permsAuthUri').val();
                         result.menu.select = result.tab.index.id;
 
-                        console.log(result)
+                        let appVersion = $('#appVersion').val();
 
                         console.log(
-                            "%c " + clientName + " V0.1",
+                            "%c " + clientName + " V " + appVersion,
                             "background-color: #1E9FFF; color: #FFFFFF; padding: 2px 5px; border-radius: 3px; font-size: 20px;"
                         );
 
