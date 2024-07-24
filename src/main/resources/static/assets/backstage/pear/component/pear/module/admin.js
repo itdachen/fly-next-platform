@@ -108,7 +108,7 @@ layui.define(['jquery', 'tools', 'element', 'yaml', 'form', 'tabPage', 'menu', '
                         let appVersion = $('#appVersion').val();
 
                         console.log(
-                            "%c " + clientName + " V " + appVersion,
+                            "%c app name：" + clientName + "； app version： " + appVersion,
                             "background-color: #1E9FFF; color: #FFFFFF; padding: 2px 5px; border-radius: 3px; font-size: 20px;"
                         );
 
