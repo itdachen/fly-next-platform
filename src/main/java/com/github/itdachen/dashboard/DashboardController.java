@@ -32,6 +32,10 @@ public class DashboardController {
     public String index(ModelMap modelMap) throws Exception {
         UserInfoDetails userDetails = BizContextHandler.getUserDetails();
         setAppInfo(modelMap, userDetails);
+
+        String permsAuthUri = appInfoProperties.getContextPath() + "/pear/admin/menu";
+        modelMap.put("permsAuthUri", permsAuthUri);
+
         return "backstage/pear/index";
     }
 

@@ -37,11 +37,12 @@
 </head>
 <!-- 结 构 代 码 -->
 <body class="layui-layout-body pear-admin">
-<input type="text" value="/fly/static/assets/images/logo.png" id="logImage" name="logImage" style="display: none">
+<input type="text" value="/static/assets/images/logo.png" id="logoImage" name="logoImage" style="display: none">
 <input type="text" th:value="*{referredToAs}" id="clientName" name="clientName" style="display: none">
 <input type="text" th:value="*{homeId}" id="mainHomeId" name="mainHomeId" style="display: none">
 <input type="text" th:value="*{homeUri}" id="mainHomeUri" name="mainHomeUri" style="display: none">
 <input type="text" th:value="*{menuName}" id="mainHomeTitle" name="mainHomeTitle" style="display: none">
+<input type="text" th:value="*{permsAuthUri}" id="permsAuthUri" name="permsAuthUri" style="display: none">
 
 <!-- 布 局 框 架 -->
 <div class="layui-layout layui-layout-admin">
@@ -164,7 +165,6 @@
             type: 'GET',
             url: HTTP_BIZ_URI + '/auth/user/role/list',
             success: function (res) {
-                console.log(res)
                 if (res.success) {
                     let data = res.data;
                     // userRoleInfo
