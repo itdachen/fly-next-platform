@@ -12,6 +12,7 @@
     <link rel="stylesheet" th:href="@{/static/assets/backstage/pear/admin/css/admin.dark.css}"/>
     <link rel="stylesheet" th:href="@{/static/assets/backstage/pear/admin/css/variables.css}"/>
     <link rel="stylesheet" th:href="@{/static/assets/backstage/pear/admin/css/reset.css}"/>
+    <link rel="stylesheet" th:href="@{/static/assets/fly/css/fly-ui.css}" media="all"/>
     <!-- 加 载 样 式 -->
     <!--    <link rel="stylesheet" th:href="@{/static/assets/backstage/pear/admin/css/loader.css}"/>-->
 
@@ -84,15 +85,15 @@
                 <!-- 功 能 菜 单 -->
                 <dl class="layui-nav-child">
                     <dd id="userRoleInfo">
-<!--                        <a class="layui-icon layui-icon-username">-->
-<!--                            <span style="margin-left: 5px">基本资料</span>-->
-<!--                        </a>-->
-<!--                        <a class="layui-icon layui-icon-username">-->
-<!--                            <span style="margin-left: 5px">基本资料</span>-->
-<!--                        </a>-->
-<!--                        <a class="layui-icon layui-icon-username">-->
-<!--                            <span style="margin-left: 5px">基本资料</span>-->
-<!--                        </a>-->
+                        <!--                        <a class="layui-icon layui-icon-username">-->
+                        <!--                            <span style="margin-left: 5px">基本资料</span>-->
+                        <!--                        </a>-->
+                        <!--                        <a class="layui-icon layui-icon-username">-->
+                        <!--                            <span style="margin-left: 5px">基本资料</span>-->
+                        <!--                        </a>-->
+                        <!--                        <a class="layui-icon layui-icon-username">-->
+                        <!--                            <span style="margin-left: 5px">基本资料</span>-->
+                        <!--                        </a>-->
                     </dd>
                     <hr>
                     <dd>
@@ -143,16 +144,20 @@
     <a href="javascript:void(0);" class="layui-icon layui-icon-shrink-right"></a>
 </div>
 <!-- 依 赖 脚 本 -->
-<script type="text/javascript" th:src="@{/static/assets/fly.js}"></script>
+<script type="text/javascript" th:src="@{/static/fly.js}"></script>
 <script type="text/javascript" th:src="@{/static/assets/fly/js/fly-config.js}"></script>
+<script type="text/javascript" th:src="@{/static/assets/fly/jquery-3.7.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/assets/fly/js/spark-md5.js}"></script>
+<script type="text/javascript" th:src="@{/static/assets/fly/js/fly-ui.js}"></script>
 <script type="text/javascript" th:src="@{/static/assets/backstage/pear/component/layui/layui.js}"></script>
 <script type="text/javascript" th:src="@{/static/assets/backstage/pear/component/pear/pear.js}"></script>
+
+
 <!-- 框 架 初 始 化 -->
 <script>
     layui.use(['admin', 'jquery', 'popup'], function () {
         var admin = layui.admin;
         var popup = layui.popup;
-        var $ = layui.jquery;
 
 
         $.ajax({

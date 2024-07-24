@@ -36,11 +36,12 @@ fly:
 
   # 安全认证配置
   security:
-    signInPage: /login
-    signOutUrl: /login
+    signInPage: /login # 登录页面地址
+    signOutUrl: /login # 退出登录成功之后跳转地址
+    successForwardUrl: /index # 登录成功后跳转地址
     session:
-      sessionInvalidUrl: /login
-    matchers:
+      sessionInvalidUrl: /login # 登录失效后跳转地址
+    matchers:  # 不需要登录认证拦截地址
       - /open/**
 
 spring:

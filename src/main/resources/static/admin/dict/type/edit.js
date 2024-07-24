@@ -7,7 +7,8 @@ layui.use(['form'], function () {
     form.on('submit(editDictType)', function (data) {
         $.form.submit({
             url: HTTP_BIZ_URI + '/admin/dict/type/' + data.field.id,
-            data: data.field
+            data: data.field,
+            reload: parent.reloadDictTypeTableData
         })
     });
 

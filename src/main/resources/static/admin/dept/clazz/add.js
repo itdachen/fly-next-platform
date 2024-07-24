@@ -117,6 +117,7 @@ function saveDeptClazz(clazzId) {
         url: path,
         data: data,
         callback: function (res) {
+            parent.reloadClazzDeptTableData();
             if (200 === res.status) {
                 layer.alert('添加成功', {title: "系统提示", icon: 1}, function () {
                     $.flyer.close();

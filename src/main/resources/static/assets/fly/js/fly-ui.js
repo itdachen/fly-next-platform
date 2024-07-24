@@ -23,6 +23,33 @@ $(function () {
     $.extend({
 
         /**
+         * 获取主键/唯一标识
+         */
+        pk: {
+            uuid: function () {
+                let d = new Date().getTime();
+                let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                    let r = (d + Math.random() * 16) % 16 | 0;
+                    d = Math.floor(d / 16);
+                    return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+                });
+                return uuid.toUpperCase();
+            },
+
+            guid: function () {
+                let guid = "";
+                for (let i = 1; i <= 32; i++) {
+                    let n = Math.floor(Math.random() * 16.0).toString(16);
+                    guid += n;
+                    // if ((i == 8) || (i == 12) || (i == 16) || (i == 20)){
+                    //   guid += "-";
+                    // }
+                }
+                return guid.toUpperCase();
+            }
+        },
+
+        /**
          * http 请求统一封装
          */
         http: {

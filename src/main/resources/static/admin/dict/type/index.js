@@ -5,25 +5,26 @@
   +  Created with IntelliJ IDEA.
   ++++++++++++++++++++++++++++++++++++++++++++
  */
-const dictTypePath = HTTP_BIZ_URI + "/admin/dict/type";
+var dictTypePath = HTTP_BIZ_URI + "/admin/dict/type";
 layui.use(function () {
     let table = layui.table;
     let form = layui.form;
+    form.render();
 
-    initLayTable(table, form);
+    initDictTypeLayTable(table, form);
 
 });
 
 
-function initLayTable(table, form) {
+function initDictTypeLayTable(table, form) {
     /* 初始化表格 */
-    $.table.init(table, tableInitOptions({}))
+    $.table.init(table, tableInitDictTypeOptions())
 
     /* 表头事件监听 */
-    toolBar(table);
+    toolDictTypeBar(table);
 
     /* 操作栏监听 */
-    tool(table);
+    toolDictType(table);
 
     /* 导出 */
     form.on('submit(expDictType)', function (data) {
@@ -34,16 +35,14 @@ function initLayTable(table, form) {
 
     /* 查询 */
     form.on('submit(queryDictType)', function (data) {
-        reloadTableData(table, data.field)
+        reloadDictTypeTableData(table)
         return false;
     })
 
     /* 搜索输入框回车监听 */
     $('.keypress-listen').bind('keypress', function (event) {
         if (13 === event.keyCode || '13' === event.keyCode) {
-            event.preventDefault();
-            let obj = $.form.getFormValue('queryDictType')
-            reloadTableData(table, obj)
+            reloadDictTypeTableData(table)
             return false;
         }
     })
@@ -53,10 +52,9 @@ function initLayTable(table, form) {
 /**
  * 刷新表格数据
  * @param table
- * @param params
  */
-function reloadTableData(table, params) {
-    $.table.reloadData(table, tableInitOptions(params));
+function reloadDictTypeTableData(table) {
+    $.table.reloadData(table, tableInitDictTypeOptions());
 }
 
 
@@ -64,7 +62,7 @@ function reloadTableData(table, params) {
  * 表头操作
  * @param table
  */
-function toolBar(table) {
+function toolDictTypeBar(table) {
     table.on('toolbar(dictTypeLayFilter)', function (obj) {
         if ('saveDictType' === obj.event) {
             $.flyer.openIframe({
@@ -79,13 +77,14 @@ function toolBar(table) {
  * 表格操作
  * @param table
  */
-function tool(table) {
+function toolDictType(table) {
     table.on('tool(dictTypeLayFilter)', function (obj) {
         let data = obj.data;
         if ('deleteDictType' === obj.event) {
             $.table.delete({
                 url: dictTypePath + '/' + data.id,
-                title: data.name
+                title: data.dictLabel,
+                reloadTable: reloadDictTypeTableData
             })
         }
         if ('updateDictType' === obj.event) {
@@ -101,14 +100,20 @@ function tool(table) {
     })
 }
 
-function tableInitOptions(params = {}) {
+function queryDictTypeWhere() {
+    return {
+        dictLabel: $('#dictLabel').val()
+    }
+}
+
+function tableInitDictTypeOptions() {
     return {
         id: 'dictTypeLayTable',
         elem: '#dictTypeLayTable',
         layFilter: 'dictTypeLayFilter',
         toolbar: '#dictTypeToolbar',
         url: dictTypePath + "/page",
-        where: params,
+        where: queryDictTypeWhere(),
         cols: [[
             {field: 'dictLabel', title: '字典标签', width: 320, align: "center"},
             {field: 'dictType', title: '字典类型', width: 320, align: "center"},

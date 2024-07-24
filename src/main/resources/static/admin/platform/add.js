@@ -8,7 +8,8 @@ layui.use(['form'], function () {
     form.on('submit(savePlatformInfo)', function (data) {
         $.form.submit({
             url: HTTP_BIZ_URI + '/admin/platform/info' ,
-            data: data.field
+            data: data.field,
+            reload: parent.reloadPlatformInfoTableData
         })
     });
 

@@ -5,27 +5,29 @@
   +  Created with IntelliJ IDEA.
   ++++++++++++++++++++++++++++++++++++++++++++
  */
-const path = HTTP_BIZ_URI + "/admin/user/role/info";
-var deptParentId = '';
+var userRolePath = HTTP_BIZ_URI + "/admin/user/role/info";
+var userRoleDeptParentId = '';
 layui.use(function () {
     let table = layui.table;
     let form = layui.form;
-    deptParentId = $('#parentId').val();
+    form.render();
+    userRoleDeptParentId = $('#parentId').val();
 
-    initDeptTree(table, form);
+    initUserRoleDeptTree(table, form);
 
-    initLayTable(table, form);
+    initUserRoleLayTable(table, form);
 
 });
 
 
-function initDeptTree(table) {
+function initUserRoleDeptTree(table) {
     $.zTree.initTree({
+        id: 'userRoleTree',
         url: HTTP_BIZ_URI + '/admin/dept/info/tree',
         callback: function (event, treeId, treeNode) {
-            deptParentId = treeNode.id;
-            reloadTableData(table, {})
-            if ('1' === deptParentId) {
+            userRoleDeptParentId = treeNode.id;
+            reloadUserRoleTableData(table, {})
+            if ('1' === userRoleDeptParentId) {
                 $('#headBarTool').attr('style', 'display:none')
             }
 
@@ -34,35 +36,33 @@ function initDeptTree(table) {
 }
 
 
-function initLayTable(table, form) {
+function initUserRoleLayTable(table, form) {
     /* 初始化表格 */
-    $.table.init(table, tableInitOptions({deptId: deptParentId}))
+    $.table.init(table, tableInitUserRoleOptions())
 
     /* 表头事件监听 */
-    toolBar(table);
+    toolUserRoleBar(table);
 
     /* 操作栏监听 */
-    tool(table);
+    toolUserRole(table);
 
     /* 导出 */
     form.on('submit(expUserRoleInfo)', function (data) {
-        let uri = queryUriObjParams(path + '/exp', data.field)
+        let uri = queryUriObjParams(userRolePath + '/exp', data.field)
         window.open(uri);
         return false;
     })
 
     /* 查询 */
     form.on('submit(queryUserRoleInfo)', function (data) {
-        reloadTableData(table, data.field)
+        reloadUserRoleTableData(table)
         return false;
     })
 
     /* 搜索输入框回车监听 */
     $('.keypress-listen').bind('keypress', function (event) {
         if (13 === event.keyCode || '13' === event.keyCode) {
-            event.preventDefault();
-            let obj = $.form.getFormValue('queryUserRoleInfo')
-            reloadTableData(table, obj)
+            reloadUserRoleTableData(table)
             return false;
         }
     })
@@ -70,8 +70,8 @@ function initLayTable(table, form) {
     /**
      * 有效标志监听
      */
-    form.on('switch(validFlagFilter)', function (obj) {
-        validFlagFilter(table, this.value, obj.elem.checked)
+    form.on('switch(validFlagUserRoleFilter)', function (obj) {
+        validFlagUserRoleFilter(table, this.value, obj.elem.checked)
     });
 
 }
@@ -81,9 +81,8 @@ function initLayTable(table, form) {
  * @param table
  * @param params
  */
-function reloadTableData(table, params) {
-    params.deptId = deptParentId;
-    $.table.reloadData(table, tableInitOptions(params));
+function reloadUserRoleTableData(table) {
+    $.table.reloadData(table, tableInitUserRoleOptions());
 }
 
 
@@ -91,12 +90,12 @@ function reloadTableData(table, params) {
  * 表头操作
  * @param table
  */
-function toolBar(table) {
-    table.on('toolbar(layFilter)', function (obj) {
+function toolUserRoleBar(table) {
+    table.on('toolbar(userRoleInfoLayFilter)', function (obj) {
         if ('saveUserRoleInfo' === obj.event) {
             $.flyer.openIframe({
                 title: '新增',
-                content: path + '/' + deptParentId + '/add'
+                content: userRolePath + '/' + userRoleDeptParentId + '/add'
             })
         }
     })
@@ -106,13 +105,14 @@ function toolBar(table) {
  * 表格操作
  * @param table
  */
-function tool(table) {
-    table.on('tool(layFilter)', function (obj) {
+function toolUserRole(table) {
+    table.on('tool(userRoleInfoLayFilter)', function (obj) {
         let data = obj.data;
         if ('delete' === obj.event) {
             $.table.delete({
-                url: path + '/' + data.id,
-                title: data.name
+                url: userRolePath + '/' + data.id,
+                title: data.roleName,
+                reloadTable: reloadUserRoleTableData
             })
         }
         if ('auz' === obj.event) {
@@ -123,7 +123,7 @@ function tool(table) {
         if ('clazz' === obj.event) {
             $.flyer.openIframe({
                 title: '岗位设置',
-                content: path + '/clazz/' + data.id,
+                content: userRolePath + '/clazz/' + data.id,
                 area: ['350px', '500px']
             })
         }
@@ -141,22 +141,32 @@ function tool(table) {
         if ('update' === obj.event) {
             $.flyer.openIframe({
                 title: '编辑',
-                content: path + '/edit/' + data.id
+                content: userRolePath + '/edit/' + data.id
             })
         }
         if ('view' === obj.event) {
             $.flyer.openIframeSee({
                 title: '查看',
-                content: path + '/view/' + data.id
+                content: userRolePath + '/view/' + data.id
             })
         }
     })
 }
 
-function tableInitOptions(params = {}) {
+function queryUserRoleWhere() {
     return {
-        url: path + "/page",
-        where: params,
+        deptId: userRoleDeptParentId
+    }
+}
+
+function tableInitUserRoleOptions() {
+    return {
+        id: 'userRoleInfoLayTable',
+        elem: '#userRoleInfoLayTable',
+        layFilter: 'userRoleInfoLayFilter',
+        toolbar: '#userInfoToolbar',
+        url: userRolePath + "/page",
+        where: queryUserRoleWhere(),
         cols: [[
             {field: 'nickName', title: '姓名', width: 160, align: "center"},
             {field: 'roleName', title: '身份名称', align: "center"},
@@ -174,7 +184,7 @@ function tableInitOptions(params = {}) {
             // {field: 'startTime', title: '身份有效期起', align: "center"},
             // {field: 'endTime', title: '身份有效期止', align: "center"},
             // {field: 'orderNum', title: '排序', align: "center"},
-            {fixed: 'right', title: '操作', toolbar: '#toolActionBar', width: 600, align: "center"}
+            {fixed: 'right', title: '操作', toolbar: '#toolUserRoleActionBar', width: 600, align: "center"}
         ]]
     }
 
@@ -187,15 +197,14 @@ function tableInitOptions(params = {}) {
  * @param id
  * @param checked
  */
-function validFlagFilter(table, id, checked) {
+function validFlagUserRoleFilter(table, id, checked) {
     $.http.post({
-        url: path + '/' + id + '/valid/' + checked,
+        url: userRolePath + '/' + id + '/valid/' + checked,
         callback: function (res) {
             $.msg.msgSuccess('有效标志更改成功！');
         },
         errCallback: function (err) {
-            let obj = $.form.getFormValue('queryPlatformInfo')
-            reloadTableData(table, obj);
+            reloadUserRoleTableData(table);
             $.msg.msgWarning(err.msg);
         }
     })

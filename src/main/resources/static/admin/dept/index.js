@@ -5,19 +5,21 @@
   +  Created with IntelliJ IDEA.
   ++++++++++++++++++++++++++++++++++++++++++++
  */
-const deptPath = HTTP_BIZ_URI + "/admin/dept/info";
+var deptPath = HTTP_BIZ_URI + "/admin/dept/info";
 var deptParentId = 'root';
 var deptRootId = 'root';
 layui.use(function () {
     let table = layui.table;
     let form = layui.form;
+    form.render();
 
-    deptRootId = $('#parentId').val();
-    deptParentId = $('#parentId').val();
+    let parentIdValue = $('#parentId').val();
+    deptRootId = parentIdValue;
+    deptParentId = parentIdValue;
 
     initDeptTree(table, form);
 
-    initLayTable(table, form);
+    initDeptLayTable(table, form);
 
 });
 
@@ -33,15 +35,15 @@ function initDeptTree(table) {
 }
 
 
-function initLayTable(table, form) {
+function initDeptLayTable(table, form) {
     /* 初始化表格 */
     $.table.init(table, tableInitDeptOptions())
 
     /* 表头事件监听 */
-    toolBar(table);
+    toolDeptBar(table);
 
     /* 操作栏监听 */
-    tool(table);
+    toolDept(table);
 
     /* 导出 */
     form.on('submit(expDeptInfo)', function (data) {
@@ -67,8 +69,8 @@ function initLayTable(table, form) {
     /**
      * 有效标志监听
      */
-    form.on('switch(validFlagFilter)', function (obj) {
-        validFlagFilter(table, this.value, obj.elem.checked)
+    form.on('switch(validFlagDeptInfoFilter)', function (obj) {
+        validFlagDeptInfoFilter(table, this.value, obj.elem.checked)
     });
 
 }
@@ -98,8 +100,8 @@ function reloadDeptTableData(table) {
  * 表头操作
  * @param table
  */
-function toolBar(table) {
-    table.on('toolbar(layFilter)', function (obj) {
+function toolDeptBar(table) {
+    table.on('toolbar(deptInfoLayFilter)', function (obj) {
         if ('saveDeptInfo' === obj.event) {
             $.flyer.openIframe({
                 title: '新增',
@@ -113,14 +115,13 @@ function toolBar(table) {
  * 表格操作
  * @param table
  */
-function tool(table) {
-    table.on('tool(layFilter)', function (obj) {
+function toolDept(table) {
+    table.on('tool(deptInfoLayFilter)', function (obj) {
         let data = obj.data;
         if ('delete' === obj.event) {
             $.table.delete({
                 url: deptPath + '/' + data.id,
                 title: data.name,
-                reloadTable: reloadDeptTableData,
                 callback: function (res) {
                     initDeptTree();
                     reloadDeptTableData(table);
@@ -145,13 +146,17 @@ function tool(table) {
 
 function tableInitDeptOptions() {
     return {
+        id: 'deptInfoLayTable',
+        elem: '#deptInfoLayTable',
+        layFilter: 'deptInfoLayFilter',
+        toolbar: '#deptInfoToolbar',
         url: deptPath + "/page",
         where: queryDeptWhere(),
         cols: [[
             {field: 'title', title: '部门名称', align: "center"},
             // {field: 'deptLevel', title: '部门级次', width: 180, align: "center"},
-            {field: 'validFlag', title: '有效标志', width: 180, align: "center", templet: "#validFlagTpl"},
-            {fixed: 'right', title: '操作', toolbar: '#toolActionBar', width: 320, align: "center"}
+            {field: 'validFlag', title: '有效标志', width: 180, align: "center", templet: "#validFlagDeptInfoTpl"},
+            {fixed: 'right', title: '操作', toolbar: '#toolDeptInfoActionBar', width: 320, align: "center"}
         ]]
     }
 
@@ -163,19 +168,17 @@ function tableInitDeptOptions() {
  * @param id
  * @param checked
  */
-function validFlagFilter(table, id, checked) {
+function validFlagDeptInfoFilter(table, id, checked) {
     $.http.post({
         url: deptPath + '/' + id + '/valid/' + checked,
         callback: function (res) {
             initDeptTree(table, null);
-            let obj = $.form.getFormValue('queryDeptInfo')
-            reloadDeptTableData(table, obj);
+            reloadDeptTableData(table);
             $.msg.msgSuccess('有效标志更改成功！');
         },
         errCallback: function (err) {
-            let obj = $.form.getFormValue('queryDeptInfo')
             initDeptTree(table, null);
-            reloadDeptTableData(table, obj);
+            reloadDeptTableData(table);
             $.msg.msgWarning(err.msg);
         }
     })

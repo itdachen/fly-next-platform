@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
-    <th:block th:include="common/common::common('平台信息')"/>
+    <th:block th:include="common/common::component('平台信息')"/>
     <script th:src="@{/static/admin/platform/index.js}" charset="utf-8"></script>
 </head>
 <body class="fly-container">
@@ -67,14 +67,14 @@
 
     <!-- 页面数据展示 -->
     <div class="fly-table-container">
-        <table class="layui-hide" id="layTable" lay-filter="layFilter"></table>
+        <table class="layui-hide" id="platformInfoLayTable" lay-filter="platformInfoLayFilter"></table>
     </div>
 
 </div>
 
 
 <!-- 表头工具栏 -->
-<script type="text/html" id="toolbar">
+<script type="text/html" id="platformInfoToolbar">
     <div class="fly-tool-bar">
         <button sec:authorize="hasAuthority('admin:platform:info:save')"
                 class="layui-btn layui-btn-sm layui-btn-normal fly-button-add"
@@ -85,7 +85,7 @@
 </script>
 
 <!-- 操作工具栏 -->
-<script type="text/html" id="toolActionBar">
+<script type="text/html" id="platformInfoActionBar">
     <button sec:authorize="hasAuthority('admin:platform:info:view')"
             class="fly-action-bar fly-button-view" lay-event="view">
         <i class="layui-icon layui-icon-list"></i>查看
@@ -100,9 +100,9 @@
     </button>
 </script>
 
-<script type="text/html" id="validFlagTpl">
+<script type="text/html" id="validFlagPlatformInfoTpl">
     <input type="checkbox" name="validFlag" lay-skin="tag" class="warning-check-box" value="{{d.id}}" title="有效"
-           lay-filter="validFlagFilter" {{ d.validFlag== 'Y' ? 'checked' : '' }}>
+           lay-filter="validFlagPlatformInfoFilter" {{ d.validFlag== 'Y' ? 'checked' : '' }}>
 </script>
 
 </body>

@@ -2,12 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
-    <th:block th:include="common/common::common('用户信息')"/>
+    <th:block th:include="common/common::component('用户信息')"/>
     <script th:src="@{/static/admin/user/index.js}" charset="utf-8"></script>
 </head>
 <body class="fly-container">
 <div class="fly-main-container">
-
 
 
     <!-- 查询 -->
@@ -17,51 +16,50 @@
 
             <div class="layui-form-item">
 
-                        <div class="layui-inline">
-                            <label class="layui-form-label">昵称</label>
-                            <div class="layui-input-inline">
-                                    <input type="text" class="layui-input keypress-listen" placeholder="昵称"
-                                           id="nickName" name="nickName" autocomplete="off">
-                            </div>
-                        </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">昵称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input keypress-listen" placeholder="昵称"
+                               id="nickName" name="nickName" autocomplete="off">
+                    </div>
+                </div>
 
 
-                        <div class="layui-inline">
-                            <label class="layui-form-label">身份证号码</label>
-                            <div class="layui-input-inline">
-                                    <input type="text" class="layui-input keypress-listen" placeholder="身份证号码"
-                                           id="idCard" name="idCard" autocomplete="off">
-                            </div>
-                        </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">身份证号码</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input keypress-listen" placeholder="身份证号码"
+                               id="idCard" name="idCard" autocomplete="off">
+                    </div>
+                </div>
 
 
-                        <div class="layui-inline">
-                            <label class="layui-form-label">性别</label>
-                            <div class="layui-input-inline">
-                                    <select id="sex" name="sex" th:with="dicts=${@dict.data('sex')}">
-                                        <option value="">请选择性别</option>
-                                        <option th:each="dict : ${dicts}"
-                                                th:text="${dict.label}"
-                                                th:value="${dict.value}">
-                                        </option>
-                                    </select>
-                            </div>
-                        </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">性别</label>
+                    <div class="layui-input-inline">
+                        <select id="sex" name="sex" th:with="dicts=${@dict.data('sex')}">
+                            <option value="">请选择性别</option>
+                            <option th:each="dict : ${dicts}"
+                                    th:text="${dict.label}"
+                                    th:value="${dict.value}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
 
 
-                        <div class="layui-inline">
-                            <label class="layui-form-label">有效标志</label>
-                            <div class="layui-input-inline">
-                                    <select id="validFlag" name="validFlag" th:with="dicts=${@dict.data('VALID_FLAG')}">
-                                        <option value="">请选择有效标志</option>
-                                        <option th:each="dict : ${dicts}"
-                                                th:text="${dict.label}"
-                                                th:value="${dict.value}">
-                                        </option>
-                                    </select>
-                            </div>
-                        </div>
-
+                <div class="layui-inline">
+                    <label class="layui-form-label">有效标志</label>
+                    <div class="layui-input-inline">
+                        <select id="validFlag" name="validFlag" th:with="dicts=${@dict.data('VALID_FLAG')}">
+                            <option value="">有效标志</option>
+                            <option th:each="dict : ${dicts}"
+                                    th:text="${dict.label}"
+                                    th:value="${dict.value}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
 
 
                 <div class="layui-inline">
@@ -100,14 +98,14 @@
 
     <!-- 页面数据展示 -->
     <div class="fly-table-container">
-        <table class="layui-hide" id="layTable" lay-filter="layFilter"></table>
+        <table class="layui-hide" id="userInfoLayTable" lay-filter="userInfoLayFilter"></table>
     </div>
 
 </div>
 
 
 <!-- 表头工具栏 -->
-<script type="text/html" id="toolbar">
+<script type="text/html" id="userInfoToolbar">
     <div class="fly-tool-bar">
         <button sec:authorize="hasAuthority('admin:user:info:save')"
                 class="layui-btn layui-btn-sm layui-btn-normal fly-button-add"
@@ -118,7 +116,7 @@
 </script>
 
 <!-- 操作工具栏 -->
-<script type="text/html" id="toolActionBar">
+<script type="text/html" id="toolUserInfoActionBar">
     <button sec:authorize="hasAuthority('admin:user:info:view')"
             class="fly-action-bar fly-button-view" lay-event="view">
         <i class="layui-icon layui-icon-list"></i>查看
@@ -134,9 +132,9 @@
 </script>
 
 
-<script type="text/html" id="validFlagTpl">
+<script type="text/html" id="validFlagUserInfoTpl">
     <input type="checkbox" name="validFlag" value="{{= d.id }}" title="有效|无效" lay-skin="switch"
-           lay-filter="validFlagFilter" {{ d.validFlag == 'Y' ? 'checked' : '' }}>
+           lay-filter="validFlagUserInfoFilter" {{ d.validFlag== 'Y' ? 'checked' : '' }}>
 </script>
 
 

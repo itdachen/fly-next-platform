@@ -16,7 +16,8 @@ layui.use(['form', 'upload'], function () {
     form.on('submit(saveUserInfo)', function (data) {
         $.form.submit({
             url: HTTP_BIZ_URI + '/admin/user/info' ,
-            data: data.field
+            data: data.field,
+            reload: parent.reloadUserInfoTableData
         })
     });
 

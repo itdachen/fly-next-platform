@@ -103,6 +103,7 @@ layui.use(['form', 'upload'], function () {
         $.form.submit({
             url: HTTP_BIZ_URI + '/admin/tenant/info/' + data.field.id,
             data: formData,
+            reload: reloadTenantInfoTableData
         })
     });
 

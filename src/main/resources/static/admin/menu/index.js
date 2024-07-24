@@ -9,6 +9,8 @@ const path = HTTP_BIZ_URI + "/admin/menu/info";
 layui.use(function () {
     let table = layui.table;
     let form = layui.form;
+    form.render();
+
     flyMenuParentId = $('#appId').val();
 
     initTree(table);

@@ -1,14 +1,14 @@
 /** 文件上传接口 */
-const uploadURL = '/oss/file/upload';
+var uploadURL = '/oss/file/upload';
 
 /** 文件 MD5 校验接口, 后面接解析的文件 MD5  */
-const uploadCheckMD5URL = '/oss/file/md5/';
+var uploadCheckMD5URL = '/oss/file/md5/';
 
 /** 数据资料获取接口, 后面接字典类型 */
-const dictDateApi = '/api/open/dict/data/';
+var dictDateApi = '/api/open/dict/data/';
 
 /** 文件解析服务地址 */
-const ONLINE_PREVIEW_URI = 'http://localhost:8012'
+var ONLINE_PREVIEW_URI = 'http://localhost:8012'
 
 var uploadLayer;
 var running = false;
@@ -17,7 +17,7 @@ var running = false;
  * 后台返回状态码
  * @type {{PARAMS_VALID: number, SUCCESS: number, LOCKED_ACCOUNT: number, HTTP_EX: number, ERROR: number, PARAMS_VALID_MSG: number, NO_LOGIN_USER_INFO: number, USER_PASSWORD_NOT_MATCH: number, WARNING: number, CLIENT_TOKEN_EXCEPTION: number}}
  */
-const STATUS_CODE = {
+var STATUS_CODE = {
     SUCCESS: 200,
     ERROR: 500,
     WARNING: 400100,
@@ -34,7 +34,7 @@ const STATUS_CODE = {
  * layer 弹窗状态码
  * @type {{SUCCESS: string, HAPPY: string, UNHAPPY: string, LAYER_TIME: number, ERROR: string, CONFIRM: string, WARNING: string, LOCKUP: string}}
  */
-const LAYER_STATUS = {
+var LAYER_STATUS = {
     WARNING: "warning",
     SUCCESS: "success",
     ERROR: "error",
@@ -49,6 +49,6 @@ const LAYER_STATUS = {
  * http 请求方法
  * @type {{DELETE: string, POST: string, GET: string, PUT: string}}
  */
-const HTTP_METHOD = {
+var HTTP_METHOD = {
     GET: 'GET', POST: 'POST', PUT: 'PUT', DELETE: 'DELETE',
 }

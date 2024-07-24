@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
-    <th:block th:include="common/common::common('部门岗位关联表')"/>
+    <th:block th:include="common/common::component('部门岗位关联表')"/>
     <th:block th:include="common/common::zTree"/>
     <script th:src="@{/static/admin/dept/clazz/index.js}" charset="utf-8"></script>
 </head>
@@ -13,7 +13,7 @@
         <div class="tree-box">
             <div class="tree-title">部门树</div>
             <div class="tree-title-line"></div>
-            <div id="tree" class="ztree"></div>
+            <div id="clazzDeptTree" class="ztree"></div>
         </div>
         <!--右侧内容-->
         <div class=" tree-table-content">
@@ -65,7 +65,7 @@
 
                 <!-- 页面数据展示 -->
                 <div class="fly-table-container">
-                    <table class="layui-hide" id="layTable" lay-filter="layFilter"></table>
+                    <table class="layui-hide" id="deptClazzLayTable" lay-filter="deptClazzLayFilter"></table>
                 </div>
 
             </div>
@@ -75,7 +75,7 @@
 </div>
 
 <!-- 表头工具栏 -->
-<script type="text/html" id="toolbar">
+<script type="text/html" id="deptClazzToolbar">
     <div class="fly-tool-bar">
         <button sec:authorize="hasAuthority('fly:admin:clazz:dept:admin:save')"
                 class="layui-btn layui-btn-sm layui-btn-normal fly-button-add"
@@ -102,9 +102,9 @@
 </script>
 
 
-<script type="text/html" id="validFlagTpl">
+<script type="text/html" id="validFlagClazzDeptTpl">
     <input type="checkbox" name="validFlag" value="{{= d.id }}" title="有效|无效" lay-skin="switch"
-           lay-filter="validFlagFilter" {{ d.validFlag == 'Y' ? 'checked' : '' }}>
+           lay-filter="validFlagClazzDeptFilter" {{ d.validFlag == 'Y' ? 'checked' : '' }}>
 </script>
 
 

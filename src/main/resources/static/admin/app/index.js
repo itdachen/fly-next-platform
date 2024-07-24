@@ -5,10 +5,11 @@
   +  Created with IntelliJ IDEA.
   ++++++++++++++++++++++++++++++++++++++++++++
  */
-const appPath = HTTP_BIZ_URI + "/admin/app/info";
+var appPath = HTTP_BIZ_URI + "/admin/app/info";
 layui.use(function () {
     let table = layui.table;
     let form = layui.form;
+    form.render();
 
     initAppLayTable(table, form);
 
@@ -17,7 +18,7 @@ layui.use(function () {
 
 function initAppLayTable(table, form) {
     /* 初始化表格 */
-    $.table.init(table, appTableOptions({}))
+    $.table.init(table, appAppInfoTableOptions())
 
     /* 表头事件监听 */
     appToolBar(table);
@@ -35,7 +36,7 @@ function initAppLayTable(table, form) {
 
     /* 查询 */
     form.on('submit(queryAppInfo)', function (data) {
-        reloadAppTableData(table, data.field)
+        reloadAppTableData(table)
         return false;
     })
 
@@ -63,8 +64,8 @@ function initAppLayTable(table, form) {
  * @param table
  * @param queryParams
  */
-function reloadAppTableData(table, queryParams) {
-    $.table.reloadData(table, appTableOptions(queryParams));
+function reloadAppTableData(table) {
+    $.table.reloadData(table, appAppInfoTableOptions());
 }
 
 
@@ -96,7 +97,8 @@ function appTool(table) {
         if ('deleteApp' === obj.event) {
             $.table.delete({
                 url: appPath + '/' + data.id,
-                title: data.appTitle
+                title: data.appTitle,
+                reloadTable: reloadAppTableData
             })
         }
         if ('updateApp' === obj.event) {
@@ -114,14 +116,22 @@ function appTool(table) {
     })
 }
 
-function appTableOptions(queryParams = {}) {
+
+function queryAppInfoParams() {
+    return {
+        appTitle: $('#appTitle').val(),
+        validFlag: $('#validFlag').val()
+    }
+}
+
+function appAppInfoTableOptions() {
     return {
         id: 'appLayTable',
         elem: '#appLayTable',
         layFilter: 'appLayFilter',
         toolbar: '#appToolbar',
         url: appPath + "/page",
-        where: queryParams,
+        where: queryAppInfoParams(),
         cols: [[
             {field: 'platTitle', title: '平台名称', width: 180, align: "center"},
             {field: 'appTitle', title: '应用名称', width: 180, align: "center"},

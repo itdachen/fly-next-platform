@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
-  <th:block th:include="common/common::common('身份角色信息')"/>
+  <th:block th:include="common/common::component('身份角色信息')"/>
 <!--    <th:block th:include="common/common::component('身份角色信息')"/>-->
     <th:block th:include="common/common::zTree"/>
     <script th:src="@{/static/admin/user/role/index.js}" charset="utf-8"></script>
@@ -15,7 +15,7 @@
         <div class="tree-box">
             <div class="tree-title">部门树</div>
             <div class="tree-title-line"></div>
-            <div id="tree" class="ztree"></div>
+            <div id="userRoleTree" class="ztree"></div>
         </div>
         <!--右侧内容-->
         <div class=" tree-table-content">
@@ -81,7 +81,7 @@
 
                 <!-- 页面数据展示 -->
                 <div class="fly-table-container">
-                    <table class="layui-hide" id="layTable" lay-filter="layFilter"></table>
+                    <table class="layui-hide" id="userRoleInfoLayTable" lay-filter="userRoleInfoLayFilter"></table>
                 </div>
 
             </div>
@@ -92,7 +92,7 @@
 
 
 <!-- 表头工具栏 -->
-<script type="text/html" id="toolbar">
+<script type="text/html" id="userInfoToolbar">
     <div class="fly-tool-bar">
         <button sec:authorize="hasAuthority('admin:user:role:info:save')"
                 class="layui-btn layui-btn-sm layui-btn-normal fly-button-add"
@@ -103,7 +103,7 @@
 </script>
 
 <!-- 操作工具栏 -->
-<script type="text/html" id="toolActionBar">
+<script type="text/html" id="toolUserRoleActionBar">
 <!--    <button sec:authorize="hasAuthority('admin:user:role:info:view')"-->
 <!--            class="fly-action-bar fly-button-view" lay-event="view">-->
 <!--        <i class="layui-icon layui-icon-list"></i>查看-->
@@ -130,9 +130,9 @@
     </button>
 </script>
 
-<script type="text/html" id="validFlagTpl">
+<script type="text/html" id="validFlagUserInfoTpl">
     <input type="checkbox" name="validFlag" value="{{= d.id }}" title="有效|无效" lay-skin="switch"
-           lay-filter="validFlagFilter" {{ d.validFlag== 'Y' ? 'checked' : '' }}>
+           lay-filter="validFlagUserRoleFilter" {{ d.validFlag== 'Y' ? 'checked' : '' }}>
 </script>
 
 

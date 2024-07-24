@@ -9,7 +9,7 @@
         SELECT id, path AS uri, title AS name, auth_code AS permission, 'GET' AS method, type, parent_title AS menu
         FROM ta_fly_route_menu_info
         WHERE parent_id = #{parentId}
-          AND (open_type = '_iframe' OR open_type IS NULL)
+          AND (open_type = '_iframe' OR open_type = '_component' OR open_type IS NULL)
           AND valid_flag = 'Y'
           AND type != 'uri'
         ORDER BY order_num ASC

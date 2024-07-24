@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
-    <th:block th:include="common/common::common('岗位信息')"/>
+    <th:block th:include="common/common::component('岗位信息')"/>
     <script th:src="@{/static/admin/clazz/index.js}" charset="utf-8"></script>
 </head>
 <body class="fly-container">
@@ -51,14 +51,14 @@
 
     <!-- 页面数据展示 -->
     <div class="fly-table-container">
-        <table class="layui-hide" id="clazzLayTable" lay-filter="clazzLayFilter"></table>
+        <table class="layui-hide" id="clazzInfoLayTable" lay-filter="clazzInfoLayFilter"></table>
     </div>
 
 </div>
 
 
 <!-- 表头工具栏 -->
-<script type="text/html" id="toolbar">
+<script type="text/html" id="clazzInfoToolbar">
     <div class="fly-tool-bar">
         <button sec:authorize="hasAuthority('admin:clazz:info:save')"
                 class="layui-btn layui-btn-sm layui-btn-normal fly-button-add"
@@ -69,7 +69,7 @@
 </script>
 
 <!-- 操作工具栏 -->
-<script type="text/html" id="toolActionBar">
+<script type="text/html" id="toolClazzInfoActionBar">
     <button sec:authorize="hasAuthority('admin:clazz:info:view')"
             class="fly-action-bar fly-button-view" lay-event="viewClazz">
         <i class="layui-icon layui-icon-list"></i>查看

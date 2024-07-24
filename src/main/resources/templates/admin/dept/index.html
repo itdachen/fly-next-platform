@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
-    <th:block th:include="common/common::common('部门信息')"/>
+    <th:block th:include="common/common::component('部门信息')"/>
     <th:block th:include="common/common::zTree"/>
     <script th:src="@{/static/admin/dept/index.js}" charset="utf-8"></script>
 </head>
@@ -63,7 +63,7 @@
 
                 <!-- 页面数据展示 -->
                 <div class="fly-table-container">
-                    <table class="layui-hide" id="layTable" lay-filter="layFilter"></table>
+                    <table class="layui-hide" id="deptInfoLayTable" lay-filter="deptInfoLayFilter"></table>
                 </div>
             </div>
         </div>
@@ -77,7 +77,7 @@
 
 
 <!-- 表头工具栏 -->
-<script type="text/html" id="toolbar">
+<script type="text/html" id="deptInfoToolbar">
     <div class="fly-tool-bar">
         <button sec:authorize="hasAuthority('admin:dept:info:save')"
                 class="layui-btn layui-btn-sm layui-btn-normal fly-button-add"
@@ -88,7 +88,7 @@
 </script>
 
 <!-- 操作工具栏 -->
-<script type="text/html" id="toolActionBar">
+<script type="text/html" id="toolDeptInfoActionBar">
     <button sec:authorize="hasAuthority('admin:dept:info:view')"
             class="fly-action-bar fly-button-view" lay-event="view">
         <i class="layui-icon layui-icon-list"></i>查看
@@ -104,9 +104,9 @@
 </script>
 
 
-<script type="text/html" id="validFlagTpl">
+<script type="text/html" id="validFlagDeptInfoTpl">
     <input type="checkbox" name="validFlag" value="{{= d.id }}" title="有效|无效" lay-skin="switch"
-           lay-filter="validFlagFilter" {{ d.validFlag == 'Y' ? 'checked' : '' }}>
+           lay-filter="validFlagDeptInfoFilter" {{ d.validFlag == 'Y' ? 'checked' : '' }}>
 </script>
 
 

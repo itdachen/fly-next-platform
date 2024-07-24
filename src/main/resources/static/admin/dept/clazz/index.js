@@ -5,59 +5,61 @@
   +  Created with IntelliJ IDEA.
   ++++++++++++++++++++++++++++++++++++++++++++
  */
-const path = HTTP_BIZ_URI + "/admin/clazz/dept";
-var deptParentId = 'root';
+var deptClazzPath = HTTP_BIZ_URI + "/admin/clazz/dept";
+var clazzDeptParentId = 'root';
 layui.use(function () {
     let table = layui.table;
     let form = layui.form;
-    deptParentId = $('#parentId').val();
-    initDeptTree(table, form);
+    form.render();
 
-    initLayTable(table, form);
+    clazzDeptParentId = $('#parentId').val();
+    initClazzDeptTree(table, form);
+
+    initClazzDeptLayTable(table, form);
 
 });
 
 
-function initDeptTree(table) {
+function initClazzDeptTree(table) {
     $.zTree.initTree({
+        id: 'clazzDeptTree',
         url: HTTP_BIZ_URI + '/admin/dept/info/tree',
         callback: function (event, treeId, treeNode) {
-            deptParentId = treeNode.id;
-            reloadTableData(table, {})
+            clazzDeptParentId = treeNode.id;
+            console.log(clazzDeptParentId)
+            reloadClazzDeptTableData(table)
         }
     })
 }
 
 
-function initLayTable(table, form) {
+function initClazzDeptLayTable(table, form) {
     /* 初始化表格 */
-    $.table.init(table, tableInitOptions({}))
+    $.table.init(table, tableInitClazzDeptOptions())
 
     /* 表头事件监听 */
-    toolBar(table);
+    toolClazzDeptBar(table);
 
     /* 操作栏监听 */
-    tool(table);
+    toolClazzDept(table);
 
     /* 导出 */
     form.on('submit(expClazzDept)', function (data) {
-        let uri = queryUriObjParams(path + '/exp', data.field)
+        let uri = queryUriObjParams(deptClazzPath + '/exp', data.field)
         window.open(uri);
         return false;
     })
 
     /* 查询 */
     form.on('submit(queryClazzDept)', function (data) {
-        reloadTableData(table, data.field)
+        reloadClazzDeptTableData(table, data.field)
         return false;
     })
 
     /* 搜索输入框回车监听 */
     $('.keypress-listen').bind('keypress', function (event) {
         if (13 === event.keyCode || '13' === event.keyCode) {
-            event.preventDefault();
-            let obj = $.form.getFormValue('queryClazzDept')
-            reloadTableData(table, obj)
+            reloadClazzDeptTableData(table)
             return false;
         }
     })
@@ -65,8 +67,8 @@ function initLayTable(table, form) {
     /**
      * 有效标志监听
      */
-    form.on('switch(validFlagFilter)', function (obj) {
-        validFlagFilter(table, this.value, obj.elem.checked)
+    form.on('switch(validFlagClazzDeptFilter)', function (obj) {
+        validFlagClazzDeptFilter(table, this.value, obj.elem.checked)
     });
 
 }
@@ -74,11 +76,9 @@ function initLayTable(table, form) {
 /**
  * 刷新表格数据
  * @param table
- * @param params
  */
-function reloadTableData(table, params) {
-    params.deptId = deptParentId;
-    $.table.reloadData(table, tableInitOptions(params));
+function reloadClazzDeptTableData(table) {
+    $.table.reloadData(table, tableInitClazzDeptOptions());
 }
 
 
@@ -86,10 +86,10 @@ function reloadTableData(table, params) {
  * 表头操作
  * @param table
  */
-function toolBar(table) {
-    table.on('toolbar(layFilter)', function (obj) {
+function toolClazzDeptBar(table) {
+    table.on('toolbar(deptClazzLayFilter)', function (obj) {
         if ('saveClazzDept' === obj.event) {
-            $.flyer.full('设置部门岗位', path + '/' + deptParentId + '/add')
+            $.flyer.full('设置部门岗位', deptClazzPath + '/' + clazzDeptParentId + '/add')
         }
     })
 }
@@ -98,38 +98,51 @@ function toolBar(table) {
  * 表格操作
  * @param table
  */
-function tool(table) {
-    table.on('tool(layFilter)', function (obj) {
+function toolClazzDept(table) {
+    table.on('tool(deptClazzLayFilter)', function (obj) {
         let data = obj.data;
         if ('delete' === obj.event) {
             $.table.delete({
-                url: path + '/' + data.id,
-                title: data.name
+                url: deptClazzPath + '/' + data.id,
+                title: data.name,
+                reloadTable: reloadClazzDeptTableData,
             })
         }
         if ('update' === obj.event) {
             $.flyer.openIframe({
                 title: '编辑',
-                content: path + '/edit/' + data.id
+                content: deptClazzPath + '/edit/' + data.id
             })
         }
         if ('view' === obj.event) {
             $.flyer.openIframeSee({
                 title: '查看',
-                content: path + '/view/' + data.id
+                content: deptClazzPath + '/view/' + data.id
             })
         }
     })
 }
 
-function tableInitOptions(params = {}) {
+function queryDeptClazzWhere() {
     return {
-        url: path + "/page",
-        where: params,
+        deptId: clazzDeptParentId,
+        clazzTitle: $('#clazzTitle').val(),
+        validFlag: $('#validFlag').val()
+    }
+}
+
+function tableInitClazzDeptOptions() {
+    return {
+        id: 'deptClazzLayTable',
+        elem: '#deptClazzLayTable',
+        layFilter: 'deptClazzLayFilter',
+        toolbar: '#deptClazzToolbar',
+        url: deptClazzPath + "/page",
+        where: queryDeptClazzWhere(),
         cols: [[
             {field: 'clazzTitle', title: '岗位名称', width: 320, align: "center"},
             {field: 'remarks', title: '备注', align: "center"},
-            {field: 'validFlag', title: '有效标志', width: 200, align: "center", templet: "#validFlagTpl"}
+            {field: 'validFlag', title: '有效标志', width: 200, align: "center", templet: "#validFlagClazzDeptTpl"}
         ]]
     }
 }
@@ -141,19 +154,17 @@ function tableInitOptions(params = {}) {
  * @param id
  * @param checked
  */
-function validFlagFilter(table, id, checked) {
+function validFlagClazzDeptFilter(table, id, checked) {
     $.http.post({
-        url: path + '/' + id + '/valid/' + checked,
+        url: deptClazzPath + '/' + id + '/valid/' + checked,
         callback: function (res) {
             initDeptTree(table, null);
-            let obj = $.form.getFormValue('queryClazzDept')
-            reloadTableData(table, obj);
+            reloadClazzDeptTableData(table);
             $.msg.msgSuccess('有效标志更改成功！');
         },
         errCallback: function (err) {
-            let obj = $.form.getFormValue('queryClazzDept')
             initDeptTree(table, null);
-            reloadTableData(table, obj);
+            reloadClazzDeptTableData(table);
             $.msg.msgWarning(err.msg);
         }
     })

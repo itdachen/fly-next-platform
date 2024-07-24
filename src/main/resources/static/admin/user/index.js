@@ -5,19 +5,20 @@
   +  Created with IntelliJ IDEA.
   ++++++++++++++++++++++++++++++++++++++++++++
  */
-const path = HTTP_BIZ_URI + "/admin/user/info";
+var userInfoPath = HTTP_BIZ_URI + "/admin/user/info";
 layui.use(function () {
     let table = layui.table;
     let form = layui.form;
+    form.render();
 
-    initLayTable(table, form);
+    initUserInfoLayTable(table, form);
 
 });
 
 
-function initLayTable(table, form) {
+function initUserInfoLayTable(table, form) {
     /* 初始化表格 */
-    $.table.init(table, tableInitOptions({}))
+    $.table.init(table, tableInitUserInfoOptions())
 
     /* 表头事件监听 */
     toolBar(table);
@@ -27,23 +28,21 @@ function initLayTable(table, form) {
 
     /* 导出 */
     form.on('submit(expUserInfo)', function (data) {
-        let uri = queryUriObjParams(path + '/exp', data.field)
+        let uri = queryUriObjParams(userInfoPath + '/exp', data.field)
         window.open(uri);
         return false;
     })
 
     /* 查询 */
     form.on('submit(queryUserInfo)', function (data) {
-        reloadTableData(table, data.field)
+        reloadUserInfoTableData(table)
         return false;
     })
 
     /* 搜索输入框回车监听 */
     $('.keypress-listen').bind('keypress', function (event) {
         if (13 === event.keyCode || '13' === event.keyCode) {
-            event.preventDefault();
-            let obj = $.form.getFormValue('queryUserInfo')
-            reloadTableData(table, obj)
+            reloadUserInfoTableData(table)
             return false;
         }
     })
@@ -51,8 +50,8 @@ function initLayTable(table, form) {
     /**
      * 有效标志监听
      */
-    form.on('switch(validFlagFilter)', function (obj) {
-        validFlagFilter(table, this.value, obj.elem.checked)
+    form.on('switch(validFlagUserInfoFilter)', function (obj) {
+        validFlagUserInfoFilter(table, this.value, obj.elem.checked)
     });
 
 }
@@ -60,10 +59,9 @@ function initLayTable(table, form) {
 /**
  * 刷新表格数据
  * @param table
- * @param params
  */
-function reloadTableData(table, params) {
-    $.table.reloadData(table, tableInitOptions(params));
+function reloadUserInfoTableData(table) {
+    $.table.reloadData(table, tableInitUserInfoOptions());
 }
 
 
@@ -72,11 +70,11 @@ function reloadTableData(table, params) {
  * @param table
  */
 function toolBar(table) {
-    table.on('toolbar(layFilter)', function (obj) {
+    table.on('toolbar(userInfoLayFilter)', function (obj) {
         if ('saveUserInfo' === obj.event) {
             $.flyer.openIframe({
                 title: '新增',
-                content: path + '/add'
+                content: userInfoPath + '/add'
             })
         }
     })
@@ -87,33 +85,48 @@ function toolBar(table) {
  * @param table
  */
 function tool(table) {
-    table.on('tool(layFilter)', function (obj) {
+    table.on('tool(userInfoLayFilter)', function (obj) {
         let data = obj.data;
         if ('delete' === obj.event) {
             $.table.delete({
-                url: path + '/' + data.id,
-                title: data.name
+                url: userInfoPath + '/' + data.id,
+                title: data.nickName,
+                reloadTable: reloadUserInfoTableData
             })
         }
         if ('update' === obj.event) {
             $.flyer.openIframe({
                 title: '编辑',
-                content: path + '/edit/' + data.id
+                content: userInfoPath + '/edit/' + data.id
             })
         }
         if ('view' === obj.event) {
             $.flyer.openIframeSee({
                 title: '查看',
-                content: path + '/view/' + data.id
+                content: userInfoPath + '/view/' + data.id
             })
         }
     })
 }
 
-function tableInitOptions(params = {}) {
+
+function queryUserInfoParams() {
     return {
-        url: path + "/page",
-        where: params,
+        nickName: $('#nickName').val(),
+        idCard: $('#idCard').val(),
+        sex: $('#sex').val(),
+        validFlag: $('#validFlag').val()
+    }
+}
+
+function tableInitUserInfoOptions() {
+    return {
+        id: 'userInfoLayTable',
+        elem: '#userInfoLayTable',
+        layFilter: 'userInfoLayFilter',
+        toolbar: '#userInfoToolbar',
+        url: userInfoPath + "/page",
+        where: queryUserInfoParams(),
         cols: [[
             // {field: 'tenantTitle', title: '租户名称', align: "center"},
             {field: 'nickName', title: '昵称', width: 200, align: "center"},
@@ -131,8 +144,8 @@ function tableInitOptions(params = {}) {
             },
             {field: 'telephone', title: '电话号码', align: "center"},
             {field: 'eMailBox', title: '电子邮箱', align: "center"},
-            {field: 'validFlag', title: '有效标志', align: "center", width: 120, templet: "#validFlagTpl"},
-            {fixed: 'right', title: '操作', toolbar: '#toolActionBar', width: 320, align: "center"}
+            {field: 'validFlag', title: '有效标志', align: "center", width: 120, templet: "#validFlagUserInfoTpl"},
+            {fixed: 'right', title: '操作', toolbar: '#toolUserInfoActionBar', width: 320, align: "center"}
         ]]
     }
 
@@ -144,15 +157,14 @@ function tableInitOptions(params = {}) {
  * @param id
  * @param checked
  */
-function validFlagFilter(table, id, checked) {
+function validFlagUserInfoFilter(table, id, checked) {
     $.http.post({
-        url: path + '/' + id + '/valid/' + checked,
+        url: userInfoPath + '/' + id + '/valid/' + checked,
         callback: function (res) {
             $.msg.msgSuccess('有效标志更改成功！');
         },
         errCallback: function (err) {
-            let obj = $.form.getFormValue('queryTenantInfo')
-            reloadTableData(table, obj);
+            reloadUserInfoTableData(table);
             $.msg.msgWarning(err.msg);
         }
     })
