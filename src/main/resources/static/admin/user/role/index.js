@@ -38,7 +38,7 @@ function initUserRoleDeptTree(table) {
 
 function initUserRoleLayTable(table, form) {
     /* 初始化表格 */
-    $.table.init(table, tableInitUserRoleOptions())
+    $.table.init(table, tableInitUserRoleOptions({deptId: userRoleDeptParentId}))
 
     /* 表头事件监听 */
     toolUserRoleBar(table);
@@ -82,7 +82,9 @@ function initUserRoleLayTable(table, form) {
  * @param params
  */
 function reloadUserRoleTableData(table) {
-    $.table.reloadData(table, tableInitUserRoleOptions());
+    let params = $.form.getFormValue('queryUserRoleInfo');
+    params.deptId = userRoleDeptParentId;
+    $.table.reloadData(table, tableInitUserRoleOptions(params));
 }
 
 
@@ -159,14 +161,14 @@ function queryUserRoleWhere() {
     }
 }
 
-function tableInitUserRoleOptions() {
+function tableInitUserRoleOptions(params) {
     return {
         id: 'userRoleInfoLayTable',
         elem: '#userRoleInfoLayTable',
         layFilter: 'userRoleInfoLayFilter',
         toolbar: '#userInfoToolbar',
         url: userRolePath + "/page",
-        where: queryUserRoleWhere(),
+        where: params,
         cols: [[
             {field: 'nickName', title: '姓名', width: 160, align: "center"},
             {field: 'roleName', title: '身份名称', align: "center"},
@@ -178,7 +180,7 @@ function tableInitUserRoleOptions() {
                     return '否'
                 }
             },
-            {field: 'validFlag', title: '有效标志', width: 120, align: "center", templet: "#validFlagTpl"},
+            {field: 'validFlag', title: '有效标志', width: 120, align: "center", templet: "#validFlagUserInfoTpl"},
             // {field: 'deptId', title: '身份部门ID', align: "center"},
             // {field: 'deptTitle', title: '身份部门名称', align: "center"},
             // {field: 'startTime', title: '身份有效期起', align: "center"},

@@ -37,7 +37,7 @@ function initDeptTree(table) {
 
 function initDeptLayTable(table, form) {
     /* 初始化表格 */
-    $.table.init(table, tableInitDeptOptions())
+    $.table.init(table, tableInitDeptOptions({parentId: deptParentId}))
 
     /* 表头事件监听 */
     toolDeptBar(table);
@@ -75,24 +75,15 @@ function initDeptLayTable(table, form) {
 
 }
 
-
-function queryDeptWhere() {
-    let title = $("#title").val();
-    let validFlag = $("#validFlag").val();
-    return {
-        appCode: title,
-        validFlag: validFlag,
-        parentId: deptParentId
-    }
-}
-
 /**
  * 刷新表格数据
  * @param table
  * @param params
  */
 function reloadDeptTableData(table) {
-    $.table.reloadData(table, tableInitDeptOptions());
+    let params = $.form.getFormValue('queryDeptInfo');
+    params.parentId = deptParentId;
+    $.table.reloadData(table, tableInitDeptOptions(params));
 }
 
 
@@ -144,14 +135,14 @@ function toolDept(table) {
     })
 }
 
-function tableInitDeptOptions() {
+function tableInitDeptOptions(params = {}) {
     return {
         id: 'deptInfoLayTable',
         elem: '#deptInfoLayTable',
         layFilter: 'deptInfoLayFilter',
         toolbar: '#deptInfoToolbar',
         url: deptPath + "/page",
-        where: queryDeptWhere(),
+        where: params,
         cols: [[
             {field: 'title', title: '部门名称', align: "center"},
             // {field: 'deptLevel', title: '部门级次', width: 180, align: "center"},

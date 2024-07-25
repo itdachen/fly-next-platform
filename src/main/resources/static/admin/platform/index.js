@@ -63,7 +63,8 @@ function initPlatformInfoLayTable(table, form) {
  * @param params
  */
 function reloadPlatformInfoTableData(table) {
-    $.table.reloadData(table, tableInitPlatformInfoOptions());
+    let params = $.form.getFormValue('queryPlatformInfo');
+    $.table.reloadData(table, tableInitPlatformInfoOptions(params));
 }
 
 
@@ -110,24 +111,14 @@ function toolPlatformInfo(table) {
     })
 }
 
-function queryPlatformInfoWhere() {
-    let title = $('#title').val();
-    let validFlag = $('#validFlag').val();
-    return {
-        title: title,
-        validFlag: validFlag
-    }
-}
-
-
-function tableInitPlatformInfoOptions() {
+function tableInitPlatformInfoOptions(params) {
     return {
         id: 'platformInfoLayTable',
         elem: '#platformInfoLayTable',
         layFilter: 'platformInfoLayFilter',
         toolbar: '#platformInfoToolbar',
         url: platformInfoPath + "/page",
-        where: queryPlatformInfoWhere(),
+        where: params,
         cols: [[
             {field: 'title', title: '平台名称', width: 500, align: "center"},
             //  {field: 'iconIco', title: '图标', align: "center"},

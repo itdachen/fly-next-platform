@@ -61,7 +61,8 @@ function initTenantInfoLayTable(table, form) {
  * @param table
  * @param params
  */
-function reloadTenantInfoTableData(table, params = {}) {
+function reloadTenantInfoTableData(table) {
+    let params = $.form.getFormValue('queryTenantInfo')
     $.table.reloadData(table, tableInitTenantInfoOptions(params));
 }
 

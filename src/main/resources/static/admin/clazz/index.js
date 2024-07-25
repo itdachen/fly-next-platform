@@ -18,7 +18,7 @@ layui.use(function () {
 
 function initClazzLayTable(table, form) {
     /* 初始化表格 */
-    $.table.init(table, tableInitClazzOptions())
+    $.table.init(table, tableInitClazzOptions({}))
 
     /* 表头事件监听 */
     toolClazzInfoBar(table);
@@ -35,7 +35,7 @@ function initClazzLayTable(table, form) {
 
     /* 查询 */
     form.on('submit(queryClazzInfo)', function (data) {
-        reloadClazzTableData(table)
+        reloadClazzTableData(table);
         return false;
     })
 
@@ -61,7 +61,8 @@ function initClazzLayTable(table, form) {
  * @param table
  */
 function reloadClazzTableData(table) {
-    $.table.reloadData(table, tableInitClazzOptions());
+    let params = $.form.getFormValue('queryClazzInfo');
+    $.table.reloadData(table, tableInitClazzOptions(params));
 }
 
 
@@ -116,22 +117,24 @@ function toolClazzInfo(table) {
 }
 
 
-function queryClazzInfoWhere() {
-    return {
-        title: $('#title').val(),
-        validFlag: $('#validFlag').val()
-    }
-}
+// function queryClazzInfoWhere() {
+//     let title = $('#title').val();
+//     let validFlag = $('#validFlag').val();
+//     return {
+//         title: title,
+//         validFlag: validFlag
+//     }
+// }
 
 
-function tableInitClazzOptions() {
+function tableInitClazzOptions(params={}) {
     return {
         id: 'clazzInfoLayTable',
         elem: '#clazzInfoLayTable',
         layFilter: 'clazzInfoLayFilter',
         toolbar: '#clazzInfoToolbar',
         url: clazzPath + "/page",
-        where: queryClazzInfoWhere(),
+        where: params,
         cols: [[
             {field: 'thatLevelTitle', title: '岗位等级', width: 320, align: "center"},
             {field: 'title', title: '岗位名称', width: 320, align: "center"},

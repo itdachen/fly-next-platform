@@ -61,7 +61,8 @@ function initUserInfoLayTable(table, form) {
  * @param table
  */
 function reloadUserInfoTableData(table) {
-    $.table.reloadData(table, tableInitUserInfoOptions());
+    let params = $.form.getFormValue('queryUserInfo');
+    $.table.reloadData(table, tableInitUserInfoOptions(params));
 }
 
 
@@ -119,14 +120,14 @@ function queryUserInfoParams() {
     }
 }
 
-function tableInitUserInfoOptions() {
+function tableInitUserInfoOptions(params) {
     return {
         id: 'userInfoLayTable',
         elem: '#userInfoLayTable',
         layFilter: 'userInfoLayFilter',
         toolbar: '#userInfoToolbar',
         url: userInfoPath + "/page",
-        where: queryUserInfoParams(),
+        where: params,
         cols: [[
             // {field: 'tenantTitle', title: '租户名称', align: "center"},
             {field: 'nickName', title: '昵称', width: 200, align: "center"},

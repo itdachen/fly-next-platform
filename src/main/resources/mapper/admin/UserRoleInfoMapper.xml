@@ -64,8 +64,8 @@
                 AND user_id = #{userId}
             </if>
             <if test="null != roleName  and '' != roleName ">
-                AND role_name LIKE CONCAT(CONCAT('%',#{roleName}),'%')
-                AND nick_name LIKE CONCAT(CONCAT('%',#{roleName}),'%')
+                AND (role_name LIKE CONCAT(CONCAT('%',#{roleName}),'%')
+                OR nick_name LIKE CONCAT(CONCAT('%',#{roleName}),'%'))
             </if>
             <if test="null != roleFlag  and '' != roleFlag ">
                 AND role_flag = #{roleFlag}

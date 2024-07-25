@@ -146,12 +146,14 @@ layui.define(['jquery', 'tools', 'element', 'yaml', 'form', 'tabPage', 'menu', '
                     select: (node) => {
                         if (node.type == "1") {
                             pearAdmin.instances.menu.selectItem(node.id);
+                            let width = ($(window).width() - 10);
+                            let height = ($(window).height() - 10);
                             if (node.openType === "_layer") {
                                 layer.open({
                                     type: 2,
                                     title: data.title,
                                     content: data.url,
-                                    area: ['80%', '80%'],
+                                    area: [width + 'px', height + 'px'],
                                     maxmin: true
                                 })
                             } else {
@@ -274,11 +276,13 @@ layui.define(['jquery', 'tools', 'element', 'yaml', 'form', 'tabPage', 'menu', '
 
                     pearAdmin.instances.menu.click(function (dom, data) {
                         if (data.menuOpenType === "_layer") {
+                            let width = ($(window).width() - 10);
+                            let height = ($(window).height() - 10);
                             layer.open({
                                 type: 2,
                                 title: data.menuTitle,
                                 content: data.menuUrl,
-                                area: ['80%', '80%'],
+                                area: [width + 'px', height + 'px'],
                                 maxmin: true
                             })
                         } else {
@@ -303,11 +307,13 @@ layui.define(['jquery', 'tools', 'element', 'yaml', 'form', 'tabPage', 'menu', '
 
                     pearAdmin.instances.menu.click(function (dom, data) {
                         if (data.menuOpenType === "_layer") {
+                            let width = ($(window).width() - 10);
+                            let height = ($(window).height() - 10);
                             layer.open({
                                 type: 2,
                                 title: data.menuTitle,
                                 content: data.menuUrl,
-                                area: ['80%', '80%'],
+                                area: [width + 'px', height + 'px'],
                                 maxmin: true
                             })
                         } else {

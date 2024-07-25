@@ -65,7 +65,8 @@ function initAppLayTable(table, form) {
  * @param queryParams
  */
 function reloadAppTableData(table) {
-    $.table.reloadData(table, appAppInfoTableOptions());
+    let params = $.form.getFormValue('queryAppInfoForm');
+    $.table.reloadData(table, appAppInfoTableOptions(params));
 }
 
 
@@ -117,21 +118,14 @@ function appTool(table) {
 }
 
 
-function queryAppInfoParams() {
-    return {
-        appTitle: $('#appTitle').val(),
-        validFlag: $('#validFlag').val()
-    }
-}
-
-function appAppInfoTableOptions() {
+function appAppInfoTableOptions(params = {}) {
     return {
         id: 'appLayTable',
         elem: '#appLayTable',
         layFilter: 'appLayFilter',
         toolbar: '#appToolbar',
         url: appPath + "/page",
-        where: queryAppInfoParams(),
+        where: params,
         cols: [[
             {field: 'platTitle', title: '平台名称', width: 180, align: "center"},
             {field: 'appTitle', title: '应用名称', width: 180, align: "center"},

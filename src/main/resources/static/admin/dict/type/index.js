@@ -54,7 +54,8 @@ function initDictTypeLayTable(table, form) {
  * @param table
  */
 function reloadDictTypeTableData(table) {
-    $.table.reloadData(table, tableInitDictTypeOptions());
+    let params = $.form.getFormValue('queryDictType');
+    $.table.reloadData(table, tableInitDictTypeOptions(params));
 }
 
 
@@ -100,20 +101,15 @@ function toolDictType(table) {
     })
 }
 
-function queryDictTypeWhere() {
-    return {
-        dictLabel: $('#dictLabel').val()
-    }
-}
 
-function tableInitDictTypeOptions() {
+function tableInitDictTypeOptions(params) {
     return {
         id: 'dictTypeLayTable',
         elem: '#dictTypeLayTable',
         layFilter: 'dictTypeLayFilter',
         toolbar: '#dictTypeToolbar',
         url: dictTypePath + "/page",
-        where: queryDictTypeWhere(),
+        where: params,
         cols: [[
             {field: 'dictLabel', title: '字典标签', width: 320, align: "center"},
             {field: 'dictType', title: '字典类型', width: 320, align: "center"},
