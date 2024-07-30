@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
-    <th:block th:include="common/common::component('菜单信息')"/>
+    <th:block th:include="common/common::common('菜单信息')"/>
     <th:block th:include="common/common::zTree"/>
     <script th:src="@{/static/admin/menu/element/index.js}" charset="utf-8"></script>
     <script th:src="@{/static/admin/menu/index.js}" charset="utf-8"></script>
