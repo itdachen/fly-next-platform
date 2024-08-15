@@ -4,7 +4,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.util.StopWatch;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,7 +12,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * 采矿权出让结果公示
+ * 1-1 采矿权出让结果公示
  *
  * @author 王大宸
  * @date 2024/8/15 22:52
@@ -29,12 +28,12 @@ public class TransferOfMiningRights {
 
         /* 单个页面 */
         Document document = Jsoup.connect(uri).cookies(cookies).get();
-        LinkedHashMap<String, String> hashMap = transferOfMiningRights(document);
+        LinkedHashMap<String, String> hashMap = handler(document);
         System.err.println(hashMap);
     }
 
 
-    public static LinkedHashMap<String, String> transferOfMiningRights(Document document) throws IOException {
+    public static LinkedHashMap<String, String> handler(Document document) throws IOException {
 
         Elements msoNormal = document.getElementsByClass("MsoNormal");
 
