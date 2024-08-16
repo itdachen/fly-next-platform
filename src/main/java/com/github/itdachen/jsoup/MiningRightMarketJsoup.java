@@ -57,7 +57,7 @@ public class MiningRightMarketJsoup {
 
         int index = 1;
         for (String htmlURI : uriList) {
-            System.out.println("正在抓取, 当前分页:  " + index);
+            System.out.println("正在抓取, 当前分页:  " + index + " ...");
             index++;
             Document document = Jsoup.connect(htmlURI).cookies(cookies).get();
             Elements ul = document.getElementsByClass("gu-result gu-result1");
@@ -70,37 +70,43 @@ public class MiningRightMarketJsoup {
                     continue;
                 }
 
-                htmlUrl = htmlUrl.replaceAll("<a href=\"", "");
-                int i = htmlUrl.indexOf(".htm");
-                htmlUrl = htmlUrl.substring(0, i) + ".htm";
-                Document pageDocument = Jsoup.connect(htmlUrl).cookies(cookies).get();
+                try{
+                    htmlUrl = htmlUrl.replaceAll("<a href=\"", "");
+                    int i = htmlUrl.indexOf(".htm");
+                    htmlUrl = htmlUrl.substring(0, i) + ".htm";
+                    Document pageDocument = Jsoup.connect(htmlUrl).cookies(cookies).get();
 
 
-                if (pageDocument.toString().contains("title=\"探矿权出让公告\" class=\"CurrChnlCls\">探矿权出让公告</a>")) {
-                    //  System.err.println("1-1 探矿权出让公告");
-                    LinkedHashMap<String, String> handler = TransferOfMiningRights.handler(pageDocument);
-                    handler1_1.add(handler);
+                    if (pageDocument.toString().contains("title=\"探矿权出让公告\" class=\"CurrChnlCls\">探矿权出让公告</a>")) {
+                        //  System.err.println("1-1 探矿权出让公告");
+                        LinkedHashMap<String, String> handler = TransferOfMiningRights.handler(pageDocument);
+                        handler1_1.add(handler);
+                    }
+                    if (pageDocument.toString().contains("title=\"探矿权出让结果公示\" class=\"CurrChnlCls\">探矿权出让结果公示</a>")) {
+                        //  System.err.println("1-2 探矿权出让结果公示");
+                        LinkedHashMap<String, String> handler = TransferOfExplorationRights.handler(pageDocument);
+                        handler1_2.add(handler);
+                    }
+                    if (pageDocument.toString().contains("title=\"探矿权协议出让公示\" class=\"CurrChnlCls\">探矿权协议出让公示</a>")) {
+                        //  System.err.println("2 探矿权协议出让公示");
+                        LinkedHashMap<String, String> handler = ExplorationRightsAgreement.handler(pageDocument);
+                        handler2.add(handler);
+                    }
+                    if (pageDocument.toString().contains("title=\"探矿权转让公示\" class=\"CurrChnlCls\">探矿权转让公示</a>")) {
+                        // System.err.println("3-1 探矿权转让公示");
+                        LinkedHashMap<String, String> handler = TransferOfExplorationRights2.handler(pageDocument);
+                        handler3_1.add(handler);
+                    }
+                    if (pageDocument.toString().contains("title=\"采矿权转让公示\" class=\"CurrChnlCls\">采矿权转让公示</a>")) {
+                        // System.err.println("3-2 采矿权转让公示");
+                        LinkedHashMap<String, String> handler = TransferOfMiningRights2.handler(pageDocument);
+                        handler3_3.add(handler);
+                    }
+                }catch (Exception e){
+
                 }
-                if (pageDocument.toString().contains("title=\"探矿权出让结果公示\" class=\"CurrChnlCls\">探矿权出让结果公示</a>")) {
-                    //  System.err.println("1-2 探矿权出让结果公示");
-                    LinkedHashMap<String, String> handler = TransferOfExplorationRights.handler(pageDocument);
-                    handler1_2.add(handler);
-                }
-                if (pageDocument.toString().contains("title=\"探矿权协议出让公示\" class=\"CurrChnlCls\">探矿权协议出让公示</a>")) {
-                    //  System.err.println("2 探矿权协议出让公示");
-                    LinkedHashMap<String, String> handler = ExplorationRightsAgreement.handler(pageDocument);
-                    handler2.add(handler);
-                }
-                if (pageDocument.toString().contains("title=\"探矿权转让公示\" class=\"CurrChnlCls\">探矿权转让公示</a>")) {
-                    // System.err.println("3-1 探矿权转让公示");
-                    LinkedHashMap<String, String> handler = TransferOfExplorationRights2.handler(pageDocument);
-                    handler3_1.add(handler);
-                }
-                if (pageDocument.toString().contains("title=\"采矿权转让公示\" class=\"CurrChnlCls\">采矿权转让公示</a>")) {
-                    // System.err.println("3-2 采矿权转让公示");
-                    LinkedHashMap<String, String> handler = TransferOfMiningRights2.handler(pageDocument);
-                    handler3_3.add(handler);
-                }
+
+
             }
         }
 
