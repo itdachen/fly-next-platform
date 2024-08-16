@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * 1-1 采矿权出让结果公示
+ * 1-1 探矿权出让结果公示
  *
  * @author 王大宸
  * @date 2024/8/15 22:52
