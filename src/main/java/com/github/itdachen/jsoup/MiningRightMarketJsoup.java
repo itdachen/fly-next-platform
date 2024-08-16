@@ -115,32 +115,32 @@ public class MiningRightMarketJsoup {
         if (!handler1_1.isEmpty()) {
             logger.info("开始导出数据类型 1 ...");
             TransferOfMiningRights.exp(handler1_1);
-            logger.info("数据类型 1 导出完毕 ...");
+            logger.info("数据类型 1 导出完毕, 共计 {} 条 ...", handler1_1.size());
         }
         if (!handler1_2.isEmpty()) {
             logger.info("开始导出数据类型 2  ...");
             TransferOfExplorationRights.exp(handler1_2);
-            logger.info("数据类型 2 导出完毕 ...");
+            logger.info("数据类型 2 导出完毕, 共计 {} 条 ...", handler1_2.size());
         }
         if (!handler2.isEmpty()) {
             logger.info("开始导出数据类型 3 ...");
             ExplorationRightsAgreement.exp(handler2);
-            logger.info("数据类型 3 导出完毕 ...");
+            logger.info("数据类型 3 导出完毕, 共计 {} 条 ...", handler2.size());
         }
         if (!handler3_1.isEmpty()) {
             logger.info("开始导出数据类型 4 ...");
             TransferOfExplorationRights2.exp(handler3_1);
-            logger.info("数据类型 4 导出完毕 ...");
+            logger.info("数据类型 4 导出完毕, 共计 {} 条 ...", handler3_1.size());
         }
         if (!handler3_3.isEmpty()) {
             logger.info("开始导出数据类型 5 ...");
             TransferOfMiningRights2.exp(handler3_3);
-            logger.info("数据类型 5 导出完毕 ...");
+            logger.info("数据类型 5 导出完毕, 共计 {} 条 ...", handler3_3.size());
         }
 
         stopWatch.stop();
         double totalTimeSeconds = stopWatch.getTotalTimeSeconds();
-        logger.info("数据导出完成");
+        logger.info("数据导出完成 ...");
         logger.info("共耗时 " + totalTimeSeconds + " Seconds");
     }
 
