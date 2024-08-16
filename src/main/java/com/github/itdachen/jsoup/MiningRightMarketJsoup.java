@@ -37,13 +37,19 @@ public class MiningRightMarketJsoup {
         List<String> uriList = new ArrayList<>();
 
 
-        for (int i = 1; i < 152; i++) {
-            uriList.add("https://search.mnr.gov.cn/was5/web/search?page=" + i + "&channelid=112225,142099,180679,93332&searchword=+APP_CATEGORY%3D%E6%8E%A2%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.16&keyword=+APP_CATEGORY%3D%E6%8E%A2%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.16&perpage=10&outlinepage=10");
-        }
+//        for (int i = 1; i < 152; i++) {
+//            uriList.add("https://search.mnr.gov.cn/was5/web/search?page=" + i + "&channelid=112225,142099,180679,93332&searchword=+APP_CATEGORY%3D%E6%8E%A2%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.16&keyword=+APP_CATEGORY%3D%E6%8E%A2%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.16&perpage=10&outlinepage=10");
+//        }
 
         for (int i = 1; i < 3; i++) {
             uriList.add("https://search.mnr.gov.cn/was5/web/search?page=" + i + "&channelid=112225,142099,180679,93332&searchword=+APP_CATEGORY%3D%E6%8E%A2%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.16&keyword=+APP_CATEGORY%3D%E6%8E%A2%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.16&perpage=10&outlinepage=10");
         }
+
+        List<LinkedHashMap<String, String>> handler1_1 = new ArrayList<>();
+        List<LinkedHashMap<String, String>> handler1_2 = new ArrayList<>();
+        List<LinkedHashMap<String, String>> handler2 = new ArrayList<>();
+        List<LinkedHashMap<String, String>> handler3_1 = new ArrayList<>();
+        List<LinkedHashMap<String, String>> handler3_3 = new ArrayList<>();
 
         for (String htmlURI : uriList) {
             Document document = Jsoup.connect(htmlURI).cookies(cookies).get();
@@ -63,30 +69,49 @@ public class MiningRightMarketJsoup {
                     if (pageDocument.toString().contains("title=\"探矿权出让公告\" class=\"CurrChnlCls\">探矿权出让公告</a>")) {
                         System.err.println("1-1 探矿权出让公告");
                         LinkedHashMap<String, String> handler = TransferOfMiningRights.handler(pageDocument);
+                        handler1_1.add(handler);
                     }
                     if (pageDocument.toString().contains("title=\"探矿权出让结果公示\" class=\"CurrChnlCls\">探矿权出让结果公示</a>")) {
                         System.err.println("1-2 探矿权出让结果公示");
                         LinkedHashMap<String, String> handler = TransferOfExplorationRights.handler(pageDocument);
-
+                        handler1_2.add(handler);
                     }
                     if (pageDocument.toString().contains("title=\"探矿权协议出让公示\" class=\"CurrChnlCls\">探矿权协议出让公示</a>")) {
                         System.err.println("2 探矿权协议出让公示");
                         LinkedHashMap<String, String> handler = ExplorationRightsAgreement.handler(pageDocument);
+                        handler2.add(handler);
                     }
                     if (pageDocument.toString().contains("title=\"探矿权转让公示\" class=\"CurrChnlCls\">探矿权转让公示</a>")) {
                         System.err.println("3-1 探矿权转让公示");
                         LinkedHashMap<String, String> handler = TransferOfExplorationRights2.handler(pageDocument);
+                        handler3_1.add(handler);
                     }
                     if (pageDocument.toString().contains("title=\"采矿权转让公示\" class=\"CurrChnlCls\">采矿权转让公示</a>")) {
                         System.err.println("3-2 采矿权转让公示");
                         LinkedHashMap<String, String> handler = TransferOfMiningRights2.handler(pageDocument);
+                        handler3_3.add(handler);
                     }
-
-
-                   // pageTypeFactory(pageDocument);
                 }
             }
 
+
+        }
+
+
+        /* 导出 */
+        if (!handler1_1.isEmpty()) {
+
+        }
+        if (!handler1_2.isEmpty()) {
+
+        }
+        if (!handler2.isEmpty()) {
+
+        }
+        if (!handler3_1.isEmpty()) {
+
+        }
+        if (!handler3_3.isEmpty()) {
 
         }
 
