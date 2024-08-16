@@ -51,7 +51,13 @@ public class MiningRightMarketJsoup {
         List<LinkedHashMap<String, String>> handler3_1 = new ArrayList<>();
         List<LinkedHashMap<String, String>> handler3_3 = new ArrayList<>();
 
+        logger.info("开始抓取数据 ...");
+        logger.info("共计 " + uriList.size() + " 分页, 每个分页是 10 个页面 ...");
+
+        int index = 1;
         for (String htmlURI : uriList) {
+            logger.info("正在抓取, 分页: {} ", index);
+            index++;
             Document document = Jsoup.connect(htmlURI).cookies(cookies).get();
             Elements ul = document.getElementsByClass("gu-result gu-result1");
             Elements liList = ul.select("li a");
@@ -93,29 +99,49 @@ public class MiningRightMarketJsoup {
                     }
                 }
             }
-
-
         }
 
 
+        logger.info("数据抓取完毕, 共计 {} 条 ...",
+                handler1_1.size()
+                        + handler1_2.size()
+                        + handler2.size()
+                        + handler3_1.size()
+                        + handler3_3.size()
+        );
+
+        logger.info("开始执行数据导出 ...");
         /* 导出 */
         if (!handler1_1.isEmpty()) {
+            logger.info("开始导出数据类型 1 ...");
             TransferOfMiningRights.exp(handler1_1);
+            logger.info("数据类型 1 导出完毕 ...");
         }
         if (!handler1_2.isEmpty()) {
+            logger.info("开始导出数据类型 2  ...");
             TransferOfExplorationRights.exp(handler1_2);
+            logger.info("数据类型 2 导出完毕 ...");
         }
         if (!handler2.isEmpty()) {
+            logger.info("开始导出数据类型 3 ...");
             ExplorationRightsAgreement.exp(handler2);
+            logger.info("数据类型 3 导出完毕 ...");
         }
         if (!handler3_1.isEmpty()) {
+            logger.info("开始导出数据类型 4 ...");
             TransferOfExplorationRights2.exp(handler3_1);
+            logger.info("数据类型 4 导出完毕 ...");
         }
         if (!handler3_3.isEmpty()) {
-
+            logger.info("开始导出数据类型 5 ...");
+            TransferOfMiningRights2.exp(handler3_3);
+            logger.info("数据类型 5 导出完毕 ...");
         }
 
-
+        stopWatch.stop();
+        double totalTimeSeconds = stopWatch.getTotalTimeSeconds();
+        logger.info("数据导出完成");
+        logger.info("共耗时 " + totalTimeSeconds + " Seconds");
     }
 
 
