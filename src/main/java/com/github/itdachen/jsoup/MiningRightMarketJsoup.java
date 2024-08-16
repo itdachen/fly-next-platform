@@ -37,13 +37,13 @@ public class MiningRightMarketJsoup {
         List<String> uriList = new ArrayList<>();
 
 
-//        for (int i = 1; i < 152; i++) {
-//            uriList.add("https://search.mnr.gov.cn/was5/web/search?page=" + i + "&channelid=112225,142099,180679,93332&searchword=+APP_CATEGORY%3D%E6%8E%A2%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.16&keyword=+APP_CATEGORY%3D%E6%8E%A2%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.16&perpage=10&outlinepage=10");
-//        }
-
-        for (int i = 1; i < 3; i++) {
+        for (int i = 1; i < 152; i++) {
             uriList.add("https://search.mnr.gov.cn/was5/web/search?page=" + i + "&channelid=112225,142099,180679,93332&searchword=+APP_CATEGORY%3D%E6%8E%A2%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.16&keyword=+APP_CATEGORY%3D%E6%8E%A2%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.16&perpage=10&outlinepage=10");
         }
+
+//        for (int i = 1; i < 3; i++) {
+//            uriList.add("https://search.mnr.gov.cn/was5/web/search?page=" + i + "&channelid=112225,142099,180679,93332&searchword=+APP_CATEGORY%3D%E6%8E%A2%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.16&keyword=+APP_CATEGORY%3D%E6%8E%A2%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.16&perpage=10&outlinepage=10");
+//        }
 
         List<LinkedHashMap<String, String>> handler1_1 = new ArrayList<>();
         List<LinkedHashMap<String, String>> handler1_2 = new ArrayList<>();
@@ -57,7 +57,7 @@ public class MiningRightMarketJsoup {
 
         int index = 1;
         for (String htmlURI : uriList) {
-            System.out.println("正在抓取, 分页:  " + index);
+            System.out.println("正在抓取, 当前分页:  " + index);
             index++;
             Document document = Jsoup.connect(htmlURI).cookies(cookies).get();
             Elements ul = document.getElementsByClass("gu-result gu-result1");
