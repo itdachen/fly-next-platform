@@ -1,5 +1,6 @@
 package com.github.itdachen.jsoup.mining;
 
+import com.github.itdachen.jsoup.XSSFWorkBookExpHelper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -149,17 +150,6 @@ public class TransferOfMiningRights {
                 s = "矿种：" + substring;
                 kckz = substring;
             }
-//            s = s.replaceAll(" ", "")
-//                    .replaceAll("</span></span></p>", "");
-//            System.out.println(s);
-            //  }
-            //  System.out.println("============ 探矿权出让公告 ==============================");
-
-//            if (string1.contains(">一、出让人</span></p>")) {
-//                System.err.println("============ 探矿权出让公告 出让人 ==============================");
-//                System.out.println(string1);
-//            }
-
         }
 
 
@@ -176,17 +166,24 @@ public class TransferOfMiningRights {
         return hashMap;
     }
 
-    public static void exp(Document document) throws IOException {
-        List<String> list = new ArrayList<>();
-        list.add("项目名称");
-        list.add("开采矿种");
-        list.add("中标人/竞得人");
-        list.add("成交时间");
-        list.add("统一社会信用代码");
-        list.add("成交价");
-        list.add("缴纳方式");
-        list.add("缴纳时间");
+    public static void exp(List<LinkedHashMap<String, String>> dataList) throws Exception {
+        List<String> fields = new ArrayList<>();
+        fields.add("项目名称");
+        fields.add("开采矿种");
+        fields.add("中标人/竞得人");
+        fields.add("成交时间");
+        fields.add("统一社会信用代码");
+        fields.add("成交价");
+        fields.add("缴纳方式");
+        fields.add("缴纳时间");
         // 项目名称 开采矿种 中标人/竞得人  成交时间  统一社会信用代码 成交价 缴纳方式 缴纳时间
+        XSSFWorkBookExpHelper workBookExpHelper = new XSSFWorkBookExpHelper();
+        workBookExpHelper.expHandler(fields,
+                dataList,
+                "拍卖出让",
+                true,
+                "D:/upload/");
+
     }
 
 

@@ -1,15 +1,13 @@
 package com.github.itdachen.jsoup.mining;
 
+import com.github.itdachen.jsoup.XSSFWorkBookExpHelper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * 1-2 探矿权出让结果公示
@@ -148,5 +146,26 @@ public class TransferOfExplorationRights {
         hashMap.put("jnsj", jnsj);
         return hashMap;
     }
+
+
+    // 项目名称 中标人/竞得人  统一社会信用代码 成交价 缴纳方式 缴纳时间
+    public static void exp(List<LinkedHashMap<String, String>> dataList) throws Exception {
+        List<String> fields = new ArrayList<>();
+        fields.add("项目名称");
+        fields.add("中标人/竞得人");
+        fields.add("统一社会信用代码");
+        fields.add("成交价");
+        fields.add("缴纳方式");
+        fields.add("缴纳时间");
+        // 项目名称 开采矿种 中标人/竞得人  成交时间  统一社会信用代码 成交价 缴纳方式 缴纳时间
+        XSSFWorkBookExpHelper workBookExpHelper = new XSSFWorkBookExpHelper();
+        workBookExpHelper.expHandler(fields,
+                dataList,
+                "拍卖出让",
+                true,
+                "D:/upload/");
+
+    }
+
 
 }

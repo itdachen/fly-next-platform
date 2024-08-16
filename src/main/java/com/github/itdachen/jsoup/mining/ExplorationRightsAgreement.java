@@ -1,15 +1,13 @@
 package com.github.itdachen.jsoup.mining;
 
+import com.github.itdachen.jsoup.XSSFWorkBookExpHelper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * 二、探矿权协议出让公示
@@ -146,5 +144,32 @@ public class ExplorationRightsAgreement {
         hashMap.put("mj", mj);
         return hashMap;
     }
+
+    // 出让人名称: 克州自然资源局
+    //受让人名称: 克州新辉矿业有限公司
+    //统一社会信用代码: 9165302432879609XC
+    //矿山/项目名称: 关于新疆乌恰县克孜拉根石灰石矿隔离带普查探矿权协议出让的公示
+    //开采/勘查矿种: 水泥用石灰岩
+    //开采规模: 普查
+    //面积: 0.0328
+    public static void exp(List<LinkedHashMap<String, String>> dataList) throws Exception {
+        List<String> fields = new ArrayList<>();
+        fields.add("出让人名称");
+        fields.add("受让人名称");
+        fields.add("统一社会信用代码");
+        fields.add("矿山/项目名称");
+        fields.add("开采/勘查矿种");
+        fields.add("开采规模");
+        fields.add("面积(平方千米)");
+        // 项目名称 开采矿种 中标人/竞得人  成交时间  统一社会信用代码 成交价 缴纳方式 缴纳时间
+        XSSFWorkBookExpHelper workBookExpHelper = new XSSFWorkBookExpHelper();
+        workBookExpHelper.expHandler(fields,
+                dataList,
+                "拍卖出让",
+                true,
+                "D:/upload/");
+
+    }
+
 
 }

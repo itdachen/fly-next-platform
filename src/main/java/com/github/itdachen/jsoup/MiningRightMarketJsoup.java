@@ -100,16 +100,16 @@ public class MiningRightMarketJsoup {
 
         /* 导出 */
         if (!handler1_1.isEmpty()) {
-
+            TransferOfMiningRights.exp(handler1_1);
         }
         if (!handler1_2.isEmpty()) {
-
+            TransferOfExplorationRights.exp(handler1_2);
         }
         if (!handler2.isEmpty()) {
-
+            ExplorationRightsAgreement.exp(handler2);
         }
         if (!handler3_1.isEmpty()) {
-
+            TransferOfExplorationRights2.exp(handler3_1);
         }
         if (!handler3_3.isEmpty()) {
 

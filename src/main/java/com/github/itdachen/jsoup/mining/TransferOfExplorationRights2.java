@@ -1,15 +1,13 @@
 package com.github.itdachen.jsoup.mining;
 
+import com.github.itdachen.jsoup.XSSFWorkBookExpHelper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * 3-1 探矿权转让公示
@@ -124,6 +122,29 @@ public class TransferOfExplorationRights2 {
         hashMap.put("kz", kz);
         hashMap.put("ja", ja);
         return hashMap;
+
+    }
+
+
+    /// 转让人名称 转让人统一社会信用代码
+    // 受让人名称 受让人统一社会信用代码
+    // 项目名称 勘查矿种 转让价格
+    public static void exp(List<LinkedHashMap<String, String>> dataList) throws Exception {
+        List<String> fields = new ArrayList<>();
+        fields.add("转让人名称");
+        fields.add("转让人统一社会信用代码");
+        fields.add("受让人名称");
+        fields.add("受让人统一社会信用代码");
+        fields.add("项目名称");
+        fields.add("勘查矿种");
+        fields.add("转让价格");
+        // 项目名称 开采矿种 中标人/竞得人  成交时间  统一社会信用代码 成交价 缴纳方式 缴纳时间
+        XSSFWorkBookExpHelper workBookExpHelper = new XSSFWorkBookExpHelper();
+        workBookExpHelper.expHandler(fields,
+                dataList,
+                "拍卖出让",
+                true,
+                "D:/upload/");
 
     }
 
