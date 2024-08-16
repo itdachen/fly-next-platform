@@ -165,7 +165,7 @@ public class ExplorationRightsAgreement {
         XSSFWorkBookExpHelper workBookExpHelper = new XSSFWorkBookExpHelper();
         workBookExpHelper.expHandler(fields,
                 dataList,
-                "拍卖出让",
+                "探矿权协议出让公示",
                 true,
                 "D:/upload/");
 

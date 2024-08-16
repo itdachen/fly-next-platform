@@ -82,31 +82,13 @@ public class XSSFWorkBookExpHelper {
      * @return void
      */
     public void expHandler(List<String> fields,
-                            List<LinkedHashMap<String, String>> list,
-                            String fileName,
-                            Boolean hasRowNum,
-                            String diskUri) throws Exception {
+                           List<LinkedHashMap<String, String>> list,
+                           String fileName,
+                           Boolean hasRowNum,
+                           String diskUri) throws Exception {
         XSSFWorkbook workbook = null;
-     //   OutputStream os = null;
         try {
             workbook = new XSSFWorkbook();
-//            os = response.getOutputStream();
-//            response.reset();// 清空输出流
-//            // excel 文件的 MIME 类型
-//            response.setContentType("application/msexcel");
-//            //在导出前对名称根据浏览器做下处理
-//            String agent = request.getHeader("USER-AGENT").toLowerCase();
-//            response.setContentType("application/vnd.ms-excel");
-//            //***************很重要
-//            //文件名中文乱码
-//            if (agent.contains("firefox")) {
-//                response.setCharacterEncoding("utf-8");
-//                response.setHeader("content-disposition", "attachment;filename=" + new String(fileName.getBytes(), "ISO8859-1") + FILE_NAME_FORMAT);
-//            } else {
-//                String codedFileName = java.net.URLEncoder.encode(fileName, "UTF-8");
-//                response.setHeader("content-disposition", "attachment;filename=" + codedFileName + FILE_NAME_FORMAT);
-//            }
-
             /* 创建 sheet */
             Sheet sheet = workbook.createSheet(fileName);
             sheet.setDefaultColumnWidth(30); // 设置默认宽度
@@ -160,12 +142,12 @@ public class XSSFWorkBookExpHelper {
             }
 
             if (toUpload) {
-                setUploadToFolder(diskUri, workbook);
+                setUploadToFolder(diskUri, fileName, workbook);
                 setFileName(fileName + FILE_NAME_FORMAT);
             }
 
             /* 通过流写入到前端 */
-           // workbook.write(os);
+            // workbook.write(os);
         } catch (Exception e) {
             logger.error("数据导出失败: {} ", e.getMessage(), e);
         } finally {
@@ -231,7 +213,7 @@ public class XSSFWorkBookExpHelper {
 
             /* 表头设置 */
             //两个方法区别在有自定义表头标题
-            setTitleCell(workbook, sheet, fileName,titleName, fields, hasRowNum);
+            setTitleCell(workbook, sheet, fileName, titleName, fields, hasRowNum);
 
             if (!list.isEmpty()) {
                 int index = 1; // 序号
@@ -279,7 +261,7 @@ public class XSSFWorkBookExpHelper {
             }
 
             if (toUpload) {
-                setUploadToFolder(diskUri, workbook);
+                setUploadToFolder(diskUri, fileName, workbook);
                 setFileName(fileName + FILE_NAME_FORMAT);
             }
 
@@ -301,6 +283,7 @@ public class XSSFWorkBookExpHelper {
         }
 
     }
+
     /***
      * 设置表头
      *
@@ -378,7 +361,7 @@ public class XSSFWorkBookExpHelper {
      * @author 张桥
      * @return void
      */
-    private void setTitleCell(XSSFWorkbook workbook, Sheet sheet, String title,String titleName, List<String> fields, boolean hasRowNum) throws WriteException {
+    private void setTitleCell(XSSFWorkbook workbook, Sheet sheet, String title, String titleName, List<String> fields, boolean hasRowNum) throws WriteException {
         /* 标题 */
         XSSFCellStyle headerCellStyle = workbook.createCellStyle();
         headerCellStyle.setAlignment(HorizontalAlignment.CENTER); // 设置水平居中
@@ -413,7 +396,6 @@ public class XSSFWorkBookExpHelper {
         titleNameXssfFont.setFontName("仿宋_GB2312");
         titleNameXssfFont.setFontHeightInPoints((short) 18);
         titleNameCellStyle.setFont(titleNameXssfFont);
-
 
 
         CellRangeAddress celltitleNameRangeAddress = new CellRangeAddress(1, 1, 1, endColumnNum);
@@ -466,7 +448,7 @@ public class XSSFWorkBookExpHelper {
      * @param workbook workbook
      * @return void
      */
-    private void setUploadToFolder(String diskUri, XSSFWorkbook workbook) {
+    private void setUploadToFolder(String diskUri, String fileName, XSSFWorkbook workbook) {
         if (StringUtils.isEmpty(diskUri)) {
             return;
         }
@@ -475,9 +457,11 @@ public class XSSFWorkBookExpHelper {
         }
         diskUri = diskUri.replaceAll("//", "/");
 
-        LocalDateTime ldt = LocalDateTime.now();
-        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        diskUri += pattern.format(ldt) + "/";
+//        LocalDateTime ldt = LocalDateTime.now();
+//        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+//        diskUri += pattern.format(ldt) + "/";
+
+        diskUri = diskUri + "/" + fileName;
 
         String localDateTime = getLocalDateTime();
         localDateTime = localDateTime.replaceAll("-", "")

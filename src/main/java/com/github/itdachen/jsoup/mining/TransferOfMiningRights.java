@@ -180,7 +180,7 @@ public class TransferOfMiningRights {
         XSSFWorkBookExpHelper workBookExpHelper = new XSSFWorkBookExpHelper();
         workBookExpHelper.expHandler(fields,
                 dataList,
-                "拍卖出让",
+                "探矿权出让结果公示",
                 true,
                 "D:/upload/");
 
