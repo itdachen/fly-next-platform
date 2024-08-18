@@ -255,7 +255,7 @@ public class TransferOfMiningRights3_2 {
         XSSFWorkBookExpHelper workBookExpHelper = new XSSFWorkBookExpHelper();
         workBookExpHelper.expHandler(fields,
                 dataList,
-                "3-1采矿权转让公示",
+                "3-2采矿权转让公示",
                 true,
                 "D:/upload/");
 

@@ -70,7 +70,7 @@ public class TransferOfExplorationRights1_2 {
     }
 
     public static LinkedHashMap<String, String> handler(String uri) throws IOException {
-        System.out.println("访问链接: " + uri);
+      //  System.out.println("访问链接: " + uri);
         LinkedHashMap<String, String> hashMap = new LinkedHashMap<>();
         Document document = Jsoup.connect(uri).get();
         Elements msoNormal = document.getElementsByClass("MsoNormal");
@@ -93,17 +93,17 @@ public class TransferOfExplorationRights1_2 {
             //缴纳方式：一次性缴纳
             //缴纳时间：2024年10月31日
 
-//            if (!msoNormalElement.contains("名称：") // 名称 中标人/竞得人
-//                    && !msoNormalElement.contains("统一社会信用代码：") // 统一社会信用代码
-//                    && !msoNormalElement.contains("时间：") // 时间
-//                    //   && !string1.contains("地点：") // 地点
-//                    && !msoNormalElement.contains("项目名称：") // 项目名称
-//                    && !msoNormalElement.contains("成交价：")  // 成交价(万元)
-//                    && !msoNormalElement.contains("缴纳方式：")  // 缴纳方式
-//                    && !msoNormalElement.contains("缴纳时间：") // 缴纳时间
-//            ) {
-//                continue;
-//            }
+            if (!msoNormalElement.contains("名称：") // 名称 中标人/竞得人
+                    && !msoNormalElement.contains("统一社会信用代码：") // 统一社会信用代码
+                    && !msoNormalElement.contains("时间：") // 时间
+                    //   && !string1.contains("地点：") // 地点
+                    && !msoNormalElement.contains("项目名称：") // 项目名称
+                    && !msoNormalElement.contains("成交价：")  // 成交价(万元)
+                    && !msoNormalElement.contains("缴纳方式：")  // 缴纳方式
+                    && !msoNormalElement.contains("缴纳时间：") // 缴纳时间
+            ) {
+                continue;
+            }
 
 
             String replace = msoNormalElement.replace("<p class=\"MsoNormal\" style=\"line-height: 150%; text-indent: 32pt; margin: 0cm 0cm 0pt; mso-char-indent-count: 2.0\"><span style=\"line-height: 150%; font-family: 仿宋; font-size: 16pt; mso-bidi-font-size: 14.0pt\">", "");
@@ -127,19 +127,6 @@ public class TransferOfExplorationRights1_2 {
                 //  System.err.println("统一社会信用代码：" + replace);
                 continue;
             }
-//            if (replace.startsWith("时间：")) {
-//                replace = replace.replaceAll("<span data-bind=\"text:(new Date(DT_BUY_DATE)).format('yyyy年MM月dd日')\">", "")
-//                        .replaceAll("</span></span></p>", "")
-//                        .replaceAll("<spandata-bind=\"text:(newDate(DT_BUY_DATE)).format('yyyy年MM月dd日')\">", "")
-//                        .replaceAll("时间：", "");
-//
-//                int i = replace.indexOf("\">");
-//                String substring = replace.substring(i + 2, replace.length());
-//                replace = substring.replace("<spandata-bind=\"text:(newDate(DT_BUY_DATE)).format('yyyy年MM月dd日')\">", "");
-//                cjsj = replace;
-//                //  System.err.println("时间：" + replace);
-//                continue;
-//            }
             if (replace.startsWith("项目名称：") || replace.contains("NA_APP_NAME")) {
                 replace = replace.replaceAll("<span data-bind=\"text:NA_APP_NAME\">", "")
                         .replaceAll("</span></span></p>", "")
@@ -183,6 +170,7 @@ public class TransferOfExplorationRights1_2 {
 
         if ("".equals(xmmx)) {
             System.err.println("TransferOfExplorationRights: " + document.toString());
+            return null;
         }
 
         // String xmmx = "", zbr = "",  xydm = "", cjj = "", jnfs = "", jnsj = "";
