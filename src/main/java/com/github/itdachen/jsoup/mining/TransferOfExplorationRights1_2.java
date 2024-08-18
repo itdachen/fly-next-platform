@@ -1,7 +1,6 @@
 package com.github.itdachen.jsoup.mining;
 
 import com.github.itdachen.jsoup.XSSFWorkBookExpHelper;
-import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -16,16 +15,58 @@ import java.util.*;
  * @author 王大宸
  * @date 2024/8/16 0:37
  */
-public class TransferOfExplorationRights {
+public class TransferOfExplorationRights1_2 {
+    private static final String URI_PREFIX = "https://ky.mnr.gov.cn/jggs/ckjjgs";
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         // 设置cookie
         Map<String, String> cookies = new HashMap<String, String>();
         cookies.put("thor", UUID.randomUUID().toString().replaceAll("-", ""));
-        String uri = "https://ky.mnr.gov.cn/jggs/jjgs/202408/t20240814_8995102.htm";
+     //   String uri = "https://ky.mnr.gov.cn/jggs/jjgs/202408/t20240814_8995102.htm";
+
+
+        List<String> uriList = new ArrayList<>();
+        uriList.add("https://ky.mnr.gov.cn/jggs/ckjjgs/index.htm");
+        for (int i = 1; i < 16; i++) {
+            uriList.add("https://ky.mnr.gov.cn/jggs/ckjjgs/index_" + i + ".htm");
+        }
+
+
+        List<LinkedHashMap<String, String>> hashMaps = new ArrayList<>();
+        LinkedHashMap<String, String> hashMap = null;
+        for (String uri : uriList) {
+            Document document = Jsoup.connect(uri).get();
+            Elements clearfix = document.getElementsByClass("gu-kqgglist-section clearfix");
+
+            Elements liList = clearfix.select("li a");
+
+            List<String> uris = new ArrayList<>();
+            for (Element element : liList) {
+                String stringUri = element.toString();
+                String replace = stringUri.replace("<a href=\".", "");
+
+                stringUri = URI_PREFIX + replace.substring(0, stringUri.indexOf(".htm")) + ".htm";
+                stringUri = stringUri.replace("\" targ.htm", "");
+                uris.add(stringUri);
+               // System.err.println(stringUri);
+            }
+
+
+            for (String s : uris) {
+                hashMap = handler(s);
+                if (null == hashMap) {
+                    continue;
+                }
+                hashMaps.add(hashMap);
+            }
+        }
+
+
+        exp(hashMaps);
+
         /* 单个页面 */
-        LinkedHashMap<String, String> hashMap = handler(uri);
-        System.err.println(hashMap);
+//        LinkedHashMap<String, String> hashMap = handler(uri);
+//        System.err.println(hashMap);
     }
 
     public static LinkedHashMap<String, String> handler(String uri) throws IOException {
@@ -102,7 +143,7 @@ public class TransferOfExplorationRights {
             if (replace.startsWith("项目名称：") || replace.contains("NA_APP_NAME")) {
                 replace = replace.replaceAll("<span data-bind=\"text:NA_APP_NAME\">", "")
                         .replaceAll("</span></span></p>", "")
-                        .replace("<p class=\"MsoNormal\" style=\"margin: 0cm 0cm 0pt; line-height: 150%; text-indent: 32pt; mso-char-indent-count: 2.0\" __ko__1710122603289=\"ko204\"><span style=\"font-size: 16pt; font-family: 仿宋; line-height: 150%; mso-bidi-font-size: 14.0pt\"><span __ko__1710122603289=\"ko205\" data-bind=\"text:APP_CATEGORY.indexOf('采矿权')>-1?'项目':'项目'\">项目</span>名称：<span __ko__1710122603289=\"ko206\" data-bind=\"text:NA_APP_NAME\">","")
+                        .replace("<p class=\"MsoNormal\" style=\"margin: 0cm 0cm 0pt; line-height: 150%; text-indent: 32pt; mso-char-indent-count: 2.0\" __ko__1710122603289=\"ko204\"><span style=\"font-size: 16pt; font-family: 仿宋; line-height: 150%; mso-bidi-font-size: 14.0pt\"><span __ko__1710122603289=\"ko205\" data-bind=\"text:APP_CATEGORY.indexOf('采矿权')>-1?'项目':'项目'\">项目</span>名称：<span __ko__1710122603289=\"ko206\" data-bind=\"text:NA_APP_NAME\">", "")
                         .replace("<span data-bind=\"text:PLATFORMNAME\">", "")
                         .replaceAll("项目名称：", "");
                 xmmx = replace;
@@ -140,7 +181,7 @@ public class TransferOfExplorationRights {
             //   System.err.println(replace);
         }
 
-        if ("".equals(xmmx)){
+        if ("".equals(xmmx)) {
             System.err.println("TransferOfExplorationRights: " + document.toString());
         }
 
@@ -168,7 +209,7 @@ public class TransferOfExplorationRights {
         XSSFWorkBookExpHelper workBookExpHelper = new XSSFWorkBookExpHelper();
         workBookExpHelper.expHandler(fields,
                 dataList,
-                "探矿权出让结果公示",
+                "1_2探矿权出让结果公示",
                 true,
                 "D:/upload/");
 

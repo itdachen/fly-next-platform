@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StopWatch;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -143,14 +142,14 @@ public class MiningRightMarketJsoup {
                              //   || html.equals("采矿权出让公示") || html.equals("采矿权出让")
                         ) {
                             System.err.println("1-2 探矿权出让结果公示 === 采矿权出让结果公示");
-                            LinkedHashMap<String, String> handler = TransferOfExplorationRights.handler(htmlUrl);
+                            LinkedHashMap<String, String> handler = TransferOfExplorationRights1_2.handler(htmlUrl);
                             handler1_1.add(handler);
                         }
                         if (html.equals("探矿权出让结果公示")
                              //   || html.equals("探矿权出让公示") || html.equals("探矿权出让") || html.equals("探矿权出让公告")
                         ) {
                             System.err.println("1-2 探矿权出让结果公示");
-                            LinkedHashMap<String, String> handler = TransferOfExplorationRights.handler(htmlUrl);
+                            LinkedHashMap<String, String> handler = TransferOfExplorationRights1_2.handler(htmlUrl);
                             handler1_2.add(handler);
                         }
                         /*  2 矿业权协议出让公示 > 探矿权协议出让公示 */
@@ -158,7 +157,7 @@ public class MiningRightMarketJsoup {
                               //  || html.equals("探矿权协议出让结果公示") || html.equals("探矿权协议出让")
                         ) {
                             System.err.println("2 探矿权协议出让公示");
-                            LinkedHashMap<String, String> handler = ExplorationRightsAgreement.handler(htmlUrl);
+                            LinkedHashMap<String, String> handler = ExplorationRightsAgreement2_1.handler(htmlUrl);
                             handler2.add(handler);
                         }
                         /* 3-1 矿业权转让公示 > 探矿权转让公示 */
@@ -166,7 +165,7 @@ public class MiningRightMarketJsoup {
                               //  || html.equals("探矿权转让结果公示") || html.equals("探矿权转让")
                         ) {
                             System.err.println("3-1 探矿权转让公示");
-                            LinkedHashMap<String, String> handler = TransferOfExplorationRights2.handler(htmlUrl);
+                            LinkedHashMap<String, String> handler = TransferOfExplorationRights3_1.handler(htmlUrl);
                             handler3_1.add(handler);
                         }
                         /* 3-2 矿业权转让公示 > 采矿权转让公示 */
@@ -174,7 +173,7 @@ public class MiningRightMarketJsoup {
                               //  || html.equals("采矿权转让") || html.equals("采矿权转让结果公示")
                         ) {
                             System.err.println("3-2 采矿权转让公示");
-                            LinkedHashMap<String, String> handler = TransferOfMiningRights2.handler(htmlUrl);
+                            LinkedHashMap<String, String> handler = TransferOfMiningRights3_2.handler(htmlUrl);
                             handler3_3.add(handler);
                         }
 
@@ -200,27 +199,27 @@ public class MiningRightMarketJsoup {
         /* 导出 */
         if (!handler1_1.isEmpty()) {
             System.out.println("开始导出数据类型 1 ...");
-            TransferOfMiningRights.exp(handler1_1);
+            TransferOfMiningRights1_1.exp(handler1_1);
             System.out.println("数据类型 1 导出完毕, 共计 " + handler1_1.size() + " 条 ...");
         }
         if (!handler1_2.isEmpty()) {
             System.out.println("开始导出数据类型 2  ...");
-            TransferOfExplorationRights.exp(handler1_2);
+            TransferOfExplorationRights1_2.exp(handler1_2);
             System.out.println("数据类型 2 导出完毕, 共计 " + handler1_2.size() + " 条 ...");
         }
         if (!handler2.isEmpty()) {
             System.out.println("开始导出数据类型 3 ...");
-            ExplorationRightsAgreement.exp(handler2);
+            ExplorationRightsAgreement2_1.exp(handler2);
             System.out.println("数据类型 3 导出完毕, 共计 " + handler2.size() + " 条 ...");
         }
         if (!handler3_1.isEmpty()) {
             System.out.println("开始导出数据类型 4 ...");
-            TransferOfExplorationRights2.exp(handler3_1);
+            TransferOfExplorationRights3_1.exp(handler3_1);
             System.out.println("数据类型 4 导出完毕, 共计 " + handler3_1.size() + " 条 ...");
         }
         if (!handler3_3.isEmpty()) {
             System.out.println("开始导出数据类型 5 ...");
-            TransferOfMiningRights2.exp(handler3_3);
+            TransferOfMiningRights3_2.exp(handler3_3);
             System.out.println("数据类型 5 导出完毕, 共计 " + handler3_3.size() + " 条 ...");
         }
 

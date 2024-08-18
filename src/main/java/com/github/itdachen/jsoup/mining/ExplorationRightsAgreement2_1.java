@@ -16,21 +16,50 @@ import java.util.*;
  * @author 王大宸
  * @date 2024/8/16 0:55
  */
-public class ExplorationRightsAgreement {
+public class ExplorationRightsAgreement2_1 {
+    private static final String URI_PREFIX = "https://ky.mnr.gov.cn/xycrgs/ckq/";
 
 
-    public static void main(String[] args) throws IOException {
-        // 设置cookie
-        Map<String, String> cookies = new HashMap<String, String>();
-        cookies.put("thor", UUID.randomUUID().toString().replaceAll("-", ""));
-        String uri = "https://ky.mnr.gov.cn/xycrgs/tkq/202407/t20240726_8977017.htm";
-        /* 单个页面 */
-        LinkedHashMap<String, String> hashMap = handler(uri);
-        System.err.println(hashMap);
+    public static void main(String[] args) throws Exception {
+//        // 设置cookie
+//        Map<String, String> cookies = new HashMap<String, String>();
+//        cookies.put("thor", UUID.randomUUID().toString().replaceAll("-", ""));
+//        String uri = "https://ky.mnr.gov.cn/xycrgs/tkq/202407/t20240726_8977017.htm";
+//        /* 单个页面 */
+//        LinkedHashMap<String, String> hashMap = handler(uri);
+//        System.err.println(hashMap);
+
+        Document document = Jsoup.connect(URI_PREFIX).get();
+        Elements clearfix = document.getElementsByClass("gu-kqgglist-section clearfix");
+        Elements liList = clearfix.select("li a");
+
+        List<LinkedHashMap<String, String>> hashMaps = new ArrayList<>();
+        LinkedHashMap<String, String> hashMap = null;
+
+        List<String> uris = new ArrayList<>();
+        for (Element element : liList) {
+            String stringUri = element.toString();
+            String replace = stringUri.replace("<a href=\".", "");
+
+            stringUri = URI_PREFIX + replace.substring(0, stringUri.indexOf(".htm")) + ".htm";
+            stringUri = stringUri.replace("\" targ.htm", "");
+            uris.add(stringUri);
+            // System.err.println(stringUri);
+
+            for (String s : uris) {
+                hashMap = handler(s);
+                if (null == hashMap) {
+                    continue;
+                }
+                hashMaps.add(hashMap);
+            }
+
+        }
+        exp(hashMaps);
     }
 
     public static LinkedHashMap<String, String> handler(String uri) throws IOException {
-        System.out.println("访问链接: " + uri);
+      //  System.out.println("访问链接: " + uri);
         LinkedHashMap<String, String> hashMap = new LinkedHashMap<>();
         Document document = Jsoup.connect(uri).get();
 
@@ -167,7 +196,7 @@ public class ExplorationRightsAgreement {
         XSSFWorkBookExpHelper workBookExpHelper = new XSSFWorkBookExpHelper();
         workBookExpHelper.expHandler(fields,
                 dataList,
-                "探矿权协议出让公示",
+                "2采矿权协议出让公示",
                 true,
                 "D:/upload/");
 
