@@ -1,6 +1,7 @@
 package com.github.itdachen.jsoup.mining;
 
 import com.github.itdachen.jsoup.XSSFWorkBookExpHelper;
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -23,14 +24,14 @@ public class TransferOfExplorationRights {
         cookies.put("thor", UUID.randomUUID().toString().replaceAll("-", ""));
         String uri = "https://ky.mnr.gov.cn/jggs/jjgs/202408/t20240814_8995102.htm";
         /* 单个页面 */
-        Document document = Jsoup.connect(uri).cookies(cookies).get();
-        LinkedHashMap<String, String> hashMap = handler(document);
+        LinkedHashMap<String, String> hashMap = handler(uri);
         System.err.println(hashMap);
     }
 
-    public static LinkedHashMap<String, String> handler(Document document) {
+    public static LinkedHashMap<String, String> handler(String uri) throws IOException {
+        System.out.println("访问链接: " + uri);
         LinkedHashMap<String, String> hashMap = new LinkedHashMap<>();
-
+        Document document = Jsoup.connect(uri).get();
         Elements msoNormal = document.getElementsByClass("MsoNormal");
 
         // 项目名称 中标人/竞得人  统一社会信用代码 成交价 缴纳方式 缴纳时间
@@ -51,17 +52,17 @@ public class TransferOfExplorationRights {
             //缴纳方式：一次性缴纳
             //缴纳时间：2024年10月31日
 
-            if (!msoNormalElement.contains("名称：") // 名称 中标人/竞得人
-                    && !msoNormalElement.contains("统一社会信用代码：") // 统一社会信用代码
-                    && !msoNormalElement.contains("时间：") // 时间
-                    //   && !string1.contains("地点：") // 地点
-                    && !msoNormalElement.contains("项目名称：") // 项目名称
-                    && !msoNormalElement.contains("成交价：")  // 成交价(万元)
-                    && !msoNormalElement.contains("缴纳方式：")  // 缴纳方式
-                    && !msoNormalElement.contains("缴纳时间：") // 缴纳时间
-            ) {
-                continue;
-            }
+//            if (!msoNormalElement.contains("名称：") // 名称 中标人/竞得人
+//                    && !msoNormalElement.contains("统一社会信用代码：") // 统一社会信用代码
+//                    && !msoNormalElement.contains("时间：") // 时间
+//                    //   && !string1.contains("地点：") // 地点
+//                    && !msoNormalElement.contains("项目名称：") // 项目名称
+//                    && !msoNormalElement.contains("成交价：")  // 成交价(万元)
+//                    && !msoNormalElement.contains("缴纳方式：")  // 缴纳方式
+//                    && !msoNormalElement.contains("缴纳时间：") // 缴纳时间
+//            ) {
+//                continue;
+//            }
 
 
             String replace = msoNormalElement.replace("<p class=\"MsoNormal\" style=\"line-height: 150%; text-indent: 32pt; margin: 0cm 0cm 0pt; mso-char-indent-count: 2.0\"><span style=\"line-height: 150%; font-family: 仿宋; font-size: 16pt; mso-bidi-font-size: 14.0pt\">", "");
@@ -98,9 +99,11 @@ public class TransferOfExplorationRights {
 //                //  System.err.println("时间：" + replace);
 //                continue;
 //            }
-            if (replace.startsWith("项目名称：")) {
+            if (replace.startsWith("项目名称：") || replace.contains("NA_APP_NAME")) {
                 replace = replace.replaceAll("<span data-bind=\"text:NA_APP_NAME\">", "")
                         .replaceAll("</span></span></p>", "")
+                        .replace("<p class=\"MsoNormal\" style=\"margin: 0cm 0cm 0pt; line-height: 150%; text-indent: 32pt; mso-char-indent-count: 2.0\" __ko__1710122603289=\"ko204\"><span style=\"font-size: 16pt; font-family: 仿宋; line-height: 150%; mso-bidi-font-size: 14.0pt\"><span __ko__1710122603289=\"ko205\" data-bind=\"text:APP_CATEGORY.indexOf('采矿权')>-1?'项目':'项目'\">项目</span>名称：<span __ko__1710122603289=\"ko206\" data-bind=\"text:NA_APP_NAME\">","")
+                        .replace("<span data-bind=\"text:PLATFORMNAME\">", "")
                         .replaceAll("项目名称：", "");
                 xmmx = replace;
                 //  System.err.println("项目名称：" + replace);
@@ -135,6 +138,10 @@ public class TransferOfExplorationRights {
             }
 
             //   System.err.println(replace);
+        }
+
+        if ("".equals(xmmx)){
+            System.err.println("TransferOfExplorationRights: " + document.toString());
         }
 
         // String xmmx = "", zbr = "",  xydm = "", cjj = "", jnfs = "", jnsj = "";

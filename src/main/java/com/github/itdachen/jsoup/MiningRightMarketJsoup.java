@@ -10,11 +10,43 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.StopWatch;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
  * 矿业权市场
- * 黑龙江省宁安市泼雪泉饮用天然矿泉水勘查探矿权出让交易公告
+ * <p>
+ * 1-1 探矿权出让结果公示
+ * https://ky.mnr.gov.cn/jggs/jjgs/
+ * https://ky.mnr.gov.cn/jggs/jjgs/202408/t20240818_8997821.htm
+ * <p>
+ * <p>
+ * 1-2 采矿权出让结果公示
+ * https://ky.mnr.gov.cn/jggs/ckjjgs/
+ * https://ky.mnr.gov.cn/jggs/ckjjgs/202408/t20240817_8997773.htm
+ * <p>
+ * <p>
+ * 2 采矿权协议出让公示
+ * https://ky.mnr.gov.cn/xycrgs/ckq/
+ * https://ky.mnr.gov.cn/xycrgs/ckq/202408/t20240817_8997757.htm
+ * <p>
+ * <p>
+ * 三、矿业权转让公示
+ * 3-1 探矿权转让公示
+ * https://ky.mnr.gov.cn/zrgs/tkzrgs/
+ * https://ky.mnr.gov.cn/zrgs/tkzrgs/202408/t20240816_8997693.htm
+ * <p>
+ * 3-2 采矿权转让公示
+ * https://ky.mnr.gov.cn/zrgs/ckzrgs
+ * https://ky.mnr.gov.cn/zrgs/ckzrgs/202408/t20240817_8997783.htm
+ * <p>
+ * <p>
+ * <p>
+ * <p>
+ * 1-1
+ * https://search.mnr.gov.cn/was5/web/search?page=1&channelid=112225,142099,180679,93332&searchword=+APP_CATEGORY%3D%E9%87%87%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.18&keyword=+APP_CATEGORY%3D%E9%87%87%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.18&perpage=10&outlinepage=10
+ * https://search.mnr.gov.cn/was5/web/search?page=1&channelid=112225,142099,180679,93332&searchword=+APP_CATEGORY%3D%E9%87%87%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.18&keyword=+APP_CATEGORY%3D%E9%87%87%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.18&perpage=10&outlinepage=10
+ * https://search.mnr.gov.cn/was5/web/search?page=1&channelid=112225,142099,180679,93332&searchword=+APP_CATEGORY%3D%E9%87%87%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.18&keyword=+APP_CATEGORY%3D%E9%87%87%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.18&perpage=10&outlinepage=10
  *
  * @author 王大宸
  * @date 2024/8/15 20:30
@@ -26,6 +58,19 @@ public class MiningRightMarketJsoup {
 
     public static void main(String[] args) throws Exception {
 
+//        String a = "https://search.mnr.gov.cn/was5/web/search?page=1&channelid=112225,142099,180679,93332&searchword=+APP_CATEGORY%3D%E9%87%87%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.18&keyword=+APP_CATEGORY%3D%E9%87%87%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.18&perpage=10&outlinepage=10";
+//        String b = "https://search.mnr.gov.cn/was5/web/search?page=1&channelid=112225,142099,180679,93332&searchword=+APP_CATEGORY%3D%E9%87%87%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.18&keyword=+APP_CATEGORY%3D%E9%87%87%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.18&perpage=10&outlinepage=10";
+//        String c = "https://search.mnr.gov.cn/was5/web/search?page=1&channelid=112225,142099,180679,93332&searchword=+APP_CATEGORY%3D%E9%87%87%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.18&keyword=+APP_CATEGORY%3D%E9%87%87%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.18&perpage=10&outlinepage=10";
+//        String d = "https://search.mnr.gov.cn/was5/web/search?page=1&channelid=112225,142099,180679,93332&searchword=+APP_CATEGORY%3D%E6%8E%A2%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.18&keyword=+APP_CATEGORY%3D%E6%8E%A2%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.18&perpage=10&outlinepage=10";
+//        System.err.println(a.equals(d));
+
+
+        test();
+    }
+
+
+    public static void test() throws Exception {
+        System.out.println(LocalDateTime.now());
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         // 设置cookie
@@ -37,13 +82,21 @@ public class MiningRightMarketJsoup {
         List<String> uriList = new ArrayList<>();
 
 
-        for (int i = 1; i < 152; i++) {
-            uriList.add("https://search.mnr.gov.cn/was5/web/search?page=" + i + "&channelid=112225,142099,180679,93332&searchword=+APP_CATEGORY%3D%E6%8E%A2%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.16&keyword=+APP_CATEGORY%3D%E6%8E%A2%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.16&perpage=10&outlinepage=10");
-        }
-
-//        for (int i = 1; i < 3; i++) {
+//        for (int i = 1; i < 152; i++) {
 //            uriList.add("https://search.mnr.gov.cn/was5/web/search?page=" + i + "&channelid=112225,142099,180679,93332&searchword=+APP_CATEGORY%3D%E6%8E%A2%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.16&keyword=+APP_CATEGORY%3D%E6%8E%A2%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.16&perpage=10&outlinepage=10");
 //        }
+
+
+
+        /* 探矿权 */
+        for (int i = 1; i < 152; i++) {
+            uriList.add("https://search.mnr.gov.cn/was5/web/search?page=" + i + "&channelid=112225,142099,180679,93332&searchword=+APP_CATEGORY%3D%E6%8E%A2%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.18&keyword=+APP_CATEGORY%3D%E6%8E%A2%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.18&perpage=10&outlinepage=10");
+        }
+
+        /* 采矿权 */
+        for (int i = 1; i < 328; i++) {
+            uriList.add("https://search.mnr.gov.cn/was5/web/search?page=" + i + "&channelid=112225,142099,180679,93332&searchword=+APP_CATEGORY%3D%E9%87%87%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.18&keyword=+APP_CATEGORY%3D%E9%87%87%E7%9F%BF%E6%9D%83+and+DT_DATE%3E%3D2022.01.01+and+DT_DATE%3C%3D2024.08.18&perpage=10&outlinepage=10");
+        }
 
         List<LinkedHashMap<String, String>> handler1_1 = new ArrayList<>();
         List<LinkedHashMap<String, String>> handler1_2 = new ArrayList<>();
@@ -70,39 +123,65 @@ public class MiningRightMarketJsoup {
                     continue;
                 }
 
-                try{
+                try {
                     htmlUrl = htmlUrl.replaceAll("<a href=\"", "");
                     int i = htmlUrl.indexOf(".htm");
                     htmlUrl = htmlUrl.substring(0, i) + ".htm";
+                    //
                     Document pageDocument = Jsoup.connect(htmlUrl).cookies(cookies).get();
 
 
-                    if (pageDocument.toString().contains("title=\"探矿权出让公告\" class=\"CurrChnlCls\">探矿权出让公告</a>")) {
-                        //  System.err.println("1-1 探矿权出让公告");
-                        LinkedHashMap<String, String> handler = TransferOfMiningRights.handler(pageDocument);
-                        handler1_1.add(handler);
+                    Elements currChnlCls = pageDocument.getElementsByClass("CurrChnlCls");
+
+
+                    for (Element currChnlCl : currChnlCls) {
+                        String html = currChnlCl.html();
+                        if (html.contains("首页") || html.contains("矿业权招拍挂出让公告")) {
+                            continue;
+                        }
+                        if (html.equals("采矿权出让结果公示")
+                             //   || html.equals("采矿权出让公示") || html.equals("采矿权出让")
+                        ) {
+                            System.err.println("1-2 探矿权出让结果公示 === 采矿权出让结果公示");
+                            LinkedHashMap<String, String> handler = TransferOfExplorationRights.handler(htmlUrl);
+                            handler1_2.add(handler);
+                        }
+                        if (html.equals("探矿权出让结果公示")
+                             //   || html.equals("探矿权出让公示") || html.equals("探矿权出让") || html.equals("探矿权出让公告")
+                        ) {
+                            System.err.println("1-2 探矿权出让结果公示");
+                            LinkedHashMap<String, String> handler = TransferOfExplorationRights.handler(htmlUrl);
+                            handler1_2.add(handler);
+                        }
+                        /*  2 矿业权协议出让公示 > 探矿权协议出让公示 */
+                        if (html.equals("探矿权协议出让公示")
+                              //  || html.equals("探矿权协议出让结果公示") || html.equals("探矿权协议出让")
+                        ) {
+                            System.err.println("2 探矿权协议出让公示");
+                            LinkedHashMap<String, String> handler = ExplorationRightsAgreement.handler(htmlUrl);
+                            handler2.add(handler);
+                        }
+                        /* 3-1 矿业权转让公示 > 探矿权转让公示 */
+                        if (html.equals("探矿权转让公示")
+                              //  || html.equals("探矿权转让结果公示") || html.equals("探矿权转让")
+                        ) {
+                            System.err.println("3-1 探矿权转让公示");
+                            LinkedHashMap<String, String> handler = TransferOfExplorationRights2.handler(htmlUrl);
+                            handler3_1.add(handler);
+                        }
+                        /* 3-2 矿业权转让公示 > 采矿权转让公示 */
+                        if (html.equals("采矿权转让公示")
+                              //  || html.equals("采矿权转让") || html.equals("采矿权转让结果公示")
+                        ) {
+                            System.err.println("3-2 采矿权转让公示");
+                            LinkedHashMap<String, String> handler = TransferOfMiningRights2.handler(htmlUrl);
+                            handler3_3.add(handler);
+                        }
+
+
                     }
-                    if (pageDocument.toString().contains("title=\"探矿权出让结果公示\" class=\"CurrChnlCls\">探矿权出让结果公示</a>")) {
-                        //  System.err.println("1-2 探矿权出让结果公示");
-                        LinkedHashMap<String, String> handler = TransferOfExplorationRights.handler(pageDocument);
-                        handler1_2.add(handler);
-                    }
-                    if (pageDocument.toString().contains("title=\"探矿权协议出让公示\" class=\"CurrChnlCls\">探矿权协议出让公示</a>")) {
-                        //  System.err.println("2 探矿权协议出让公示");
-                        LinkedHashMap<String, String> handler = ExplorationRightsAgreement.handler(pageDocument);
-                        handler2.add(handler);
-                    }
-                    if (pageDocument.toString().contains("title=\"探矿权转让公示\" class=\"CurrChnlCls\">探矿权转让公示</a>")) {
-                        // System.err.println("3-1 探矿权转让公示");
-                        LinkedHashMap<String, String> handler = TransferOfExplorationRights2.handler(pageDocument);
-                        handler3_1.add(handler);
-                    }
-                    if (pageDocument.toString().contains("title=\"采矿权转让公示\" class=\"CurrChnlCls\">采矿权转让公示</a>")) {
-                        // System.err.println("3-2 采矿权转让公示");
-                        LinkedHashMap<String, String> handler = TransferOfMiningRights2.handler(pageDocument);
-                        handler3_3.add(handler);
-                    }
-                }catch (Exception e){
+
+                } catch (Exception e) {
 
                 }
 
@@ -149,36 +228,7 @@ public class MiningRightMarketJsoup {
         double totalTimeSeconds = stopWatch.getTotalTimeSeconds();
         System.out.println("数据导出完成 ...");
         System.out.println("共耗时 " + totalTimeSeconds + " Seconds");
+        System.out.println(LocalDateTime.now());
     }
-
-
-    /***
-     * 页面类型分发
-     *
-     * @author 王大宸
-     * @date 2024/8/16 9:52
-     * @param document document
-     * @return void
-     */
-    public static void pageTypeFactory(Document document) throws IOException {
-        if (document.toString().contains("title=\"探矿权出让公告\" class=\"CurrChnlCls\">探矿权出让公告</a>")) {
-            System.err.println("1-1 探矿权出让公告");
-            LinkedHashMap<String, String> handler = TransferOfMiningRights.handler(document);
-        }
-        if (document.toString().contains("title=\"探矿权出让结果公示\" class=\"CurrChnlCls\">探矿权出让结果公示</a>")) {
-            System.err.println("1-2 探矿权出让结果公示");
-        }
-        if (document.toString().contains("title=\"探矿权协议出让公示\" class=\"CurrChnlCls\">探矿权协议出让公示</a>")) {
-            System.err.println("2 探矿权协议出让公示");
-        }
-        if (document.toString().contains("title=\"探矿权转让公示\" class=\"CurrChnlCls\">探矿权转让公示</a>")) {
-            System.err.println("3-1 探矿权转让公示");
-        }
-        if (document.toString().contains("title=\"采矿权转让公示\" class=\"CurrChnlCls\">采矿权转让公示</a>")) {
-            System.err.println("3-2 采矿权转让公示");
-        }
-        System.err.println(document);
-    }
-
 
 }

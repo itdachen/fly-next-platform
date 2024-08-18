@@ -11,6 +11,7 @@ import java.util.*;
 
 /**
  * 二、探矿权协议出让公示
+ *    探矿权协议出让公示
  *
  * @author 王大宸
  * @date 2024/8/16 0:55
@@ -22,15 +23,16 @@ public class ExplorationRightsAgreement {
         // 设置cookie
         Map<String, String> cookies = new HashMap<String, String>();
         cookies.put("thor", UUID.randomUUID().toString().replaceAll("-", ""));
-        String uri = "https://ky.mnr.gov.cn/xycrgs/tkq/202407/t20240709_8957387.htm";
+        String uri = "https://ky.mnr.gov.cn/xycrgs/tkq/202407/t20240726_8977017.htm";
         /* 单个页面 */
-        Document document = Jsoup.connect(uri).cookies(cookies).get();
-        LinkedHashMap<String, String> hashMap = handler(document);
+        LinkedHashMap<String, String> hashMap = handler(uri);
         System.err.println(hashMap);
     }
 
-    public static LinkedHashMap<String, String> handler(Document document) {
+    public static LinkedHashMap<String, String> handler(String uri) throws IOException {
+        System.out.println("访问链接: " + uri);
         LinkedHashMap<String, String> hashMap = new LinkedHashMap<>();
+        Document document = Jsoup.connect(uri).get();
 
         Elements msoNormal = document.getElementsByClass("MsoNormal");
 
@@ -64,18 +66,18 @@ public class ExplorationRightsAgreement {
             //开采规模： 220万吨/年
             //面积：0.3816平方千米
 
-            if (!msoNormalElement.contains("名称：") // 名称 出让人 名称 / 受让人  名称
-                    && !msoNormalElement.contains("统一社会信用代码：") // 统一社会信用代码
-                    && !msoNormalElement.contains("项目名称：")
-                    && !msoNormalElement.contains("规模：")
-                    && !msoNormalElement.contains("面积：")
-                    && !msoNormalElement.contains("矿种：")
-                    && !msoNormalElement.contains("规模：")
-                    && !msoNormalElement.contains("平方千米")
-
-            ) {
-                continue;
-            }
+//            if (!msoNormalElement.contains("名称：") // 名称 出让人 名称 / 受让人  名称
+//                    && !msoNormalElement.contains("统一社会信用代码：") // 统一社会信用代码
+//                    && !msoNormalElement.contains("项目名称：")
+//                    && !msoNormalElement.contains("规模：")
+//                    && !msoNormalElement.contains("面积：")
+//                    && !msoNormalElement.contains("矿种：")
+//                    && !msoNormalElement.contains("规模：")
+//                    && !msoNormalElement.contains("平方千米")
+//
+//            ) {
+//                continue;
+//            }
 
             String replace = msoNormalElement.replace("<p class=\"MsoNormal\" style=\"line-height: 150%; text-indent: 32pt; margin: 0cm 0cm 0pt; mso-char-indent-count: 2.0\"><span style=\"line-height: 150%; font-family: 仿宋; font-size: 16pt; mso-bidi-font-size: 14.0pt\">", "");
             replace = replace.replace("</span></span></p>", "")
