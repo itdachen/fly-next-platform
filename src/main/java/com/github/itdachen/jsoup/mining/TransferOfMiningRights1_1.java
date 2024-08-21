@@ -60,13 +60,13 @@ public class TransferOfMiningRights1_1 {
         Document document = Jsoup.connect(uri).get();
 
         Elements msoNormal = document.getElementsByClass("MsoNormal");
-        if (0 < msoNormal.size()) {
-            return msoNormalHandler(msoNormal);
+        if (!msoNormal.isEmpty()) {
+            return msoNormalHandler(msoNormal, uri);
         }
 
         Elements table = document.getElementsByTag("table");
-        if (0 < table.size()) {
-            return tableHandler(table);
+        if (!table.isEmpty()) {
+            return tableHandler(table, uri);
         }
         System.err.println(document);
 
@@ -74,7 +74,7 @@ public class TransferOfMiningRights1_1 {
     }
 
 
-    public static LinkedHashMap<String, String> tableHandler(Elements elements) {
+    public static LinkedHashMap<String, String> tableHandler(Elements elements, String uri) {
         for (Element elementTable : elements) {
             String elementTableStr = elementTable.toString();
             if (elementTableStr.contains("您现在的位置：")) {
@@ -186,14 +186,14 @@ public class TransferOfMiningRights1_1 {
             hashMap.put("cjj", cjj);
             hashMap.put("jnfs", jnfs);
             hashMap.put("jnsj", jnsj);
-
+            hashMap.put("s", uri);
             return hashMap;
         }
         return null;
     }
 
 
-    public static LinkedHashMap<String, String> msoNormalHandler(Elements msoNormal) throws IOException {
+    public static LinkedHashMap<String, String> msoNormalHandler(Elements msoNormal, String uri) throws IOException {
 
 
         // 项目名称 开采矿种 中标人/竞得人  成交时间  统一社会信用代码 成交价 缴纳方式 缴纳时间
@@ -307,7 +307,7 @@ public class TransferOfMiningRights1_1 {
         hashMap.put("cjj", cjj);
         hashMap.put("jnfs", jnfs);
         hashMap.put("jnsj", jnsj);
-
+        hashMap.put("s", uri);
         return hashMap;
     }
 
