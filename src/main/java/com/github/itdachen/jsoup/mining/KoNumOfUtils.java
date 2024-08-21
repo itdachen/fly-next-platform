@@ -11,41 +11,45 @@ import java.util.List;
  */
 public class KoNumOfUtils {
 
-    public static String indexOf(String str) {
-        List<String> strings = koNumList();
-        for (String string : strings) {
-            string = "=\"ko" + string + "\">";
-            int p = str.indexOf(string);
-            if (0 < p) {
-                str = str.substring(p + 8);
-            }
-        }
+    private static final List<String> KO_NUM_LIST = new ArrayList<>();
+    private static final List<String> FIELD_LIST = new ArrayList<>(); // field
 
-        return str;
-    }
-
-    public static String indexOf(String str,  List<String> koNumList) {
-        for (String string : koNumList) {
-            string = "=\"ko" + string + "\">";
-            int p = str.indexOf(string);
-            if (0 < p) {
-                str = str.substring(p + 8);
-            }
-        }
-
-        return str;
-    }
-
-
-    public static List<String> koNumList() {
-        List<String> koNumList = new ArrayList<>();
-
+    static {
+        /* ko 数字 */
         for (int i = 0; i < 1000; i++) {
-            koNumList.add(String.valueOf(i + 1));
+            KO_NUM_LIST.add(String.valueOf(i + 1));
         }
 
-        return koNumList;
+        /* 结尾字段 */
+        FIELD_LIST.add("text:NA_CESSION\">");
+        FIELD_LIST.add("text:NA_CESSIONARY\">");
+        FIELD_LIST.add("text:NA_CESSION_CODE\">");
+        FIELD_LIST.add("text:NA_CESSIONARY\">");
+
     }
 
+
+    public static String indexOf(String str) {
+        for (String string : KO_NUM_LIST) {
+            string = "=\"ko" + string + "\">";
+            int p = str.indexOf(string);
+            if (0 < p) {
+                str = str.substring(p + 8);
+            }
+        }
+        return str;
+    }
+
+    public static String replaceStr(String str) {
+        int length = 0;
+        for (String string : FIELD_LIST) {
+            length = string.length();
+            int p = str.indexOf(string);
+            if (0 < p) {
+                str = str.substring(length);
+            }
+        }
+        return str;
+    }
 
 }
