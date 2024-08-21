@@ -64,13 +64,131 @@ public class TransferOfMiningRights1_1 {
             return msoNormalHandler(msoNormal, uri);
         }
 
-        Elements table = document.getElementsByTag("table");
-        if (!table.isEmpty()) {
-            return tableHandler(table, uri);
+        Elements p = document.getElementsByTag("p");
+        if (!p.isEmpty()) {
+            return pHandler(p, uri);
         }
-        System.err.println(document);
+
+
+//        Elements table = document.getElementsByTag("table");
+//        if (!table.isEmpty()) {
+//            return tableHandler(table, uri);
+//        }
+//        System.err.println(document);
 
         return null;
+    }
+
+
+    public static LinkedHashMap<String, String> pHandler(Elements elements, String uri) {
+        // 项目名称 开采矿种 中标人/竞得人  成交时间  统一社会信用代码 成交价 缴纳方式 缴纳时间
+        String xmmx = "", kckz = "", zbr = "", cjsj = "", xydm = "", cjj = "", jnfs = "", jnsj = "";
+
+        if (1 == elements.size()) {
+            return null;
+        }
+
+        String strElement = "";
+        for (Element element : elements) {
+            strElement = element.toString();
+            if (strElement.startsWith("<p data-v-4fd47c5f=\"\" style=\"text-align: center;\">")
+                    || strElement.startsWith("<p data-v-4fd47c5f=\"\"></p>")
+                    || strElement.contains("门户网站")
+                    || strElement.contains("京公网安备")
+                    || strElement.contains("公示文号")
+                    || strElement.contains("公示如下")
+                    || strElement.contains("公示时间：")
+
+
+            ) {
+                continue;
+            }
+            //  System.err.println(strElement);
+
+            strElement = strElement.replace("<span data-v-4fd47c5f=\"\">", "")
+                    .replace("</span></p>", "");
+
+            // 项目名称	开采矿种	中标人/竞得人	成交时间	统一社会信用代码	成交价	缴纳方式	缴纳时间
+            if (strElement.contains("项目名称：")) {
+                strElement = KoNumOfUtils.replaceStr(strElement);
+                strElement = KoNumOfUtils.indexOf(strElement);
+                strElement = strElement.replace("<p data-v-4fd47c5f=\"\" style=\"line-height: 150%; margin: 0cm 0cm 0pt; text-indent: 30pt; font-size: 15pt; font-family: 仿宋_GB2312;\"> 项目名称：", "");
+                xmmx = strElement;
+                continue;
+            }
+            if (strElement.contains("矿种：")) {
+                strElement = KoNumOfUtils.replaceStr(strElement);
+                strElement = KoNumOfUtils.indexOf(strElement);
+                strElement = strElement.replace("<p data-v-4fd47c5f=\"\" style=\"line-height: 150%; margin: 0cm 0cm 0pt; text-indent: 30pt; font-size: 15pt; font-family: 仿宋_GB2312;\"> 勘查矿种： ", "");
+                kckz = strElement;
+                continue;
+            }
+
+            /* 中标人/竞得人 */
+            if (strElement.contains("名称：")) {
+                strElement = KoNumOfUtils.replaceStr(strElement);
+                strElement = KoNumOfUtils.indexOf(strElement);
+                strElement = strElement.replace("<p data-v-4fd47c5f=\"\" style=\"line-height: 150%; margin: 0cm 0cm 0pt; text-indent: 30pt; font-size: 15pt; font-family: 仿宋_GB2312;\"> 名称： ", "");
+                zbr = strElement;
+                continue;
+            }
+
+            /* 成交时间 */
+            if (strElement.contains("成交时间：")) {
+                strElement = KoNumOfUtils.replaceStr(strElement);
+                strElement = KoNumOfUtils.indexOf(strElement);
+                strElement = strElement.replace("<p data-v-4fd47c5f=\"\" style=\"line-height: 150%; margin: 0cm 0cm 0pt; text-indent: 30pt; font-size: 15pt; font-family: 仿宋_GB2312;\"> 时间：", "");
+                cjsj = strElement;
+                continue;
+            }
+
+            /* 统一社会信用代码 */
+            if (strElement.contains("统一社会信用代码：")) {
+                strElement = KoNumOfUtils.replaceStr(strElement);
+                strElement = KoNumOfUtils.indexOf(strElement);
+                strElement = strElement.replace("<p data-v-4fd47c5f=\"\" style=\"line-height: 150%; margin: 0cm 0cm 0pt; text-indent: 30pt; font-size: 15pt; font-family: 仿宋_GB2312;\"> 统一社会信用代码：", "");
+                xydm = strElement;
+                continue;
+            }
+
+            /* 成交价 */
+            if (strElement.contains("成交价：")) {
+                strElement = KoNumOfUtils.replaceStr(strElement);
+                strElement = KoNumOfUtils.indexOf(strElement);
+                strElement = strElement.replace("<p data-v-4fd47c5f=\"\" style=\"line-height: 150%; margin: 0cm 0cm 0pt; text-indent: 30pt; font-size: 15pt; font-family: 仿宋_GB2312;\"> 成交价：", "");
+                strElement = strElement.replace("</span>万元</span></p>", "");
+                cjj = strElement;
+                continue;
+            }
+
+            if (strElement.contains("缴纳方式：")) {
+                strElement = KoNumOfUtils.replaceStr(strElement);
+                strElement = KoNumOfUtils.indexOf(strElement);
+                strElement = strElement.replace("<p data-v-4fd47c5f=\"\" style=\"line-height: 150%; margin: 0cm 0cm 0pt; text-indent: 30pt; font-size: 15pt; font-family: 仿宋_GB2312;\"> 缴纳方式：", "");
+                strElement = strElement.replace(">", "");
+                jnfs = strElement;
+                continue;
+            }
+
+            if (strElement.contains("缴纳时间：")) {
+                strElement = KoNumOfUtils.replaceStr(strElement);
+                strElement = KoNumOfUtils.indexOf(strElement);
+                strElement = strElement.replace("<p data-v-4fd47c5f=\"\" style=\"line-height: 150%; margin: 0cm 0cm 0pt; text-indent: 30pt; font-size: 15pt; font-family: 仿宋_GB2312;\"> 缴纳时间：", "");
+                jnsj = strElement;
+            }
+        }
+
+        LinkedHashMap<String, String> hashMap = new LinkedHashMap<>();
+        hashMap.put("xmmx", xmmx);
+        hashMap.put("kckz", kckz);
+        hashMap.put("zbr", zbr);
+        hashMap.put("cjsj", cjsj);
+        hashMap.put("xydm", xydm);
+        hashMap.put("cjj", cjj);
+        hashMap.put("jnfs", jnfs);
+        hashMap.put("jnsj", jnsj);
+        hashMap.put("s", uri);
+        return hashMap;
     }
 
 
@@ -222,6 +340,8 @@ public class TransferOfMiningRights1_1 {
             String s = string1.replaceAll("<p class=\"MsoNormal\" style=\"margin: 0cm 0cm 0pt; line-height: 150%; text-indent: 32pt; mso-char-indent-count: 2.0;\"><span style=\"line-height: 150%; font-family: 仿宋; font-size: 16pt; mso-bidi-font-size: 14.0pt;\">", "");
             s = s.replace("</span></span></p>", "");
             if (s.contains("NA_PUBLIC_BIDDER")) {
+                s = KoNumOfUtils.indexOf(s);
+                s = KoNumOfUtils.replaceStr(s);
                 s = s.replaceAll("<span data-bind=\"text:NA_PUBLIC_BIDDER\">", "")
                         .replaceAll("</span></span></p>", "")
                         .replaceAll("名称：", "");
@@ -230,6 +350,8 @@ public class TransferOfMiningRights1_1 {
                 continue;
             }
             if (s.contains("NA_REG_CODE")) {
+                s = KoNumOfUtils.indexOf(s);
+                s = KoNumOfUtils.replaceStr(s);
                 s = s.replaceAll("<span data-bind=\"text:NA_REG_CODE\">", "")
                         .replaceAll("</span></span></p>", "")
                         .replaceAll("统一社会信用代码：", "");
@@ -238,6 +360,8 @@ public class TransferOfMiningRights1_1 {
                 continue;
             }
             if (s.contains("DT_BUY_DATE")) {
+                s = KoNumOfUtils.indexOf(s);
+                s = KoNumOfUtils.replaceStr(s);
                 s = s.replaceAll("<span data-bind=\"text:(new Date(DT_BUY_DATE)).format('yyyy年MM月dd日')\">", "")
                         .replaceAll("</span></span></p>", "")
                         .replaceAll("<spandata-bind=\"text:(newDate(DT_BUY_DATE)).format('yyyy年MM月dd日')\">", "")
@@ -250,6 +374,8 @@ public class TransferOfMiningRights1_1 {
                 continue;
             }
             if (s.contains("NA_APP_NAME")) {
+                s = KoNumOfUtils.indexOf(s);
+                s = KoNumOfUtils.replaceStr(s);
                 // xmmx -> 新疆鄯善县色东铜铁矿普查
                 s = s.replaceAll("<span data-bind=\"text:NA_APP_NAME\">", "")
                         .replace("<p class=\"MsoNormal\" style=\"margin: 0cm 0cm 0pt; line-height: 150%; text-indent: 32pt; mso-char-indent-count: 2.0\" __ko__1710122603289=\"ko204\"><span style=\"font-size: 16pt; font-family: 仿宋; line-height: 150%; mso-bidi-font-size: 14.0pt\"><span __ko__1710122603289=\"ko205\" data-bind=\"text:APP_CATEGORY.indexOf('采矿权')>-1?'项目':'项目'\">项目</span>名称：<span __ko__1710122603289=\"ko206\" data-bind=\"text:NA_APP_NAME\">", "")
@@ -261,6 +387,8 @@ public class TransferOfMiningRights1_1 {
                 continue;
             }
             if (s.contains("QT_PUBLIC_PRICE")) {
+                s = KoNumOfUtils.indexOf(s);
+                s = KoNumOfUtils.replaceStr(s);
                 s = s.replaceAll("<span data-bind=\"text: QT_PUBLIC_PRICE\">", "")
                         .replaceAll("</span>万元</span></p>", "")
                         .replaceAll("成交价：", "");
@@ -269,16 +397,21 @@ public class TransferOfMiningRights1_1 {
                 continue;
             }
             if (s.contains("DT_COST_DATE")) {
+                s = KoNumOfUtils.indexOf(s);
+                s = KoNumOfUtils.replaceStr(s);
                 s = s.replaceAll("<span data-bind=\"text: (new Date(DT_COST_DATE)).format('yyyy年MM月dd日')\">", "")
                         .replaceAll("</span></span></p>", "")
                         .replaceAll("缴纳时间：", "");
                 int i = s.indexOf("\">");
                 String substring = s.substring(i + 2, s.length());
                 s = substring.replace("<spandata-bind=\"text:(newDate(DT_COST_DATE)).format('yyyy年MM月dd日')\">", "");
+                s = s.replace(">", "");
                 jnsj = s;
                 continue;
             }
             if (s.contains("NA_COST_NAME")) {
+                s = KoNumOfUtils.indexOf(s);
+                s = KoNumOfUtils.replaceStr(s);
                 s = s.replaceAll("<span data-bind=\"text: NA_COST_NAME\">", "")
                         .replaceAll("</span></span></p>", "")
                         .replaceAll("缴纳方式：", "");
@@ -287,6 +420,8 @@ public class TransferOfMiningRights1_1 {
                 continue;
             }
             if (s.contains("MAIN_MINE_Name\">")) {
+                s = KoNumOfUtils.indexOf(s);
+                s = KoNumOfUtils.replaceStr(s);
                 s = s.replaceAll("<spandata-bind=\"text:APP_CATEGORY.indexOf('采矿权')>-1?'开采':'勘查'\">开采</span>矿种：<spandata-bind=\"text:MAIN_MINE_Name\">", "")
                         .replaceAll("</span></span></p>", "")
                         .replaceAll("矿种：", "");

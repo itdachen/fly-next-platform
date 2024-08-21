@@ -26,6 +26,9 @@ public class KoNumOfUtils {
         FIELD_LIST.add("text:NA_CESSION_CODE\">");
         FIELD_LIST.add("text:NA_CESSIONARY\">");
 
+
+        FIELD_LIST.add("mso-bidi-font-size: 14.0pt\">");
+
     }
 
 
@@ -34,7 +37,7 @@ public class KoNumOfUtils {
             string = "=\"ko" + string + "\">";
             int p = str.indexOf(string);
             if (0 < p) {
-                str = str.substring(p + 8);
+                str = str.substring(string.length());
             }
         }
         return str;
