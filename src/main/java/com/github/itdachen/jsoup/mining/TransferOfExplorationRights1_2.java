@@ -22,7 +22,7 @@ public class TransferOfExplorationRights1_2 {
         // 设置cookie
         Map<String, String> cookies = new HashMap<String, String>();
         cookies.put("thor", UUID.randomUUID().toString().replaceAll("-", ""));
-     //   String uri = "https://ky.mnr.gov.cn/jggs/jjgs/202408/t20240814_8995102.htm";
+        //   String uri = "https://ky.mnr.gov.cn/jggs/jjgs/202408/t20240814_8995102.htm";
 
 
         List<String> uriList = new ArrayList<>();
@@ -48,7 +48,7 @@ public class TransferOfExplorationRights1_2 {
                 stringUri = URI_PREFIX + replace.substring(0, stringUri.indexOf(".htm")) + ".htm";
                 stringUri = stringUri.replace("\" targ.htm", "");
                 uris.add(stringUri);
-               // System.err.println(stringUri);
+                // System.err.println(stringUri);
             }
 
 
@@ -70,7 +70,7 @@ public class TransferOfExplorationRights1_2 {
     }
 
     public static LinkedHashMap<String, String> handler(String uri) throws IOException {
-      //  System.out.println("访问链接: " + uri);
+        //  System.out.println("访问链接: " + uri);
         LinkedHashMap<String, String> hashMap = new LinkedHashMap<>();
         Document document = Jsoup.connect(uri).get();
         Elements msoNormal = document.getElementsByClass("MsoNormal");
@@ -110,7 +110,9 @@ public class TransferOfExplorationRights1_2 {
             replace = replace.replace("</span></span></p>", "").replace("</span>万元</span></p>", "");
 
 
-            if (replace.startsWith("名称：")) {
+            if (replace.startsWith("名称：")
+                    || replace.contains("text:NA_PUBLIC_BIDDER")) {
+                replace = KoNumOfUtils.cleanHandle(replace);
                 replace = replace.replaceAll("<span data-bind=\"text:NA_PUBLIC_BIDDER\">", "")
                         .replaceAll("</span></span></p>", "")
                         .replaceAll("名称：", "");
@@ -118,7 +120,9 @@ public class TransferOfExplorationRights1_2 {
                 zbr = replace;
                 continue;
             }
-            if (replace.startsWith("统一社会信用代码：")) {
+            if (replace.startsWith("统一社会信用代码：")
+                    || replace.contains("text:NA_REG_CODE")) {
+                replace = KoNumOfUtils.cleanHandle(replace);
                 replace = replace.replaceAll("<span data-bind=\"text:NA_REG_CODE\">", "")
                         .replaceAll("</span></span></p>", "")
                         .replaceAll("统一社会信用代码：", "")
@@ -128,6 +132,7 @@ public class TransferOfExplorationRights1_2 {
                 continue;
             }
             if (replace.startsWith("项目名称：") || replace.contains("NA_APP_NAME")) {
+                replace = KoNumOfUtils.cleanHandle(replace);
                 replace = replace.replaceAll("<span data-bind=\"text:NA_APP_NAME\">", "")
                         .replaceAll("</span></span></p>", "")
                         .replace("<p class=\"MsoNormal\" style=\"margin: 0cm 0cm 0pt; line-height: 150%; text-indent: 32pt; mso-char-indent-count: 2.0\" __ko__1710122603289=\"ko204\"><span style=\"font-size: 16pt; font-family: 仿宋; line-height: 150%; mso-bidi-font-size: 14.0pt\"><span __ko__1710122603289=\"ko205\" data-bind=\"text:APP_CATEGORY.indexOf('采矿权')>-1?'项目':'项目'\">项目</span>名称：<span __ko__1710122603289=\"ko206\" data-bind=\"text:NA_APP_NAME\">", "")
@@ -137,7 +142,9 @@ public class TransferOfExplorationRights1_2 {
                 //  System.err.println("项目名称：" + replace);
                 continue;
             }
-            if (replace.startsWith("成交价：")) {
+            if (replace.startsWith("成交价：")
+                    || replace.contains("text: QT_PUBLIC_PRICE")) {
+                replace = KoNumOfUtils.cleanHandle(replace);
                 replace = replace.replaceAll("<span data-bind=\"text: QT_PUBLIC_PRICE\">", "")
                         .replaceAll("</span>万元</span></p>", "")
                         .replaceAll("成交价：", "");
@@ -145,18 +152,20 @@ public class TransferOfExplorationRights1_2 {
                 // System.err.println("成交价：" + replace);
                 continue;
             }
-            if (replace.startsWith("缴纳时间：")) {
+            if (replace.startsWith("缴纳时间：")
+                    || replace.contains("DT_COST_DATE")) {
+                replace = KoNumOfUtils.cleanHandle(replace);
                 replace = replace.replaceAll("<span data-bind=\"text: (new Date(DT_COST_DATE)).format('yyyy年MM月dd日')\">", "")
                         .replaceAll("</span></span></p>", "")
                         .replaceAll("缴纳时间：", "");
-                int i = replace.indexOf("\">");
-                String substring = replace.substring(i + 2, replace.length());
-                replace = substring.replace("<spandata-bind=\"text:(newDate(DT_COST_DATE)).format('yyyy年MM月dd日')\">", "");
-                jnsj = replace;
+                replace = replace.replace("<spandata-bind=\"text:(newDate(DT_COST_DATE)).format('yyyy年MM月dd日')\">", "");
+                jnsj = replace.replace(">", "");
                 //   System.err.println("缴纳时间：" + replace);
                 continue;
             }
-            if (replace.startsWith("缴纳方式：")) {
+            if (replace.startsWith("缴纳方式：")
+                    || replace.contains("text: NA_COST_NAME")) {
+                replace = KoNumOfUtils.cleanHandle(replace);
                 replace = replace.replaceAll("<span data-bind=\"text: NA_COST_NAME\">", "")
                         .replaceAll("</span></span></p>", "")
                         .replaceAll("缴纳方式：", "");
@@ -168,8 +177,8 @@ public class TransferOfExplorationRights1_2 {
             //   System.err.println(replace);
         }
 
-        if ("".equals(xmmx)) {
-            System.err.println("TransferOfExplorationRights: " + document.toString());
+        if (xmmx.isEmpty()) {
+         //   System.err.println("TransferOfExplorationRights: " + document.toString());
             return null;
         }
 
@@ -180,6 +189,7 @@ public class TransferOfExplorationRights1_2 {
         hashMap.put("cjj", cjj);
         hashMap.put("jnfs", jnfs);
         hashMap.put("jnsj", jnsj);
+        hashMap.put("uri", uri);
         return hashMap;
     }
 

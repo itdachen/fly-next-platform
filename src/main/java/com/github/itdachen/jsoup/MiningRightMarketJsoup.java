@@ -157,8 +157,8 @@ public class MiningRightMarketJsoup {
                               //  || html.equals("探矿权协议出让结果公示") || html.equals("探矿权协议出让")
                         ) {
                             System.err.println("2 探矿权协议出让公示");
-                            LinkedHashMap<String, String> handler = ExplorationRightsAgreement2_1.handler(htmlUrl);
-                            handler2.add(handler);
+                          //  LinkedHashMap<String, String> handler = ExplorationRightsAgreement2_1.handler(htmlUrl);
+                         //   handler2.add(handler);
                         }
                         /* 3-1 矿业权转让公示 > 探矿权转让公示 */
                         if (html.equals("探矿权转让公示")
