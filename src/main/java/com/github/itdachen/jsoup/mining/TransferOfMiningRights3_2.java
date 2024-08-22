@@ -37,33 +37,29 @@ public class TransferOfMiningRights3_2 {
         LinkedHashMap<String, String> hashMap = null;
         Document document;
         Elements clearfix, liList;
-        List<String> uris;
+        List<String> uris = new ArrayList<>();
         String stringUri, replace;
         for (String uri : uriList) {
             document = Jsoup.connect(uri).get();
             clearfix = document.getElementsByClass("gu-kqgglist-section clearfix");
-
             liList = clearfix.select("li a");
-
-            uris = new ArrayList<>();
             for (Element element : liList) {
                 stringUri = element.toString();
                 replace = stringUri.replace("<a href=\".", "");
-
                 stringUri = URI_PREFIX + replace.substring(0, stringUri.indexOf(".htm")) + ".htm";
                 stringUri = stringUri.replace("\" targ.htm", "");
                 uris.add(stringUri);
             }
+        }
 
 
-            for (String htmlUri : uris) {
-                hashMap = handler(htmlUri);
-                if (null == hashMap) {
-                    // continue;
-                    return;
-                }
-                hashMaps.add(hashMap);
+        for (String htmlUri : uris) {
+            hashMap = handler(htmlUri);
+            if (null == hashMap) {
+                // continue;
+                return;
             }
+            hashMaps.add(hashMap);
         }
 
         exp(hashMaps);
@@ -113,7 +109,7 @@ public class TransferOfMiningRights3_2 {
 
         for (int i = 0; i < elements.size(); i++) {
             replace = elements.get(i).toString();
-            System.err.println(i + " " + replace);
+          //  System.err.println(i + " " + replace);
             /* 转让人名称 */
             if (0 == i) {
                 replace = replace.replace("<p style=\"line-height: 150%; margin: 0cm 0cm 0pt; text-indent: 30pt; font-size: 15pt; font-family: 仿宋_GB2312;\"> 名称： <span>", "");

@@ -19,18 +19,22 @@ public class TransferOfExplorationRights3_1 {
     private static final String URI_PREFIX = "https://ky.mnr.gov.cn/zrgs/tkzrgs/";
 
     public static void main(String[] args) throws Exception {
+
+        /* 页面页面地址 */
         List<String> uriList = new ArrayList<>();
         uriList.add("https://ky.mnr.gov.cn/zrgs/tkzrgs/index.htm");
         for (int i = 1; i < 3; i++) {
             uriList.add("https://ky.mnr.gov.cn/zrgs/tkzrgs/index_" + i + ".htm");
         }
 
-        List<LinkedHashMap<String, String>> hashMaps = new ArrayList<>();
+        /* 具体页面地址 */
+        List<String> uris = new ArrayList<>();
+
         for (String uri : uriList) {
             Document document = Jsoup.connect(uri).get();
             Elements clearfix = document.getElementsByClass("gu-kqgglist-section clearfix");
             Elements liList = clearfix.select("li a");
-            List<String> uris = new ArrayList<>();
+
             for (Element element : liList) {
                 String stringUri = element.toString();
                 String replace = stringUri.replace("<a href=\".", "");
@@ -39,19 +43,23 @@ public class TransferOfExplorationRights3_1 {
                 stringUri = stringUri.replace("\" targ.htm", "");
                 uris.add(stringUri);
             }
-
-
-            for (String s : uris) {
-                LinkedHashMap<String, String> hashMap = handler(s);
-                if (null == hashMap) {
-                    continue;
-                }
-                hashMaps.add(hashMap);
-            }
         }
 
+        List<LinkedHashMap<String, String>> hashMaps = new ArrayList<>();
+        for (String s : uris) {
+            LinkedHashMap<String, String> hashMap = handler(s);
+            if (null == hashMap) {
+                continue;
+            }
+            hashMaps.add(hashMap);
+        }
         exp(hashMaps);
 
+
+//        String uri = "https://ky.mnr.gov.cn/zrgs/tkzrgs//202408/t20240822_9002520.htm";
+//
+//        LinkedHashMap<String, String> handler = handler(uri);
+//        System.err.println(handler);
     }
 
     public static LinkedHashMap<String, String> handler(String uri) throws IOException {
@@ -60,86 +68,120 @@ public class TransferOfExplorationRights3_1 {
         Document document = Jsoup.connect(uri).get();
         Elements msoNormal = document.getElementsByClass("MsoNormal");
 
+
         /// 转让人名称 转让人统一社会信用代码
         // 受让人名称 受让人统一社会信用代码
         // 项目名称 勘查矿种 转让价格
 
         String zrr = "", zrrXydm = "", srr = "", srrXydm = "", xmmx = "", kz = "", ja = "";
+        int index = 0;
         for (Element element : msoNormal) {
             String msoNormalElement = element.toString();
 
             if (!msoNormalElement.contains("data-bind=\"text:")) {
                 continue;
             }
-            if (msoNormalElement.contains("公示时间")) {
+            if (msoNormalElement.contains("公示时间")
+                    || msoNormalElement.contains("公示文号")
+                    || msoNormalElement.contains("公示如下")
+                    || msoNormalElement.contains("转让人")
+                    || msoNormalElement.contains("受让人")
+                    || msoNormalElement.contains("矿权基本情况")
+                    || msoNormalElement.contains("门户网站同时发布")) {
                 continue;
             }
 
-//            if (!msoNormalElement.contains("名称：")
-//                    && !msoNormalElement.contains("统一社会信用代码：")
-//                    && !msoNormalElement.contains("项目名称：")
-//                    && !msoNormalElement.contains("矿种：")
-//                    && !msoNormalElement.contains("价格：")
-//            ) {
-//                continue;
-//            }
+            if (!msoNormalElement.contains("名称：")
+                    && !msoNormalElement.contains("统一社会信用代码：")
+                    && !msoNormalElement.contains("项目名称：")
+                    && !msoNormalElement.contains("矿种：")
+                    && !msoNormalElement.contains("价格：")
+            ) {
+                continue;
+            }
 
+            //  System.err.println(msoNormalElement);
             String replace = msoNormalElement.replace("</span></span></p>", "")
                     .replace("</span>万元</span></p>", "")
                     .replace("</span> </span></p>", "");
-            // System.out.println(replace);
+            replace = replace.replace("</span> 万元</span></p>", "");
+            System.out.println(replace);
 
-            if (replace.contains("NA_CESSION") && replace.contains("ko18")) {
-                replace = replace.replace("<p style=\"LINE-HEIGHT: 150%; TEXT-INDENT: 32pt; MARGIN: 0cm 0cm 0pt; mso-char-indent-count: 2.0\" class=\"MsoNormal\" __ko__1723429561283=\"ko18\"><span style=\"LINE-HEIGHT: 150%; FONT-FAMILY: 仿宋; FONT-SIZE: 16pt; mso-bidi-font-size: 14.0pt\">名称：<span data-bind=\"text:NA_CESSION\" __ko__1723429561283=\"ko19\">", "");
-                //  System.err.println("出让人名称: " + replace);
+//            if (replace.contains("text:NA_CESSION") && !replace.contains("text:NA_CESSION_CODE")) {
+//                replace = KoNumOfUtils.cleanHandle(replace);
+//                //  System.err.println("出让人名称: " + replace);
+//                zrr = replace;
+//            }
+//            if (replace.contains("text:NA_CESSION_CODE")) {
+//                replace = KoNumOfUtils.cleanHandle(replace);
+//                //  System.err.println("出让人统一社会信用代码: " + replace);
+//                zrrXydm = replace;
+//            }
+
+            if (0 == index){
+                replace = KoNumOfUtils.cleanHandle(replace);
                 zrr = replace;
-                continue;
             }
-            if (replace.contains("NA_CESSION_CODE")) {
-                replace = replace.replace("<p style=\"LINE-HEIGHT: 150%; TEXT-INDENT: 32pt; MARGIN: 0cm 0cm 0pt; mso-char-indent-count: 2.0\" class=\"MsoNormal\" __ko__1723429561283=\"ko24\"><span style=\"LINE-HEIGHT: 150%; FONT-FAMILY: 仿宋; FONT-SIZE: 16pt; mso-bidi-font-size: 14.0pt\">统一社会信用代码：<span data-bind=\"text:NA_CESSION_CODE\" __ko__1723429561283=\"ko25\">", "");
-                replace = replace.replace("<p style=\"LINE-HEIGHT: 150%; TEXT-INDENT: 32pt; MARGIN: 0cm 0cm 0pt; mso-char-indent-count: 2.0\" class=\"MsoNormal\" __ko__1723429561283=\"ko24\"><span style=\"LINE-HEIGHT: 150%; FONT-FAMILY: 仿宋; FONT-SIZE: 16pt; mso-bidi-font-size: 14.0pt\">统一社会信用代码：<span data-bind=\"text:NA_CESSION_CODE\" __ko__1723429561283=\"ko25\">", "");
-                //  System.err.println("出让人统一社会信用代码: " + replace);
+            if (1 == index){
+                replace = KoNumOfUtils.cleanHandle(replace);
                 zrrXydm = replace;
-                continue;
             }
-            if (replace.contains("NA_CESSIONARY") && replace.contains("ko27")) {
-                replace = replace.replace("<p style=\"LINE-HEIGHT: 150%; TEXT-INDENT: 32pt; MARGIN: 0cm 0cm 0pt; mso-char-indent-count: 2.0\" class=\"MsoNormal\" __ko__1723429561283=\"ko27\"><span style=\"LINE-HEIGHT: 150%; FONT-FAMILY: 仿宋; FONT-SIZE: 16pt; mso-bidi-font-size: 14.0pt\">名称：<span data-bind=\"text:NA_CESSIONARY\" __ko__1723429561283=\"ko28\">", "");
-                // System.err.println("受让人名称: " + replace);
+
+//            if (replace.contains("text:NA_CESSIONARY\">")) {
+//                replace = KoNumOfUtils.cleanHandle(replace);
+//                // System.err.println("受让人名称: " + replace);
+//                srr = replace;
+//                continue;
+//            }
+//
+//            if (replace.contains("text:NA_CESSIONARY_CODE\">")) {
+//                replace = KoNumOfUtils.cleanHandle(replace);
+//                //  System.err.println("受让人统一社会信用代码: " + replace);
+//                srrXydm = replace;
+//                continue;
+//            }
+
+
+            if (2 == index){
+                replace = KoNumOfUtils.cleanHandle(replace);
                 srr = replace;
-                continue;
             }
-
-
-            if (replace.contains("NA_CESSIONARY_CODE")) {
-                replace = replace.replace("<p style=\"LINE-HEIGHT: 150%; TEXT-INDENT: 32pt; MARGIN: 0cm 0cm 0pt; mso-char-indent-count: 2.0\" class=\"MsoNormal\" __ko__1723429561283=\"ko33\"><span style=\"LINE-HEIGHT: 150%; FONT-FAMILY: 仿宋; FONT-SIZE: 16pt; mso-bidi-font-size: 14.0pt\">统一社会信用代码：<span data-bind=\"text:NA_CESSIONARY_CODE\" __ko__1723429561283=\"ko34\">", "");
-                //  System.err.println("受让人统一社会信用代码: " + replace);
+            if (3 == index){
+                replace = KoNumOfUtils.cleanHandle(replace);
                 srrXydm = replace;
-                continue;
             }
 
-            if (replace.contains("NA_APP_NAME")) {
-                // xmmx -> 德州市夏津县康泰颐养院地热可行性勘查
-                replace = replace.replace("<p style=\"LINE-HEIGHT: 150%; TEXT-INDENT: 32pt; MARGIN: 0cm 0cm 0pt; mso-char-indent-count: 2.0\" class=\"MsoNormal\" __ko__1723429561283=\"ko37\"><span style=\"LINE-HEIGHT: 150%; FONT-FAMILY: 仿宋; FONT-SIZE: 16pt; mso-bidi-font-size: 14.0pt\"><span data-bind=\"text:APP_CATEGORY.indexOf('采矿权')>-1?'矿山':'项目'\" __ko__1723429561283=\"ko38\">项目</span>名称：<span data-bind=\"    text:NA_APP_NAME\" __ko__1723429561283=\"ko39\">", "");
-                replace.replace("<p class=\"MsoNormal\" style=\"MARGIN: 0cm 0cm 0pt; LINE-HEIGHT: 150%; TEXT-INDENT: 32pt; mso-char-indent-count: 2.0\" __ko__1707053301798=\"ko29\"><span style=\"FONT-SIZE: 16pt; FONT-FAMILY: 仿宋; LINE-HEIGHT: 150%; mso-bidi-font-size: 14.0pt\"><span data-bind=\"text:APP_CATEGORY.indexOf('采矿权')>-1?'项目':'项目'\" __ko__1707053301798=\"ko30\">项目</span>名称：<span data-bind=\"text:NA_APP_NAME\" __ko__1707053301798=\"ko31\">", "");
+//            if (replace.contains("text:NA_APP_NAME")) {
+//                // xmmx -> 德州市夏津县康泰颐养院地热可行性勘查
+//                replace = KoNumOfUtils.cleanHandle(replace);
+//                xmmx = replace;
+//            }
 
-                //  System.err.println("矿山/项目名称: " + replace);
+            if (4 == index){
+                replace = KoNumOfUtils.cleanHandle(replace);
                 xmmx = replace;
-                continue;
-            }
-            if (replace.contains("MAIN_MINE_Name")) {
-                replace = replace.replace("<p style=\"LINE-HEIGHT: 150%; TEXT-INDENT: 32pt; MARGIN: 0cm 0cm 0pt; mso-char-indent-count: 2.0\" class=\"MsoNormal\" __ko__1723429561283=\"ko43\"><span style=\"LINE-HEIGHT: 150%; FONT-FAMILY: 仿宋; FONT-SIZE: 16pt; mso-bidi-font-size: 14.0pt\"><span data-bind=\"text:APP_CATEGORY.indexOf('采矿权')>-1?'采矿':'勘查'\" __ko__1723429561283=\"ko44\">勘查</span>矿种：<span data-bind=\"    text:MAIN_MINE_Name\" __ko__1723429561283=\"ko45\">", "");
-                //  System.err.println("勘查矿种: " + replace);
-                kz = replace;
-                continue;
             }
 
-            if (replace.contains("QT_CESSION_PRICE")) {
-                replace = replace.replace("名称：<span data-bind=\"text:NA_CESSION\" __ko__1723429561283=\"ko19\">", "");
-                replace = replace.replace("</span> 万元</span></p>", "");
-                replace = replace.replace("<p style=\"LINE-HEIGHT: 150%; TEXT-INDENT: 32pt; MARGIN: 0cm 0cm 0pt; mso-char-indent-count: 2.0\" class=\"MsoNormal\" __ko__1723429561283=\"ko118\"><span style=\"LINE-HEIGHT: 150%; FONT-FAMILY: 仿宋; FONT-SIZE: 16pt; mso-bidi-font-size: 14.0pt\">转让价格：<span data-bind=\"text:QT_CESSION_PRICE\" __ko__1723429561283=\"ko119\">", "");
-                // System.err.println("转让价格: " + replace);
+//            if (replace.contains("text:MAIN_MINE_Name")) {
+//                replace = KoNumOfUtils.cleanHandle(replace);
+//                //  System.err.println("勘查矿种: " + replace);
+//                kz = replace;
+//            }
+            if (5 == index){
+                replace = KoNumOfUtils.cleanHandle(replace);
+                kz = replace;
+            }
+//            if (replace.contains("text:QT_CESSION_PRICE")) {
+//                replace = KoNumOfUtils.cleanHandle(replace);
+//                replace = replace.replace("</span> 万元</span></p>", "");
+//                // System.err.println("转让价格: " + replace);
+//                ja = replace;
+//            }
+            if (6 == index){
+                replace = KoNumOfUtils.cleanHandle(replace);
                 ja = replace;
             }
+            index++;
 
         }
 
@@ -151,6 +193,7 @@ public class TransferOfExplorationRights3_1 {
         hashMap.put("xmmx", xmmx);
         hashMap.put("kz", kz);
         hashMap.put("ja", ja);
+        hashMap.put("q", uri);
         return hashMap;
 
     }

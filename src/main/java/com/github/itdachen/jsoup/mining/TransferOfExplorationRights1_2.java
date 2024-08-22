@@ -33,35 +33,31 @@ public class TransferOfExplorationRights1_2 {
 
 
         List<LinkedHashMap<String, String>> hashMaps = new ArrayList<>();
+
+        List<String> uris = new ArrayList<>();
         LinkedHashMap<String, String> hashMap = null;
         for (String uri : uriList) {
             Document document = Jsoup.connect(uri).get();
             Elements clearfix = document.getElementsByClass("gu-kqgglist-section clearfix");
-
             Elements liList = clearfix.select("li a");
-
-            List<String> uris = new ArrayList<>();
             for (Element element : liList) {
                 String stringUri = element.toString();
                 String replace = stringUri.replace("<a href=\".", "");
-
                 stringUri = URI_PREFIX + replace.substring(0, stringUri.indexOf(".htm")) + ".htm";
                 stringUri = stringUri.replace("\" targ.htm", "");
                 uris.add(stringUri);
                 // System.err.println(stringUri);
             }
 
-
-            for (String s : uris) {
-                hashMap = handler(s);
-                if (null == hashMap) {
-                    continue;
-                }
-                hashMaps.add(hashMap);
-            }
         }
 
-
+        for (String s : uris) {
+            hashMap = handler(s);
+            if (null == hashMap) {
+                continue;
+            }
+            hashMaps.add(hashMap);
+        }
         exp(hashMaps);
 
         /* 单个页面 */

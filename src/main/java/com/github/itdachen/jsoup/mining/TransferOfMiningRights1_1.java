@@ -301,7 +301,7 @@ public class TransferOfMiningRights1_1 {
                         .replaceAll("</span></span></p>", "")
                         .replaceAll("矿种：", "")
                         .replace("矿种：", "");
-                s = "矿种：" + s;
+               // s = "矿种：" + s;
                 kckz = s;
             }
         }

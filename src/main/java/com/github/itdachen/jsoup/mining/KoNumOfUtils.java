@@ -23,18 +23,19 @@ public class KoNumOfUtils {
         /* 结尾字段 */
         FIELD_LIST.add("text:NA_CESSION\">");
         FIELD_LIST.add("text:NA_CESSIONARY\">");
+        FIELD_LIST.add("text:NA_CESSIONARY_CODE\">");
         FIELD_LIST.add("text:NA_CESSION_CODE\">");
-        FIELD_LIST.add("text:NA_CESSIONARY\">");
         FIELD_LIST.add("text:MAIN_MINE_Name\">");
         FIELD_LIST.add("text: NA_APP_NAME\">");
         FIELD_LIST.add("text: MAIN_MINE_Name\">");
         FIELD_LIST.add("text: NA_TRANSFER_PERSON\">");
         FIELD_LIST.add("text: NA_CAPITAL_PERSON\">");
         FIELD_LIST.add("text: NA_CAPITAL_CODE\">");
-        FIELD_LIST.add("text: NA_APP_NAME\">");
         FIELD_LIST.add("text: MAIN_MINE_Name\">");
         FIELD_LIST.add("text: NA_PERAMBULATE_GRADE\">");
         FIELD_LIST.add("text: QT_TOTAL_AREA\\\">\"");
+        FIELD_LIST.add("text:NA_APP_NAME\">");
+        FIELD_LIST.add("text:QT_CESSION_PRICE\">");
 
 
         FIELD_LIST.add("format('yyyy年MM月dd日')\"");

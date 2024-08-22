@@ -21,14 +21,6 @@ public class ExplorationRightsAgreement2_1 {
 
 
     public static void main(String[] args) throws Exception {
-//        // 设置cookie
-//        Map<String, String> cookies = new HashMap<String, String>();
-//        cookies.put("thor", UUID.randomUUID().toString().replaceAll("-", ""));
-//        String uri = "https://ky.mnr.gov.cn/xycrgs/tkq/202407/t20240726_8977017.htm";
-//        /* 单个页面 */
-//        LinkedHashMap<String, String> hashMap = handler(uri);
-//        System.err.println(hashMap);
-
         Document document = Jsoup.connect(URI_PREFIX).get();
         Elements clearfix = document.getElementsByClass("gu-kqgglist-section clearfix");
         Elements liList = clearfix.select("li a");
@@ -45,25 +37,26 @@ public class ExplorationRightsAgreement2_1 {
             stringUri = stringUri.replace("\" targ.htm", "");
             uris.add(stringUri);
             // System.err.println(stringUri);
-
-            for (String uri : uris) {
-
-                Document uriDocument = Jsoup.connect(uri).get();
-                Elements msoNormal = uriDocument.getElementsByClass("MsoNormal");
-                if (!msoNormal.isEmpty()) {
-                    hashMap = handler(msoNormal, uri);
-                    hashMaps.add(hashMap);
-                    continue;
-                }
-
-                Elements p = uriDocument.getElementsByTag("p");
-                if (!p.isEmpty()) {
-                    hashMap = pHandler(p, uri);
-                    hashMaps.add(hashMap);
-                }
+        }
+        Document uriDocument;
+        Elements msoNormal;
+        for (String uri : uris) {
+            uriDocument = Jsoup.connect(uri).get();
+            msoNormal = uriDocument.getElementsByClass("MsoNormal");
+            if (!msoNormal.isEmpty()) {
+                hashMap = handler(msoNormal, uri);
+                hashMaps.add(hashMap);
+                continue;
             }
 
+            Elements p = uriDocument.getElementsByTag("p");
+            if (!p.isEmpty()) {
+                hashMap = pHandler(p, uri);
+                hashMaps.add(hashMap);
+            }
         }
+
+
         exp(hashMaps);
     }
 
