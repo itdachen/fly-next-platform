@@ -33,7 +33,7 @@ public class FlyNextWebMvcConfigurer implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-       // registry.addResourceHandler("/assets/**").addResourceLocations("classpath:/assets/");
+        // registry.addResourceHandler("/assets/**").addResourceLocations("classpath:/assets/");
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
     }
 

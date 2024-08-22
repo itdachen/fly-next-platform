@@ -36,13 +36,13 @@ public class DashboardController {
         String permsAuthUri = appInfoProperties.getContextPath() + "/pear/admin/menu";
         modelMap.put("permsAuthUri", permsAuthUri);
 
-        return "backstage/pear/index";
+        return "home/pear/v4/index";
     }
 
 
     @GetMapping({"/dashboard"})
     public String dashboard(ModelMap modelMap) {
-        modelMap.put("title", "FLY-NEXT");
+        modelMap.put("title", appInfoProperties.getToAs());
         return "dashboard";
     }
 
