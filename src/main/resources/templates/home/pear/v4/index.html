@@ -208,6 +208,7 @@
         $.http.post({
             url: HTTP_BIZ_URI + 'refresh/user/details/' + roleId,
             callback: function (res) {
+                layer.msg('身份信息切换成功！', {icon: 1, time: 1500});
                 top.location.reload();
             }
         })

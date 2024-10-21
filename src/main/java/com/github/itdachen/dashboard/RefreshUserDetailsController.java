@@ -47,7 +47,7 @@ public class RefreshUserDetailsController {
         Set<String> strings = roleAuthoritiesService.roleAuthorities(userDetails);
         List<String> authorities = strings.stream().toList();
         refreshUserDetails.refreshUserDetails(request, response, userDetails, authorities);
-        return ServerResponse.ok();
+        return ServerResponse.ok("身份信息切换成功！");
     }
 
 
