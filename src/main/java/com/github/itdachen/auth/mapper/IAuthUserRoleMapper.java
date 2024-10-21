@@ -1,6 +1,7 @@
 package com.github.itdachen.auth.mapper;
 
 import com.github.itdachen.framework.context.tree.ZTreeNode;
+import com.github.itdachen.framework.context.userdetails.UserInfoDetails;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -15,5 +16,6 @@ public interface IAuthUserRoleMapper {
 
     List<ZTreeNode> findAuthUserRole(@Param("userId") String userId, @Param("tenantId") String tenantId);
 
+    UserInfoDetails findUserRoleDetails(@Param("roleId") String roleId);
 
 }

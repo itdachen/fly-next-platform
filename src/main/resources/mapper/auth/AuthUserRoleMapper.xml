@@ -11,4 +11,50 @@
         WHERE user_id = #{userId} AND tenant_id = #{tenantId}
     </select>
 
+    <select id="findUserRoleDetails"  parameterType="java.lang.String"
+            resultType="com.github.itdachen.framework.context.userdetails.UserInfoDetails">
+        SELECT a.id,
+               a.username,
+               a.password,
+               a.valid_flag   AS validFlag,
+               a.exp_time     AS expTime,
+               a.last_time    AS lastTime,
+
+               b.tenant_id    AS tenantId,
+               b.tenant_title AS tenantTitle,
+               b.nick_name    AS nickName,
+               b.avatar       AS avatar,
+               b.e_mail_box   AS email,
+               b.sex,
+               b.user_type    AS userType,
+               b.telephone,
+
+               c.id           AS roleId,
+               c.role_name    AS roleName,
+               c.role_flag    AS roleFlag,
+
+               ''             AS provId,
+               ''             AS cityId,
+               ''             AS countyId,
+
+               c.dept_id      AS deptId,
+               c.dept_title   AS deptTitle,
+               ''             AS deptType,
+               ''             AS deptLevel,
+               ''             AS deptParentId,
+
+               ''             AS hostIp,
+               ''             AS hostOs,
+               ''             AS hostBrowser,
+               ''             AS hostAddr,
+               ''             AS hostUserAgent,
+               ''             AS hostProv,
+               ''             AS hostCity
+        FROM ta_fly_login_info a
+                 LEFT JOIN ta_fly_user_info b ON a.id = b.id
+                 LEFT JOIN ta_fly_user_role_info c ON b.id = c.user_id AND b.tenant_id = c.tenant_id
+        WHERE c.id = #{roleId}
+          AND c.valid_flag = 'Y' LIMIT 1
+    </select>
+
 </mapper>

@@ -1,6 +1,7 @@
 package com.github.itdachen.auth.service;
 
 import com.github.itdachen.framework.context.tree.ZTreeNode;
+import com.github.itdachen.framework.context.userdetails.UserInfoDetails;
 
 import java.util.List;
 
@@ -13,5 +14,7 @@ import java.util.List;
 public interface IAuthUserRoleService {
 
     List<ZTreeNode> findAuthUserRole(String userId);
+
+    UserInfoDetails findUserRoleDetails(String roleId) throws Exception;
 
 }

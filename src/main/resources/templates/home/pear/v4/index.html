@@ -206,7 +206,7 @@
      */
     function refreshUserDetails(roleId) {
         $.http.post({
-            url: HTTP_BIZ_URI + '/user/details/sf/refresh/' + roleId,
+            url: HTTP_BIZ_URI + 'refresh/user/details/' + roleId,
             callback: function (res) {
                 top.location.reload();
             }
