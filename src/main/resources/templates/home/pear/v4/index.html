@@ -85,24 +85,14 @@
                 </a>
                 <!-- 功 能 菜 单 -->
                 <dl class="layui-nav-child">
-                    <dd id="userRoleInfo">
-                        <!--                        <a class="layui-icon layui-icon-username">-->
-                        <!--                            <span style="margin-left: 5px">基本资料</span>-->
-                        <!--                        </a>-->
-                        <!--                        <a class="layui-icon layui-icon-username">-->
-                        <!--                            <span style="margin-left: 5px">基本资料</span>-->
-                        <!--                        </a>-->
-                        <!--                        <a class="layui-icon layui-icon-username">-->
-                        <!--                            <span style="margin-left: 5px">基本资料</span>-->
-                        <!--                        </a>-->
-                    </dd>
+                    <dd id="userRoleInfo"></dd>
                     <hr>
-                    <dd>
-                        <a user-menu-url="view/profile/index" user-menu-id="5555"
-                           user-menu-title="基本资料">基本资料
-                        </a>
-                    </dd>
-                    <dd><a href="javascript:void(0);" class="logout">注销登录</a></dd>
+                    <!--                    <dd>-->
+                    <!--                        <a user-menu-url="view/profile/index" user-menu-id="5555"-->
+                    <!--                           user-menu-title="基本资料">基本资料-->
+                    <!--                        </a>-->
+                    <!--                    </dd>-->
+                    <dd><a href="javascript:void(0);" class="logout pear-icon-sign-out">注销登录</a></dd>
                 </dl>
             </li>
             <!-- 主 题 配 置 -->
@@ -170,7 +160,7 @@
                     // userRoleInfo
                     let html = '';
                     for (let i = 0; i < data.length; i++) {
-                        html += ' <a class="layui-icon layui-icon-username" style="cursor: pointer;">\n' +
+                        html += ' <a class="layui-icon layui-icon-username" onclick="refreshUserDetails(\'' + data[i].id + '\')" style="cursor: pointer;">\n' +
                             ' <span style="margin-left: 5px">' + data[i].name + '</span>\n' +
                             '</a>'
                     }
@@ -208,6 +198,21 @@
             });
         });
     })
+
+
+    /**
+     * 刷新用户信息
+     * @param roleId 用户身份ID
+     */
+    function refreshUserDetails(roleId) {
+        $.http.post({
+            url: HTTP_BIZ_URI + '/user/details/sf/refresh/' + roleId,
+            callback: function (res) {
+                top.location.reload();
+            }
+        })
+    }
+
 </script>
 </body>
 </html>
