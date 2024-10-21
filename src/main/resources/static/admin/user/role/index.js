@@ -166,7 +166,7 @@ function tableInitUserRoleOptions(params) {
         id: 'userRoleInfoLayTable',
         elem: '#userRoleInfoLayTable',
         layFilter: 'userRoleInfoLayFilter',
-        toolbar: '#userInfoToolbar',
+        toolbar: '#userRoleInfoToolbar',
         url: userRolePath + "/page",
         where: params,
         cols: [[

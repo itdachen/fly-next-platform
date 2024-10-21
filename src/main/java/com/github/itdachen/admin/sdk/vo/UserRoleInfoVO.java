@@ -65,12 +65,12 @@ public class UserRoleInfoVO implements Serializable {
     /**
      * 身份有效期起
      */
-    private LocalDateTime startTime;
+    private String startTime;
 
     /**
      * 身份有效期止
      */
-    private LocalDateTime endTime;
+    private String endTime;
 
     /**
      * 排序
@@ -155,19 +155,19 @@ public class UserRoleInfoVO implements Serializable {
         return deptTitle;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDateTime getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
-    public LocalDateTime getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 

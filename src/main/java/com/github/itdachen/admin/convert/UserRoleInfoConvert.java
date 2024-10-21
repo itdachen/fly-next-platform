@@ -3,6 +3,7 @@ package com.github.itdachen.admin.convert;
 import com.github.itdachen.admin.entity.UserRoleInfo;
 import com.github.itdachen.admin.sdk.dto.UserRoleInfoDTO;
 import com.github.itdachen.admin.sdk.vo.UserRoleInfoVO;
+import com.github.itdachen.framework.core.utils.LocalDateUtils;
 import com.github.itdachen.framework.webmvc.convert.IBizConvertMapper;
 
 /**
@@ -11,11 +12,11 @@ import com.github.itdachen.framework.webmvc.convert.IBizConvertMapper;
  * @author 王大宸
  * @date 2024-04-27 20:42:58
  */
-public class UserRoleInfoConvert implements IBizConvertMapper< UserRoleInfo, UserRoleInfoDTO, UserRoleInfoVO > {
+public class UserRoleInfoConvert implements IBizConvertMapper<UserRoleInfo, UserRoleInfoDTO, UserRoleInfoVO> {
 
     @Override
     public UserRoleInfo toJavaObject(UserRoleInfoDTO userRoleInfoDTO) {
-        if (null == userRoleInfoDTO){
+        if (null == userRoleInfoDTO) {
             return null;
         }
         UserRoleInfo userRoleInfo = new UserRoleInfo();
@@ -28,8 +29,8 @@ public class UserRoleInfoConvert implements IBizConvertMapper< UserRoleInfo, Use
         userRoleInfo.setValidFlag(userRoleInfoDTO.getValidFlag());
         userRoleInfo.setDeptId(userRoleInfoDTO.getDeptId());
         userRoleInfo.setDeptTitle(userRoleInfoDTO.getDeptTitle());
-        userRoleInfo.setStartTime(userRoleInfoDTO.getStartTime());
-        userRoleInfo.setEndTime(userRoleInfoDTO.getEndTime());
+        userRoleInfo.setStartTime(LocalDateUtils.toLocalDateTime(userRoleInfoDTO.getStartTime()));
+        userRoleInfo.setEndTime(LocalDateUtils.toLocalDateTime(userRoleInfoDTO.getEndTime()));
         userRoleInfo.setOrderNum(userRoleInfoDTO.getOrderNum());
         userRoleInfo.setRemarks(userRoleInfoDTO.getRemarks());
         return userRoleInfo;
@@ -38,7 +39,7 @@ public class UserRoleInfoConvert implements IBizConvertMapper< UserRoleInfo, Use
 
     @Override
     public UserRoleInfoVO toJavaObjectVO(UserRoleInfo userRoleInfo) {
-        if (null == userRoleInfo){
+        if (null == userRoleInfo) {
             return null;
         }
         UserRoleInfoVO userRoleInfoVO = new UserRoleInfoVO();
@@ -51,15 +52,15 @@ public class UserRoleInfoConvert implements IBizConvertMapper< UserRoleInfo, Use
         userRoleInfoVO.setValidFlag(userRoleInfo.getValidFlag());
         userRoleInfoVO.setDeptId(userRoleInfo.getDeptId());
         userRoleInfoVO.setDeptTitle(userRoleInfo.getDeptTitle());
-        userRoleInfoVO.setStartTime(userRoleInfo.getStartTime());
-        userRoleInfoVO.setEndTime(userRoleInfo.getEndTime());
+        userRoleInfoVO.setStartTime(LocalDateUtils.toLocalDateTime(userRoleInfo.getStartTime()));
+        userRoleInfoVO.setEndTime(LocalDateUtils.toLocalDateTime(userRoleInfo.getEndTime()));
         userRoleInfoVO.setOrderNum(userRoleInfo.getOrderNum());
         userRoleInfoVO.setRemarks(userRoleInfo.getRemarks());
         return userRoleInfoVO;
     }
 
     public UserRoleInfo toJavaObject(UserRoleInfoVO userRoleInfoVO) {
-        if (null == userRoleInfoVO){
+        if (null == userRoleInfoVO) {
             return null;
         }
         UserRoleInfo userRoleInfo = new UserRoleInfo();
@@ -72,15 +73,15 @@ public class UserRoleInfoConvert implements IBizConvertMapper< UserRoleInfo, Use
         userRoleInfo.setValidFlag(userRoleInfoVO.getValidFlag());
         userRoleInfo.setDeptId(userRoleInfoVO.getDeptId());
         userRoleInfo.setDeptTitle(userRoleInfoVO.getDeptTitle());
-        userRoleInfo.setStartTime(userRoleInfoVO.getStartTime());
-        userRoleInfo.setEndTime(userRoleInfoVO.getEndTime());
+        userRoleInfo.setStartTime(LocalDateUtils.toLocalDateTime(userRoleInfoVO.getStartTime()));
+        userRoleInfo.setEndTime(LocalDateUtils.toLocalDateTime(userRoleInfoVO.getEndTime()));
         userRoleInfo.setOrderNum(userRoleInfoVO.getOrderNum());
         userRoleInfo.setRemarks(userRoleInfoVO.getRemarks());
         return userRoleInfo;
     }
 
     public UserRoleInfoVO toJavaObjectVO(UserRoleInfoDTO userRoleInfoDTO) {
-        if (null == userRoleInfoDTO){
+        if (null == userRoleInfoDTO) {
             return null;
         }
         UserRoleInfoVO userRoleInfoVO = new UserRoleInfoVO();
