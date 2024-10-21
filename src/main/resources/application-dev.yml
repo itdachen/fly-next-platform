@@ -62,8 +62,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://127.0.0.1:3306/fly_next_admin?useUnicode=true&characterEncoding=UTF8&createDatabaseIfNotExist=true&useUnicode=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&allowMultiQueries=true
-    username: fly
-    password: ITdachen@163.com
+    username: root
+    password: root
     druid:
       # 初始化时建立物理连接的个数
       initial-size: 5
