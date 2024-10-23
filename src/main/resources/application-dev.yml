@@ -54,16 +54,16 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
 
-  session:
-    timeout: 18000
+
+
 
   datasource:
     name: mysql
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://127.0.0.1:3306/fly_next_admin?useUnicode=true&characterEncoding=UTF8&createDatabaseIfNotExist=true&useUnicode=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&allowMultiQueries=true
-    username: fly
-    password: ITdachen@163.com
+    username: root
+    password: root
     druid:
       # 初始化时建立物理连接的个数
       initial-size: 5
@@ -117,18 +117,28 @@ spring:
         # IP黑名单（共同存在时，deny优先于allow）
         # deny:
 
-
-
   thymeleaf:
     mode: HTML5
     cache: false
     encoding: utf-8
 
-#  data:
-#    redis:
-#      database: 3
-#      host: 127.0.0.1
+  session:
+    timeout: 18000
+    redis:
+      namespace: fly:next
 
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      database: 0
+      timeout: 1800s # 使用时间格式化
+      lettuce:
+        pool:
+          max-active: 20  # 最大连接数
+          max-wait: -1    # 最大阻塞等待时间(负数表示没限制)
+          max-idle: 5     # 最大空闲
+          min-idle: 0     # 最小空闲
 
 # mybatis
 mybatis:

@@ -6,7 +6,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import tk.mybatis.spring.annotation.MapperScan;
 
 /**
- * ${NAME}
+ * 项目启动入口
  *
  * @author 王大宸
  * @date 2024/4/3 22:11
