@@ -148,73 +148,77 @@
 
 <!-- 框 架 初 始 化 -->
 <script>
-    layui.use(['admin', 'jquery', 'popup'], function () {
-        var admin = layui.admin;
+    var pearAdmin;
+    layui.use(['admin', 'jquery', 'tabPage', 'popup'], function () {
+        pearAdmin = layui.admin;
         var popup = layui.popup;
 
-
-        $.ajax({
-            type: 'GET',
-            url: HTTP_BIZ_URI + '/auth/user/role/list',
-            success: function (res) {
-                if (res.success) {
-                    let data = res.data;
-                    // userRoleInfo
-                    let html = '';
-                    for (let i = 0; i < data.length; i++) {
-                        html += ' <a class="layui-icon layui-icon-username" onclick="refreshUserDetails(\'' + data[i].id + '\')" style="cursor: pointer;">\n' +
-                            ' <span style="margin-left: 5px">' + data[i].name + '</span>\n' +
-                            '</a>'
-                    }
-                    $('#userRoleInfo').append(html);
-                }
-            },
-        })
-
-
         // yml | json | api
-        admin.setConfigurationPath(HTTP_BIZ_URI + "/static/assets/home/pear/v4/config/pear.config.yml");
+        pearAdmin.setConfigurationPath(HTTP_BIZ_URI + "/static/assets/home/pear/v4/config/pear.config.yml");
 
         // 渲染
-        admin.render();
+        pearAdmin.render();
+
+        userRoleDetails();
 
         // 注销
-        admin.logout(function () {
-
+        pearAdmin.logout(function () {
             popup.success("注销成功", function () {
                 $.ajax({
                     type: 'GET',
                     async: false,
                     url: HTTP_BIZ_URI + '/logout',
-                    success: function (res) {
+                    complete: function (res) {
+                        pearAdmin.instances.tabPage.clear();
                         location.href = HTTP_BIZ_URI + "/login";
                     },
                 })
-            })
-            // 注销逻辑 返回 true / false
-            //  return true;
-
-            // 清空 tabs 缓存
+            });
             return new Promise((resolve) => {
                 resolve(true)
             });
         });
     })
 
+    /**
+     * 加载用户角色信息
+     */
+    function userRoleDetails() {
+        $.http.get({
+            url: HTTP_BIZ_URI + '/auth/user/role/list',
+            callback: function (res) {
+                if (res.success) {
+                    let data = res.data;
+                    if (0 === data.length) {
+                        return;
+                    }
+                    let html = '';
+                    for (let i = 0; i < data.length; i++) {
+                        html += ' <a class="layui-icon layui-icon-username" onclick="refreshUserDetails(\'' + data[i].id + '\')" style="cursor: pointer;">\n' +
+                            ' <span style="margin-left: 5px">' + data[i].name + '</span>\n' +
+                            '</a>\n'
+                    }
+                    $('#userRoleInfo').append(html);
+                }
+            }
+        })
+    }
 
     /**
      * 刷新用户信息
-     * @param roleId 用户身份ID
+     * @param roleId
      */
     function refreshUserDetails(roleId) {
         $.http.post({
             url: HTTP_BIZ_URI + '/refresh/user/details/' + roleId,
             callback: function (res) {
                 layer.msg('身份信息切换成功！', {icon: 1, time: 1500});
+                pearAdmin.instances.tabPage.clear();
                 top.location.reload();
             }
         })
     }
+
 
 </script>
 </body>
