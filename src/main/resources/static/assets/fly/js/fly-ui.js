@@ -1365,7 +1365,7 @@ $(function () {
                 layFilter: 'layFilter',
                 defaultToolbar: ['filter', 'exports', 'print'],
                 headers: {
-                    appKey: '2022'
+                    appKey: 'fly-next-admin'
                 },
                 cellMinWidth: 80,
                 skin: 'line', // 设置表格边框风格。可选值：grid(官方默认)、line（行边框风格）、row（列边框风格）、nob（无边框风格）
@@ -1382,7 +1382,7 @@ $(function () {
                 parseData: function (res) { //res 即为原始返回的数据
                     return {
                         "status": res.status, //解析接口状态
-                        "msg": res.message, //解析提示文本
+                        "msg": res.msg, //解析提示文本
                         "count": res.data.total, //解析数据长度
                         "data": res.data.rows //解析数据列表
                     };
