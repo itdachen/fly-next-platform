@@ -175,6 +175,7 @@
 .fly-button-add {
     border-radius: 3px;
     background-color: #1E9FFF;
+    /*background-color:var(--global-primary-color);*/
     border-color: #4aacf8;
     margin-top: 5px;
     height: 30px !important;
@@ -184,6 +185,7 @@
 
 .fly-button-add:hover {
     background-color: #4aacf8;
+    /*background-color:var(--global-primary-color);*/
     letter-spacing: 5px;
 }
 

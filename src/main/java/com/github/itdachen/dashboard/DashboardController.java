@@ -57,6 +57,7 @@ public class DashboardController {
     private void setAppInfo(ModelMap modelMap, UserInfoDetails userDetails) throws Exception {
         /* 登录用户头像和姓名 */
         modelMap.put("userName", BizContextHandler.getRoleName());
+        modelMap.put("roleId", BizContextHandler.getRoleId());
         modelMap.put("avatar", BizContextHandler.getAvatar());
 
         /* 系统信息 */

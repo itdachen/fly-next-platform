@@ -38,6 +38,7 @@
 <!-- 结 构 代 码 -->
 <body class="layui-layout-body pear-admin">
 <input type="text" value="/static/assets/images/logo.png" id="logoImage" name="logoImage" style="display: none">
+<input type="text" th:value="*{roleId}" id="roleId" name="roleId" style="display: none">
 <input type="text" th:value="*{referredToAs}" id="clientName" name="clientName" style="display: none">
 <input type="text" th:value="*{homeId}" id="mainHomeId" name="mainHomeId" style="display: none">
 <input type="text" th:value="*{homeUri}" id="mainHomeUri" name="mainHomeUri" style="display: none">
@@ -170,7 +171,7 @@
                     url: HTTP_BIZ_URI + '/logout',
                     complete: function (res) {
                         pearAdmin.instances.tabPage.clear();
-                        location.href = HTTP_BIZ_URI + "/login";
+                        location.href = HTTP_BIZ_URI;
                     },
                 })
             });
@@ -189,11 +190,15 @@
             callback: function (res) {
                 if (res.success) {
                     let data = res.data;
-                    if (0 === data.length) {
+                    if (0 === data.length || 1 === data.length) {
                         return;
                     }
                     let html = '';
+                    let roleId = $('#roleId').val();
                     for (let i = 0; i < data.length; i++) {
+                        if (roleId === data[i].id) {
+                            continue;
+                        }
                         html += ' <a class="layui-icon layui-icon-username" onclick="refreshUserDetails(\'' + data[i].id + '\')" style="cursor: pointer;">\n' +
                             ' <span style="margin-left: 5px">' + data[i].name + '</span>\n' +
                             '</a>\n'
