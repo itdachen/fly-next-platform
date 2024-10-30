@@ -5,7 +5,6 @@ import com.github.itdachen.boot.autoconfigure.app.AppInfoProperties;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.permission.PermissionInfo;
 import com.github.itdachen.framework.context.userdetails.UserInfoDetails;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +27,7 @@ public class DashboardController {
         this.homePageService = homePageService;
     }
 
-    @GetMapping({"/", "/index"})
+    @GetMapping("/index")
     public String index(ModelMap modelMap) throws Exception {
         UserInfoDetails userDetails = BizContextHandler.getUserDetails();
         setAppInfo(modelMap, userDetails);

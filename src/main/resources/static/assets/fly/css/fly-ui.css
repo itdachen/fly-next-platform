@@ -270,15 +270,15 @@
 
 .fly-query-container {
     /*border: 1px solid #eee;*/
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 15px;
+    /*margin-bottom: 30px;*/
     border-radius: 5px;
 }
 
 .fly-query-footer {
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    /*margin-top: 20px;*/
+    margin-bottom: 20px;
 }
 
 .fly-icon-right-5 {
@@ -862,6 +862,14 @@ body .demo-class .layui-layer-btn1 {
     letter-spacing: 5px;
 }
 
+.fly-query-container .layui-form-label {
+    margin-top: 5px;
+}
 
+.fly-query-container .layui-input-inline {
+    margin-top: 8px;
+}
 
-
+.fly-query-container input {
+    height: 30px;
+}

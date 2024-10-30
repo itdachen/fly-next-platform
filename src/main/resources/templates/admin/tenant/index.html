@@ -57,20 +57,20 @@
                 </div>
             </div>
 
-            <!--            <div class="fly-query-footer">-->
-            <!--                <button type="submit" class="layui-btn layui-btn-sm fly-button-search"-->
-            <!--                        lay-submit lay-filter="queryTenantInfo">-->
-            <!--                    <i class="layui-icon layui-icon-search fly-icon-right-5"></i>查询-->
-            <!--                </button>-->
-            <!--                <button type="reset" class="layui-btn layui-btn-sm fly-button-reset">-->
-            <!--                    <i class="layui-icon layui-icon-refresh fly-icon-right-5"></i>重置-->
-            <!--                </button>-->
-            <!--                <button sec:authorize="hasAuthority('admin:tenant:info:exp')"-->
-            <!--                        type="submit" class="layui-btn layui-btn-sm fly-button-exp"-->
-            <!--                        lay-submit lay-filter="expTenantInfo">-->
-            <!--                    <i class="layui-icon  layui-icon-export fly-icon-right-5"></i>导出-->
-            <!--                </button>-->
-            <!--            </div>-->
+<!--                        <div class="fly-query-footer">-->
+<!--                            <button type="submit" class="layui-btn layui-btn-sm fly-button-search"-->
+<!--                                    lay-submit lay-filter="queryTenantInfo">-->
+<!--                                <i class="layui-icon layui-icon-search fly-icon-right-5"></i>查询-->
+<!--                            </button>-->
+<!--                            <button type="reset" class="layui-btn layui-btn-sm fly-button-reset">-->
+<!--                                <i class="layui-icon layui-icon-refresh fly-icon-right-5"></i>重置-->
+<!--                            </button>-->
+<!--                            <button sec:authorize="hasAuthority('admin:tenant:info:exp')"-->
+<!--                                    type="submit" class="layui-btn layui-btn-sm fly-button-exp"-->
+<!--                                    lay-submit lay-filter="expTenantInfo">-->
+<!--                                <i class="layui-icon  layui-icon-export fly-icon-right-5"></i>导出-->
+<!--                            </button>-->
+<!--                        </div>-->
 
         </form>
     </div>
@@ -84,8 +84,8 @@
 
 
 <!-- 表头工具栏 -->
-<script type="text/html" id="toolbar">
-    <div class="fly-tool-bar" id="tenantInfoToolbar">
+<script type="text/html" id="tenantInfoToolbar">
+    <div class="fly-tool-bar">
         <button sec:authorize="hasAuthority('admin:tenant:info:save')"
                 class="layui-btn layui-btn-sm layui-btn-normal fly-button-add"
                 lay-event="saveTenantInfo">
