@@ -10,7 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 /**
  * 安全认证模块, 安全配置, 勿动
  * 引入 security-spring-boot-starter 模块, 安全认证集成模块
- *
+ *  https://zhuanlan.zhihu.com/p/708800025
  * @author 王大宸
  * @date 2024/4/29 22:19
  */
