@@ -27,7 +27,7 @@ public class DashboardController {
         this.homePageService = homePageService;
     }
 
-    @GetMapping("/index")
+    @GetMapping({"/index", "/"})
     public String index(ModelMap modelMap) throws Exception {
         UserInfoDetails userDetails = BizContextHandler.getUserDetails();
         setAppInfo(modelMap, userDetails);
