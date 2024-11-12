@@ -27,14 +27,15 @@ public class DashboardController {
         this.homePageService = homePageService;
     }
 
-    @GetMapping({"/index", "/"})
+    @GetMapping("/")
+    public String home(ModelMap modelMap) throws Exception {
+        setAppInfo(modelMap);
+        return "home/pear/v4/index";
+    }
+
+    @GetMapping("/index")
     public String index(ModelMap modelMap) throws Exception {
-        UserInfoDetails userDetails = BizContextHandler.getUserDetails();
-        setAppInfo(modelMap, userDetails);
-
-        String permsAuthUri = appInfoProperties.getContextPath() + "/pear/admin/menu";
-        modelMap.put("permsAuthUri", permsAuthUri);
-
+        setAppInfo(modelMap);
         return "home/pear/v4/index";
     }
 
@@ -54,7 +55,14 @@ public class DashboardController {
      * @param modelMap modelMap
      * @return void
      */
-    private void setAppInfo(ModelMap modelMap, UserInfoDetails userDetails) throws Exception {
+    private void setAppInfo(ModelMap modelMap) throws Exception {
+
+        UserInfoDetails userDetails = BizContextHandler.getUserDetails();
+        // setAppInfo(modelMap, userDetails);
+
+        String permsAuthUri = appInfoProperties.getContextPath() + "/pear/admin/menu";
+        modelMap.put("permsAuthUri", permsAuthUri);
+
         /* 登录用户头像和姓名 */
         modelMap.put("userName", BizContextHandler.getRoleName());
         modelMap.put("roleId", BizContextHandler.getRoleId());
