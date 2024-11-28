@@ -37,15 +37,18 @@ public class LoginController {
         modelMap.put("issuer", appInfoProperties.getIssuer());
 
         /* 登录认证地址 */
-        String property = environment.getProperty("server.servlet.context-path");
-        String targetUrl = "";
-        if (null == property || "".equals(property) || "null".equals(property)) {
+        String contextPath = environment.getProperty("server.servlet.context-path");
+        String targetUrl = "", smsTargetUrl = "";
+        if (null == contextPath || "".equals(contextPath) || "null".equals(contextPath)) {
             targetUrl = StringUtils.isEmpty(redirect_uri) ? SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM : SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM + "?redirect_uri=" + redirect_uri;
+            smsTargetUrl = StringUtils.isEmpty(redirect_uri) ? SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE : SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE + "?redirect_uri=" + redirect_uri;
         } else {
-            targetUrl = StringUtils.isEmpty(redirect_uri) ? property + SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM : property + SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM + "?redirect_uri=" + redirect_uri;
+            targetUrl = StringUtils.isEmpty(redirect_uri) ? contextPath + SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM : contextPath + SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM + "?redirect_uri=" + redirect_uri;
+            smsTargetUrl = StringUtils.isEmpty(redirect_uri) ? contextPath + SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE : contextPath + SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE + "?redirect_uri=" + redirect_uri;
         }
 
         modelMap.put("authForm", targetUrl);
+        modelMap.put("smsAuthForm", smsTargetUrl);
         return "login2";
     }
 
