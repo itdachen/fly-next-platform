@@ -98,8 +98,9 @@
                                     <input id="aui-btn-reg" class="aui-btn-reg" type="submit" value="登录">
                                 </div>
                             </form>
+
                             <!--手机动态码登录-->
-                            <form action="/authentication/mobile" method="POST" class="login-con" id="lc">
+                            <form  th:action="${smsAuthForm}"  method="POST" class="login-con" id="lc">
                                 <div class="aui-register-form-item">
                                     <div class="Count">
                                         <img th:src="@{/static/assets/login2/images/shouji.png}" class="img">

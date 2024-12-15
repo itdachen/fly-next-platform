@@ -22,6 +22,17 @@ public interface IUserDetailsMapper {
 
 
     /***
+     * 根据电话号码查询
+     *
+     * @author 王大宸
+     * @date 2024/11/28 16:57
+     * @param mobile mobile
+     * @return
+     */
+    UserInfoDetails loadUserByMobile(String mobile);
+
+
+    /***
      * 获取用户主身份标识
      *
      * @author 王大宸

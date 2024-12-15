@@ -80,6 +80,18 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
         return toVerifyUserDetails(user);
     }
 
+    @Override
+    public CurrentUserInfo loadUserByMobile(String mobile) throws UsernameNotFoundException {
+        UserInfoDetails user = userDetailsMapper.loadUserByMobile(mobile);
+        if (null == user) {
+            logger.error("登录手机号: " + mobile + " 不存在");
+            throw new BizSecurityException("登登录手机号录账号 " + mobile + " 不存在,请检查手机号是否正确！！！");
+        }
+        user.setLoginMethod(LoginModeConstant.SMS);
+
+        return toVerifyUserDetails(user);
+    }
+
     /***
      * 检查是否登录超次数
      *
