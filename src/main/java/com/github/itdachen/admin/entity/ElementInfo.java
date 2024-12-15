@@ -1,14 +1,13 @@
 package com.github.itdachen.admin.entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
-    import java.time.LocalDateTime;
-
+import java.time.LocalDateTime;
 
 
 /**
@@ -18,112 +17,159 @@ import java.io.Serializable;
  * @date 2024-04-20 22:16:39
  */
 @Table(name = "ta_fly_route_element_info")
-public class ElementInfo implements Serializable{
-private static final long serialVersionUID=1L;
+public class ElementInfo implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    /** 资源ID */
+    /**
+     * 资源ID
+     */
     @Id
     @Column(name = "id")
     private String id;
 
-    /** 应用ID/appID */
+    /**
+     * 应用ID/appID
+     */
     @Column(name = "app_id")
     private String appId;
 
-    /** 菜单ID */
+    /**
+     * 菜单ID
+     */
     @Column(name = "menu_id")
     private String menuId;
 
-    /** 菜单名称 */
+    /**
+     * 菜单名称
+     */
     @Column(name = "menu_title")
     private String menuTitle;
 
-    /** 标题 */
+    /**
+     * 标题
+     */
     @Column(name = "title")
     private String title;
 
-    /** 认证编码 */
+    /**
+     * 认证编码
+     */
     @Column(name = "auth_code")
     private String authCode;
 
-    /** 类型: button,uri */
+    /**
+     * 类型: button,uri
+     */
     @Column(name = "type")
     private String type;
 
-    /** 页面访问地址 */
+    /**
+     * 页面访问地址
+     */
     @Column(name = "page_uri")
     private String pageUri;
 
-    /** 接口请求地址 */
+    /**
+     * 接口请求地址
+     */
     @Column(name = "api_uri")
     private String apiUri;
 
-    /** API请求类型: POST/GET/PUT/DELETE */
+    /**
+     * API请求类型: POST/GET/PUT/DELETE
+     */
     @Column(name = "http_method")
     private String httpMethod;
 
-    /** 排序 */
+    /**
+     * 排序
+     */
     @Column(name = "order_num")
     private Integer orderNum;
 
-    /** 第三方平台标识 */
+    /**
+     * 第三方平台标识
+     */
     @Column(name = "third_party")
     private String thirdParty;
 
-    /** 第三方平台名称 */
+    /**
+     * 第三方平台名称
+     */
     @Column(name = "third_title")
     private String thirdTitle;
 
-    /** 第三方基础访问地址, 例如: http://www.baidu.com */
+    /**
+     * 第三方基础访问地址, 例如: http://www.baidu.com
+     */
     @Column(name = "third_uri")
     private String thirdUri;
 
-    /** 最终访问地址, 根据第三方平台信息拼接 */
+    /**
+     * 最终访问地址, 根据第三方平台信息拼接
+     */
     @Column(name = "ask_uri")
     private String askUri;
 
-    /** 是否展示/有效标志: Y-有效;N-无效 */
+    /**
+     * 是否展示/有效标志: Y-有效;N-无效
+     */
     @Column(name = "valid_flag")
     private String validFlag;
 
-    /** 是否需要授权: Y-需要;N-不需要 */
+    /**
+     * 是否需要授权: Y-需要;N-不需要
+     */
     @Column(name = "has_auth")
     private String hasAuth;
 
-    /** 是否需要IP授权: Y-需要;N-不需要 */
+    /**
+     * 是否需要IP授权: Y-需要;N-不需要
+     */
     @Column(name = "has_ip")
     private String hasIp;
 
-    /** 备注 */
+    /**
+     * 备注
+     */
     @Column(name = "remarks")
     private String remarks;
 
-    /** 创建时间 */
+    /**
+     * 创建时间
+     */
     @Column(name = "create_time")
     private LocalDateTime createTime;
 
-    /** 创建人 */
+    /**
+     * 创建人
+     */
     @Column(name = "create_user")
     private String createUser;
 
-    /** 创建人id */
+    /**
+     * 创建人id
+     */
     @Column(name = "create_user_id")
     private String createUserId;
 
-    /** 更新时间 */
+    /**
+     * 更新时间
+     */
     @Column(name = "update_time")
     private LocalDateTime updateTime;
 
-    /** 更新人 */
+    /**
+     * 更新人
+     */
     @Column(name = "update_user")
     private String updateUser;
 
-    /** 更新人id */
+    /**
+     * 更新人id
+     */
     @Column(name = "update_user_id")
     private String updateUserId;
-
-
-
 
 
     public void setId(String id) {
@@ -357,7 +403,6 @@ private static final long serialVersionUID=1L;
                 .append("updateUserId", getUpdateUserId())
                 .toString();
     }
-
 
 
 }

@@ -1,13 +1,12 @@
 package com.github.itdachen.admin.entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
-
 
 
 /**
@@ -17,32 +16,39 @@ import java.io.Serializable;
  * @date 2024-05-15 21:32:13
  */
 @Table(name = "ta_fly_auth_clazz_menu")
-public class AuthClazzMenu implements Serializable{
-private static final long serialVersionUID=1L;
+public class AuthClazzMenu implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    /** ID */
+    /**
+     * ID
+     */
     @Id
     @Column(name = "id")
     private String id;
 
-    /** 租户ID */
+    /**
+     * 租户ID
+     */
     @Column(name = "tenant_id")
     private String tenantId;
 
-    /** 应用ID */
+    /**
+     * 应用ID
+     */
     @Column(name = "app_id")
     private String appId;
 
-    /** 岗位ID */
+    /**
+     * 岗位ID
+     */
     @Column(name = "clazz_id")
     private String clazzId;
 
-    /** 菜单ID/资源ID */
+    /**
+     * 菜单ID/资源ID
+     */
     @Column(name = "meni_id")
     private String meniId;
-
-
-
 
 
     public void setId(String id) {

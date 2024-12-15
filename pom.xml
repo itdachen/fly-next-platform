@@ -14,7 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <fly.dependencies.version>1.0.7</fly.dependencies.version>
+        <fly.dependencies.version>1.1.0-RC</fly.dependencies.version>
     </properties>
 
     <dependencyManagement>
@@ -35,29 +35,6 @@
             <groupId>com.github.itdachen</groupId>
             <artifactId>runner-spring-boot-starter</artifactId>
         </dependency>
-
-        <!-- 項目启动容器 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-undertow</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.itdachen</groupId>
-            <artifactId>fly-boot-autoconfigure</artifactId>
-        </dependency>
-
-
 
         <dependency>
             <groupId>com.github.itdachen</groupId>

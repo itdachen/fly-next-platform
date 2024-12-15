@@ -111,6 +111,9 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
             return new HashSet<>(appAuthority);
         }
         List<String> list = userMenuManager.canUsableMenu(userInfoDetails.getAppId(), userInfoDetails);
+        if (null == list) {
+            return new HashSet<>();
+        }
         List<String> userAuthority = authenticationAuthorityMapper.findUserAuthority(userInfoDetails.getAppId(), list);
         return new HashSet<>(userAuthority);
     }

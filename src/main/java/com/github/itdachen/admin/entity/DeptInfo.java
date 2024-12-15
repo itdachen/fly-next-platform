@@ -1,14 +1,13 @@
 package com.github.itdachen.admin.entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
-    import java.time.LocalDateTime;
-
+import java.time.LocalDateTime;
 
 
 /**
@@ -18,124 +17,177 @@ import java.io.Serializable;
  * @date 2024-04-24 21:47:25
  */
 @Table(name = "ta_fly_dept_info")
-public class DeptInfo implements Serializable{
-private static final long serialVersionUID=1L;
+public class DeptInfo implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    /** 主键唯一标识 */
+    /**
+     * 主键唯一标识
+     */
     @Id
     @Column(name = "id")
     private String id;
 
-    /** 租户标识/公司标识 */
+    /**
+     * 租户标识/公司标识
+     */
     @Column(name = "tenant_id")
     private String tenantId;
 
-    /** 上级ID */
+    /**
+     * 上级ID
+     */
     @Column(name = "parent_id")
     private String parentId;
 
-    /** 部门名称 */
+    /**
+     * 部门名称
+     */
     @Column(name = "title")
     private String title;
 
-    /** 部门简称 */
+    /**
+     * 部门简称
+     */
     @Column(name = "title_as")
     private String titleAs;
 
-    /** 部门类型ID */
+    /**
+     * 部门类型ID
+     */
     @Column(name = "type_id")
     private String typeId;
 
-    /** 部门类型 */
+    /**
+     * 部门类型
+     */
     @Column(name = "type_title")
     private String typeTitle;
 
-    /** 部门标志: Y-是;N-否 */
+    /**
+     * 部门标志: Y-是;N-否
+     */
     @Column(name = "dept_flag")
     private String deptFlag;
 
-    /** 是否管理本级: Y-是;N-否 */
+    /**
+     * 是否管理本级: Y-是;N-否
+     */
     @Column(name = "that_level")
     private String thatLevel;
 
-    /** 部门级次: 00-总部/10-省级/20-市州级/30-区县级/40-乡村级 */
+    /**
+     * 部门级次: 00-总部/10-省级/20-市州级/30-区县级/40-乡村级
+     */
     @Column(name = "dept_level")
     private String deptLevel;
 
-    /** 联系电话 */
+    /**
+     * 联系电话
+     */
     @Column(name = "telephone")
     private String telephone;
 
-    /** 电子邮箱 */
+    /**
+     * 电子邮箱
+     */
     @Column(name = "mail_box")
     private String mailBox;
 
-    /** 传真 */
+    /**
+     * 传真
+     */
     @Column(name = "facsimile")
     private String facsimile;
 
-    /** 职能代码(暂时不用) */
+    /**
+     * 职能代码(暂时不用)
+     */
     @Column(name = "func_code")
     private String funcCode;
 
-    /** 所属省级ID */
+    /**
+     * 所属省级ID
+     */
     @Column(name = "prov_id")
     private String provId;
 
-    /** 所属省级名称 */
+    /**
+     * 所属省级名称
+     */
     @Column(name = "prov_title")
     private String provTitle;
 
-    /** 所属市州 */
+    /**
+     * 所属市州
+     */
     @Column(name = "city_id")
     private String cityId;
 
-    /** 所属市州名称 */
+    /**
+     * 所属市州名称
+     */
     @Column(name = "city_title")
     private String cityTitle;
 
-    /** 所属区县 */
+    /**
+     * 所属区县
+     */
     @Column(name = "county_id")
     private String countyId;
 
-    /** 所属区县名称 */
+    /**
+     * 所属区县名称
+     */
     @Column(name = "county_title")
     private String countyTitle;
 
-    /** 有效标志: Y-是;N-否 */
+    /**
+     * 有效标志: Y-是;N-否
+     */
     @Column(name = "valid_flag")
     private String validFlag;
 
-    /** 备注 */
+    /**
+     * 备注
+     */
     @Column(name = "remarks")
     private String remarks;
 
-    /** 创建时间 */
+    /**
+     * 创建时间
+     */
     @Column(name = "create_time")
     private LocalDateTime createTime;
 
-    /** 创建人 */
+    /**
+     * 创建人
+     */
     @Column(name = "create_user")
     private String createUser;
 
-    /** 创建人id */
+    /**
+     * 创建人id
+     */
     @Column(name = "create_user_id")
     private String createUserId;
 
-    /** 更新时间 */
+    /**
+     * 更新时间
+     */
     @Column(name = "update_time")
     private LocalDateTime updateTime;
 
-    /** 更新人 */
+    /**
+     * 更新人
+     */
     @Column(name = "update_user")
     private String updateUser;
 
-    /** 更新人id */
+    /**
+     * 更新人id
+     */
     @Column(name = "update_user_id")
     private String updateUserId;
-
-
-
 
 
     public void setId(String id) {
