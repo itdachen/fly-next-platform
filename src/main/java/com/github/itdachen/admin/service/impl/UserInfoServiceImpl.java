@@ -1,6 +1,6 @@
 package com.github.itdachen.admin.service.impl;
 
-import com.github.itdachen.admin.entity.TenantInfo;
+import com.github.itdachen.admin.service.impl.manager.LoginInfoEvent;
 import com.github.itdachen.auth.entity.LoginInfo;
 import com.github.itdachen.auth.mapper.ILoginInfoMapper;
 import com.github.itdachen.framework.context.BizContextHandler;
@@ -21,6 +21,7 @@ import com.github.itdachen.admin.service.IUserInfoService;
 import com.github.itdachen.admin.convert.UserInfoConvert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,13 +40,13 @@ public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, UserInf
     private static final UserInfoConvert bizConvert = new UserInfoConvert();
 
     private final ILoginInfoMapper loginInfoMapper;
-    private final PasswordEncoder passwordEncoder;
+    private final ApplicationEventPublisher eventPublisher;
 
     public UserInfoServiceImpl(ILoginInfoMapper loginInfoMapper,
-                               PasswordEncoder passwordEncoder) {
+                               ApplicationEventPublisher eventPublisher) {
         super(bizConvert);
         this.loginInfoMapper = loginInfoMapper;
-        this.passwordEncoder = passwordEncoder;
+        this.eventPublisher = eventPublisher;
     }
 
     /***
@@ -85,16 +86,13 @@ public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, UserInf
         EntityUtils.setCreatAndUpdateInfo(userInfo);
         bizMapper.insertSelective(userInfo);
 
-        LoginInfo loginInfo = new LoginInfo();
-        loginInfo.setId(userInfo.getId());
-        loginInfo.setUsername(userInfo.getTelephone());
-        loginInfo.setPassword(passwordEncoder.encode(userInfo.getTelephone()));
-        loginInfo.setValidFlag(userInfo.getValidFlag());
-        loginInfo.setExpTime(userInfo.getCreateTime().plusMonths(6));
-        loginInfo.setLastTime(userInfo.getCreateTime());
-        loginInfo.setCreateTime(userInfo.getCreateTime());
-        loginInfo.setUpdateTime(userInfo.getCreateTime());
-        loginInfoMapper.insertSelective(loginInfo);
+        /**
+         * 发布订阅模式的实现
+         * 2、发布事件
+         */
+        LoginInfoEvent event = new LoginInfoEvent(this, userInfo.getId(), userInfo.getTelephone(), userInfo.getTelephone());
+        eventPublisher.publishEvent(event);
+
         return bizConvert.toJavaObjectVO(userInfo);
     }
 
