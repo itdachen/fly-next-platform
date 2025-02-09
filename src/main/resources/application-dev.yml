@@ -11,9 +11,12 @@ server:
 logging:
   config: classpath:fly.xml
   level:
+    com.github.itdachen: debug
     cn.jay.repository: trace
+    org.springframework: warn
   file:
-    name: ${spring.application.name}.log
+    path: ./logs # 配置日志打印目录,默认名称为:spring.log
+    name: ./logs/fly_next.log # 配置日志打印目录和名称,和上面的path选一即可
 
 fly:
   app:
