@@ -9,6 +9,7 @@ import com.github.itdachen.framework.context.constants.MenuElementConstant;
 import com.github.itdachen.framework.context.constants.UserTypeConstant;
 import com.github.itdachen.framework.context.permission.PermissionInfo;
 import com.github.itdachen.framework.context.userdetails.UserInfoDetails;
+import com.github.itdachen.framework.core.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -87,6 +88,9 @@ public class HomePageServiceImpl implements IHomePageService {
      * @return com.github.itdachen.framework.context.permission.PermissionInfo
      */
     private PermissionInfo findUserHomePage(String parentId, List<String> list) {
+        if (StringUtils.isEmpty(parentId) || null == list || list.isEmpty()) {
+            return error404();
+        }
         PermissionInfo permissionInfo = homePageMapper.userHomePage(parentId, list);
         if (null == permissionInfo) {
             return error404();

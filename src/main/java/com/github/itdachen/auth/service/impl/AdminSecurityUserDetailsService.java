@@ -123,7 +123,7 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
             return new HashSet<>(appAuthority);
         }
         List<String> list = userMenuManager.canUsableMenu(userInfoDetails.getAppId(), userInfoDetails);
-        if (null == list) {
+        if (null == list || list.isEmpty()) {
             return new HashSet<>();
         }
         List<String> userAuthority = authenticationAuthorityMapper.findUserAuthority(userInfoDetails.getAppId(), list);
