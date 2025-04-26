@@ -130,6 +130,7 @@ function tableInitUserInfoOptions(params) {
         where: params,
         cols: [[
             // {field: 'tenantTitle', title: '租户名称', align: "center"},
+            {field: 'id', title: '人员工号', width: 200, align: "center"},
             {field: 'nickName', title: '昵称', width: 200, align: "center"},
             {field: 'idCard', title: '身份证号码', width: 200, align: "center"},
             {

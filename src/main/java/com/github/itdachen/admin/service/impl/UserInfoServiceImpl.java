@@ -7,6 +7,7 @@ import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.constants.UserTypeConstant;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.exception.BizException;
+import com.github.itdachen.framework.core.AssertUtils;
 import com.github.itdachen.framework.core.response.TableData;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
 import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
@@ -22,7 +23,6 @@ import com.github.itdachen.admin.convert.UserInfoConvert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +38,7 @@ import java.util.List;
 public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, UserInfo, UserInfoDTO, UserInfoVO, UserInfoQuery, String> implements IUserInfoService {
     private static final Logger logger = LoggerFactory.getLogger(UserInfoServiceImpl.class);
     private static final UserInfoConvert bizConvert = new UserInfoConvert();
+    private static final Integer USER_ID_START = 50000;
 
     private final ILoginInfoMapper loginInfoMapper;
     private final ApplicationEventPublisher eventPublisher;
@@ -77,20 +78,27 @@ public class UserInfoServiceImpl extends BizServiceImpl<IUserInfoMapper, UserInf
     @Transactional(rollbackFor = Exception.class)
     public UserInfoVO saveInfo(UserInfoDTO userInfoDTO) throws Exception {
         UserInfoVO userInfoByTelephone = bizMapper.findUserInfoByTelephone(userInfoDTO.getTelephone());
-        if (null != userInfoByTelephone) {
-            throw new BizException("该手机号码已经存在");
-        }
+        AssertUtils.isTrue(null != userInfoByTelephone, "该手机号码已经存在");
 
+
+        // 分布式情况下, 添加分布式锁, 获取唯一的用户号/工号
         UserInfo userInfo = bizConvert.toJavaObject(userInfoDTO);
         userInfo.setUserType(UserTypeConstant.INSIDE_USER);
         EntityUtils.setCreatAndUpdateInfo(userInfo);
+        Integer userTotal = bizMapper.findUserTotal();
+        if (null == userTotal) {
+            userTotal = 0;
+        }
+        userTotal++;
+        Integer userId = USER_ID_START + userTotal;
+        userInfo.setId(String.valueOf(userId));
         bizMapper.insertSelective(userInfo);
 
         /**
          * 发布订阅模式的实现
          * 2、发布事件
          */
-        LoginInfoEvent event = new LoginInfoEvent(this, userInfo.getId(), userInfo.getTelephone(), userInfo.getTelephone());
+        LoginInfoEvent event = new LoginInfoEvent(this, userInfo.getId(), userInfo.getNickName(), userInfo.getTelephone());
         eventPublisher.publishEvent(event);
 
         return bizConvert.toJavaObjectVO(userInfo);

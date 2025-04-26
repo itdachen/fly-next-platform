@@ -9,10 +9,23 @@
 <form class="layui-form" id="editDeptInfoForm" th:object="${deptInfo}">
     <div class="layui-form-body">
 
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                部门级次
+            </label>
+            <div class="layui-input-block" th:with="dicts=${@dict.data('dept_level')}">
+                <input type="radio" name="deptLevel" th:each="dict : ${dicts}"
+                       th:id="${'deptLevel_' + dict.value}"
+                       th:field="*{deptLevel}"
+                       th:title="${dict.label}"
+                       th:value="${dict.value}"
+                       th:checked="${deptInfo.deptLevel}">
+            </div>
+        </div>
 
         <!--        <div class="layui-form-item">-->
         <!--            <label class="layui-form-label">-->
-        <!--                <span class="required">*</span>职能代码-->
+        <!--                <span class="required">*</span>部门职能-->
         <!--            </label>-->
         <!--            <div class="layui-input-block">-->
         <!--&lt;!&ndash;                <input type="text" id="funcCode" name="funcCode" th:field="*{funcCode}"&ndash;&gt;-->
@@ -62,20 +75,6 @@
             <div class="layui-input-block">
                 <input type="text" id="titleAs" name="titleAs" th:field="*{titleAs}"
                        autocomplete="off" class="layui-input">
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">
-                部门级次
-            </label>
-            <div class="layui-input-block" th:with="dicts=${@dict.data('dept_level')}">
-                <input type="radio" name="deptLevel" th:each="dict : ${dicts}"
-                       th:id="${'deptLevel_' + dict.value}"
-                       th:field="*{deptLevel}"
-                       th:title="${dict.label}"
-                       th:value="${dict.value}"
-                       th:checked="${deptInfo.deptLevel}">
             </div>
         </div>
 

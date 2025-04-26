@@ -9,14 +9,25 @@
 <form class="layui-form" id="addDeptInfoForm">
     <input type="text" th:value="*{parentId}" id="parentId" name="parentId" style="display: none">
     <div class="layui-form-body">
+
         <div class="layui-form-item">
             <label class="layui-form-label">
-                职能代码
+                部门级次
+            </label>
+            <div class="layui-input-block" th:with="dicts=${@dict.data('dept_level')}">
+                <input type="radio" name="deptLevel" th:each="dict : ${dicts}"
+                       th:id="${'deptLevel_' + dict.value}"
+                       th:title="${dict.label}"
+                       th:value="${dict.value}"
+                       th:checked="${dict.isDefault}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                部门职能
             </label>
             <div class="layui-input-block">
-<!--                <input type="text" id="funcCode" name="funcCode"-->
-<!--                       autocomplete="off" class="layui-input">-->
-
                 <select id="funcCode" name="funcCode" th:with="dicts=${@dict.data('dept_func')}">
                     <option value="">请选择职能代码</option>
                     <option th:each="dict : ${dicts}"
@@ -85,18 +96,6 @@
         <!--        </div>-->
 
 
-        <div class="layui-form-item">
-            <label class="layui-form-label">
-                部门级次
-            </label>
-            <div class="layui-input-block" th:with="dicts=${@dict.data('dept_level')}">
-                <input type="radio" name="deptLevel" th:each="dict : ${dicts}"
-                       th:id="${'deptLevel_' + dict.value}"
-                       th:title="${dict.label}"
-                       th:value="${dict.value}"
-                       th:checked="${dict.isDefault}">
-            </div>
-        </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">

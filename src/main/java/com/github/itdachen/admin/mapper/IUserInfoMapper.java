@@ -27,6 +27,16 @@ public interface IUserInfoMapper extends Mapper<UserInfo> {
      */
     List<UserInfoVO> list(UserInfoQuery params);
 
+
+    /***
+     * 获取已经存在用户的数量
+     *
+     * @author 王大宸
+     * @date 2025/4/26 23:40
+     * @return java.lang.Integer
+     */
+    Integer findUserTotal();
+
     /***
      * 根据id查询
      *

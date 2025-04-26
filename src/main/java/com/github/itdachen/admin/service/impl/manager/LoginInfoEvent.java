@@ -26,22 +26,33 @@ public class LoginInfoEvent extends ApplicationEvent {
     /**
      * 构造函数
      *
-     * @param source   事件的源对象，用于表明这个事件是由哪个对象触发的
-     * @param userId   用户ID
-     * @param username 登录账号
-     * @param password 登录密码(未加密)
+     * @param source 事件的源对象，用于表明这个事件是由哪个对象触发的
+     * @param userId 用户ID/人员代码/职工工号
      */
-    public LoginInfoEvent(Object source, String userId, String username, String password) {
+
+    /***
+     * 构造函数
+     *
+     * @author 王大宸
+     * @date 2025/4/27 0:05
+     * @param source 事件的源对象，用于表明这个事件是由哪个对象触发的
+     * @param userId 用户ID/人员代码/职工工号
+     * @param telephone 联系电话
+     * @return
+     */
+    public LoginInfoEvent(Object source, String userId, String nickName, String telephone) {
         super(source);
 
         LocalDateTime now = LocalDateTime.now();
 
         LoginInfo loginInfo = new LoginInfo();
         loginInfo.setId(userId);
-        loginInfo.setUsername(username);
-        loginInfo.setPassword(password);
+        loginInfo.setUsername(userId);
+        loginInfo.setNickName(nickName);
+        loginInfo.setTelephone(telephone);
+        loginInfo.setPassword("123456");
         loginInfo.setValidFlag(YesOrNotConstant.Y);
-        loginInfo.setExpTime(now.plusMonths(6));
+        loginInfo.setExpTime(now.plusMonths(6));  // 密码过期时间
         loginInfo.setLastTime(now);
         loginInfo.setCreateTime(now);
         loginInfo.setUpdateTime(now);

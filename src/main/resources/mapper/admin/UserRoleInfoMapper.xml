@@ -99,6 +99,14 @@
         LIMIT 1
     </select>
 
+    <!-- 查询用户身份数量 -->
+    <select id="findUserRoleTotal" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(id)
+        FROM ta_fly_user_role_info
+        WHERE user_id = #{userId}
+    </select>
+
+
     <!-- 根据主键查询 -->
     <select id="selectUserRoleInfoVO" parameterType="java.lang.String" resultMap="userRoleInfoMap">
         <include refid="selectUserRoleInfoVO"/>

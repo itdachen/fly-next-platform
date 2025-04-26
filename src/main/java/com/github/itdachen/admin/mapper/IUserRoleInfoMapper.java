@@ -37,6 +37,16 @@ public interface IUserRoleInfoMapper extends Mapper<UserRoleInfo> {
     UserRoleInfoVO findRoleFlag(String userId);
 
     /***
+     * 查询用户身份数量
+     *
+     * @author 王大宸
+     * @date 2025/4/27 0:33
+     * @param userId userId
+     * @return java.lang.Integer
+     */
+    Integer findUserRoleTotal(String userId);
+
+    /***
      * 根据id查询
      *
      * @author 王大宸

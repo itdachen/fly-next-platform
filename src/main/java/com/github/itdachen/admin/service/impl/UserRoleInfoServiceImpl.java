@@ -9,6 +9,7 @@ import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.context.tree.ZTreeNode;
+import com.github.itdachen.framework.core.AssertUtils;
 import com.github.itdachen.framework.core.response.TableData;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
 import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
@@ -83,20 +84,29 @@ public class UserRoleInfoServiceImpl extends BizServiceImpl<IUserRoleInfoMapper,
     @Transactional(rollbackFor = Exception.class)
     public UserRoleInfoVO saveInfo(UserRoleInfoDTO userRoleInfoDTO) throws Exception {
         DeptInfoVO deptInfoVO = deptInfoMapper.selectDeptInfoVO(userRoleInfoDTO.getDeptId());
-        if (null == deptInfoVO) {
-            throw new BizException("部门数据不存在, 请刷新数据!");
-        }
+        AssertUtils.isTrue(null == deptInfoVO, "部门数据不存在, 请刷新数据!");
+
+        assert deptInfoVO != null;
         userRoleInfoDTO.setDeptTitle(deptInfoVO.getTitle());
         if (YesOrNotConstant.Y.equals(userRoleInfoDTO.getRoleFlag())) {
             UserRoleInfoVO userRoleInfoVO = bizMapper.findRoleFlag(userRoleInfoDTO.getUserId());
-            if (null != userRoleInfoVO) {
-                throw new BizException("该人员主身份已经存在！");
-            }
+            AssertUtils.isTrue(null != userRoleInfoVO, "该人员主身份已经存在！");
         }
-        UserRoleInfo javaObject = bizConvert.toJavaObject(userRoleInfoDTO);
-        EntityUtils.setCreatAndUpdateInfo(javaObject);
-        bizMapper.insertSelective(javaObject);
-        return bizConvert.toJavaObjectVO(javaObject);
+        UserRoleInfo userRoleInfo = bizConvert.toJavaObject(userRoleInfoDTO);
+        EntityUtils.setCreatAndUpdateInfo(userRoleInfo);
+
+        /* 添加身份ID */
+        Integer userRoleTotal = bizMapper.findUserRoleTotal(userRoleInfo.getUserId());
+        if (null == userRoleTotal) {
+            userRoleTotal = 0;
+        }
+        userRoleTotal++;
+        String userRoleTotalStr = String.format("%02d", userRoleTotal);
+        String userRoleId = userRoleInfo.getUserId() + userRoleTotalStr;
+        userRoleInfo.setId(userRoleId);
+
+        bizMapper.insertSelective(userRoleInfo);
+        return bizConvert.toJavaObjectVO(userRoleInfo);
     }
 
     /***

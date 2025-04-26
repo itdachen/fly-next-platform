@@ -3,6 +3,7 @@ package com.github.itdachen.auth.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -32,6 +33,19 @@ public class LoginInfo implements Serializable {
      */
     @Column(name = "username")
     private String username;
+
+    /**
+     * 联系电话/不参与数据入库
+     * @Transient 注解在 POJO 中用于标识字段无需持久化到数据库
+     */
+    @Transient
+    private String telephone;
+
+    /**
+     * 昵称
+     */
+    @Transient
+    private String nickName;
 
     /**
      * 登录密码
@@ -134,12 +148,29 @@ public class LoginInfo implements Serializable {
         return updateTime;
     }
 
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("id", getId())
                 .append("username", getUsername())
+                .append("telephone", getTelephone())
+                .append("nickName", getNickName())
                 .append("password", getPassword())
                 .append("validFlag", getValidFlag())
                 .append("expTime", getExpTime())

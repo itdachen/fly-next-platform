@@ -39,13 +39,13 @@ layui.use(['form', 'laydate', 'laydate'], function () {
  * 搜索用户信息
  */
 function searchUserInfo() {
-    let telephone = $('#username').val();
-    if ($.string.isEmpty(telephone)) {
+    let username = $('#username').val();
+    if ($.string.isEmpty(username)) {
         $.msg.msgWarning('请输入登录账号！');
         return;
     }
     $.http.get({
-        url: HTTP_BIZ_URI + '/admin/user/info/telephone/' + telephone,
+        url: HTTP_BIZ_URI + '/admin/user/info/' + username,
         callback: function (res) {
             if (null === res.data) {
                 $.msg.msgWarning("人员信息不存在!");

@@ -59,6 +59,11 @@
         <include refid="selectUserInfoVO"/>
         <include refid="selectParamsWhere"></include>
     </select>
+    
+    <select id="findUserTotal" resultType="java.lang.Integer">
+        SELECT COUNT(id)
+        FROM ta_fly_user_info
+    </select>
 
     <!-- 查询导出数据 -->
     <select id="selectUserInfoExpData" parameterType="java.lang.String" resultMap="userInfoMap">
