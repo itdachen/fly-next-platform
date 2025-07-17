@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('查看消息附件')"/>
+    <script>
+        layui.use(['form'], function () {
+            let form = layui.form;
+            form.render();
+        });
+    </script>
+</head>
+<body>
+
+<form class="layui-form" id="seeMsgFileForm" th:object="${msgFile}">
+    <div class="layui-form-body-see">
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            租户名称
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="tenantTitle" name="tenantTitle" th:field="*{tenantTitle}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            平台ID
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="platId" name="platId" th:field="*{platId}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            平台名称
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="platTitle" name="platTitle" th:field="*{platTitle}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            应用ID
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="appId" name="appId" th:field="*{appId}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            应用名称
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="appTitle" name="appTitle" th:field="*{appTitle}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            上传人ID
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="userId" name="userId" th:field="*{userId}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            上传人昵称
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="nickName" name="nickName" th:field="*{nickName}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            消息ID
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="msgId" name="msgId" th:field="*{msgId}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            文件名称
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="fileTitle" name="fileTitle" th:field="*{fileTitle}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            文件格式
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="fileFormat" name="fileFormat" th:field="*{fileFormat}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            文件地址
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="fileUrl" name="fileUrl" th:field="*{fileUrl}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            文件大小
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="fileSize" name="fileSize" th:field="*{fileSize}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            文件MD5值(对接文件服务, 真多同一个文件同时上传多次的问题, MD5 可以实现秒传)
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="hexMd5" name="hexMd5" th:field="*{hexMd5}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            MD5可用标志: Y-可用;N-不可用; 值为 N 时该文件不能被下载(防止一下不适当/不健康的文件传播)
+                        </label>
+                        <div class="layui-input-block" th:with="dicts=${@dict.data('VALID_FLAG')}">
+                            <input type="radio" name="md5ValidFlag" th:each="dict : ${dicts}"
+                                   th:id="${'md5ValidFlag_' + dict.value}" disabled="disabled"
+                                   th:field="*{md5ValidFlag}"
+                                   th:title="${dict.label}"
+                                   th:value="${dict.value}"
+                                   th:checked="${msgFile.md5ValidFlag}">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            下载标志
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="downloadFlag" name="downloadFlag" th:field="*{downloadFlag}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            下载次数
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="downloadTotal" name="downloadTotal" th:field="*{downloadTotal}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            第一次下载时间
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="downloadFirstTime" name="downloadFirstTime" placeholder="yyyy-MM-dd"
+                                   th:field="*{downloadFirstTime}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            最后一次下载时间
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="downloadLastTime" name="downloadLastTime" placeholder="yyyy-MM-dd"
+                                   th:field="*{downloadLastTime}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            阅读标志
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="readFlag" name="readFlag" th:field="*{readFlag}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            阅读时间
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="readTime" name="readTime" placeholder="yyyy-MM-dd"
+                                   th:field="*{readTime}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            删除时间
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="removeTime" name="removeTime" placeholder="yyyy-MM-dd"
+                                   th:field="*{removeTime}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            删除人ID
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="removeUserId" name="removeUserId" th:field="*{removeUserId}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            删除人昵称
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="removeNickName" name="removeNickName" th:field="*{removeNickName}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            年份
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="yearly" name="yearly" th:field="*{yearly}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            月份
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="monthly" name="monthly" th:field="*{monthly}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+    </div>
+</form>
+
+</body>
+</html>

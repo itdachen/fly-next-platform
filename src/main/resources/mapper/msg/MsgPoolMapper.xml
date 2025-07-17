@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.msg.mapper.IMsgPoolMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.github.itdachen.msg.sdk.vo.MsgPoolVO" id="msgPoolMap">
+        <result property="id" column="id"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="tenantTitle" column="tenant_title"/>
+        <result property="platId" column="plat_id"/>
+        <result property="platTitle" column="plat_title"/>
+        <result property="appId" column="app_id"/>
+        <result property="appTitle" column="app_title"/>
+        <result property="appVersion" column="app_version"/>
+        <result property="userId" column="user_id"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="roleId" column="role_id"/>
+        <result property="roleName" column="role_name"/>
+        <result property="provId" column="prov_id"/>
+        <result property="cityId" column="city_id"/>
+        <result property="countyId" column="county_id"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="deptTitle" column="dept_title"/>
+        <result property="deptLevel" column="dept_level"/>
+        <result property="deptParentId" column="dept_parent_id"/>
+        <result property="hostIp" column="host_ip"/>
+        <result property="hostAddress" column="host_address"/>
+        <result property="hostOs" column="host_os"/>
+        <result property="hostBrowser" column="host_browser"/>
+        <result property="hostUserAgent" column="host_user_agent"/>
+        <result property="msgTitle" column="msg_title"/>
+        <result property="content" column="content"/>
+        <result property="readFlag" column="read_flag"/>
+        <result property="readTime" column="read_time"/>
+        <result property="removeTime" column="remove_time"/>
+        <result property="removeUserId" column="remove_user_id"/>
+        <result property="removeNickName" column="remove_nick_name"/>
+        <result property="yearly" column="yearly"/>
+        <result property="monthly" column="monthly"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <!-- VO 类查询 -->
+    <sql id="selectMsgPoolVO">
+        SELECT id,
+               tenant_id,
+               tenant_title,
+               plat_id,
+               plat_title,
+               app_id,
+               app_title,
+               app_version,
+               user_id,
+               nick_name,
+               role_id,
+               role_name,
+               prov_id,
+               city_id,
+               county_id,
+               dept_id,
+               dept_title,
+               dept_level,
+               dept_parent_id,
+               host_ip,
+               host_address,
+               host_os,
+               host_browser,
+               host_user_agent,
+               msg_title,
+               content,
+               read_flag,
+               read_time,
+               remove_time,
+               remove_user_id,
+               remove_nick_name,
+               yearly,
+               monthly,
+               create_time
+        FROM ta_fly_msg_pool
+    </sql>
+
+    <!-- 导出数据字段查询 -->
+    <sql id="selectMsgPoolExpVO">
+        SELECT role_name,
+               dept_title,
+               msg_title,
+               read_flag,
+               read_time,
+               yearly,
+               monthly,
+               create_time
+        FROM ta_fly_msg_pool
+    </sql>
+
+    <!-- 分页和导出查询参数 -->
+    <sql id="selectParamsWhere">
+        <where>
+            <if test="null != tenantId  and '' != tenantId ">
+                AND tenant_id = #{tenantId}
+            </if>
+            <if test="null != platId  and '' != platId ">
+                AND plat_id = #{platId}
+            </if>
+            <if test="null != appId  and '' != appId ">
+                AND app_id = #{appId}
+            </if>
+            <if test="null != userId  and '' != userId ">
+                AND user_id = #{userId}
+            </if>
+            <if test="null != nickName  and '' != nickName ">
+                AND nick_name LIKE CONCAT(CONCAT('%',#{nickName}),'%')
+            </if>
+            <if test="null != provId  and '' != provId ">
+                AND prov_id = #{provId}
+            </if>
+            <if test="null != cityId  and '' != cityId ">
+                AND city_id = #{cityId}
+            </if>
+            <if test="null != countyId  and '' != countyId ">
+                AND county_id = #{countyId}
+            </if>
+            <if test="null != deptId  and '' != deptId ">
+                AND dept_id = #{deptId}
+            </if>
+            <if test="null != msgTitle  and '' != msgTitle ">
+                AND msg_title LIKE CONCAT(CONCAT('%',#{msgTitle}),'%')
+            </if>
+            <if test="null != readFlag  and '' != readFlag ">
+                AND read_flag = #{readFlag}
+            </if>
+            <if test="null != removeFlag  and '' != removeFlag ">
+                AND remove_flag = #{removeFlag}
+            </if>
+            <if test="null != yearly  and '' != yearly ">
+                AND yearly = #{yearly}
+            </if>
+            <if test="null != monthly  and '' != monthly ">
+                AND monthly = #{monthly}
+            </if>
+        </where>
+        ORDER BY id DESC
+    </sql>
+
+    <!-- 集合查询 -->
+    <select id="list" parameterType="com.github.itdachen.msg.sdk.query.MsgPoolQuery" resultMap="msgPoolMap">
+        <include refid="selectMsgPoolVO"/>
+        <include refid="selectParamsWhere"></include>
+    </select>
+
+    <!-- 查询导出数据 -->
+    <select id="selectMsgPoolExpData" parameterType="java.lang.String" resultMap="msgPoolMap">
+        <include refid="selectMsgPoolExpVO"/>
+        <include refid="selectParamsWhere"></include>
+    </select>
+
+    <!-- 根据主键查询 -->
+    <select id="selectMsgPoolVO" parameterType="java.lang.String" resultMap="msgPoolMap">
+        <include refid="selectMsgPoolVO"/>
+        WHERE id = #{id}
+    </select>
+
+    <!-- 批量添加 -->
+    <insert id="batchSave" parameterType="java.util.List">
+        INSERT INTO ta_fly_msg_pool (id ,
+        tenant_id ,
+        tenant_title ,
+        plat_id ,
+        plat_title ,
+        app_id ,
+        app_title ,
+        app_version ,
+        user_id ,
+        nick_name ,
+        role_id ,
+        role_name ,
+        prov_id ,
+        city_id ,
+        county_id ,
+        dept_id ,
+        dept_title ,
+        dept_level ,
+        dept_parent_id ,
+        host_ip ,
+        host_address ,
+        host_os ,
+        host_browser ,
+        host_user_agent ,
+        msg_title ,
+        content ,
+        read_flag ,
+        read_time ,
+        remove_flag ,
+        remove_time ,
+        remove_user_id ,
+        remove_nick_name ,
+        yearly ,
+        monthly ,
+        create_time ,
+        create_user ,
+        create_user_id ,
+        update_time ,
+        update_user ,
+        update_user_id
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},
+            #{item.tenantId},
+            #{item.tenantTitle},
+            #{item.platId},
+            #{item.platTitle},
+            #{item.appId},
+            #{item.appTitle},
+            #{item.appVersion},
+            #{item.userId},
+            #{item.nickName},
+            #{item.roleId},
+            #{item.roleName},
+            #{item.provId},
+            #{item.cityId},
+            #{item.countyId},
+            #{item.deptId},
+            #{item.deptTitle},
+            #{item.deptLevel},
+            #{item.deptParentId},
+            #{item.hostIp},
+            #{item.hostAddress},
+            #{item.hostOs},
+            #{item.hostBrowser},
+            #{item.hostUserAgent},
+            #{item.msgTitle},
+            #{item.content},
+            #{item.readFlag},
+            #{item.readTime},
+            #{item.removeFlag},
+            #{item.removeTime},
+            #{item.removeUserId},
+            #{item.removeNickName},
+            #{item.yearly},
+            #{item.monthly},
+            #{item.createTime},
+            #{item.createUser},
+            #{item.createUserId},
+            #{item.updateTime},
+            #{item.updateUser},
+            #{item.updateUserId})
+        </foreach>
+    </insert>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE ta_fly_msg_pool
+            <set>
+                <if test="null != item.id  and '' != item.id ">id =
+                    #{item.id},
+                </if>
+                <if test="null != item.tenantId  and '' != item.tenantId ">tenant_id =
+                    #{item.tenantId},
+                </if>
+                <if test="null != item.tenantTitle  and '' != item.tenantTitle ">tenant_title =
+                    #{item.tenantTitle},
+                </if>
+                <if test="null != item.platId  and '' != item.platId ">plat_id =
+                    #{item.platId},
+                </if>
+                <if test="null != item.platTitle  and '' != item.platTitle ">plat_title =
+                    #{item.platTitle},
+                </if>
+                <if test="null != item.appId  and '' != item.appId ">app_id =
+                    #{item.appId},
+                </if>
+                <if test="null != item.appTitle  and '' != item.appTitle ">app_title =
+                    #{item.appTitle},
+                </if>
+                <if test="null != item.appVersion  and '' != item.appVersion ">app_version =
+                    #{item.appVersion},
+                </if>
+                <if test="null != item.userId  and '' != item.userId ">user_id =
+                    #{item.userId},
+                </if>
+                <if test="null != item.nickName  and '' != item.nickName ">nick_name =
+                    #{item.nickName},
+                </if>
+                <if test="null != item.roleId  and '' != item.roleId ">role_id =
+                    #{item.roleId},
+                </if>
+                <if test="null != item.roleName  and '' != item.roleName ">role_name =
+                    #{item.roleName},
+                </if>
+                <if test="null != item.provId  and '' != item.provId ">prov_id =
+                    #{item.provId},
+                </if>
+                <if test="null != item.cityId  and '' != item.cityId ">city_id =
+                    #{item.cityId},
+                </if>
+                <if test="null != item.countyId  and '' != item.countyId ">county_id =
+                    #{item.countyId},
+                </if>
+                <if test="null != item.deptId  and '' != item.deptId ">dept_id =
+                    #{item.deptId},
+                </if>
+                <if test="null != item.deptTitle  and '' != item.deptTitle ">dept_title =
+                    #{item.deptTitle},
+                </if>
+                <if test="null != item.deptLevel  and '' != item.deptLevel ">dept_level =
+                    #{item.deptLevel},
+                </if>
+                <if test="null != item.deptParentId  and '' != item.deptParentId ">dept_parent_id =
+                    #{item.deptParentId},
+                </if>
+                <if test="null != item.hostIp  and '' != item.hostIp ">host_ip =
+                    #{item.hostIp},
+                </if>
+                <if test="null != item.hostAddress  and '' != item.hostAddress ">host_address =
+                    #{item.hostAddress},
+                </if>
+                <if test="null != item.hostOs  and '' != item.hostOs ">host_os =
+                    #{item.hostOs},
+                </if>
+                <if test="null != item.hostBrowser  and '' != item.hostBrowser ">host_browser =
+                    #{item.hostBrowser},
+                </if>
+                <if test="null != item.hostUserAgent  and '' != item.hostUserAgent ">host_user_agent =
+                    #{item.hostUserAgent},
+                </if>
+                <if test="null != item.msgTitle  and '' != item.msgTitle ">msg_title =
+                    #{item.msgTitle},
+                </if>
+                <if test="null != item.content  and '' != item.content ">content =
+                    #{item.content},
+                </if>
+                <if test="null != item.readFlag  and '' != item.readFlag ">read_flag =
+                    #{item.readFlag},
+                </if>
+                <if test="null != item.readTime ">read_time =
+                    #{item.readTime},
+                </if>
+                <if test="null != item.removeFlag  and '' != item.removeFlag ">remove_flag =
+                    #{item.removeFlag},
+                </if>
+                <if test="null != item.removeTime ">remove_time =
+                    #{item.removeTime},
+                </if>
+                <if test="null != item.removeUserId  and '' != item.removeUserId ">remove_user_id =
+                    #{item.removeUserId},
+                </if>
+                <if test="null != item.removeNickName  and '' != item.removeNickName ">remove_nick_name =
+                    #{item.removeNickName},
+                </if>
+                <if test="null != item.yearly  and '' != item.yearly ">yearly =
+                    #{item.yearly},
+                </if>
+                <if test="null != item.monthly  and '' != item.monthly ">monthly =
+                    #{item.monthly},
+                </if>
+                <if test="null != item.createTime ">create_time =
+                    #{item.createTime},
+                </if>
+                <if test="null != item.createUser  and '' != item.createUser ">create_user =
+                    #{item.createUser},
+                </if>
+                <if test="null != item.createUserId  and '' != item.createUserId ">create_user_id =
+                    #{item.createUserId},
+                </if>
+                <if test="null != item.updateTime ">update_time =
+                    #{item.updateTime},
+                </if>
+                <if test="null != item.updateUser  and '' != item.updateUser ">update_user =
+                    #{item.updateUser},
+                </if>
+                <if test="null != item.updateUserId  and '' != item.updateUserId ">update_user_id =
+                    #{item.updateUserId},
+                </if>
+            </set>
+            WHERE id = #{item.id}
+        </foreach>
+    </update>
+
+
+</mapper>

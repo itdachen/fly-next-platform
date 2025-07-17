@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+        <th:block th:include="common/common::component('消息附件')"/>
+    <script th:src="@{/static/msg/file/index.js}" charset="utf-8"></script>
+</head>
+<body class="fly-container">
+<div class="fly-main-container">
+
+
+
+    <!-- 查询 -->
+    <div class="fly-query-container" sec:authorize="hasAuthority('fly:msg:file:query')">
+        <form class="layui-form" id="queryMsgFileForm" name="queryMsgFileForm">
+            <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">租户ID</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="租户ID"
+                                           id="tenantId" name="tenantId" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">平台ID</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="平台ID"
+                                           id="platId" name="platId" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">应用ID</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="应用ID"
+                                           id="appId" name="appId" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">上传人ID</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="上传人ID"
+                                           id="userId" name="userId" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">上传人昵称</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="上传人昵称"
+                                           id="nickName" name="nickName" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">消息ID</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="消息ID"
+                                           id="msgId" name="msgId" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">文件名称</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="文件名称"
+                                           id="fileTitle" name="fileTitle" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">文件格式</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="文件格式"
+                                           id="fileFormat" name="fileFormat" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">文件MD5值(对接文件服务, 真多同一个文件同时上传多次的问题, MD5 可以实现秒传)</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="文件MD5值(对接文件服务, 真多同一个文件同时上传多次的问题, MD5 可以实现秒传)"
+                                           id="hexMd5" name="hexMd5" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">MD5可用标志: Y-可用;N-不可用; 值为 N 时该文件不能被下载(防止一下不适当/不健康的文件传播)</label>
+                            <div class="layui-input-inline">
+                                    <select id="md5ValidFlag" name="md5ValidFlag" th:with="dicts=${@dict.data('VALID_FLAG')}">
+                                        <option value="">请选择MD5可用标志: Y-可用;N-不可用; 值为 N 时该文件不能被下载(防止一下不适当/不健康的文件传播)</option>
+                                        <option th:each="dict : ${dicts}"
+                                                th:text="${dict.label}"
+                                                th:value="${dict.value}">
+                                        </option>
+                                    </select>
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">下载标志</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="下载标志"
+                                           id="downloadFlag" name="downloadFlag" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">阅读标志</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="阅读标志"
+                                           id="readFlag" name="readFlag" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">删除标志</label>
+                            <div class="layui-input-inline">
+                                    <select id="removeFlag" name="removeFlag" th:with="dicts=${@dict.data('VALID_FLAG')}">
+                                        <option value="">请选择删除标志</option>
+                                        <option th:each="dict : ${dicts}"
+                                                th:text="${dict.label}"
+                                                th:value="${dict.value}">
+                                        </option>
+                                    </select>
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">年份</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="年份"
+                                           id="yearly" name="yearly" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">月份</label>
+                            <div class="layui-input-inline">
+                                    <input type="text" class="layui-input keypress-listen" placeholder="月份"
+                                           id="monthly" name="monthly" autocomplete="off">
+                            </div>
+                        </div>
+
+
+
+                <div class="layui-inline">
+                    <button type="submit" class="layui-btn layui-btn-sm fly-button-search"
+                            lay-submit lay-filter="queryMsgFile">
+                        <i class="layui-icon layui-icon-search fly-icon-right-5"></i>查询
+                    </button>
+                    <button type="reset" class="layui-btn layui-btn-sm fly-button-reset">
+                        <i class="layui-icon layui-icon-refresh fly-icon-right-5"></i>重置
+                    </button>
+                    <button sec:authorize="hasAuthority('fly:msg:file:exp')"
+                            type="submit" class="layui-btn layui-btn-sm fly-button-exp"
+                            lay-submit lay-filter="expMsgFile">
+                        <i class="layui-icon layui-icon-export fly-icon-right-5"></i>导出
+                    </button>
+                </div>
+            </div>
+
+            <!--            <div class="fly-query-footer">-->
+            <!--                <button type="submit" class="layui-btn layui-btn-sm fly-button-search"-->
+            <!--                        lay-submit lay-filter="queryMsgFile">-->
+            <!--                    <i class="layui-icon layui-icon-search fly-icon-right-5"></i>查询-->
+            <!--                </button>-->
+            <!--                <button type="reset" class="layui-btn layui-btn-sm fly-button-reset">-->
+            <!--                    <i class="layui-icon layui-icon-refresh fly-icon-right-5"></i>重置-->
+            <!--                </button>-->
+            <!--                <button sec:authorize="hasAuthority('fly:msg:file:exp')"-->
+            <!--                        type="submit" class="layui-btn layui-btn-sm fly-button-exp"-->
+            <!--                        lay-submit lay-filter="expMsgFile">-->
+            <!--                    <i class="layui-icon  layui-icon-export fly-icon-right-5"></i>导出-->
+            <!--                </button>-->
+            <!--            </div>-->
+
+        </form>
+    </div>
+
+    <!-- 页面数据展示 -->
+    <div class="fly-table-container">
+        <table class="layui-hide" id="msgFileLayTable" lay-filter="msgFileLayFilter"></table>
+    </div>
+
+</div>
+
+
+<!-- 表头工具栏 -->
+<script type="text/html" id="msgFileToolBar">
+    <div class="fly-tool-bar">
+        <button sec:authorize="hasAuthority('fly:msg:file:save')"
+                class="layui-btn layui-btn-sm layui-btn-normal fly-button-add"
+                lay-event="saveMsgFile">
+            <i class="layui-icon layui-icon-addition"></i>新增
+        </button>
+    </div>
+</script>
+
+<!-- 操作工具栏 -->
+<script type="text/html" id="msgFileActionBar">
+    <button sec:authorize="hasAuthority('fly:msg:file:view')"
+            class="fly-action-bar fly-button-view" lay-event="viewMsgFile">
+        <i class="layui-icon layui-icon-list"></i>查看
+    </button>
+    <button sec:authorize="hasAuthority('fly:msg:file:update')"
+            class="fly-action-bar fly-button-edit" lay-event="updateMsgFile">
+        <i class="layui-icon layui-icon-edit"></i>编辑
+    </button>
+    <button sec:authorize="hasAuthority('fly:msg:file:delete')"
+            class="fly-action-bar fly-button-remove" lay-event="deleteMsgFile">
+        <i class="layui-icon layui-icon-delete"></i>删除
+    </button>
+</script>
+
+</body>
+</html>

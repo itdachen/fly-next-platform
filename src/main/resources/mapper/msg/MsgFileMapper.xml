@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.msg.mapper.IMsgFileMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.github.itdachen.msg.sdk.vo.MsgFileVO" id="msgFileMap">
+        <result property="id" column="id"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="tenantTitle" column="tenant_title"/>
+        <result property="platId" column="plat_id"/>
+        <result property="platTitle" column="plat_title"/>
+        <result property="appId" column="app_id"/>
+        <result property="appTitle" column="app_title"/>
+        <result property="userId" column="user_id"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="msgId" column="msg_id"/>
+        <result property="fileTitle" column="file_title"/>
+        <result property="fileFormat" column="file_format"/>
+        <result property="fileUrl" column="file_url"/>
+        <result property="fileSize" column="file_size"/>
+        <result property="hexMd5" column="hex_md5"/>
+        <result property="md5ValidFlag" column="md5_valid_flag"/>
+        <result property="downloadFlag" column="download_flag"/>
+        <result property="downloadTotal" column="download_total"/>
+        <result property="downloadFirstTime" column="download_first_time"/>
+        <result property="downloadLastTime" column="download_last_time"/>
+        <result property="readFlag" column="read_flag"/>
+        <result property="readTime" column="read_time"/>
+        <result property="removeTime" column="remove_time"/>
+        <result property="removeUserId" column="remove_user_id"/>
+        <result property="removeNickName" column="remove_nick_name"/>
+        <result property="yearly" column="yearly"/>
+        <result property="monthly" column="monthly"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <!-- VO 类查询 -->
+    <sql id="selectMsgFileVO">
+        SELECT id,
+               tenant_id,
+               tenant_title,
+               plat_id,
+               plat_title,
+               app_id,
+               app_title,
+               user_id,
+               nick_name,
+               msg_id,
+               file_title,
+               file_format,
+               file_url,
+               file_size,
+               hex_md5,
+               md5_valid_flag,
+               download_flag,
+               download_total,
+               download_first_time,
+               download_last_time,
+               read_flag,
+               read_time,
+               remove_time,
+               remove_user_id,
+               remove_nick_name,
+               yearly,
+               monthly,
+               create_time
+        FROM ta_fly_msg_file
+    </sql>
+
+    <!-- 导出数据字段查询 -->
+    <sql id="selectMsgFileExpVO">
+        SELECT tenant_title,
+               plat_id,
+               plat_title,
+               app_id,
+               app_title,
+               user_id,
+               nick_name,
+               msg_id,
+               file_title,
+               file_format,
+               file_url,
+               file_size,
+               hex_md5,
+               md5_valid_flag,
+               download_flag,
+               download_total,
+               download_first_time,
+               download_last_time,
+               read_flag,
+               read_time,
+               remove_time,
+               remove_user_id,
+               remove_nick_name,
+               yearly,
+               monthly
+        FROM ta_fly_msg_file
+    </sql>
+
+    <!-- 分页和导出查询参数 -->
+    <sql id="selectParamsWhere">
+        <where>
+            <if test="null != tenantId  and '' != tenantId ">
+                AND tenant_id = #{tenantId}
+            </if>
+            <if test="null != platId  and '' != platId ">
+                AND plat_id = #{platId}
+            </if>
+            <if test="null != appId  and '' != appId ">
+                AND app_id = #{appId}
+            </if>
+            <if test="null != userId  and '' != userId ">
+                AND user_id = #{userId}
+            </if>
+            <if test="null != nickName  and '' != nickName ">
+                AND nick_name LIKE CONCAT(CONCAT('%',#{nickName}),'%')
+            </if>
+            <if test="null != msgId  and '' != msgId ">
+                AND msg_id = #{msgId}
+            </if>
+            <if test="null != fileTitle  and '' != fileTitle ">
+                AND file_title LIKE CONCAT(CONCAT('%',#{fileTitle}),'%')
+            </if>
+            <if test="null != fileFormat  and '' != fileFormat ">
+                AND file_format LIKE CONCAT(CONCAT('%',#{fileFormat}),'%')
+            </if>
+            <if test="null != hexMd5  and '' != hexMd5 ">
+                AND hex_md5 = #{hexMd5}
+            </if>
+            <if test="null != md5ValidFlag  and '' != md5ValidFlag ">
+                AND md5_valid_flag = #{md5ValidFlag}
+            </if>
+            <if test="null != downloadFlag  and '' != downloadFlag ">
+                AND download_flag = #{downloadFlag}
+            </if>
+            <if test="null != readFlag  and '' != readFlag ">
+                AND read_flag = #{readFlag}
+            </if>
+            <if test="null != removeFlag  and '' != removeFlag ">
+                AND remove_flag = #{removeFlag}
+            </if>
+            <if test="null != yearly  and '' != yearly ">
+                AND yearly = #{yearly}
+            </if>
+            <if test="null != monthly  and '' != monthly ">
+                AND monthly = #{monthly}
+            </if>
+        </where>
+        ORDER BY id DESC
+    </sql>
+
+    <!-- 集合查询 -->
+    <select id="list" parameterType="com.github.itdachen.msg.sdk.query.MsgFileQuery" resultMap="msgFileMap">
+        <include refid="selectMsgFileVO"/>
+        <include refid="selectParamsWhere"></include>
+    </select>
+
+    <!-- 查询导出数据 -->
+    <select id="selectMsgFileExpData" parameterType="java.lang.String" resultMap="msgFileMap">
+        <include refid="selectMsgFileExpVO"/>
+        <include refid="selectParamsWhere"></include>
+    </select>
+
+    <!-- 根据主键查询 -->
+    <select id="selectMsgFileVO" parameterType="java.lang.String" resultMap="msgFileMap">
+        <include refid="selectMsgFileVO"/>
+        WHERE id = #{id}
+    </select>
+
+    <!-- 批量添加 -->
+    <insert id="batchSave" parameterType="java.util.List">
+        INSERT INTO ta_fly_msg_file (id ,
+        tenant_id ,
+        tenant_title ,
+        plat_id ,
+        plat_title ,
+        app_id ,
+        app_title ,
+        user_id ,
+        nick_name ,
+        msg_id ,
+        file_title ,
+        file_format ,
+        file_url ,
+        file_size ,
+        hex_md5 ,
+        md5_valid_flag ,
+        download_flag ,
+        download_total ,
+        download_first_time ,
+        download_last_time ,
+        read_flag ,
+        read_time ,
+        remove_flag ,
+        remove_time ,
+        remove_user_id ,
+        remove_nick_name ,
+        yearly ,
+        monthly ,
+        create_time ,
+        create_user ,
+        create_user_id ,
+        update_time ,
+        update_user ,
+        update_user_id
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},
+            #{item.tenantId},
+            #{item.tenantTitle},
+            #{item.platId},
+            #{item.platTitle},
+            #{item.appId},
+            #{item.appTitle},
+            #{item.userId},
+            #{item.nickName},
+            #{item.msgId},
+            #{item.fileTitle},
+            #{item.fileFormat},
+            #{item.fileUrl},
+            #{item.fileSize},
+            #{item.hexMd5},
+            #{item.md5ValidFlag},
+            #{item.downloadFlag},
+            #{item.downloadTotal},
+            #{item.downloadFirstTime},
+            #{item.downloadLastTime},
+            #{item.readFlag},
+            #{item.readTime},
+            #{item.removeFlag},
+            #{item.removeTime},
+            #{item.removeUserId},
+            #{item.removeNickName},
+            #{item.yearly},
+            #{item.monthly},
+            #{item.createTime},
+            #{item.createUser},
+            #{item.createUserId},
+            #{item.updateTime},
+            #{item.updateUser},
+            #{item.updateUserId})
+        </foreach>
+    </insert>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE ta_fly_msg_file
+            <set>
+                <if test="null != item.id  and '' != item.id ">id =
+                    #{item.id},
+                </if>
+                <if test="null != item.tenantId  and '' != item.tenantId ">tenant_id =
+                    #{item.tenantId},
+                </if>
+                <if test="null != item.tenantTitle  and '' != item.tenantTitle ">tenant_title =
+                    #{item.tenantTitle},
+                </if>
+                <if test="null != item.platId  and '' != item.platId ">plat_id =
+                    #{item.platId},
+                </if>
+                <if test="null != item.platTitle  and '' != item.platTitle ">plat_title =
+                    #{item.platTitle},
+                </if>
+                <if test="null != item.appId  and '' != item.appId ">app_id =
+                    #{item.appId},
+                </if>
+                <if test="null != item.appTitle  and '' != item.appTitle ">app_title =
+                    #{item.appTitle},
+                </if>
+                <if test="null != item.userId  and '' != item.userId ">user_id =
+                    #{item.userId},
+                </if>
+                <if test="null != item.nickName  and '' != item.nickName ">nick_name =
+                    #{item.nickName},
+                </if>
+                <if test="null != item.msgId  and '' != item.msgId ">msg_id =
+                    #{item.msgId},
+                </if>
+                <if test="null != item.fileTitle  and '' != item.fileTitle ">file_title =
+                    #{item.fileTitle},
+                </if>
+                <if test="null != item.fileFormat  and '' != item.fileFormat ">file_format =
+                    #{item.fileFormat},
+                </if>
+                <if test="null != item.fileUrl  and '' != item.fileUrl ">file_url =
+                    #{item.fileUrl},
+                </if>
+                <if test="null != item.fileSize  and '' != item.fileSize ">file_size =
+                    #{item.fileSize},
+                </if>
+                <if test="null != item.hexMd5  and '' != item.hexMd5 ">hex_md5 =
+                    #{item.hexMd5},
+                </if>
+                <if test="null != item.md5ValidFlag  and '' != item.md5ValidFlag ">md5_valid_flag =
+                    #{item.md5ValidFlag},
+                </if>
+                <if test="null != item.downloadFlag  and '' != item.downloadFlag ">download_flag =
+                    #{item.downloadFlag},
+                </if>
+                <if test="null != item.downloadTotal ">download_total =
+                    #{item.downloadTotal},
+                </if>
+                <if test="null != item.downloadFirstTime ">download_first_time =
+                    #{item.downloadFirstTime},
+                </if>
+                <if test="null != item.downloadLastTime ">download_last_time =
+                    #{item.downloadLastTime},
+                </if>
+                <if test="null != item.readFlag  and '' != item.readFlag ">read_flag =
+                    #{item.readFlag},
+                </if>
+                <if test="null != item.readTime ">read_time =
+                    #{item.readTime},
+                </if>
+                <if test="null != item.removeFlag  and '' != item.removeFlag ">remove_flag =
+                    #{item.removeFlag},
+                </if>
+                <if test="null != item.removeTime ">remove_time =
+                    #{item.removeTime},
+                </if>
+                <if test="null != item.removeUserId  and '' != item.removeUserId ">remove_user_id =
+                    #{item.removeUserId},
+                </if>
+                <if test="null != item.removeNickName  and '' != item.removeNickName ">remove_nick_name =
+                    #{item.removeNickName},
+                </if>
+                <if test="null != item.yearly  and '' != item.yearly ">yearly =
+                    #{item.yearly},
+                </if>
+                <if test="null != item.monthly  and '' != item.monthly ">monthly =
+                    #{item.monthly},
+                </if>
+                <if test="null != item.createTime ">create_time =
+                    #{item.createTime},
+                </if>
+                <if test="null != item.createUser  and '' != item.createUser ">create_user =
+                    #{item.createUser},
+                </if>
+                <if test="null != item.createUserId  and '' != item.createUserId ">create_user_id =
+                    #{item.createUserId},
+                </if>
+                <if test="null != item.updateTime ">update_time =
+                    #{item.updateTime},
+                </if>
+                <if test="null != item.updateUser  and '' != item.updateUser ">update_user =
+                    #{item.updateUser},
+                </if>
+                <if test="null != item.updateUserId  and '' != item.updateUserId ">update_user_id =
+                    #{item.updateUserId},
+                </if>
+            </set>
+            WHERE id = #{item.id}
+        </foreach>
+    </update>
+
+
+</mapper>
