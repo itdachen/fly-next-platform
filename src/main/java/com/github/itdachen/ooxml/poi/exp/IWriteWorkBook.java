@@ -1,6 +1,5 @@
 package com.github.itdachen.ooxml.poi.exp;
 
-import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -12,8 +11,7 @@ import java.util.List;
  * @author 王大宸
  * @date 2025/7/11 23:39
  */
-public interface IWriteWorkBook<T,Q> {
-
+public interface IWriteWorkBook<T, Q> {
 
 
     /***
@@ -45,8 +43,8 @@ public interface IWriteWorkBook<T,Q> {
      * @date 2025/7/11 23:47
      * @param workbook workbook
      * @param sheet sheet
-     * @param list list
-     * @param hasRowNum hasRowNum
+     * @param list       需要写入表格的数据
+     * @param hasRowNum  是否需要序号
      * @return void
      */
     void writeWorkBook(XSSFWorkbook workbook, Sheet sheet, List<T> list, boolean hasRowNum);
