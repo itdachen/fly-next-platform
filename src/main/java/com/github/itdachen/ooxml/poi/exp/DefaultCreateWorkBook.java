@@ -1,6 +1,11 @@
 package com.github.itdachen.ooxml.poi.exp;
 
+import com.github.itdachen.boot.autoconfigure.AppContextHelper;
+import com.github.itdachen.boot.autoconfigure.AppHelper;
+import com.github.itdachen.framework.context.id.IdUtils;
 import com.github.itdachen.framework.core.utils.LocalDateUtils;
+import com.github.itdachen.ooxml.poi.entity.MsgFileModel;
+import com.github.itdachen.ooxml.poi.entity.PoiUploadInfo;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
@@ -19,12 +24,24 @@ public class DefaultCreateWorkBook<T, Q> implements ICreateWorkBook<T, Q> {
     private static final Logger logger = LoggerFactory.getLogger(DefaultCreateWorkBook.class);
 
 
+    /***
+     * 创建表格
+     *
+     * @author 王大宸
+     * @date 2025/7/22 15:18
+     * @param settings settings
+     * @param handler handler
+     * @param bookNum  第几个表格
+     * @param msgId    导出消息ID
+     * @return void
+     */
     @Override
-    public void createWorkBook(ParameterSettings<Q> settings, IWriteWorkBook<T, Q> handler, int bookNum, String msgId) {
+    public void createWorkBook(ParameterSettings<Q> settings,
+                               IWriteWorkBook<T, Q> handler,
+                               int bookNum, String msgId) {
 
 
-
-       final String localDate = LocalDateUtils.getLocalDate().replaceAll("-", "");
+        final String localDate = LocalDateUtils.getLocalDate().replaceAll("-", "");
         final String fileTitle = settings.getTitle() + bookNum + "_" + localDate + settings.getFileFormat();
 
         String msgContent = "【" + LocalDateUtils.getLocalDateTime() + "】《" + fileTitle + "》文件开始导出！";
@@ -71,38 +88,35 @@ public class DefaultCreateWorkBook<T, Q> implements ICreateWorkBook<T, Q> {
 
             dataList = null;
 
-         //   PoiUploadInfo uploadInfo = new PoiUploadInfo();
+            PoiUploadInfo uploadInfo = new PoiUploadInfo();
 
             /* 导出是否保存到服务器 */
-//            if (settings.getUpload()) {
-//                msgContent = "【" + LocalDateUtils.getLocalDateTime() + "】《" + fileTitle + "》导出结果开始上传到服务器！";
-//                appendMessageContent(msgId, msgContent, settings.getSendMsg());
-//
-//
-//                WorkBookExpUpload.setUploadToFolder(workbook, uploadInfo);
-//
-//
-//                msgContent = "【" + LocalDateUtils.getLocalDateTime() + "】《" + fileTitle + "》导出结果上传到服务器结束！";
-//                appendMessageContent(msgId, msgContent, settings.getSendMsg());
-//            }
+            if (settings.getUploadFile()) {
+                msgContent = "【" + LocalDateUtils.getLocalDateTime() + "】《" + fileTitle + "》导出结果开始上传到服务器！";
+                appendMessageContent(msgId, msgContent, settings.getSendMsg());
+
+
+                WorkBookExpFileUploadHandler.setUploadToFolder(workbook, uploadInfo);
+
+
+                msgContent = "【" + LocalDateUtils.getLocalDateTime() + "】《" + fileTitle + "》导出结果上传到服务器结束！";
+                appendMessageContent(msgId, msgContent, settings.getSendMsg());
+            }
 
 
             /* 下载文件消息入库: 能推送消息, 能上传文件 */
             if (settings.getSendMsg() && settings.getUploadFile()) {
-//                MessageFile messageFile = MessageFile.builder()
-//                        .id(PrimaryKeyUtils.getId())
-//                        .msgId(msgId)
-//                        .appId(AppHelper.app().appInfo().getAppId())
-//                        .fileFormat(settings.getFileFormat())
-//                        .fileTitle(fileTitle)
-//                        .fileUri(uploadInfo.getFileUri())
-//                        .fileSize(uploadInfo.getFileSize())
-//                        .fileMd5("")
-//                        .downloadFlag(YesOrNotConstant.N)
-//                        .downloadNum(0)
-//                        .readFlag(YesOrNotConstant.N)
-//                        .build();
-//                AppContextHelper.getBean(IMessageFileClient.class).saveMessageFile(messageFile);
+                MsgFileModel messageFile = MsgFileModel.builder()
+                        .id(IdUtils.getId())
+                        .msgId(msgId)
+                        .appId(AppHelper.app().properties().getAppId())
+                        .fileFormat(settings.getFileFormat())
+                        .fileTitle(fileTitle)
+                        .fileUrl(uploadInfo.getFileUri())
+                        .fileSize(uploadInfo.getFileSize() + "")
+                        .hexMd5("-")
+                        .build();
+                AppContextHelper.getBean(IOplogMsgClient.class).saveMsgFile(messageFile);
             }
 
 
@@ -122,17 +136,15 @@ public class DefaultCreateWorkBook<T, Q> implements ICreateWorkBook<T, Q> {
                 /* 计时结束 */
                 stopWatch.stop();
 
-                msgContent = "【" + LocalDateUtils.getLocalDateTime() + "】《" + fileTitle + "》导出记录开始保存到数据库，本次导出共用时 " + stopWatch.getTotalTimeSeconds() + " 秒！";
-                appendMessageContent(msgId, msgContent, settings.getSendMsg());
-                msgContent = "【" + LocalDateUtils.getLocalDateTime() + "】《" + fileTitle + "》导出记录保存到数据库结束！<br>";
+                msgContent = "【" + LocalDateUtils.getLocalDateTime() + "】《" + fileTitle + "》导出记录开始保存到数据库，本次导出共用时 " + stopWatch.getTotalTimeSeconds() + " 秒！导出记录保存到数据库结束！<br>";
                 appendMessageContent(msgId, msgContent, settings.getSendMsg());
 
+                stopWatch = null;
             } catch (Exception e) {
                 logger.error("数据导出, 关闭输出流失败: {} ", e.getMessage(), e);
             }
 
         }
-
 
 
     }
@@ -150,7 +162,7 @@ public class DefaultCreateWorkBook<T, Q> implements ICreateWorkBook<T, Q> {
      */
     private void appendMessageContent(String msgId, String msgContent, boolean sendMessage) {
         if (sendMessage) {
-            //  WorkBookExpMessage.appendContent(msgId, msgContent);
+            WorkBookExpMessageHandler.appendContent(msgId, msgContent);
         }
     }
 

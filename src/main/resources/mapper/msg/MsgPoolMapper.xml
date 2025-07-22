@@ -19,8 +19,11 @@
         <result property="roleId" column="role_id"/>
         <result property="roleName" column="role_name"/>
         <result property="provId" column="prov_id"/>
+        <result property="provTitle" column="prov_title"/>
         <result property="cityId" column="city_id"/>
+        <result property="cityTitle" column="city_title"/>
         <result property="countyId" column="county_id"/>
+        <result property="countyTitle" column="county_title"/>
         <result property="deptId" column="dept_id"/>
         <result property="deptTitle" column="dept_title"/>
         <result property="deptLevel" column="dept_level"/>
@@ -30,7 +33,11 @@
         <result property="hostOs" column="host_os"/>
         <result property="hostBrowser" column="host_browser"/>
         <result property="hostUserAgent" column="host_user_agent"/>
-        <result property="msgTitle" column="msg_title"/>
+        <result property="msgType" column="msg_type"/>
+        <result property="msgTypeTitle" column="msg_type_title"/>
+        <result property="clazzType" column="clazz_type"/>
+        <result property="clazzTitle" column="clazz_title"/>
+        <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="readFlag" column="read_flag"/>
         <result property="readTime" column="read_time"/>
@@ -39,7 +46,6 @@
         <result property="removeNickName" column="remove_nick_name"/>
         <result property="yearly" column="yearly"/>
         <result property="monthly" column="monthly"/>
-        <result property="createTime" column="create_time"/>
     </resultMap>
 
     <!-- VO 类查询 -->
@@ -57,8 +63,11 @@
                role_id,
                role_name,
                prov_id,
+               prov_title,
                city_id,
+               city_title,
                county_id,
+               county_title,
                dept_id,
                dept_title,
                dept_level,
@@ -68,7 +77,11 @@
                host_os,
                host_browser,
                host_user_agent,
-               msg_title,
+               msg_type,
+               msg_type_title,
+               clazz_type,
+               clazz_title,
+               title,
                content,
                read_flag,
                read_time,
@@ -76,21 +89,50 @@
                remove_user_id,
                remove_nick_name,
                yearly,
-               monthly,
-               create_time
+               monthly
         FROM ta_fly_msg_pool
     </sql>
 
     <!-- 导出数据字段查询 -->
     <sql id="selectMsgPoolExpVO">
-        SELECT role_name,
+        SELECT tenant_title,
+               plat_id,
+               plat_title,
+               app_id,
+               app_title,
+               app_version,
+               user_id,
+               nick_name,
+               role_id,
+               role_name,
+               prov_id,
+               prov_title,
+               city_id,
+               city_title,
+               county_id,
+               county_title,
+               dept_id,
                dept_title,
-               msg_title,
+               dept_level,
+               dept_parent_id,
+               host_ip,
+               host_address,
+               host_os,
+               host_browser,
+               host_user_agent,
+               msg_type,
+               msg_type_title,
+               clazz_type,
+               clazz_title,
+               title,
+               content,
                read_flag,
                read_time,
+               remove_time,
+               remove_user_id,
+               remove_nick_name,
                yearly,
-               monthly,
-               create_time
+               monthly
         FROM ta_fly_msg_pool
     </sql>
 

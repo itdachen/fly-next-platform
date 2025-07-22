@@ -65,8 +65,7 @@ public class OOXmlPoiExpHelper<T, Q> {
      * @return com.github.itdachen.ooxml.poi.OOXmlPoiExpHelper<T, Q>
      */
     public OOXmlPoiExpHelper<T, Q> execute() throws Exception {
-        WorkBookExpHelper<T, Q> helper = new WorkBookExpHelper<T, Q>(this.settings, this.writeWorkBook, this.createWorkBook);
-        helper.helper();
+        new WorkBookExpHelper<T, Q>(this.settings, this.writeWorkBook, this.createWorkBook).execute();
         return this;
     }
 
@@ -80,8 +79,15 @@ public class OOXmlPoiExpHelper<T, Q> {
     public OOXmlPoiExpHelper<T, Q> reply() throws IOException {
         this.settings.getResponse().setStatus(HttpStatus.OK.value());
         this.settings.getResponse().setContentType("application/json;charset=UTF-8");
-        this.settings.getResponse().getWriter().write(ServerResponse.okMsg("数据正在导出，请刷新【消息中心】信息！"));
+        this.settings.getResponse().getWriter().write(okMsg("数据正在导出，请刷新【消息中心】信息！"));
         return this;
+    }
+
+    /***
+     * 成功消息
+     */
+    private static String okMsg(String msg) {
+        return "{\"success\":\"true\",\"status\":\"" + 200 + "\", \"msg\":\"" + msg + "\",\"data\": null}";
     }
 
 
