@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  * @author 王大宸
  * @date 2025-07-11 22:52:18
  */
-@Table(name = "ta_fly_msg_file")
+@Table(name = "ta_fly_msg_pool_file")
 public class MsgPoolFile implements Serializable {
     private static final long serialVersionUID = 1L;
 

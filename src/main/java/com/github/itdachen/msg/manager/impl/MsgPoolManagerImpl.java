@@ -99,17 +99,14 @@ public class MsgPoolManagerImpl implements IMsgPoolManager {
         MsgPool msgPool = msgPoolMapper.selectByPrimaryKey(msgModel.getId());
 
 
-        MsgPool newMsgPool = new MsgPool();
-        newMsgPool.setId(msgPool.getId());
-
         String content = msgPool.getContent();
         content = content + "<br>" + msgModel.getContent();
-        newMsgPool.setContent(content);
+        msgPool.setContent(content);
 
         List<MsgFileModel> files = msgModel.getFiles();
         if (null == files || files.isEmpty()) {
-            msgPoolMapper.updateByPrimaryKeySelective(newMsgPool);
-            return msgPoolConvert.toJavaObjectVO(newMsgPool);
+            msgPoolMapper.updateByPrimaryKeySelective(msgPool);
+            return msgPoolConvert.toJavaObjectVO(msgPool);
         }
 
         /* 添加文件信息 */
@@ -121,7 +118,7 @@ public class MsgPoolManagerImpl implements IMsgPoolManager {
             msgPoolFileVOs.add(msgPoolFileConvert.toJavaObjectVO(msgPoolFile));
         }
 
-        msgPoolMapper.updateByPrimaryKeySelective(newMsgPool);
+        msgPoolMapper.updateByPrimaryKeySelective(msgPool);
         MsgPoolVO msgPoolVO = msgPoolConvert.toJavaObjectVO(msgPool);
         msgPoolVO.setFiles(msgPoolFileVOs);
         return msgPoolVO;
@@ -136,6 +133,7 @@ public class MsgPoolManagerImpl implements IMsgPoolManager {
      * @return void
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public MsgPoolFileVO saveMsgFile(MsgFileModel msgFileModel) {
         if (null == msgFileModel.getMsgId()) {
             throw new BizException("消息ID不能为空!");
@@ -292,6 +290,10 @@ public class MsgPoolManagerImpl implements IMsgPoolManager {
         msgPoolFile.setUpdateTime(now);
         msgPoolFile.setUpdateUserId(msgPool.getId());
         msgPoolFile.setUpdateUser(msgPool.getNickName());
+
+        if (null == msgPoolFile.getId()) {
+            msgPoolFile.setId(IdUtils.getId());
+        }
 
         return msgPoolFile;
     }
