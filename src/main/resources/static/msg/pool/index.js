@@ -78,24 +78,24 @@ function msgPoolToolBar(table) {
 function msgPoolActionBar(table) {
     table.on('tool(msgPoolLayFilter)', function (obj) {
         let data = obj.data;
-        if ('deleteMsgPool' === obj.event) {
-            $.table.delete({
-                url: MSG_POOL_PATH + '/' + data.id,
-                title: data.name,
-                reloadTable: reloadMsgPoolTableData
-            })
-        }
-        if ('updateMsgPool' === obj.event) {
-            $.flyer.openIframe({
-                title: '编辑消息池',
-                content: MSG_POOL_PATH + '/edit/' + data.id
-            })
-        }
         if ('viewMsgPool' === obj.event) {
-            $.flyer.openIframeSee({
-                title: '查看消息池',
-                content: MSG_POOL_PATH + '/view/' + data.id
-            })
+            // $.flyer.openIframeSee({
+            //     title: '查看消息池',
+            //     content: MSG_POOL_PATH + '/view/' + data.id
+            // })
+
+            let width = ($(window).width() - 20);
+            let height = ($(window).height() - 20);
+            layer.open({
+                type: 2,
+                title: '【' + data.msgTypeTitle + '】' + data.msgTitle,
+                content: $.http.verifyURL(MSG_POOL_PATH + '/view/' + data.id),
+                area: [width + 'px', height + 'px'],
+                fix: false,
+                maxmin: false,
+                shade: 0.3,
+                shadeClose: false
+            });
         }
     })
 }
@@ -123,7 +123,7 @@ function msgPoolTableOptions(queryMsgPoolParams) {
         url: MSG_POOL_PATH + '/page',
         where: queryMsgPoolParams,
         cols: [[
-            {field: 'msgTitle', title: '消息标题', align: 'left'},
+            {field: 'title', title: '消息标题', align: 'left'},
             {field: 'readFlag', title: '阅读标志', width: 120, align: 'center'},
             {field: 'createTime', title: '创建时间', width: 180, align: 'center'},
             {fixed: 'right', title: '操作', toolbar: '#msgPoolActionBar', width: 180, align: 'center'}

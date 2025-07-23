@@ -46,6 +46,7 @@
         <result property="removeNickName" column="remove_nick_name"/>
         <result property="yearly" column="yearly"/>
         <result property="monthly" column="monthly"/>
+        <result property="createTime" column="create_time"/>
     </resultMap>
 
     <!-- VO 类查询 -->
@@ -89,7 +90,8 @@
                remove_user_id,
                remove_nick_name,
                yearly,
-               monthly
+               monthly,
+               create_time
         FROM ta_fly_msg_pool
     </sql>
 
@@ -135,6 +137,7 @@
                monthly
         FROM ta_fly_msg_pool
     </sql>
+
 
     <!-- 分页和导出查询参数 -->
     <sql id="selectParamsWhere">

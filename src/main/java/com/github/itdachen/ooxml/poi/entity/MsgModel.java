@@ -188,7 +188,7 @@ public class MsgModel implements Serializable {
     public MsgModel() {
     }
 
-    public MsgModel(String id, String tenantId, String tenantTitle, String platId, String platTitle, String appId, String appTitle, String appVersion, String userId, String nickName, String roleId, String roleName, String provId, String provTitle, String cityId, String cityTitle, String countyId, String countyTitle, String deptId, String deptTitle, String deptLevel, String deptParentId, String hostIp, String hostAddress, String hostOs, String hostBrowser, String hostUserAgent, String msgType, String msgTypeTitle, String clazzType, String clazzTitle, String title, String content) {
+    public MsgModel(String id, String tenantId, String tenantTitle, String platId, String platTitle, String appId, String appTitle, String appVersion, String userId, String nickName, String roleId, String roleName, String provId, String provTitle, String cityId, String cityTitle, String countyId, String countyTitle, String deptId, String deptTitle, String deptLevel, String deptParentId, String hostIp, String hostAddress, String hostOs, String hostBrowser, String hostUserAgent, String msgType, String msgTypeTitle, String clazzType, String clazzTitle, String title, String content, List<MsgFileModel> files) {
         this.id = id;
         this.tenantId = tenantId;
         this.tenantTitle = tenantTitle;
@@ -222,6 +222,7 @@ public class MsgModel implements Serializable {
         this.clazzTitle = clazzTitle;
         this.title = title;
         this.content = content;
+        this.files = files;
     }
 
     public static MsgModelBuilder builder() {
@@ -503,7 +504,8 @@ public class MsgModel implements Serializable {
                     clazzType,
                     clazzTitle,
                     title,
-                    content
+                    content,
+                    files
             );
         }
 
@@ -774,6 +776,13 @@ public class MsgModel implements Serializable {
         return content;
     }
 
+    public List<MsgFileModel> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<MsgFileModel> files) {
+        this.files = files;
+    }
 
     @Override
     public String toString() {
@@ -811,6 +820,7 @@ public class MsgModel implements Serializable {
                 .append("clazzTitle", getClazzTitle())
                 .append("title", getTitle())
                 .append("content", getContent())
+                .append("files", getFiles())
                 .toString();
     }
 

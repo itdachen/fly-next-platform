@@ -1,6 +1,5 @@
 package com.github.itdachen.ooxml.poi;
 
-import com.github.itdachen.framework.core.response.ServerResponse;
 import com.github.itdachen.ooxml.poi.exp.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,7 +64,8 @@ public class OOXmlPoiExpHelper<T, Q> {
      * @return com.github.itdachen.ooxml.poi.OOXmlPoiExpHelper<T, Q>
      */
     public OOXmlPoiExpHelper<T, Q> execute() throws Exception {
-        new WorkBookExpHelper<T, Q>(this.settings, this.writeWorkBook, this.createWorkBook).execute();
+        WorkBookExpHelper<T, Q> tqWorkBookExpHelper = new WorkBookExpHelper<>(this.settings, this.writeWorkBook, this.createWorkBook);
+        tqWorkBookExpHelper.execute();
         return this;
     }
 

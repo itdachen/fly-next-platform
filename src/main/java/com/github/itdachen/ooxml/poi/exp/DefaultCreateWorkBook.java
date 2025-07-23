@@ -52,18 +52,14 @@ public class DefaultCreateWorkBook<T, Q> implements ICreateWorkBook<T, Q> {
         stopWatch.start();
 
 
-        XSSFWorkbook workbook = null;
+        XSSFWorkbook workbook = new XSSFWorkbook();
         try {
             /* 查询可导出的数据 */
             Integer limit = Integer.parseInt(String.valueOf(settings.getSheetRowNum()));
             List<T> dataList = handler.data(settings.getParams(), bookNum, limit);
 
-
             msgContent = "【" + LocalDateUtils.getLocalDateTime() + "】《" + fileTitle + "》获取数据成功，共 " + dataList.size() + " 条数据！";
             appendMessageContent(msgId, msgContent, settings.getSendMsg());
-
-
-            workbook = new XSSFWorkbook();
 
             /* 创建 sheet */
             Sheet sheet = workbook.createSheet(settings.getTitle() + bookNum);
@@ -114,7 +110,6 @@ public class DefaultCreateWorkBook<T, Q> implements ICreateWorkBook<T, Q> {
                         .fileTitle(fileTitle)
                         .fileUrl(uploadInfo.getFileUri())
                         .fileSize(uploadInfo.getFileSize() + "")
-                        .hexMd5("-")
                         .build();
                 AppContextHelper.getBean(IOplogMsgClient.class).saveMsgFile(messageFile);
             }

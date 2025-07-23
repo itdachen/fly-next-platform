@@ -12,13 +12,13 @@ import java.time.LocalDateTime;
 
 
 /**
- * 消息池
+ * 消息附件
  *
  * @author 王大宸
  * @date 2025-07-11 22:52:18
  */
-@Table(name = "ta_fly_msg_pool")
-public class MsgPool implements Serializable {
+@Table(name = "ta_fly_msg_file")
+public class MsgPoolFile implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -209,16 +209,76 @@ public class MsgPool implements Serializable {
     private String clazzTitle;
 
     /**
-     * 消息标题
+     * 消息ID
      */
-    @Column(name = "title")
-    private String title;
+    @Column(name = "msg_id")
+    private String msgId;
 
     /**
-     * 消息内容
+     * 消息标题
      */
-    @Column(name = "content")
-    private String content;
+    @Column(name = "msg_title")
+    private String msgTitle;
+
+    /**
+     * 文件名称
+     */
+    @Column(name = "file_title")
+    private String fileTitle;
+
+    /**
+     * 文件格式
+     */
+    @Column(name = "file_format")
+    private String fileFormat;
+
+    /**
+     * 文件地址
+     */
+    @Column(name = "file_url")
+    private String fileUrl;
+
+    /**
+     * 文件大小
+     */
+    @Column(name = "file_size")
+    private String fileSize;
+
+    /**
+     * 文件MD5值(对接文件服务, 真多同一个文件同时上传多次的问题, MD5 可以实现秒传)
+     */
+    @Column(name = "hex_md5")
+    private String hexMd5;
+
+    /**
+     * MD5可用标志: Y-可用;N-不可用; 值为 N 时该文件不能被下载(防止一下不适当/不健康的文件传播)
+     */
+    @Column(name = "md5_valid_flag")
+    private String md5ValidFlag;
+
+    /**
+     * 下载标志
+     */
+    @Column(name = "download_flag")
+    private String downloadFlag;
+
+    /**
+     * 下载次数
+     */
+    @Column(name = "download_total")
+    private Long downloadTotal;
+
+    /**
+     * 第一次下载时间
+     */
+    @Column(name = "download_first_time")
+    private LocalDateTime downloadFirstTime;
+
+    /**
+     * 最后一次下载时间
+     */
+    @Column(name = "download_last_time")
+    private LocalDateTime downloadLastTime;
 
     /**
      * 阅读标志
@@ -553,20 +613,100 @@ public class MsgPool implements Serializable {
         return clazzTitle;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setMsgId(String msgId) {
+        this.msgId = msgId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getMsgId() {
+        return msgId;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setMsgTitle(String msgTitle) {
+        this.msgTitle = msgTitle;
     }
 
-    public String getContent() {
-        return content;
+    public String getMsgTitle() {
+        return msgTitle;
+    }
+
+    public void setFileTitle(String fileTitle) {
+        this.fileTitle = fileTitle;
+    }
+
+    public String getFileTitle() {
+        return fileTitle;
+    }
+
+    public void setFileFormat(String fileFormat) {
+        this.fileFormat = fileFormat;
+    }
+
+    public String getFileFormat() {
+        return fileFormat;
+    }
+
+    public void setFileUrl(String fileUrl) {
+        this.fileUrl = fileUrl;
+    }
+
+    public String getFileUrl() {
+        return fileUrl;
+    }
+
+    public void setFileSize(String fileSize) {
+        this.fileSize = fileSize;
+    }
+
+    public String getFileSize() {
+        return fileSize;
+    }
+
+    public void setHexMd5(String hexMd5) {
+        this.hexMd5 = hexMd5;
+    }
+
+    public String getHexMd5() {
+        return hexMd5;
+    }
+
+    public void setMd5ValidFlag(String md5ValidFlag) {
+        this.md5ValidFlag = md5ValidFlag;
+    }
+
+    public String getMd5ValidFlag() {
+        return md5ValidFlag;
+    }
+
+    public void setDownloadFlag(String downloadFlag) {
+        this.downloadFlag = downloadFlag;
+    }
+
+    public String getDownloadFlag() {
+        return downloadFlag;
+    }
+
+    public void setDownloadTotal(Long downloadTotal) {
+        this.downloadTotal = downloadTotal;
+    }
+
+    public Long getDownloadTotal() {
+        return downloadTotal;
+    }
+
+    public void setDownloadFirstTime(LocalDateTime downloadFirstTime) {
+        this.downloadFirstTime = downloadFirstTime;
+    }
+
+    public LocalDateTime getDownloadFirstTime() {
+        return downloadFirstTime;
+    }
+
+    public void setDownloadLastTime(LocalDateTime downloadLastTime) {
+        this.downloadLastTime = downloadLastTime;
+    }
+
+    public LocalDateTime getDownloadLastTime() {
+        return downloadLastTime;
     }
 
     public void setReadFlag(String readFlag) {
@@ -716,8 +856,18 @@ public class MsgPool implements Serializable {
                 .append("msgTypeTitle", getMsgTypeTitle())
                 .append("clazzType", getClazzType())
                 .append("clazzTitle", getClazzTitle())
-                .append("title", getTitle())
-                .append("content", getContent())
+                .append("msgId", getMsgId())
+                .append("msgTitle", getMsgTitle())
+                .append("fileTitle", getFileTitle())
+                .append("fileFormat", getFileFormat())
+                .append("fileUrl", getFileUrl())
+                .append("fileSize", getFileSize())
+                .append("hexMd5", getHexMd5())
+                .append("md5ValidFlag", getMd5ValidFlag())
+                .append("downloadFlag", getDownloadFlag())
+                .append("downloadTotal", getDownloadTotal())
+                .append("downloadFirstTime", getDownloadFirstTime())
+                .append("downloadLastTime", getDownloadLastTime())
                 .append("readFlag", getReadFlag())
                 .append("readTime", getReadTime())
                 .append("removeFlag", getRemoveFlag())

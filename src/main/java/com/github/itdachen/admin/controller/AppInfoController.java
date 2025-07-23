@@ -130,43 +130,43 @@ public class AppInfoController extends BizController<IAppInfoService, AppInfoDTO
     }
 
 
-    @GetMapping("/exp/test")
-    @ResponseBody
-    public void expTest(HttpServletRequest request,
-                        HttpServletResponse response) throws Exception {
-
-        bizService.dataExpToExcel(request, response, new AppInfoQuery());
-
-//        Workbook workbook = new XSSFWorkbook();
+//    @GetMapping("/exp/test")
+//    @ResponseBody
+//    public void expTest(HttpServletRequest request,
+//                        HttpServletResponse response) throws Exception {
 //
-//        Sheet sheet = workbook.createSheet("Sheet1");
+//        bizService.dataExpToExcel(request, response, new AppInfoQuery());
 //
-//        // 写入表头
-//        Row headerRow = sheet.createRow(0);
-//        headerRow.createCell(0).setCellValue("姓名");
-//        headerRow.createCell(1).setCellValue("年龄");
-//        headerRow.createCell(2).setCellValue("性别");
+////        Workbook workbook = new XSSFWorkbook();
+////
+////        Sheet sheet = workbook.createSheet("Sheet1");
+////
+////        // 写入表头
+////        Row headerRow = sheet.createRow(0);
+////        headerRow.createCell(0).setCellValue("姓名");
+////        headerRow.createCell(1).setCellValue("年龄");
+////        headerRow.createCell(2).setCellValue("性别");
+////
+////        // 写入数据行
+////        Row dataRow = sheet.createRow(1);
+////        dataRow.createCell(0).setCellValue("张三");
+////        dataRow.createCell(1).setCellValue(20);
+////        dataRow.createCell(2).setCellValue("男");
+////
+////        try {
+////            String path = "d:/upload/output.xlsx";
+////            FileOutputStream outputStream = new FileOutputStream(path);
+////            workbook.write(outputStream);
+////            outputStream.close();
+////        } catch(IOException e) {
+////            e.printStackTrace();
+////        }
+////        workbook.close();
 //
-//        // 写入数据行
-//        Row dataRow = sheet.createRow(1);
-//        dataRow.createCell(0).setCellValue("张三");
-//        dataRow.createCell(1).setCellValue(20);
-//        dataRow.createCell(2).setCellValue("男");
 //
-//        try {
-//            String path = "d:/upload/output.xlsx";
-//            FileOutputStream outputStream = new FileOutputStream(path);
-//            workbook.write(outputStream);
-//            outputStream.close();
-//        } catch(IOException e) {
-//            e.printStackTrace();
-//        }
-//        workbook.close();
-
-
-
-
-    }
+//
+//
+//    }
 
 
 }

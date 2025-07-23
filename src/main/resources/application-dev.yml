@@ -11,7 +11,6 @@ server:
 logging:
   config: classpath:fly.xml
   level:
-    com.github.itdachen: debug
     cn.jay.repository: trace
     org.springframework: warn
   file:
@@ -32,7 +31,7 @@ fly:
     type: LOCAL
     local:
       localHttp: http://127.0.0.1:8080
-      diskFolder: D:/upload/
+      diskFolder: D:/upload/fly-next-admin
     ali:
       endpoint: oss-cn-chengdu.aliyuncs.com
       access-key-id: 123

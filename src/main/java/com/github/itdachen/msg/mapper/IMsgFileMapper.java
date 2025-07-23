@@ -1,8 +1,8 @@
 package com.github.itdachen.msg.mapper;
 
-import com.github.itdachen.msg.entity.MsgFile;
-import com.github.itdachen.msg.sdk.query.MsgFileQuery;
-import com.github.itdachen.msg.sdk.vo.MsgFileVO;
+import com.github.itdachen.msg.entity.MsgPoolFile;
+import com.github.itdachen.msg.sdk.query.MsgPoolFileQuery;
+import com.github.itdachen.msg.sdk.vo.MsgPoolFileVO;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.LinkedHashMap;
@@ -14,7 +14,7 @@ import java.util.List;
  * @author 王大宸
  * @date 2025-07-11 22:52:18
  */
-public interface IMsgFileMapper extends Mapper< MsgFile > {
+public interface IMsgFileMapper extends Mapper<MsgPoolFile> {
 
     /***
      * 查询集合
@@ -24,7 +24,7 @@ public interface IMsgFileMapper extends Mapper< MsgFile > {
      * @param params params
      * @return com.github.itdachen.msg.sdk.vo.msgFileVO
      */
-    List< MsgFileVO > list(MsgFileQuery params);
+    List<MsgPoolFileVO> list(MsgPoolFileQuery params);
 
     /***
      * 根据id查询
@@ -34,7 +34,9 @@ public interface IMsgFileMapper extends Mapper< MsgFile > {
      * @param id 需要查询的数据id
      * @return com.github.itdachen.msg.sdk.vo.msgFileVo
      */
-        MsgFileVO selectMsgFileVO( String id);
+    MsgPoolFileVO selectMsgPoolFileVO(String id);
+
+    List<MsgPoolFileVO> findMsgPoolFileList(String msgId);
 
     /***
      * 查询导出数据
@@ -44,7 +46,7 @@ public interface IMsgFileMapper extends Mapper< MsgFile > {
      * @param params 查询参数
      * @return java.util.LinkedHashMap
      */
-    List< LinkedHashMap< String, String > > selectMsgFileExpData(MsgFileQuery params);
+    List<LinkedHashMap<String, String>> selectMsgFileExpData(MsgPoolFileQuery params);
 
     /***
      * 批量添加
@@ -53,7 +55,7 @@ public interface IMsgFileMapper extends Mapper< MsgFile > {
      * @date 2025-07-11 22:52:18
      * @param list java.util.List<com.github.itdachen.msg.entity.MsgFile>
      */
-    void  batchSave(List< MsgFile > list);
+    void batchSave(List<MsgPoolFile> list);
 
     /***
      * 批量修改
@@ -62,6 +64,6 @@ public interface IMsgFileMapper extends Mapper< MsgFile > {
      * @date 2025-07-11 22:52:18
      * @param list java.util.List<com.github.itdachen.msg.entity.MsgFile>
      */
-    void batchUpdate(List< MsgFile > list);
+    void batchUpdate(List<MsgPoolFile> list);
 
 }

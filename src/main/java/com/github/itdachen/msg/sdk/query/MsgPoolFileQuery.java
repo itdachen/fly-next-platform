@@ -5,7 +5,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 
 /**
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
  * @author 王大宸
  * @date 2025-07-11 22:52:18
  */
-public class MsgFileQuery extends BizQuery implements Serializable {
+public class MsgPoolFileQuery extends BizQuery implements Serializable {
     private static final long serialVersionUID = 1L;
 
             /** 租户ID */
@@ -64,10 +63,10 @@ public class MsgFileQuery extends BizQuery implements Serializable {
 
 
 
-    public MsgFileQuery() {
+    public MsgPoolFileQuery() {
     }
 
-    public MsgFileQuery(int page, int limit, String tenantId, String platId, String appId, String userId, String nickName, String msgId, String fileTitle, String fileFormat, String hexMd5, String md5ValidFlag, String downloadFlag, String readFlag, String removeFlag, String yearly, String monthly) {
+    public MsgPoolFileQuery(int page, int limit, String tenantId, String platId, String appId, String userId, String nickName, String msgId, String fileTitle, String fileFormat, String hexMd5, String md5ValidFlag, String downloadFlag, String readFlag, String removeFlag, String yearly, String monthly) {
         super(page, limit);
             this.tenantId = tenantId;
             this.platId = platId;
@@ -198,8 +197,8 @@ public class MsgFileQuery extends BizQuery implements Serializable {
                 return this;
             }
 
-        public MsgFileQuery build() {
-            return new MsgFileQuery(page, limit, tenantId, platId, appId, userId, nickName, msgId, fileTitle, fileFormat, hexMd5, md5ValidFlag, downloadFlag, readFlag, removeFlag, yearly, monthly);
+        public MsgPoolFileQuery build() {
+            return new MsgPoolFileQuery(page, limit, tenantId, platId, appId, userId, nickName, msgId, fileTitle, fileFormat, hexMd5, md5ValidFlag, downloadFlag, readFlag, removeFlag, yearly, monthly);
         }
 
     }

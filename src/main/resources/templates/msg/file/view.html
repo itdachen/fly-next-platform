@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<form class="layui-form" id="seeMsgFileForm" th:object="${msgFile}">
+<form class="layui-form" id="seeMsgFileForm" th:object="${msgPoolFile}">
     <div class="layui-form-body-see">
 
                     <div class="layui-form-item">
@@ -167,7 +167,7 @@ lay-verify="required" class="layui-input">
                                    th:field="*{md5ValidFlag}"
                                    th:title="${dict.label}"
                                    th:value="${dict.value}"
-                                   th:checked="${msgFile.md5ValidFlag}">
+                                   th:checked="${msgPoolFile.md5ValidFlag}">
                         </div>
                     </div>
 

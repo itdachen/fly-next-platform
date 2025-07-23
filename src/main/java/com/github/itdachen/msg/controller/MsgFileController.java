@@ -1,9 +1,9 @@
 package com.github.itdachen.msg.controller;
 
 import com.github.itdachen.msg.service.IMsgFileService;
-import com.github.itdachen.msg.sdk.dto.MsgFileDTO;
-import com.github.itdachen.msg.sdk.query.MsgFileQuery;
-import com.github.itdachen.msg.sdk.vo.MsgFileVO;
+import com.github.itdachen.msg.sdk.dto.MsgPoolFileDTO;
+import com.github.itdachen.msg.sdk.query.MsgPoolFileQuery;
+import com.github.itdachen.msg.sdk.vo.MsgPoolFileVO;
 import com.github.itdachen.framework.context.annotation.FuncTitle;
 import com.github.itdachen.framework.webmvc.controller.BizController;
 import org.slf4j.Logger;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/msg/file")
 @FuncTitle("消息附件")
-public class MsgFileController extends BizController< IMsgFileService, MsgFileDTO, MsgFileVO, MsgFileQuery, String > {
+public class MsgFileController extends BizController< IMsgFileService, MsgPoolFileDTO, MsgPoolFileVO, MsgPoolFileQuery, String > {
     private static final Logger logger = LoggerFactory.getLogger(MsgFileController.class);
     private static final String PATH_PREFIX = "msg/file";
 

@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form class="layui-form" id="editMsgFileForm" th:object="${msgFile}">
+<form class="layui-form" id="editMsgFileForm" th:object="${msgPoolFile}">
     <div class="layui-form-body">
 
                     <div class="layui-form-item">
@@ -149,7 +149,7 @@
                                    th:title="${dict.label}"
                                    th:value="${dict.value}"
                                    th:field="*{md5ValidFlag}"
-                                   th:checked="${msgFile.md5ValidFlag}">
+                                   th:checked="${msgPoolFile.md5ValidFlag}">
                         </div>
                     </div>
 

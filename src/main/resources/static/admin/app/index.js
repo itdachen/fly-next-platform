@@ -30,7 +30,13 @@ function initAppLayTable(table, form) {
     form.on('submit(expAppInfo)', function (data) {
         let uri = appPath + '/exp';
         let expUri = queryUriObjParams(uri, data.field);
-        window.open(expUri);
+        //  window.open(expUri);
+        $.http.get({
+            url: expUri,
+            callback: function (res) {
+                layer.alert(res.msg);
+            }
+        })
         return false;
     })
 

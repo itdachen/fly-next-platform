@@ -1,308 +1,321 @@
-package com.github.itdachen.msg.entity;
+package com.github.itdachen.msg.sdk.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 
 /**
- * 消息池
+ * 消息附件 DTO
  *
  * @author 王大宸
  * @date 2025-07-11 22:52:18
  */
-@Table(name = "ta_fly_msg_pool")
-public class MsgPool implements Serializable {
+public class MsgPoolFileDTO implements Serializable {
     private static final long serialVersionUID = 1L;
+
 
     /**
      * 主键唯一标识
      */
-    @Id
-    @Column(name = "id")
     private String id;
 
     /**
      * 租户ID/公司ID
      */
-    @Column(name = "tenant_id")
     private String tenantId;
 
     /**
      * 租户名称/公司名称
      */
-    @Column(name = "tenant_title")
+    @NotBlank(message = "租户名称/公司名称不能为空")
     private String tenantTitle;
 
     /**
      * 平台ID
      */
-    @Column(name = "plat_id")
+    @NotBlank(message = "平台ID不能为空")
     private String platId;
 
     /**
      * 平台名称
      */
-    @Column(name = "plat_title")
+    @NotBlank(message = "平台名称不能为空")
     private String platTitle;
 
     /**
      * 应用ID
      */
-    @Column(name = "app_id")
+    @NotBlank(message = "应用ID不能为空")
     private String appId;
 
     /**
      * 应用名称
      */
-    @Column(name = "app_title")
+    @NotBlank(message = "应用名称不能为空")
     private String appTitle;
 
     /**
      * 应用版本号
      */
-    @Column(name = "app_version")
+    @NotBlank(message = "应用版本号不能为空")
     private String appVersion;
 
     /**
      * 用户ID
      */
-    @Column(name = "user_id")
+    @NotBlank(message = "用户ID不能为空")
     private String userId;
 
     /**
      * 昵称
      */
-    @Column(name = "nick_name")
+    @NotBlank(message = "昵称不能为空")
     private String nickName;
 
     /**
      * 身份ID
      */
-    @Column(name = "role_id")
+    @NotBlank(message = "身份ID不能为空")
     private String roleId;
 
     /**
      * 身份名称
      */
-    @Column(name = "role_name")
+    @NotBlank(message = "身份名称不能为空")
     private String roleName;
 
     /**
      * 省代码
      */
-    @Column(name = "prov_id")
+    @NotBlank(message = "省代码不能为空")
     private String provId;
 
     /**
      * 省名称
      */
-    @Column(name = "prov_title")
+    @NotBlank(message = "省名称不能为空")
     private String provTitle;
 
     /**
      * 市/州代码
      */
-    @Column(name = "city_id")
+    @NotBlank(message = "市/州代码不能为空")
     private String cityId;
 
     /**
      * 市/州名称
      */
-    @Column(name = "city_title")
+    @NotBlank(message = "市/州名称不能为空")
     private String cityTitle;
 
     /**
      * 区/县代码
      */
-    @Column(name = "county_id")
+    @NotBlank(message = "区/县代码不能为空")
     private String countyId;
 
     /**
      * 区县名称
      */
-    @Column(name = "county_title")
+    @NotBlank(message = "区县名称不能为空")
     private String countyTitle;
 
     /**
      * 部门ID
      */
-    @Column(name = "dept_id")
+    @NotBlank(message = "部门ID不能为空")
     private String deptId;
 
     /**
      * 部门名称
      */
-    @Column(name = "dept_title")
+    @NotBlank(message = "部门名称不能为空")
     private String deptTitle;
 
     /**
      * 部门等级
      */
-    @Column(name = "dept_level")
+    @NotBlank(message = "部门等级不能为空")
     private String deptLevel;
 
     /**
      * 上级部门代码
      */
-    @Column(name = "dept_parent_id")
+    @NotBlank(message = "上级部门代码不能为空")
     private String deptParentId;
 
     /**
      * 操作IP地址
      */
-    @Column(name = "host_ip")
+    @NotBlank(message = "操作IP地址不能为空")
     private String hostIp;
 
     /**
      * 操作地址
      */
-    @Column(name = "host_address")
+    @NotBlank(message = "操作地址不能为空")
     private String hostAddress;
 
     /**
      * 操作系统
      */
-    @Column(name = "host_os")
+    @NotBlank(message = "操作系统不能为空")
     private String hostOs;
 
     /**
      * 操作浏览器
      */
-    @Column(name = "host_browser")
+    @NotBlank(message = "操作浏览器不能为空")
     private String hostBrowser;
 
     /**
      * 用户代理
      */
-    @Column(name = "host_user_agent")
+    @NotBlank(message = "用户代理不能为空")
     private String hostUserAgent;
 
     /**
      * 消息类型
      */
-    @Column(name = "msg_type")
+    @NotBlank(message = "消息类型不能为空")
     private String msgType;
 
     /**
      * 消息类型名称
      */
-    @Column(name = "msg_type_title")
+    @NotBlank(message = "消息类型名称不能为空")
     private String msgTypeTitle;
 
     /**
      * 消息分类
      */
-    @Column(name = "clazz_type")
+    @NotBlank(message = "消息分类不能为空")
     private String clazzType;
 
     /**
      * 消息分类名称
      */
-    @Column(name = "clazz_title")
+    @NotBlank(message = "消息分类名称不能为空")
     private String clazzTitle;
+
+    /**
+     * 消息ID
+     */
+    @NotNull(message = "消息ID不能为空")
+    private String msgId;
 
     /**
      * 消息标题
      */
-    @Column(name = "title")
-    private String title;
+    @NotBlank(message = "消息标题不能为空")
+    private String msgTitle;
 
     /**
-     * 消息内容
+     * 文件名称
      */
-    @Column(name = "content")
-    private String content;
+    @NotBlank(message = "文件名称不能为空")
+    private String fileTitle;
+
+    /**
+     * 文件格式
+     */
+    @NotBlank(message = "文件格式不能为空")
+    private String fileFormat;
+
+    /**
+     * 文件地址
+     */
+    @NotBlank(message = "文件地址不能为空")
+    private String fileUrl;
+
+    /**
+     * 文件大小
+     */
+    @NotBlank(message = "文件大小不能为空")
+    private String fileSize;
+
+    /**
+     * 文件MD5值(对接文件服务, 真多同一个文件同时上传多次的问题, MD5 可以实现秒传)
+     */
+    @NotBlank(message = "文件MD5值(对接文件服务, 真多同一个文件同时上传多次的问题, MD5 可以实现秒传)不能为空")
+    private String hexMd5;
+
+    /**
+     * MD5可用标志: Y-可用;N-不可用; 值为 N 时该文件不能被下载(防止一下不适当/不健康的文件传播)
+     */
+    @NotBlank(message = "MD5可用标志: Y-可用;N-不可用; 值为 N 时该文件不能被下载(防止一下不适当/不健康的文件传播)不能为空")
+    private String md5ValidFlag;
+
+    /**
+     * 下载标志
+     */
+    @NotBlank(message = "下载标志不能为空")
+    private String downloadFlag;
+
+    /**
+     * 下载次数
+     */
+    @NotNull(message = "下载次数不能为空")
+    private Long downloadTotal;
+
+    /**
+     * 第一次下载时间
+     */
+    @NotNull(message = "第一次下载时间不能为空")
+    private LocalDateTime downloadFirstTime;
+
+    /**
+     * 最后一次下载时间
+     */
+    @NotNull(message = "最后一次下载时间不能为空")
+    private LocalDateTime downloadLastTime;
 
     /**
      * 阅读标志
      */
-    @Column(name = "read_flag")
+    @NotBlank(message = "阅读标志不能为空")
     private String readFlag;
 
     /**
      * 阅读时间
      */
-    @Column(name = "read_time")
+    @NotNull(message = "阅读时间不能为空")
     private LocalDateTime readTime;
-
-    /**
-     * 删除标志
-     */
-    @Column(name = "remove_flag")
-    private String removeFlag;
 
     /**
      * 删除时间
      */
-    @Column(name = "remove_time")
+    @NotNull(message = "删除时间不能为空")
     private LocalDateTime removeTime;
 
     /**
      * 删除人ID
      */
-    @Column(name = "remove_user_id")
+    @NotBlank(message = "删除人ID不能为空")
     private String removeUserId;
 
     /**
      * 删除人昵称
      */
-    @Column(name = "remove_nick_name")
+    @NotBlank(message = "删除人昵称不能为空")
     private String removeNickName;
 
     /**
      * 年份
      */
-    @Column(name = "yearly")
+    @NotBlank(message = "年份不能为空")
     private String yearly;
 
     /**
      * 月份
      */
-    @Column(name = "monthly")
+    @NotBlank(message = "月份不能为空")
     private String monthly;
-
-    /**
-     * 创建时间
-     */
-    @Column(name = "create_time")
-    private LocalDateTime createTime;
-
-    /**
-     * 创建人
-     */
-    @Column(name = "create_user")
-    private String createUser;
-
-    /**
-     * 创建人id
-     */
-    @Column(name = "create_user_id")
-    private String createUserId;
-
-    /**
-     * 更新时间
-     */
-    @Column(name = "update_time")
-    private LocalDateTime updateTime;
-
-    /**
-     * 更新人
-     */
-    @Column(name = "update_user")
-    private String updateUser;
-
-    /**
-     * 更新人id
-     */
-    @Column(name = "update_user_id")
-    private String updateUserId;
 
 
     public void setId(String id) {
@@ -553,20 +566,100 @@ public class MsgPool implements Serializable {
         return clazzTitle;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setMsgId(String msgId) {
+        this.msgId = msgId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getMsgId() {
+        return msgId;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setMsgTitle(String msgTitle) {
+        this.msgTitle = msgTitle;
     }
 
-    public String getContent() {
-        return content;
+    public String getMsgTitle() {
+        return msgTitle;
+    }
+
+    public void setFileTitle(String fileTitle) {
+        this.fileTitle = fileTitle;
+    }
+
+    public String getFileTitle() {
+        return fileTitle;
+    }
+
+    public void setFileFormat(String fileFormat) {
+        this.fileFormat = fileFormat;
+    }
+
+    public String getFileFormat() {
+        return fileFormat;
+    }
+
+    public void setFileUrl(String fileUrl) {
+        this.fileUrl = fileUrl;
+    }
+
+    public String getFileUrl() {
+        return fileUrl;
+    }
+
+    public void setFileSize(String fileSize) {
+        this.fileSize = fileSize;
+    }
+
+    public String getFileSize() {
+        return fileSize;
+    }
+
+    public void setHexMd5(String hexMd5) {
+        this.hexMd5 = hexMd5;
+    }
+
+    public String getHexMd5() {
+        return hexMd5;
+    }
+
+    public void setMd5ValidFlag(String md5ValidFlag) {
+        this.md5ValidFlag = md5ValidFlag;
+    }
+
+    public String getMd5ValidFlag() {
+        return md5ValidFlag;
+    }
+
+    public void setDownloadFlag(String downloadFlag) {
+        this.downloadFlag = downloadFlag;
+    }
+
+    public String getDownloadFlag() {
+        return downloadFlag;
+    }
+
+    public void setDownloadTotal(Long downloadTotal) {
+        this.downloadTotal = downloadTotal;
+    }
+
+    public Long getDownloadTotal() {
+        return downloadTotal;
+    }
+
+    public void setDownloadFirstTime(LocalDateTime downloadFirstTime) {
+        this.downloadFirstTime = downloadFirstTime;
+    }
+
+    public LocalDateTime getDownloadFirstTime() {
+        return downloadFirstTime;
+    }
+
+    public void setDownloadLastTime(LocalDateTime downloadLastTime) {
+        this.downloadLastTime = downloadLastTime;
+    }
+
+    public LocalDateTime getDownloadLastTime() {
+        return downloadLastTime;
     }
 
     public void setReadFlag(String readFlag) {
@@ -583,14 +676,6 @@ public class MsgPool implements Serializable {
 
     public LocalDateTime getReadTime() {
         return readTime;
-    }
-
-    public void setRemoveFlag(String removeFlag) {
-        this.removeFlag = removeFlag;
-    }
-
-    public String getRemoveFlag() {
-        return removeFlag;
     }
 
     public void setRemoveTime(LocalDateTime removeTime) {
@@ -633,55 +718,6 @@ public class MsgPool implements Serializable {
         return monthly;
     }
 
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateUser(String createUser) {
-        this.createUser = createUser;
-    }
-
-    public String getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUserId(String createUserId) {
-        this.createUserId = createUserId;
-    }
-
-    public String getCreateUserId() {
-        return createUserId;
-    }
-
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateUser(String updateUser) {
-        this.updateUser = updateUser;
-    }
-
-    public String getUpdateUser() {
-        return updateUser;
-    }
-
-    public void setUpdateUserId(String updateUserId) {
-        this.updateUserId = updateUserId;
-    }
-
-    public String getUpdateUserId() {
-        return updateUserId;
-    }
-
-
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
@@ -716,23 +752,27 @@ public class MsgPool implements Serializable {
                 .append("msgTypeTitle", getMsgTypeTitle())
                 .append("clazzType", getClazzType())
                 .append("clazzTitle", getClazzTitle())
-                .append("title", getTitle())
-                .append("content", getContent())
+                .append("msgId", getMsgId())
+                .append("msgTitle", getMsgTitle())
+                .append("fileTitle", getFileTitle())
+                .append("fileFormat", getFileFormat())
+                .append("fileUrl", getFileUrl())
+                .append("fileSize", getFileSize())
+                .append("hexMd5", getHexMd5())
+                .append("md5ValidFlag", getMd5ValidFlag())
+                .append("downloadFlag", getDownloadFlag())
+                .append("downloadTotal", getDownloadTotal())
+                .append("downloadFirstTime", getDownloadFirstTime())
+                .append("downloadLastTime", getDownloadLastTime())
                 .append("readFlag", getReadFlag())
                 .append("readTime", getReadTime())
-                .append("removeFlag", getRemoveFlag())
                 .append("removeTime", getRemoveTime())
                 .append("removeUserId", getRemoveUserId())
                 .append("removeNickName", getRemoveNickName())
                 .append("yearly", getYearly())
                 .append("monthly", getMonthly())
-                .append("createTime", getCreateTime())
-                .append("createUser", getCreateUser())
-                .append("createUserId", getCreateUserId())
-                .append("updateTime", getUpdateTime())
-                .append("updateUser", getUpdateUser())
-                .append("updateUserId", getUpdateUserId())
                 .toString();
     }
+
 
 }

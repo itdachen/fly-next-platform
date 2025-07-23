@@ -1,363 +1,42 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="common/common::common('查看消息池')"/>
-    <script>
-        layui.use(['form'], function () {
-            let form = layui.form;
-            form.render();
-        });
-    </script>
+    <th:block th:include="common/common::common('查看消息')"/>
+    <script th:src="@{/static/msg/pool/msg_details.js}" charset="utf-8"></script>
 </head>
-<body>
+<body class="bg-color">
+<input type="text" th:value="*{msgId}" id="msgId" name="msgId" style="display: none">
+<div class="main-container" style="padding: 10px 30px">
 
-<form class="layui-form" id="seeMsgPoolForm" th:object="${msgPool}">
-    <div class="layui-form-body-see">
+    <div style="display: flex;flex-direction: column;">
+        <div style="display: flex;flex-direction: column">
+            <div style="font-size: 20px; font-weight: 700; padding-top: 5px;color: #000;" id="msgTitle"></div>
+            <div style="margin-top: 10px;font-size: 15px;display: flex;flex-direction: row; ">日期：<div id="msgTime"></div></div>
+        </div>
+        <!-- 消息内容 -->
+        <div id="content"
+             style="margin-top: 20px;font-size: 15px;min-height: 100px; text-indent: 2em;border-top: #ccc 1px solid;padding-top: 20px; line-height: 30px; ">
 
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            租户名称/公司名称
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="tenantTitle" name="tenantTitle" th:field="*{tenantTitle}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            平台ID
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="platId" name="platId" th:field="*{platId}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            平台名称
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="platTitle" name="platTitle" th:field="*{platTitle}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            应用ID
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="appId" name="appId" th:field="*{appId}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            应用名称
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="appTitle" name="appTitle" th:field="*{appTitle}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            应用版本号
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="appVersion" name="appVersion" th:field="*{appVersion}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            用户ID
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="userId" name="userId" th:field="*{userId}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            昵称
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="nickName" name="nickName" th:field="*{nickName}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            身份ID
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="roleId" name="roleId" th:field="*{roleId}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            身份名称
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="roleName" name="roleName" th:field="*{roleName}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            省代码
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="provId" name="provId" th:field="*{provId}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            市/州代码
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="cityId" name="cityId" th:field="*{cityId}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            区/县代码
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="countyId" name="countyId" th:field="*{countyId}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            部门ID
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="deptId" name="deptId" th:field="*{deptId}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            部门名称
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="deptTitle" name="deptTitle" th:field="*{deptTitle}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            部门等级
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="deptLevel" name="deptLevel" th:field="*{deptLevel}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            上级部门代码
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="deptParentId" name="deptParentId" th:field="*{deptParentId}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            操作IP地址
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="hostIp" name="hostIp" th:field="*{hostIp}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            操作地址
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="hostAddress" name="hostAddress" th:field="*{hostAddress}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            操作系统
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="hostOs" name="hostOs" th:field="*{hostOs}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            操作浏览器
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="hostBrowser" name="hostBrowser" th:field="*{hostBrowser}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            用户代理
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="hostUserAgent" name="hostUserAgent" th:field="*{hostUserAgent}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            消息标题
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="msgTitle" name="msgTitle" th:field="*{msgTitle}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            消息内容
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="content" name="content" th:field="*{content}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            阅读标志
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="readFlag" name="readFlag" th:field="*{readFlag}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            阅读时间
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="readTime" name="readTime" placeholder="yyyy-MM-dd"
-                                   th:field="*{readTime}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            删除时间
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="removeTime" name="removeTime" placeholder="yyyy-MM-dd"
-                                   th:field="*{removeTime}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            删除人ID
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="removeUserId" name="removeUserId" th:field="*{removeUserId}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            删除人昵称
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="removeNickName" name="removeNickName" th:field="*{removeNickName}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            年份
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="yearly" name="yearly" th:field="*{yearly}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">
-                            月份
-                        </label>
-                        <div class="layui-input-block">
-                            <input type="text" id="monthly" name="monthly" th:field="*{monthly}" readonly="readonly"
-                                   autocomplete="off"
-lay-verify="required" class="layui-input">
-                        </div>
-                    </div>
+        </div>
     </div>
-</form>
+
+    <!-- 附件 -->
+    <div id="fileBox" style="margin-top: 30px;     margin-bottom: 30px; padding-top: 10px;border-top: #ccc 1px solid;">
+        <div style="font-size: 20px; font-weight: 700;margin-bottom: 10px; ">附件</div>
+        <div style="font-size: 15px; display: flex;flex-direction: row;">
+            <table class="layui-hide" id="layMessageInfoTable" lay-filter="layMessageInfoFilter"></table>
+        </div>
+    </div>
+
+
+</div>
+
+<script type="text/html" id="toolbarMessageInfoHandle">
+    <button class="tool-bar-btn see-button" lay-event="download">
+        <i class="layui-icon layui-icon-download-circle"></i>下载
+    </button>
+</script>
+
 
 </body>
 </html>

@@ -39,8 +39,7 @@
                     <button type="reset" class="layui-btn layui-btn-sm fly-button-reset">
                         <i class="layui-icon layui-icon-refresh search-icon"></i>重置
                     </button>
-                    <button sec:authorize="hasAuthority('${permsPrefix}:exp')"
-                            type="submit" class="layui-btn layui-btn-sm fly-button-exp"
+                    <button type="submit" class="layui-btn layui-btn-sm fly-button-exp"
                             lay-submit lay-filter="expAppInfo">
                         <i class="layui-icon layui-icon-export search-icon"></i>导出
                     </button>
@@ -48,20 +47,20 @@
 
             </div>
 
-<!--            <div class="fly-query-footer">-->
-<!--                <button type="submit" class="layui-btn layui-btn-sm fly-button-search"-->
-<!--                        lay-submit lay-filter="query${ClassName}">-->
-<!--                    <i class="layui-icon layui-icon-search fly-icon-right-5"></i>查询-->
-<!--                </button>-->
-<!--                <button type="reset" class="layui-btn layui-btn-sm fly-button-reset">-->
-<!--                    <i class="layui-icon layui-icon-refresh fly-icon-right-5"></i>重置-->
-<!--                </button>-->
-<!--                <button sec:authorize="hasAuthority('${permsPrefix}:exp')"-->
-<!--                        type="submit" class="layui-btn layui-btn-sm fly-button-exp"-->
-<!--                        lay-submit lay-filter="exp${ClassName}">-->
-<!--                    <i class="layui-icon  layui-icon-export fly-icon-right-5"></i>导出-->
-<!--                </button>-->
-<!--            </div>-->
+            <!--            <div class="fly-query-footer">-->
+            <!--                <button type="submit" class="layui-btn layui-btn-sm fly-button-search"-->
+            <!--                        lay-submit lay-filter="query${ClassName}">-->
+            <!--                    <i class="layui-icon layui-icon-search fly-icon-right-5"></i>查询-->
+            <!--                </button>-->
+            <!--                <button type="reset" class="layui-btn layui-btn-sm fly-button-reset">-->
+            <!--                    <i class="layui-icon layui-icon-refresh fly-icon-right-5"></i>重置-->
+            <!--                </button>-->
+            <!--                <button sec:authorize="hasAuthority('${permsPrefix}:exp')"-->
+            <!--                        type="submit" class="layui-btn layui-btn-sm fly-button-exp"-->
+            <!--                        lay-submit lay-filter="exp${ClassName}">-->
+            <!--                    <i class="layui-icon  layui-icon-export fly-icon-right-5"></i>导出-->
+            <!--                </button>-->
+            <!--            </div>-->
 
         </form>
 
@@ -106,7 +105,7 @@
 
 <script type="text/html" id="validAppFlagTpl">
     <input type="checkbox" name="validFlag" value="{{= d.id }}" title="有效|无效" lay-skin="switch"
-           lay-filter="validAppFlagFilter" {{ d.validFlag == 'Y' ? 'checked' : '' }}>
+           lay-filter="validAppFlagFilter" {{ d.validFlag== 'Y' ? 'checked' : '' }}>
 </script>
 
 </body>

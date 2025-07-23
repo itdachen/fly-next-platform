@@ -32,8 +32,11 @@ public class MsgPoolConvert implements IBizConvertMapper<MsgPool, MsgPoolDTO, Ms
         msgPool.setRoleId(msgPoolDTO.getRoleId());
         msgPool.setRoleName(msgPoolDTO.getRoleName());
         msgPool.setProvId(msgPoolDTO.getProvId());
+        msgPool.setProvTitle(msgPoolDTO.getProvTitle());
         msgPool.setCityId(msgPoolDTO.getCityId());
+        msgPool.setCityTitle(msgPoolDTO.getCityTitle());
         msgPool.setCountyId(msgPoolDTO.getCountyId());
+        msgPool.setCountyTitle(msgPoolDTO.getCountyTitle());
         msgPool.setDeptId(msgPoolDTO.getDeptId());
         msgPool.setDeptTitle(msgPoolDTO.getDeptTitle());
         msgPool.setDeptLevel(msgPoolDTO.getDeptLevel());
@@ -43,7 +46,11 @@ public class MsgPoolConvert implements IBizConvertMapper<MsgPool, MsgPoolDTO, Ms
         msgPool.setHostOs(msgPoolDTO.getHostOs());
         msgPool.setHostBrowser(msgPoolDTO.getHostBrowser());
         msgPool.setHostUserAgent(msgPoolDTO.getHostUserAgent());
-        msgPool.setMsgTitle(msgPoolDTO.getMsgTitle());
+        msgPool.setMsgType(msgPoolDTO.getMsgType());
+        msgPool.setMsgTypeTitle(msgPoolDTO.getMsgTypeTitle());
+        msgPool.setClazzType(msgPoolDTO.getClazzType());
+        msgPool.setClazzTitle(msgPoolDTO.getClazzTitle());
+        msgPool.setTitle(msgPoolDTO.getTitle());
         msgPool.setContent(msgPoolDTO.getContent());
         msgPool.setReadFlag(msgPoolDTO.getReadFlag());
         msgPool.setReadTime(msgPoolDTO.getReadTime());
@@ -75,8 +82,11 @@ public class MsgPoolConvert implements IBizConvertMapper<MsgPool, MsgPoolDTO, Ms
         msgPoolVO.setRoleId(msgPool.getRoleId());
         msgPoolVO.setRoleName(msgPool.getRoleName());
         msgPoolVO.setProvId(msgPool.getProvId());
+        msgPoolVO.setProvTitle(msgPool.getProvTitle());
         msgPoolVO.setCityId(msgPool.getCityId());
+        msgPoolVO.setCityTitle(msgPool.getCityTitle());
         msgPoolVO.setCountyId(msgPool.getCountyId());
+        msgPoolVO.setCountyTitle(msgPool.getCountyTitle());
         msgPoolVO.setDeptId(msgPool.getDeptId());
         msgPoolVO.setDeptTitle(msgPool.getDeptTitle());
         msgPoolVO.setDeptLevel(msgPool.getDeptLevel());
@@ -86,7 +96,11 @@ public class MsgPoolConvert implements IBizConvertMapper<MsgPool, MsgPoolDTO, Ms
         msgPoolVO.setHostOs(msgPool.getHostOs());
         msgPoolVO.setHostBrowser(msgPool.getHostBrowser());
         msgPoolVO.setHostUserAgent(msgPool.getHostUserAgent());
-        msgPoolVO.setMsgTitle(msgPool.getMsgTitle());
+        msgPoolVO.setMsgType(msgPool.getMsgType());
+        msgPoolVO.setMsgTypeTitle(msgPool.getMsgTypeTitle());
+        msgPoolVO.setClazzType(msgPool.getClazzType());
+        msgPoolVO.setClazzTitle(msgPool.getClazzTitle());
+        msgPoolVO.setTitle(msgPool.getTitle());
         msgPoolVO.setContent(msgPool.getContent());
         msgPoolVO.setReadFlag(msgPool.getReadFlag());
         msgPoolVO.setReadTime(msgPool.getReadTime());
@@ -95,7 +109,6 @@ public class MsgPoolConvert implements IBizConvertMapper<MsgPool, MsgPoolDTO, Ms
         msgPoolVO.setRemoveNickName(msgPool.getRemoveNickName());
         msgPoolVO.setYearly(msgPool.getYearly());
         msgPoolVO.setMonthly(msgPool.getMonthly());
-        msgPoolVO.setCreateTime(msgPool.getCreateTime());
         return msgPoolVO;
     }
 
@@ -117,8 +130,11 @@ public class MsgPoolConvert implements IBizConvertMapper<MsgPool, MsgPoolDTO, Ms
         msgPool.setRoleId(msgPoolVO.getRoleId());
         msgPool.setRoleName(msgPoolVO.getRoleName());
         msgPool.setProvId(msgPoolVO.getProvId());
+        msgPool.setProvTitle(msgPoolVO.getProvTitle());
         msgPool.setCityId(msgPoolVO.getCityId());
+        msgPool.setCityTitle(msgPoolVO.getCityTitle());
         msgPool.setCountyId(msgPoolVO.getCountyId());
+        msgPool.setCountyTitle(msgPoolVO.getCountyTitle());
         msgPool.setDeptId(msgPoolVO.getDeptId());
         msgPool.setDeptTitle(msgPoolVO.getDeptTitle());
         msgPool.setDeptLevel(msgPoolVO.getDeptLevel());
@@ -128,7 +144,11 @@ public class MsgPoolConvert implements IBizConvertMapper<MsgPool, MsgPoolDTO, Ms
         msgPool.setHostOs(msgPoolVO.getHostOs());
         msgPool.setHostBrowser(msgPoolVO.getHostBrowser());
         msgPool.setHostUserAgent(msgPoolVO.getHostUserAgent());
-        msgPool.setMsgTitle(msgPoolVO.getMsgTitle());
+        msgPool.setMsgType(msgPoolVO.getMsgType());
+        msgPool.setMsgTypeTitle(msgPoolVO.getMsgTypeTitle());
+        msgPool.setClazzType(msgPoolVO.getClazzType());
+        msgPool.setClazzTitle(msgPoolVO.getClazzTitle());
+        msgPool.setTitle(msgPoolVO.getTitle());
         msgPool.setContent(msgPoolVO.getContent());
         msgPool.setReadFlag(msgPoolVO.getReadFlag());
         msgPool.setReadTime(msgPoolVO.getReadTime());
@@ -137,7 +157,6 @@ public class MsgPoolConvert implements IBizConvertMapper<MsgPool, MsgPoolDTO, Ms
         msgPool.setRemoveNickName(msgPoolVO.getRemoveNickName());
         msgPool.setYearly(msgPoolVO.getYearly());
         msgPool.setMonthly(msgPoolVO.getMonthly());
-        msgPool.setCreateTime(msgPoolVO.getCreateTime());
         return msgPool;
     }
 
@@ -159,8 +178,11 @@ public class MsgPoolConvert implements IBizConvertMapper<MsgPool, MsgPoolDTO, Ms
         msgPoolVO.setRoleId(msgPoolDTO.getRoleId());
         msgPoolVO.setRoleName(msgPoolDTO.getRoleName());
         msgPoolVO.setProvId(msgPoolDTO.getProvId());
+        msgPoolVO.setProvTitle(msgPoolDTO.getProvTitle());
         msgPoolVO.setCityId(msgPoolDTO.getCityId());
+        msgPoolVO.setCityTitle(msgPoolDTO.getCityTitle());
         msgPoolVO.setCountyId(msgPoolDTO.getCountyId());
+        msgPoolVO.setCountyTitle(msgPoolDTO.getCountyTitle());
         msgPoolVO.setDeptId(msgPoolDTO.getDeptId());
         msgPoolVO.setDeptTitle(msgPoolDTO.getDeptTitle());
         msgPoolVO.setDeptLevel(msgPoolDTO.getDeptLevel());
@@ -170,7 +192,11 @@ public class MsgPoolConvert implements IBizConvertMapper<MsgPool, MsgPoolDTO, Ms
         msgPoolVO.setHostOs(msgPoolDTO.getHostOs());
         msgPoolVO.setHostBrowser(msgPoolDTO.getHostBrowser());
         msgPoolVO.setHostUserAgent(msgPoolDTO.getHostUserAgent());
-        msgPoolVO.setMsgTitle(msgPoolDTO.getMsgTitle());
+        msgPoolVO.setMsgType(msgPoolDTO.getMsgType());
+        msgPoolVO.setMsgTypeTitle(msgPoolDTO.getMsgTypeTitle());
+        msgPoolVO.setClazzType(msgPoolDTO.getClazzType());
+        msgPoolVO.setClazzTitle(msgPoolDTO.getClazzTitle());
+        msgPoolVO.setTitle(msgPoolDTO.getTitle());
         msgPoolVO.setContent(msgPoolDTO.getContent());
         msgPoolVO.setReadFlag(msgPoolDTO.getReadFlag());
         msgPoolVO.setReadTime(msgPoolDTO.getReadTime());
@@ -181,6 +207,5 @@ public class MsgPoolConvert implements IBizConvertMapper<MsgPool, MsgPoolDTO, Ms
         msgPoolVO.setMonthly(msgPoolDTO.getMonthly());
         return msgPoolVO;
     }
-
 
 }

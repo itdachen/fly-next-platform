@@ -3,6 +3,7 @@ package com.github.itdachen.admin.service.impl;
 import com.github.itdachen.admin.convert.AppInfoConvert;
 import com.github.itdachen.admin.utils.XSSFWorkBookExpHelper;
 import com.github.itdachen.boot.autoconfigure.oss.properties.OssLocalAutoconfigureProperties;
+import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.context.id.IdUtils;
@@ -10,6 +11,10 @@ import com.github.itdachen.framework.core.response.TableData;
 import com.github.itdachen.framework.core.utils.StringUtils;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
 import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
+import com.github.itdachen.ooxml.poi.OOXmlPoiExpHelper;
+import com.github.itdachen.ooxml.poi.exp.ExcelExpUtils;
+import com.github.itdachen.ooxml.poi.exp.IWriteWorkBook;
+import com.github.itdachen.ooxml.poi.exp.ParameterSettings;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.itdachen.admin.entity.AppInfo;
@@ -165,125 +170,115 @@ public class AppInfoServiceImpl extends BizServiceImpl<IAppInfoMapper, AppInfo, 
         return bizMapper.list(params);
     }
 
-
-    @Autowired
-    private OssLocalAutoconfigureProperties ossLocalAutoconfigureProperties;
-
     @Override
     public void dataExpToExcel(HttpServletRequest request,
                                HttpServletResponse response,
                                AppInfoQuery params) throws Exception {
 
-        List<String> fields = new ArrayList<>();
-        fields.add("平台ID");
-        fields.add("平台名称");
-        fields.add("应用秘钥");
-        fields.add("应用标识");
-        fields.add("应用名称");
-        fields.add("类型编码");
-        fields.add("类型名称");
-        fields.add("访问地址");
-        fields.add("图标");
-        fields.add("只能代码");
-        fields.add("智能代码名称");
-        fields.add("删除标志");
-        fields.add("有效标志");
+        List<String> EXP_FIELDS = new ArrayList<>();
+        EXP_FIELDS.add("appID");
+        EXP_FIELDS.add("app秘钥");
+        EXP_FIELDS.add("应用标识");
+        EXP_FIELDS.add("应用名称");
+        EXP_FIELDS.add("应用类型");
+        EXP_FIELDS.add("访问地址");
+        EXP_FIELDS.add("职能代码");
+        EXP_FIELDS.add("职能名称");
+        EXP_FIELDS.add("是否可删除: Y-是;N-否");
+        EXP_FIELDS.add("有效标志: Y-是;N-否");
 
-        List<LinkedHashMap<String, String>> list = bizMapper.selectAppInfoExpData(params);
+        new OOXmlPoiExpHelper<AppInfoVO, AppInfoQuery>()
+                .settings(new ParameterSettings<AppInfoQuery>(request, response,
+                        BizContextHandler.getUserDetails(), "应用管理", EXP_FIELDS, params)
+                )
+                .writeWorkBook(new IWriteWorkBook<AppInfoVO, AppInfoQuery>() {
 
-        XSSFWorkBookExpHelper helper = new XSSFWorkBookExpHelper(ossLocalAutoconfigureProperties,
-                true, true);
-        helper.exportExcel(request, response, fields, list, "应用信息");
+                    @Override
+                    public Long total(AppInfoQuery params) {
+                        return 831000L;
+                    }
 
-        String fileDiskUri = helper.getFileDiskUri();
-        String fileName = helper.getFileName();
-        String fileUri = helper.getFileUri();
-        Long fileSize = helper.getFileSize();
-        System.err.println(fileUri);
+                    @Override
+                    public List<AppInfoVO> data(AppInfoQuery params, Integer page, Integer limit) {
+//                        PageHelper.startPage(page, limit);
+//                        return bizMapper.page(params);
 
+                        /* 测试数据 */
+                        return findTestData(page, limit);
+                    }
+
+                    @Override
+                    public void writeWorkBook(XSSFWorkbook workbook, Sheet sheet,
+                                              List<AppInfoVO> list, boolean hasRowNum) {
+                        writeToWorkBook(workbook, sheet, list, hasRowNum);
+                    }
+                })
+                .execute()
+                .reply();
     }
 
+
+    private List<AppInfoVO> findTestData(Integer page, Integer limit) {
+        List<AppInfoVO> list = new ArrayList<>();
+
+        int start = (page - 1) * limit;
+        int end = (page - 1) * limit + limit;
+
+        AppInfoVO appClientVo = new AppInfoVO();
+        for (int i = start; i < end; i++) {
+            appClientVo = new AppInfoVO();
+            appClientVo.setId("应用标识_" + i);
+            appClientVo.setAppSecret("app秘钥_" + i);
+            appClientVo.setAppCode("应用标识_" + i);
+            appClientVo.setAppTitle("应用名称_" + i);
+            appClientVo.setTypeTitle("应用类型_" + i);
+            appClientVo.setAskUri("访问地址_" + i);
+            appClientVo.setFuncCode("123_" + i);
+            appClientVo.setFuncTitle("123_" + i);
+            appClientVo.setValidDel("N_" + i);
+            appClientVo.setValidFlag("Y_" + i);
+            list.add(appClientVo);
+        }
+
+        return list;
+    }
 
     /***
-     * 设置表头
+     * 数据写入表格具体实现
      *
-     * @author 王大宸
-     * @date 2024/5/28 10:22
+     * @author <请填写开发者姓名>
+     * @date 2025-07-23 15:23:38
      * @param workbook workbook
      * @param sheet sheet
-     * @param fields     二级标题
-     * @param title      一级标题
-     * @param hasRowNum  是否显示序号
+     * @param list      需要写入表格的数据
+     * @param hasRowNum 是否添加序号
      * @return void
      */
-    private static void setTitleCell(XSSFWorkbook workbook, Sheet sheet, String title, List<String> fields, boolean hasRowNum) throws WriteException {
-        /* 标题 */
-        XSSFCellStyle headerCellStyle = workbook.createCellStyle();
-        headerCellStyle.setAlignment(HorizontalAlignment.CENTER); // 设置水平居中
-        headerCellStyle.setVerticalAlignment(VerticalAlignment.CENTER); // 设置垂直居中
+    private void writeToWorkBook(XSSFWorkbook workbook, Sheet sheet, List<AppInfoVO> list, boolean hasRowNum) {
+        Row row;
+        XSSFCellStyle textCellStyle = ExcelExpUtils.setTextXSSFCellStyle(workbook);
+        AppInfoVO appInfoVO = new AppInfoVO();
+        for (int i = 0; i < list.size(); i++) {
+            appInfoVO = list.get(i);
+            row = sheet.createRow(i + 2);
+            row.setHeight(Short.parseShort("500"));
 
-        XSSFFont headerXssfFont = workbook.createFont();
-        headerXssfFont.setBold(true); //粗体显示
-        headerXssfFont.setFontName("仿宋_GB2312");
-        headerXssfFont.setFontHeightInPoints((short) 24);
-        headerCellStyle.setFont(headerXssfFont);
-
-
-        int endColumnNum = fields.size() - 1;
-        if (hasRowNum) {
-            endColumnNum = fields.size();
+            if (hasRowNum) {
+                /* 序号 */
+                ExcelExpUtils.setCellValue(row, 0, String.valueOf(i + 1), textCellStyle);
+            }
+            ExcelExpUtils.setCellValue(row, 1, appInfoVO.getId(), textCellStyle); // appID
+            ExcelExpUtils.setCellValue(row, 2, appInfoVO.getAppSecret(), textCellStyle); // app秘钥
+            ExcelExpUtils.setCellValue(row, 3, appInfoVO.getAppCode(), textCellStyle); // 应用标识
+            ExcelExpUtils.setCellValue(row, 4, appInfoVO.getAppTitle(), textCellStyle); // 应用名称
+            ExcelExpUtils.setCellValue(row, 5, appInfoVO.getTypeTitle(), textCellStyle); // 应用类型
+            ExcelExpUtils.setCellValue(row, 6, appInfoVO.getAskUri(), textCellStyle); // 访问地址
+            ExcelExpUtils.setCellValue(row, 7, appInfoVO.getFuncCode(), textCellStyle); // 职能代码
+            ExcelExpUtils.setCellValue(row, 8, appInfoVO.getFuncTitle(), textCellStyle); // 职能名称
+            ExcelExpUtils.setCellValue(row, 9, appInfoVO.getValidDel(), textCellStyle); // 是否可删除: Y-是;N-否
+            ExcelExpUtils.setCellValue(row, 10, appInfoVO.getValidFlag(), textCellStyle); // 有效标志: Y-是;N-否
         }
-
-        CellRangeAddress cellRangeAddress = new CellRangeAddress(0, 0, 0, endColumnNum);
-        sheet.addMergedRegion(cellRangeAddress);
-
-        Row headerRow = sheet.createRow(0);
-        headerRow.setHeight(Short.parseShort("800"));
-        Cell cell = headerRow.createCell(0);
-        cell.setCellValue(title);
-        cell.setCellStyle(headerCellStyle);
-
-
-        /* 二级表头 */
-        XSSFCellStyle cellStyle = workbook.createCellStyle();
-        cellStyle.setAlignment(HorizontalAlignment.CENTER); // 设置水平居中
-        cellStyle.setVerticalAlignment(VerticalAlignment.CENTER); // 设置垂直居中
-        XSSFFont xssfFont = workbook.createFont();
-        xssfFont.setBold(true); //粗体显示
-        xssfFont.setFontName("仿宋_GB2312");
-        xssfFont.setFontHeightInPoints((short) 16);
-        cellStyle.setFont(xssfFont);
-
-        Row row = sheet.createRow(1);
-        row.setHeight(Short.parseShort("700"));
-
-
-        int columnNum = 0;
-        if (hasRowNum) {
-            cell = row.createCell(columnNum);
-            cell.setCellValue("序号");
-            cell.setCellStyle(cellStyle);
-            columnNum = 1;
-        }
-
-        for (String field : fields) {
-            cell = row.createCell(columnNum);
-            cell.setCellValue(field);
-            cell.setCellStyle(cellStyle);
-            columnNum++;
-        }
-
-
-//        for (int i = 0; i < fields.size(); i++) {
-//            cell = row.createCell(i);
-//            cell.setCellValue(fields.get(i));
-//            cell.setCellStyle(cellStyle);
-//        }
-
-
     }
 
-    public static String getLocalDateTime() {
-        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-    }
+
 }

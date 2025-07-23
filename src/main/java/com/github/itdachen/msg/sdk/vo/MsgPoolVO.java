@@ -84,14 +84,29 @@ public class MsgPoolVO implements Serializable {
     private String provId;
 
     /**
+     * 省名称
+     */
+    private String provTitle;
+
+    /**
      * 市/州代码
      */
     private String cityId;
 
     /**
+     * 市/州名称
+     */
+    private String cityTitle;
+
+    /**
      * 区/县代码
      */
     private String countyId;
+
+    /**
+     * 区县名称
+     */
+    private String countyTitle;
 
     /**
      * 部门ID
@@ -139,9 +154,29 @@ public class MsgPoolVO implements Serializable {
     private String hostUserAgent;
 
     /**
+     * 消息类型
+     */
+    private String msgType;
+
+    /**
+     * 消息类型名称
+     */
+    private String msgTypeTitle;
+
+    /**
+     * 消息分类
+     */
+    private String clazzType;
+
+    /**
+     * 消息分类名称
+     */
+    private String clazzTitle;
+
+    /**
      * 消息标题
      */
-    private String msgTitle;
+    private String title;
 
     /**
      * 消息内容
@@ -183,15 +218,10 @@ public class MsgPoolVO implements Serializable {
      */
     private String monthly;
 
-    /**
-     * 创建时间
-     */
     private LocalDateTime createTime;
 
-    /**
-     * 文件列表
-     */
-    private List<MsgFileVO> files = new ArrayList<>();
+    private List<MsgPoolFileVO> files;
+
 
     public void setId(String id) {
         this.id = id;
@@ -297,6 +327,14 @@ public class MsgPoolVO implements Serializable {
         return provId;
     }
 
+    public void setProvTitle(String provTitle) {
+        this.provTitle = provTitle;
+    }
+
+    public String getProvTitle() {
+        return provTitle;
+    }
+
     public void setCityId(String cityId) {
         this.cityId = cityId;
     }
@@ -305,12 +343,28 @@ public class MsgPoolVO implements Serializable {
         return cityId;
     }
 
+    public void setCityTitle(String cityTitle) {
+        this.cityTitle = cityTitle;
+    }
+
+    public String getCityTitle() {
+        return cityTitle;
+    }
+
     public void setCountyId(String countyId) {
         this.countyId = countyId;
     }
 
     public String getCountyId() {
         return countyId;
+    }
+
+    public void setCountyTitle(String countyTitle) {
+        this.countyTitle = countyTitle;
+    }
+
+    public String getCountyTitle() {
+        return countyTitle;
     }
 
     public void setDeptId(String deptId) {
@@ -385,12 +439,44 @@ public class MsgPoolVO implements Serializable {
         return hostUserAgent;
     }
 
-    public void setMsgTitle(String msgTitle) {
-        this.msgTitle = msgTitle;
+    public void setMsgType(String msgType) {
+        this.msgType = msgType;
     }
 
-    public String getMsgTitle() {
-        return msgTitle;
+    public String getMsgType() {
+        return msgType;
+    }
+
+    public void setMsgTypeTitle(String msgTypeTitle) {
+        this.msgTypeTitle = msgTypeTitle;
+    }
+
+    public String getMsgTypeTitle() {
+        return msgTypeTitle;
+    }
+
+    public void setClazzType(String clazzType) {
+        this.clazzType = clazzType;
+    }
+
+    public String getClazzType() {
+        return clazzType;
+    }
+
+    public void setClazzTitle(String clazzTitle) {
+        this.clazzTitle = clazzTitle;
+    }
+
+    public String getClazzTitle() {
+        return clazzTitle;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public void setContent(String content) {
@@ -457,20 +543,20 @@ public class MsgPoolVO implements Serializable {
         return monthly;
     }
 
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
+    public List<MsgPoolFileVO> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<MsgPoolFileVO> files) {
+        this.files = files;
     }
 
     public LocalDateTime getCreateTime() {
         return createTime;
     }
 
-    public List<MsgFileVO> getFiles() {
-        return files;
-    }
-
-    public void setFiles(List<MsgFileVO> files) {
-        this.files = files;
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
     }
 
     @Override
@@ -489,8 +575,11 @@ public class MsgPoolVO implements Serializable {
                 .append("roleId", getRoleId())
                 .append("roleName", getRoleName())
                 .append("provId", getProvId())
+                .append("provTitle", getProvTitle())
                 .append("cityId", getCityId())
+                .append("cityTitle", getCityTitle())
                 .append("countyId", getCountyId())
+                .append("countyTitle", getCountyTitle())
                 .append("deptId", getDeptId())
                 .append("deptTitle", getDeptTitle())
                 .append("deptLevel", getDeptLevel())
@@ -500,7 +589,11 @@ public class MsgPoolVO implements Serializable {
                 .append("hostOs", getHostOs())
                 .append("hostBrowser", getHostBrowser())
                 .append("hostUserAgent", getHostUserAgent())
-                .append("msgTitle", getMsgTitle())
+                .append("msgType", getMsgType())
+                .append("msgTypeTitle", getMsgTypeTitle())
+                .append("clazzType", getClazzType())
+                .append("clazzTitle", getClazzTitle())
+                .append("title", getTitle())
                 .append("content", getContent())
                 .append("readFlag", getReadFlag())
                 .append("readTime", getReadTime())

@@ -5,13 +5,13 @@ import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
 import com.github.itdachen.framework.webmvc.poi.WorkBookUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.github.itdachen.msg.entity.MsgFile;
-import com.github.itdachen.msg.sdk.dto.MsgFileDTO;
-import com.github.itdachen.msg.sdk.query.MsgFileQuery;
-import com.github.itdachen.msg.sdk.vo.MsgFileVO;
+import com.github.itdachen.msg.entity.MsgPoolFile;
+import com.github.itdachen.msg.sdk.dto.MsgPoolFileDTO;
+import com.github.itdachen.msg.sdk.query.MsgPoolFileQuery;
+import com.github.itdachen.msg.sdk.vo.MsgPoolFileVO;
 import com.github.itdachen.msg.mapper.IMsgFileMapper;
 import com.github.itdachen.msg.service.IMsgFileService;
-import com.github.itdachen.msg.convert.MsgFileConvert;
+import com.github.itdachen.msg.convert.MsgPoolFileConvert;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
@@ -29,9 +29,9 @@ import java.util.List;
  * @date 2025-07-11 22:52:18
  */
 @Service
-public class MsgFileServiceImpl extends BizServiceImpl< IMsgFileMapper, MsgFile, MsgFileDTO,  MsgFileVO, MsgFileQuery, String > implements IMsgFileService {
+public class MsgFileServiceImpl extends BizServiceImpl< IMsgFileMapper, MsgPoolFile, MsgPoolFileDTO, MsgPoolFileVO, MsgPoolFileQuery, String > implements IMsgFileService {
     private static final Logger logger = LoggerFactory.getLogger(MsgFileServiceImpl.class);
-    private static final MsgFileConvert bizConvert = new MsgFileConvert();
+    private static final MsgPoolFileConvert bizConvert = new MsgPoolFileConvert();
     private final List<String> EXP_FIELDS = new ArrayList<>();
     public MsgFileServiceImpl() {
         super(bizConvert);
@@ -71,10 +71,10 @@ public class MsgFileServiceImpl extends BizServiceImpl< IMsgFileMapper, MsgFile,
     * @return com.github.itdachen.framework.core.response.TableData<com.github.itdachen.msg.sdk.vo.msgFileVo>
     */
     @Override
-    public TableData< MsgFileVO > page(MsgFileQuery params) throws Exception {
-        Page< MsgFileVO > page = PageHelper.startPage(params.getPage(), params.getLimit());
-        List< MsgFileVO > list = bizMapper.list(params);
-        return new TableData< MsgFileVO >(page.getTotal(), list);
+    public TableData<MsgPoolFileVO> page(MsgPoolFileQuery params) throws Exception {
+        Page<MsgPoolFileVO> page = PageHelper.startPage(params.getPage(), params.getLimit());
+        List<MsgPoolFileVO> list = bizMapper.list(params);
+        return new TableData<MsgPoolFileVO>(page.getTotal(), list);
     }
 
 
@@ -89,7 +89,7 @@ public class MsgFileServiceImpl extends BizServiceImpl< IMsgFileMapper, MsgFile,
     @Override
     public void dataExpToExcel(HttpServletRequest request,
                                HttpServletResponse response,
-                               MsgFileQuery params) throws Exception{
+                               MsgPoolFileQuery params) throws Exception{
         List < LinkedHashMap < String, String > >  list = bizMapper.selectMsgFileExpData(params);
        WorkBookUtils.export(request, response)
                 .params(params)

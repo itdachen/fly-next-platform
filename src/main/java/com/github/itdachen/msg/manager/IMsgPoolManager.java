@@ -1,6 +1,8 @@
 package com.github.itdachen.msg.manager;
 
 import com.github.itdachen.framework.context.userdetails.UserInfoDetails;
+import com.github.itdachen.msg.sdk.vo.MsgPoolFileVO;
+import com.github.itdachen.msg.sdk.vo.MsgPoolVO;
 import com.github.itdachen.ooxml.poi.entity.MsgFileModel;
 import com.github.itdachen.ooxml.poi.entity.MsgModel;
 
@@ -20,7 +22,7 @@ public interface IMsgPoolManager {
      * @param msgModel notifyMsgInfo
      * @return void
      */
-    void save(MsgModel msgModel, UserInfoDetails userDetails);
+    MsgPoolVO save(MsgModel msgModel, UserInfoDetails userDetails);
 
 
     /***
@@ -31,10 +33,10 @@ public interface IMsgPoolManager {
      * @param msgModel notifyMsgInfo
      * @return void
      */
-    void appendContent(MsgModel msgModel);
+    MsgPoolVO appendContent(MsgModel msgModel);
 
 
-    void saveMsgFile(MsgFileModel msgFileModel);
+    MsgPoolFileVO saveMsgFile(MsgFileModel msgFileModel);
 
 
 }

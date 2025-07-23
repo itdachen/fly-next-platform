@@ -129,19 +129,17 @@ public class ExcelExpUtils {
         return textCellStyle;
     }
 
-    /***
+
+    /**
      * 添加表格值
      *
-     * @author 王大宸
-     * @date 2025/7/11 23:21
      * @param row           行
      * @param cellNum       列号
      * @param cellText      添加的值
      * @param textCellStyle 表格样式
-     * @return void
      */
-    public static void setWorkBookCellValue(Row row, int cellNum, String cellText, XSSFCellStyle textCellStyle) {
-        Cell cell = row.createCell(cellNum); // 表格: 单元格
+    public static void setCellValue(Row row, int cellNum, String cellText, XSSFCellStyle textCellStyle) {
+        Cell cell = row.createCell(cellNum);
         cell.setCellValue(cellText);
         cell.setCellStyle(textCellStyle);
     }
@@ -157,11 +155,12 @@ public class ExcelExpUtils {
      * @param hasRowNum 导出表格是否有序号
      * @return void
      */
-    public static void writeValueToWorkBook(XSSFWorkbook workbook, Sheet sheet, List<LinkedHashMap<String, String>> list, boolean hasRowNum) {
+    public static void writeToWorkBook(XSSFWorkbook workbook, Sheet sheet, List<LinkedHashMap<String, String>> list, boolean hasRowNum) {
         int index = 1, rowNum = 2, dateColumn = 0; //  序号, 行号, 列号
         LinkedHashMap<String, String> map;
         String value; // 需要插入的数据信息
         Row row; // 表格:行
+        Cell cell;  // 单表格: 元格
         final XSSFCellStyle textCellStyle = setTextXSSFCellStyle(workbook); // 表格样式
         for (Iterator<LinkedHashMap<String, String>> var = list.iterator(); var.hasNext(); ++index) {
             row = sheet.createRow(rowNum);
@@ -169,21 +168,22 @@ public class ExcelExpUtils {
             map = var.next();
             dateColumn = 0;
 
-            /* 添加序号 */
             if (hasRowNum) {
                 dateColumn = 1;
-                setWorkBookCellValue(row, 0, String.valueOf(index), textCellStyle);
+                cell = row.createCell(0);
+                cell.setCellValue(String.valueOf(index)); // 添加序号
+                cell.setCellStyle(textCellStyle);
             }
 
-            /* 文件数据写入表格 */
             for (Iterator<String> varMap = map.values().iterator(); varMap.hasNext(); ++dateColumn) {
                 value = String.valueOf(varMap.next());
-                if (value == null || "null".equals(value) || "NULL".equals(value) || "".equals(value)) {
+                if (value == null || "null".equals(value) || value.isEmpty()) {
                     value = "";
                 }
-                setWorkBookCellValue(row, dateColumn, value, textCellStyle);
+                cell = row.createCell(dateColumn);
+                cell.setCellValue(value);
+                cell.setCellStyle(textCellStyle);
             }
-
             rowNum++;
         }
     }
@@ -196,6 +196,5 @@ public class ExcelExpUtils {
     public static String getUUid() {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }
-
 
 }
