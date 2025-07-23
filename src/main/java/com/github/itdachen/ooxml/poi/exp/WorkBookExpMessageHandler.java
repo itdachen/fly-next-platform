@@ -80,4 +80,19 @@ public class WorkBookExpMessageHandler {
         }
     }
 
+    public static void appendContent(String msgId, String msgContent, boolean sendMsg) {
+        if (!sendMsg) {
+            return;
+        }
+        try {
+            AppContextHelper.getBean(IOplogMsgClient.class).appendContent(
+                    MsgModel.builder()
+                            .id(msgId)
+                            .content(msgContent)
+                            .build());
+        } catch (Exception e) {
+            logger.error("追加消息失败, 消息ID: {}, 消息内容: {}", msgContent, msgContent, e);
+        }
+    }
+
 }

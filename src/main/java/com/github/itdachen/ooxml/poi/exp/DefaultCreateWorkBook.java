@@ -58,7 +58,7 @@ public class DefaultCreateWorkBook<T, Q> implements ICreateWorkBook<T, Q> {
             Integer limit = Integer.parseInt(String.valueOf(settings.getSheetRowNum()));
             List<T> dataList = handler.data(settings.getParams(), bookNum, limit);
 
-            msgContent = "【" + LocalDateUtils.getLocalDateTime() + "】《" + fileTitle + "》获取数据成功，共 " + dataList.size() + " 条数据！";
+            msgContent = "【" + LocalDateUtils.getLocalDateTime() + "】《" + fileTitle + "》获取数据成功，该文件共 " + dataList.size() + " 条数据！";
             appendMessageContent(msgId, msgContent, settings.getSendMsg());
 
             /* 创建 sheet */

@@ -2,6 +2,7 @@ package com.github.itdachen.ooxml.poi.exp;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.itdachen.framework.context.id.IdUtils;
+import com.github.itdachen.framework.core.utils.LocalDateUtils;
 import com.github.itdachen.ooxml.poi.entity.PoiUploadInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -134,6 +135,10 @@ public class WorkBookExpHelper<T, Q> {
             }
             logger.info("====== 导出" + settings.getTitle() + bookNum + settings.getFileFormat() + " 数据文件 END [SUCCESS] ======");
         }
+
+        String msgContent = "【" + LocalDateUtils.getLocalDateTime() + "】《" + settings.getTitle() + "》导出结束！";
+        WorkBookExpMessageHandler.appendContent(msgId, msgContent, settings.getSendMsg());
+
     }
 
 
