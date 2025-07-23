@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <th:block th:include="common/common::component('导出日志')"/>
+    <script th:src="@{/static/oplog/poi_exp/index.js}" charset="utf-8"></script>
+</head>
+<body class="fly-container">
+<div class="fly-main-container">
+
+    <!-- 查询 -->
+    <div class="fly-query-container" sec:authorize="hasAuthority('fly:oplog:poi:exp:query')">
+        <form class="layui-form" id="queryOplogPoiExpForm" name="queryOplogPoiExpForm">
+            <div class="layui-form-item">
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">功能名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input keypress-listen" placeholder="功能名称"
+                               id="funcTitle" name="funcTitle" autocomplete="off">
+                    </div>
+                </div>
+
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">昵称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input keypress-listen" placeholder="昵称"
+                               id="nickName" name="nickName" autocomplete="off">
+                    </div>
+                </div>
+
+                <!--                <div class="layui-inline">-->
+                <!--                    <label class="layui-form-label">省代码</label>-->
+                <!--                    <div class="layui-input-inline">-->
+                <!--                        <input type="text" class="layui-input keypress-listen" placeholder="省代码"-->
+                <!--                               id="provId" name="provId" autocomplete="off">-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+                <!--                <div class="layui-inline">-->
+                <!--                    <label class="layui-form-label">市/州代码</label>-->
+                <!--                    <div class="layui-input-inline">-->
+                <!--                        <input type="text" class="layui-input keypress-listen" placeholder="市/州代码"-->
+                <!--                               id="cityId" name="cityId" autocomplete="off">-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+                <!--                <div class="layui-inline">-->
+                <!--                    <label class="layui-form-label">区/县代码</label>-->
+                <!--                    <div class="layui-input-inline">-->
+                <!--                        <input type="text" class="layui-input keypress-listen" placeholder="区/县代码"-->
+                <!--                               id="countyId" name="countyId" autocomplete="off">-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">部门名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input keypress-listen" placeholder="部门名称"
+                               id="deptTitle" name="deptTitle" autocomplete="off">
+                    </div>
+                </div>
+
+
+                <div class="layui-inline">
+                    <button type="submit" class="layui-btn layui-btn-sm fly-button-search"
+                            lay-submit lay-filter="queryOplogPoiExp">
+                        <i class="layui-icon layui-icon-search fly-icon-right-5"></i>查询
+                    </button>
+                    <button type="reset" class="layui-btn layui-btn-sm fly-button-reset">
+                        <i class="layui-icon layui-icon-refresh fly-icon-right-5"></i>重置
+                    </button>
+                    <button sec:authorize="hasAuthority('fly:oplog:poi:exp:exp')"
+                            type="submit" class="layui-btn layui-btn-sm fly-button-exp"
+                            lay-submit lay-filter="expOplogPoiExp">
+                        <i class="layui-icon layui-icon-export fly-icon-right-5"></i>导出
+                    </button>
+                </div>
+            </div>
+
+            <!--            <div class="fly-query-footer">-->
+            <!--                <button type="submit" class="layui-btn layui-btn-sm fly-button-search"-->
+            <!--                        lay-submit lay-filter="queryOplogPoiExp">-->
+            <!--                    <i class="layui-icon layui-icon-search fly-icon-right-5"></i>查询-->
+            <!--                </button>-->
+            <!--                <button type="reset" class="layui-btn layui-btn-sm fly-button-reset">-->
+            <!--                    <i class="layui-icon layui-icon-refresh fly-icon-right-5"></i>重置-->
+            <!--                </button>-->
+            <!--                <button sec:authorize="hasAuthority('fly:oplog:poi:exp:exp')"-->
+            <!--                        type="submit" class="layui-btn layui-btn-sm fly-button-exp"-->
+            <!--                        lay-submit lay-filter="expOplogPoiExp">-->
+            <!--                    <i class="layui-icon  layui-icon-export fly-icon-right-5"></i>导出-->
+            <!--                </button>-->
+            <!--            </div>-->
+
+        </form>
+    </div>
+
+    <!-- 页面数据展示 -->
+    <div class="fly-table-container">
+        <table class="layui-hide" id="oplogPoiExpLayTable" lay-filter="oplogPoiExpLayFilter"></table>
+    </div>
+
+</div>
+
+
+<!-- 操作工具栏 -->
+<script type="text/html" id="oplogPoiExpActionBar">
+    <button sec:authorize="hasAuthority('fly:oplog:poi:exp:view')"
+            class="fly-action-bar fly-button-view" lay-event="viewOplogPoiExp">
+        <i class="layui-icon layui-icon-list"></i>查看
+    </button>
+</script>
+
+</body>
+</html>

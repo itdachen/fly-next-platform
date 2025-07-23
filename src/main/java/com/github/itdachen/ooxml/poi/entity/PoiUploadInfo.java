@@ -55,6 +55,11 @@ public class PoiUploadInfo implements Serializable {
      */
     protected Long fileSize = 0L;
 
+    /**
+     * 文件数量
+     */
+    protected Long fileTotal = 0L;
+
 
     /**
      * 数据条数
@@ -71,6 +76,12 @@ public class PoiUploadInfo implements Serializable {
 
     public PoiUploadInfo(String title) {
         this.title = title;
+    }
+
+    public PoiUploadInfo(String title, Long dataTotal, Long fileTotal) {
+        this.title = title;
+        this.dataTotal = dataTotal;
+        this.fileTotal = fileTotal;
     }
 
 
@@ -130,6 +141,13 @@ public class PoiUploadInfo implements Serializable {
         this.dataTotal = dataTotal;
     }
 
+    public Long getFileTotal() {
+        return fileTotal;
+    }
+
+    public void setFileTotal(Long fileTotal) {
+        this.fileTotal = fileTotal;
+    }
 
     public String getFileName() {
         return fileName;

@@ -74,6 +74,8 @@ public class WorkBookExpLogHandler {
                 .platTitle(platformClientProperties.getTitle())
 
                 /* 人员信息 */
+                .tenantId(userDetails.getTenantId())
+                .tenantTitle(userDetails.getTenantTitle())
                 .userId(userDetails.getId())
                 .nickName(userDetails.getNickName())
                 .roleId(userDetails.getRoleId())
@@ -112,11 +114,11 @@ public class WorkBookExpLogHandler {
                 .requestParams(jsonString)
 
                 /* 导出信息 */
-                .dataTotal("-")
+                .dataTotal(String.valueOf(uploadInfo.getDataTotal()))
                 .fileName(uploadInfo.getFileName())
                 .fileUrl(uploadInfo.getFileUri())
                 .fileSize(String.valueOf(uploadInfo.getFileSize()))
-                .fileTotal(String.valueOf(uploadInfo.getDataTotal()))
+                .fileTotal(String.valueOf(uploadInfo.getFileTotal()))
 
                 .exInfo("-")
                 .remarks("-")

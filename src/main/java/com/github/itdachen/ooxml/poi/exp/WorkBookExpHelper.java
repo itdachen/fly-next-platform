@@ -79,11 +79,9 @@ public class WorkBookExpHelper<T, Q> {
 
         /* 操作日志 */
         if (settings.getSaveLog()) {
-            WorkBookExpLogHandler.saveLog(settings.getRequest(),
-                    settings.getUserDetails(),
-                    msgId,
+            WorkBookExpLogHandler.saveLog(settings.getRequest(), settings.getUserDetails(), msgId,
                     settings.getParams(),
-                    new PoiUploadInfo(settings.getTitle()));
+                    new PoiUploadInfo(settings.getTitle(), rowTotal, bookTotalNum));
         }
 
         try {
@@ -136,7 +134,7 @@ public class WorkBookExpHelper<T, Q> {
             logger.info("====== 导出" + settings.getTitle() + bookNum + settings.getFileFormat() + " 数据文件 END [SUCCESS] ======");
         }
 
-        String msgContent = "【" + LocalDateUtils.getLocalDateTime() + "】《" + settings.getTitle() + "》导出结束！";
+        String msgContent = "【" + LocalDateUtils.getLocalDateTimeMillis() + "】《" + settings.getTitle() + "》导出结束！";
         WorkBookExpMessageHandler.appendContent(msgId, msgContent, settings.getSendMsg());
 
     }

@@ -79,16 +79,11 @@ function msgPoolActionBar(table) {
     table.on('tool(msgPoolLayFilter)', function (obj) {
         let data = obj.data;
         if ('viewMsgPool' === obj.event) {
-            // $.flyer.openIframeSee({
-            //     title: '查看消息池',
-            //     content: MSG_POOL_PATH + '/view/' + data.id
-            // })
-
             let width = ($(window).width() - 20);
             let height = ($(window).height() - 20);
             layer.open({
                 type: 2,
-                title: '【' + data.msgTypeTitle + '】' + data.msgTitle,
+                title: '【' + data.msgTypeTitle + '】' + data.title,
                 content: $.http.verifyURL(MSG_POOL_PATH + '/view/' + data.id),
                 area: [width + 'px', height + 'px'],
                 fix: false,

@@ -74,7 +74,7 @@ function messageInfoTableOptions(data) {
                     return 'Y' === d.downloadFlag ? '已下载' : '未下载'
                 }
             },
-            {field: 'downloadNum', title: '下载数量', width: 180, align: 'center'},
+            {field: 'downloadTotal', title: '下载数量', width: 180, align: 'center'},
             // {field: 'fileSize', title: '文件大小', width: 180, align: 'center'},
             {fixed: 'right', title: '操作', toolbar: '#toolbarMessageInfoHandle', width: 200, align: "center"}
         ]]
