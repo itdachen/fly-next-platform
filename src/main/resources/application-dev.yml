@@ -45,7 +45,7 @@ fly:
     successForwardUrl: /index # 登录成功后跳转地址
     session:
       sessionInvalidUrl: /login # 登录失效后跳转地址
-    matchers:  # 不需要登录认证拦截地址
+    matchers: # 不需要登录认证拦截地址
       - /open/**
 
 spring:
@@ -54,79 +54,73 @@ spring:
   main:
     allow-circular-references: true
     allow-bean-definition-overriding: true
+
+  # Jackson时区序列化
   jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+    serialization:
+      write-dates-as-timestamps: false
+
+  servlet:
+    # 限制文件上传大小
+
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      file-size-threshold: 2KB
+      location: /tmp
+      resolve-lazily: false
+
 
   mvc:
     pathmatch:
       # 使用Ant风格的路径匹配器
       matching-strategy: ant_path_matcher
+
+  # 静态资源缓存配置
   web:
     resources:
-      # 静态文件地址，保留官方内容后，进行追加
-      static-locations: classpath:/static,classpath:/markdown,classpath:/public,classpath:/resources,classpath:/view,classpath:/META-INF/resources
-
+      cache:
+        cachecontrol:
+          max-age: 365d
+          cache-public: true
+      chain:
+        strategy:
+          content:
+            enabled: true
+            paths: /**
+        cache: true
+      static-locations: classpath:/static/
 
   datasource:
     name: mysql
     driver-class-name: com.mysql.cj.jdbc.Driver
-    type: com.alibaba.druid.pool.DruidDataSource
+    type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://127.0.0.1:3306/fly_next_admin?useUnicode=true&characterEncoding=UTF8&createDatabaseIfNotExist=true&useUnicode=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&allowMultiQueries=true
     username: root
     password: root
-    druid:
-      # 初始化时建立物理连接的个数
-      initial-size: 5
-      # 连接池的最小空闲数量
-      min-idle: 5
-      # 连接池最大连接数量
-      max-active: 20
-      # 获取连接时最大等待时间，单位毫秒
-      max-wait: 60000
-      # 申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
-      test-while-idle: true
-      # 既作为检测的间隔时间又作为testWhileIdel执行的依据
-      time-between-eviction-runs-millis: 60000
-      # 销毁线程时检测当前连接的最后活动时间和当前时间差大于该值时，关闭当前连接(配置连接在池中的最小生存时间)
-      min-evictable-idle-time-millis: 30000
-      # 用来检测数据库连接是否有效的sql 必须是一个查询语句(oracle中为 select 1 from dual)
-      validation-query: SELECT 1 FROM DUAL
-      # 申请连接时会执行validationQuery检测连接是否有效,开启会降低性能,默认为true
-      test-on-borrow: false
-      # 归还连接时会执行validationQuery检测连接是否有效,开启会降低性能,默认为true
-      test-on-return: false
-      # 是否缓存preparedStatement, 也就是PSCache,PSCache对支持游标的数据库性能提升巨大，比如说oracle,在mysql下建议关闭。
-      pool-prepared-statements: false
-      # 置监控统计拦截的filters，去掉后监控界面sql无法统计，stat: 监控统计、Slf4j:日志记录、waLL: 防御sqL注入
-      filters: stat,wall,slf4j
-      # 要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。在Druid中，不会存在Oracle下PSCache占用内存过多的问题，可以把这个数值配置大一些，比如说100
-      max-pool-prepared-statement-per-connection-size: -1
-      # 合并多个DruidDataSource的监控数据
-      use-global-data-source-stat: true
-      # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
-      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
-      web-stat-filter:
-        # 是否启用StatFilter默认值true
-        enabled: true
-        # 添加过滤规则
-        url-pattern: /*
-        # 忽略过滤的格式
-        exclusions: /druid/*,*.js,*.gif,*.jpg,*.png,*.css,*.ico
-      stat-view-servlet:
-        # 是否启用StatViewServlet默认值true
-        enabled: true
-        # 访问路径为/druid时，跳转到StatViewServlet
-        url-pattern: /druid/*
-        # 是否能够重置数据
-        reset-enable: false
-        # 需要账号密码才能访问控制台，默认为root
-        login-username: admin
-        login-password: admin
-        # IP白名单
-        # allow: 127.0.0.1
-        # IP黑名单（共同存在时，deny优先于allow）
-        # deny:
+    hikari:
+      #连接池最大连接数，默认是10
+      maximum-pool-size: 50
+      #最小空闲连接数量
+      minimum-idle: 10
+      #数据库连接超时时间,默认30秒，即30000
+      connection-timeout: 30000
+      #空闲连接存活最大时间，默认600000（10分钟）
+      idle-timeout: 600000
+      #此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟
+      max-lifetime: 1800000
+      # 注意: 默认情况下这个检测是关闭的，如果代码中存在连接泄漏问题，根本发现不了。
+      leak-detection-threshold: 60000
+      #连接测试查询
+      connection-test-query: SELECT 1 FROM DUAL
+      #此属性控制从池返回的连接的默认自动提交行为,默认值：true
+      auto-commit: true
+      validation-timeout: 5000
+      #连接池母子
+      pool-name: flyHikariPC
+
 
   thymeleaf:
     mode: HTML5
@@ -150,6 +144,22 @@ spring:
           max-wait: -1    # 最大阻塞等待时间(负数表示没限制)
           max-idle: 5     # 最大空闲
           min-idle: 0     # 最小空闲
+
+# 线程池配置
+#  task:
+#    execution:
+#      pool:
+#        core-size: 8
+#        max-size: 16
+#        queue-capacity: 100
+#        keep-alive: 60s
+#      thread-name-prefix: async-task-
+#    scheduling:
+#      pool:
+#        size:4
+#      thread-name-prefix: scheduling-
+
+
 
 # mybatis
 mybatis:
