@@ -1,7 +1,10 @@
 package com.github.itdachen.auth.service.impl;
 
+import com.github.itdachen.admin.entity.DeptInfo;
 import com.github.itdachen.admin.entity.UserInfo;
+import com.github.itdachen.admin.mapper.IDeptInfoMapper;
 import com.github.itdachen.admin.mapper.IUserInfoMapper;
+import com.github.itdachen.admin.sdk.vo.DeptInfoVO;
 import com.github.itdachen.auth.manager.IUserMenuManager;
 import com.github.itdachen.auth.mapper.IAuthenticationAuthorityMapper;
 import com.github.itdachen.auth.mapper.IUserDetailsMapper;
@@ -11,6 +14,7 @@ import com.github.itdachen.boot.security.constants.LoginModeConstant;
 import com.github.itdachen.boot.security.details.AbstractSecurityUserDetailsService;
 import com.github.itdachen.boot.security.exception.BizSecurityException;
 import com.github.itdachen.boot.security.user.CurrentUserInfo;
+import com.github.itdachen.framework.context.constants.DeptLevelConstants;
 import com.github.itdachen.framework.context.constants.UserTypeConstant;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.permission.PermissionInfo;
@@ -38,6 +42,7 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
 
     private final IAuthenticationAuthorityMapper authenticationAuthorityMapper;
     private final IUserDetailsMapper userDetailsMapper;
+    private final IDeptInfoMapper deptInfoMapper;
 
     @Autowired
     private IUserMenuManager userMenuManager;
@@ -48,10 +53,12 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
                                            //  ILoginErrorRecordMapper loginErrorRecordMapper,
                                            IUserDetailsMapper userDetailsMapper,
                                            PlatformInfoProperties platformInfoProperties,
-                                           AppInfoProperties appInfoProperties) {
+                                           AppInfoProperties appInfoProperties,
+                                           IDeptInfoMapper deptInfoMapper) {
         super(platformInfoProperties, appInfoProperties);
         this.userDetailsMapper = userDetailsMapper;
         this.authenticationAuthorityMapper = authenticationAuthorityMapper;
+        this.deptInfoMapper = deptInfoMapper;
 
         // this.loginErrorRecordMapper = loginErrorRecordMapper;
 
@@ -76,6 +83,7 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
             throw new BizSecurityException("登录账号 " + username + " 不存在,请检查账号是否正确");
         }
         user.setLoginMethod(LoginModeConstant.PASSWORD);
+        setDeptInfo(user);
 
         return toVerifyUserDetails(user);
     }
@@ -129,5 +137,98 @@ public class AdminSecurityUserDetailsService extends AbstractSecurityUserDetails
         List<String> userAuthority = authenticationAuthorityMapper.findUserAuthority(userInfoDetails.getAppId(), list);
         return new HashSet<>(userAuthority);
     }
+
+
+    /***
+     * 添加部门信息以及所属行政区域信息
+     *
+     * @author 王大宸
+     * @date 2025/7/24 10:41
+     * @param userInfoDetails userInfoDetails
+     * @return void
+     */
+    private void setDeptInfo(UserInfoDetails userInfoDetails) {
+        if (null == userInfoDetails || DeptLevelConstants.ROOT_LEVEL.equals(userInfoDetails.getDeptLevel())) {
+            return;
+        }
+        if (DeptLevelConstants.PROV_LEVEL.equals(userInfoDetails.getDeptLevel())) {
+            DeptInfoVO provDeptInfo = getProvDeptInfo(userInfoDetails.getDeptId());
+            userInfoDetails.setProvCode(provDeptInfo.getId());
+            userInfoDetails.setProvName(provDeptInfo.getTitle());
+            return;
+        }
+        if (DeptLevelConstants.CITY_LEVEL.equals(userInfoDetails.getDeptLevel())) {
+            DeptInfoVO provDeptInfo = getCityDept(userInfoDetails.getDeptId());
+            userInfoDetails.setProvCode(provDeptInfo.getProvId());
+            userInfoDetails.setProvName(provDeptInfo.getProvTitle());
+            userInfoDetails.setCityCode(provDeptInfo.getId());
+            userInfoDetails.setCityName(provDeptInfo.getTitle());
+            return;
+        }
+        if (DeptLevelConstants.COUNT_LEVEL.equals(userInfoDetails.getDeptLevel())) {
+            DeptInfoVO provDeptInfo = getCountyDept(userInfoDetails.getDeptId());
+            userInfoDetails.setProvCode(provDeptInfo.getProvId());
+            userInfoDetails.setProvName(provDeptInfo.getProvTitle());
+            userInfoDetails.setCityCode(provDeptInfo.getCityId());
+            userInfoDetails.setCityName(provDeptInfo.getCityTitle());
+            userInfoDetails.setCountyCode(provDeptInfo.getId());
+            userInfoDetails.setCountyName(provDeptInfo.getTitle());
+        }
+
+
+    }
+
+
+    /***
+     * 查询省份
+     *
+     * @author 王大宸
+     * @date 2025/7/24 10:51
+     * @param deptId deptId
+     * @return com.github.itdachen.admin.entity.DeptInfo
+     */
+    private DeptInfoVO getProvDeptInfo(String deptId) {
+        DeptInfoVO deptInfoVO = deptInfoMapper.selectDeptInfoVO(deptId);
+        if (YesOrNotConstant.Y.equals(deptInfoVO.getDeptFlag())
+                && DeptLevelConstants.PROV_LEVEL.equals(deptInfoVO.getDeptLevel())) {
+            return deptInfoVO;
+        }
+        return getProvDeptInfo(deptInfoVO.getParentId());
+    }
+
+    /***
+     * 查询市州
+     *
+     * @author 王大宸
+     * @date 2025/7/24 10:54
+     * @param deptId deptId
+     * @return com.github.itdachen.admin.sdk.vo.DeptInfoVO
+     */
+    private DeptInfoVO getCityDept(String deptId) {
+        DeptInfoVO deptInfoVO = deptInfoMapper.selectDeptInfoVO(deptId);
+        if (YesOrNotConstant.Y.equals(deptInfoVO.getDeptFlag())
+                && DeptLevelConstants.CITY_LEVEL.equals(deptInfoVO.getDeptLevel())) {
+            return deptInfoVO;
+        }
+        return getCityDept(deptInfoVO.getParentId());
+    }
+
+    /***
+     * 查询区县
+     *
+     * @author 王大宸
+     * @date 2025/7/24 10:55
+     * @param deptId deptId
+     * @return com.github.itdachen.admin.sdk.vo.DeptInfoVO
+     */
+    private DeptInfoVO getCountyDept(String deptId) {
+        DeptInfoVO deptInfoVO = deptInfoMapper.selectDeptInfoVO(deptId);
+        if (YesOrNotConstant.Y.equals(deptInfoVO.getDeptFlag())
+                && DeptLevelConstants.COUNT_LEVEL.equals(deptInfoVO.getDeptLevel())) {
+            return deptInfoVO;
+        }
+        return getCountyDept(deptInfoVO.getParentId());
+    }
+
 
 }

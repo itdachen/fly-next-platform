@@ -27,15 +27,18 @@
                c.role_name    AS roleName,
                c.role_flag    AS roleFlag,
 
-               ''             AS provId,
-               ''             AS cityId,
-               ''             AS countyId,
+               d.prov_id      AS provCode,
+               d.prov_title   AS provName,
+               d.city_id      AS cityCode,
+               d.city_title   AS cityName,
+               d.county_id    AS countyCode,
+               d.county_title AS countyName,
 
-               c.dept_id      AS deptId,
-               c.dept_title   AS deptTitle,
-               ''             AS deptType,
-               ''             AS deptLevel,
-               ''             AS deptParentId,
+               d.id           AS deptId,
+               d.title        AS deptTitle,
+               d.func_code    AS deptType,
+               d.dept_level   AS deptLevel,
+               d.parent_id    AS deptParentId,
 
                ''             AS hostIp,
                ''             AS hostOs,
@@ -46,11 +49,13 @@
                ''             AS hostCity
         FROM ta_fly_login_info a
                  LEFT JOIN ta_fly_user_info b ON a.id = b.id
-                 LEFT JOIN ta_fly_user_role_info c ON b.id = c.user_id AND b.tenant_id = c.tenant_id
-        WHERE username = #{username}
+                 LEFT JOIN ta_fly_user_role_info c ON b.id = c.user_id
+                 LEFT JOIN ta_fly_dept_info d ON c.dept_id = d.id
+        WHERE a.username = #{username}
+          AND a.valid_flag = 'Y'
+          AND b.valid_flag = 'Y'
           AND c.role_flag = 'Y'
-          AND c.valid_flag = 'Y'
-          AND b.tenant_id IS NOT NULL LIMIT 1
+          AND c.valid_flag = 'Y' LIMIT 1
     </select>
 
 
@@ -76,15 +81,18 @@
                c.role_name    AS roleName,
                c.role_flag    AS roleFlag,
 
-               ''             AS provId,
-               ''             AS cityId,
-               ''             AS countyId,
+               d.prov_id      AS provCode,
+               d.prov_title   AS provName,
+               d.city_id      AS cityCode,
+               d.city_title   AS cityName,
+               d.county_id    AS countyCode,
+               d.county_title AS countyName,
 
-               c.dept_id      AS deptId,
-               c.dept_title   AS deptTitle,
-               ''             AS deptType,
-               ''             AS deptLevel,
-               ''             AS deptParentId,
+               d.id           AS deptId,
+               d.title        AS deptTitle,
+               d.func_code    AS deptType,
+               d.dept_level   AS deptLevel,
+               d.parent_id    AS deptParentId,
 
                ''             AS hostIp,
                ''             AS hostOs,
@@ -95,7 +103,8 @@
                ''             AS hostCity
         FROM ta_fly_login_info a
                  LEFT JOIN ta_fly_user_info b ON a.id = b.id
-                 LEFT JOIN ta_fly_user_role_info c ON b.id = c.user_id AND b.tenant_id = c.tenant_id
+                 LEFT JOIN ta_fly_user_role_info c ON b.id = c.user_id
+                 LEFT JOIN ta_fly_dept_info d ON c.dept_id = d.id
         WHERE b.telephone = #{mobile}
           AND c.role_flag = 'Y'
           AND c.valid_flag = 'Y'
