@@ -1,5 +1,6 @@
 package com.github.itdachen.ooxml.poi.exp;
 
+import com.github.itdachen.framework.core.utils.LocalDateUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
@@ -195,6 +196,22 @@ public class ExcelExpUtils {
 
     public static String getUUid() {
         return UUID.randomUUID().toString().replaceAll("-", "");
+    }
+
+
+    /***
+     * 获取导出文件名称
+     *
+     * @author 王大宸
+     * @date 2025/7/24 9:40
+     * @param title       导出标题
+     * @param bookNum     第几个文件
+     * @param fileFormat  文件格式
+     * @return java.lang.String
+     */
+    public static String getExpTitle(String title, int bookNum, String fileFormat) {
+        final String localDate = LocalDateUtils.getLocalDate().replaceAll("-", "");
+        return title + "_" + localDate + "_" + bookNum + fileFormat;
     }
 
 }

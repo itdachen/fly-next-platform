@@ -7,6 +7,7 @@ import com.github.itdachen.ooxml.poi.entity.PoiUploadInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.util.StopWatch;
 
 import java.io.IOException;
 import java.util.concurrent.*;
@@ -122,20 +123,39 @@ public class WorkBookExpHelper<T, Q> {
                                       long bookTotalNum,
                                       String msgId) {
 
+        String msgContent = "====== 开始导出 ======";
+        WorkBookExpMessageHandler.appendContent(msgId, "", msgContent, settings.getSendMsg());
+
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+
+        String expTitle = "";
+
         int bookNum; // 记录第几个文件
         for (int i = 0; i < bookTotalNum; i++) {
             bookNum = i + 1;
-            logger.info("====== 导出" + settings.getTitle() + bookNum + settings.getFileFormat() + " 数据文件 START ======");
+            logger.info("====== 导出《" + expTitle + "》 数据文件 START ======");
+
+            expTitle = ExcelExpUtils.getExpTitle(settings.getTitle(), bookNum, settings.getFileFormat());
+            WorkBookExpMessageHandler.appendContent(msgId, "", "====== 导出《" + expTitle + "》 数据文件 START ======", settings.getSendMsg());
+
             try {
                 createWorkBook.createWorkBook(settings, writeWorkBook, bookNum, msgId);
             } catch (Exception e) {
-                logger.info("====== 导出" + settings.getTitle() + bookNum + settings.getFileFormat() + " 数据文件 END [FAIL] ======", e);
+
+                logger.error("====== 导出《" + expTitle + "》 数据文件 END [FAIL] ======", e);
+                String msg = "====== 导出《" + expTitle + "》 数据文件 END [FAIL]: " + e.getMessage() + "<br>";
+                WorkBookExpMessageHandler.appendContent(msgId, "", msg, settings.getSendMsg());
             }
-            logger.info("====== 导出" + settings.getTitle() + bookNum + settings.getFileFormat() + " 数据文件 END [SUCCESS] ======");
+
+            logger.info("====== 导出《" + expTitle + " 数据文件 END [SUCCESS] ======");
+            WorkBookExpMessageHandler.appendContent(msgId, "", "====== 导出《" + expTitle + "》 数据文件 END [SUCCESS] ====== <br>", settings.getSendMsg());
         }
 
-        String msgContent = "【" + LocalDateUtils.getLocalDateTimeMillis() + "】《" + settings.getTitle() + "》导出结束！";
-        WorkBookExpMessageHandler.appendContent(msgId, msgContent, settings.getSendMsg());
+        stopWatch.stop();
+
+        msgContent = "====== 导出结束，本次导出共用时 " + stopWatch.getTotalTimeSeconds() + " 秒 ======";
+        WorkBookExpMessageHandler.appendContent(msgId, settings.getTitle(), msgContent, settings.getSendMsg());
 
     }
 

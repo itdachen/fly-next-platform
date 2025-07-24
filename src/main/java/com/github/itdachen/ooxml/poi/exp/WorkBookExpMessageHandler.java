@@ -4,6 +4,7 @@ import com.github.itdachen.boot.autoconfigure.AppContextHelper;
 import com.github.itdachen.framework.context.userdetails.UserInfoDetails;
 import com.github.itdachen.framework.core.enums.MsgClazzEnum;
 import com.github.itdachen.framework.core.enums.NoticeTypeEnum;
+import com.github.itdachen.framework.core.utils.LocalDateUtils;
 import com.github.itdachen.ooxml.poi.entity.MsgModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,6 +81,16 @@ public class WorkBookExpMessageHandler {
         }
     }
 
+    /***
+     * 追加消息
+     *
+     * @author 王大宸
+     * @date 2025/7/24 9:26
+     * @param msgId      消息ID
+     * @param msgContent 追加消息
+     * @param sendMsg    是否推送
+     * @return void
+     */
     public static void appendContent(String msgId, String msgContent, boolean sendMsg) {
         if (!sendMsg) {
             return;
@@ -89,6 +100,39 @@ public class WorkBookExpMessageHandler {
                     MsgModel.builder()
                             .id(msgId)
                             .content(msgContent)
+                            .build());
+        } catch (Exception e) {
+            logger.error("追加消息失败, 消息ID: {}, 消息内容: {}", msgContent, msgContent, e);
+        }
+    }
+
+
+    /***
+     * 追加消息
+     *
+     * @author 王大宸
+     * @date 2025/7/24 9:26
+     * @param msgId      消息ID
+     * @param title      标题/文件标题
+     * @param msgContent 追加消息
+     * @param sendMsg    是否推送
+     * @return void
+     */
+    public static void appendContent(String msgId, String title, String msgContent, boolean sendMsg) {
+        if (!sendMsg) {
+            return;
+        }
+        String content = "【" + LocalDateUtils.getLocalDateTimeMillis() + "】";
+        if (null != title && !title.isEmpty()) {
+            content += "《" + title + "》";
+        }
+        content += msgContent;
+
+        try {
+            AppContextHelper.getBean(IOplogMsgClient.class).appendContent(
+                    MsgModel.builder()
+                            .id(msgId)
+                            .content(content)
                             .build());
         } catch (Exception e) {
             logger.error("追加消息失败, 消息ID: {}, 消息内容: {}", msgContent, msgContent, e);

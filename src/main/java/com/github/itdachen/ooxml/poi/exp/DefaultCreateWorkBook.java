@@ -40,12 +40,13 @@ public class DefaultCreateWorkBook<T, Q> implements ICreateWorkBook<T, Q> {
                                IWriteWorkBook<T, Q> handler,
                                int bookNum, String msgId) {
 
-        final String localDate = LocalDateUtils.getLocalDate().replaceAll("-", "");
-        final String fileTitle = settings.getTitle() + "_" + localDate + "_" + bookNum + settings.getFileFormat();
+//        final String localDate = LocalDateUtils.getLocalDate().replaceAll("-", "");
+//        final String fileTitle = settings.getTitle() + "_" + localDate + "_" + bookNum + settings.getFileFormat();
 
-        String msgContent = "【" + LocalDateUtils.getLocalDateTimeMillis() + "】《" + fileTitle + "》文件开始导出！";
-        appendMessageContent(msgId, msgContent, settings.getSendMsg());
+        final String fileTitle = ExcelExpUtils.getExpTitle(settings.getTitle(), bookNum, settings.getFileFormat());
 
+
+        String msgContent = "";
 
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -57,8 +58,8 @@ public class DefaultCreateWorkBook<T, Q> implements ICreateWorkBook<T, Q> {
             Integer limit = Integer.parseInt(String.valueOf(settings.getSheetRowNum()));
             List<T> dataList = handler.data(settings.getParams(), bookNum, limit);
 
-            msgContent = "【" + LocalDateUtils.getLocalDateTimeMillis() + "】《" + fileTitle + "》获取数据成功，该文件共 " + dataList.size() + " 条数据！";
-            appendMessageContent(msgId, msgContent, settings.getSendMsg());
+            msgContent = "获取数据成功，该文件共 " + dataList.size() + " 条数据！";
+            WorkBookExpMessageHandler.appendContent(msgId, fileTitle, msgContent, settings.getSendMsg());
 
             /* 创建 sheet */
             Sheet sheet = workbook.createSheet(settings.getTitle() + bookNum);
@@ -70,14 +71,14 @@ public class DefaultCreateWorkBook<T, Q> implements ICreateWorkBook<T, Q> {
 
             if (!dataList.isEmpty()) {
 
-                msgContent = "【" + LocalDateUtils.getLocalDateTimeMillis() + "】《" + fileTitle + "》文件数据开始写入表格！";
-                appendMessageContent(msgId, msgContent, settings.getSendMsg());
+                msgContent = "文件数据开始写入表格！";
+                WorkBookExpMessageHandler.appendContent(msgId, fileTitle, msgContent, settings.getSendMsg());
 
                 /* 数据写入表格, 根据调用方情况自定义 */
                 handler.writeWorkBook(workbook, sheet, dataList, settings.getAddIndexNum());
 
-                msgContent = "【" + LocalDateUtils.getLocalDateTimeMillis() + "】《" + fileTitle + "》文件数据写入结束表格！";
-                appendMessageContent(msgId, msgContent, settings.getSendMsg());
+                msgContent = "文件数据写入结束表格！";
+                WorkBookExpMessageHandler.appendContent(msgId, fileTitle, msgContent, settings.getSendMsg());
 
             }
 
@@ -87,15 +88,15 @@ public class DefaultCreateWorkBook<T, Q> implements ICreateWorkBook<T, Q> {
 
             /* 导出是否保存到服务器 */
             if (settings.getUploadFile()) {
-                msgContent = "【" + LocalDateUtils.getLocalDateTimeMillis() + "】《" + fileTitle + "》导出结果开始上传到服务器！";
-                appendMessageContent(msgId, msgContent, settings.getSendMsg());
+                msgContent = "导出结果开始上传到服务器！";
+                WorkBookExpMessageHandler.appendContent(msgId, fileTitle, msgContent, settings.getSendMsg());
 
 
                 WorkBookExpFileUploadHandler.setUploadToFolder(workbook, uploadInfo);
 
 
-                msgContent = "【" + LocalDateUtils.getLocalDateTimeMillis() + "】《" + fileTitle + "》导出结果上传到服务器结束！";
-                appendMessageContent(msgId, msgContent, settings.getSendMsg());
+                msgContent = "导出结果上传到服务器结束！";
+                WorkBookExpMessageHandler.appendContent(msgId, fileTitle, msgContent, settings.getSendMsg());
             }
 
 
@@ -114,13 +115,13 @@ public class DefaultCreateWorkBook<T, Q> implements ICreateWorkBook<T, Q> {
             }
 
 
-            msgContent = "【" + LocalDateUtils.getLocalDateTimeMillis() + "】《" + fileTitle + "》导出完成！";
-            appendMessageContent(msgId, msgContent, settings.getSendMsg());
+            msgContent = "导出完成！";
+            WorkBookExpMessageHandler.appendContent(msgId, fileTitle, msgContent, settings.getSendMsg());
 
         } catch (Exception e) {
             logger.error("数据 " + fileTitle + " 导出失败: {} ", e.getMessage(), e);
-            msgContent = "【" + LocalDateUtils.getLocalDateTimeMillis() + "】《" + fileTitle + "》导出失败：" + e.getMessage();
-            appendMessageContent(msgId, msgContent, settings.getSendMsg());
+            msgContent = "导出失败：" + e.getMessage();
+            WorkBookExpMessageHandler.appendContent(msgId, fileTitle, msgContent, settings.getSendMsg());
         } finally {
             try {
                 if (workbook != null) {
@@ -130,8 +131,8 @@ public class DefaultCreateWorkBook<T, Q> implements ICreateWorkBook<T, Q> {
                 /* 计时结束 */
                 stopWatch.stop();
 
-                msgContent = "【" + LocalDateUtils.getLocalDateTimeMillis() + "】《" + fileTitle + "》导出记录开始保存到数据库，本次导出共用时 " + stopWatch.getTotalTimeSeconds() + " 秒！导出记录保存到数据库结束！<br>";
-                appendMessageContent(msgId, msgContent, settings.getSendMsg());
+                msgContent = "导出记录开始保存到数据库，本次导出共用时 " + stopWatch.getTotalTimeSeconds() + " 秒！";
+                WorkBookExpMessageHandler.appendContent(msgId, fileTitle, msgContent, settings.getSendMsg());
 
                 stopWatch = null;
             } catch (Exception e) {
@@ -141,23 +142,6 @@ public class DefaultCreateWorkBook<T, Q> implements ICreateWorkBook<T, Q> {
         }
 
 
-    }
-
-
-    /***
-     * 消息追加统一处理
-     *
-     * @author 王大宸
-     * @date 2025/7/11 23:58
-     * @param msgId       消息ID
-     * @param msgContent  追加消息内容
-     * @param sendMessage 是否添加消息
-     * @return void
-     */
-    private void appendMessageContent(String msgId, String msgContent, boolean sendMessage) {
-        if (sendMessage) {
-            WorkBookExpMessageHandler.appendContent(msgId, msgContent);
-        }
     }
 
 
