@@ -5,7 +5,11 @@ import com.github.itdachen.framework.context.userdetails.UserInfoDetails;
 import com.github.itdachen.framework.core.enums.MsgClazzEnum;
 import com.github.itdachen.framework.core.enums.NoticeTypeEnum;
 import com.github.itdachen.framework.core.utils.LocalDateUtils;
+import com.github.itdachen.framework.tools.ServletUtils;
+import com.github.itdachen.framework.tools.ip.AddressUtils;
+import com.github.itdachen.framework.tools.useragent.UserAgentUtils;
 import com.github.itdachen.ooxml.poi.entity.MsgModel;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,10 +46,17 @@ public class WorkBookExpMessageHandler {
      * @param userDetails userDetails
      * @return void
      */
-    public static void saveExpMessageInfo(String msgId,
+    public static void saveExpMessageInfo(HttpServletRequest request,
+                                          String msgId,
                                           String content,
                                           String title,
                                           UserInfoDetails userDetails) throws Exception {
+
+        String userAgent = request.getHeader("user-agent");
+        String ipAddress = ServletUtils.getIPAddress(request);
+        String realAddress = AddressUtils.getRealAddressByIP(ipAddress);
+
+
         MsgModel build = MsgModel.builder()
                 .id(msgId)
                 .msgType(NoticeTypeEnum.MSG.value())
@@ -55,6 +66,13 @@ public class WorkBookExpMessageHandler {
                 .title(title)
                 .content(content)
                 .files(new ArrayList<>())
+
+                .hostIp(ipAddress)
+                .hostAddress(realAddress)
+                .hostOs(UserAgentUtils.getOSInfo(userAgent))
+                .hostBrowser(UserAgentUtils.getBrowserName(userAgent))
+                .hostUserAgent(userAgent)
+
                 .build();
         AppContextHelper.getBean(IOplogMsgClient.class).save(build, userDetails);
 

@@ -34,6 +34,9 @@ public class ExcelExpUtils {
     /* 文本行高 */
     public static final String TEXT_ROW_HEIGHT = "700";
 
+    /* 日志名称后缀 */
+    public static final String TEXT_SUFFIX_TITLE = "数据导出文件！";
+
 
     /***
      * 设置表头

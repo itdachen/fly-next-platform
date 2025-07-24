@@ -88,7 +88,10 @@ public class WorkBookExpHelper<T, Q> {
         try {
             /* 添加导出消息日志 */
             final String content = "【" + settings.getTitle() + "】数据导出共 " + bookTotalNum + " 个文件，共计 " + rowTotal + " 条数据。数据导出较慢，若消息附件中没有 " + bookTotalNum + " 个文件，请 5 分钟后重新查看消息信息！";
-            WorkBookExpMessageHandler.saveExpMessageInfo(msgId, content, settings.getTitle() + "数据导出文件！", settings.getUserDetails());
+            WorkBookExpMessageHandler.saveExpMessageInfo( settings.getRequest() ,msgId,
+                    content,
+                    settings.getTitle() + ExcelExpUtils.TEXT_SUFFIX_TITLE,
+                    settings.getUserDetails());
         } catch (Exception e) {
             logger.error("导出消息入库失败: ", e);
         }

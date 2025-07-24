@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.itdachen.boot.autoconfigure.AppContextHelper;
 import com.github.itdachen.boot.autoconfigure.app.AppInfoProperties;
 import com.github.itdachen.boot.autoconfigure.app.PlatformInfoProperties;
-import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.id.IdUtils;
 import com.github.itdachen.framework.context.userdetails.UserInfoDetails;
 import com.github.itdachen.framework.tools.ServletUtils;

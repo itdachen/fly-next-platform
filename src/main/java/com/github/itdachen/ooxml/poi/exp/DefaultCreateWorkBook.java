@@ -105,11 +105,13 @@ public class DefaultCreateWorkBook<T, Q> implements ICreateWorkBook<T, Q> {
                 MsgFileModel messageFile = MsgFileModel.builder()
                         .id(IdUtils.getId())
                         .msgId(msgId)
+                        .msgTitle(settings.getTitle() + ExcelExpUtils.TEXT_SUFFIX_TITLE)
                         .appId(AppHelper.app().properties().getAppId())
                         .fileFormat(settings.getFileFormat())
                         .fileTitle(fileTitle)
                         .fileUrl(uploadInfo.getFileUri())
                         .fileSize(uploadInfo.getFileSize() + "")
+                        .hexMd5(fileTitle)
                         .build();
                 AppContextHelper.getBean(IOplogMsgClient.class).saveMsgFile(messageFile);
             }
