@@ -190,7 +190,47 @@
 
     <!-- 集合查询 -->
     <select id="list" parameterType="com.github.itdachen.msg.sdk.query.MsgPoolQuery" resultMap="msgPoolMap">
-        <include refid="selectMsgPoolVO"/>
+        SELECT id,
+        tenant_id,
+        tenant_title,
+        plat_id,
+        plat_title,
+        app_id,
+        app_title,
+        app_version,
+        user_id,
+        nick_name,
+        role_id,
+        role_name,
+        prov_id,
+        prov_title,
+        city_id,
+        city_title,
+        county_id,
+        county_title,
+        dept_id,
+        dept_title,
+        dept_level,
+        dept_parent_id,
+        host_ip,
+        host_address,
+        host_os,
+        host_browser,
+        host_user_agent,
+        msg_type,
+        msg_type_title,
+        clazz_type,
+        clazz_title,
+        title,
+        read_flag,
+        read_time,
+        remove_time,
+        remove_user_id,
+        remove_nick_name,
+        yearly,
+        monthly,
+        create_time
+        FROM ta_fly_msg_pool
         <include refid="selectParamsWhere"></include>
     </select>
 

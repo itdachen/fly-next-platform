@@ -34,7 +34,7 @@ function initAppLayTable(table, form) {
         $.http.get({
             url: expUri,
             callback: function (res) {
-                layer.alert(res.msg);
+               $.msg.alertMsg(res.msg);
             }
         })
         return false;

@@ -249,6 +249,15 @@ $(function () {
                     $.flyer.close();
                 });
             },
+
+            alertMsg: function (msg) {
+                layer.alert(msg, {
+                    icon: $.msg.icon(LAYER_STATUS.SUCCESS),
+                    shadeClose: true,
+                    title: '系统提示'
+                })
+            },
+
             /**
              * 自定义消息信息
              * @param msg

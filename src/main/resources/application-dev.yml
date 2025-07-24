@@ -12,7 +12,7 @@ logging:
   config: classpath:fly.xml
   level:
     cn.jay.repository: trace
-    org.springframework: warn
+#    org.springframework: warn
   file:
     path: ./logs # 配置日志打印目录,默认名称为:spring.log
     name: ./logs/fly_next.log # 配置日志打印目录和名称,和上面的path选一即可
