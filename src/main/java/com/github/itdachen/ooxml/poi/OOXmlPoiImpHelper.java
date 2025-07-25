@@ -1,10 +1,9 @@
 package com.github.itdachen.ooxml.poi;
 
-import com.github.itdachen.ooxml.poi.imp.DefaultWorkBookImpFileUpload;
-import com.github.itdachen.ooxml.poi.imp.IWorkBookImpFileUploadHandler;
-import com.github.itdachen.ooxml.poi.imp.ImpParamsSettings;
+import com.github.itdachen.ooxml.poi.imp.*;
 import com.github.itdachen.ooxml.poi.utils.ReplyResponseMsgUtils;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
@@ -16,40 +15,60 @@ import java.io.IOException;
  */
 public class OOXmlPoiImpHelper<T> {
 
-
-    /**
-     * 从第几行还是读取
-     */
-    private int firstRowNum = 2;
-
     /**
      * 导入参数设置
      */
     private ImpParamsSettings settings;
 
     /**
-     * 文件上传处理方法, 默认实现
+     * 读取数据
      */
-    private IWorkBookImpFileUploadHandler uploadHandler = new DefaultWorkBookImpFileUpload();
+    private IReadWorkBook<T> readWorkBook;
 
     /**
-     * 从第几行开始读取
+     * 解析表格
      */
-    public OOXmlPoiImpHelper<T> firstRowNum(int firstRowNum) {
-        this.firstRowNum = firstRowNum;
+    private IAnalysisWorkBook<T> analysisWorkBook = new DefaultAnalysisWorkBook<>();
+
+    /**
+     * 需要导入的文件
+     */
+    private MultipartFile workBookFile;
+
+    /**
+     * 需要导入的文件
+     */
+    public OOXmlPoiImpHelper<T> workBookFile(MultipartFile workBookFile) {
+        this.workBookFile = workBookFile;
+        return this;
+    }
+
+    /**
+     * 导入参数设置
+     */
+    public OOXmlPoiImpHelper<T> settings(ImpParamsSettings settings) {
+        this.settings = settings;
         return this;
     }
 
     /***
-     * 文件上传处理方法
+     * 读取数据
      *
      * @author 王大宸
-     * @date 2025/7/25 17:22
-     * @param uploadHandler uploadHandler
+     * @date 2025/7/25 22:57
+     * @param readWorkBook readWorkBook
      * @return com.github.itdachen.ooxml.poi.OOXmlPoiImpHelper<T>
      */
-    public OOXmlPoiImpHelper<T> uploadHandler(IWorkBookImpFileUploadHandler uploadHandler) {
-        this.uploadHandler = uploadHandler;
+    public OOXmlPoiImpHelper<T> readWorkBook(IReadWorkBook<T> readWorkBook) {
+        this.readWorkBook = readWorkBook;
+        return this;
+    }
+
+    /**
+     * 解析表格
+     */
+    public OOXmlPoiImpHelper<T> analysisWorkBook(IAnalysisWorkBook<T> analysisWorkBook) {
+        this.analysisWorkBook = analysisWorkBook;
         return this;
     }
 
@@ -61,6 +80,13 @@ public class OOXmlPoiImpHelper<T> {
      * @return com.github.itdachen.ooxml.poi.OOXmlPoiImpHelper<T>
      */
     public OOXmlPoiImpHelper<T> execute() throws Exception {
+        WorkBookImpHelper<T> helper = new WorkBookImpHelper<T>(
+                settings,
+                readWorkBook,
+                analysisWorkBook,
+                workBookFile
+        );
+        helper.execute();
         return this;
     }
 

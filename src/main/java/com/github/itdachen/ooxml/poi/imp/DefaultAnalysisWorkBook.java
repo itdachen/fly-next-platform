@@ -5,7 +5,10 @@ import com.github.itdachen.framework.context.exception.BizException;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,17 +20,49 @@ import java.util.List;
  */
 public class DefaultAnalysisWorkBook<T> implements IAnalysisWorkBook<T> {
 
+    /***
+     * 文件解析
+     *
+     * @author 王大宸
+     * @date 2025/7/25 23:18
+     * @param workBookFile workBookFile
+     * @param settings     settings
+     * @param readWorkBook readWorkBook
+     * @return void
+     */
     @Override
-    public void analysis(String path, ImpParamsSettings settings, IReadWorkBook<T> readWorkBook) {
-        boolean validateExcel = ExcelImpUtils.validateExcel(path);
+    public void analysisWorkBook(MultipartFile workBookFile, ImpParamsSettings settings, IReadWorkBook<T> readWorkBook) throws IOException {
+        String workBookFilename = workBookFile.getOriginalFilename();
+        boolean validateExcel = ExcelImpUtils.validateExcel(workBookFilename);
 
-        if (!validateExcel){
+        if (!validateExcel) {
             throw new BizException("数据文件格式错误，不是标准的 xls 或 xlsx 文件！");
         }
-       // System.err.println("是否是 Excel: " + b);
 
-        Workbook workbook = ExcelImpUtils.getWorkbook(path);
+        if (settings.getUploadFile()) {
+            /* 文件上传 */
 
+            //   Workbook workbook = ExcelImpUtils.getWorkbook(path);
+            //  handler(workbook, settings, readWorkBook);
+        }
+
+        Workbook workbook = new XSSFWorkbook(workBookFile.getInputStream());//情况1
+        handler(workbook, settings, readWorkBook);
+
+    }
+
+
+    /***
+     * 最终处理
+     *
+     * @author 王大宸
+     * @date 2025/7/25 23:05
+     * @param workbook workbook
+     * @param settings settings
+     * @param readWorkBook readWorkBook
+     * @return void
+     */
+    private void handler(Workbook workbook, ImpParamsSettings settings, IReadWorkBook<T> readWorkBook) {
         /* 获取该表格有几个 Sheet */
         int workbookSheetNumber = ExcelImpUtils.getWorkbookSheetNumber(workbook);
 
@@ -59,8 +94,7 @@ public class DefaultAnalysisWorkBook<T> implements IAnalysisWorkBook<T> {
 
 
         }
-
-
     }
+
 
 }

@@ -1,7 +1,10 @@
 package com.github.itdachen.ooxml.poi.imp;
 
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -21,6 +24,7 @@ public interface IAnalysisWorkBook<T> {
      * @param path path
      * @return void
      */
-    void analysis(String path, ImpParamsSettings settings, IReadWorkBook<T> readWorkBook);
+    void analysisWorkBook(MultipartFile workBookFile, ImpParamsSettings settings, IReadWorkBook<T> readWorkBook) throws IOException;
+
 
 }
