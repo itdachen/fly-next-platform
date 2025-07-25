@@ -9,32 +9,20 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
+import java.io.OutputStream;
 
 /**
- * 下载文件上传
+ * 导出数据上传至文件服务, 默认实现
  *
  * @author 王大宸
- * @date 2025-07-22 11:20
+ * @date 2025-07-25 17:14
  */
-public class WorkBookExpFileUploadHandler {
-    private static final Logger logger = LoggerFactory.getLogger(WorkBookExpFileUploadHandler.class);
+public class DefaultWorkBookExpFileUpload implements IWorkBookExpFileUpload {
 
-
-    /***
-     * 文件上传, 这里调用文件上传服务
-     *
-     * @author 王大宸
-     * @date 2025/7/25 17:12
-     * @param workbook workbook
-     * @param uploadInfo uploadInfo
-     * @return void
-     */
-    public static void setUploadToFolder(XSSFWorkbook workbook, PoiUploadInfo uploadInfo) throws Exception {
+    @Override
+    public void toExpFileUpload(XSSFWorkbook workbook, PoiUploadInfo uploadInfo) throws Exception {
         // 需要将 workbook 通过流对象转为 MultipartFile，不然直接转为 workbook 的字节生成的文件无法打开
         FileItemFactory factory = new DiskFileItemFactory(16, null);
         FileItem fileItem = factory.createItem("textField", "text/plain", true, uploadInfo.getTitle() + uploadInfo.getFileFormat());
@@ -49,7 +37,6 @@ public class WorkBookExpFileUploadHandler {
         uploadInfo.setFileDiskUri(upload.getUrl());   // 文件磁盘地址
         uploadInfo.setFileUri(upload.getUrl());       // 文件访问地址
         uploadInfo.setFileSize(upload.getSize());     // 文件大小
-
 
     }
 

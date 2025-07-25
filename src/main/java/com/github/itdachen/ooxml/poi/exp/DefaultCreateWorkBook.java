@@ -38,7 +38,8 @@ public class DefaultCreateWorkBook<T, Q> implements ICreateWorkBook<T, Q> {
     @Override
     public void createWorkBook(ParameterSettings<Q> settings,
                                IWriteWorkBook<T, Q> handler,
-                               int bookNum, String msgId) {
+                               int bookNum, String msgId,
+                               IWorkBookExpFileUpload fileUploadHandler) {
 
 //        final String localDate = LocalDateUtils.getLocalDate().replaceAll("-", "");
 //        final String fileTitle = settings.getTitle() + "_" + localDate + "_" + bookNum + settings.getFileFormat();
@@ -91,9 +92,7 @@ public class DefaultCreateWorkBook<T, Q> implements ICreateWorkBook<T, Q> {
                 msgContent = "导出结果开始上传到服务器！";
                 WorkBookExpMessageHandler.appendContent(msgId, fileTitle, msgContent, settings.getSendMsg());
 
-
-                WorkBookExpFileUploadHandler.setUploadToFolder(workbook, uploadInfo);
-
+                fileUploadHandler.toExpFileUpload(workbook, uploadInfo);
 
                 msgContent = "导出结果上传到服务器结束！";
                 WorkBookExpMessageHandler.appendContent(msgId, fileTitle, msgContent, settings.getSendMsg());

@@ -33,6 +33,11 @@ public class OOXmlPoiExpHelper<T, Q> {
      */
     private ICreateWorkBook<T, Q> createWorkBook = new DefaultCreateWorkBook<>();
 
+    /***
+     * 文件上传方法
+     */
+    private IWorkBookExpFileUpload fileUpload = new DefaultWorkBookExpFileUpload();
+
 
     public OOXmlPoiExpHelper<T, Q> settings(ParameterSettings<Q> settings) {
         this.settings = settings;
@@ -55,6 +60,11 @@ public class OOXmlPoiExpHelper<T, Q> {
         return this;
     }
 
+    public OOXmlPoiExpHelper<T, Q> fileUpload(IWorkBookExpFileUpload fileUpload) {
+        this.fileUpload = fileUpload;
+        return this;
+    }
+
 
     /***
      * 导出
@@ -64,7 +74,7 @@ public class OOXmlPoiExpHelper<T, Q> {
      * @return com.github.itdachen.ooxml.poi.OOXmlPoiExpHelper<T, Q>
      */
     public OOXmlPoiExpHelper<T, Q> execute() throws Exception {
-        WorkBookExpHelper<T, Q> tqWorkBookExpHelper = new WorkBookExpHelper<>(this.settings, this.writeWorkBook, this.createWorkBook);
+        WorkBookExpHelper<T, Q> tqWorkBookExpHelper = new WorkBookExpHelper<>(this.settings, this.writeWorkBook, this.createWorkBook, this.fileUpload);
         tqWorkBookExpHelper.execute();
         return this;
     }

@@ -20,7 +20,7 @@ public interface ICreateWorkBook<T, Q> {
      * @param msgId    导出消息ID
      * @return void
      */
-    void createWorkBook(ParameterSettings<Q> settings, IWriteWorkBook<T, Q> handler, int bookNum, String msgId);
+    void createWorkBook(ParameterSettings<Q> settings, IWriteWorkBook<T, Q> handler, int bookNum, String msgId,    IWorkBookExpFileUpload fileUploadHandler);
 
 
 }

@@ -49,15 +49,18 @@ public class WorkBookExpHelper<T, Q> {
      */
     private ICreateWorkBook<T, Q> createWorkBook = new DefaultCreateWorkBook<>();
 
+    private IWorkBookExpFileUpload fileUpload = new DefaultWorkBookExpFileUpload();
+
     public WorkBookExpHelper(ParameterSettings<Q> settings, IWriteWorkBook<T, Q> writeWorkBook) {
         this.settings = settings;
         this.writeWorkBook = writeWorkBook;
     }
 
-    public WorkBookExpHelper(ParameterSettings<Q> settings, IWriteWorkBook<T, Q> writeWorkBook, ICreateWorkBook<T, Q> createWorkBook) {
+    public WorkBookExpHelper(ParameterSettings<Q> settings, IWriteWorkBook<T, Q> writeWorkBook, ICreateWorkBook<T, Q> createWorkBook, IWorkBookExpFileUpload fileUpload) {
         this.settings = settings;
         this.writeWorkBook = writeWorkBook;
         this.createWorkBook = createWorkBook;
+        this.fileUpload = fileUpload;
     }
 
 
@@ -88,7 +91,7 @@ public class WorkBookExpHelper<T, Q> {
         try {
             /* 添加导出消息日志 */
             final String content = "【" + settings.getTitle() + "】数据导出共 " + bookTotalNum + " 个文件，共计 " + rowTotal + " 条数据。数据导出较慢，若消息附件中没有 " + bookTotalNum + " 个文件，请 5 分钟后重新查看消息信息！";
-            WorkBookExpMessageHandler.saveExpMessageInfo( settings.getRequest() ,msgId,
+            WorkBookExpMessageHandler.saveExpMessageInfo(settings.getRequest(), msgId,
                     content,
                     settings.getTitle() + ExcelExpUtils.TEXT_SUFFIX_TITLE,
                     settings.getUserDetails());
@@ -99,11 +102,12 @@ public class WorkBookExpHelper<T, Q> {
 
         final long finalBookNum = bookTotalNum;
         final IWriteWorkBook<T, Q> workBookHandler = writeWorkBook;
+        final   IWorkBookExpFileUpload fileUploadHandler = fileUpload;
         threadPoolExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 try {
-                    workBookPoiExpHelper(settings, workBookHandler, finalBookNum, msgId);
+                    workBookPoiExpHelper(settings, workBookHandler, finalBookNum, msgId, fileUploadHandler);
                 } catch (Exception e) {
                     logger.error("数据导出日志入库失败 ", e);
                 }
@@ -124,7 +128,8 @@ public class WorkBookExpHelper<T, Q> {
     private void workBookPoiExpHelper(ParameterSettings<Q> settings,
                                       IWriteWorkBook<T, Q> writeWorkBook,
                                       long bookTotalNum,
-                                      String msgId) {
+                                      String msgId,
+                                      IWorkBookExpFileUpload fileUploadHandler) {
 
         String msgContent = "====== 开始导出 ======";
         WorkBookExpMessageHandler.appendContent(msgId, "", msgContent, settings.getSendMsg());
@@ -143,7 +148,7 @@ public class WorkBookExpHelper<T, Q> {
             WorkBookExpMessageHandler.appendContent(msgId, "", "====== 导出《" + expTitle + "》 数据文件 START ======", settings.getSendMsg());
 
             try {
-                createWorkBook.createWorkBook(settings, writeWorkBook, bookNum, msgId);
+                createWorkBook.createWorkBook(settings, writeWorkBook, bookNum, msgId, fileUploadHandler);
             } catch (Exception e) {
 
                 logger.error("====== 导出《" + expTitle + "》 数据文件 END [FAIL] ======", e);
