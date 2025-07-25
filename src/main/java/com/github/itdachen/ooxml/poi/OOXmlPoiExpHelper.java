@@ -19,7 +19,7 @@ public class OOXmlPoiExpHelper<T, Q> {
     /**
      * 导出参数设置
      */
-    private ParameterSettings<Q> settings;
+    private ExpParamsSettings<Q> settings;
 
 
     /**
@@ -39,7 +39,7 @@ public class OOXmlPoiExpHelper<T, Q> {
     private IWorkBookExpFileUpload fileUpload = new DefaultWorkBookExpFileUpload();
 
 
-    public OOXmlPoiExpHelper<T, Q> settings(ParameterSettings<Q> settings) {
+    public OOXmlPoiExpHelper<T, Q> settings(ExpParamsSettings<Q> settings) {
         this.settings = settings;
         return this;
     }

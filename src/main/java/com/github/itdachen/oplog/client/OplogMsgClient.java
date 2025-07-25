@@ -2,13 +2,9 @@ package com.github.itdachen.oplog.client;
 
 import com.github.itdachen.framework.context.userdetails.UserInfoDetails;
 import com.github.itdachen.msg.manager.IMsgPoolManager;
-import com.github.itdachen.msg.mapper.IMsgFileMapper;
-import com.github.itdachen.msg.mapper.IMsgPoolMapper;
 import com.github.itdachen.ooxml.poi.entity.MsgFileModel;
 import com.github.itdachen.ooxml.poi.entity.MsgModel;
-import com.github.itdachen.ooxml.poi.exp.IOplogMsgClient;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import com.github.itdachen.ooxml.poi.msg.IOplogMsgClient;
 import org.springframework.stereotype.Service;
 
 /**

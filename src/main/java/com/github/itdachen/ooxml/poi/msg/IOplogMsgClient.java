@@ -1,4 +1,4 @@
-package com.github.itdachen.ooxml.poi.exp;
+package com.github.itdachen.ooxml.poi.msg;
 
 import com.github.itdachen.framework.context.userdetails.UserInfoDetails;
 import com.github.itdachen.ooxml.poi.entity.MsgFileModel;
@@ -35,6 +35,14 @@ public interface IOplogMsgClient {
     void appendContent(MsgModel msgModel);
 
 
+    /***
+     * 添加消息文件
+     *
+     * @author 王大宸
+     * @date 2025/7/25 22:42
+     * @param msgFileModel msgFileModel
+     * @return void
+     */
     void saveMsgFile(MsgFileModel msgFileModel);
 
 

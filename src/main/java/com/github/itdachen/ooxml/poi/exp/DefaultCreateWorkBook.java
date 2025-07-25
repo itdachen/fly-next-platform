@@ -3,9 +3,9 @@ package com.github.itdachen.ooxml.poi.exp;
 import com.github.itdachen.boot.autoconfigure.AppContextHelper;
 import com.github.itdachen.boot.autoconfigure.AppHelper;
 import com.github.itdachen.framework.context.id.IdUtils;
-import com.github.itdachen.framework.core.utils.LocalDateUtils;
 import com.github.itdachen.ooxml.poi.entity.MsgFileModel;
 import com.github.itdachen.ooxml.poi.entity.PoiUploadInfo;
+import com.github.itdachen.ooxml.poi.msg.IOplogMsgClient;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
@@ -36,7 +36,7 @@ public class DefaultCreateWorkBook<T, Q> implements ICreateWorkBook<T, Q> {
      * @return void
      */
     @Override
-    public void createWorkBook(ParameterSettings<Q> settings,
+    public void createWorkBook(ExpParamsSettings<Q> settings,
                                IWriteWorkBook<T, Q> handler,
                                int bookNum, String msgId,
                                IWorkBookExpFileUpload fileUploadHandler) {

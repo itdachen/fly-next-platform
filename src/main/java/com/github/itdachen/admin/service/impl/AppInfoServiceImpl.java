@@ -1,8 +1,6 @@
 package com.github.itdachen.admin.service.impl;
 
 import com.github.itdachen.admin.convert.AppInfoConvert;
-import com.github.itdachen.admin.utils.XSSFWorkBookExpHelper;
-import com.github.itdachen.boot.autoconfigure.oss.properties.OssLocalAutoconfigureProperties;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.exception.BizException;
@@ -14,7 +12,7 @@ import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
 import com.github.itdachen.ooxml.poi.OOXmlPoiExpHelper;
 import com.github.itdachen.ooxml.poi.exp.ExcelExpUtils;
 import com.github.itdachen.ooxml.poi.exp.IWriteWorkBook;
-import com.github.itdachen.ooxml.poi.exp.ParameterSettings;
+import com.github.itdachen.ooxml.poi.exp.ExpParamsSettings;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.itdachen.admin.entity.AppInfo;
@@ -25,24 +23,16 @@ import com.github.itdachen.admin.mapper.IAppInfoMapper;
 import com.github.itdachen.admin.service.IAppInfoService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jxl.write.*;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
-import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.Boolean;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -188,7 +178,7 @@ public class AppInfoServiceImpl extends BizServiceImpl<IAppInfoMapper, AppInfo, 
         EXP_FIELDS.add("有效标志: Y-是;N-否");
 
         new OOXmlPoiExpHelper<AppInfoVO, AppInfoQuery>()
-                .settings(new ParameterSettings<AppInfoQuery>(request, response,
+                .settings(new ExpParamsSettings<AppInfoQuery>(request, response,
                         BizContextHandler.getUserDetails(), "应用管理", EXP_FIELDS, params)
                 )
                 .writeWorkBook(new IWriteWorkBook<AppInfoVO, AppInfoQuery>() {

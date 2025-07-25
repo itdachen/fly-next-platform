@@ -1,11 +1,12 @@
 package com.github.itdachen.ooxml.poi;
 
-import com.github.itdachen.ooxml.poi.exp.IWriteWorkBook;
-import com.github.itdachen.ooxml.poi.exp.ParameterSettings;
-import com.github.itdachen.ooxml.poi.exp.WorkBookExpHelper;
 import com.github.itdachen.ooxml.poi.imp.DefaultWorkBookImpFileUpload;
 import com.github.itdachen.ooxml.poi.imp.IWorkBookImpFileUploadHandler;
-import org.apache.poi.ss.formula.functions.T;
+import com.github.itdachen.ooxml.poi.imp.ImpParamsSettings;
+import com.github.itdachen.ooxml.poi.utils.ReplyResponseMsgUtils;
+import org.springframework.http.HttpStatus;
+
+import java.io.IOException;
 
 /**
  * OOXmlPoiImpHelper
@@ -20,6 +21,11 @@ public class OOXmlPoiImpHelper<T> {
      * 从第几行还是读取
      */
     private int firstRowNum = 2;
+
+    /**
+     * 导入参数设置
+     */
+    private ImpParamsSettings settings;
 
     /**
      * 文件上传处理方法, 默认实现
@@ -55,6 +61,19 @@ public class OOXmlPoiImpHelper<T> {
      * @return com.github.itdachen.ooxml.poi.OOXmlPoiImpHelper<T>
      */
     public OOXmlPoiImpHelper<T> execute() throws Exception {
+        return this;
+    }
+
+
+    /***
+     * 执行导入, 返回给前端消息
+     *
+     * @author 王大宸
+     * @date 2025/7/25 22:52
+     * @return com.github.itdachen.ooxml.poi.OOXmlPoiImpHelper<T>
+     */
+    public OOXmlPoiImpHelper<T> reply() throws IOException {
+        ReplyResponseMsgUtils.reply(settings.getResponse(), "数据正在导入，请刷新【消息中心】信息！");
         return this;
     }
 

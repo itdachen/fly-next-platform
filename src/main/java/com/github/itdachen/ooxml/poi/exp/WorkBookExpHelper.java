@@ -2,11 +2,9 @@ package com.github.itdachen.ooxml.poi.exp;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.itdachen.framework.context.id.IdUtils;
-import com.github.itdachen.framework.core.utils.LocalDateUtils;
 import com.github.itdachen.ooxml.poi.entity.PoiUploadInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.util.StopWatch;
 
 import java.io.IOException;
@@ -35,7 +33,7 @@ public class WorkBookExpHelper<T, Q> {
     /**
      * 导出参数设置
      */
-    private ParameterSettings<Q> settings;
+    private ExpParamsSettings<Q> settings;
 
 
     /**
@@ -51,12 +49,12 @@ public class WorkBookExpHelper<T, Q> {
 
     private IWorkBookExpFileUpload fileUpload = new DefaultWorkBookExpFileUpload();
 
-    public WorkBookExpHelper(ParameterSettings<Q> settings, IWriteWorkBook<T, Q> writeWorkBook) {
+    public WorkBookExpHelper(ExpParamsSettings<Q> settings, IWriteWorkBook<T, Q> writeWorkBook) {
         this.settings = settings;
         this.writeWorkBook = writeWorkBook;
     }
 
-    public WorkBookExpHelper(ParameterSettings<Q> settings, IWriteWorkBook<T, Q> writeWorkBook, ICreateWorkBook<T, Q> createWorkBook, IWorkBookExpFileUpload fileUpload) {
+    public WorkBookExpHelper(ExpParamsSettings<Q> settings, IWriteWorkBook<T, Q> writeWorkBook, ICreateWorkBook<T, Q> createWorkBook, IWorkBookExpFileUpload fileUpload) {
         this.settings = settings;
         this.writeWorkBook = writeWorkBook;
         this.createWorkBook = createWorkBook;
@@ -125,7 +123,7 @@ public class WorkBookExpHelper<T, Q> {
      * @param settings settings
      * @return void
      */
-    private void workBookPoiExpHelper(ParameterSettings<Q> settings,
+    private void workBookPoiExpHelper(ExpParamsSettings<Q> settings,
                                       IWriteWorkBook<T, Q> writeWorkBook,
                                       long bookTotalNum,
                                       String msgId,

@@ -75,7 +75,7 @@ public class ExcelImpUtils {
      * @param workbook workbook
      * @return int
      */
-    public static int getWorkbook(Workbook workbook) {
+    public static int getWorkbookSheetNumber(Workbook workbook) {
         return workbook.getNumberOfSheets();
     }
 
