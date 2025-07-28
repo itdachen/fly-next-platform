@@ -9,6 +9,7 @@ import com.github.itdachen.framework.context.id.IdUtils;
 import com.github.itdachen.framework.context.userdetails.UserInfoDetails;
 import com.github.itdachen.framework.tools.ServletUtils;
 import com.github.itdachen.framework.tools.useragent.UserAgentUtils;
+import com.github.itdachen.ooxml.poi.log.IOOXmlPoiExpLogClient;
 import com.github.itdachen.ooxml.poi.entity.PoiExpModel;
 import com.github.itdachen.ooxml.poi.entity.PoiUploadInfo;
 import jakarta.servlet.http.HttpServletRequest;
@@ -109,7 +110,7 @@ public class WorkBookExpLogHandler {
                 /* 请求信息 */
                 .requestId(null == request.getRequestId() ? "-" : request.getRequestId())
                 .requestUri(request.getRequestURI())
-                .requestMethod("GET")
+                .requestMethod(request.getMethod())
                 .requestParams(jsonString)
 
                 /* 导出信息 */
@@ -132,7 +133,7 @@ public class WorkBookExpLogHandler {
             @Override
             public void run() {
                 try {
-                    AppContextHelper.getBean(IOplogPoiExpLogClient.class).save(poiExpModel);
+                    AppContextHelper.getBean(IOOXmlPoiExpLogClient.class).save(poiExpModel);
                 } catch (Exception e) {
                     logger.error("数据导出日志入库失败: ", e);
                 }

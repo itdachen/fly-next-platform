@@ -3,7 +3,7 @@ package com.github.itdachen.oplog.client;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.id.IdUtils;
 import com.github.itdachen.ooxml.poi.entity.PoiExpModel;
-import com.github.itdachen.ooxml.poi.exp.IOplogPoiExpLogClient;
+import com.github.itdachen.ooxml.poi.log.IOOXmlPoiExpLogClient;
 import com.github.itdachen.oplog.entity.OplogPoiExp;
 import com.github.itdachen.oplog.mapper.IOplogPoiExpMapper;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  * @date 2025/7/23 22:52
  */
 @Service
-public class OplogPoiExpLogService implements IOplogPoiExpLogClient {
+public class OplogPoiExpLogService implements IOOXmlPoiExpLogClient {
 
     private final IOplogPoiExpMapper oplogPoiExpMapper;
 

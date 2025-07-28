@@ -1,4 +1,4 @@
-package com.github.itdachen.ooxml.poi.exp;
+package com.github.itdachen.ooxml.poi.log;
 
 import com.github.itdachen.ooxml.poi.entity.PoiExpModel;
 
@@ -8,7 +8,7 @@ import com.github.itdachen.ooxml.poi.entity.PoiExpModel;
  * @author 王大宸
  * @date 2025-07-22 11:22
  */
-public interface IOplogPoiExpLogClient {
+public interface IOOXmlPoiExpLogClient {
 
 
     /***

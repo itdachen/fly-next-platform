@@ -14,143 +14,231 @@ import java.io.Serializable;
 public class PoiExpModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    /** 主键唯一标识 */
+    /**
+     * 主键唯一标识
+     */
     private String id;
 
-    /** 租户ID/公司ID */
+    /**
+     * 租户ID/公司ID
+     */
     private String tenantId;
 
-    /** 租户名称/公司名称 */
+    /**
+     * 租户名称/公司名称
+     */
     private String tenantTitle;
 
-    /** 平台ID */
+    /**
+     * 平台ID
+     */
     private String platId;
 
-    /** 平台名称 */
+    /**
+     * 平台名称
+     */
     private String platTitle;
 
-    /** 应用ID */
+    /**
+     * 应用ID
+     */
     private String appId;
 
-    /** 应用名称 */
+    /**
+     * 应用名称
+     */
     private String appTitle;
 
-    /** 应用版本号 */
+    /**
+     * 应用版本号
+     */
     private String appVersion;
 
-    /** 用户ID */
+    /**
+     * 用户ID
+     */
     private String userId;
 
-    /** 昵称 */
+    /**
+     * 昵称
+     */
     private String nickName;
 
-    /** 身份ID */
+    /**
+     * 身份ID
+     */
     private String roleId;
 
-    /** 身份名称 */
+    /**
+     * 身份名称
+     */
     private String roleName;
 
-    /** 省代码 */
+    /**
+     * 省代码
+     */
     private String provId;
 
-    /** 省名称 */
+    /**
+     * 省名称
+     */
     private String provTitle;
 
-    /** 市/州代码 */
+    /**
+     * 市/州代码
+     */
     private String cityId;
 
-    /** 市/州名称 */
+    /**
+     * 市/州名称
+     */
     private String cityTitle;
 
-    /** 区/县代码 */
+    /**
+     * 区/县代码
+     */
     private String countyId;
 
-    /** 区/县名称 */
+    /**
+     * 区/县名称
+     */
     private String countyTitle;
 
-    /** 部门ID */
+    /**
+     * 部门ID
+     */
     private String deptId;
 
-    /** 部门名称 */
+    /**
+     * 部门名称
+     */
     private String deptTitle;
 
-    /** 部门等级 */
+    /**
+     * 部门等级
+     */
     private String deptLevel;
 
-    /** 上级部门代码 */
+    /**
+     * 上级部门代码
+     */
     private String deptParentId;
 
-    /** 消息表ID */
+    /**
+     * 消息表ID
+     */
     private String msgId;
 
-    /** 功能ID/菜单ID(备用) */
+    /**
+     * 功能ID/菜单ID(备用)
+     */
     private String funcId;
 
-    /** 功能名称 */
+    /**
+     * 功能名称
+     */
     private String funcTitle;
 
-    /** 操作IP地址 */
+    /**
+     * 操作IP地址
+     */
     private String hostIp;
 
-    /** 操作地址 */
+    /**
+     * 操作地址
+     */
     private String hostAddress;
 
-    /** 操作系统 */
+    /**
+     * 操作系统
+     */
     private String hostOs;
 
-    /** 操作浏览器 */
+    /**
+     * 操作浏览器
+     */
     private String hostBrowser;
 
-    /** 用户代理 */
+    /**
+     * 用户代理
+     */
     private String hostUserAgent;
 
-    /** 请求ID */
+    /**
+     * 请求ID
+     */
     private String requestId;
 
-    /** 请求URI */
+    /**
+     * 请求URI
+     */
     private String requestUri;
 
-    /** 请求方式: POST, PUT, GET, DELETE */
+    /**
+     * 请求方式: POST, PUT, GET, DELETE
+     */
     private String requestMethod;
 
-    /** 请求参数 */
+    /**
+     * 请求参数
+     */
     private String requestParams;
 
-    /** 数据总量 */
+    /**
+     * 数据总量
+     */
     private String dataTotal;
 
-    /** 导出文件名称 */
+    /**
+     * 导出文件名称
+     */
     private String fileName;
 
-    /** 文件地址 */
+    /**
+     * 文件地址
+     */
     private String fileUrl;
 
-    /** 文件大小 */
+    /**
+     * 文件大小
+     */
     private String fileSize;
 
-    /** 文件数量 */
+    /**
+     * 文件数量
+     */
     private String fileTotal;
 
-    /** 异常信息 */
+    /**
+     * 异常信息
+     */
     private String exInfo;
 
-    /** 备注 */
+    /**
+     * 备注
+     */
     private String remarks;
 
-    /** 服务端处理耗时 */
+    /**
+     * 服务端处理耗时
+     */
     private String executeTime;
 
-    /** 年份 */
+    /**
+     * 年份
+     */
     private String yearly;
 
-    /** 月份 */
+    /**
+     * 月份
+     */
     private String monthly;
 
 
+    public PoiExpModel() {
+    }
 
-    public PoiExpModel(){}
-
-    public PoiExpModel(    String id,     String tenantId,     String tenantTitle,     String platId,     String platTitle,     String appId,     String appTitle,     String appVersion,     String userId,     String nickName,     String roleId,     String roleName,     String provId,     String provTitle,     String cityId,     String cityTitle,     String countyId,     String countyTitle,     String deptId,     String deptTitle,     String deptLevel,     String deptParentId,     String msgId,     String funcId,     String funcTitle,     String hostIp,     String hostAddress,     String hostOs,     String hostBrowser,     String hostUserAgent,     String requestId,     String requestUri,     String requestMethod,     String requestParams,     String dataTotal,     String fileName,     String fileUrl,     String fileSize,     String fileTotal,     String exInfo,     String remarks,     String executeTime,     String yearly,     String monthly){
+    public PoiExpModel(String id, String tenantId, String tenantTitle, String platId, String platTitle, String appId, String appTitle, String appVersion, String userId, String nickName, String roleId, String roleName, String provId, String provTitle, String cityId, String cityTitle, String countyId, String countyTitle, String deptId, String deptTitle, String deptLevel, String deptParentId, String msgId, String funcId, String funcTitle, String hostIp, String hostAddress, String hostOs, String hostBrowser, String hostUserAgent, String requestId, String requestUri, String requestMethod, String requestParams, String dataTotal, String fileName, String fileUrl, String fileSize, String fileTotal, String exInfo, String remarks, String executeTime, String yearly, String monthly) {
         this.id = id;
         this.tenantId = tenantId;
         this.tenantTitle = tenantTitle;
@@ -197,7 +285,7 @@ public class PoiExpModel implements Serializable {
         this.monthly = monthly;
     }
 
-    public static PoiExpModelBuilder builder(){
+    public static PoiExpModelBuilder builder() {
         return new PoiExpModelBuilder();
     }
 
@@ -255,216 +343,259 @@ public class PoiExpModel implements Serializable {
             this.id = id;
             return this;
         }
+
         /* 租户ID/公司ID */
         public PoiExpModelBuilder tenantId(String tenantId) {
             this.tenantId = tenantId;
             return this;
         }
+
         /* 租户名称/公司名称 */
         public PoiExpModelBuilder tenantTitle(String tenantTitle) {
             this.tenantTitle = tenantTitle;
             return this;
         }
+
         /* 平台ID */
         public PoiExpModelBuilder platId(String platId) {
             this.platId = platId;
             return this;
         }
+
         /* 平台名称 */
         public PoiExpModelBuilder platTitle(String platTitle) {
             this.platTitle = platTitle;
             return this;
         }
+
         /* 应用ID */
         public PoiExpModelBuilder appId(String appId) {
             this.appId = appId;
             return this;
         }
+
         /* 应用名称 */
         public PoiExpModelBuilder appTitle(String appTitle) {
             this.appTitle = appTitle;
             return this;
         }
+
         /* 应用版本号 */
         public PoiExpModelBuilder appVersion(String appVersion) {
             this.appVersion = appVersion;
             return this;
         }
+
         /* 用户ID */
         public PoiExpModelBuilder userId(String userId) {
             this.userId = userId;
             return this;
         }
+
         /* 昵称 */
         public PoiExpModelBuilder nickName(String nickName) {
             this.nickName = nickName;
             return this;
         }
+
         /* 身份ID */
         public PoiExpModelBuilder roleId(String roleId) {
             this.roleId = roleId;
             return this;
         }
+
         /* 身份名称 */
         public PoiExpModelBuilder roleName(String roleName) {
             this.roleName = roleName;
             return this;
         }
+
         /* 省代码 */
         public PoiExpModelBuilder provId(String provId) {
             this.provId = provId;
             return this;
         }
+
         /* 省名称 */
         public PoiExpModelBuilder provTitle(String provTitle) {
             this.provTitle = provTitle;
             return this;
         }
+
         /* 市/州代码 */
         public PoiExpModelBuilder cityId(String cityId) {
             this.cityId = cityId;
             return this;
         }
+
         /* 市/州名称 */
         public PoiExpModelBuilder cityTitle(String cityTitle) {
             this.cityTitle = cityTitle;
             return this;
         }
+
         /* 区/县代码 */
         public PoiExpModelBuilder countyId(String countyId) {
             this.countyId = countyId;
             return this;
         }
+
         /* 区/县名称 */
         public PoiExpModelBuilder countyTitle(String countyTitle) {
             this.countyTitle = countyTitle;
             return this;
         }
+
         /* 部门ID */
         public PoiExpModelBuilder deptId(String deptId) {
             this.deptId = deptId;
             return this;
         }
+
         /* 部门名称 */
         public PoiExpModelBuilder deptTitle(String deptTitle) {
             this.deptTitle = deptTitle;
             return this;
         }
+
         /* 部门等级 */
         public PoiExpModelBuilder deptLevel(String deptLevel) {
             this.deptLevel = deptLevel;
             return this;
         }
+
         /* 上级部门代码 */
         public PoiExpModelBuilder deptParentId(String deptParentId) {
             this.deptParentId = deptParentId;
             return this;
         }
+
         /* 消息表ID */
         public PoiExpModelBuilder msgId(String msgId) {
             this.msgId = msgId;
             return this;
         }
+
         /* 功能ID/菜单ID(备用) */
         public PoiExpModelBuilder funcId(String funcId) {
             this.funcId = funcId;
             return this;
         }
+
         /* 功能名称 */
         public PoiExpModelBuilder funcTitle(String funcTitle) {
             this.funcTitle = funcTitle;
             return this;
         }
+
         /* 操作IP地址 */
         public PoiExpModelBuilder hostIp(String hostIp) {
             this.hostIp = hostIp;
             return this;
         }
+
         /* 操作地址 */
         public PoiExpModelBuilder hostAddress(String hostAddress) {
             this.hostAddress = hostAddress;
             return this;
         }
+
         /* 操作系统 */
         public PoiExpModelBuilder hostOs(String hostOs) {
             this.hostOs = hostOs;
             return this;
         }
+
         /* 操作浏览器 */
         public PoiExpModelBuilder hostBrowser(String hostBrowser) {
             this.hostBrowser = hostBrowser;
             return this;
         }
+
         /* 用户代理 */
         public PoiExpModelBuilder hostUserAgent(String hostUserAgent) {
             this.hostUserAgent = hostUserAgent;
             return this;
         }
+
         /* 请求ID */
         public PoiExpModelBuilder requestId(String requestId) {
             this.requestId = requestId;
             return this;
         }
+
         /* 请求URI */
         public PoiExpModelBuilder requestUri(String requestUri) {
             this.requestUri = requestUri;
             return this;
         }
+
         /* 请求方式: POST, PUT, GET, DELETE */
         public PoiExpModelBuilder requestMethod(String requestMethod) {
             this.requestMethod = requestMethod;
             return this;
         }
+
         /* 请求参数 */
         public PoiExpModelBuilder requestParams(String requestParams) {
             this.requestParams = requestParams;
             return this;
         }
+
         /* 数据总量 */
         public PoiExpModelBuilder dataTotal(String dataTotal) {
             this.dataTotal = dataTotal;
             return this;
         }
+
         /* 导出文件名称 */
         public PoiExpModelBuilder fileName(String fileName) {
             this.fileName = fileName;
             return this;
         }
+
         /* 文件地址 */
         public PoiExpModelBuilder fileUrl(String fileUrl) {
             this.fileUrl = fileUrl;
             return this;
         }
+
         /* 文件大小 */
         public PoiExpModelBuilder fileSize(String fileSize) {
             this.fileSize = fileSize;
             return this;
         }
+
         /* 文件数量 */
         public PoiExpModelBuilder fileTotal(String fileTotal) {
             this.fileTotal = fileTotal;
             return this;
         }
+
         /* 异常信息 */
         public PoiExpModelBuilder exInfo(String exInfo) {
             this.exInfo = exInfo;
             return this;
         }
+
         /* 备注 */
         public PoiExpModelBuilder remarks(String remarks) {
             this.remarks = remarks;
             return this;
         }
+
         /* 服务端处理耗时 */
         public PoiExpModelBuilder executeTime(String executeTime) {
             this.executeTime = executeTime;
             return this;
         }
+
         /* 年份 */
         public PoiExpModelBuilder yearly(String yearly) {
             this.yearly = yearly;
             return this;
         }
+
         /* 月份 */
         public PoiExpModelBuilder monthly(String monthly) {
             this.monthly = monthly;
@@ -472,7 +603,7 @@ public class PoiExpModel implements Serializable {
         }
 
         public PoiExpModel build() {
-            return new PoiExpModel(            id,
+            return new PoiExpModel(id,
                     tenantId,
                     tenantTitle,
                     platId,

@@ -49,6 +49,12 @@ public class ImpParamsSettings {
     private int firstRowNum = 2;
 
 
+    /***
+     * 导入参数
+     */
+    private Object params;
+
+
     public ImpParamsSettings(HttpServletRequest request,
                              HttpServletResponse response,
                              UserInfoDetails userDetails,
@@ -148,4 +154,11 @@ public class ImpParamsSettings {
         this.firstRowNum = firstRowNum;
     }
 
+    public Object getParams() {
+        return params;
+    }
+
+    public void setParams(Object params) {
+        this.params = params;
+    }
 }
