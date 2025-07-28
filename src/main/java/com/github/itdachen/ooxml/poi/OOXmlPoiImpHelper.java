@@ -1,8 +1,11 @@
 package com.github.itdachen.ooxml.poi;
 
 import com.github.itdachen.ooxml.poi.imp.*;
+import com.github.itdachen.ooxml.poi.imp.handler.DefaultAnalysisOOXmlPoiHandler;
+import com.github.itdachen.ooxml.poi.imp.handler.DefaultOOXmlPoiImpFileUploadHandler;
+import com.github.itdachen.ooxml.poi.imp.handler.IAnalysisOOXmlPoiHandler;
+import com.github.itdachen.ooxml.poi.imp.handler.IOOXmlPoiImpFileUploadHandler;
 import com.github.itdachen.ooxml.poi.utils.ReplyResponseMsgUtils;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -23,17 +26,22 @@ public class OOXmlPoiImpHelper<T> {
     /**
      * 读取数据
      */
-    private IReadWorkBook<T> readWorkBook;
+    private IReadWorkBookHandler<T> readWorkBook;
 
     /**
      * 解析表格
      */
-    private IAnalysisWorkBook<T> analysisWorkBook = new DefaultAnalysisWorkBook<>();
+    private IAnalysisOOXmlPoiHandler<T> analysisWorkBook = new DefaultAnalysisOOXmlPoiHandler<>();
 
     /**
      * 需要导入的文件
      */
     private MultipartFile workBookFile;
+
+    /***
+     * 文件上传接口, 可以自定义实现
+     */
+    private IOOXmlPoiImpFileUploadHandler fileUploadHandler = new DefaultOOXmlPoiImpFileUploadHandler();
 
     /**
      * 需要导入的文件
@@ -59,7 +67,7 @@ public class OOXmlPoiImpHelper<T> {
      * @param readWorkBook readWorkBook
      * @return com.github.itdachen.ooxml.poi.OOXmlPoiImpHelper<T>
      */
-    public OOXmlPoiImpHelper<T> readWorkBook(IReadWorkBook<T> readWorkBook) {
+    public OOXmlPoiImpHelper<T> readWorkBook(IReadWorkBookHandler<T> readWorkBook) {
         this.readWorkBook = readWorkBook;
         return this;
     }
@@ -67,10 +75,20 @@ public class OOXmlPoiImpHelper<T> {
     /**
      * 解析表格
      */
-    public OOXmlPoiImpHelper<T> analysisWorkBook(IAnalysisWorkBook<T> analysisWorkBook) {
+    public OOXmlPoiImpHelper<T> analysisWorkBook(IAnalysisOOXmlPoiHandler<T> analysisWorkBook) {
         this.analysisWorkBook = analysisWorkBook;
         return this;
     }
+
+
+    /**
+     * 文件上传接口, 可以自定义实现
+     */
+    public OOXmlPoiImpHelper<T> fileUploadHandler(IOOXmlPoiImpFileUploadHandler fileUploadHandler) {
+        this.fileUploadHandler = fileUploadHandler;
+        return this;
+    }
+
 
     /***
      * 导入
@@ -80,13 +98,7 @@ public class OOXmlPoiImpHelper<T> {
      * @return com.github.itdachen.ooxml.poi.OOXmlPoiImpHelper<T>
      */
     public OOXmlPoiImpHelper<T> execute() throws Exception {
-        WorkBookImpHelper<T> helper = new WorkBookImpHelper<T>(
-                settings,
-                readWorkBook,
-                analysisWorkBook,
-                workBookFile
-        );
-        helper.execute();
+        analysisWorkBook.analysisWorkBook(workBookFile, settings, readWorkBook, fileUploadHandler);
         return this;
     }
 

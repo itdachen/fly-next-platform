@@ -3,6 +3,7 @@ package com.github.itdachen.ooxml.poi.exp;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.itdachen.framework.context.id.IdUtils;
 import com.github.itdachen.ooxml.poi.entity.PoiUploadInfo;
+import com.github.itdachen.ooxml.poi.msg.OOXmlPoiMsgHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StopWatch;
@@ -80,16 +81,14 @@ public class WorkBookExpHelper<T, Q> {
         final String msgId = IdUtils.getId();
 
         /* 操作日志 */
-        if (settings.getSaveLog()) {
-            WorkBookExpLogHandler.saveLog(settings.getRequest(), settings.getUserDetails(), msgId,
-                    settings.getParams(),
-                    new PoiUploadInfo(settings.getTitle(), rowTotal, bookTotalNum));
-        }
+        WorkBookExpLogHandler.saveLog(settings.getRequest(), settings.getUserDetails(), msgId,
+                settings.getParams(),
+                new PoiUploadInfo(settings.getTitle(), rowTotal, bookTotalNum));
 
         try {
             /* 添加导出消息日志 */
             final String content = "【" + settings.getTitle() + "】数据导出共 " + bookTotalNum + " 个文件，共计 " + rowTotal + " 条数据。数据导出较慢，若消息附件中没有 " + bookTotalNum + " 个文件，请 5 分钟后重新查看消息信息！";
-            WorkBookExpMessageHandler.saveExpMessageInfo(settings.getRequest(), msgId,
+            OOXmlPoiMsgHandler.saveExpMsgInfo(settings.getRequest(), msgId,
                     content,
                     settings.getTitle() + ExcelExpUtils.TEXT_SUFFIX_TITLE,
                     settings.getUserDetails());
@@ -100,7 +99,7 @@ public class WorkBookExpHelper<T, Q> {
 
         final long finalBookNum = bookTotalNum;
         final IWriteWorkBook<T, Q> workBookHandler = writeWorkBook;
-        final   IWorkBookExpFileUpload fileUploadHandler = fileUpload;
+        final IWorkBookExpFileUpload fileUploadHandler = fileUpload;
         threadPoolExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -130,7 +129,7 @@ public class WorkBookExpHelper<T, Q> {
                                       IWorkBookExpFileUpload fileUploadHandler) {
 
         String msgContent = "====== 开始导出 ======";
-        WorkBookExpMessageHandler.appendContent(msgId, "", msgContent, settings.getSendMsg());
+        OOXmlPoiMsgHandler.appendContent(msgId, "", msgContent);
 
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -143,7 +142,7 @@ public class WorkBookExpHelper<T, Q> {
             logger.info("====== 导出《" + expTitle + "》 数据文件 START ======");
 
             expTitle = ExcelExpUtils.getExpTitle(settings.getTitle(), bookNum, settings.getFileFormat());
-            WorkBookExpMessageHandler.appendContent(msgId, "", "====== 导出《" + expTitle + "》 数据文件 START ======", settings.getSendMsg());
+            OOXmlPoiMsgHandler.appendContent(msgId, "", "====== 导出《" + expTitle + "》 数据文件 START ======");
 
             try {
                 createWorkBook.createWorkBook(settings, writeWorkBook, bookNum, msgId, fileUploadHandler);
@@ -151,17 +150,17 @@ public class WorkBookExpHelper<T, Q> {
 
                 logger.error("====== 导出《" + expTitle + "》 数据文件 END [FAIL] ======", e);
                 String msg = "====== 导出《" + expTitle + "》 数据文件 END [FAIL]: " + e.getMessage() + "<br>";
-                WorkBookExpMessageHandler.appendContent(msgId, "", msg, settings.getSendMsg());
+                OOXmlPoiMsgHandler.appendContent(msgId, "", msg);
             }
 
             logger.info("====== 导出《" + expTitle + " 数据文件 END [SUCCESS] ======");
-            WorkBookExpMessageHandler.appendContent(msgId, "", "====== 导出《" + expTitle + "》 数据文件 END [SUCCESS] ====== <br>", settings.getSendMsg());
+            OOXmlPoiMsgHandler.appendContent(msgId, "", "====== 导出《" + expTitle + "》 数据文件 END [SUCCESS] ====== <br>");
         }
 
         stopWatch.stop();
 
         msgContent = "====== 导出结束，本次导出共用时 " + stopWatch.getTotalTimeSeconds() + " 秒 ======";
-        WorkBookExpMessageHandler.appendContent(msgId, settings.getTitle(), msgContent, settings.getSendMsg());
+        OOXmlPoiMsgHandler.appendContent(msgId, settings.getTitle(), msgContent);
 
     }
 

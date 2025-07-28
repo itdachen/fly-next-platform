@@ -6,6 +6,7 @@ import com.github.itdachen.framework.context.id.IdUtils;
 import com.github.itdachen.ooxml.poi.entity.MsgFileModel;
 import com.github.itdachen.ooxml.poi.entity.PoiUploadInfo;
 import com.github.itdachen.ooxml.poi.msg.IOplogMsgClient;
+import com.github.itdachen.ooxml.poi.msg.OOXmlPoiMsgHandler;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
@@ -41,9 +42,6 @@ public class DefaultCreateWorkBook<T, Q> implements ICreateWorkBook<T, Q> {
                                int bookNum, String msgId,
                                IWorkBookExpFileUpload fileUploadHandler) {
 
-//        final String localDate = LocalDateUtils.getLocalDate().replaceAll("-", "");
-//        final String fileTitle = settings.getTitle() + "_" + localDate + "_" + bookNum + settings.getFileFormat();
-
         final String fileTitle = ExcelExpUtils.getExpTitle(settings.getTitle(), bookNum, settings.getFileFormat());
 
 
@@ -60,7 +58,7 @@ public class DefaultCreateWorkBook<T, Q> implements ICreateWorkBook<T, Q> {
             List<T> dataList = handler.data(settings.getParams(), bookNum, limit);
 
             msgContent = "获取数据成功，该文件共 " + dataList.size() + " 条数据！";
-            WorkBookExpMessageHandler.appendContent(msgId, fileTitle, msgContent, settings.getSendMsg());
+            OOXmlPoiMsgHandler.appendContent(msgId, fileTitle, msgContent);
 
             /* 创建 sheet */
             Sheet sheet = workbook.createSheet(settings.getTitle() + bookNum);
@@ -73,56 +71,29 @@ public class DefaultCreateWorkBook<T, Q> implements ICreateWorkBook<T, Q> {
             if (!dataList.isEmpty()) {
 
                 msgContent = "文件数据开始写入表格！";
-                WorkBookExpMessageHandler.appendContent(msgId, fileTitle, msgContent, settings.getSendMsg());
+                OOXmlPoiMsgHandler.appendContent(msgId, fileTitle, msgContent);
 
                 /* 数据写入表格, 根据调用方情况自定义 */
                 handler.writeWorkBook(workbook, sheet, dataList, settings.getAddIndexNum());
 
                 msgContent = "文件数据写入结束表格！";
-                WorkBookExpMessageHandler.appendContent(msgId, fileTitle, msgContent, settings.getSendMsg());
+                OOXmlPoiMsgHandler.appendContent(msgId, fileTitle, msgContent);
 
             }
 
             dataList = null;
 
-            PoiUploadInfo uploadInfo = new PoiUploadInfo();
-
-            /* 导出是否保存到服务器 */
-            if (settings.getUploadFile()) {
-                msgContent = "导出结果开始上传到服务器！";
-                WorkBookExpMessageHandler.appendContent(msgId, fileTitle, msgContent, settings.getSendMsg());
-
-                fileUploadHandler.toExpFileUpload(workbook, uploadInfo);
-
-                msgContent = "导出结果上传到服务器结束！";
-                WorkBookExpMessageHandler.appendContent(msgId, fileTitle, msgContent, settings.getSendMsg());
-            }
-
-
-            /* 下载文件消息入库: 能推送消息, 能上传文件 */
-            if (settings.getSendMsg() && settings.getUploadFile()) {
-                MsgFileModel messageFile = MsgFileModel.builder()
-                        .id(IdUtils.getId())
-                        .msgId(msgId)
-                        .msgTitle(settings.getTitle() + ExcelExpUtils.TEXT_SUFFIX_TITLE)
-                        .appId(AppHelper.app().properties().getAppId())
-                        .fileFormat(settings.getFileFormat())
-                        .fileTitle(fileTitle)
-                        .fileUrl(uploadInfo.getFileUri())
-                        .fileSize(uploadInfo.getFileSize() + "")
-                        .hexMd5(fileTitle)
-                        .build();
-                AppContextHelper.getBean(IOplogMsgClient.class).saveMsgFile(messageFile);
-            }
-
+            toExpFileUpload(msgId, fileTitle, workbook, settings, fileUploadHandler);
 
             msgContent = "导出完成！";
-            WorkBookExpMessageHandler.appendContent(msgId, fileTitle, msgContent, settings.getSendMsg());
+            OOXmlPoiMsgHandler.appendContent(msgId, fileTitle, msgContent);
 
+            /* 关闭 */
+            workbook.close();
         } catch (Exception e) {
             logger.error("数据 " + fileTitle + " 导出失败: {} ", e.getMessage(), e);
             msgContent = "导出失败：" + e.getMessage();
-            WorkBookExpMessageHandler.appendContent(msgId, fileTitle, msgContent, settings.getSendMsg());
+            OOXmlPoiMsgHandler.appendContent(msgId, fileTitle, msgContent);
         } finally {
             try {
                 if (workbook != null) {
@@ -133,7 +104,7 @@ public class DefaultCreateWorkBook<T, Q> implements ICreateWorkBook<T, Q> {
                 stopWatch.stop();
 
                 msgContent = "导出记录开始保存到数据库，本次导出共用时 " + stopWatch.getTotalTimeSeconds() + " 秒！";
-                WorkBookExpMessageHandler.appendContent(msgId, fileTitle, msgContent, settings.getSendMsg());
+                OOXmlPoiMsgHandler.appendContent(msgId, fileTitle, msgContent);
 
                 stopWatch = null;
             } catch (Exception e) {
@@ -141,7 +112,50 @@ public class DefaultCreateWorkBook<T, Q> implements ICreateWorkBook<T, Q> {
             }
 
         }
+    }
 
+
+    /***
+     * 文件上传至服务器
+     *
+     * @author 王大宸
+     * @date 2025/7/28 9:35
+     * @param msgId msgId
+     * @param fileTitle fileTitle
+     * @param workbook workbook
+     * @param settings settings
+     * @param fileUploadHandler fileUploadHandler
+     * @return void
+     */
+    private void toExpFileUpload(String msgId, String fileTitle,
+                                 XSSFWorkbook workbook,
+                                 ExpParamsSettings<Q> settings,
+                                 IWorkBookExpFileUpload fileUploadHandler) throws Exception {
+
+        PoiUploadInfo uploadInfo = new PoiUploadInfo();
+        /* 导出是否保存到服务器 */
+        String msgContent = "导出结果开始上传到服务器！";
+        OOXmlPoiMsgHandler.appendContent(msgId, fileTitle, msgContent);
+
+        fileUploadHandler.toExpFileUpload(workbook, uploadInfo);
+
+        msgContent = "导出结果上传到服务器结束！";
+        OOXmlPoiMsgHandler.appendContent(msgId, fileTitle, msgContent);
+
+
+        /* 下载文件消息入库: 能推送消息, 能上传文件 */
+        MsgFileModel messageFile = MsgFileModel.builder()
+                .id(IdUtils.getId())
+                .msgId(msgId)
+                .msgTitle(settings.getTitle() + ExcelExpUtils.TEXT_SUFFIX_TITLE)
+                .appId(AppHelper.app().properties().getAppId())
+                .fileFormat(settings.getFileFormat())
+                .fileTitle(fileTitle)
+                .fileUrl(uploadInfo.getFileUri())
+                .fileSize(uploadInfo.getFileSize() + "")
+                .hexMd5(fileTitle)
+                .build();
+        AppContextHelper.getBean(IOplogMsgClient.class).saveMsgFile(messageFile);
 
     }
 

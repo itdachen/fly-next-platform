@@ -1,14 +1,19 @@
-package com.github.itdachen.ooxml.poi.imp;
+package com.github.itdachen.ooxml.poi.imp.handler;
 
 
+import com.github.itdachen.boot.oss.entity.FileInfo;
 import com.github.itdachen.framework.context.exception.BizException;
+import com.github.itdachen.framework.context.id.IdUtils;
+import com.github.itdachen.ooxml.poi.imp.utils.ExcelImpUtils;
+import com.github.itdachen.ooxml.poi.imp.IReadWorkBookHandler;
+import com.github.itdachen.ooxml.poi.imp.ImpParamsSettings;
+import com.github.itdachen.ooxml.poi.msg.OOXmlPoiMsgHandler;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +23,7 @@ import java.util.List;
  * @author 王大宸
  * @date 2025/7/25 22:23
  */
-public class DefaultAnalysisWorkBook<T> implements IAnalysisWorkBook<T> {
+public class DefaultAnalysisOOXmlPoiHandler<T> implements IAnalysisOOXmlPoiHandler<T> {
 
     /***
      * 文件解析
@@ -31,7 +36,22 @@ public class DefaultAnalysisWorkBook<T> implements IAnalysisWorkBook<T> {
      * @return void
      */
     @Override
-    public void analysisWorkBook(MultipartFile workBookFile, ImpParamsSettings settings, IReadWorkBook<T> readWorkBook) throws IOException {
+    public void analysisWorkBook(MultipartFile workBookFile,
+                                 ImpParamsSettings settings,
+                                 IReadWorkBookHandler<T> readWorkBook,
+                                 IOOXmlPoiImpFileUploadHandler fileUploadHandler) throws Exception {
+        final String msgId = IdUtils.getId();
+
+        /* 添加消息 */
+        OOXmlPoiMsgHandler.saveImpMsgInfo(
+                settings.getRequest(),
+                msgId,
+                settings.getTitle() + "开始导入!",
+                settings.getTitle(),
+                settings.getUserDetails()
+        );
+
+
         String workBookFilename = workBookFile.getOriginalFilename();
         boolean validateExcel = ExcelImpUtils.validateExcel(workBookFilename);
 
@@ -39,30 +59,16 @@ public class DefaultAnalysisWorkBook<T> implements IAnalysisWorkBook<T> {
             throw new BizException("数据文件格式错误，不是标准的 xls 或 xlsx 文件！");
         }
 
-        if (settings.getUploadFile()) {
-            /* 文件上传 */
-
-            //   Workbook workbook = ExcelImpUtils.getWorkbook(path);
-            //  handler(workbook, settings, readWorkBook);
-        }
-
-        Workbook workbook = new XSSFWorkbook(workBookFile.getInputStream());//情况1
-        handler(workbook, settings, readWorkBook);
-
-    }
 
 
-    /***
-     * 最终处理
-     *
-     * @author 王大宸
-     * @date 2025/7/25 23:05
-     * @param workbook workbook
-     * @param settings settings
-     * @param readWorkBook readWorkBook
-     * @return void
-     */
-    private void handler(Workbook workbook, ImpParamsSettings settings, IReadWorkBook<T> readWorkBook) {
+        /* 文件上传 */
+
+        FileInfo upload = fileUploadHandler.toUpload(workBookFile);
+
+
+        Workbook workbook = new XSSFWorkbook(workBookFile.getInputStream()); //情况1
+        //   Workbook workbook = ExcelImpUtils.getWorkbook(path); // 情况2, 根据文件上传地址获取表格数据
+
         /* 获取该表格有几个 Sheet */
         int workbookSheetNumber = ExcelImpUtils.getWorkbookSheetNumber(workbook);
 

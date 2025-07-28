@@ -1,7 +1,6 @@
 package com.github.itdachen.ooxml.poi.imp;
 
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
 
 import java.util.List;
 
@@ -11,7 +10,7 @@ import java.util.List;
  * @author 王大宸
  * @date 2025-07-25 15:17
  */
-public interface IReadWorkBook<T> {
+public interface IReadWorkBookHandler<T> {
 
     /***
      * 读取行

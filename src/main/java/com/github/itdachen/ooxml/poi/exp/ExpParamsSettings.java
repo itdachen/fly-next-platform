@@ -49,26 +49,10 @@ public class ExpParamsSettings<Q> {
      */
     private String fileFormat = ".xlsx";
 
-
-    /**
-     * 是否存服务器
-     */
-    private Boolean uploadFile = true;
-
     /**
      * 是否添加序号
      */
     private Boolean addIndexNum = true;
-
-    /**
-     * 是否保存日志
-     */
-    private Boolean saveLog = true;
-
-    /**
-     * 是否推送执行完成的消息消息
-     */
-    private Boolean sendMsg = true;
 
     /**
      * 查询参数
@@ -125,23 +109,8 @@ public class ExpParamsSettings<Q> {
         return this;
     }
 
-    public ExpParamsSettings<Q> uploadFile(Boolean uploadFile) {
-        this.uploadFile = uploadFile;
-        return this;
-    }
-
     public ExpParamsSettings<Q> addIndexNum(Boolean addIndexNum) {
         this.addIndexNum = addIndexNum;
-        return this;
-    }
-
-    public ExpParamsSettings<Q> saveLog(Boolean saveLog) {
-        this.saveLog = saveLog;
-        return this;
-    }
-
-    public ExpParamsSettings<Q> sendMsg(Boolean sendMsg) {
-        this.sendMsg = sendMsg;
         return this;
     }
 
@@ -204,36 +173,12 @@ public class ExpParamsSettings<Q> {
         this.fileFormat = fileFormat;
     }
 
-    public Boolean getUploadFile() {
-        return uploadFile;
-    }
-
-    public void setUploadFile(Boolean uploadFile) {
-        this.uploadFile = uploadFile;
-    }
-
     public Boolean getAddIndexNum() {
         return addIndexNum;
     }
 
     public void setAddIndexNum(Boolean addIndexNum) {
         this.addIndexNum = addIndexNum;
-    }
-
-    public Boolean getSaveLog() {
-        return saveLog;
-    }
-
-    public void setSaveLog(Boolean saveLog) {
-        this.saveLog = saveLog;
-    }
-
-    public Boolean getSendMsg() {
-        return sendMsg;
-    }
-
-    public void setSendMsg(Boolean sendMsg) {
-        this.sendMsg = sendMsg;
     }
 
     public Q getParams() {

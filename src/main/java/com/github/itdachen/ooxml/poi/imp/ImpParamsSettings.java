@@ -23,37 +23,25 @@ public class ImpParamsSettings {
      */
     private HttpServletResponse response;
 
-
     /**
      * 用户信息
      */
     private UserInfoDetails userDetails = BizContextHandler.getUserDetails();
 
-
     /**
-     * 标题
+     * 标题功能
      */
     private String title = "导入文件";
 
     /**
-     * 是否存服务器
+     * 菜单功能ID, 对应菜单表
      */
-    private Boolean uploadFile = true;
+    private String funcId = "-";
 
     /**
-     * 是否添加序号
+     * 菜单功能名称, 对应菜单表
      */
-    private Boolean addIndexNum = true;
-
-    /**
-     * 是否保存日志
-     */
-    private Boolean saveLog = true;
-
-    /**
-     * 是否推送执行完成的消息消息
-     */
-    private Boolean sendMsg = true;
+    private String funcTitle = "-";
 
     /**
      * 从第几行还是读取
@@ -63,20 +51,41 @@ public class ImpParamsSettings {
 
     public ImpParamsSettings(HttpServletRequest request,
                              HttpServletResponse response,
-                             UserInfoDetails userDetails) {
-        this.request = request;
-        this.response = response;
-        this.userDetails = userDetails;
-    }
-
-    public ImpParamsSettings(HttpServletRequest request,
-                             HttpServletResponse response,
                              UserInfoDetails userDetails,
                              String title) {
         this.request = request;
         this.response = response;
         this.userDetails = userDetails;
         this.title = title;
+    }
+
+    public ImpParamsSettings(HttpServletRequest request,
+                             HttpServletResponse response,
+                             UserInfoDetails userDetails,
+                             String title,
+                             int firstRowNum) {
+        this.request = request;
+        this.response = response;
+        this.userDetails = userDetails;
+        this.title = title;
+        this.firstRowNum = firstRowNum;
+    }
+
+
+    public ImpParamsSettings(HttpServletRequest request,
+                             HttpServletResponse response,
+                             UserInfoDetails userDetails,
+                             String title,
+                             String funcId,
+                             String funcTitle,
+                             int firstRowNum) {
+        this.request = request;
+        this.response = response;
+        this.userDetails = userDetails;
+        this.title = title;
+        this.firstRowNum = firstRowNum;
+        this.funcId = funcId;
+        this.funcTitle = funcTitle;
     }
 
 
@@ -112,36 +121,23 @@ public class ImpParamsSettings {
         this.title = title;
     }
 
-    public Boolean getUploadFile() {
-        return uploadFile;
+    public String getFuncId() {
+        return funcId;
     }
 
-    public void setUploadFile(Boolean uploadFile) {
-        this.uploadFile = uploadFile;
+    public void setFuncId(String funcId) {
+        this.funcId = funcId;
     }
 
-    public Boolean getAddIndexNum() {
-        return addIndexNum;
+    public String getFuncTitle() {
+        if (null == this.funcTitle) {
+            return title;
+        }
+        return funcTitle;
     }
 
-    public void setAddIndexNum(Boolean addIndexNum) {
-        this.addIndexNum = addIndexNum;
-    }
-
-    public Boolean getSaveLog() {
-        return saveLog;
-    }
-
-    public void setSaveLog(Boolean saveLog) {
-        this.saveLog = saveLog;
-    }
-
-    public Boolean getSendMsg() {
-        return sendMsg;
-    }
-
-    public void setSendMsg(Boolean sendMsg) {
-        this.sendMsg = sendMsg;
+    public void setFuncTitle(String funcTitle) {
+        this.funcTitle = funcTitle;
     }
 
     public int getFirstRowNum() {
@@ -151,4 +147,5 @@ public class ImpParamsSettings {
     public void setFirstRowNum(int firstRowNum) {
         this.firstRowNum = firstRowNum;
     }
+
 }
