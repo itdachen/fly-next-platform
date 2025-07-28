@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <th:block th:include="common/common::component('导入导出测试')"/>
+    <script th:src="@{/static/oplog/poi_test/index.js}" charset="utf-8"></script>
+</head>
+<body class="fly-container">
+<div class="fly-main-container">
+
+
+    <!-- 查询 -->
+    <div class="fly-query-container" sec:authorize="hasAuthority('fly:oplog:poi:test:query')">
+        <form class="layui-form" id="queryOplogPoiTestForm" name="queryOplogPoiTestForm">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">日志标题</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input keypress-listen"
+                               placeholder="日志标题"
+                               id="title" name="title" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <button type="submit" class="layui-btn layui-btn-sm fly-button-search"
+                            lay-submit lay-filter="queryOplogPoiTest">
+                        <i class="layui-icon layui-icon-search fly-icon-right-5"></i>查询
+                    </button>
+                    <button type="reset" class="layui-btn layui-btn-sm fly-button-reset">
+                        <i class="layui-icon layui-icon-refresh fly-icon-right-5"></i>重置
+                    </button>
+                    <button sec:authorize="hasAuthority('fly:oplog:poi:test:exp')"
+                            type="submit" class="layui-btn layui-btn-sm fly-button-exp"
+                            lay-submit lay-filter="expOplogPoiTest">
+                        <i class="layui-icon layui-icon-export fly-icon-right-5"></i>导出
+                    </button>
+                    <button type="submit" class="layui-btn layui-btn-sm fly-button-exp"
+                            lay-submit lay-filter="impOplogPoiTest">
+                        <i class="layui-icon layui-icon-upload-drag fly-icon-right-5"></i>导入
+                    </button>
+                </div>
+            </div>
+
+            <!--            <div class="fly-query-footer">-->
+            <!--                <button type="submit" class="layui-btn layui-btn-sm fly-button-search"-->
+            <!--                        lay-submit lay-filter="queryOplogPoiTest">-->
+            <!--                    <i class="layui-icon layui-icon-search fly-icon-right-5"></i>查询-->
+            <!--                </button>-->
+            <!--                <button type="reset" class="layui-btn layui-btn-sm fly-button-reset">-->
+            <!--                    <i class="layui-icon layui-icon-refresh fly-icon-right-5"></i>重置-->
+            <!--                </button>-->
+            <!--                <button sec:authorize="hasAuthority('fly:oplog:poi:test:exp')"-->
+            <!--                        type="submit" class="layui-btn layui-btn-sm fly-button-exp"-->
+            <!--                        lay-submit lay-filter="expOplogPoiTest">-->
+            <!--                    <i class="layui-icon  layui-icon-export fly-icon-right-5"></i>导出-->
+            <!--                </button>-->
+            <!--            </div>-->
+
+        </form>
+    </div>
+
+    <!-- 页面数据展示 -->
+    <div class="fly-table-container">
+        <table class="layui-hide" id="oplogPoiTestLayTable" lay-filter="oplogPoiTestLayFilter"></table>
+    </div>
+
+</div>
+
+
+<!-- 表头工具栏 -->
+<script type="text/html" id="oplogPoiTestToolBar">
+    <div class="fly-tool-bar">
+        <button sec:authorize="hasAuthority('fly:oplog:poi:test:save')"
+                class="layui-btn layui-btn-sm layui-btn-normal fly-button-add"
+                lay-event="saveOplogPoiTest">
+            <i class="layui-icon layui-icon-addition"></i>新增
+        </button>
+    </div>
+</script>
+
+<!-- 操作工具栏 -->
+<script type="text/html" id="oplogPoiTestActionBar">
+    <button sec:authorize="hasAuthority('fly:oplog:poi:test:view')"
+            class="fly-action-bar fly-button-view" lay-event="viewOplogPoiTest">
+        <i class="layui-icon layui-icon-list"></i>查看
+    </button>
+    <button sec:authorize="hasAuthority('fly:oplog:poi:test:update')"
+            class="fly-action-bar fly-button-edit" lay-event="updateOplogPoiTest">
+        <i class="layui-icon layui-icon-edit"></i>编辑
+    </button>
+    <button sec:authorize="hasAuthority('fly:oplog:poi:test:delete')"
+            class="fly-action-bar fly-button-remove" lay-event="deleteOplogPoiTest">
+        <i class="layui-icon layui-icon-delete"></i>删除
+    </button>
+</script>
+
+</body>
+</html>

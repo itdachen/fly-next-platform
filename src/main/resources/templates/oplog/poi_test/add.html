@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('新增导入导出测试')"/>
+    <script th:src="@{/static/oplog/poi_test/add.js}" charset="utf-8"></script>
+</head>
+<body>
+
+<form class="layui-form" id="addOplogPoiTestForm">
+    <div class="layui-form-body">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>租户名称/公司名称
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="tenantTitle" name="tenantTitle"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>日志标题: 用户管理, 菜单管理等
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="title" name="title"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>日志类型: button, uri
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="type" name="type"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>操作IP地址
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="hostIp" name="hostIp"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>操作地址
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="hostAddress" name="hostAddress"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>操作系统
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="hostOs" name="hostOs"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>操作浏览器
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="hostBrowser" name="hostBrowser"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>用户代理
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="userAgent" name="userAgent"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+备注
+                    </label>
+                    <div class="layui-input-block">
+                        <textarea id="remarks" name="remarks" maxlength="200"
+ autocomplete="off" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>服务端处理耗时
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="executeTime" name="executeTime"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>年份
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="yearly" name="yearly"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>月份
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="monthly" name="monthly"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+    </div>
+
+
+    <div class="form-footer">
+        <button type="button" class="fly-button-ok" lay-submit lay-filter="saveOplogPoiTest">
+            <i class="layui-icon layui-icon-ok"></i>保存
+        </button>
+        <button type="button" class="fly-button-close close-flyer">
+            <i class="layui-icon layui-icon-close"></i>关闭
+        </button>
+    </div>
+
+    <div class="form-footer-center">
+        <button type="button" class="fly-button-ok" lay-submit lay-filter="saveOplogPoiTest">
+            <i class="layui-icon layui-icon-ok fly-button-icon"></i>保存
+        </button>
+        <button type="button" class="fly-button-close close-flyer">
+            <i class="layui-icon layui-icon-close fly-button-icon"></i>关闭
+        </button>
+    </div>
+
+</form>
+</body>
+</html>

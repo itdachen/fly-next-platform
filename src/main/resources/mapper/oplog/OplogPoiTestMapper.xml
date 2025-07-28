@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.oplog.mapper.IOplogPoiTestMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.github.itdachen.oplog.sdk.vo.OplogPoiTestVO" id="oplogPoiTestMap">
+            <result property="id" column="id"/>
+            <result property="tenantId" column="tenant_id"/>
+            <result property="tenantTitle" column="tenant_title"/>
+            <result property="title" column="title"/>
+            <result property="type" column="type"/>
+            <result property="hostIp" column="host_ip"/>
+            <result property="hostAddress" column="host_address"/>
+            <result property="hostOs" column="host_os"/>
+            <result property="hostBrowser" column="host_browser"/>
+            <result property="userAgent" column="user_agent"/>
+            <result property="remarks" column="remarks"/>
+            <result property="executeTime" column="execute_time"/>
+            <result property="delFlag" column="del_flag"/>
+            <result property="yearly" column="yearly"/>
+            <result property="monthly" column="monthly"/>
+            <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <!-- VO 类查询 -->
+    <sql id="selectOplogPoiTestVO">
+        SELECT id, tenant_id, tenant_title, title, type, host_ip, host_address, host_os, host_browser, user_agent, remarks, execute_time, del_flag, yearly, monthly, create_time
+        FROM ta_fly_oplog_poi_test
+    </sql>
+
+    <!-- 导出数据字段查询 -->
+    <sql id="selectOplogPoiTestExpVO">
+        SELECT tenant_title, title, type, host_ip, host_address, host_os, host_browser, user_agent, execute_time, create_time
+        FROM ta_fly_oplog_poi_test
+    </sql>
+
+    <!-- 分页和导出查询参数 -->
+    <sql id="selectParamsWhere">
+        <where>
+                    <if test="null != tenantId  and '' != tenantId ">
+                        AND tenant_id = #{tenantId}
+                    </if>
+                    <if test="null != tenantTitle  and '' != tenantTitle ">
+                        AND tenant_title LIKE CONCAT(CONCAT('%',#{tenantTitle}),'%')
+                    </if>
+                    <if test="null != title  and '' != title ">
+                        AND title LIKE CONCAT(CONCAT('%',#{title}),'%')
+                    </if>
+                    <if test="null != type  and '' != type ">
+                        AND type = #{type}
+                    </if>
+                    <if test="null != hostIp  and '' != hostIp ">
+                        AND host_ip = #{hostIp}
+                    </if>
+                    <if test="null != hostAddress  and '' != hostAddress ">
+                        AND host_address = #{hostAddress}
+                    </if>
+                    <if test="null != hostOs  and '' != hostOs ">
+                        AND host_os = #{hostOs}
+                    </if>
+                    <if test="null != hostBrowser  and '' != hostBrowser ">
+                        AND host_browser = #{hostBrowser}
+                    </if>
+                    <if test="null != userAgent  and '' != userAgent ">
+                        AND user_agent = #{userAgent}
+                    </if>
+                    <if test="null != executeTime  and '' != executeTime ">
+                        AND execute_time = #{executeTime}
+                    </if>
+                    <if test="null != yearly  and '' != yearly ">
+                        AND yearly = #{yearly}
+                    </if>
+                    <if test="null != monthly  and '' != monthly ">
+                        AND monthly = #{monthly}
+                    </if>
+        </where>
+        ORDER BY id DESC
+    </sql>
+
+    <!-- 集合查询 -->
+    <select id="list" parameterType="com.github.itdachen.oplog.sdk.query.OplogPoiTestQuery" resultMap="oplogPoiTestMap">
+        <include refid="selectOplogPoiTestVO"/>
+        <include refid="selectParamsWhere"></include>
+    </select>
+
+    <!-- 查询导出数据 -->
+    <select id="selectOplogPoiTestExpData" parameterType="java.lang.String" resultMap="oplogPoiTestMap">
+        <include refid="selectOplogPoiTestExpVO"/>
+        <include refid="selectParamsWhere"></include>
+    </select>
+
+    <!-- 根据主键查询 -->
+    <select id="selectOplogPoiTestVO" parameterType="java.lang.String" resultMap="oplogPoiTestMap">
+        <include refid="selectOplogPoiTestVO"/>
+        WHERE id = #{id}
+    </select>
+
+    <!-- 批量添加 -->
+    <insert id="batchSave" parameterType="java.util.List">
+        INSERT INTO ta_fly_oplog_poi_test (id , 
+tenant_id , 
+tenant_title , 
+title , 
+type , 
+host_ip , 
+host_address , 
+host_os , 
+host_browser , 
+user_agent , 
+remarks , 
+execute_time , 
+del_flag , 
+yearly , 
+monthly , 
+create_time , 
+create_user , 
+create_user_id , 
+update_time , 
+update_user , 
+update_user_id 
+) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},
+#{item.tenantId},
+#{item.tenantTitle},
+#{item.title},
+#{item.type},
+#{item.hostIp},
+#{item.hostAddress},
+#{item.hostOs},
+#{item.hostBrowser},
+#{item.userAgent},
+#{item.remarks},
+#{item.executeTime},
+#{item.delFlag},
+#{item.yearly},
+#{item.monthly},
+#{item.createTime},
+#{item.createUser},
+#{item.createUserId},
+#{item.updateTime},
+#{item.updateUser},
+#{item.updateUserId})
+        </foreach>
+    </insert>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE  ta_fly_oplog_poi_test
+            <set>
+                        <if test="null != item.id  and '' != item.id ">id =
+                            #{item.id},
+                        </if>
+                        <if test="null != item.tenantId  and '' != item.tenantId ">tenant_id =
+                            #{item.tenantId},
+                        </if>
+                        <if test="null != item.tenantTitle  and '' != item.tenantTitle ">tenant_title =
+                            #{item.tenantTitle},
+                        </if>
+                        <if test="null != item.title  and '' != item.title ">title =
+                            #{item.title},
+                        </if>
+                        <if test="null != item.type  and '' != item.type ">type =
+                            #{item.type},
+                        </if>
+                        <if test="null != item.hostIp  and '' != item.hostIp ">host_ip =
+                            #{item.hostIp},
+                        </if>
+                        <if test="null != item.hostAddress  and '' != item.hostAddress ">host_address =
+                            #{item.hostAddress},
+                        </if>
+                        <if test="null != item.hostOs  and '' != item.hostOs ">host_os =
+                            #{item.hostOs},
+                        </if>
+                        <if test="null != item.hostBrowser  and '' != item.hostBrowser ">host_browser =
+                            #{item.hostBrowser},
+                        </if>
+                        <if test="null != item.userAgent  and '' != item.userAgent ">user_agent =
+                            #{item.userAgent},
+                        </if>
+                        <if test="null != item.remarks  and '' != item.remarks ">remarks =
+                            #{item.remarks},
+                        </if>
+                        <if test="null != item.executeTime  and '' != item.executeTime ">execute_time =
+                            #{item.executeTime},
+                        </if>
+                        <if test="null != item.delFlag  and '' != item.delFlag ">del_flag =
+                            #{item.delFlag},
+                        </if>
+                        <if test="null != item.yearly  and '' != item.yearly ">yearly =
+                            #{item.yearly},
+                        </if>
+                        <if test="null != item.monthly  and '' != item.monthly ">monthly =
+                            #{item.monthly},
+                        </if>
+                        <if test="null != item.createTime ">create_time =
+                            #{item.createTime},
+                        </if>
+                        <if test="null != item.createUser  and '' != item.createUser ">create_user =
+                            #{item.createUser},
+                        </if>
+                        <if test="null != item.createUserId  and '' != item.createUserId ">create_user_id =
+                            #{item.createUserId},
+                        </if>
+                        <if test="null != item.updateTime ">update_time =
+                            #{item.updateTime},
+                        </if>
+                        <if test="null != item.updateUser  and '' != item.updateUser ">update_user =
+                            #{item.updateUser},
+                        </if>
+                        <if test="null != item.updateUserId  and '' != item.updateUserId ">update_user_id =
+                            #{item.updateUserId},
+                        </if>
+            </set>
+            WHERE id = #{item.id}
+        </foreach>
+    </update>
+
+
+</mapper>

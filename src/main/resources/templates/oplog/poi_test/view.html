@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('查看导入导出测试')"/>
+    <script>
+        layui.use(['form'], function () {
+            let form = layui.form;
+            form.render();
+        });
+    </script>
+</head>
+<body>
+
+<form class="layui-form" id="seeOplogPoiTestForm" th:object="${oplogPoiTest}">
+    <div class="layui-form-body-see">
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            租户名称/公司名称
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="tenantTitle" name="tenantTitle" th:field="*{tenantTitle}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            日志标题: 用户管理, 菜单管理等
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="title" name="title" th:field="*{title}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            日志类型: button, uri
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="type" name="type" th:field="*{type}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            操作IP地址
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="hostIp" name="hostIp" th:field="*{hostIp}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            操作地址
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="hostAddress" name="hostAddress" th:field="*{hostAddress}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            操作系统
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="hostOs" name="hostOs" th:field="*{hostOs}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            操作浏览器
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="hostBrowser" name="hostBrowser" th:field="*{hostBrowser}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            用户代理
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="userAgent" name="userAgent" th:field="*{userAgent}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            备注
+                        </label>
+                        <div class="layui-input-block">
+                        <textarea id="remarks" name="remarks" th:field="*{remarks}" maxlength="200"
+                                  readonly="readonly"
+ autocomplete="off"
+                                  class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            服务端处理耗时
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="executeTime" name="executeTime" th:field="*{executeTime}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            年份
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="yearly" name="yearly" th:field="*{yearly}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            月份
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" id="monthly" name="monthly" th:field="*{monthly}" readonly="readonly"
+                                   autocomplete="off"
+lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+    </div>
+</form>
+
+</body>
+</html>
