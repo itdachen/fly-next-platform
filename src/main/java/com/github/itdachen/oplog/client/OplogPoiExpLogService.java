@@ -2,7 +2,7 @@ package com.github.itdachen.oplog.client;
 
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.id.IdUtils;
-import com.github.itdachen.ooxml.poi.entity.PoiExpModel;
+import com.github.itdachen.ooxml.poi.entity.OplogPoiModel;
 import com.github.itdachen.ooxml.poi.log.IOOXmlPoiExpLogClient;
 import com.github.itdachen.oplog.entity.OplogPoiExp;
 import com.github.itdachen.oplog.mapper.IOplogPoiExpMapper;
@@ -26,59 +26,59 @@ public class OplogPoiExpLogService implements IOOXmlPoiExpLogClient {
     }
 
     @Override
-    public void save(PoiExpModel poiExpModel) {
-        OplogPoiExp oplogPoiExp = toOplogPoiExp(poiExpModel);
+    public void save(OplogPoiModel oplogPoiModel) {
+        OplogPoiExp oplogPoiExp = toOplogPoiExp(oplogPoiModel);
         oplogPoiExpMapper.insertSelective(oplogPoiExp);
     }
 
 
-    public OplogPoiExp toOplogPoiExp(PoiExpModel poiExpModel) {
-        if (null == poiExpModel) {
+    public OplogPoiExp toOplogPoiExp(OplogPoiModel oplogPoiModel) {
+        if (null == oplogPoiModel) {
             return null;
         }
         OplogPoiExp oplogPoiExp = new OplogPoiExp();
-        oplogPoiExp.setId(poiExpModel.getId());
-        oplogPoiExp.setTenantId(poiExpModel.getTenantId());
-        oplogPoiExp.setTenantTitle(poiExpModel.getTenantTitle());
-        oplogPoiExp.setPlatId(poiExpModel.getPlatId());
-        oplogPoiExp.setPlatTitle(poiExpModel.getPlatTitle());
-        oplogPoiExp.setAppId(poiExpModel.getAppId());
-        oplogPoiExp.setAppTitle(poiExpModel.getAppTitle());
-        oplogPoiExp.setAppVersion(poiExpModel.getAppVersion());
-        oplogPoiExp.setUserId(poiExpModel.getUserId());
-        oplogPoiExp.setNickName(poiExpModel.getNickName());
-        oplogPoiExp.setRoleId(poiExpModel.getRoleId());
-        oplogPoiExp.setRoleName(poiExpModel.getRoleName());
-        oplogPoiExp.setProvId(poiExpModel.getProvId());
-        oplogPoiExp.setProvTitle(poiExpModel.getProvTitle());
-        oplogPoiExp.setCityId(poiExpModel.getCityId());
-        oplogPoiExp.setCityTitle(poiExpModel.getCityTitle());
-        oplogPoiExp.setCountyId(poiExpModel.getCountyId());
-        oplogPoiExp.setCountyTitle(poiExpModel.getCountyTitle());
-        oplogPoiExp.setDeptId(poiExpModel.getDeptId());
-        oplogPoiExp.setDeptTitle(poiExpModel.getDeptTitle());
-        oplogPoiExp.setDeptLevel(poiExpModel.getDeptLevel());
-        oplogPoiExp.setDeptParentId(poiExpModel.getDeptParentId());
-        oplogPoiExp.setMsgId(poiExpModel.getMsgId());
-        oplogPoiExp.setFuncId(poiExpModel.getFuncId());
-        oplogPoiExp.setFuncTitle(poiExpModel.getFuncTitle());
-        oplogPoiExp.setHostIp(poiExpModel.getHostIp());
-        oplogPoiExp.setHostAddress(poiExpModel.getHostAddress());
-        oplogPoiExp.setHostOs(poiExpModel.getHostOs());
-        oplogPoiExp.setHostBrowser(poiExpModel.getHostBrowser());
-        oplogPoiExp.setHostUserAgent(poiExpModel.getHostUserAgent());
-        oplogPoiExp.setRequestId(poiExpModel.getRequestId());
-        oplogPoiExp.setRequestUri(poiExpModel.getRequestUri());
-        oplogPoiExp.setRequestMethod(poiExpModel.getRequestMethod());
-        oplogPoiExp.setRequestParams(poiExpModel.getRequestParams());
-        oplogPoiExp.setDataTotal(poiExpModel.getDataTotal());
-        oplogPoiExp.setFileName(poiExpModel.getFileName());
-        oplogPoiExp.setFileUrl(poiExpModel.getFileUrl());
-        oplogPoiExp.setFileSize(poiExpModel.getFileSize());
-        oplogPoiExp.setFileTotal(poiExpModel.getFileTotal());
-        oplogPoiExp.setExInfo(poiExpModel.getExInfo());
-        oplogPoiExp.setRemarks(poiExpModel.getRemarks());
-        oplogPoiExp.setExecuteTime(poiExpModel.getExecuteTime());
+        oplogPoiExp.setId(oplogPoiModel.getId());
+        oplogPoiExp.setTenantId(oplogPoiModel.getTenantId());
+        oplogPoiExp.setTenantTitle(oplogPoiModel.getTenantTitle());
+        oplogPoiExp.setPlatId(oplogPoiModel.getPlatId());
+        oplogPoiExp.setPlatTitle(oplogPoiModel.getPlatTitle());
+        oplogPoiExp.setAppId(oplogPoiModel.getAppId());
+        oplogPoiExp.setAppTitle(oplogPoiModel.getAppTitle());
+        oplogPoiExp.setAppVersion(oplogPoiModel.getAppVersion());
+        oplogPoiExp.setUserId(oplogPoiModel.getUserId());
+        oplogPoiExp.setNickName(oplogPoiModel.getNickName());
+        oplogPoiExp.setRoleId(oplogPoiModel.getRoleId());
+        oplogPoiExp.setRoleName(oplogPoiModel.getRoleName());
+        oplogPoiExp.setProvId(oplogPoiModel.getProvId());
+        oplogPoiExp.setProvTitle(oplogPoiModel.getProvTitle());
+        oplogPoiExp.setCityId(oplogPoiModel.getCityId());
+        oplogPoiExp.setCityTitle(oplogPoiModel.getCityTitle());
+        oplogPoiExp.setCountyId(oplogPoiModel.getCountyId());
+        oplogPoiExp.setCountyTitle(oplogPoiModel.getCountyTitle());
+        oplogPoiExp.setDeptId(oplogPoiModel.getDeptId());
+        oplogPoiExp.setDeptTitle(oplogPoiModel.getDeptTitle());
+        oplogPoiExp.setDeptLevel(oplogPoiModel.getDeptLevel());
+        oplogPoiExp.setDeptParentId(oplogPoiModel.getDeptParentId());
+        oplogPoiExp.setMsgId(oplogPoiModel.getMsgId());
+        oplogPoiExp.setFuncId(oplogPoiModel.getFuncId());
+        oplogPoiExp.setFuncTitle(oplogPoiModel.getFuncTitle());
+        oplogPoiExp.setHostIp(oplogPoiModel.getHostIp());
+        oplogPoiExp.setHostAddress(oplogPoiModel.getHostAddress());
+        oplogPoiExp.setHostOs(oplogPoiModel.getHostOs());
+        oplogPoiExp.setHostBrowser(oplogPoiModel.getHostBrowser());
+        oplogPoiExp.setHostUserAgent(oplogPoiModel.getHostUserAgent());
+        oplogPoiExp.setRequestId(oplogPoiModel.getRequestId());
+        oplogPoiExp.setRequestUri(oplogPoiModel.getRequestUri());
+        oplogPoiExp.setRequestMethod(oplogPoiModel.getRequestMethod());
+        oplogPoiExp.setRequestParams(oplogPoiModel.getRequestParams());
+        oplogPoiExp.setDataTotal(oplogPoiModel.getDataTotal());
+        oplogPoiExp.setFileName(oplogPoiModel.getFileName());
+        oplogPoiExp.setFileUrl(oplogPoiModel.getFileUrl());
+        oplogPoiExp.setFileSize(oplogPoiModel.getFileSize());
+        oplogPoiExp.setFileTotal(oplogPoiModel.getFileTotal());
+        oplogPoiExp.setExInfo(oplogPoiModel.getExInfo());
+        oplogPoiExp.setRemarks(oplogPoiModel.getRemarks());
+        oplogPoiExp.setExecuteTime(oplogPoiModel.getExecuteTime());
         oplogPoiExp.setRemoveFlag(YesOrNotConstant.N);
 
         /* 操作时间 */
@@ -86,11 +86,11 @@ public class OplogPoiExpLogService implements IOOXmlPoiExpLogClient {
         oplogPoiExp.setMonthly(String.valueOf(now.getMonthValue()));
         oplogPoiExp.setYearly(String.valueOf(now.getYear()));
         oplogPoiExp.setCreateTime(now);
-        oplogPoiExp.setCreateUserId(poiExpModel.getId());
-        oplogPoiExp.setCreateUser(poiExpModel.getNickName());
+        oplogPoiExp.setCreateUserId(oplogPoiModel.getId());
+        oplogPoiExp.setCreateUser(oplogPoiModel.getNickName());
         oplogPoiExp.setUpdateTime(now);
-        oplogPoiExp.setUpdateUserId(poiExpModel.getId());
-        oplogPoiExp.setUpdateUser(poiExpModel.getNickName());
+        oplogPoiExp.setUpdateUserId(oplogPoiModel.getId());
+        oplogPoiExp.setUpdateUser(oplogPoiModel.getNickName());
 
         if (null == oplogPoiExp.getId() || oplogPoiExp.getId().isEmpty()) {
             oplogPoiExp.setId(IdUtils.getId());

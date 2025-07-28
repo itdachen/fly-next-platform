@@ -143,7 +143,7 @@ public class ExcelImpUtils {
 
     public static void main(String[] args) {
         //   String path = "D:\\mock\\陈述抽签名单.xlsx";
-        String path = "D:\\mock\\陈述抽签名单.xls";
+        String path = "D:\\mock\\签名单.xls";
 
         boolean b = validateExcel(path);
         System.err.println("是否是 Excel: " + b);

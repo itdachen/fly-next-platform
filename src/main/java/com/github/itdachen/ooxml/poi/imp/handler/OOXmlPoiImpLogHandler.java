@@ -10,9 +10,8 @@ import com.github.itdachen.framework.context.userdetails.UserInfoDetails;
 import com.github.itdachen.framework.tools.ServletUtils;
 import com.github.itdachen.framework.tools.ip.AddressUtils;
 import com.github.itdachen.framework.tools.useragent.UserAgentUtils;
-import com.github.itdachen.ooxml.poi.entity.PoiExpModel;
+import com.github.itdachen.ooxml.poi.entity.OplogPoiModel;
 import com.github.itdachen.ooxml.poi.entity.PoiUploadInfo;
-import com.github.itdachen.ooxml.poi.log.IOOXmlPoiExpLogClient;
 import com.github.itdachen.ooxml.poi.imp.ImpParamsSettings;
 import com.github.itdachen.ooxml.poi.log.IOOXmlPoiImpLogClient;
 import org.slf4j.Logger;
@@ -64,7 +63,7 @@ public class OOXmlPoiImpLogHandler {
         final String jsonString = objectMapper.writeValueAsString(settings.getParams());
         final String ipAddress = ServletUtils.getIPAddress(settings.getRequest());
 
-        PoiExpModel poiExpModel = PoiExpModel.builder()
+        OplogPoiModel oplogPoiModel = OplogPoiModel.builder()
                 .id(IdUtils.getId())
                 .msgId(msgId)
                 .appId(appClientProperties.getAppId())
@@ -124,15 +123,13 @@ public class OOXmlPoiImpLogHandler {
                 .remarks("-")
                 .executeTime(uploadInfo.getTakeUpTime() + " ms")
 
-                .monthly(String.valueOf(now.getMonthValue()))
-                .yearly(String.valueOf(now.getYear()))
                 .build();
 
         threadPoolExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 try {
-                    //   AppContextHelper.getBean(IOOXmlPoiImpLogClient.class).save(poiExpModel);
+                    AppContextHelper.getBean(IOOXmlPoiImpLogClient.class).save(oplogPoiModel);
                 } catch (Exception e) {
                     logger.error("数据导出日志入库失败: ", e);
                 }

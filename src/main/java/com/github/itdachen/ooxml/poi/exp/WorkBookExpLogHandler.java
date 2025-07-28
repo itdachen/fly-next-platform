@@ -9,14 +9,14 @@ import com.github.itdachen.framework.context.id.IdUtils;
 import com.github.itdachen.framework.context.userdetails.UserInfoDetails;
 import com.github.itdachen.framework.tools.ServletUtils;
 import com.github.itdachen.framework.tools.useragent.UserAgentUtils;
+import com.github.itdachen.ooxml.poi.entity.OplogPoiModel;
 import com.github.itdachen.ooxml.poi.log.IOOXmlPoiExpLogClient;
-import com.github.itdachen.ooxml.poi.entity.PoiExpModel;
 import com.github.itdachen.ooxml.poi.entity.PoiUploadInfo;
+import com.github.itdachen.ooxml.poi.log.IOOXmlPoiImpLogClient;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.LocalDateTime;
 import java.util.concurrent.*;
 
 /**
@@ -60,11 +60,10 @@ public class WorkBookExpLogHandler {
         AppInfoProperties appClientProperties = AppContextHelper.getBean(AppInfoProperties.class);
         PlatformInfoProperties platformClientProperties = AppContextHelper.getBean(PlatformInfoProperties.class);
 
-        LocalDateTime now = LocalDateTime.now();
         String userAgent = request.getHeader("User-Agent");
         final String jsonString = objectMapper.writeValueAsString(params);
 
-        PoiExpModel poiExpModel = PoiExpModel.builder()
+        OplogPoiModel oplogPoiModel = OplogPoiModel.builder()
                 .id(IdUtils.getId())
                 .msgId(msgId)
                 .appId(appClientProperties.getAppId())
@@ -124,8 +123,6 @@ public class WorkBookExpLogHandler {
                 .remarks("-")
                 .executeTime(uploadInfo.getTakeUpTime() + " ms")
 
-                .monthly(String.valueOf(now.getMonthValue()))
-                .yearly(String.valueOf(now.getYear()))
                 .build();
 
 
@@ -133,7 +130,7 @@ public class WorkBookExpLogHandler {
             @Override
             public void run() {
                 try {
-                    AppContextHelper.getBean(IOOXmlPoiExpLogClient.class).save(poiExpModel);
+                    AppContextHelper.getBean(IOOXmlPoiImpLogClient.class).save(oplogPoiModel);
                 } catch (Exception e) {
                     logger.error("数据导出日志入库失败: ", e);
                 }

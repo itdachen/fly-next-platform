@@ -6,13 +6,13 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import java.io.Serializable;
 
 /**
- * 导出日志
+ * 导入导出
  *
  * @author 王大宸
- * @date 2025-07-22 14:32
+ * @date 2025-07-28 15:31
  */
-public class PoiExpModel implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class OplogPoiModel implements Serializable {
+    private static final long serialVersionUID = 973371028355346801L;
 
     /**
      * 主键唯一标识
@@ -135,7 +135,7 @@ public class PoiExpModel implements Serializable {
     private String funcId;
 
     /**
-     * 功能名称
+     * 功能名称(备用)
      */
     private String funcTitle;
 
@@ -190,7 +190,7 @@ public class PoiExpModel implements Serializable {
     private String dataTotal;
 
     /**
-     * 导出文件名称
+     * 导入文件名称
      */
     private String fileName;
 
@@ -224,21 +224,11 @@ public class PoiExpModel implements Serializable {
      */
     private String executeTime;
 
-    /**
-     * 年份
-     */
-    private String yearly;
 
-    /**
-     * 月份
-     */
-    private String monthly;
-
-
-    public PoiExpModel() {
+    public OplogPoiModel() {
     }
 
-    public PoiExpModel(String id, String tenantId, String tenantTitle, String platId, String platTitle, String appId, String appTitle, String appVersion, String userId, String nickName, String roleId, String roleName, String provId, String provTitle, String cityId, String cityTitle, String countyId, String countyTitle, String deptId, String deptTitle, String deptLevel, String deptParentId, String msgId, String funcId, String funcTitle, String hostIp, String hostAddress, String hostOs, String hostBrowser, String hostUserAgent, String requestId, String requestUri, String requestMethod, String requestParams, String dataTotal, String fileName, String fileUrl, String fileSize, String fileTotal, String exInfo, String remarks, String executeTime, String yearly, String monthly) {
+    public OplogPoiModel(String id, String tenantId, String tenantTitle, String platId, String platTitle, String appId, String appTitle, String appVersion, String userId, String nickName, String roleId, String roleName, String provId, String provTitle, String cityId, String cityTitle, String countyId, String countyTitle, String deptId, String deptTitle, String deptLevel, String deptParentId, String msgId, String funcId, String funcTitle, String hostIp, String hostAddress, String hostOs, String hostBrowser, String hostUserAgent, String requestId, String requestUri, String requestMethod, String requestParams, String dataTotal, String fileName, String fileUrl, String fileSize, String fileTotal, String exInfo, String remarks, String executeTime) {
         this.id = id;
         this.tenantId = tenantId;
         this.tenantTitle = tenantTitle;
@@ -281,15 +271,13 @@ public class PoiExpModel implements Serializable {
         this.exInfo = exInfo;
         this.remarks = remarks;
         this.executeTime = executeTime;
-        this.yearly = yearly;
-        this.monthly = monthly;
     }
 
-    public static PoiExpModelBuilder builder() {
-        return new PoiExpModelBuilder();
+    public static OplogPoiModelBuilder builder() {
+        return new OplogPoiModelBuilder();
     }
 
-    public static class PoiExpModelBuilder {
+    public static class OplogPoiModelBuilder {
         private String id;
         private String tenantId;
         private String tenantTitle;
@@ -332,278 +320,264 @@ public class PoiExpModel implements Serializable {
         private String exInfo;
         private String remarks;
         private String executeTime;
-        private String yearly;
-        private String monthly;
 
-        public PoiExpModelBuilder() {
+        public OplogPoiModelBuilder() {
         }
 
         /* 主键唯一标识 */
-        public PoiExpModelBuilder id(String id) {
+        public OplogPoiModelBuilder id(String id) {
             this.id = id;
             return this;
         }
 
         /* 租户ID/公司ID */
-        public PoiExpModelBuilder tenantId(String tenantId) {
+        public OplogPoiModelBuilder tenantId(String tenantId) {
             this.tenantId = tenantId;
             return this;
         }
 
         /* 租户名称/公司名称 */
-        public PoiExpModelBuilder tenantTitle(String tenantTitle) {
+        public OplogPoiModelBuilder tenantTitle(String tenantTitle) {
             this.tenantTitle = tenantTitle;
             return this;
         }
 
         /* 平台ID */
-        public PoiExpModelBuilder platId(String platId) {
+        public OplogPoiModelBuilder platId(String platId) {
             this.platId = platId;
             return this;
         }
 
         /* 平台名称 */
-        public PoiExpModelBuilder platTitle(String platTitle) {
+        public OplogPoiModelBuilder platTitle(String platTitle) {
             this.platTitle = platTitle;
             return this;
         }
 
         /* 应用ID */
-        public PoiExpModelBuilder appId(String appId) {
+        public OplogPoiModelBuilder appId(String appId) {
             this.appId = appId;
             return this;
         }
 
         /* 应用名称 */
-        public PoiExpModelBuilder appTitle(String appTitle) {
+        public OplogPoiModelBuilder appTitle(String appTitle) {
             this.appTitle = appTitle;
             return this;
         }
 
         /* 应用版本号 */
-        public PoiExpModelBuilder appVersion(String appVersion) {
+        public OplogPoiModelBuilder appVersion(String appVersion) {
             this.appVersion = appVersion;
             return this;
         }
 
         /* 用户ID */
-        public PoiExpModelBuilder userId(String userId) {
+        public OplogPoiModelBuilder userId(String userId) {
             this.userId = userId;
             return this;
         }
 
         /* 昵称 */
-        public PoiExpModelBuilder nickName(String nickName) {
+        public OplogPoiModelBuilder nickName(String nickName) {
             this.nickName = nickName;
             return this;
         }
 
         /* 身份ID */
-        public PoiExpModelBuilder roleId(String roleId) {
+        public OplogPoiModelBuilder roleId(String roleId) {
             this.roleId = roleId;
             return this;
         }
 
         /* 身份名称 */
-        public PoiExpModelBuilder roleName(String roleName) {
+        public OplogPoiModelBuilder roleName(String roleName) {
             this.roleName = roleName;
             return this;
         }
 
         /* 省代码 */
-        public PoiExpModelBuilder provId(String provId) {
+        public OplogPoiModelBuilder provId(String provId) {
             this.provId = provId;
             return this;
         }
 
         /* 省名称 */
-        public PoiExpModelBuilder provTitle(String provTitle) {
+        public OplogPoiModelBuilder provTitle(String provTitle) {
             this.provTitle = provTitle;
             return this;
         }
 
         /* 市/州代码 */
-        public PoiExpModelBuilder cityId(String cityId) {
+        public OplogPoiModelBuilder cityId(String cityId) {
             this.cityId = cityId;
             return this;
         }
 
         /* 市/州名称 */
-        public PoiExpModelBuilder cityTitle(String cityTitle) {
+        public OplogPoiModelBuilder cityTitle(String cityTitle) {
             this.cityTitle = cityTitle;
             return this;
         }
 
         /* 区/县代码 */
-        public PoiExpModelBuilder countyId(String countyId) {
+        public OplogPoiModelBuilder countyId(String countyId) {
             this.countyId = countyId;
             return this;
         }
 
         /* 区/县名称 */
-        public PoiExpModelBuilder countyTitle(String countyTitle) {
+        public OplogPoiModelBuilder countyTitle(String countyTitle) {
             this.countyTitle = countyTitle;
             return this;
         }
 
         /* 部门ID */
-        public PoiExpModelBuilder deptId(String deptId) {
+        public OplogPoiModelBuilder deptId(String deptId) {
             this.deptId = deptId;
             return this;
         }
 
         /* 部门名称 */
-        public PoiExpModelBuilder deptTitle(String deptTitle) {
+        public OplogPoiModelBuilder deptTitle(String deptTitle) {
             this.deptTitle = deptTitle;
             return this;
         }
 
         /* 部门等级 */
-        public PoiExpModelBuilder deptLevel(String deptLevel) {
+        public OplogPoiModelBuilder deptLevel(String deptLevel) {
             this.deptLevel = deptLevel;
             return this;
         }
 
         /* 上级部门代码 */
-        public PoiExpModelBuilder deptParentId(String deptParentId) {
+        public OplogPoiModelBuilder deptParentId(String deptParentId) {
             this.deptParentId = deptParentId;
             return this;
         }
 
         /* 消息表ID */
-        public PoiExpModelBuilder msgId(String msgId) {
+        public OplogPoiModelBuilder msgId(String msgId) {
             this.msgId = msgId;
             return this;
         }
 
         /* 功能ID/菜单ID(备用) */
-        public PoiExpModelBuilder funcId(String funcId) {
+        public OplogPoiModelBuilder funcId(String funcId) {
             this.funcId = funcId;
             return this;
         }
 
-        /* 功能名称 */
-        public PoiExpModelBuilder funcTitle(String funcTitle) {
+        /* 功能名称(备用) */
+        public OplogPoiModelBuilder funcTitle(String funcTitle) {
             this.funcTitle = funcTitle;
             return this;
         }
 
         /* 操作IP地址 */
-        public PoiExpModelBuilder hostIp(String hostIp) {
+        public OplogPoiModelBuilder hostIp(String hostIp) {
             this.hostIp = hostIp;
             return this;
         }
 
         /* 操作地址 */
-        public PoiExpModelBuilder hostAddress(String hostAddress) {
+        public OplogPoiModelBuilder hostAddress(String hostAddress) {
             this.hostAddress = hostAddress;
             return this;
         }
 
         /* 操作系统 */
-        public PoiExpModelBuilder hostOs(String hostOs) {
+        public OplogPoiModelBuilder hostOs(String hostOs) {
             this.hostOs = hostOs;
             return this;
         }
 
         /* 操作浏览器 */
-        public PoiExpModelBuilder hostBrowser(String hostBrowser) {
+        public OplogPoiModelBuilder hostBrowser(String hostBrowser) {
             this.hostBrowser = hostBrowser;
             return this;
         }
 
         /* 用户代理 */
-        public PoiExpModelBuilder hostUserAgent(String hostUserAgent) {
+        public OplogPoiModelBuilder hostUserAgent(String hostUserAgent) {
             this.hostUserAgent = hostUserAgent;
             return this;
         }
 
         /* 请求ID */
-        public PoiExpModelBuilder requestId(String requestId) {
+        public OplogPoiModelBuilder requestId(String requestId) {
             this.requestId = requestId;
             return this;
         }
 
         /* 请求URI */
-        public PoiExpModelBuilder requestUri(String requestUri) {
+        public OplogPoiModelBuilder requestUri(String requestUri) {
             this.requestUri = requestUri;
             return this;
         }
 
         /* 请求方式: POST, PUT, GET, DELETE */
-        public PoiExpModelBuilder requestMethod(String requestMethod) {
+        public OplogPoiModelBuilder requestMethod(String requestMethod) {
             this.requestMethod = requestMethod;
             return this;
         }
 
         /* 请求参数 */
-        public PoiExpModelBuilder requestParams(String requestParams) {
+        public OplogPoiModelBuilder requestParams(String requestParams) {
             this.requestParams = requestParams;
             return this;
         }
 
         /* 数据总量 */
-        public PoiExpModelBuilder dataTotal(String dataTotal) {
+        public OplogPoiModelBuilder dataTotal(String dataTotal) {
             this.dataTotal = dataTotal;
             return this;
         }
 
-        /* 导出文件名称 */
-        public PoiExpModelBuilder fileName(String fileName) {
+        /* 导入文件名称 */
+        public OplogPoiModelBuilder fileName(String fileName) {
             this.fileName = fileName;
             return this;
         }
 
         /* 文件地址 */
-        public PoiExpModelBuilder fileUrl(String fileUrl) {
+        public OplogPoiModelBuilder fileUrl(String fileUrl) {
             this.fileUrl = fileUrl;
             return this;
         }
 
         /* 文件大小 */
-        public PoiExpModelBuilder fileSize(String fileSize) {
+        public OplogPoiModelBuilder fileSize(String fileSize) {
             this.fileSize = fileSize;
             return this;
         }
 
         /* 文件数量 */
-        public PoiExpModelBuilder fileTotal(String fileTotal) {
+        public OplogPoiModelBuilder fileTotal(String fileTotal) {
             this.fileTotal = fileTotal;
             return this;
         }
 
         /* 异常信息 */
-        public PoiExpModelBuilder exInfo(String exInfo) {
+        public OplogPoiModelBuilder exInfo(String exInfo) {
             this.exInfo = exInfo;
             return this;
         }
 
         /* 备注 */
-        public PoiExpModelBuilder remarks(String remarks) {
+        public OplogPoiModelBuilder remarks(String remarks) {
             this.remarks = remarks;
             return this;
         }
 
         /* 服务端处理耗时 */
-        public PoiExpModelBuilder executeTime(String executeTime) {
+        public OplogPoiModelBuilder executeTime(String executeTime) {
             this.executeTime = executeTime;
             return this;
         }
 
-        /* 年份 */
-        public PoiExpModelBuilder yearly(String yearly) {
-            this.yearly = yearly;
-            return this;
-        }
-
-        /* 月份 */
-        public PoiExpModelBuilder monthly(String monthly) {
-            this.monthly = monthly;
-            return this;
-        }
-
-        public PoiExpModel build() {
-            return new PoiExpModel(id,
+        public OplogPoiModel build() {
+            return new OplogPoiModel(id,
                     tenantId,
                     tenantTitle,
                     platId,
@@ -644,9 +618,7 @@ public class PoiExpModel implements Serializable {
                     fileTotal,
                     exInfo,
                     remarks,
-                    executeTime,
-                    yearly,
-                    monthly
+                    executeTime
             );
         }
 
@@ -989,22 +961,6 @@ public class PoiExpModel implements Serializable {
         return executeTime;
     }
 
-    public void setYearly(String yearly) {
-        this.yearly = yearly;
-    }
-
-    public String getYearly() {
-        return yearly;
-    }
-
-    public void setMonthly(String monthly) {
-        this.monthly = monthly;
-    }
-
-    public String getMonthly() {
-        return monthly;
-    }
-
 
     @Override
     public String toString() {
@@ -1051,10 +1007,7 @@ public class PoiExpModel implements Serializable {
                 .append("exInfo", getExInfo())
                 .append("remarks", getRemarks())
                 .append("executeTime", getExecuteTime())
-                .append("yearly", getYearly())
-                .append("monthly", getMonthly())
                 .toString();
     }
-
 
 }

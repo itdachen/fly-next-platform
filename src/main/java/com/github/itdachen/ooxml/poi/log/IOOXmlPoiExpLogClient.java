@@ -1,6 +1,6 @@
 package com.github.itdachen.ooxml.poi.log;
 
-import com.github.itdachen.ooxml.poi.entity.PoiExpModel;
+import com.github.itdachen.ooxml.poi.entity.OplogPoiModel;
 
 /**
  * 导出日志入库
@@ -18,7 +18,7 @@ public interface IOOXmlPoiExpLogClient {
      * @date 2025/7/22 11:23
      * @return void
      */
-    void save(PoiExpModel poiExpModel);
+    void save(OplogPoiModel oplogPoiModel);
 
 
 }
