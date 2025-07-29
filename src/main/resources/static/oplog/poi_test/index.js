@@ -148,7 +148,7 @@ function oplogPoiTestTableOptions(queryOplogPoiTestParams) {
             {field: 'hostBrowser', title: '操作浏览器', align: 'center'},
             {field: 'userAgent', title: '用户代理', align: 'center'},
             {field: 'createTime', title: '创建时间', align: 'center'},
-            {fixed: 'right', title: '操作', toolbar: '#oplogPoiTestActionBar', width: 320, align: 'center'}
+           // {fixed: 'right', title: '操作', toolbar: '#oplogPoiTestActionBar', width: 320, align: 'center'}
         ]]
     }
 
