@@ -1,14 +1,21 @@
 package com.github.itdachen.config;
 
+import com.github.itdachen.boot.autoconfigure.AppContextHelper;
+import com.github.itdachen.boot.autoconfigure.oss.properties.OssLocalAutoconfigureProperties;
 import com.github.itdachen.boot.security.interceptor.FlyWebSecurityInterceptor;
 import com.github.itdachen.boot.security.matchers.IAuthorizeRequestMatchers;
+import jakarta.servlet.MultipartConfigElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.io.File;
 
 
 /**
@@ -24,11 +31,14 @@ public class FlyNextWebMvcConfigurer implements WebMvcConfigurer {
     /* 不拦截路径 */
     private final IAuthorizeRequestMatchers authorizeRequestMatchers;
     private final FlyWebSecurityInterceptor flyWebSecurityInterceptor;
+    private final OssLocalAutoconfigureProperties localAutoconfigureProperties;
 
     public FlyNextWebMvcConfigurer(@Lazy IAuthorizeRequestMatchers authorizeRequestMatchers,
-                                   @Lazy FlyWebSecurityInterceptor flyWebSecurityInterceptor) {
+                                   @Lazy FlyWebSecurityInterceptor flyWebSecurityInterceptor,
+                                   @Lazy OssLocalAutoconfigureProperties localAutoconfigureProperties) {
         this.authorizeRequestMatchers = authorizeRequestMatchers;
         this.flyWebSecurityInterceptor = flyWebSecurityInterceptor;
+        this.localAutoconfigureProperties = localAutoconfigureProperties;
     }
 
     @Override
@@ -88,6 +98,16 @@ public class FlyNextWebMvcConfigurer implements WebMvcConfigurer {
 //    public FlyWebSecurityInterceptor flyWebSecurityInterceptor() {
 //        return new FlyWebSecurityInterceptor();
 //    }
-
+    @Bean
+    public MultipartConfigElement multipartConfigElement() {
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        String locationTemp = localAutoconfigureProperties.getDiskFolder();
+        File tmpFile = new File(locationTemp);
+        if (!tmpFile.exists()) {
+            tmpFile.mkdirs();
+        }
+        factory.setLocation(locationTemp);
+        return factory.createMultipartConfig();
+    }
 
 }

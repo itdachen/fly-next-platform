@@ -1,8 +1,18 @@
 package com.github.itdachen.ooxml.poi.imp.utils;
 
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.hssf.OldExcelFormatException;
+import org.apache.poi.openxml4j.exceptions.NotOfficeXmlFileException;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 
 /**
@@ -67,6 +77,51 @@ public class ExcelImpUtils {
         }
     }
 
+    public static Workbook getWorkbook(InputStream inputStream) {
+        try {
+            return WorkbookFactory.create(inputStream);
+        } catch (Exception e) {
+            throw new RuntimeException("读取EXCEL文件出错", e);
+        }
+    }
+
+    public static Workbook getWorkbook(MultipartFile file) {
+//        try {
+//            return WorkbookFactory.create(file.getInputStream());
+//        } catch (Exception e) {
+//            throw new RuntimeException("读取EXCEL文件出错", e);
+//        }
+        try (InputStream inputStream = file.getInputStream()) {
+            return WorkbookFactory.create(inputStream);
+            // 你的处理逻辑
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error reading the Excel file", e);
+        }
+
+//        catch (InvalidFormatException e) {
+//            e.printStackTrace();
+//            throw new RuntimeException("Invalid Excel format", e);
+//        }
+
+        catch (EncryptedDocumentException e) {
+            e.printStackTrace();
+            throw new RuntimeException("The document is password protected", e);
+        }
+//        catch (OOXml4JXmlException e) {
+//            e.printStackTrace();
+//            throw new RuntimeException("Error parsing the Excel file", e);
+//        }
+        catch (OldExcelFormatException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Old Excel format is not supported", e);
+        } catch (NotOfficeXmlFileException e) {
+            e.printStackTrace();
+            throw new RuntimeException("The file is not a valid Office XML file", e);
+        }
+
+    }
+
     /***
      * 获取文件内有几个 Sheet
      *
@@ -101,7 +156,7 @@ public class ExcelImpUtils {
     }
 
 
-    private static Long getLongValue(Cell cell) {
+    public static Long getLongValue(Cell cell) {
         if (cell == null) return null;
         if (cell.getCellType() == CellType.NUMERIC) {
             return (long) cell.getNumericCellValue();
@@ -111,17 +166,17 @@ public class ExcelImpUtils {
         return null;
     }
 
-    private static Integer getIntegerValue(Cell cell) {
+    public static Integer getIntegerValue(Cell cell) {
         if (cell == null) return null;
         return Integer.parseInt(cell.getStringCellValue());
     }
 
-    private static Double getDoubleValue(Cell cell) {
+    public static Double getDoubleValue(Cell cell) {
         if (cell == null) return null;
         return cell.getNumericCellValue();
     }
 
-    private static String getStringValue(Cell cell) {
+    public static String getStringValue(Cell cell) {
         if (cell == null) return null;
         if (cell.getCellType() == CellType.NUMERIC) {
             return String.valueOf((long) cell.getNumericCellValue());
@@ -131,12 +186,12 @@ public class ExcelImpUtils {
         return null;
     }
 
-    private static BigDecimal getBigDecimalValue(Cell cell) {
+    public static BigDecimal getBigDecimalValue(Cell cell) {
         double numericCellValue = cell.getNumericCellValue();
         return BigDecimal.valueOf(numericCellValue);
     }
 
-    private static Boolean getBooleanValue(Cell cell) {
+    public static Boolean getBooleanValue(Cell cell) {
         return cell.getBooleanCellValue();
     }
 

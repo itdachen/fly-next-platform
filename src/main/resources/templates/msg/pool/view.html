@@ -3,6 +3,18 @@
 <head>
     <th:block th:include="common/common::common('查看消息')"/>
     <script th:src="@{/static/msg/pool/msg_details.js}" charset="utf-8"></script>
+
+    <style>
+        .content {
+            margin-top: 20px;
+            font-size: 15px;
+            min-height: 100px;
+            border-top: #ccc 1px solid;
+            padding-top: 20px;
+            line-height: 30px;
+        }
+    </style>
+
 </head>
 <body class="bg-color">
 <input type="text" th:value="*{msgId}" id="msgId" name="msgId" style="display: none">
@@ -11,12 +23,12 @@
     <div style="display: flex;flex-direction: column;">
         <div style="display: flex;flex-direction: column">
             <div style="font-size: 20px; font-weight: 700; padding-top: 5px;color: #000;" id="msgTitle"></div>
-            <div style="margin-top: 10px;font-size: 15px;display: flex;flex-direction: row; ">日期：<div id="msgTime"></div></div>
+            <div style="margin-top: 10px;font-size: 15px;display: flex;flex-direction: row; ">日期：
+                <div id="msgTime"></div>
+            </div>
         </div>
         <!-- 消息内容 -->
-        <div id="content"
-             style="margin-top: 20px;font-size: 15px;min-height: 100px; text-indent: 2em;border-top: #ccc 1px solid;padding-top: 20px; line-height: 30px; ">
-
+        <div id="content" class="content">
         </div>
     </div>
 

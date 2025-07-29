@@ -7,6 +7,7 @@ import com.github.itdachen.boot.autoconfigure.app.AppInfoProperties;
 import com.github.itdachen.boot.autoconfigure.app.PlatformInfoProperties;
 import com.github.itdachen.framework.context.id.IdUtils;
 import com.github.itdachen.framework.context.userdetails.UserInfoDetails;
+import com.github.itdachen.framework.core.utils.StringUtils;
 import com.github.itdachen.framework.tools.ServletUtils;
 import com.github.itdachen.framework.tools.ip.AddressUtils;
 import com.github.itdachen.framework.tools.useragent.UserAgentUtils;
@@ -63,6 +64,11 @@ public class OOXmlPoiImpLogHandler {
         final String jsonString = objectMapper.writeValueAsString(settings.getParams());
         final String ipAddress = ServletUtils.getIPAddress(settings.getRequest());
 
+        String funcTitle = settings.getFuncTitle();
+        if ("-".equals(funcTitle) || StringUtils.isEmpty(funcTitle)) {
+            funcTitle = settings.getTitle();
+        }
+
         OplogPoiModel oplogPoiModel = OplogPoiModel.builder()
                 .id(IdUtils.getId())
                 .msgId(msgId)
@@ -97,7 +103,7 @@ public class OOXmlPoiImpLogHandler {
                 /* 日志标题 */
                 .msgId(msgId)
                 .funcId(settings.getFuncId())
-                .funcTitle(settings.getFuncTitle())
+                .funcTitle(funcTitle)
 
                 /* 操作主机信息 */
                 .hostIp(ipAddress)

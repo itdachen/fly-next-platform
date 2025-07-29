@@ -9,7 +9,20 @@ var OPLOG_POI_TEST_PATH = HTTP_BIZ_URI + '/oplog/poi/test';
 layui.use(['table', 'form'], function () {
     let table = layui.table;
     let form = layui.form;
+    let upload = layui.upload;
     form.render();
+
+
+    upload.render({
+        elem: '#impOplogPoiTest', // 绑定多个元素
+        url: OPLOG_POI_TEST_PATH + '/imp', // 此处配置你自己的上传接口即可
+        accept: 'file', // 普通文件
+        done: function (res) {
+            // layer.msg('上传成功');
+            // console.log(res);
+            $.msg.alertMsg(res.msg);
+        }
+    });
 
     /* 初始化表格 */
     initOplogPoiTestLayTable(table, form);
@@ -38,7 +51,7 @@ function initOplogPoiTestLayTable(table, form) {
         $.http.get({
             url: expUri,
             callback: function (res) {
-                layer.alert(res.msg);
+                $.msg.alertMsg(res.msg);
             }
         })
         return false;

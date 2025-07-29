@@ -6,14 +6,15 @@ import com.github.itdachen.oplog.sdk.query.OplogPoiTestQuery;
 import com.github.itdachen.oplog.sdk.vo.OplogPoiTestVO;
 import com.github.itdachen.framework.context.annotation.FuncTitle;
 import com.github.itdachen.framework.webmvc.controller.BizController;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 导入导出测试
@@ -84,6 +85,12 @@ public class OplogPoiTestController extends BizController<IOplogPoiTestService, 
     public String view(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("oplogPoiTest", bizService.selectByPrimaryKey(id));
         return PATH_PREFIX + "/view";
+    }
+
+    @PostMapping("/imp")
+    @ResponseBody
+    public void impInfo(HttpServletRequest request, HttpServletResponse response, MultipartFile file) throws Exception {
+        bizService.impInfo(request, response, file);
     }
 
 

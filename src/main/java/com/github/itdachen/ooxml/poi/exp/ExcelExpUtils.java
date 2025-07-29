@@ -37,6 +37,8 @@ public class ExcelExpUtils {
     /* 日志名称后缀 */
     public static final String TEXT_SUFFIX_TITLE = "数据导出文件！";
 
+    public static final String TEXT_IMP_SUFFIX_TITLE = "数据导入文件！";
+
 
     /***
      * 设置表头

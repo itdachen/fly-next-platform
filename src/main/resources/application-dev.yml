@@ -9,10 +9,10 @@ server:
 
 # 日志配置
 logging:
-  config: classpath:fly.xml
+  #  config: classpath:fly.xml
   level:
     cn.jay.repository: trace
-#    org.springframework: warn
+  #    org.springframework: warn
   file:
     path: ./logs # 配置日志打印目录,默认名称为:spring.log
     name: ./logs/fly_next.log # 配置日志打印目录和名称,和上面的path选一即可
@@ -30,7 +30,7 @@ fly:
     ## 文件上传类型: LOCAL-本地服务存储; ALI-阿里云存储服务器, 默认是 LOCAL
     type: LOCAL
     local:
-      localHttp: http://127.0.0.1:8080
+      localHttp: http://127.0.0.1:${server.port}${server.servlet.context-path}
       diskFolder: D:/upload/fly-next-admin/
     ali:
       endpoint: oss-cn-chengdu.aliyuncs.com
@@ -68,8 +68,9 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
-      file-size-threshold: 2KB
-      location: /tmp
+     # file-size-threshold: 2KB
+      file-size-threshold: 10MB
+      location: /home/temp
       resolve-lazily: false
 
 
