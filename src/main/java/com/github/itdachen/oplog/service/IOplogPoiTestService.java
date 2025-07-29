@@ -16,8 +16,4 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface IOplogPoiTestService extends IBizService< OplogPoiTestDTO, OplogPoiTestVO, OplogPoiTestQuery, String > {
 
-
-    void impInfo(HttpServletRequest request, HttpServletResponse response, MultipartFile file) throws Exception;
-
-
 }

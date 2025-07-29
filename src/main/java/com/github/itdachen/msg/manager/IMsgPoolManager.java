@@ -1,10 +1,10 @@
 package com.github.itdachen.msg.manager;
 
+import com.github.itdachen.boot.oplog.ooxml.poi.entity.MsgFileModel;
+import com.github.itdachen.boot.oplog.ooxml.poi.entity.MsgModel;
 import com.github.itdachen.framework.context.userdetails.UserInfoDetails;
 import com.github.itdachen.msg.sdk.vo.MsgPoolFileVO;
 import com.github.itdachen.msg.sdk.vo.MsgPoolVO;
-import com.github.itdachen.ooxml.poi.entity.MsgFileModel;
-import com.github.itdachen.ooxml.poi.entity.MsgModel;
 
 /**
  * IMsgPoolManager

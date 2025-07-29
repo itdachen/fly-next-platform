@@ -81,9 +81,9 @@ public class MsgPoolServiceImpl extends BizServiceImpl<IMsgPoolMapper, MsgPool, 
      * @return void
      */
     @Override
-    public void dataExpToExcel(HttpServletRequest request,
-                               HttpServletResponse response,
-                               MsgPoolQuery params) throws Exception {
+    public void expInfo(HttpServletRequest request,
+                        HttpServletResponse response,
+                        MsgPoolQuery params) throws Exception {
         List<LinkedHashMap<String, String>> list = bizMapper.selectMsgPoolExpData(params);
         WorkBookUtils.export(request, response)
                 .params(params)

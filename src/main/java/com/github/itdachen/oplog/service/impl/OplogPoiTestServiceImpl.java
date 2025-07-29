@@ -2,21 +2,20 @@ package com.github.itdachen.oplog.service.impl;
 
 import com.github.itdachen.admin.sdk.query.AppInfoQuery;
 import com.github.itdachen.admin.sdk.vo.AppInfoVO;
+import com.github.itdachen.boot.oplog.ooxml.poi.OOXmlPoiExpHelper;
+import com.github.itdachen.boot.oplog.ooxml.poi.OOXmlPoiImpHelper;
+import com.github.itdachen.boot.oplog.ooxml.poi.exp.ExpParamsSettings;
+import com.github.itdachen.boot.oplog.ooxml.poi.exp.handler.IWriteWorkBook;
+import com.github.itdachen.boot.oplog.ooxml.poi.exp.utils.ExcelExpUtils;
+import com.github.itdachen.boot.oplog.ooxml.poi.imp.IReadWorkBookHandler;
+import com.github.itdachen.boot.oplog.ooxml.poi.imp.ImpParamsSettings;
+import com.github.itdachen.boot.oplog.ooxml.poi.imp.utils.ExcelImpUtils;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.userdetails.UserInfoDetails;
 import com.github.itdachen.framework.core.response.TableData;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
 import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
-import com.github.itdachen.framework.webmvc.poi.WorkBookUtils;
-import com.github.itdachen.ooxml.poi.OOXmlPoiExpHelper;
-import com.github.itdachen.ooxml.poi.OOXmlPoiImpHelper;
-import com.github.itdachen.ooxml.poi.exp.ExcelExpUtils;
-import com.github.itdachen.ooxml.poi.exp.ExpParamsSettings;
-import com.github.itdachen.ooxml.poi.exp.IWriteWorkBook;
-import com.github.itdachen.ooxml.poi.imp.IReadWorkBookHandler;
-import com.github.itdachen.ooxml.poi.imp.ImpParamsSettings;
-import com.github.itdachen.ooxml.poi.imp.utils.ExcelImpUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.itdachen.oplog.entity.OplogPoiTest;
@@ -96,19 +95,10 @@ public class OplogPoiTestServiceImpl extends BizServiceImpl<IOplogPoiTestMapper,
      * @return void
      */
     @Override
-    public void dataExpToExcel(HttpServletRequest request,
+    public void expInfo(HttpServletRequest request,
                                HttpServletResponse response,
                                OplogPoiTestQuery params) throws Exception {
-//        List<LinkedHashMap<String, String>> list = bizMapper.selectOplogPoiTestExpData(params);
-//        WorkBookUtils.export(request, response)
-//                .params(params)
-//                .title("导入导出测试")
-//                .rowNum(true)
-//                .fields(EXP_FIELDS)
-//                .data(list)
-//                .execute();
-
-
+        params.setTenantId(BizContextHandler.getTenantId());
         new OOXmlPoiExpHelper<OplogPoiTestVO, OplogPoiTestQuery>()
                 .settings(new ExpParamsSettings<OplogPoiTestQuery>(request, response,
                         BizContextHandler.getUserDetails(), "导出测试", EXP_FIELDS, params)
@@ -116,13 +106,17 @@ public class OplogPoiTestServiceImpl extends BizServiceImpl<IOplogPoiTestMapper,
                 .writeWorkBook(new IWriteWorkBook<OplogPoiTestVO, OplogPoiTestQuery>() {
                     @Override
                     public Long total(OplogPoiTestQuery params) {
-                        return 1001000L;
+                        return bizMapper.list_COUNT(params);
                     }
 
                     @Override
                     public List<OplogPoiTestVO> data(OplogPoiTestQuery params, Integer page, Integer limit) {
                         /* 测试数据 */
-                        return findTestData(page, limit);
+                        // return findTestData(page, limit);
+
+                        PageHelper.startPage(page, limit);
+                        return bizMapper.list(params);
+
                     }
 
                     @Override

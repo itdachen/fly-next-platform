@@ -1,10 +1,10 @@
 package com.github.itdachen.oplog.service.impl;
 
+import com.github.itdachen.boot.oplog.ooxml.poi.exp.utils.ExcelExpUtils;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.core.response.TableData;
 import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
 import com.github.itdachen.framework.webmvc.poi.WorkBookUtils;
-import com.github.itdachen.ooxml.poi.exp.ExcelExpUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.itdachen.oplog.entity.OplogPoiImp;
@@ -83,7 +83,7 @@ public class OplogPoiImpServiceImpl extends BizServiceImpl<IOplogPoiImpMapper, O
      * @return void
      */
     @Override
-    public void dataExpToExcel(HttpServletRequest request,
+    public void expInfo(HttpServletRequest request,
                                HttpServletResponse response,
                                OplogPoiImpQuery params) throws Exception {
         List<LinkedHashMap<String, String>> list = bizMapper.selectOplogPoiImpExpData(params);

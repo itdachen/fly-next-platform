@@ -17,6 +17,16 @@ import java.util.List;
 public interface IOplogPoiTestMapper extends Mapper<OplogPoiTest> {
 
     /***
+     * 查询数据总条数
+     *
+     * @author 王大宸
+     * @date 2025/7/29 18:47
+     * @param params params
+     * @return java.lang.Long
+     */
+    Long list_COUNT(OplogPoiTestQuery params);
+
+    /***
      * 查询集合
      *
      * @author 王大宸

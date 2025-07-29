@@ -46,7 +46,7 @@ function initOplogPoiTestLayTable(table, form) {
 
     /* 导出 */
     form.on('submit(expOplogPoiTest)', function (data) {
-        let uri = queryUriObjParams(OPLOG_POI_TEST_PATH + '/exp', data.field)
+        let expUri = queryUriObjParams(OPLOG_POI_TEST_PATH + '/exp', data.field)
         //  window.open(uri);
         $.http.get({
             url: expUri,

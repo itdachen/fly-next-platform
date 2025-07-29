@@ -76,6 +76,13 @@
         ORDER BY id DESC
     </sql>
 
+    <select id="list_COUNT" resultType="java.lang.Long"
+            parameterType="com.github.itdachen.oplog.sdk.query.OplogPoiTestQuery">
+        SELECT COUNT(id)
+        FROM ta_fly_oplog_poi_test
+        <include refid="selectParamsWhere"></include>
+    </select>
+
     <!-- 集合查询 -->
     <select id="list" parameterType="com.github.itdachen.oplog.sdk.query.OplogPoiTestQuery" resultMap="oplogPoiTestMap">
         <include refid="selectOplogPoiTestVO"/>

@@ -1,10 +1,11 @@
 package com.github.itdachen.msg.manager.impl;
 
+import com.github.itdachen.boot.oplog.ooxml.poi.entity.MsgFileModel;
+import com.github.itdachen.boot.oplog.ooxml.poi.entity.MsgModel;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.exception.BizException;
 import com.github.itdachen.framework.context.id.IdUtils;
 import com.github.itdachen.framework.context.userdetails.UserInfoDetails;
-import com.github.itdachen.framework.webmvc.entity.EntityUtils;
 import com.github.itdachen.msg.convert.MsgPoolConvert;
 import com.github.itdachen.msg.convert.MsgPoolFileConvert;
 import com.github.itdachen.msg.entity.MsgPoolFile;
@@ -14,8 +15,6 @@ import com.github.itdachen.msg.mapper.IMsgFileMapper;
 import com.github.itdachen.msg.mapper.IMsgPoolMapper;
 import com.github.itdachen.msg.sdk.vo.MsgPoolFileVO;
 import com.github.itdachen.msg.sdk.vo.MsgPoolVO;
-import com.github.itdachen.ooxml.poi.entity.MsgFileModel;
-import com.github.itdachen.ooxml.poi.entity.MsgModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

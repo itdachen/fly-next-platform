@@ -1,14 +1,14 @@
 package com.github.itdachen.oplog.client;
 
+import com.github.itdachen.boot.oplog.ooxml.poi.entity.MsgFileModel;
+import com.github.itdachen.boot.oplog.ooxml.poi.entity.MsgModel;
+import com.github.itdachen.boot.oplog.ooxml.poi.msg.IOplogMsgClient;
 import com.github.itdachen.framework.context.userdetails.UserInfoDetails;
 import com.github.itdachen.msg.manager.IMsgPoolManager;
-import com.github.itdachen.ooxml.poi.entity.MsgFileModel;
-import com.github.itdachen.ooxml.poi.entity.MsgModel;
-import com.github.itdachen.ooxml.poi.msg.IOplogMsgClient;
 import org.springframework.stereotype.Service;
 
 /**
- * OplogMsgClient
+ * 操作日志消息入库
  *
  * @author 王大宸
  * @date 2025-07-22 16:35

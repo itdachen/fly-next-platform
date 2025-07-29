@@ -1,6 +1,10 @@
 package com.github.itdachen.admin.service.impl;
 
 import com.github.itdachen.admin.convert.AppInfoConvert;
+import com.github.itdachen.boot.oplog.ooxml.poi.OOXmlPoiExpHelper;
+import com.github.itdachen.boot.oplog.ooxml.poi.exp.ExpParamsSettings;
+import com.github.itdachen.boot.oplog.ooxml.poi.exp.handler.IWriteWorkBook;
+import com.github.itdachen.boot.oplog.ooxml.poi.exp.utils.ExcelExpUtils;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.exception.BizException;
@@ -9,10 +13,6 @@ import com.github.itdachen.framework.core.response.TableData;
 import com.github.itdachen.framework.core.utils.StringUtils;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
 import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
-import com.github.itdachen.ooxml.poi.OOXmlPoiExpHelper;
-import com.github.itdachen.ooxml.poi.exp.ExcelExpUtils;
-import com.github.itdachen.ooxml.poi.exp.IWriteWorkBook;
-import com.github.itdachen.ooxml.poi.exp.ExpParamsSettings;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.itdachen.admin.entity.AppInfo;
@@ -161,9 +161,9 @@ public class AppInfoServiceImpl extends BizServiceImpl<IAppInfoMapper, AppInfo, 
     }
 
     @Override
-    public void dataExpToExcel(HttpServletRequest request,
-                               HttpServletResponse response,
-                               AppInfoQuery params) throws Exception {
+    public void expInfo(HttpServletRequest request,
+                        HttpServletResponse response,
+                        AppInfoQuery params) throws Exception {
 
         List<String> EXP_FIELDS = new ArrayList<>();
         EXP_FIELDS.add("appID");

@@ -1,8 +1,8 @@
 package com.github.itdachen.dashboard;
 
 import com.github.itdachen.boot.oss.FileHelper;
-import com.github.itdachen.boot.oss.entity.FileInfo;
 import com.github.itdachen.framework.context.BizContextHandler;
+import com.github.itdachen.framework.context.models.FileInfo;
 import com.github.itdachen.framework.context.userdetails.UserInfoDetails;
 import com.github.itdachen.framework.core.response.ServerResponse;
 import org.springframework.stereotype.Controller;

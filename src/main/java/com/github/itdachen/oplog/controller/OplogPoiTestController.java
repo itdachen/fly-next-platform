@@ -87,11 +87,4 @@ public class OplogPoiTestController extends BizController<IOplogPoiTestService, 
         return PATH_PREFIX + "/view";
     }
 
-    @PostMapping("/imp")
-    @ResponseBody
-    public void impInfo(HttpServletRequest request, HttpServletResponse response, MultipartFile file) throws Exception {
-        bizService.impInfo(request, response, file);
-    }
-
-
 }

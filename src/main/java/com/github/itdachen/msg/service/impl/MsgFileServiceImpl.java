@@ -87,7 +87,7 @@ public class MsgFileServiceImpl extends BizServiceImpl< IMsgFileMapper, MsgPoolF
      * @return void
      */
     @Override
-    public void dataExpToExcel(HttpServletRequest request,
+    public void expInfo(HttpServletRequest request,
                                HttpServletResponse response,
                                MsgPoolFileQuery params) throws Exception{
         List < LinkedHashMap < String, String > >  list = bizMapper.selectMsgFileExpData(params);
