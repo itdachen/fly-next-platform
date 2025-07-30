@@ -1082,7 +1082,6 @@ $(function () {
                     },
                 });
                 $.when(f1).then(function (content) {
-                    console.log("jinru")
                     let a = document.createElement('a')
                     let blob = new Blob([content])
                     let url = window.URL.createObjectURL(blob)
