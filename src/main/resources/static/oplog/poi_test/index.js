@@ -87,6 +87,24 @@ function oplogPoiTestToolBar(table) {
                 content: OPLOG_POI_TEST_PATH + '/add'
             })
         }
+        if ('impOplogPoiImpTmp' === obj.event) {
+
+            let impOplogPoiImpTmpURI = HTTP_BIZ_URI + '/static/oplog/poi_test/导入测试模板.xlsx'
+            //  let impOplogPoiImpTmpURI = 'http://127.0.0.1:8085/fly/static/oplog/poi_test/导入测试模板.xlsx'
+            //   downloadFile(impOplogPoiImpTmpURI, '导入测试模板.xlsx')
+
+
+            // downLoadFile2(impOplogPoiImpTmpURI, '导入测试模板.xlsx');
+
+
+            $.oss.download({
+                uri: impOplogPoiImpTmpURI,
+                fileName: '导入测试模板.xlsx'
+            })
+
+        }
+
+
     })
 }
 
@@ -148,9 +166,30 @@ function oplogPoiTestTableOptions(queryOplogPoiTestParams) {
             {field: 'hostBrowser', title: '操作浏览器', align: 'center'},
             {field: 'userAgent', title: '用户代理', align: 'center'},
             {field: 'createTime', title: '创建时间', align: 'center'},
-           // {fixed: 'right', title: '操作', toolbar: '#oplogPoiTestActionBar', width: 320, align: 'center'}
+            // {fixed: 'right', title: '操作', toolbar: '#oplogPoiTestActionBar', width: 320, align: 'center'}
         ]]
     }
 
 }
 
+
+function downloadFile(uri, filename) {
+
+}
+
+
+/**
+ * 根据文件路径下载文件，并重命名
+ * @param filePath 服务器文件路径
+ * @param fileName  重命名                                                                                                                                     11111
+ */
+function downLoadFile2(filePath, fileName) {
+    fetch(filePath).then((response) => response.blob())
+        .then((res) => {
+            let blob = new Blob([res])
+            let link = document.createElement('a');//创建a标签
+            link.href = window.URL.createObjectURL(blob);//获得一个http格式的url路径
+            link.download = fileName;//下载文件 并重命名
+            link.click();
+        })
+}

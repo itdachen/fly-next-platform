@@ -35,10 +35,10 @@
                             lay-submit lay-filter="expOplogPoiTest">
                         <i class="layui-icon layui-icon-export fly-icon-right-5"></i>导出
                     </button>
-                    <button type="button" id="impOplogPoiTest" class="layui-btn layui-btn-sm fly-button-exp"
-                    >
+                    <button type="button" id="impOplogPoiTest" class="layui-btn layui-btn-sm fly-button-exp">
                         <i class="layui-icon layui-icon-upload-drag fly-icon-right-5"></i>导入
                     </button>
+
                 </div>
             </div>
 
@@ -71,10 +71,14 @@
 <!-- 表头工具栏 -->
 <script type="text/html" id="oplogPoiTestToolBar">
     <div class="fly-tool-bar">
-        <button sec:authorize="hasAuthority('fly:oplog:poi:test:save')"
-                class="layui-btn layui-btn-sm layui-btn-normal fly-button-add"
-                lay-event="saveOplogPoiTest">
-            <i class="layui-icon layui-icon-addition"></i>新增
+<!--        <button sec:authorize="hasAuthority('fly:oplog:poi:test:save')"-->
+<!--                class="layui-btn layui-btn-sm layui-btn-normal fly-button-add"-->
+<!--                lay-event="saveOplogPoiTest">-->
+<!--            <i class="layui-icon layui-icon-addition"></i>新增-->
+<!--        </button>-->
+        <button  id="impOplogPoiImpTmp" lay-event="impOplogPoiImpTmp"
+                class="layui-btn layui-btn-sm fly-button-exp">
+            <i class="layui-icon layui-icon-download-circle fly-icon-right-5"></i>导入数据模板下载
         </button>
     </div>
 </script>

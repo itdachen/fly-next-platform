@@ -59,8 +59,7 @@ $(function () {
              * @returns {*|string|string}
              */
             verifyURL: function (uri) {
-                if (undefined === HTTP_BIZ_URI || null === HTTP_BIZ_URI ||
-                    '' === HTTP_BIZ_URI || 'null' === HTTP_BIZ_URI || 'undefined' === HTTP_BIZ_URI) {
+                if (undefined === HTTP_BIZ_URI || null === HTTP_BIZ_URI || '' === HTTP_BIZ_URI || 'null' === HTTP_BIZ_URI || 'undefined' === HTTP_BIZ_URI) {
                     return uri;
                 }
                 if ($.string.contain(uri, 'http://') || $.string.contain(uri, 'https://')) {
@@ -233,14 +232,12 @@ $(function () {
                     icon = 6;
                 }
                 return icon;
-            },
-            /**
+            }, /**
              * ajax 请求连接错误
              */
             ajaxError: function () {
                 $.flyer.alert("服务器连接失败，请联系技术人员！", LAYER_STATUS.ERROR);
-            },
-            /**
+            }, /**
              * 操作成功,关闭弹窗
              * @param msg
              */
@@ -252,9 +249,7 @@ $(function () {
 
             alertMsg: function (msg) {
                 layer.alert(msg, {
-                    icon: $.msg.icon(LAYER_STATUS.SUCCESS),
-                    shadeClose: true,
-                    title: '系统提示'
+                    icon: $.msg.icon(LAYER_STATUS.SUCCESS), shadeClose: true, title: '系统提示'
                 })
             },
 
@@ -285,8 +280,7 @@ $(function () {
              */
             errMsg: function (content) {
                 $.flyer.alert(content, LAYER_STATUS.ERROR);
-            },
-            /**
+            }, /**
              * 成功消息
              * @param content
              */
@@ -294,8 +288,7 @@ $(function () {
                 layer.msg(content, {
                     icon: 1, time: 1500
                 });
-            },
-            /**
+            }, /**
              * 警告消息
              * @param content
              */
@@ -328,14 +321,12 @@ $(function () {
                 layer.alert(content, {
                     icon: $.msg.icon(type), title: "系统提示", btn: ['确认'], btnclass: ['btn btn-primary'],
                 });
-            },
-            /**
+            }, /**
              * 关闭自身窗体
              */
             close: function () {
                 parent.layer.close(parent.layer.getFrameIndex(window.name));
-            },
-            /**
+            }, /**
              * 关闭全部窗体
              */
             closeAll: function () {
@@ -451,8 +442,7 @@ $(function () {
                     content: $.http.verifyURL(url), // 弹层外区域关闭
                     shadeClose: false
                 });
-            },
-            /**
+            }, /**
              * 单张图片弹出
              * @param title
              * @param url
@@ -811,8 +801,7 @@ $(function () {
                     return;
                 }
                 $.http.get({
-                    url: options.url,
-                    callback: function (res) {
+                    url: options.url, callback: function (res) {
                         options.data = res.data;
                         $.form.selectOption(form, options);
                     }
@@ -975,9 +964,7 @@ $(function () {
                 let obj = {};
                 for (let i = 0; i < arr.length; i++) {
                     let keyValue = arr[i].split('=');
-                    if (1 === keyValue.length || undefined === keyValue[1] || null === keyValue[1] ||
-                        '' === keyValue[1] || 'undefined' === keyValue[1] || 'null' === keyValue[1]
-                        || ' ' === keyValue[1]) {
+                    if (1 === keyValue.length || undefined === keyValue[1] || null === keyValue[1] || '' === keyValue[1] || 'undefined' === keyValue[1] || 'null' === keyValue[1] || ' ' === keyValue[1]) {
                         continue;
                     }
                     obj[keyValue[0]] = keyValue[1];
@@ -1065,7 +1052,17 @@ $(function () {
                     console.warn('文件下载[ uri ]参数不能为空')
                     return false;
                 }
-                location.href = '/oss/download?uri=' + uri + '&filename=' + fileName
+                fetch(uri).then((response) => response.blob())
+                    .then((res) => {
+                        let blob = new Blob([res])
+                        let link = document.createElement('a'); //创建a标签
+                        link.href = window.URL.createObjectURL(blob); //获得一个http格式的url路径
+                        link.download = fileName; //下载文件 并重命名
+                        link.click();
+                    })
+
+
+                // location.href = '/oss/download?uri=' + uri + '&filename=' + fileName
             },
 
             /**
@@ -1079,7 +1076,26 @@ $(function () {
                     console.warn('文件下载[ uri ]参数不能为空')
                     return false;
                 }
-                location.href = '/oss/download?uri=' + uri + '&filename=' + fileName
+                let f1 = $.ajax({
+                    url: uri, type: 'GET', xhrFields: {
+                        responseType: 'blob'
+                    },
+                });
+                $.when(f1).then(function (content) {
+                    console.log("jinru")
+                    let a = document.createElement('a')
+                    let blob = new Blob([content])
+                    let url = window.URL.createObjectURL(blob)
+                    a.href = url
+                    a.download = fileName
+                    a.click()
+                    window.URL.revokeObjectURL(url)
+                }, function () {
+                    //失败回调，任意一个请求失败时返回
+                    console.log("失败");
+                    console.log('error');
+                })
+
             },
 
             /**
@@ -1715,10 +1731,7 @@ function getBrowserZoomScale() {
         if (screen.deviceXDPI && screen.logicalXDPI) {
             ratio = screen.deviceXDPI / screen.logicalXDPI;
         }
-    } else if (
-        window.outerWidth !== undefined &&
-        window.innerWidth !== undefined
-    ) {
+    } else if (window.outerWidth !== undefined && window.innerWidth !== undefined) {
         ratio = window.outerWidth / window.innerWidth;
     }
     if (ratio) {
@@ -1780,8 +1793,7 @@ function browserInfo() {
     let verinNum = (Bversion + "").replace(/[^0-9.]/ig, "");
 
     return {
-        name: Browser,
-        version: verinNum
+        name: Browser, version: verinNum
     }
 }
 
@@ -1883,8 +1895,7 @@ function uriParamsToObj(params) {
     let obj = {};
     for (let i = 0; i < arr.length; i++) {
         let keyValue = arr[i].split('=');
-        if (1 === keyValue.length || undefined === keyValue[1] || null === keyValue[1] ||
-            '' === keyValue[1] || 'undefined' === keyValue[1] || 'null' === keyValue[1] || ' ' === keyValue[1]) {
+        if (1 === keyValue.length || undefined === keyValue[1] || null === keyValue[1] || '' === keyValue[1] || 'undefined' === keyValue[1] || 'null' === keyValue[1] || ' ' === keyValue[1]) {
             continue;
         }
         obj[keyValue[0]] = keyValue[1];
