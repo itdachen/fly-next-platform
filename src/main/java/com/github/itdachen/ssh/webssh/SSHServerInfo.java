@@ -1,4 +1,4 @@
-package com.github.itdachen.ssh.ssh;
+package com.github.itdachen.ssh.webssh;
 
 import java.io.Serializable;
 

@@ -89,6 +89,13 @@ public class SshServerConfigController extends BizController<ISshServerConfigSer
         return PATH_PREFIX + "/view";
     }
 
+    @GetMapping(value = "/webssh")
+    @PreAuthorize("hasAuthority('fly:ssh:server:view')")
+    public String view(ModelMap modelMap) throws Exception {
+        // modelMap.put("sshServerConfig", bizService.selectByPrimaryKey(id));
+        return PATH_PREFIX + "/webssh";
+    }
+
 
     /**
      * 测试服务器连接

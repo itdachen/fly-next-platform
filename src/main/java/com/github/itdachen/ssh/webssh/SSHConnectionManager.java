@@ -1,4 +1,4 @@
-package com.github.itdachen.ssh.ssh;
+package com.github.itdachen.ssh.webssh;
 
 import com.jcraft.jsch.*;
 import com.jcraft.jsch.JSch;
@@ -31,7 +31,7 @@ public class SSHConnectionManager {
     public String createConnection(String host, int port, String username, String password) {
         try {
             JSch jsch = new JSch();
-            Session session = (Session) jsch.getSession(username, host, port);
+            Session session = jsch.getSession(username, host, port);
 
             // 配置连接参数
             Properties config = new Properties();

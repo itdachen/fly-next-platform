@@ -1,4 +1,4 @@
-package com.github.itdachen.ssh.ssh;
+package com.github.itdachen.ssh.webssh;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

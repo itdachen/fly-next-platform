@@ -1,4 +1,4 @@
-package com.github.itdachen.ssh.ssh;
+package com.github.itdachen.ssh.webssh;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -87,8 +87,7 @@ public class SSHWebSocketHandler extends TextWebSocketHandler {
             int port = jsonNode.get("port").asInt(22);
             String username = jsonNode.get("username").asText();
             String password = jsonNode.get("password").asText();
-            boolean enableCollaboration = jsonNode.has("enableCollaboration") &&
-                    jsonNode.get("enableCollaboration").asBoolean();
+            boolean enableCollaboration = jsonNode.has("enableCollaboration") && jsonNode.get("enableCollaboration").asBoolean();
 
             // 存储用户信息
             sessionUsers.put(session, username);

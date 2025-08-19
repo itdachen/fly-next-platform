@@ -74,6 +74,15 @@ function sshServerConfigToolBar(table) {
                 content: SSH_SERVER_CONFIG_PATH + '/add'
             })
         }
+
+        if ('sshServerLink' === obj.event) {
+            $.flyer.full(
+                '新增SSH 连接',
+                SSH_SERVER_CONFIG_PATH + '/webssh'
+            )
+        }
+
+
     })
 }
 

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
-        <th:block th:include="common/common::component('SSH 连接')"/>
+    <th:block th:include="common/common::component('SSH 连接')"/>
     <script th:src="@{/static/ssh/index.js}" charset="utf-8"></script>
 </head>
 <body class="fly-container">
@@ -12,35 +12,34 @@
     <div class="fly-query-container" sec:authorize="hasAuthority('fly:ssh:server:query')">
         <form class="layui-form" id="querySshServerConfigForm" name="querySshServerConfigForm">
             <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">连接名称</label>
-                            <div class="layui-input-inline">
-                                    <input type="text" class="layui-input keypress-listen" placeholder="连接名称"
-                                           id="sshTitle" name="sshTitle" autocomplete="off">
-                            </div>
-                        </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">连接名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input keypress-listen" placeholder="连接名称"
+                               id="sshTitle" name="sshTitle" autocomplete="off">
+                    </div>
+                </div>
 
-                        <div class="layui-inline">
-                            <label class="layui-form-label">连接IP</label>
-                            <div class="layui-input-inline">
-                                    <input type="text" class="layui-input keypress-listen" placeholder="连接IP"
-                                           id="hostIp" name="hostIp" autocomplete="off">
-                            </div>
-                        </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">连接IP</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input keypress-listen" placeholder="连接IP"
+                               id="hostIp" name="hostIp" autocomplete="off">
+                    </div>
+                </div>
 
-                        <div class="layui-inline">
-                            <label class="layui-form-label">有效标志</label>
-                            <div class="layui-input-inline">
-                                    <select id="validFlag" name="validFlag" th:with="dicts=${@dict.data('VALID_FLAG')}">
-                                        <option value="">全部</option>
-                                        <option th:each="dict : ${dicts}"
-                                                th:text="${dict.label}"
-                                                th:value="${dict.value}">
-                                        </option>
-                                    </select>
-                            </div>
-                        </div>
-
+                <div class="layui-inline">
+                    <label class="layui-form-label">有效标志</label>
+                    <div class="layui-input-inline">
+                        <select id="validFlag" name="validFlag" th:with="dicts=${@dict.data('VALID_FLAG')}">
+                            <option value="">全部</option>
+                            <option th:each="dict : ${dicts}"
+                                    th:text="${dict.label}"
+                                    th:value="${dict.value}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
 
 
                 <div class="layui-inline">
@@ -93,6 +92,13 @@
                 lay-event="saveSshServerConfig">
             <i class="layui-icon layui-icon-addition"></i>新增
         </button>
+
+        <button sec:authorize="hasAuthority('fly:ssh:server:save')"
+                class="layui-btn layui-btn-sm layui-btn-normal fly-button-add"
+                lay-event="sshServerLink">
+            <i class="layui-icon layui-icon-link"></i>SSH连接
+        </button>
+
     </div>
 </script>
 
