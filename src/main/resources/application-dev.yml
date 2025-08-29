@@ -12,6 +12,7 @@ logging:
   #  config: classpath:fly.xml
   level:
     cn.jay.repository: trace
+    ch.qos.logback: error
   #    org.springframework: warn
   file:
     path: ./logs # 配置日志打印目录,默认名称为:spring.log

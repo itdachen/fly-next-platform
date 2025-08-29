@@ -190,11 +190,9 @@ public class AppInfoServiceImpl extends BizServiceImpl<IAppInfoMapper, AppInfo, 
 
                     @Override
                     public List<AppInfoVO> data(AppInfoQuery params, Integer page, Integer limit) {
-//                        PageHelper.startPage(page, limit);
-//                        return bizMapper.page(params);
+                        PageHelper.startPage(page, limit);
+                        return bizMapper.list(params);
 
-                        /* 测试数据 */
-                        return findTestData(page, limit);
                     }
 
                     @Override
