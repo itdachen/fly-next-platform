@@ -172,7 +172,49 @@
 
     <!-- 集合查询 -->
     <select id="list" parameterType="com.github.itdachen.oplog.sdk.query.OplogInfoQuery" resultMap="oplogInfoMap">
-        <include refid="selectOplogInfoVO"/>
+        SELECT id,
+        plat_id,
+        plat_title,
+        app_id,
+        app_title,
+        app_version,
+        tenant_id,
+        tenant_title,
+        prov_code,
+        prov_name,
+        city_code,
+        city_name,
+        county_code,
+        county_name,
+        town_code,
+        town_name,
+        dept_id,
+        dept_title,
+        dept_level,
+        dept_parent_id,
+        user_id,
+        nick_name,
+        menu_title,
+        op_code,
+        op_title,
+        op_version,
+        op_time,
+        host_ip,
+        host_address,
+        host_os,
+        host_browser,
+        user_agent,
+        request_id,
+        request_uri,
+        request_method,
+        response_code,
+        response_status,
+        response_msg,
+        remarks,
+        execute_time,
+        yearly,
+        monthly
+        FROM ta_fly_oplog_info
         <include refid="selectParamsWhere"></include>
         ORDER BY id DESC
     </select>

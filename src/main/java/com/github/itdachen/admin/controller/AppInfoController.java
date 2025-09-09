@@ -6,6 +6,8 @@ import com.github.itdachen.admin.sdk.dto.AppInfoDTO;
 import com.github.itdachen.admin.sdk.query.AppInfoQuery;
 import com.github.itdachen.admin.sdk.vo.AppInfoVO;
 import com.github.itdachen.framework.context.annotation.FuncTitle;
+import com.github.itdachen.framework.context.annotation.PageView;
+import com.github.itdachen.framework.context.enums.PageTypeEnum;
 import com.github.itdachen.framework.core.response.ServerResponse;
 import com.github.itdachen.framework.webmvc.controller.BizController;
 import jakarta.servlet.http.HttpServletRequest;
@@ -49,6 +51,7 @@ public class AppInfoController extends BizController<IAppInfoService, AppInfoDTO
      */
     @GetMapping(value = "/index")
     @PreAuthorize("hasAuthority('admin:app:info:index')")
+    @PageView(value = PageTypeEnum.INDEX)
     public String index() {
         return PATH_PREFIX + "/index";
     }
