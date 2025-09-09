@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.github.itdachen.oplog.mapper.IOplogInfoMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.github.itdachen.oplog.sdk.vo.OplogInfoVO" id="oplogInfoMap">
+        <result property="id" column="id"/>
+        <result property="platId" column="plat_id"/>
+        <result property="platTitle" column="plat_title"/>
+        <result property="appId" column="app_id"/>
+        <result property="appTitle" column="app_title"/>
+        <result property="appVersion" column="app_version"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="tenantTitle" column="tenant_title"/>
+        <result property="provCode" column="prov_code"/>
+        <result property="provName" column="prov_name"/>
+        <result property="cityCode" column="city_code"/>
+        <result property="cityName" column="city_name"/>
+        <result property="countyCode" column="county_code"/>
+        <result property="countyName" column="county_name"/>
+        <result property="townCode" column="town_code"/>
+        <result property="townName" column="town_name"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="deptTitle" column="dept_title"/>
+        <result property="deptLevel" column="dept_level"/>
+        <result property="deptParentId" column="dept_parent_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="menuTitle" column="menu_title"/>
+        <result property="opCode" column="op_code"/>
+        <result property="opTitle" column="op_title"/>
+        <result property="opVersion" column="op_version"/>
+        <result property="opTime" column="op_time"/>
+        <result property="hostIp" column="host_ip"/>
+        <result property="hostAddress" column="host_address"/>
+        <result property="hostOs" column="host_os"/>
+        <result property="hostBrowser" column="host_browser"/>
+        <result property="userAgent" column="user_agent"/>
+        <result property="requestId" column="request_id"/>
+        <result property="requestUri" column="request_uri"/>
+        <result property="requestMethod" column="request_method"/>
+        <result property="requestParams" column="request_params"/>
+        <result property="responseJson" column="response_json"/>
+        <result property="responseCode" column="response_code"/>
+        <result property="responseStatus" column="response_status"/>
+        <result property="responseMsg" column="response_msg"/>
+        <result property="exInfo" column="ex_info"/>
+        <result property="remarks" column="remarks"/>
+        <result property="executeTime" column="execute_time"/>
+        <result property="yearly" column="yearly"/>
+        <result property="monthly" column="monthly"/>
+    </resultMap>
+
+    <!-- VO 类查询 -->
+    <sql id="selectOplogInfoVO">
+        SELECT id,
+               plat_id,
+               plat_title,
+               app_id,
+               app_title,
+               app_version,
+               tenant_id,
+               tenant_title,
+               prov_code,
+               prov_name,
+               city_code,
+               city_name,
+               county_code,
+               county_name,
+               town_code,
+               town_name,
+               dept_id,
+               dept_title,
+               dept_level,
+               dept_parent_id,
+               user_id,
+               nick_name,
+               menu_title,
+               op_code,
+               op_title,
+               op_version,
+               op_time,
+               host_ip,
+               host_address,
+               host_os,
+               host_browser,
+               user_agent,
+               request_id,
+               request_uri,
+               request_method,
+               request_params,
+               response_json,
+               response_code,
+               response_status,
+               response_msg,
+               ex_info,
+               remarks,
+               execute_time,
+               yearly,
+               monthly
+        FROM ta_fly_oplog_info
+    </sql>
+
+    <!-- 分页和导出查询参数 -->
+    <sql id="selectParamsWhere">
+        <where>
+            <if test="null != platId  and '' != platId ">
+                AND plat_id = #{platId}
+            </if>
+            <if test="null != appId  and '' != appId ">
+                AND app_id = #{appId}
+            </if>
+            <if test="null != tenantId  and '' != tenantId ">
+                AND tenant_id = #{tenantId}
+            </if>
+            <if test="null != provCode  and '' != provCode ">
+                AND prov_code = #{provCode}
+            </if>
+            <if test="null != cityCode  and '' != cityCode ">
+                AND city_code = #{cityCode}
+            </if>
+            <if test="null != countyCode  and '' != countyCode ">
+                AND county_code = #{countyCode}
+            </if>
+            <if test="null != townCode  and '' != townCode ">
+                AND town_code = #{townCode}
+            </if>
+            <if test="null != deptId  and '' != deptId ">
+                AND dept_id = #{deptId}
+            </if>
+            <if test="null != deptTitle  and '' != deptTitle ">
+                AND dept_title LIKE CONCAT(CONCAT('%',#{deptTitle}),'%')
+            </if>
+            <if test="null != deptParentId  and '' != deptParentId ">
+                AND dept_parent_id = #{deptParentId}
+            </if>
+            <if test="null != userId  and '' != userId ">
+                AND user_id = #{userId}
+            </if>
+            <if test="null != nickName  and '' != nickName ">
+                AND nick_name LIKE CONCAT(CONCAT('%',#{nickName}),'%')
+            </if>
+            <if test="null != menuTitle  and '' != menuTitle ">
+                AND menu_title LIKE CONCAT(CONCAT('%',#{menuTitle}),'%')
+            </if>
+            <if test="null != opCode  and '' != opCode ">
+                AND op_code = #{opCode}
+            </if>
+            <if test="null != beginOpTime and '' != beginOpTime and null != endOpTime and '' != endOpTime ">
+                AND op_time BETWEEN #{beginOpTime} AND #{endOpTime}
+            </if>
+            <if test="null != removeFlag  and '' != removeFlag ">
+                AND remove_flag = #{removeFlag}
+            </if>
+            <if test="null != yearly  and '' != yearly ">
+                AND yearly = #{yearly}
+            </if>
+            <if test="null != monthly  and '' != monthly ">
+                AND monthly = #{monthly}
+            </if>
+        </where>
+    </sql>
+
+    <select id="list_COUNT" parameterType="com.github.itdachen.oplog.sdk.query.OplogInfoQuery"
+            resultType="java.lang.Long">
+        SELECT COUNT(id)
+        FROM ta_fly_oplog_info
+        <include refid="selectParamsWhere"></include>
+    </select>
+
+    <!-- 集合查询 -->
+    <select id="list" parameterType="com.github.itdachen.oplog.sdk.query.OplogInfoQuery" resultMap="oplogInfoMap">
+        <include refid="selectOplogInfoVO"/>
+        <include refid="selectParamsWhere"></include>
+        ORDER BY id DESC
+    </select>
+
+    <!-- 根据主键查询 -->
+    <select id="selectOplogInfoVO" parameterType="java.lang.String" resultMap="oplogInfoMap">
+        <include refid="selectOplogInfoVO"/>
+        WHERE id = #{id}
+    </select>
+
+    <!-- 批量添加 -->
+    <insert id="batchSave" parameterType="java.util.List">
+        INSERT INTO ta_fly_oplog_info (id ,
+        plat_id ,
+        plat_title ,
+        app_id ,
+        app_title ,
+        app_version ,
+        tenant_id ,
+        tenant_title ,
+        prov_code ,
+        prov_name ,
+        city_code ,
+        city_name ,
+        county_code ,
+        county_name ,
+        town_code ,
+        town_name ,
+        dept_id ,
+        dept_title ,
+        dept_level ,
+        dept_parent_id ,
+        user_id ,
+        nick_name ,
+        menu_title ,
+        op_code ,
+        op_title ,
+        op_version ,
+        op_time ,
+        host_ip ,
+        host_address ,
+        host_os ,
+        host_browser ,
+        user_agent ,
+        request_id ,
+        request_uri ,
+        request_method ,
+        request_params ,
+        response_json ,
+        response_code ,
+        response_status ,
+        response_msg ,
+        ex_info ,
+        remarks ,
+        execute_time ,
+        remove_flag ,
+        yearly ,
+        monthly ,
+        create_time ,
+        create_user ,
+        create_user_id ,
+        update_time ,
+        update_user ,
+        update_user_id
+        ) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},
+            #{item.platId},
+            #{item.platTitle},
+            #{item.appId},
+            #{item.appTitle},
+            #{item.appVersion},
+            #{item.tenantId},
+            #{item.tenantTitle},
+            #{item.provCode},
+            #{item.provName},
+            #{item.cityCode},
+            #{item.cityName},
+            #{item.countyCode},
+            #{item.countyName},
+            #{item.townCode},
+            #{item.townName},
+            #{item.deptId},
+            #{item.deptTitle},
+            #{item.deptLevel},
+            #{item.deptParentId},
+            #{item.userId},
+            #{item.nickName},
+            #{item.menuTitle},
+            #{item.opCode},
+            #{item.opTitle},
+            #{item.opVersion},
+            #{item.opTime},
+            #{item.hostIp},
+            #{item.hostAddress},
+            #{item.hostOs},
+            #{item.hostBrowser},
+            #{item.userAgent},
+            #{item.requestId},
+            #{item.requestUri},
+            #{item.requestMethod},
+            #{item.requestParams},
+            #{item.responseJson},
+            #{item.responseCode},
+            #{item.responseStatus},
+            #{item.responseMsg},
+            #{item.exInfo},
+            #{item.remarks},
+            #{item.executeTime},
+            #{item.removeFlag},
+            #{item.yearly},
+            #{item.monthly},
+            #{item.createTime},
+            #{item.createUser},
+            #{item.createUserId},
+            #{item.updateTime},
+            #{item.updateUser},
+            #{item.updateUserId})
+        </foreach>
+    </insert>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE ta_fly_oplog_info
+            <set>
+                <if test="null != item.id  and '' != item.id ">id =
+                    #{item.id},
+                </if>
+                <if test="null != item.platId  and '' != item.platId ">plat_id =
+                    #{item.platId},
+                </if>
+                <if test="null != item.platTitle  and '' != item.platTitle ">plat_title =
+                    #{item.platTitle},
+                </if>
+                <if test="null != item.appId  and '' != item.appId ">app_id =
+                    #{item.appId},
+                </if>
+                <if test="null != item.appTitle  and '' != item.appTitle ">app_title =
+                    #{item.appTitle},
+                </if>
+                <if test="null != item.appVersion  and '' != item.appVersion ">app_version =
+                    #{item.appVersion},
+                </if>
+                <if test="null != item.tenantId  and '' != item.tenantId ">tenant_id =
+                    #{item.tenantId},
+                </if>
+                <if test="null != item.tenantTitle  and '' != item.tenantTitle ">tenant_title =
+                    #{item.tenantTitle},
+                </if>
+                <if test="null != item.provCode  and '' != item.provCode ">prov_code =
+                    #{item.provCode},
+                </if>
+                <if test="null != item.provName  and '' != item.provName ">prov_name =
+                    #{item.provName},
+                </if>
+                <if test="null != item.cityCode  and '' != item.cityCode ">city_code =
+                    #{item.cityCode},
+                </if>
+                <if test="null != item.cityName  and '' != item.cityName ">city_name =
+                    #{item.cityName},
+                </if>
+                <if test="null != item.countyCode  and '' != item.countyCode ">county_code =
+                    #{item.countyCode},
+                </if>
+                <if test="null != item.countyName  and '' != item.countyName ">county_name =
+                    #{item.countyName},
+                </if>
+                <if test="null != item.townCode  and '' != item.townCode ">town_code =
+                    #{item.townCode},
+                </if>
+                <if test="null != item.townName  and '' != item.townName ">town_name =
+                    #{item.townName},
+                </if>
+                <if test="null != item.deptId  and '' != item.deptId ">dept_id =
+                    #{item.deptId},
+                </if>
+                <if test="null != item.deptTitle  and '' != item.deptTitle ">dept_title =
+                    #{item.deptTitle},
+                </if>
+                <if test="null != item.deptLevel  and '' != item.deptLevel ">dept_level =
+                    #{item.deptLevel},
+                </if>
+                <if test="null != item.deptParentId  and '' != item.deptParentId ">dept_parent_id =
+                    #{item.deptParentId},
+                </if>
+                <if test="null != item.userId  and '' != item.userId ">user_id =
+                    #{item.userId},
+                </if>
+                <if test="null != item.nickName  and '' != item.nickName ">nick_name =
+                    #{item.nickName},
+                </if>
+                <if test="null != item.menuTitle  and '' != item.menuTitle ">menu_title =
+                    #{item.menuTitle},
+                </if>
+                <if test="null != item.opCode  and '' != item.opCode ">op_code =
+                    #{item.opCode},
+                </if>
+                <if test="null != item.opTitle  and '' != item.opTitle ">op_title =
+                    #{item.opTitle},
+                </if>
+                <if test="null != item.opVersion  and '' != item.opVersion ">op_version =
+                    #{item.opVersion},
+                </if>
+                <if test="null != item.opTime ">op_time =
+                    #{item.opTime},
+                </if>
+                <if test="null != item.hostIp  and '' != item.hostIp ">host_ip =
+                    #{item.hostIp},
+                </if>
+                <if test="null != item.hostAddress  and '' != item.hostAddress ">host_address =
+                    #{item.hostAddress},
+                </if>
+                <if test="null != item.hostOs  and '' != item.hostOs ">host_os =
+                    #{item.hostOs},
+                </if>
+                <if test="null != item.hostBrowser  and '' != item.hostBrowser ">host_browser =
+                    #{item.hostBrowser},
+                </if>
+                <if test="null != item.userAgent  and '' != item.userAgent ">user_agent =
+                    #{item.userAgent},
+                </if>
+                <if test="null != item.requestId  and '' != item.requestId ">request_id =
+                    #{item.requestId},
+                </if>
+                <if test="null != item.requestUri  and '' != item.requestUri ">request_uri =
+                    #{item.requestUri},
+                </if>
+                <if test="null != item.requestMethod  and '' != item.requestMethod ">request_method =
+                    #{item.requestMethod},
+                </if>
+                <if test="null != item.requestParams  and '' != item.requestParams ">request_params =
+                    #{item.requestParams},
+                </if>
+                <if test="null != item.responseJson  and '' != item.responseJson ">response_json =
+                    #{item.responseJson},
+                </if>
+                <if test="null != item.responseCode  and '' != item.responseCode ">response_code =
+                    #{item.responseCode},
+                </if>
+                <if test="null != item.responseStatus  and '' != item.responseStatus ">response_status =
+                    #{item.responseStatus},
+                </if>
+                <if test="null != item.responseMsg  and '' != item.responseMsg ">response_msg =
+                    #{item.responseMsg},
+                </if>
+                <if test="null != item.exInfo  and '' != item.exInfo ">ex_info =
+                    #{item.exInfo},
+                </if>
+                <if test="null != item.remarks  and '' != item.remarks ">remarks =
+                    #{item.remarks},
+                </if>
+                <if test="null != item.executeTime  and '' != item.executeTime ">execute_time =
+                    #{item.executeTime},
+                </if>
+                <if test="null != item.removeFlag  and '' != item.removeFlag ">remove_flag =
+                    #{item.removeFlag},
+                </if>
+                <if test="null != item.yearly  and '' != item.yearly ">yearly =
+                    #{item.yearly},
+                </if>
+                <if test="null != item.monthly  and '' != item.monthly ">monthly =
+                    #{item.monthly},
+                </if>
+                <if test="null != item.createTime ">create_time =
+                    #{item.createTime},
+                </if>
+                <if test="null != item.createUser  and '' != item.createUser ">create_user =
+                    #{item.createUser},
+                </if>
+                <if test="null != item.createUserId  and '' != item.createUserId ">create_user_id =
+                    #{item.createUserId},
+                </if>
+                <if test="null != item.updateTime ">update_time =
+                    #{item.updateTime},
+                </if>
+                <if test="null != item.updateUser  and '' != item.updateUser ">update_user =
+                    #{item.updateUser},
+                </if>
+                <if test="null != item.updateUserId  and '' != item.updateUserId ">update_user_id =
+                    #{item.updateUserId},
+                </if>
+            </set>
+            WHERE id = #{item.id}
+        </foreach>
+    </update>
+
+
+</mapper>

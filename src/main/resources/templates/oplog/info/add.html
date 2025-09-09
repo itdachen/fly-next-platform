@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/common::common('新增操作日志')"/>
+    <script th:src="@{/static/oplog/info/add.js}" charset="utf-8"></script>
+</head>
+<body>
+
+<form class="layui-form" id="addOplogInfoForm">
+    <div class="layui-form-body">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>平台ID
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="platId" name="platId"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>平台名称
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="platTitle" name="platTitle"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>应用ID
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="appId" name="appId"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>应用名称
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="appTitle" name="appTitle"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>应用版本号
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="appVersion" name="appVersion"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>租户名称/公司名称
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="tenantTitle" name="tenantTitle"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>省代码
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="provCode" name="provCode"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>省名称
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="provName" name="provName"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>市/州代码
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="cityCode" name="cityCode"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>市州名称
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="cityName" name="cityName"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>区/县代码
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="countyCode" name="countyCode"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>区县名称
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="countyName" name="countyName"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>乡镇/街道办代码
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="townCode" name="townCode"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>乡镇/街道办名称
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="townName" name="townName"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>部门ID
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="deptId" name="deptId"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>部门名称
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="deptTitle" name="deptTitle"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>部门等级
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="deptLevel" name="deptLevel"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>上级部门代码
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="deptParentId" name="deptParentId"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>操作人ID
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="userId" name="userId"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>操作人姓名
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="nickName" name="nickName"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>日志标题: 用户管理, 菜单管理等
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="menuTitle" name="menuTitle"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>操作类型: SAVE,UPDATE,JUMP,REMOVE
+                    </label>
+                    <div class="layui-input-block">
+                        <select id="opCode" name="opCode" th:with="dicts=${@dict.data('VALID_FLAG')}">
+                            <option value="">全部</option>
+                            <option th:each="dict : ${dicts}"
+                                    th:text="${dict.label}"
+                                    th:value="${dict.value}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>操作类型: 新增, 修改, 删除, 查看
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="opTitle" name="opTitle"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>版本号
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="opVersion" name="opVersion"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>操作时间
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="opTime" name="opTime" placeholder="yyyy-MM-dd"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>操作IP地址
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="hostIp" name="hostIp"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>操作地址
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="hostAddress" name="hostAddress"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>操作系统
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="hostOs" name="hostOs"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>操作浏览器
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="hostBrowser" name="hostBrowser"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>用户代理
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="userAgent" name="userAgent"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>请求ID
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="requestId" name="requestId"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>请求URI
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="requestUri" name="requestUri"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>请求方式: POST, PUT, GET, DELETE
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="requestMethod" name="requestMethod"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>请求参数
+                    </label>
+                    <div class="layui-input-block">
+                        <textarea id="requestParams" name="requestParams" maxlength="200"
+lay-verify="required" autocomplete="off" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>相应数据
+                    </label>
+                    <div class="layui-input-block">
+                        <textarea id="responseJson" name="responseJson" maxlength="200"
+lay-verify="required" autocomplete="off" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>相应状态码
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="responseCode" name="responseCode"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>操作状态: 成功, 失败, 异常
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="responseStatus" name="responseStatus"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>返回消息
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="responseMsg" name="responseMsg"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>异常信息
+                    </label>
+                    <div class="layui-input-block">
+                        <textarea id="exInfo" name="exInfo" maxlength="200"
+lay-verify="required" autocomplete="off" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+备注
+                    </label>
+                    <div class="layui-input-block">
+                        <textarea id="remarks" name="remarks" maxlength="200"
+ autocomplete="off" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>服务端处理耗时
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="executeTime" name="executeTime"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>年份
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="yearly" name="yearly"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+<span class="required">*</span>月份
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="monthly" name="monthly"
+                               autocomplete="off" lay-verify="required" class="layui-input">
+                    </div>
+                </div>
+
+    </div>
+
+
+    <div class="form-footer">
+        <button type="button" class="fly-button-ok" lay-submit lay-filter="saveOplogInfo">
+            <i class="layui-icon layui-icon-ok"></i>保存
+        </button>
+        <button type="button" class="fly-button-close close-flyer">
+            <i class="layui-icon layui-icon-close"></i>关闭
+        </button>
+    </div>
+
+    <div class="form-footer-center">
+        <button type="button" class="fly-button-ok" lay-submit lay-filter="saveOplogInfo">
+            <i class="layui-icon layui-icon-ok fly-button-icon"></i>保存
+        </button>
+        <button type="button" class="fly-button-close close-flyer">
+            <i class="layui-icon layui-icon-close fly-button-icon"></i>关闭
+        </button>
+    </div>
+
+</form>
+</body>
+</html>

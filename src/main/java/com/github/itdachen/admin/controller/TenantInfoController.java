@@ -6,6 +6,8 @@ import com.github.itdachen.admin.sdk.dto.TenantInfoDTO;
 import com.github.itdachen.admin.sdk.query.TenantInfoQuery;
 import com.github.itdachen.admin.sdk.vo.TenantInfoVO;
 import com.github.itdachen.framework.context.annotation.FuncTitle;
+import com.github.itdachen.framework.context.annotation.PageView;
+import com.github.itdachen.framework.context.enums.PageTypeEnum;
 import com.github.itdachen.framework.context.tree.ZTreeNode;
 import com.github.itdachen.framework.core.response.ServerResponse;
 import com.github.itdachen.framework.webmvc.controller.BizController;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -29,7 +32,7 @@ import java.util.List;
 @FuncTitle("租户/公司信息")
 public class TenantInfoController extends BizController<ITenantInfoService, TenantInfoDTO, TenantInfoVO, TenantInfoQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(TenantInfoController.class);
-    private static final String PATH_PREFIX = "admin/tenant" ;
+    private static final String PATH_PREFIX = "admin/tenant";
 
     /***
      * 跳转到信息管理界面
@@ -40,8 +43,9 @@ public class TenantInfoController extends BizController<ITenantInfoService, Tena
      */
     @GetMapping(value = "/index")
     @PreAuthorize("hasAuthority('admin:tenant:info:index')")
+    @PageView(value = PageTypeEnum.INDEX)
     public String index() {
-        return PATH_PREFIX + "/index" ;
+        return PATH_PREFIX + "/index";
     }
 
     /***
@@ -53,8 +57,9 @@ public class TenantInfoController extends BizController<ITenantInfoService, Tena
      */
     @GetMapping(value = "/add")
     @PreAuthorize("hasAuthority('admin:tenant:info:save')")
+    @PageView(value = PageTypeEnum.SAVE)
     public String add() {
-        return PATH_PREFIX + "/add" ;
+        return PATH_PREFIX + "/add";
     }
 
     /***
@@ -68,9 +73,10 @@ public class TenantInfoController extends BizController<ITenantInfoService, Tena
      */
     @GetMapping(value = "/edit/{id}")
     @PreAuthorize("hasAuthority('admin:tenant:info:update')")
+    @PageView(value = PageTypeEnum.UPDATE)
     public String edit(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("tenantInfo", bizService.selectByPrimaryKey(id));
-        return PATH_PREFIX + "/edit" ;
+        return PATH_PREFIX + "/edit";
     }
 
     /***
@@ -84,9 +90,10 @@ public class TenantInfoController extends BizController<ITenantInfoService, Tena
      */
     @GetMapping(value = "/view/{id}")
     @PreAuthorize("hasAuthority('admin:tenant:info:view')")
+    @PageView(value = PageTypeEnum.VIEW)
     public String view(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("tenantInfo", bizService.selectByPrimaryKey(id));
-        return PATH_PREFIX + "/view" ;
+        return PATH_PREFIX + "/view";
     }
 
     /***
