@@ -26,6 +26,7 @@ layui.use(function () {
 
 function initDeptTree(table) {
     $.zTree.initTree({
+        id: 'deptInfoTree',
         url: deptPath + '/tree',
         callback: function (event, treeId, treeNode) {
             deptParentId = treeNode.id;
