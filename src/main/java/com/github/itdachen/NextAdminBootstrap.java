@@ -7,7 +7,8 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 /**
  * 项目启动入口
- *
+ *  登录账号: 50001
+ *  登录密码: 123456
  * @author 王大宸
  * @date 2024/4/3 22:11
  */
