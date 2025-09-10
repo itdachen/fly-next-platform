@@ -23,12 +23,11 @@ import java.util.Map;
 @RequestMapping("/api/servers")
 public class SSHServerController {
 
-    @Autowired
-    private ISshServerConfigService serverService;
+    private final ISshServerConfigService serverService;
 
-//    @Autowired
-//    private ServerService serverService;
-//
+    public SSHServerController(ISshServerConfigService serverService) {
+        this.serverService = serverService;
+    }
 
     /**
      * 获取服务器列表
