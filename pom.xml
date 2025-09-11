@@ -279,7 +279,7 @@
                     <finalName>${project.artifactId}</finalName>
                     <!-- tar或者zip包的输出目录 -->
                     <!-- 是指当前项目的根目录 ，例如：F:\pvpsddp\pvpsddp-gateway 的上一级-->
-                    <outputDirectory>E:\package\hubu</outputDirectory>
+                    <outputDirectory>E:\package\fly</outputDirectory>
                     <descriptors>
                         <!-- assembly配置文件位置 -->
                         <descriptor>src/main/resources/assembly.xml</descriptor>

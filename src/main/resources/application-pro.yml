@@ -9,7 +9,7 @@ server:
 
 # 日志配置
 logging:
-  config: classpath:fly.xml
+  # config: classpath:fly.xml
   level:
     cn.jay.repository: trace
   #    org.springframework: warn
@@ -20,8 +20,9 @@ logging:
 fly:
   app:
     app-id: 4F17C3ED134AD4DA5C830DE9F3D7C02D
-    app-name: FLY-NEXT-ADMIN
+    app-name: 通用后台管理方案
     ask-uri: http://127.0.0.1:${server.port}${server.servlet.context-path}
+    to-as: Fly-Next-Admin
   # 数据库加密配置
   datasource:
     encoder: NOOP
@@ -30,8 +31,8 @@ fly:
     ## 文件上传类型: LOCAL-本地服务存储; ALI-阿里云存储服务器, 默认是 LOCAL
     type: LOCAL
     local:
-      localHttp: http://127.0.0.1:8080
-      diskFolder: D:/upload/fly-next-admin/
+      localHttp: https://itdachen.com/fly
+      diskFolder: /home/fly_next_admin/upload/
     ali:
       endpoint: oss-cn-chengdu.aliyuncs.com
       access-key-id: 123
@@ -98,8 +99,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://127.0.0.1:3306/fly_next_admin?useUnicode=true&characterEncoding=UTF8&createDatabaseIfNotExist=true&useUnicode=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&allowMultiQueries=true
-    username: root
-    password: root
+    username: fly
+    password: ITdachen@163.com
     hikari:
       #连接池最大连接数，默认是10
       maximum-pool-size: 50
