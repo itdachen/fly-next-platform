@@ -11,6 +11,9 @@
 
 <p align="center">
     <a href="#">
+        <img src="https://img.shields.io/badge/JDK-17+-green.svg" alt="Pear Admin Layui Version">
+    </a>
+    <a href="#">
         <img src="https://img.shields.io/badge/SpringBoot-3.1.2+-green.svg" alt="Pear Admin Layui Version">
     </a>
     <a href="#">
