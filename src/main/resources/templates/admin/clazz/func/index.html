@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <th:block th:include="common/common::component('岗位职能管理')"/>
+    <script th:src="@{/static/admin/clazz/func/index.js}" charset="utf-8"></script>
+</head>
+<body class="fly-container">
+<div class="fly-main-container">
+
+
+    <!-- 查询 -->
+    <div class="fly-query-container" sec:authorize="hasAuthority('fly:admin:clazz:func:query')">
+        <form class="layui-form" id="queryClazzFuncForm" name="queryClazzFuncForm">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">岗位职能编码</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input keypress-listen"
+                               placeholder="岗位职能编码"
+                               id="funcCode" name="funcCode" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">岗位职能标题</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input keypress-listen"
+                               placeholder="岗位职能标题"
+                               id="funcTitle" name="funcTitle" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">有效标志</label>
+                    <div class="layui-input-inline">
+                        <select id="validFlag" name="validFlag" th:with="dicts=${@dict.data('VALID_FLAG')}">
+                            <option value="">全部</option>
+                            <option th:each="dict : ${dicts}"
+                                    th:text="${dict.label}"
+                                    th:value="${dict.value}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="layui-inline">
+                    <button type="submit" class="layui-btn layui-btn-sm fly-button-search"
+                            lay-submit lay-filter="queryClazzFunc">
+                        <i class="layui-icon layui-icon-search fly-icon-right-5"></i>查询
+                    </button>
+                    <button type="reset" class="layui-btn layui-btn-sm fly-button-reset">
+                        <i class="layui-icon layui-icon-refresh fly-icon-right-5"></i>重置
+                    </button>
+                    <button sec:authorize="hasAuthority('fly:admin:clazz:func:exp')"
+                            type="submit" class="layui-btn layui-btn-sm fly-button-exp"
+                            lay-submit lay-filter="expClazzFunc">
+                        <i class="layui-icon layui-icon-export fly-icon-right-5"></i>导出
+                    </button>
+                </div>
+            </div>
+
+            <!--            <div class="fly-query-footer">-->
+            <!--                <button type="submit" class="layui-btn layui-btn-sm fly-button-search"-->
+            <!--                        lay-submit lay-filter="queryClazzFunc">-->
+            <!--                    <i class="layui-icon layui-icon-search fly-icon-right-5"></i>查询-->
+            <!--                </button>-->
+            <!--                <button type="reset" class="layui-btn layui-btn-sm fly-button-reset">-->
+            <!--                    <i class="layui-icon layui-icon-refresh fly-icon-right-5"></i>重置-->
+            <!--                </button>-->
+            <!--                <button sec:authorize="hasAuthority('fly:admin:clazz:func:exp')"-->
+            <!--                        type="submit" class="layui-btn layui-btn-sm fly-button-exp"-->
+            <!--                        lay-submit lay-filter="expClazzFunc">-->
+            <!--                    <i class="layui-icon  layui-icon-export fly-icon-right-5"></i>导出-->
+            <!--                </button>-->
+            <!--            </div>-->
+
+        </form>
+    </div>
+
+    <!-- 页面数据展示 -->
+    <div class="fly-table-container">
+        <table class="layui-hide" id="clazzFuncLayTable" lay-filter="clazzFuncLayFilter"></table>
+    </div>
+
+</div>
+
+
+<!-- 表头工具栏 -->
+<script type="text/html" id="clazzFuncToolBar">
+    <div class="fly-tool-bar">
+        <button sec:authorize="hasAuthority('fly:admin:clazz:func:save')"
+                class="layui-btn layui-btn-sm layui-btn-normal fly-button-add"
+                lay-event="saveClazzFunc">
+            <i class="layui-icon layui-icon-addition"></i>新增
+        </button>
+    </div>
+</script>
+
+<!-- 操作工具栏 -->
+<script type="text/html" id="clazzFuncActionBar">
+    <button sec:authorize="hasAuthority('fly:admin:clazz:func:view')"
+            class="fly-action-bar fly-button-view" lay-event="viewClazzFunc">
+        <i class="layui-icon layui-icon-list"></i>查看
+    </button>
+    <button sec:authorize="hasAuthority('fly:admin:clazz:func:update')"
+            class="fly-action-bar fly-button-edit" lay-event="updateClazzFunc">
+        <i class="layui-icon layui-icon-edit"></i>编辑
+    </button>
+    <button sec:authorize="hasAuthority('fly:admin:clazz:func:delete')"
+            class="fly-action-bar fly-button-remove" lay-event="deleteClazzFunc">
+        <i class="layui-icon layui-icon-delete"></i>删除
+    </button>
+</script>
+
+</body>
+</html>

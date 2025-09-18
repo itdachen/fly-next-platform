@@ -25,6 +25,7 @@ layui.use(function () {
 function initTree(table) {
     let appId = $('#appId').val();
     $.zTree.initTree({
+        id: 'menuIndexTree',
         url: path + '/' + appId + "/tree",
         callback: function (event, treeId, treeNode) {
             flyMenuParentId = treeNode.id;
@@ -173,7 +174,8 @@ function tableInitOptions(params = {}) {
             {field: 'path', title: '访问地址', align: "center"},
             {field: 'orderNum', title: '排序', align: "center"},
             {
-                field: 'validFlag', title: '有效标志', align: "center", templet: "#validFlagTpl" },
+                field: 'validFlag', title: '有效标志', align: "center", templet: "#validFlagTpl"
+            },
             // {field: 'openType', title: '菜单打开方式', align: "center"},
             // {field: 'hasAuth', title: '是否需要授权: Y-需要;N-不需要', align: "center"},
             // {field: 'hasIp', title: '是否需要白名单IP: Y-需要;N-不需要', align: "center"},

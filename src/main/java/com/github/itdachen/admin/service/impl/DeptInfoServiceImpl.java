@@ -1,6 +1,5 @@
 package com.github.itdachen.admin.service.impl;
 
-import com.github.itdachen.admin.entity.MenuInfo;
 import com.github.itdachen.admin.mapper.ITenantInfoMapper;
 import com.github.itdachen.admin.sdk.vo.TenantInfoVO;
 import com.github.itdachen.boot.autoconfigure.app.AppInfoProperties;
@@ -204,37 +203,28 @@ public class DeptInfoServiceImpl extends BizServiceImpl<IDeptInfoMapper, DeptInf
      * @return java.lang.String
      */
     private String getDeptId(DeptInfoDTO deptInfoDTO) {
-        String deptId = "00";
         // 部门ID组成
         // 52 00 00 00 00 101 00
         // 省级编码(两位) 市州编码(两位) 区县编码(两位) 乡镇编码(两位) 村级/街道编码(两位) 部门职能编码(三位) 备用(两位)
-        switch (deptInfoDTO.getDeptLevel()) {
+        return switch (deptInfoDTO.getDeptLevel()) {
             // 00000000 101 00
-            case DeptLevelConstants.ROOT_LEVEL:  // 总部
-                deptId = "1000000000" + deptInfoDTO.getFuncCode() + "00";
-                break;
-            case DeptLevelConstants.PROV_LEVEL: // 省级
+            case DeptLevelConstants.ROOT_LEVEL ->  // 总部
+                    "1000000000" + deptInfoDTO.getFuncCode() + "00";
+            case DeptLevelConstants.PROV_LEVEL -> // 省级
                 // 5200000000 101 00
-                deptId = deptInfoDTO.getProvId() + "00000000" + deptInfoDTO.getFuncCode() + "00";
-                break;
-            case DeptLevelConstants.CITY_LEVEL: // 市/州级
+                    deptInfoDTO.getProvId() + "00000000" + deptInfoDTO.getFuncCode() + "00";
+            case DeptLevelConstants.CITY_LEVEL -> // 市/州级
                 // 5202 000000 101 0000
-                deptId = deptInfoDTO.getCityId() + "000000" + deptInfoDTO.getFuncCode() + " 00";
-                break;
-            case DeptLevelConstants.COUNT_LEVEL:  // 区/县级
+                    deptInfoDTO.getCityId() + "000000" + deptInfoDTO.getFuncCode() + " 00";
+            case DeptLevelConstants.COUNT_LEVEL ->  // 区/县级
                 // 520202000010100
-                deptId = deptInfoDTO.getCountyId() + "0000" + deptInfoDTO.getFuncCode() + "00";
-                break;
-            case DeptLevelConstants.STREET_LEVEL:  // 街道/乡镇级(暂时不用)
-                deptId = "00" + deptInfoDTO.getFuncCode() + "00";
-                break;
-            case DeptLevelConstants.VILLAGE_LEVEL:  // 社区/村(暂时不用)
-                deptId = deptInfoDTO.getFuncCode() + "00";
-                break;
-            default:
-                deptId = "1000000000" + deptInfoDTO.getFuncCode() + "00";
-        }
-        return deptId + BizContextHandler.getTenantId();
+                    deptInfoDTO.getCountyId() + "0000" + deptInfoDTO.getFuncCode() + "00";
+            case DeptLevelConstants.STREET_LEVEL ->  // 街道/乡镇级(暂时不用)
+                    "00" + deptInfoDTO.getFuncCode() + "00";
+            case DeptLevelConstants.VILLAGE_LEVEL ->  // 社区/村(暂时不用)
+                    deptInfoDTO.getFuncCode() + "00";
+            default -> "1000000000" + deptInfoDTO.getFuncCode() + "00";
+        };
     }
 
 

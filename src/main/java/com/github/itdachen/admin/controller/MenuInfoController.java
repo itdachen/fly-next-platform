@@ -29,12 +29,15 @@ import java.util.List;
 @FuncTitle("菜单信息")
 public class MenuInfoController extends BizController<IMenuInfoService, MenuInfoDTO, MenuInfoVO, MenuInfoQuery, String> {
     private static final Logger logger = LoggerFactory.getLogger(MenuInfoController.class);
-    private static final String PATH_PREFIX = "admin/menu" ;
+    private static final String PATH_PREFIX = "admin/menu";
 
     @GetMapping(value = "/app")
     @PreAuthorize("hasAuthority('admin:menu:info:index')")
     public String app(ModelMap modelMap) throws Exception {
-        return PATH_PREFIX + "/app" ;
+        // return PATH_PREFIX + "/app" ;
+
+        modelMap.put("appId", "4F17C3ED134AD4DA5C830DE9F3D7C02D");
+        return PATH_PREFIX + "/app_index";
     }
 
 
@@ -49,7 +52,7 @@ public class MenuInfoController extends BizController<IMenuInfoService, MenuInfo
     @PreAuthorize("hasAuthority('admin:menu:info:index')")
     public String index(@PathVariable("appId") String appId, ModelMap modelMap) {
         modelMap.put("appId", appId);
-        return PATH_PREFIX + "/index" ;
+        return PATH_PREFIX + "/index";
     }
 
     /***
@@ -64,7 +67,7 @@ public class MenuInfoController extends BizController<IMenuInfoService, MenuInfo
     public String add(@PathVariable("appId") String appId, @PathVariable("parentId") String parentId, ModelMap modelMap) {
         modelMap.put("appId", appId);
         modelMap.put("parentId", parentId);
-        return PATH_PREFIX + "/add" ;
+        return PATH_PREFIX + "/add";
     }
 
     /***
@@ -80,7 +83,7 @@ public class MenuInfoController extends BizController<IMenuInfoService, MenuInfo
     @PreAuthorize("hasAuthority('admin:menu:info:update')")
     public String edit(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("menuInfo", bizService.selectByPrimaryKey(id));
-        return PATH_PREFIX + "/edit" ;
+        return PATH_PREFIX + "/edit";
     }
 
     /***
@@ -96,7 +99,7 @@ public class MenuInfoController extends BizController<IMenuInfoService, MenuInfo
     @PreAuthorize("hasAuthority('admin:menu:info:update')")
     public String editParentTitle(@PathVariable("appId") String appId, ModelMap modelMap) throws Exception {
         modelMap.put("appId", appId);
-        return PATH_PREFIX + "/edit_parent" ;
+        return PATH_PREFIX + "/edit_parent";
     }
 
     /***
@@ -112,7 +115,7 @@ public class MenuInfoController extends BizController<IMenuInfoService, MenuInfo
     @PreAuthorize("hasAuthority('admin:menu:info:view')")
     public String view(@PathVariable("id") String id, ModelMap modelMap) throws Exception {
         modelMap.put("menuInfo", bizService.selectByPrimaryKey(id));
-        return PATH_PREFIX + "/view" ;
+        return PATH_PREFIX + "/view";
     }
 
     /***

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+  <th:block th:include="common/common::component('菜单信息')"/>
+  <th:block th:include="common/common::zTree"/>
+  <script th:src="@{/static/admin/menu/element/index.js}" charset="utf-8"></script>
+  <script th:src="@{/static/admin/menu/index.js}" charset="utf-8"></script>
+
+</head>
+<body class="fly-container">
+<input type="text" th:value="*{appId}" id="appId" name="appId" style="display: none">
+<!--<div class="fly-main-container">-->
+
+<div class="tree-container">
+  <div class="tree-box">
+    <div class="tree-title">菜单</div>
+    <div class="tree-title-line"></div>
+    <div id="menuIndexTree" class="ztree"></div>
+  </div>
+  <!--右侧内容-->
+  <div class=" tree-table-content">
+    <div class="tree-table">
+      <!-- 表格 -->
+      <div class="layui_table" id="menuTableBox">
+        <table class="layui-hide" id="layTable" lay-filter="layFilter"></table>
+      </div>
+      <div class="layui_table" id="elementTableBox" style="display: none">
+        <table class="layui-hide" id="layElementTable" lay-filter="layElementFilter"></table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--</div>-->
+
+<!--  菜单 start  -->
+<!-- 表头工具栏 -->
+<script type="text/html" id="toolbar">
+  <div class="fly-tool-bar">
+    <button sec:authorize="hasAuthority('admin:menu:info:save')"
+            class="layui-btn layui-btn-sm layui-btn-normal fly-button-add"
+            lay-event="saveMenuInfo">
+      <i class="layui-icon layui-icon-addition"></i>新增
+    </button>
+  </div>
+</script>
+
+<!-- 操作工具栏 -->
+<script type="text/html" id="toolActionBar">
+  <button sec:authorize="hasAuthority('admin:menu:info:view')"
+          class="fly-action-bar fly-button-view" lay-event="view">
+    <i class="layui-icon layui-icon-list"></i>查看
+  </button>
+  <button sec:authorize="hasAuthority('admin:menu:info:update')"
+          class="fly-action-bar fly-button-edit" lay-event="update">
+    <i class="layui-icon layui-icon-edit"></i>编辑
+  </button>
+  <button sec:authorize="hasAuthority('admin:menu:info:delete')"
+          class="fly-action-bar fly-button-remove" lay-event="delete">
+    <i class="layui-icon layui-icon-delete"></i>删除
+  </button>
+</script>
+
+<!--  菜单 end  -->
+
+
+
+<!-- 表头工具栏 -->
+<script type="text/html" id="toolElementBar">
+  <div class="fly-tool-bar">
+    <button sec:authorize="hasAuthority('admin:element:info:save')"
+            class="layui-btn layui-btn-sm layui-btn-normal fly-button-add"
+            lay-event="saveElementInfo">
+      <i class="layui-icon layui-icon-addition"></i>新增
+    </button>
+  </div>
+</script>
+
+<!-- 操作工具栏 -->
+<script type="text/html" id="toolElementActionBar">
+  <button sec:authorize="hasAuthority('admin:element:info:view')"
+          class="fly-action-bar fly-button-view" lay-event="view">
+    <i class="layui-icon layui-icon-list"></i>查看
+  </button>
+  <button sec:authorize="hasAuthority('admin:element:info:update')"
+          class="fly-action-bar fly-button-edit" lay-event="update">
+    <i class="layui-icon layui-icon-edit"></i>编辑
+  </button>
+  <button sec:authorize="hasAuthority('admin:element:info:delete')"
+          class="fly-action-bar fly-button-remove" lay-event="delete">
+    <i class="layui-icon layui-icon-delete"></i>删除
+  </button>
+</script>
+
+
+<script type="text/html" id="validFlagTpl">
+  <input type="checkbox" name="validFlag" value="{{= d.id }}" title="有效|无效" lay-skin="switch"
+         lay-filter="validFlagFilter" {{ d.validFlag == 'Y' ? 'checked' : '' }}>
+</script>
+
+<script type="text/html" id="validFlagElementTpl">
+  <input type="checkbox" name="validFlag" lay-skin="tag" class="warning-check-box" value="{{d.id}}" title="有效"
+         lay-filter="validFlagElementFilter" {{ d.validFlag== 'Y' ? 'checked' : '' }}>
+</script>
+
+
+</body>
+</html>
