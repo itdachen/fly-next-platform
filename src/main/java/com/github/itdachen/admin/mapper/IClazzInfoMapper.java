@@ -17,6 +17,16 @@ import java.util.List;
 public interface IClazzInfoMapper extends Mapper<ClazzInfo> {
 
     /***
+     * 查询数据总量
+     *
+     * @author 王大宸
+     * @date 2025-09-19 21:58:19
+     * @param params params
+     * @return java.leng.Long
+     */
+    Long list_COUNT(ClazzInfoQuery params);
+
+    /***
      * 查询集合
      *
      * @author 王大宸

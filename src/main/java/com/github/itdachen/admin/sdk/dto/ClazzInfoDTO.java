@@ -17,50 +17,75 @@ import java.io.Serializable;
 public class ClazzInfoDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    /** 主键唯一标识 */
-    private String id;
 
-    /** 平台ID */
-    private String platId;
+    /**
+     * 主键唯一标识
+     */
+    private String id = "-";
 
-    /** 应用ID */
-    private String appId;
+    /**
+     * 租户ID
+     */
+    private String tenantId = "-";
 
-    /** 租户ID */
-    private String tenantId;
+    /**
+     * 部门职能代码
+     */
+    @NotBlank(message = "请选择部门职能")
+    private String deptFuncCode;
 
-    /** 部门ID */
-    private String deptId;
+    /**
+     * 部门职能名称
+     */
+    // @NotBlank(message = "部门职能名称不能为空")
+    private String deptFuncTitle;
 
-    /** 部门名称 */
-    private String deptTitle;
+    /**
+     * 所属层级等级
+     */
+    @NotBlank(message = "请选择所属层级")
+    private String thatLevelCode;
 
-    /** 岗位等级 */
-    @NotBlank(message = "岗位等级不能为空")
-    private String thatLevel;
-
-    /** 岗位名称 */
+    /**
+     * 所属层级名称
+     */
+    //  @NotBlank(message = "所属层级名称不能为空")
     private String thatLevelTitle;
 
-    /** 岗位类型ID */
-    private String typeId;
+    /**
+     * 岗位类型ID
+     */
+    @NotBlank(message = "请选择岗位职能")
+    private String clazzFuncCode;
 
-    /** 岗位类型 */
-    private String typeTitle;
+    /**
+     * 岗位类型
+     */
+  //  @NotBlank(message = "岗位类型不能为空")
+    private String clazzFuncTitle;
 
-    /** 岗位名称 */
-    @NotBlank(message = "岗位名称不能为空")
-    private String title;
+    /**
+     * 岗位代码
+     */
+    // @NotBlank(message = "岗位代码不能为空")
+    private String clazzCode;
 
-    /** 有效标志: Y-是;N-否 */
-    @NotBlank(message = "有效标志: Y-是;N-否不能为空")
+    /**
+     * 岗位名称
+     */
+    // @NotBlank(message = "岗位名称不能为空")
+    private String clazzTitle;
+
+    /**
+     * 有效标志: Y-是;N-否
+     */
+    @NotBlank(message = "有效标志不能为空")
     private String validFlag;
 
-    /** 备注 */
+    /**
+     * 备注
+     */
     private String remarks;
-
-
-
 
 
     public void setId(String id) {
@@ -70,20 +95,7 @@ public class ClazzInfoDTO implements Serializable {
     public String getId() {
         return id;
     }
-    public void setPlatId(String platId) {
-        this.platId = platId;
-    }
 
-    public String getPlatId() {
-        return platId;
-    }
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
-
-    public String getAppId() {
-        return appId;
-    }
     public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
     }
@@ -91,27 +103,31 @@ public class ClazzInfoDTO implements Serializable {
     public String getTenantId() {
         return tenantId;
     }
-    public void setDeptId(String deptId) {
-        this.deptId = deptId;
+
+    public void setDeptFuncCode(String deptFuncCode) {
+        this.deptFuncCode = deptFuncCode;
     }
 
-    public String getDeptId() {
-        return deptId;
-    }
-    public void setDeptTitle(String deptTitle) {
-        this.deptTitle = deptTitle;
+    public String getDeptFuncCode() {
+        return deptFuncCode;
     }
 
-    public String getDeptTitle() {
-        return deptTitle;
-    }
-    public void setThatLevel(String thatLevel) {
-        this.thatLevel = thatLevel;
+    public void setDeptFuncTitle(String deptFuncTitle) {
+        this.deptFuncTitle = deptFuncTitle;
     }
 
-    public String getThatLevel() {
-        return thatLevel;
+    public String getDeptFuncTitle() {
+        return deptFuncTitle;
     }
+
+    public void setThatLevelCode(String thatLevelCode) {
+        this.thatLevelCode = thatLevelCode;
+    }
+
+    public String getThatLevelCode() {
+        return thatLevelCode;
+    }
+
     public void setThatLevelTitle(String thatLevelTitle) {
         this.thatLevelTitle = thatLevelTitle;
     }
@@ -119,27 +135,39 @@ public class ClazzInfoDTO implements Serializable {
     public String getThatLevelTitle() {
         return thatLevelTitle;
     }
-    public void setTypeId(String typeId) {
-        this.typeId = typeId;
+
+    public void setClazzFuncCode(String clazzFuncCode) {
+        this.clazzFuncCode = clazzFuncCode;
     }
 
-    public String getTypeId() {
-        return typeId;
-    }
-    public void setTypeTitle(String typeTitle) {
-        this.typeTitle = typeTitle;
+    public String getClazzFuncCode() {
+        return clazzFuncCode;
     }
 
-    public String getTypeTitle() {
-        return typeTitle;
-    }
-    public void setTitle(String title) {
-        this.title = title;
+    public void setClazzFuncTitle(String clazzFuncTitle) {
+        this.clazzFuncTitle = clazzFuncTitle;
     }
 
-    public String getTitle() {
-        return title;
+    public String getClazzFuncTitle() {
+        return clazzFuncTitle;
     }
+
+    public void setClazzCode(String clazzCode) {
+        this.clazzCode = clazzCode;
+    }
+
+    public String getClazzCode() {
+        return clazzCode;
+    }
+
+    public void setClazzTitle(String clazzTitle) {
+        this.clazzTitle = clazzTitle;
+    }
+
+    public String getClazzTitle() {
+        return clazzTitle;
+    }
+
     public void setValidFlag(String validFlag) {
         this.validFlag = validFlag;
     }
@@ -147,6 +175,7 @@ public class ClazzInfoDTO implements Serializable {
     public String getValidFlag() {
         return validFlag;
     }
+
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
@@ -159,16 +188,15 @@ public class ClazzInfoDTO implements Serializable {
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("id", getId())
-                .append("platId", getPlatId())
-                .append("appId", getAppId())
                 .append("tenantId", getTenantId())
-                .append("deptId", getDeptId())
-                .append("deptTitle", getDeptTitle())
-                .append("thatLevel", getThatLevel())
+                .append("deptFuncCode", getDeptFuncCode())
+                .append("deptFuncTitle", getDeptFuncTitle())
+                .append("thatLevelCode", getThatLevelCode())
                 .append("thatLevelTitle", getThatLevelTitle())
-                .append("typeId", getTypeId())
-                .append("typeTitle", getTypeTitle())
-                .append("title", getTitle())
+                .append("clazzFuncCode", getClazzFuncCode())
+                .append("clazzFuncTitle", getClazzFuncTitle())
+                .append("clazzCode", getClazzCode())
+                .append("clazzTitle", getClazzTitle())
                 .append("validFlag", getValidFlag())
                 .append("remarks", getRemarks())
                 .toString();

@@ -52,7 +52,7 @@
     <select id="list" parameterType="com.github.itdachen.admin.sdk.query.DeptLevelQuery" resultMap="deptLevelMap">
         <include refid="selectDeptLevelVO"/>
         <include refid="selectParamsWhere"></include>
-        ORDER BY id DESC
+        ORDER BY id ASC
     </select>
 
     <!-- 根据主键查询 -->

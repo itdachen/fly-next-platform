@@ -8,27 +8,24 @@
 
 <form class="layui-form" id="editClazzInfoForm" th:object="${clazzInfo}">
     <div class="layui-form-body">
+
         <div class="layui-form-item">
             <label class="layui-form-label">
-                <span class="required">*</span>岗位等级
+                岗位代码
             </label>
-            <div class="layui-input-block" th:with="dicts=${@dict.data('dept_level')}">
-                <input type="radio" name="thatLevel" lay-filter="thatLevelRadio" th:each="dict : ${dicts}"
-                       th:id="${'thatLevel_' + dict.value}"
-                       th:field="*{thatLevel}"
-                       th:title="${dict.label}"
-                       th:value="${dict.value}"
-                       th:checked="${clazzInfo.thatLevel}">
+            <div class="layui-input-block">
+                <input type="text" id="clazzCode" name="clazzCode" th:field="*{clazzCode}"
+                       readonly="readonly" autocomplete="off" lay-verify="required" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">
-                <span class="required">*</span>岗位名称
+                岗位名称
             </label>
             <div class="layui-input-block">
-                <input type="text" id="title" name="title" th:field="*{title}"
-                       autocomplete="off" lay-verify="required" class="layui-input">
+                <input type="text" id="clazzTitle" name="clazzTitle" th:field="*{clazzTitle}"
+                       readonly="readonly" autocomplete="off" lay-verify="required" class="layui-input">
             </div>
         </div>
 
@@ -51,7 +48,7 @@
                 备注
             </label>
             <div class="layui-input-block">
-                        <textarea id="remarks" name="remarks" th:field="*{remarks}" maxlength="200"
+                        <textarea id="remarks" name="remarks" th:field="*{remarks}" maxlength="50"
                                   autocomplete="off" class="layui-textarea"></textarea>
             </div>
         </div>

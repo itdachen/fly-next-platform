@@ -60,9 +60,9 @@ public class AuthClazzMenuServiceImpl extends BizServiceImpl<IAuthClazzMenuMappe
     @Override
     @Transactional(rollbackFor = Exception.class)
     public AuthClazzMenuVO saveInfo(AuthClazzMenuDTO dto) throws Exception {
-        bizMapper.removeCheckedMenu(BizContextHandler.getTenantId(), dto.getClazzId());
+        bizMapper.removeCheckedMenu(BizContextHandler.getTenantId(), dto.getClazzCode());
 
-        List<String> menuIds = new ArrayList<>(Arrays.asList(dto.getMeniId().split(",")));
+        List<String> menuIds = new ArrayList<>(Arrays.asList(dto.getFuncId().split(",")));
         if (menuIds.isEmpty()) {
             return null;
         }
@@ -73,11 +73,10 @@ public class AuthClazzMenuServiceImpl extends BizServiceImpl<IAuthClazzMenuMappe
                 continue;
             }
             clazzMenu = new AuthClazzMenu();
-            clazzMenu.setId(EntityUtils.getId());
-            clazzMenu.setTenantId(BizContextHandler.getTenantId());
             clazzMenu.setAppId(StringUtils.isEmpty(dto.getAppId()) ? "" : dto.getAppId());
-            clazzMenu.setClazzId(dto.getClazzId());
-            clazzMenu.setMeniId(menuId);
+            clazzMenu.setClazzCode(dto.getClazzCode());
+            clazzMenu.setFuncId(menuId);
+            EntityUtils.setCreatAndUpdateInfo(clazzMenu);
             list.add(clazzMenu);
         }
         bizMapper.batchSave(list);

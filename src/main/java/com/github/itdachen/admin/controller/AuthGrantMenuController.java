@@ -107,10 +107,10 @@ public class AuthGrantMenuController {
      * @param appId appId
      * @return com.github.itdachen.framework.core.response.ServerResponse<java.util.List < com.github.itdachen.framework.context.tree.ZTreeNode>>
      */
-    @GetMapping("/clazz/{clazzId}/app/{appId}/tree")
+    @GetMapping("/clazz/{clazzCode}/app/{appId}/tree")
     @ResponseBody
-    public ServerResponse<List<ZTreeNode>> findTreeData(@PathVariable("clazzId") String clazzId, @PathVariable("appId") String appId) throws Exception {
-        return ServerResponse.ok(authGrantMenuService.findTreeData(clazzId, appId));
+    public ServerResponse<List<ZTreeNode>> findTreeData(@PathVariable("clazzCode") String clazzCode, @PathVariable("appId") String appId) throws Exception {
+        return ServerResponse.ok(authGrantMenuService.findTreeData(clazzCode, appId));
     }
 
 

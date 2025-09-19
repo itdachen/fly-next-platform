@@ -18,35 +18,59 @@ public class ClazzInfoQuery extends BizQuery implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 岗位等级
+     * 租户ID
      */
-    private String thatLevel;
+    private String tenantId;
+
+    /**
+     * 部门职能代码
+     */
+    private String deptFuncCode;
+
+    /**
+     * 所属层级等级
+     */
+    private String thatLevelCode;
 
     /**
      * 岗位类型ID
      */
-    private String typeId;
+    private String clazzFuncCode;
+
+    /**
+     * 岗位代码
+     */
+    private String clazzCode;
 
     /**
      * 岗位名称
      */
-    private String title;
+    private String clazzTitle;
 
     /**
-     * 有效标志
+     * 有效标志: Y-是;N-否
      */
     private String validFlag;
+
+    /**
+     * 删除标志: Y-已删除;N-未删除
+     */
+    private String removeFlag;
 
 
     public ClazzInfoQuery() {
     }
 
-    public ClazzInfoQuery(int page, int limit, String thatLevel, String typeId, String title, String validFlag) {
+    public ClazzInfoQuery(int page, int limit, String tenantId, String deptFuncCode, String thatLevelCode, String clazzFuncCode, String clazzCode, String clazzTitle, String validFlag, String removeFlag) {
         super(page, limit);
-        this.thatLevel = thatLevel;
-        this.typeId = typeId;
-        this.title = title;
+        this.tenantId = tenantId;
+        this.deptFuncCode = deptFuncCode;
+        this.thatLevelCode = thatLevelCode;
+        this.clazzFuncCode = clazzFuncCode;
+        this.clazzCode = clazzCode;
+        this.clazzTitle = clazzTitle;
         this.validFlag = validFlag;
+        this.removeFlag = removeFlag;
     }
 
     public static ClazzInfoQueryBuilder builder() {
@@ -56,10 +80,14 @@ public class ClazzInfoQuery extends BizQuery implements Serializable {
     public static class ClazzInfoQueryBuilder {
         private Integer page = 1;
         private Integer limit = 10;
-        private String thatLevel;
-        private String typeId;
-        private String title;
+        private String tenantId;
+        private String deptFuncCode;
+        private String thatLevelCode;
+        private String clazzFuncCode;
+        private String clazzCode;
+        private String clazzTitle;
         private String validFlag;
+        private String removeFlag;
 
         public ClazzInfoQueryBuilder() {
         }
@@ -74,59 +102,107 @@ public class ClazzInfoQuery extends BizQuery implements Serializable {
             return this;
         }
 
-        /* 岗位等级 */
-        public ClazzInfoQueryBuilder thatLevel(String thatLevel) {
-            this.thatLevel = thatLevel;
+        /* 租户ID */
+        public ClazzInfoQueryBuilder tenantId(String tenantId) {
+            this.tenantId = tenantId;
+            return this;
+        }
+
+        /* 部门职能代码 */
+        public ClazzInfoQueryBuilder deptFuncCode(String deptFuncCode) {
+            this.deptFuncCode = deptFuncCode;
+            return this;
+        }
+
+        /* 所属层级等级 */
+        public ClazzInfoQueryBuilder thatLevelCode(String thatLevelCode) {
+            this.thatLevelCode = thatLevelCode;
             return this;
         }
 
         /* 岗位类型ID */
-        public ClazzInfoQueryBuilder typeId(String typeId) {
-            this.typeId = typeId;
+        public ClazzInfoQueryBuilder clazzFuncCode(String clazzFuncCode) {
+            this.clazzFuncCode = clazzFuncCode;
+            return this;
+        }
+
+        /* 岗位代码 */
+        public ClazzInfoQueryBuilder clazzCode(String clazzCode) {
+            this.clazzCode = clazzCode;
             return this;
         }
 
         /* 岗位名称 */
-        public ClazzInfoQueryBuilder title(String title) {
-            this.title = title;
+        public ClazzInfoQueryBuilder clazzTitle(String clazzTitle) {
+            this.clazzTitle = clazzTitle;
             return this;
         }
 
-        /* 有效标志 */
+        /* 有效标志: Y-是;N-否 */
         public ClazzInfoQueryBuilder validFlag(String validFlag) {
             this.validFlag = validFlag;
             return this;
         }
 
+        /* 删除标志: Y-已删除;N-未删除 */
+        public ClazzInfoQueryBuilder removeFlag(String removeFlag) {
+            this.removeFlag = removeFlag;
+            return this;
+        }
+
         public ClazzInfoQuery build() {
-            return new ClazzInfoQuery(page, limit, thatLevel, typeId, title, validFlag);
+            return new ClazzInfoQuery(page, limit, tenantId, deptFuncCode, thatLevelCode, clazzFuncCode, clazzCode, clazzTitle, validFlag, removeFlag);
         }
 
     }
 
 
-    public void setThatLevel(String thatLevel) {
-        this.thatLevel = thatLevel;
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 
-    public String getThatLevel() {
-        return thatLevel;
+    public String getTenantId() {
+        return tenantId;
     }
 
-    public void setTypeId(String typeId) {
-        this.typeId = typeId;
+    public void setDeptFuncCode(String deptFuncCode) {
+        this.deptFuncCode = deptFuncCode;
     }
 
-    public String getTypeId() {
-        return typeId;
+    public String getDeptFuncCode() {
+        return deptFuncCode;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setThatLevelCode(String thatLevelCode) {
+        this.thatLevelCode = thatLevelCode;
     }
 
-    public String getTitle() {
-        return title;
+    public String getThatLevelCode() {
+        return thatLevelCode;
+    }
+
+    public void setClazzFuncCode(String clazzFuncCode) {
+        this.clazzFuncCode = clazzFuncCode;
+    }
+
+    public String getClazzFuncCode() {
+        return clazzFuncCode;
+    }
+
+    public void setClazzCode(String clazzCode) {
+        this.clazzCode = clazzCode;
+    }
+
+    public String getClazzCode() {
+        return clazzCode;
+    }
+
+    public void setClazzTitle(String clazzTitle) {
+        this.clazzTitle = clazzTitle;
+    }
+
+    public String getClazzTitle() {
+        return clazzTitle;
     }
 
     public void setValidFlag(String validFlag) {
@@ -137,15 +213,27 @@ public class ClazzInfoQuery extends BizQuery implements Serializable {
         return validFlag;
     }
 
+    public void setRemoveFlag(String removeFlag) {
+        this.removeFlag = removeFlag;
+    }
+
+    public String getRemoveFlag() {
+        return removeFlag;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("page", getPage())
                 .append("limit", getLimit())
-                .append("thatLevel", getThatLevel())
-                .append("typeId", getTypeId())
-                .append("title", getTitle())
+                .append("tenantId", getTenantId())
+                .append("deptFuncCode", getDeptFuncCode())
+                .append("thatLevelCode", getThatLevelCode())
+                .append("clazzFuncCode", getClazzFuncCode())
+                .append("clazzCode", getClazzCode())
+                .append("clazzTitle", getClazzTitle())
                 .append("validFlag", getValidFlag())
+                .append("removeFlag", getRemoveFlag())
                 .toString();
     }
 

@@ -1,23 +1,19 @@
 package com.github.itdachen.admin.service.impl;
 
-import com.github.itdachen.admin.entity.DeptFunc;
 import com.github.itdachen.boot.oplog.ooxml.poi.OOXmlPoiImpHelper;
 import com.github.itdachen.framework.context.BizContextHandler;
 import com.github.itdachen.framework.context.constants.YesOrNotConstant;
 import com.github.itdachen.framework.context.userdetails.UserInfoDetails;
 import com.github.itdachen.framework.core.AssertUtils;
 import com.github.itdachen.framework.core.response.TableData;
-import com.github.itdachen.framework.core.utils.StringUtils;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
 import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
-import com.github.itdachen.framework.webmvc.poi.WorkBookUtils;
 import com.github.itdachen.boot.oplog.ooxml.poi.OOXmlPoiExpHelper;
 import com.github.itdachen.boot.oplog.ooxml.poi.exp.ExpParamsSettings;
 import com.github.itdachen.boot.oplog.ooxml.poi.exp.handler.IWriteWorkBook;
 import com.github.itdachen.boot.oplog.ooxml.poi.exp.utils.ExcelExpUtils;
 import com.github.itdachen.boot.oplog.ooxml.poi.imp.IReadWorkBookHandler;
 import com.github.itdachen.boot.oplog.ooxml.poi.imp.ImpParamsSettings;
-import com.github.itdachen.boot.oplog.ooxml.poi.imp.utils.ExcelImpUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.itdachen.admin.entity.ClazzFunc;
@@ -39,7 +35,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -48,7 +43,7 @@ import java.util.List;
  * @author 王大宸
  * @date 2025-09-18 22:27:28
  */
-@Service
+@Service("clazzFunc")
 public class ClazzFuncServiceImpl extends BizServiceImpl<IClazzFuncMapper, ClazzFunc, ClazzFuncDTO, ClazzFuncVO, ClazzFuncQuery, String> implements IClazzFuncService {
     private static final Logger logger = LoggerFactory.getLogger(ClazzFuncServiceImpl.class);
     private static final ClazzFuncConvert bizConvert = new ClazzFuncConvert();
@@ -77,6 +72,15 @@ public class ClazzFuncServiceImpl extends BizServiceImpl<IClazzFuncMapper, Clazz
         Page<ClazzFuncVO> page = PageHelper.startPage(params.getPage(), params.getLimit());
         List<ClazzFuncVO> list = bizMapper.list(params);
         return new TableData<ClazzFuncVO>(page.getTotal(), list);
+    }
+
+    public List<ClazzFuncVO> list() {
+        ClazzFuncQuery params = ClazzFuncQuery.builder()
+                .removeFlag(YesOrNotConstant.N)
+                .validFlag(YesOrNotConstant.Y)
+                .tenantId(BizContextHandler.getTenantId())
+                .build();
+        return bizMapper.list(params);
     }
 
 

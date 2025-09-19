@@ -9,7 +9,6 @@ import com.github.itdachen.framework.core.response.TableData;
 import com.github.itdachen.framework.core.utils.StringUtils;
 import com.github.itdachen.framework.webmvc.entity.EntityUtils;
 import com.github.itdachen.framework.webmvc.service.impl.BizServiceImpl;
-import com.github.itdachen.framework.webmvc.poi.WorkBookUtils;
 import com.github.itdachen.boot.oplog.ooxml.poi.OOXmlPoiExpHelper;
 import com.github.itdachen.boot.oplog.ooxml.poi.exp.ExpParamsSettings;
 import com.github.itdachen.boot.oplog.ooxml.poi.exp.handler.IWriteWorkBook;
@@ -37,7 +36,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -46,7 +44,7 @@ import java.util.List;
  * @author 王大宸
  * @date 2025-09-18 23:03:17
  */
-@Service
+@Service("deptFunc")
 public class DeptFuncServiceImpl extends BizServiceImpl<IDeptFuncMapper, DeptFunc, DeptFuncDTO, DeptFuncVO, DeptFuncQuery, String> implements IDeptFuncService {
     private static final Logger logger = LoggerFactory.getLogger(DeptFuncServiceImpl.class);
     private static final DeptFuncConvert bizConvert = new DeptFuncConvert();
@@ -75,6 +73,15 @@ public class DeptFuncServiceImpl extends BizServiceImpl<IDeptFuncMapper, DeptFun
         Page<DeptFuncVO> page = PageHelper.startPage(params.getPage(), params.getLimit());
         List<DeptFuncVO> list = bizMapper.list(params);
         return new TableData<DeptFuncVO>(page.getTotal(), list);
+    }
+
+    public List<DeptFuncVO> list() {
+        DeptFuncQuery params = DeptFuncQuery.builder()
+                .tenantId(BizContextHandler.getTenantId())
+                .removeFlag(YesOrNotConstant.N)
+                .validFlag(YesOrNotConstant.Y)
+                .build();
+        return bizMapper.list(params);
     }
 
     /***

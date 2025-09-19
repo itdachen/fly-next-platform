@@ -22,8 +22,10 @@ public class AuthClazzMenuConvert implements IBizConvertMapper< AuthClazzMenu, A
         authClazzMenu.setId(authClazzMenuDTO.getId());
         authClazzMenu.setTenantId(authClazzMenuDTO.getTenantId());
         authClazzMenu.setAppId(authClazzMenuDTO.getAppId());
-        authClazzMenu.setClazzId(authClazzMenuDTO.getClazzId());
-        authClazzMenu.setMeniId(authClazzMenuDTO.getMeniId());
+        authClazzMenu.setClazzCode(authClazzMenuDTO.getClazzCode());
+        authClazzMenu.setClazzTitle(authClazzMenuDTO.getClazzTitle());
+        authClazzMenu.setFuncId(authClazzMenuDTO.getFuncId());
+        authClazzMenu.setFuncTitle(authClazzMenuDTO.getFuncTitle());
         return authClazzMenu;
     }
 
@@ -37,8 +39,10 @@ public class AuthClazzMenuConvert implements IBizConvertMapper< AuthClazzMenu, A
         authClazzMenuVO.setId(authClazzMenu.getId());
         authClazzMenuVO.setTenantId(authClazzMenu.getTenantId());
         authClazzMenuVO.setAppId(authClazzMenu.getAppId());
-        authClazzMenuVO.setClazzId(authClazzMenu.getClazzId());
-        authClazzMenuVO.setMeniId(authClazzMenu.getMeniId());
+        authClazzMenuVO.setClazzCode(authClazzMenu.getClazzCode());
+        authClazzMenuVO.setClazzTitle(authClazzMenu.getClazzTitle());
+        authClazzMenuVO.setFuncId(authClazzMenu.getFuncId());
+        authClazzMenuVO.setFuncTitle(authClazzMenu.getFuncTitle());
         return authClazzMenuVO;
     }
 
@@ -50,8 +54,10 @@ public class AuthClazzMenuConvert implements IBizConvertMapper< AuthClazzMenu, A
         authClazzMenu.setId(authClazzMenuVO.getId());
         authClazzMenu.setTenantId(authClazzMenuVO.getTenantId());
         authClazzMenu.setAppId(authClazzMenuVO.getAppId());
-        authClazzMenu.setClazzId(authClazzMenuVO.getClazzId());
-        authClazzMenu.setMeniId(authClazzMenuVO.getMeniId());
+        authClazzMenu.setClazzCode(authClazzMenuVO.getClazzCode());
+        authClazzMenu.setClazzTitle(authClazzMenuVO.getClazzTitle());
+        authClazzMenu.setFuncId(authClazzMenuVO.getFuncId());
+        authClazzMenu.setFuncTitle(authClazzMenuVO.getFuncTitle());
         return authClazzMenu;
     }
 
@@ -63,8 +69,10 @@ public class AuthClazzMenuConvert implements IBizConvertMapper< AuthClazzMenu, A
         authClazzMenuVO.setId(authClazzMenuDTO.getId());
         authClazzMenuVO.setTenantId(authClazzMenuDTO.getTenantId());
         authClazzMenuVO.setAppId(authClazzMenuDTO.getAppId());
-        authClazzMenuVO.setClazzId(authClazzMenuDTO.getClazzId());
-        authClazzMenuVO.setMeniId(authClazzMenuDTO.getMeniId());
+        authClazzMenuVO.setClazzCode(authClazzMenuDTO.getClazzCode());
+        authClazzMenuVO.setClazzTitle(authClazzMenuDTO.getClazzTitle());
+        authClazzMenuVO.setFuncId(authClazzMenuDTO.getFuncId());
+        authClazzMenuVO.setFuncTitle(authClazzMenuDTO.getFuncTitle());
         return authClazzMenuVO;
     }
 

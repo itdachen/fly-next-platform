@@ -15,21 +15,20 @@ public class ClazzInfoConvert implements IBizConvertMapper<ClazzInfo, ClazzInfoD
 
     @Override
     public ClazzInfo toJavaObject(ClazzInfoDTO clazzInfoDTO) {
-        if (null == clazzInfoDTO){
+        if (null == clazzInfoDTO) {
             return null;
         }
         ClazzInfo clazzInfo = new ClazzInfo();
         clazzInfo.setId(clazzInfoDTO.getId());
-        clazzInfo.setPlatId(clazzInfoDTO.getPlatId());
-        clazzInfo.setAppId(clazzInfoDTO.getAppId());
         clazzInfo.setTenantId(clazzInfoDTO.getTenantId());
-        clazzInfo.setDeptId(clazzInfoDTO.getDeptId());
-        clazzInfo.setDeptTitle(clazzInfoDTO.getDeptTitle());
-        clazzInfo.setThatLevel(clazzInfoDTO.getThatLevel());
+        clazzInfo.setDeptFuncCode(clazzInfoDTO.getDeptFuncCode());
+        clazzInfo.setDeptFuncTitle(clazzInfoDTO.getDeptFuncTitle());
+        clazzInfo.setThatLevelCode(clazzInfoDTO.getThatLevelCode());
         clazzInfo.setThatLevelTitle(clazzInfoDTO.getThatLevelTitle());
-        clazzInfo.setTypeId(clazzInfoDTO.getTypeId());
-        clazzInfo.setTypeTitle(clazzInfoDTO.getTypeTitle());
-        clazzInfo.setTitle(clazzInfoDTO.getTitle());
+        clazzInfo.setClazzFuncCode(clazzInfoDTO.getClazzFuncCode());
+        clazzInfo.setClazzFuncTitle(clazzInfoDTO.getClazzFuncTitle());
+        clazzInfo.setClazzCode(clazzInfoDTO.getClazzCode());
+        clazzInfo.setClazzTitle(clazzInfoDTO.getClazzTitle());
         clazzInfo.setValidFlag(clazzInfoDTO.getValidFlag());
         clazzInfo.setRemarks(clazzInfoDTO.getRemarks());
         return clazzInfo;
@@ -38,63 +37,60 @@ public class ClazzInfoConvert implements IBizConvertMapper<ClazzInfo, ClazzInfoD
 
     @Override
     public ClazzInfoVO toJavaObjectVO(ClazzInfo clazzInfo) {
-        if (null == clazzInfo){
+        if (null == clazzInfo) {
             return null;
         }
         ClazzInfoVO clazzInfoVO = new ClazzInfoVO();
         clazzInfoVO.setId(clazzInfo.getId());
-        clazzInfoVO.setPlatId(clazzInfo.getPlatId());
-        clazzInfoVO.setAppId(clazzInfo.getAppId());
         clazzInfoVO.setTenantId(clazzInfo.getTenantId());
-        clazzInfoVO.setDeptId(clazzInfo.getDeptId());
-        clazzInfoVO.setDeptTitle(clazzInfo.getDeptTitle());
-        clazzInfoVO.setThatLevel(clazzInfo.getThatLevel());
+        clazzInfoVO.setDeptFuncCode(clazzInfo.getDeptFuncCode());
+        clazzInfoVO.setDeptFuncTitle(clazzInfo.getDeptFuncTitle());
+        clazzInfoVO.setThatLevelCode(clazzInfo.getThatLevelCode());
         clazzInfoVO.setThatLevelTitle(clazzInfo.getThatLevelTitle());
-        clazzInfoVO.setTypeId(clazzInfo.getTypeId());
-        clazzInfoVO.setTypeTitle(clazzInfo.getTypeTitle());
-        clazzInfoVO.setTitle(clazzInfo.getTitle());
+        clazzInfoVO.setClazzFuncCode(clazzInfo.getClazzFuncCode());
+        clazzInfoVO.setClazzFuncTitle(clazzInfo.getClazzFuncTitle());
+        clazzInfoVO.setClazzCode(clazzInfo.getClazzCode());
+        clazzInfoVO.setClazzTitle(clazzInfo.getClazzTitle());
         clazzInfoVO.setValidFlag(clazzInfo.getValidFlag());
         clazzInfoVO.setRemarks(clazzInfo.getRemarks());
         return clazzInfoVO;
     }
 
     public ClazzInfo toJavaObject(ClazzInfoVO clazzInfoVO) {
-        if (null == clazzInfoVO){
+        if (null == clazzInfoVO) {
             return null;
         }
         ClazzInfo clazzInfo = new ClazzInfo();
         clazzInfo.setId(clazzInfoVO.getId());
-        clazzInfo.setPlatId(clazzInfoVO.getPlatId());
-        clazzInfo.setAppId(clazzInfoVO.getAppId());
         clazzInfo.setTenantId(clazzInfoVO.getTenantId());
-        clazzInfo.setDeptId(clazzInfoVO.getDeptId());
-        clazzInfo.setDeptTitle(clazzInfoVO.getDeptTitle());
-        clazzInfo.setThatLevel(clazzInfoVO.getThatLevel());
+        clazzInfo.setDeptFuncCode(clazzInfoVO.getDeptFuncCode());
+        clazzInfo.setDeptFuncTitle(clazzInfoVO.getDeptFuncTitle());
+        clazzInfo.setThatLevelCode(clazzInfoVO.getThatLevelCode());
         clazzInfo.setThatLevelTitle(clazzInfoVO.getThatLevelTitle());
-        clazzInfo.setTypeId(clazzInfoVO.getTypeId());
-        clazzInfo.setTypeTitle(clazzInfoVO.getTypeTitle());
-        clazzInfo.setTitle(clazzInfoVO.getTitle());
+        clazzInfo.setClazzFuncCode(clazzInfoVO.getClazzFuncCode());
+        clazzInfo.setClazzFuncTitle(clazzInfoVO.getClazzFuncTitle());
+        clazzInfo.setClazzCode(clazzInfoVO.getClazzCode());
+        clazzInfo.setClazzTitle(clazzInfoVO.getClazzTitle());
         clazzInfo.setValidFlag(clazzInfoVO.getValidFlag());
         clazzInfo.setRemarks(clazzInfoVO.getRemarks());
         return clazzInfo;
     }
 
     public ClazzInfoVO toJavaObjectVO(ClazzInfoDTO clazzInfoDTO) {
-        if (null == clazzInfoDTO){
+        if (null == clazzInfoDTO) {
             return null;
         }
         ClazzInfoVO clazzInfoVO = new ClazzInfoVO();
         clazzInfoVO.setId(clazzInfoDTO.getId());
-        clazzInfoVO.setPlatId(clazzInfoDTO.getPlatId());
-        clazzInfoVO.setAppId(clazzInfoDTO.getAppId());
         clazzInfoVO.setTenantId(clazzInfoDTO.getTenantId());
-        clazzInfoVO.setDeptId(clazzInfoDTO.getDeptId());
-        clazzInfoVO.setDeptTitle(clazzInfoDTO.getDeptTitle());
-        clazzInfoVO.setThatLevel(clazzInfoDTO.getThatLevel());
+        clazzInfoVO.setDeptFuncCode(clazzInfoDTO.getDeptFuncCode());
+        clazzInfoVO.setDeptFuncTitle(clazzInfoDTO.getDeptFuncTitle());
+        clazzInfoVO.setThatLevelCode(clazzInfoDTO.getThatLevelCode());
         clazzInfoVO.setThatLevelTitle(clazzInfoDTO.getThatLevelTitle());
-        clazzInfoVO.setTypeId(clazzInfoDTO.getTypeId());
-        clazzInfoVO.setTypeTitle(clazzInfoDTO.getTypeTitle());
-        clazzInfoVO.setTitle(clazzInfoDTO.getTitle());
+        clazzInfoVO.setClazzFuncCode(clazzInfoDTO.getClazzFuncCode());
+        clazzInfoVO.setClazzFuncTitle(clazzInfoDTO.getClazzFuncTitle());
+        clazzInfoVO.setClazzCode(clazzInfoDTO.getClazzCode());
+        clazzInfoVO.setClazzTitle(clazzInfoDTO.getClazzTitle());
         clazzInfoVO.setValidFlag(clazzInfoDTO.getValidFlag());
         clazzInfoVO.setRemarks(clazzInfoDTO.getRemarks());
         return clazzInfoVO;

@@ -103,8 +103,14 @@ function toolClazzInfo(table) {
         }
 
         if ('auzClazz' === obj.event) {
-            let uri = HTTP_BIZ_URI + '/admin/auth/clazz/menu/' + data.id + '/index';
-            $.flyer.full('岗位权限', uri)
+            let uri = HTTP_BIZ_URI + '/admin/auth/clazz/menu/' + data.clazzCode + '/index';
+          //   $.flyer.full('岗位权限', uri)
+
+            $.flyer.openIframe({
+                title: '岗位权限',
+                content: uri,
+                area: ['350px', '500px']
+            })
         }
 
         if ('viewClazz' === obj.event) {
@@ -117,17 +123,7 @@ function toolClazzInfo(table) {
 }
 
 
-// function queryClazzInfoWhere() {
-//     let title = $('#title').val();
-//     let validFlag = $('#validFlag').val();
-//     return {
-//         title: title,
-//         validFlag: validFlag
-//     }
-// }
-
-
-function tableInitClazzOptions(params={}) {
+function tableInitClazzOptions(params = {}) {
     return {
         id: 'clazzInfoLayTable',
         elem: '#clazzInfoLayTable',
@@ -136,9 +132,12 @@ function tableInitClazzOptions(params={}) {
         url: clazzPath + "/page",
         where: params,
         cols: [[
-            {field: 'thatLevelTitle', title: '岗位等级', width: 320, align: "center"},
-            {field: 'title', title: '岗位名称', width: 320, align: "center"},
-            {field: 'remarks', title: '备注', align: "center"},
+            {field: 'clazzCode', title: '岗位代码', width: 180, align: 'center'},
+            {field: 'clazzTitle', title: '岗位名称', align: 'center'},
+            {field: 'deptFuncTitle', title: '部门职能', width: 150, align: 'center'},
+            {field: 'thatLevelTitle', title: '所属层级', width: 150, align: 'center'},
+            {field: 'clazzFuncTitle', title: '岗位职能', width: 150, align: 'center'},
+            //   {field: 'remarks', title: '备注', align: "center"},
             {field: 'validFlag', title: '有效标志', width: 180, align: "center", templet: "#validClazzFlagTpl"},
             {fixed: 'right', title: '操作', toolbar: '#toolClazzInfoActionBar', width: 450, align: "center"}
         ]]

@@ -22,54 +22,49 @@ public class ClazzInfoVO implements Serializable {
     private String id;
 
     /**
-     * 平台ID
-     */
-    private String platId;
-
-    /**
-     * 应用ID
-     */
-    private String appId;
-
-    /**
      * 租户ID
      */
     private String tenantId;
 
     /**
-     * 部门ID
+     * 部门职能代码
      */
-    private String deptId;
+    private String deptFuncCode;
 
     /**
-     * 部门名称
+     * 部门职能名称
      */
-    private String deptTitle;
+    private String deptFuncTitle;
 
     /**
-     * 岗位等级
+     * 所属层级等级
      */
-    private String thatLevel;
+    private String thatLevelCode;
 
     /**
-     * 岗位名称
+     * 所属层级名称
      */
     private String thatLevelTitle;
 
     /**
      * 岗位类型ID
      */
-    private String typeId;
+    private String clazzFuncCode;
 
     /**
      * 岗位类型
      */
-    private String typeTitle;
+    private String clazzFuncTitle;
+
+    /**
+     * 岗位代码
+     */
+    private String clazzCode;
 
     /**
      * 岗位名称
      */
-    private String title;
+    private String clazzTitle;
 
     /**
      * 有效标志: Y-是;N-否
@@ -90,22 +85,6 @@ public class ClazzInfoVO implements Serializable {
         return id;
     }
 
-    public void setPlatId(String platId) {
-        this.platId = platId;
-    }
-
-    public String getPlatId() {
-        return platId;
-    }
-
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
-
-    public String getAppId() {
-        return appId;
-    }
-
     public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
     }
@@ -114,28 +93,28 @@ public class ClazzInfoVO implements Serializable {
         return tenantId;
     }
 
-    public void setDeptId(String deptId) {
-        this.deptId = deptId;
+    public void setDeptFuncCode(String deptFuncCode) {
+        this.deptFuncCode = deptFuncCode;
     }
 
-    public String getDeptId() {
-        return deptId;
+    public String getDeptFuncCode() {
+        return deptFuncCode;
     }
 
-    public void setDeptTitle(String deptTitle) {
-        this.deptTitle = deptTitle;
+    public void setDeptFuncTitle(String deptFuncTitle) {
+        this.deptFuncTitle = deptFuncTitle;
     }
 
-    public String getDeptTitle() {
-        return deptTitle;
+    public String getDeptFuncTitle() {
+        return deptFuncTitle;
     }
 
-    public void setThatLevel(String thatLevel) {
-        this.thatLevel = thatLevel;
+    public void setThatLevelCode(String thatLevelCode) {
+        this.thatLevelCode = thatLevelCode;
     }
 
-    public String getThatLevel() {
-        return thatLevel;
+    public String getThatLevelCode() {
+        return thatLevelCode;
     }
 
     public void setThatLevelTitle(String thatLevelTitle) {
@@ -146,28 +125,36 @@ public class ClazzInfoVO implements Serializable {
         return thatLevelTitle;
     }
 
-    public void setTypeId(String typeId) {
-        this.typeId = typeId;
+    public void setClazzFuncCode(String clazzFuncCode) {
+        this.clazzFuncCode = clazzFuncCode;
     }
 
-    public String getTypeId() {
-        return typeId;
+    public String getClazzFuncCode() {
+        return clazzFuncCode;
     }
 
-    public void setTypeTitle(String typeTitle) {
-        this.typeTitle = typeTitle;
+    public void setClazzFuncTitle(String clazzFuncTitle) {
+        this.clazzFuncTitle = clazzFuncTitle;
     }
 
-    public String getTypeTitle() {
-        return typeTitle;
+    public String getClazzFuncTitle() {
+        return clazzFuncTitle;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setClazzCode(String clazzCode) {
+        this.clazzCode = clazzCode;
     }
 
-    public String getTitle() {
-        return title;
+    public String getClazzCode() {
+        return clazzCode;
+    }
+
+    public void setClazzTitle(String clazzTitle) {
+        this.clazzTitle = clazzTitle;
+    }
+
+    public String getClazzTitle() {
+        return clazzTitle;
     }
 
     public void setValidFlag(String validFlag) {
@@ -191,16 +178,15 @@ public class ClazzInfoVO implements Serializable {
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("id", getId())
-                .append("platId", getPlatId())
-                .append("appId", getAppId())
                 .append("tenantId", getTenantId())
-                .append("deptId", getDeptId())
-                .append("deptTitle", getDeptTitle())
-                .append("thatLevel", getThatLevel())
+                .append("deptFuncCode", getDeptFuncCode())
+                .append("deptFuncTitle", getDeptFuncTitle())
+                .append("thatLevelCode", getThatLevelCode())
                 .append("thatLevelTitle", getThatLevelTitle())
-                .append("typeId", getTypeId())
-                .append("typeTitle", getTypeTitle())
-                .append("title", getTitle())
+                .append("clazzFuncCode", getClazzFuncCode())
+                .append("clazzFuncTitle", getClazzFuncTitle())
+                .append("clazzCode", getClazzCode())
+                .append("clazzTitle", getClazzTitle())
                 .append("validFlag", getValidFlag())
                 .append("remarks", getRemarks())
                 .toString();

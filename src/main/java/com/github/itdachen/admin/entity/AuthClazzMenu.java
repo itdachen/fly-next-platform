@@ -7,6 +7,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 
 /**
@@ -24,31 +25,79 @@ public class AuthClazzMenu implements Serializable {
      */
     @Id
     @Column(name = "id")
-    private String id;
+    private String id = "-";
 
     /**
      * 租户ID
      */
     @Column(name = "tenant_id")
-    private String tenantId;
+    private String tenantId = "-";
 
     /**
      * 应用ID
      */
     @Column(name = "app_id")
-    private String appId;
+    private String appId = "-";
 
     /**
-     * 岗位ID
+     * 岗位代码
      */
-    @Column(name = "clazz_id")
-    private String clazzId;
+    @Column(name = "clazz_code")
+    private String clazzCode = "-";
+
+    /**
+     * 岗位名称
+     */
+    @Column(name = "clazz_title")
+    private String clazzTitle = "-";
 
     /**
      * 菜单ID/资源ID
      */
-    @Column(name = "meni_id")
-    private String meniId;
+    @Column(name = "func_id")
+    private String funcId = "-";
+
+    /**
+     * 资源名称
+     */
+    @Column(name = "func_title")
+    private String funcTitle = "-";
+
+    /**
+     * 创建时间
+     */
+    @Column(name = "create_time")
+    private LocalDateTime createTime = LocalDateTime.now();
+
+    /**
+     * 创建人
+     */
+    @Column(name = "create_user")
+    private String createUser = "-";
+
+    /**
+     * 创建人id
+     */
+    @Column(name = "create_user_id")
+    private String createUserId = "-";
+
+    /**
+     * 更新时间
+     */
+    @Column(name = "update_time")
+    private LocalDateTime updateTime = LocalDateTime.now();
+
+    /**
+     * 更新人
+     */
+    @Column(name = "update_user")
+    private String updateUser = "-";
+
+    /**
+     * 更新人id
+     */
+    @Column(name = "update_user_id")
+    private String updateUserId = "-";
 
 
     public void setId(String id) {
@@ -75,20 +124,84 @@ public class AuthClazzMenu implements Serializable {
         return appId;
     }
 
-    public void setClazzId(String clazzId) {
-        this.clazzId = clazzId;
+    public void setClazzCode(String clazzCode) {
+        this.clazzCode = clazzCode;
     }
 
-    public String getClazzId() {
-        return clazzId;
+    public String getClazzCode() {
+        return clazzCode;
     }
 
-    public void setMeniId(String meniId) {
-        this.meniId = meniId;
+    public void setClazzTitle(String clazzTitle) {
+        this.clazzTitle = clazzTitle;
     }
 
-    public String getMeniId() {
-        return meniId;
+    public String getClazzTitle() {
+        return clazzTitle;
+    }
+
+    public void setFuncId(String funcId) {
+        this.funcId = funcId;
+    }
+
+    public String getFuncId() {
+        return funcId;
+    }
+
+    public void setFuncTitle(String funcTitle) {
+        this.funcTitle = funcTitle;
+    }
+
+    public String getFuncTitle() {
+        return funcTitle;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateUser(String createUser) {
+        this.createUser = createUser;
+    }
+
+    public String getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUserId(String createUserId) {
+        this.createUserId = createUserId;
+    }
+
+    public String getCreateUserId() {
+        return createUserId;
+    }
+
+    public void setUpdateTime(LocalDateTime updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public LocalDateTime getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateUser(String updateUser) {
+        this.updateUser = updateUser;
+    }
+
+    public String getUpdateUser() {
+        return updateUser;
+    }
+
+    public void setUpdateUserId(String updateUserId) {
+        this.updateUserId = updateUserId;
+    }
+
+    public String getUpdateUserId() {
+        return updateUserId;
     }
 
 
@@ -98,8 +211,16 @@ public class AuthClazzMenu implements Serializable {
                 .append("id", getId())
                 .append("tenantId", getTenantId())
                 .append("appId", getAppId())
-                .append("clazzId", getClazzId())
-                .append("meniId", getMeniId())
+                .append("clazzCode", getClazzCode())
+                .append("clazzTitle", getClazzTitle())
+                .append("funcId", getFuncId())
+                .append("funcTitle", getFuncTitle())
+                .append("createTime", getCreateTime())
+                .append("createUser", getCreateUser())
+                .append("createUserId", getCreateUserId())
+                .append("updateTime", getUpdateTime())
+                .append("updateUser", getUpdateUser())
+                .append("updateUserId", getUpdateUserId())
                 .toString();
     }
 

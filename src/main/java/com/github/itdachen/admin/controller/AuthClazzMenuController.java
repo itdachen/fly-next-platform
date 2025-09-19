@@ -4,6 +4,7 @@ import com.github.itdachen.admin.service.IAuthClazzMenuService;
 import com.github.itdachen.admin.sdk.dto.AuthClazzMenuDTO;
 import com.github.itdachen.admin.sdk.query.AuthClazzMenuQuery;
 import com.github.itdachen.admin.sdk.vo.AuthClazzMenuVO;
+import com.github.itdachen.auth.constants.AppConstants;
 import com.github.itdachen.framework.context.annotation.FuncTitle;
 import com.github.itdachen.framework.core.response.ServerResponse;
 import com.github.itdachen.framework.webmvc.controller.BizController;
@@ -41,10 +42,14 @@ public class AuthClazzMenuController {
      * @date 2024-05-15 21:32:13
      * @return java.lang.String
      */
-    @GetMapping(value = "/{clazzId}/index")
-    public String index(@PathVariable("clazzId") String clazzId, ModelMap modelMap) {
-        modelMap.put("clazzId", clazzId);
-        return PATH_PREFIX + "/app";
+    @GetMapping(value = "/{clazzCode}/index")
+    public String index(@PathVariable("clazzCode") String clazzCode, ModelMap modelMap) {
+//        modelMap.put("clazzId", clazzId);
+//        return PATH_PREFIX + "/app";
+
+        modelMap.put("clazzId", clazzCode);
+        modelMap.put("appId", AppConstants.APP_ID);
+        return PATH_PREFIX + "/power";
     }
 
     /***

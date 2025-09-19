@@ -6,31 +6,107 @@
 </head>
 <body>
 
+
 <form class="layui-form" id="addClazzInfoForm">
     <div class="layui-form-body">
 
         <div class="layui-form-item">
             <label class="layui-form-label">
-                <span class="required">*</span>岗位等级
+                <span class="required">*</span>所属层级
             </label>
-            <div class="layui-input-block" th:with="dicts=${@dict.data('dept_level')}">
-                <input type="radio" name="thatLevel" lay-filter="thatLevelRadio" th:each="dict : ${dicts}"
-                       th:id="${'thatLevel_' + dict.value}"
-                       th:title="${dict.label}"
-                       th:value="${dict.value}"
-                       th:checked="${dict.isDefault}">
+            <div class="layui-input-block" th:with="dicts=${@thatLevel.list()}">
+                <input type="radio" lay-verify="required" lay-filter="thatLevelRadio" name="thatLevelCode"
+                       th:each="dict : ${dicts}"
+                       th:id="${'thatLevelCode_' + dict.levelCode}"
+                       th:title="${dict.levelTitle}"
+                       th:value="${dict.levelCode}">
             </div>
         </div>
 
+
         <div class="layui-form-item">
             <label class="layui-form-label">
-                <span class="required">*</span>岗位名称
+                <span class="required">*</span>部门职能
             </label>
             <div class="layui-input-block">
-                <input type="text" id="title" name="title"
-                       autocomplete="off" lay-verify="required" class="layui-input">
+                <select id="deptFuncCode" name="deptFuncCode" lay-verify="required" lay-search=""
+                        lay-filter="deptFuncCodeSelect" th:with="dicts=${@deptFunc.list()}">
+                    <option value="">全部</option>
+                    <option th:each="dict : ${dicts}"
+                            th:text="${dict.titleAs}"
+                            th:value="${dict.funcCode}">
+                        <!-- titleAs  title -->
+                    </option>
+                </select>
             </div>
         </div>
+
+        <!--        <div class="layui-form-item">-->
+        <!--            <label class="layui-form-label">-->
+        <!--                <span class="required">*</span>部门职能名称-->
+        <!--            </label>-->
+        <!--            <div class="layui-input-block">-->
+        <!--                <input type="text" id="deptFuncTitle" name="deptFuncTitle"-->
+        <!--                       autocomplete="off" lay-verify="required" class="layui-input">-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+
+        <!--        <div class="layui-form-item">-->
+        <!--            <label class="layui-form-label">-->
+        <!--                <span class="required">*</span>所属层级名称-->
+        <!--            </label>-->
+        <!--            <div class="layui-input-block">-->
+        <!--                <input type="text" id="thatLevelTitle" name="thatLevelTitle"-->
+        <!--                       autocomplete="off" lay-verify="required" class="layui-input">-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="required">*</span>岗位职能
+            </label>
+            <div class="layui-input-block">
+                <select id="clazzFuncCode" name="clazzFuncCode" lay-verify="required" lay-search=""
+                        lay-filter="clazzFuncTitleSelect" th:with="dicts=${@clazzFunc.list()}">
+                    <option value="">全部</option>
+                    <option th:each="dict : ${dicts}"
+                            th:text="${dict.funcTitle}"
+                            th:value="${dict.funcCode}">
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <!--        <div class="layui-form-item">-->
+        <!--            <label class="layui-form-label">-->
+        <!--                <span class="required">*</span>岗位类型-->
+        <!--            </label>-->
+        <!--            <div class="layui-input-block">-->
+        <!--                <input type="text" id="clazzFuncTitle" name="clazzFuncTitle"-->
+        <!--                       autocomplete="off" lay-verify="required" class="layui-input">-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <!--        <div class="layui-form-item">-->
+        <!--            <label class="layui-form-label">-->
+        <!--                <span class="required">*</span>岗位代码-->
+        <!--            </label>-->
+        <!--            <div class="layui-input-block">-->
+        <!--                <input type="text" id="clazzCode" name="clazzCode"-->
+        <!--                       autocomplete="off" lay-verify="required" class="layui-input">-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <!--        <div class="layui-form-item">-->
+        <!--            <label class="layui-form-label">-->
+        <!--                <span class="required">*</span>岗位名称-->
+        <!--            </label>-->
+        <!--            <div class="layui-input-block">-->
+        <!--                <input type="text" id="clazzTitle" name="clazzTitle"-->
+        <!--                       autocomplete="off" lay-verify="required" class="layui-input">-->
+        <!--            </div>-->
+        <!--        </div>-->
 
         <div class="layui-form-item">
             <label class="layui-form-label">
@@ -57,6 +133,7 @@
 
     </div>
 
+
     <div class="form-footer-center">
         <button type="button" class="fly-button-ok" lay-submit lay-filter="saveClazzInfo">
             <i class="layui-icon layui-icon-ok fly-button-icon"></i>保存
@@ -67,5 +144,7 @@
     </div>
 
 </form>
+
+
 </body>
 </html>

@@ -123,7 +123,8 @@ function deptLevelTableOptions(queryDeptLevelParams) {
     return {
         id: 'deptLevelLayTable',
         elem: '#deptLevelLayTable',
-        toolbar: '#deptLevelToolBar',  // 不展示表头设置成 false
+        // toolbar: '#deptLevelToolBar',  // 不展示表头设置成 false
+        toolbar: false,  // 不展示表头设置成 false
         layFilter: 'deptLevelLayFilter',
         url: DEPT_LEVEL_PATH + '/page',
         where: queryDeptLevelParams,
@@ -139,7 +140,7 @@ function deptLevelTableOptions(queryDeptLevelParams) {
                 }
             },
             {field: 'remarks', title: '备注', align: 'center'},
-            {fixed: 'right', title: '操作', toolbar: '#deptLevelActionBar', width: 320, align: 'center'}
+           // {fixed: 'right', title: '操作', toolbar: '#deptLevelActionBar', width: 320, align: 'center'}
         ]]
     }
 

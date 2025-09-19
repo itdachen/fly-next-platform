@@ -86,15 +86,14 @@ public class AuthGrantMenuServiceImpl extends BizServiceImpl<IAuthGrantMenuMappe
         List<AuthGrantMenu> list = new ArrayList<>();
         AuthGrantMenu clazzMenu;
         for (String menuId : menuIds) {
-            if (dto.getAppId().equals(menuId)) {
+            if (dto.getAppId().equals(menuId) || "-".equals(menuId)) {
                 continue;
             }
             clazzMenu = new AuthGrantMenu();
-            clazzMenu.setId(EntityUtils.getId());
-            clazzMenu.setTenantId(BizContextHandler.getTenantId());
             clazzMenu.setAppId(StringUtils.isEmpty(dto.getAppId()) ? "" : dto.getAppId());
             clazzMenu.setUserId(dto.getUserId());
             clazzMenu.setMenuId(menuId);
+            EntityUtils.setCreatAndUpdateInfo(clazzMenu);
             list.add(clazzMenu);
         }
         bizMapper.batchSave(list);
@@ -110,8 +109,8 @@ public class AuthGrantMenuServiceImpl extends BizServiceImpl<IAuthGrantMenuMappe
      * @return java.util.List<com.github.itdachen.framework.context.tree.ZTreeNode>
      */
     @Override
-    public List<ZTreeNode> findTreeData(String clazzId, String appId) throws Exception {
-        List<String> checkedMenu = authClazzMenuMapper.findCheckedMenu(BizContextHandler.getTenantId(), clazzId);
+    public List<ZTreeNode> findTreeData(String clazzCode, String appId) throws Exception {
+        List<String> checkedMenu = authClazzMenuMapper.findCheckedMenu(BizContextHandler.getTenantId(), clazzCode);
         return findMenuTreeData(appId, checkedMenu);
     }
 

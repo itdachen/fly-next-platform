@@ -32,14 +32,24 @@ public class AuthClazzMenuVO implements Serializable {
     private String appId;
 
     /**
-     * 岗位ID
+     * 岗位代码
      */
-    private String clazzId;
+    private String clazzCode;
+
+    /**
+     * 岗位名称
+     */
+    private String clazzTitle;
 
     /**
      * 菜单ID/资源ID
      */
-    private String meniId;
+    private String funcId;
+
+    /**
+     * 资源名称
+     */
+    private String funcTitle;
 
 
     public void setId(String id) {
@@ -66,20 +76,36 @@ public class AuthClazzMenuVO implements Serializable {
         return appId;
     }
 
-    public void setClazzId(String clazzId) {
-        this.clazzId = clazzId;
+    public void setClazzCode(String clazzCode) {
+        this.clazzCode = clazzCode;
     }
 
-    public String getClazzId() {
-        return clazzId;
+    public String getClazzCode() {
+        return clazzCode;
     }
 
-    public void setMeniId(String meniId) {
-        this.meniId = meniId;
+    public void setClazzTitle(String clazzTitle) {
+        this.clazzTitle = clazzTitle;
     }
 
-    public String getMeniId() {
-        return meniId;
+    public String getClazzTitle() {
+        return clazzTitle;
+    }
+
+    public void setFuncId(String funcId) {
+        this.funcId = funcId;
+    }
+
+    public String getFuncId() {
+        return funcId;
+    }
+
+    public void setFuncTitle(String funcTitle) {
+        this.funcTitle = funcTitle;
+    }
+
+    public String getFuncTitle() {
+        return funcTitle;
     }
 
 
@@ -89,8 +115,10 @@ public class AuthClazzMenuVO implements Serializable {
                 .append("id", getId())
                 .append("tenantId", getTenantId())
                 .append("appId", getAppId())
-                .append("clazzId", getClazzId())
-                .append("meniId", getMeniId())
+                .append("clazzCode", getClazzCode())
+                .append("clazzTitle", getClazzTitle())
+                .append("funcId", getFuncId())
+                .append("funcTitle", getFuncTitle())
                 .toString();
     }
 

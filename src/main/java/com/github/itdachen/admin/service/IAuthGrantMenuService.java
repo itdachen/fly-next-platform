@@ -24,7 +24,7 @@ public interface IAuthGrantMenuService extends IBizService<AuthGrantMenuDTO, Aut
      * @param appId appId
      * @return java.util.List<com.github.itdachen.framework.context.tree.ZTreeNode>
      */
-    List<ZTreeNode> findTreeData(String clazzId, String appId) throws Exception;
+    List<ZTreeNode> findTreeData(String clazzCode, String appId) throws Exception;
 
 
     /***

@@ -62,10 +62,10 @@ public interface IAuthClazzMenuMapper extends Mapper<AuthClazzMenu> {
      * @author 王大宸
      * @date 2024/5/15 21:37
      * @param tenantId tenantId
-     * @param clazzId clazzId
+     * @param clazzCode clazzCode
      * @return java.util.List<java.lang.String>
      */
-    List<String> findCheckedMenu(@Param("tenantId") String tenantId, @Param("clazzId") String clazzId);
+    List<String> findCheckedMenu(@Param("tenantId") String tenantId, @Param("clazzCode") String clazzCode);
 
 
     /***
@@ -74,10 +74,10 @@ public interface IAuthClazzMenuMapper extends Mapper<AuthClazzMenu> {
      * @author 王大宸
      * @date 2024/5/15 21:58
      * @param tenantId tenantId
-     * @param clazzId clazzId
+     * @param clazzCode clazzCode
      * @return void
      */
-    void removeCheckedMenu(@Param("tenantId") String tenantId, @Param("clazzId") String clazzId);
+    void removeCheckedMenu(@Param("tenantId") String tenantId, @Param("clazzCode") String clazzCode);
 
 
 }

@@ -46,7 +46,7 @@ import java.util.List;
  * @author 王大宸
  * @date 2025-09-18 22:02:49
  */
-@Service
+@Service("thatLevel")
 public class DeptLevelServiceImpl extends BizServiceImpl<IDeptLevelMapper, DeptLevel, DeptLevelDTO, DeptLevelVO, DeptLevelQuery, String> implements IDeptLevelService {
     private static final Logger logger = LoggerFactory.getLogger(DeptLevelServiceImpl.class);
     private static final DeptLevelConvert bizConvert = new DeptLevelConvert();
@@ -74,6 +74,16 @@ public class DeptLevelServiceImpl extends BizServiceImpl<IDeptLevelMapper, DeptL
         Page<DeptLevelVO> page = PageHelper.startPage(params.getPage(), params.getLimit());
         List<DeptLevelVO> list = bizMapper.list(params);
         return new TableData<DeptLevelVO>(page.getTotal(), list);
+    }
+
+
+    public List<DeptLevelVO> list() {
+        DeptLevelQuery params = DeptLevelQuery.builder()
+                .tenantId(BizContextHandler.getTenantId())
+                .removeFlag(YesOrNotConstant.N)
+                .validFlag(YesOrNotConstant.Y)
+                .build();
+        return bizMapper.list(params);
     }
 
     /***

@@ -3,22 +3,22 @@
  */
 layui.use('form', function () {
     let form = layui.form;
-    let clazzId = $("#clazzId").val();
+    let clazzCode = $("#clazzCode").val();
     let appId = $("#appId").val();
     $.zTree.initTree({
-        url: HTTP_BIZ_URI + '/admin/auth/grant/menu/clazz/' + clazzId + '/app/' + appId + '/tree',
+        url: HTTP_BIZ_URI + '/admin/auth/grant/menu/clazz/' + clazzCode + '/app/' + appId + '/tree',
         check: true,
         showIcon: false,
     })
 
     form.on('submit(saveClazzMenuInfo)', function (data) {
         let menuIds = getCheckedTreeNodes();
-        let clazzId = $("#clazzId").val();
+        let clazzCode = $("#clazzCode").val();
         let appId = $("#appId").val();
         let subData = data.field;
         subData.appId = appId;
-        subData.clazzId = clazzId;
-        subData.meniId = menuIds;
+        subData.clazzCode = clazzCode;
+        subData.funcId = menuIds;
         console.log(subData)
 
         $.http.post({

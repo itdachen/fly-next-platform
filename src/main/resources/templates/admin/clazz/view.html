@@ -11,20 +11,54 @@
 </head>
 <body>
 
+
 <form class="layui-form" id="seeClazzInfoForm" th:object="${clazzInfo}">
     <div class="layui-form-body-see">
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                所属层级
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="thatLevelTitle" name="thatLevelTitle" th:field="*{thatLevelTitle}"
+                       readonly="readonly"
+                       autocomplete="off"
+                       lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
 
         <div class="layui-form-item">
             <label class="layui-form-label">
-                岗位等级
+                部门职能
             </label>
-            <div class="layui-input-block" th:with="dicts=${@dict.data('yes_or_no')}">
-                <input type="radio" name="thatLevel" th:each="dict : ${dicts}"
-                       th:id="${'thatLevel_' + dict.value}" disabled="disabled"
-                       th:field="*{thatLevel}"
-                       th:title="${dict.label}"
-                       th:value="${dict.value}"
-                       th:checked="${clazzInfo.thatLevel}">
+            <div class="layui-input-block">
+                <input type="text" id="deptFuncTitle" name="deptFuncTitle" th:field="*{deptFuncTitle}"
+                       readonly="readonly"
+                       autocomplete="off"
+                       lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                岗位职能
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="clazzFuncTitle" name="clazzFuncTitle" th:field="*{clazzFuncTitle}"
+                       readonly="readonly"
+                       autocomplete="off"
+                       lay-verify="required" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                岗位代码
+            </label>
+            <div class="layui-input-block">
+                <input type="text" id="clazzCode" name="clazzCode" th:field="*{clazzCode}" readonly="readonly"
+                       autocomplete="off"
+                       lay-verify="required" class="layui-input">
             </div>
         </div>
 
@@ -33,7 +67,7 @@
                 岗位名称
             </label>
             <div class="layui-input-block">
-                <input type="text" id="title" name="title" th:field="*{title}" readonly="readonly"
+                <input type="text" id="clazzTitle" name="clazzTitle" th:field="*{clazzTitle}" readonly="readonly"
                        autocomplete="off"
                        lay-verify="required" class="layui-input">
             </div>
@@ -58,12 +92,15 @@
                 备注
             </label>
             <div class="layui-input-block">
-               <textarea id="remarks" name="remarks" th:field="*{remarks}" maxlength="200"
-                         readonly="readonly" autocomplete="off" class="layui-textarea"></textarea>
+                        <textarea id="remarks" name="remarks" th:field="*{remarks}" maxlength="200"
+                                  readonly="readonly"
+                                  autocomplete="off"
+                                  class="layui-textarea"></textarea>
             </div>
         </div>
     </div>
 </form>
+
 
 </body>
 </html>

@@ -5,6 +5,7 @@ import com.github.itdachen.admin.service.IMenuInfoService;
 import com.github.itdachen.admin.sdk.dto.MenuInfoDTO;
 import com.github.itdachen.admin.sdk.query.MenuInfoQuery;
 import com.github.itdachen.admin.sdk.vo.MenuInfoVO;
+import com.github.itdachen.auth.constants.AppConstants;
 import com.github.itdachen.framework.context.annotation.FuncTitle;
 import com.github.itdachen.framework.context.tree.ZTreeNode;
 import com.github.itdachen.framework.core.response.ServerResponse;
@@ -36,7 +37,7 @@ public class MenuInfoController extends BizController<IMenuInfoService, MenuInfo
     public String app(ModelMap modelMap) throws Exception {
         // return PATH_PREFIX + "/app" ;
 
-        modelMap.put("appId", "4F17C3ED134AD4DA5C830DE9F3D7C02D");
+        modelMap.put("appId", AppConstants.APP_ID);
         return PATH_PREFIX + "/app_index";
     }
 
